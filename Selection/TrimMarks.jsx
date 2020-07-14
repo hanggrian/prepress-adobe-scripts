@@ -1,12 +1,13 @@
 ﻿/**
  * Create 2,5mm trim marks with 2,5mm bleed around the selected path item.
  * The marks are created with clockwise ordering.
+ * The selected item will be deleted afterwards.
  */
 
 #target Illustrator
-#include '../preconditions.jsx'
-#include '../units.jsx'
-#include '../trim_marks.jsx'
+#include '../util/preconditions.jsx'
+#include '../util/units.jsx'
+#include '../util/trim_marks.jsx'
 
 checkActiveDocument()
 
@@ -19,5 +20,6 @@ const selectedItem = selection[0]
 
 checkTypename(selectedItem, 'PathItem')
 
-const bleedAndMarkSize = mm(2.5)
-createTrimMarks(selectedItem, bleedAndMarkSize, bleedAndMarkSize)
+const defaultSize = mm(2.5)
+createTrimMarks(selectedItem, defaultSize, defaultSize, MARK_ALL)
+selectedItem.remove()

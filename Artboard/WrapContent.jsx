@@ -1,5 +1,5 @@
 ﻿#target Illustrator
-#include "../preconditions.jsx"
+#include "../util/preconditions.jsx"
 
 checkActiveDocument()
 
@@ -7,6 +7,6 @@ const document = app.activeDocument
 
 for (var i = 0; i < document.artboards.length; i++) {
     document.artboards.setActiveArtboardIndex(i)
-    document.selectObjectsOnActiveArtboard(i) // select everything on artboard
-    document.fitArtboardToSelectedArt(i) // resize artboard to selection
+    document.selectObjectsOnActiveArtboard(i)
+    document.fitArtboardToSelectedArt(i)
 }

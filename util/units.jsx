@@ -2,8 +2,6 @@
  * See https://illustrator-scripting-guide.readthedocs.io/scripting/measurementUnits/
  */
 
-#target Illustrator
-
 function cm(value) {
     return value * 28.346
 }

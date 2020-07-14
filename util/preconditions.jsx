@@ -1,5 +1,3 @@
-#target Illustrator
-
 function checkActiveDocument() {
     if (app.documents.length <= 0) {
         throw 'No active document'

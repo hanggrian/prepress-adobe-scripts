@@ -3,8 +3,9 @@
  */
 
 #target Illustrator
-#include "../preconditions.jsx"
-#include '../units.jsx'
+#include '../util/preconditions.jsx'
+#include '../util/units.jsx'
+#include '../util/trim_marks.jsx'
 
 checkActiveDocument()
 
@@ -21,50 +22,71 @@ const y = selectedItem.position[1]
 
 const dialog = new Window('dialog', 'Multiply objects')
 
-dialog.multiplicationPanel = dialog.add('panel', undefined, 'Multiplication')
-const multiplicationLeftBounds = [0, 0, 70, 21]
-const multiplicationRightBounds = [0, 0, 60, 21]
-
-dialog.horizontalGroup = dialog.multiplicationPanel.add('group')
-dialog.horizontalText = dialog.horizontalGroup.add('statictext', multiplicationLeftBounds, 'Horizontal:')
-dialog.horizontalText.justify = 'right'
-dialog.horizontalEdit = dialog.horizontalGroup.add('edittext', multiplicationRightBounds)
+dialog.multiplicationGroup = dialog.add('group')
+dialog.multiplicationText = dialog.multiplicationGroup.add('statictext', [0, 0, 90, 21], 'Multiplication:')
+dialog.multiplicationText.justify = 'right'
+dialog.horizontalEdit = dialog.multiplicationGroup.add('edittext', [0, 0, 40, 21])
+dialog.horizontalEdit.justify = 'center' // find out why this doesn't work
 dialog.horizontalEdit.active = true
-
-dialog.verticalGroup = dialog.multiplicationPanel.add('group')
-dialog.verticalText = dialog.verticalGroup.add('statictext', multiplicationLeftBounds, 'Vertical:')
-dialog.verticalText.justify = 'right'
-dialog.verticalEdit = dialog.verticalGroup.add('edittext', multiplicationRightBounds)
+dialog.operatorText = dialog.multiplicationGroup.add('statictext', [0, 0, 10, 21], 'x')
+dialog.operatorText.justify = 'center'
+dialog.verticalEdit = dialog.multiplicationGroup.add('edittext', [0, 0, 40, 21])
+dialog.verticalEdit.justify = 'center' // find out why this doesn't work
 
 dialog.trimPanel = dialog.add('panel', undefined, 'Trim marks')
 const trimLeftBounds = [0, 0, 40, 21]
 const trimRightBounds = [0, 0, 113, 21] // matches Rectangle dialog
-
 dialog.bleedGroup = dialog.trimPanel.add('group')
 dialog.bleedText = dialog.bleedGroup.add('statictext', trimLeftBounds, 'Bleed:')
 dialog.bleedText.justify = 'right'
 dialog.bleedEdit = dialog.bleedGroup.add('edittext', trimRightBounds, '2.5mm')
-
 dialog.markGroup = dialog.trimPanel.add('group')
 dialog.markText = dialog.markGroup.add('statictext', trimLeftBounds, 'Mark:')
 dialog.markText.justify = 'right'
 dialog.markEdit = dialog.markGroup.add('edittext', trimRightBounds, '2.5mm')
 
 dialog.buttonGroup = dialog.add('group')
-dialog.cancelButton = dialog.buttonGroup.add('button', undefined, 'Cancel')
+dialog.buttonGroup.add('button', undefined, 'Cancel')
 dialog.okButton = dialog.buttonGroup.add('button', undefined, 'OK')
 dialog.okButton.onClick = function() {
     app.copy()
+    selectedItem.remove()
+    
+    const maxHorizontal = parseInt(dialog.horizontalEdit.text)
+    const maxVertical = parseInt(dialog.verticalEdit.text)
     const bleed = parseUnit(dialog.bleedEdit.text)
     const mark = parseUnit(dialog.markEdit.text)
 
-    for (var i = 1; i <= parseInt(dialog.horizontalEdit.text); i++) {
+    for (var vertical = 1; vertical <= maxVertical; vertical++) {
         app.paste()
-        selection[0].position = [x + i * (width + bleed), y]
-    }
+        selection[0].position = [
+            x,
+            y - vertical * (height + bleed)
+        ]
+        createTrimMarks(selection[0], bleed, mark, [MARK_LEFT_BOTTOM, MARK_LEFT_TOP])
+        if (vertical == 1) {
+            createTrimMarks(selection[0], bleed, mark, [MARK_TOP_LEFT, MARK_TOP_RIGHT])
+        }
+        if (vertical == maxVertical) {
+            createTrimMarks(selection[0], bleed, mark, [MARK_BOTTOM_LEFT, MARK_BOTTOM_RIGHT])
+        }
 
-    for (var i = 0; i < parseInt(dialog.verticalEdit.text); i++) {
-        
+        for (var horizontal = 1; horizontal < maxHorizontal; horizontal++) {
+            app.paste()
+            selection[0].position = [
+                x + horizontal * (width + bleed),
+                y - vertical * (height + bleed)
+            ]
+            if (horizontal == maxHorizontal - 1) {
+                createTrimMarks(selection[0], bleed, mark, [MARK_RIGHT_TOP, MARK_RIGHT_BOTTOM])
+            }
+            if (vertical == 1) {
+                createTrimMarks(selection[0], bleed, mark, [MARK_TOP_LEFT, MARK_TOP_RIGHT])
+            }
+            if (vertical == maxVertical) {
+                createTrimMarks(selection[0], bleed, mark, [MARK_BOTTOM_LEFT, MARK_BOTTOM_RIGHT])
+            }
+        }
     }
 
     dialog.close()

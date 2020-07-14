@@ -1,12 +1,13 @@
 ﻿/**
  * Create trim masks with custom size around the selected path item.
  * The marks are created with clockwise ordering.
+ * The selected item will be deleted afterwards.
  */
 
 #target Illustrator
-#include '../preconditions.jsx'
-#include '../units.jsx'
-#include '../trim_marks.jsx'
+#include '../util/preconditions.jsx'
+#include '../util/units.jsx'
+#include '../util/trim_marks.jsx'
 
 checkActiveDocument()
 
@@ -35,14 +36,16 @@ dialog.markText.justify = 'right'
 dialog.markEdit = dialog.markGroup.add('edittext', rightBounds, '2.5mm')
 
 dialog.buttonGroup = dialog.add('group')
-dialog.cancelButton = dialog.buttonGroup.add('button', undefined, 'Cancel')
+dialog.buttonGroup.add('button', undefined, 'Cancel')
 dialog.okButton = dialog.buttonGroup.add('button', undefined, 'OK')
 dialog.okButton.onClick = function() {
     createTrimMarks(
         selectedItem,
         parseUnit(dialog.bleedEdit.text),
-        parseUnit(dialog.markEdit.text)
+        parseUnit(dialog.markEdit.text),
+        MARK_ALL
     )
+    selectedItem.remove()
     dialog.close()
 }
 
