@@ -42,7 +42,12 @@ function parseUnit(text) {
         }
     }
 
-    value = value.replace(',', '.')
+    if (value == '') {
+        return 0
+    } else {
+        value = value.replace(',', '.')
+    }
+
     switch (unit) {
         case '':
         case 'pt':

@@ -5,6 +5,7 @@
  */
 
 #target Illustrator
+#include '../lib/colors.jsx'
 #include '../lib/preconditions.jsx'
 #include '../lib/trim_marks.jsx'
 #include '../lib/units.jsx'
@@ -21,5 +22,14 @@ const selectedItem = selection[0]
 checkTypename(selectedItem, 'PathItem')
 
 const offsetAndLength = mm(2.5)
-createTrimMarks(selectedItem, offsetAndLength, offsetAndLength, MARK_ALL)
-selectedItem.remove()
+createTrimMarks(
+    selectedItem, 
+    offsetAndLength, 
+    offsetAndLength,
+    DEFAULT_TRIM_MARK_WEIGHT,
+    registrationColor(),
+    MARK_ALL
+)
+
+selectedItem.guides = true
+document.selection = null
