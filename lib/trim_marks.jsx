@@ -17,49 +17,59 @@ const MARK_ALL = [
     MARK_LEFT_BOTTOM, MARK_LEFT_TOP
 ]
 
-function createTrimMarks(selectedItem, bleed, mark, markLocations) {
-    const width = selectedItem.width
-    const height = selectedItem.height
-    const startX = selectedItem.position[0]
+const DEFAULT_TRIM_MARK_WEIGHT = 0.3
+
+/**
+ * Create multiple trim marks around target.
+ * 
+ * @param {PathItem} target - path where trim marks will be applied to, preferrably Rectangle
+ * @param {Number} offset - space between target and trim marks
+ * @param {Number} length - trim marks' width
+ * @param {Array} locations - combination of 8 possible mark locations as defined in constants
+ */
+function createTrimMarks(target, offset, length, locations) {
+    const width = target.width
+    const height = target.height
+    const startX = target.position[0]
     const endX = startX + width
-    const startY = selectedItem.position[1]
+    const startY = target.position[1]
     const endY = startY - height
 
-    for (var i = 0; i < markLocations.length; i++) {
-        switch (markLocations[i]) {
+    for (var i = 0; i < locations.length; i++) {
+        switch (locations[i]) {
             case MARK_TOP_LEFT: 
                 createTrimMark(
                     document,
                     startX,
-                    startY + bleed,
+                    startY + offset,
                     startX,
-                    startY + bleed + mark
+                    startY + offset + length
                 )
                 break;
             case MARK_TOP_RIGHT:
                 createTrimMark(
                     document,
                     endX,
-                    startY + bleed,
+                    startY + offset,
                     endX,
-                    startY + bleed + mark
+                    startY + offset + length
                 ) 
                 break;
             case MARK_RIGHT_TOP: 
                 createTrimMark(
                     document,
-                    endX + bleed,
+                    endX + offset,
                     startY,
-                    endX + bleed + mark,
+                    endX + offset + length,
                     startY
                 )
                 break;
             case MARK_RIGHT_BOTTOM: 
                 createTrimMark(
                     document,
-                    endX + bleed,
+                    endX + offset,
                     endY,
-                    endX + bleed + mark,
+                    endX + offset + length,
                     endY
                 )
                 break;
@@ -67,40 +77,40 @@ function createTrimMarks(selectedItem, bleed, mark, markLocations) {
                 createTrimMark(
                     document,
                     endX,
-                    endY - bleed,
+                    endY - offset,
                     endX,
-                    endY - bleed - mark
+                    endY - offset - length
                 )
                 break;
             case MARK_BOTTOM_LEFT: 
                 createTrimMark(
                     document,
                     startX,
-                    endY - bleed,
+                    endY - offset,
                     startX,
-                    endY - bleed - mark
+                    endY - offset - length
                 )        
                 break;
             case MARK_LEFT_BOTTOM: 
                 createTrimMark(
                     document,
-                    startX - bleed,
+                    startX - offset,
                     endY,
-                    startX - bleed - mark,
+                    startX - offset - length,
                     endY
                 )
                 break;
             case MARK_LEFT_TOP: 
                 createTrimMark(
                     document,
-                    startX - bleed,
+                    startX - offset,
                     startY,
-                    startX - bleed - mark,
+                    startX - offset - length,
                     startY
                 )
                 break;
             default:
-                throw 'Unrecognizable location ' + markLocations[i]
+                throw 'Unrecognizable location ' + locations[i]
         }
     }
 }
@@ -109,7 +119,7 @@ function createTrimMark(document, fromX, fromY, toX, toY) {
     const path = document.pathItems.add()
     path.fillColor = new NoColor()
     path.strokeColor = document.swatches['[registration]'].color
-    path.strokeWidth = 0.3 // default size
+    path.strokeWidth = DEFAULT_TRIM_MARK_WEIGHT
 
     const fromPosition = [fromX, fromY]
     const fromPoint = path.pathPoints.add()

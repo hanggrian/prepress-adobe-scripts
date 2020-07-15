@@ -9,4 +9,4 @@ Tested only on Adobe Illustrator 2020.
 
 Usage
 -----
-Refer to sub-directories for drag-and-drop scripts. Except `util`, they are non-standalone scripts.
+Refer to sub-directories for drag-and-drop scripts. Except `lib`, they are non-standalone scripts.

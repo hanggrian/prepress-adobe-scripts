@@ -25,36 +25,42 @@ function q(value) {
 function parseUnit(text) {
     var value = ''
     var unit = ''
-    var isCharacterUnit = false
+    var isUnit = false
     
     for (var i = 0; i < text.length; i++) {
         var c = text[i]
         if (c == ' ') {
             // ignore space
         } else if ((c >= '0' && c <= '9') || c == '.') {
-            if (isCharacterUnit) {
+            if (isUnit) {
                 throw 'Expected letter character for unit'
             }
             value += c
         } else {
-            isCharacterUnit = true
+            isUnit = true
             unit += c
         }
     }
 
-    if (unit == '' || unit == 'pt' || unit == 'point') {
-        return value
-    } else if (unit == 'cm') {
-        return cm(value)
-    } else if (unit == '"' || unit == 'in' || unit == 'inch') {
-        return inch(value)
-    } else if (unit == 'mm') {
-        return mm(value)
-    } else if (unit == 'pica') {
-        return pica(value)
-    } else if (unit == 'q') {
-        return q(value)
-    } else {
-        throw 'Undefined unit ' + unit
+    value = value.replace(',', '.')
+    switch (unit) {
+        case '':
+        case 'pt':
+        case 'point':
+            return parseFloat(value)
+        case 'cm':
+            return cm(value)
+        case '"':
+        case 'in':
+        case 'inch':
+            return inch(value)
+        case 'mm':
+            return mm(value)
+        case 'pica':
+            return pica(value)
+        case 'q':
+            return q(value)
+        default:
+            throw 'Undefined unit ' + unit
     }
 }

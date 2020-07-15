@@ -5,9 +5,9 @@
  */
 
 #target Illustrator
-#include '../util/preconditions.jsx'
-#include '../util/units.jsx'
-#include '../util/trim_marks.jsx'
+#include '../lib/preconditions.jsx'
+#include '../lib/trim_marks.jsx'
+#include '../lib/units.jsx'
 
 checkActiveDocument()
 
@@ -20,6 +20,6 @@ const selectedItem = selection[0]
 
 checkTypename(selectedItem, 'PathItem')
 
-const defaultSize = mm(2.5)
-createTrimMarks(selectedItem, defaultSize, defaultSize, MARK_ALL)
+const offsetAndLength = mm(2.5)
+createTrimMarks(selectedItem, offsetAndLength, offsetAndLength, MARK_ALL)
 selectedItem.remove()
