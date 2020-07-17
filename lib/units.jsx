@@ -1,27 +1,58 @@
 /**
- * See https://illustrator-scripting-guide.readthedocs.io/scripting/measurementUnits/
+ * Returns given value in `centimeter` representation.
+ * 
+ * @param {number} value - number to convert
+ * @return {number}
  */
-
 function cm(value) {
     return value * 28.346
 }
 
+/**
+ * Returns given value in `inch` representation.
+ * 
+ * @param {number} value - number to convert
+ * @return {number}
+ */
 function inch(value) {
     return value * 72
 }
-
+/**
+ * Returns given value in `millimeter` representation.
+ * 
+ * @param {number} value - number to convert
+ * @return {number}
+ */
 function mm(value) {
     return value * 2.834645
 }
 
+/**
+ * Returns given value in `pica` representation.
+ * 
+ * @param {number} value - number to convert
+ * @return {number}
+ */
 function pica(value) {
     return value * 12
 }
 
+/**
+ * Returns given value in `q` representation.
+ * 
+ * @param {number} value - number to convert
+ * @return {number}
+ */
 function q(value) {
     return value * 0.709
 }
 
+/**
+ * Converts text to unit value by dividing parts to value and unit type.
+ * 
+ * @param {text} value - text to convert
+ * @return {number}
+ */
 function parseUnit(text) {
     var value = ''
     var unit = ''
@@ -31,7 +62,7 @@ function parseUnit(text) {
         var c = text[i]
         if (c == ' ') {
             // ignore space
-        } else if ((c >= '0' && c <= '9') || c == '.') {
+        } else if ((c >= '0' && c <= '9') || c == '.' || c == ',') {
             if (isUnit) {
                 throw 'Expected letter character for unit'
             }

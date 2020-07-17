@@ -13,6 +13,10 @@ const MARK_ALL = [
     MARK_LEFT_BOTTOM, MARK_LEFT_TOP
 ]
 
+/**
+ * Default trim mark stroke weight.
+ * It is also the same value used in `Illustrator > Object > Create Trim Marks`.
+ */
 const DEFAULT_TRIM_MARK_WEIGHT = 0.3
 
 /**

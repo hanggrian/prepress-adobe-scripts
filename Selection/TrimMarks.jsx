@@ -22,14 +22,9 @@ const selectedItem = selection[0]
 checkTypename(selectedItem, 'PathItem')
 
 const offsetAndLength = mm(2.5)
-createTrimMarks(
-    selectedItem, 
-    offsetAndLength, 
-    offsetAndLength,
-    DEFAULT_TRIM_MARK_WEIGHT,
-    registrationColor(),
-    MARK_ALL
-)
+createTrimMarks(selectedItem, offsetAndLength, offsetAndLength, DEFAULT_TRIM_MARK_WEIGHT, registrationColor(), MARK_ALL)
 
+selectedItem.filled = false
 selectedItem.guides = true
+
 document.selection = null
