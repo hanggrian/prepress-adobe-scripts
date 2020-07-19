@@ -52,6 +52,11 @@ dialog.colorGroup.add('statictext', textBounds, 'Color:').justify = 'right'
 dialog.colorList = dialog.colorGroup.add('dropdownlist', [0, 0, 120, 21], ['Registration', 'White', 'Black'])
 dialog.colorList.selection = 0
 
+dialog.guidesGroup = dialog.add('group')
+dialog.guidesGroup.add('statictext', textBounds, 'Guides:').justify = 'right'
+dialog.guidesCheck = dialog.guidesGroup.add('checkbox', [0, 0, 120, 15], 'Convert selection')
+dialog.guidesCheck.value = true
+
 dialog.multiplePanel = dialog.add('panel', undefined, 'Multiple')
 dialog.multiplePanel.alignChildren = 'fill'
 
@@ -75,14 +80,17 @@ dialog.buttonGroup.add('button', undefined, 'OK').onClick = function() {
     const length = parseUnit(dialog.lengthEdit.text)
     const weight = parseUnit(dialog.weightEdit.text)
     const color = parseColor(dialog.colorList.selection.text)
+    const guides = dialog.guidesCheck.value
     const maxHorizontal = parseInt(dialog.horizontalEdit.text) || 0
     const maxVertical = parseInt(dialog.verticalEdit.text) || 0
     const bleed = parseUnit(dialog.bleedEdit.text)
 
     if (maxHorizontal < 1 || maxVertical < 1) { // multiple disabled
         createTrimMarks(selectedItem, offset, length, weight, color, MARK_ALL)
-        selectedItem.filled = false
-        selectedItem.guides = true
+        if (guides) {
+            selectedItem.filled = false
+            selectedItem.guides = true
+        }
     } else { // multiple enabled
         app.copy()
         selectedItem.remove()
@@ -90,7 +98,7 @@ dialog.buttonGroup.add('button', undefined, 'OK').onClick = function() {
         // vertical is 0 because the starting point doesn't change
         var locations
         for (var vertical = 0; vertical < maxVertical; vertical++) {
-            pasteTo(x, y - vertical * (height + bleed))
+            pasteTo(x, y - vertical * (height + bleed), guides)
 
             locations = [MARK_LEFT_BOTTOM, MARK_LEFT_TOP]
             if (vertical == 0) {
@@ -102,7 +110,7 @@ dialog.buttonGroup.add('button', undefined, 'OK').onClick = function() {
             createTrimMarks(selection[0], offset, length, weight, color, locations)
 
             for (var horizontal = 1; horizontal < maxHorizontal; horizontal++) {
-                pasteTo(x + horizontal * (width + bleed), y - vertical * (height + bleed))
+                pasteTo(x + horizontal * (width + bleed), y - vertical * (height + bleed), guides)
                 
                 locations = []
                 if (horizontal == maxHorizontal - 1) {
@@ -125,10 +133,12 @@ dialog.buttonGroup.add('button', undefined, 'OK').onClick = function() {
 
 dialog.show()
 
-function pasteTo(x, y) {
+function pasteTo(x, y, guides) {
     app.paste()
     const currentSelection = selection[0]
     currentSelection.position = [x, y]
-    currentSelection.filled = false
-    currentSelection.guides = true
+    if (guides) {
+        currentSelection.filled = false
+        currentSelection.guides = true
+    }
 }
