@@ -31,12 +31,12 @@ const DEFAULT_TRIM_MARK_WEIGHT = 0.3
  * @return {void}
  */
 function createTrimMarks(target, offset, length, weight, color, locations) {
-    const width = target.width
-    const height = target.height
-    const startX = target.position[0]
-    const endX = startX + width
-    const startY = target.position[1]
-    const endY = startY - height
+    var width = target.width
+    var height = target.height
+    var startX = target.position[0]
+    var endX = startX + width
+    var startY = target.position[1]
+    var endY = startY - height
 
     for (var i = 0; i < locations.length; i++) {
         switch (locations[i]) {
@@ -138,19 +138,19 @@ function createTrimMarks(target, offset, length, weight, color, locations) {
  * @return {void}
  */
 function createTrimMark(fromX, fromY, toX, toY, weight, color) {
-    const path = document.pathItems.add()
+    var path = document.pathItems.add()
     path.fillColor = new NoColor()
     path.strokeColor = color
     path.strokeWidth = weight
 
-    const fromPosition = [fromX, fromY]
-    const fromPoint = path.pathPoints.add()
+    var fromPosition = [fromX, fromY]
+    var fromPoint = path.pathPoints.add()
     fromPoint.anchor = fromPosition
     fromPoint.leftDirection = fromPosition
     fromPoint.rightDirection = fromPosition
 
-    const toPosition = [toX, toY]
-    const toPoint = path.pathPoints.add()
+    var toPosition = [toX, toY]
+    var toPoint = path.pathPoints.add()
     toPoint.anchor = toPosition
     toPoint.leftDirection = toPosition
     toPoint.rightDirection = toPosition

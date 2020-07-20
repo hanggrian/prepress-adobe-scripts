@@ -5,34 +5,36 @@
  */
 
 #target Illustrator
-#include '../lib/colors.jsx'
-#include '../lib/preconditions.jsx'
-#include '../lib/trim_marks.jsx'
-#include '../lib/units.jsx'
+#include '../.include/colors.jsx'
+#include '../.include/preconditions.jsx'
+#include '../.include/trim_marks.jsx'
+#include '../.include/units.jsx'
+
+const ACTION_NOTHING = 1
+const ACTION_GUIDES = 2
+const ACTION_DELETE = 3
 
 checkActiveDocument()
 
-const document = app.activeDocument
-const selection = document.selection
+var document = app.activeDocument
+var selection = document.selection
 
 checkSingleSelection(selection)
 
-const selectedItem = selection[0]
+var selectedItem = selection[0]
 
 checkTypename(selectedItem, 'PathItem')
 
-const width = selectedItem.width
-const height = selectedItem.height
-const x = selectedItem.position[0]
-const y = selectedItem.position[1]
+var width = selectedItem.width
+var height = selectedItem.height
+var x = selectedItem.position[0]
+var y = selectedItem.position[1]
 
-const dialog = new Window('dialog', 'Create trim marks')
+var dialog = new Window('dialog', 'Create trim marks')
 dialog.alignChildren = 'fill'
 
-const textBounds = [0, 0, 50, 21]
-const editBounds = [0, 0, 80, 21]
-const panelTextBounds = [0, 0, 90, 21]
-const panelEditBounds = [0, 0, 35, 21]
+var textBounds = [0, 0, 60, 21]
+var editBounds = [0, 0, 80, 21]
 
 dialog.offsetGroup = dialog.add('group')
 dialog.offsetGroup.add('statictext', textBounds, 'Offset:').justify = 'right'
@@ -49,14 +51,22 @@ dialog.weightEdit = dialog.weightGroup.add('edittext', editBounds, DEFAULT_TRIM_
 
 dialog.colorGroup = dialog.add('group')
 dialog.colorGroup.add('statictext', textBounds, 'Color:').justify = 'right'
-dialog.colorList = dialog.colorGroup.add('dropdownlist', [0, 0, 120, 21], ['Registration', 'White', 'Black'])
-dialog.colorList.selection = 0
+dialog.colorRegistrationRadio = dialog.colorGroup.add('radiobutton', undefined, 'Registration')
+dialog.colorRegistrationRadio.value = true
+dialog.colorWhiteRadio = dialog.colorGroup.add('radiobutton', undefined, 'White')
 
-dialog.guidesGroup = dialog.add('group')
-dialog.guidesGroup.add('statictext', textBounds, 'Guides:').justify = 'right'
-dialog.guidesCheck = dialog.guidesGroup.add('checkbox', [0, 0, 120, 15], 'Convert selection')
-dialog.guidesCheck.value = true
+var actionBounds = [0, 0, 100, 15]
+dialog.actionGroup = dialog.add('group')
+dialog.actionGroup.add('statictext', textBounds, 'Selection:').justify = 'right'
+dialog.actionInnerGroup = dialog.actionGroup.add('group')
+dialog.actionInnerGroup.orientation = 'column'
+dialog.actionNothingRadio = dialog.actionInnerGroup.add('radiobutton', actionBounds, 'Do nothing')
+dialog.actionGuidesRadio = dialog.actionInnerGroup.add('radiobutton', actionBounds, 'Make guides')
+dialog.actionGuidesRadio.value = true
+dialog.actionDeleteRadio = dialog.actionInnerGroup.add('radiobutton', actionBounds, 'Delete')
 
+var panelTextBounds = [0, 0, 90, 21]
+var panelEditBounds = [0, 0, 35, 21]
 dialog.multiplePanel = dialog.add('panel', undefined, 'Multiple')
 dialog.multiplePanel.alignChildren = 'fill'
 
@@ -76,21 +86,19 @@ dialog.buttonGroup = dialog.add('group')
 dialog.buttonGroup.alignment = 'right'
 dialog.buttonGroup.add('button', undefined, 'Cancel')
 dialog.buttonGroup.add('button', undefined, 'OK').onClick = function() {
-    const offset = parseUnit(dialog.offsetEdit.text)
-    const length = parseUnit(dialog.lengthEdit.text)
-    const weight = parseUnit(dialog.weightEdit.text)
-    const color = parseColor(dialog.colorList.selection.text)
-    const guides = dialog.guidesCheck.value
-    const maxHorizontal = parseInt(dialog.horizontalEdit.text) || 0
-    const maxVertical = parseInt(dialog.verticalEdit.text) || 0
-    const bleed = parseUnit(dialog.bleedEdit.text)
+    var offset = parseUnit(dialog.offsetEdit.text)
+    var length = parseUnit(dialog.lengthEdit.text)
+    var weight = parseUnit(dialog.weightEdit.text)
+    var color = getColor()
+    var action = getAction()
+    
+    var maxHorizontal = parseInt(dialog.horizontalEdit.text) || 0
+    var maxVertical = parseInt(dialog.verticalEdit.text) || 0
+    var multiplicationOffset = parseUnit(dialog.bleedEdit.text) * 2
 
     if (maxHorizontal < 1 || maxVertical < 1) { // multiple disabled
         createTrimMarks(selectedItem, offset, length, weight, color, MARK_ALL)
-        if (guides) {
-            selectedItem.filled = false
-            selectedItem.guides = true
-        }
+        doAction(action, selectedItem)
     } else { // multiple enabled
         app.copy()
         selectedItem.remove()
@@ -98,8 +106,8 @@ dialog.buttonGroup.add('button', undefined, 'OK').onClick = function() {
         // vertical is 0 because the starting point doesn't change
         var locations
         for (var vertical = 0; vertical < maxVertical; vertical++) {
-            pasteTo(x, y - vertical * (height + bleed), guides)
-
+            app.paste()
+            selection[0].position = [x, y - vertical * (height + multiplicationOffset)]
             locations = [MARK_LEFT_BOTTOM, MARK_LEFT_TOP]
             if (vertical == 0) {
                 locations.push(MARK_TOP_LEFT, MARK_TOP_RIGHT)
@@ -108,10 +116,11 @@ dialog.buttonGroup.add('button', undefined, 'OK').onClick = function() {
                 locations.push(MARK_BOTTOM_LEFT, MARK_BOTTOM_RIGHT)
             }
             createTrimMarks(selection[0], offset, length, weight, color, locations)
+            doAction(action, selection[0])
 
             for (var horizontal = 1; horizontal < maxHorizontal; horizontal++) {
-                pasteTo(x + horizontal * (width + bleed), y - vertical * (height + bleed), guides)
-                
+                app.paste()
+                selection[0].position = [x + horizontal * (width + multiplicationOffset), y - vertical * (height + multiplicationOffset)]
                 locations = []
                 if (horizontal == maxHorizontal - 1) {
                     locations.push(MARK_RIGHT_TOP, MARK_RIGHT_BOTTOM)
@@ -123,6 +132,7 @@ dialog.buttonGroup.add('button', undefined, 'OK').onClick = function() {
                     locations.push(MARK_BOTTOM_LEFT, MARK_BOTTOM_RIGHT)
                 }
                 createTrimMarks(selection[0], offset, length, weight, color, locations)
+                doAction(action, selection[0])
             }
         }
     }
@@ -133,12 +143,32 @@ dialog.buttonGroup.add('button', undefined, 'OK').onClick = function() {
 
 dialog.show()
 
-function pasteTo(x, y, guides) {
-    app.paste()
-    const currentSelection = selection[0]
-    currentSelection.position = [x, y]
-    if (guides) {
-        currentSelection.filled = false
-        currentSelection.guides = true
+function getColor() {
+    if (dialog.colorRegistrationRadio.value) {
+        return registrationColor()
+    } else {
+        return COLOR_WHITE
+    }
+}
+
+function getAction() {
+    if (dialog.actionNothingRadio.value) {
+        return ACTION_NOTHING
+    } else if (dialog.actionGuidesRadio.value) {
+        return ACTION_GUIDES
+    } else {
+        return ACTION_DELETE
+    }
+}
+
+function doAction(action, item) {
+    switch (action) {
+        case ACTION_GUIDES:
+            item.filled = false
+            item.guides = true
+            break;
+        case ACTION_DELETE:
+            item.remove()
+            break;
     }
 }

@@ -1,9 +1,9 @@
 ﻿#target Illustrator
-#include '../lib/preconditions.jsx'
+#include '../.include/preconditions.jsx'
 
 checkActiveDocument()
 
-const document = app.activeDocument
+var document = app.activeDocument
 
 for (var i = 0; i < document.artboards.length; i++) {
     document.artboards.setActiveArtboardIndex(i)

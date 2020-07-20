@@ -1,9 +1,9 @@
 #target Illustrator
-#include '../lib/preconditions.jsx'
+#include '../.include/preconditions.jsx'
 
 checkActiveDocument()
 
-const document = app.activeDocument
+var document = app.activeDocument
 
 checkEvenArtboards(document)
 
