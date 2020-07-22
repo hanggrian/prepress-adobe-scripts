@@ -5,10 +5,10 @@
  */
 
 #target Illustrator
-#include '../.include/colors.jsx'
-#include '../.include/preconditions.jsx'
-#include '../.include/trim_marks.jsx'
-#include '../.include/units.jsx'
+#include '../.lib/colors.jsx'
+#include '../.lib/preconditions.jsx'
+#include '../.lib/trim_marks.jsx'
+#include '../.lib/units.jsx'
 
 const ACTION_NOTHING = 1
 const ACTION_GUIDES = 2

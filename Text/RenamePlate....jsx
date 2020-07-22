@@ -1,6 +1,6 @@
 #target Illustrator
-#include '../.include/preconditions.jsx'
-#include '../.include/units.jsx'
+#include '../.lib/preconditions.jsx'
+#include '../.lib/units.jsx'
 
 const DISTANCES = ['0 cm', '1 cm', '2 cm', '3 cm', '4 cm', '5 cm', '6 cm', '7 cm', '8 cm', '9 cm']
 

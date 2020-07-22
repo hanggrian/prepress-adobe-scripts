@@ -1,5 +1,5 @@
 ﻿#target Illustrator
-#include '../.include/preconditions.jsx'
+#include '../.lib/preconditions.jsx'
 
 checkActiveDocument()
 
