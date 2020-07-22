@@ -5,106 +5,6 @@ const MULTIPLIER_PICA = 12
 const MULTIPLIER_Q = 0.709
 
 /**
- * Converts `centimeter` value to `point`.
- * 
- * @param {number} cm - number to convert
- * @return {number}
- */
-function fromCm(cm) {
-    return cm * MULTIPLIER_CM
-}
-
-/**
- * Converts `point` value to `centimeter`.
- * 
- * @param {number} pt - number to convert
- * @return {number}
- */
-function toCm(pt) {
-    return pt / MULTIPLIER_CM
-}
-
-/**
- * Converts `inch` value to `point`.
- * 
- * @param {number} inch - number to convert
- * @return {number}
- */
-function fromInch(inch) {
-    return inch * MULTIPLIER_INCH
-}
-
-/**
- * Converts `point` value to `inch`.
- * 
- * @param {number} pt - number to convert
- * @return {number}
- */
-function toInch(pt) {
-    return pt / MULTIPLIER_INCH
-}
-
-/**
- * Converts `millimeter` value to `point`.
- * 
- * @param {number} mm - number to convert
- * @return {number}
- */
-function fromMm(mm) {
-    return mm * MULTIPLIER_MM
-}
-
-/**
- * Converts `point` value to `millimeter`.
- * 
- * @param {number} pt - number to convert
- * @return {number}
- */
-function toMm(pt) {
-    return pt / MULTIPLIER_MM
-}
-
-/**
- * Converts `pica` value to `point`.
- * 
- * @param {number} pica - number to convert
- * @return {number}
- */
-function fromPica(pica) {
-    return pica * MULTIPLIER_PICA
-}
-
-/**
- * Converts `point` value to `pica`.
- * 
- * @param {number} pt - number to convert
- * @return {number}
- */
-function toPica(pt) {
-    return pt / MULTIPLIER_PICA
-}
-
-/**
- * Converts `q` value to `point`.
- * 
- * @param {number} q - number to convert
- * @return {number}
- */
-function fromQ(q) {
-    return q * MULTIPLIER_Q
-}
-
-/**
- * Converts `point` value to `q`.
- * 
- * @param {number} pt - number to convert
- * @return {number}
- */
-function toQ(pt) {
-    return pt / MULTIPLIER_Q
-}
-
-/**
  * Converts text to unit value by dividing parts to value and unit type.
  * 
  * @param {text} value - text to convert
@@ -142,17 +42,17 @@ function parseUnit(text) {
         case 'point':
             return parseFloat(value)
         case 'cm':
-            return fromCm(value)
+            return value * MULTIPLIER_CM
         case '"':
         case 'in':
         case 'inch':
-            return fromInch(value)
+            return value * MULTIPLIER_INCH
         case 'mm':
-            return fromMm(value)
+            return value * MULTIPLIER_MM
         case 'pica':
-            return fromPica(value)
+            return value * MULTIPLIER_PICA
         case 'q':
-            return fromQ(value)
+            return value * MULTIPLIER_Q
         default:
             throw 'Undefined unit ' + unit
     }

@@ -79,8 +79,8 @@ dialog.buttonGroup.add('button', undefined, 'OK').onClick = function() {
     dialog.close()
 }
 
-var width = parseInt(toMm(document.width))
-var height = parseInt(toMm(document.height))
+var width = parseInt(document.width / MULTIPLIER_MM)
+var height = parseInt(document.height / MULTIPLIER_MM)
 if (width == 457 && height == 381) {
     dialog.printerEdit.text = 'GTO46'
     dialog.distanceList.selection = 4

@@ -5,10 +5,26 @@
  */
 
 #target Illustrator
-#include '../.lib/colors.jsx'
-#include '../.lib/preconditions.jsx'
-#include '../.lib/trim_marks.jsx'
-#include '../.lib/units.jsx'
+#include '.lib/colors.jsx'
+#include '.lib/preconditions.jsx'
+#include '.lib/units.jsx'
+
+const MARK_TOP_LEFT = 11
+const MARK_TOP_RIGHT = 1
+const MARK_RIGHT_TOP = 2
+const MARK_RIGHT_BOTTOM = 4
+const MARK_BOTTOM_RIGHT = 5
+const MARK_BOTTOM_LEFT = 7
+const MARK_LEFT_BOTTOM = 8
+const MARK_LEFT_TOP = 10
+const MARK_ALL = [
+    MARK_TOP_LEFT, MARK_TOP_RIGHT, 
+    MARK_RIGHT_TOP, MARK_RIGHT_BOTTOM, 
+    MARK_BOTTOM_RIGHT, MARK_BOTTOM_LEFT, 
+    MARK_LEFT_BOTTOM, MARK_LEFT_TOP
+]
+
+const DEFAULT_TRIM_MARK_WEIGHT = 0.3 // The same value used in `Ai menu bar > Object > Create Trim Marks`.
 
 const ACTION_NOTHING = 1
 const ACTION_GUIDES = 2
@@ -171,4 +187,141 @@ function doAction(action, item) {
             item.remove()
             break;
     }
+}
+
+/**
+ * Create multiple trim marks around target.
+ * 
+ * @param {PathItem} target - path where trim marks will be applied to, preferrably Rectangle
+ * @param {number} offset - space between target and trim marks
+ * @param {number} length - trim marks' width
+ * @param {number} weight - trim marks' stroke width
+ * @param {Color} color - trim marks' stroke color
+ * @param {Array} locations - combination of 8 possible mark locations as defined in constants
+ * @return {void}
+ */
+function createTrimMarks(target, offset, length, weight, color, locations) {
+    var width = target.width
+    var height = target.height
+    var startX = target.position[0]
+    var endX = startX + width
+    var startY = target.position[1]
+    var endY = startY - height
+
+    for (var i = 0; i < locations.length; i++) {
+        switch (locations[i]) {
+            case MARK_TOP_LEFT: 
+                createTrimMark(
+                    startX,
+                    startY + offset,
+                    startX,
+                    startY + offset + length,
+                    weight, 
+                    color
+                )
+                break;
+            case MARK_TOP_RIGHT:
+                createTrimMark(
+                    endX,
+                    startY + offset,
+                    endX,
+                    startY + offset + length,
+                    weight, 
+                    color
+                ) 
+                break;
+            case MARK_RIGHT_TOP: 
+                createTrimMark(
+                    endX + offset,
+                    startY,
+                    endX + offset + length,
+                    startY,
+                    weight, 
+                    color
+                )
+                break;
+            case MARK_RIGHT_BOTTOM: 
+                createTrimMark(
+                    endX + offset,
+                    endY,
+                    endX + offset + length,
+                    endY,
+                    weight, 
+                    color
+                )
+                break;
+            case MARK_BOTTOM_RIGHT: 
+                createTrimMark(
+                    endX,
+                    endY - offset,
+                    endX,
+                    endY - offset - length,
+                    weight, 
+                    color
+                )
+                break;
+            case MARK_BOTTOM_LEFT: 
+                createTrimMark(
+                    startX,
+                    endY - offset,
+                    startX,
+                    endY - offset - length,
+                    weight, 
+                    color
+                )        
+                break;
+            case MARK_LEFT_BOTTOM: 
+                createTrimMark(
+                    startX - offset,
+                    endY,
+                    startX - offset - length,
+                    endY,
+                    weight, 
+                    color
+                )
+                break;
+            case MARK_LEFT_TOP: 
+                createTrimMark(
+                    startX - offset,
+                    startY,
+                    startX - offset - length,
+                    startY,
+                    weight, 
+                    color
+                )
+                break;
+            default:
+                throw 'Unrecognizable location ' + locations[i]
+        }
+    }
+}
+
+/**
+ * Create individual trim mark from point A to point B.
+ * 
+ * @param {number} fromX - starting X point
+ * @param {number} fromY - starting Y point
+ * @param {number} toX - destination X point
+ * @param {number} toY - destination Y point
+ * @param {number} weight - trim marks' stroke width
+ * @param {Color} color - trim marks' stroke color
+ * @return {void}
+ */
+function createTrimMark(fromX, fromY, toX, toY, weight, color) {
+    var path = document.pathItems.add()
+    path.fillColor = new NoColor()
+    path.strokeColor = color
+    path.strokeWidth = weight
+
+    var fromPosition = [fromX, fromY]
+    var fromPoint = path.pathPoints.add()
+    fromPoint.anchor = fromPosition
+    fromPoint.leftDirection = fromPosition
+    fromPoint.rightDirection = fromPosition
+
+    var toPosition = [toX, toY]
+    var toPoint = path.pathPoints.add()
+    toPoint.anchor = toPosition
+    toPoint.leftDirection = toPosition
+    toPoint.rightDirection = toPosition
 }
