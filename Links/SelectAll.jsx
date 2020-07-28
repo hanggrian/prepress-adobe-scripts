@@ -18,10 +18,7 @@ switch (selection.length) {
         break;
 }
 
-selection = null
-for (var i = 0; i < placedItems.length; i++) {
-    placedItems[i].selected = true
-}
+selection = placedItems
 
 function determineItem(item) {
     switch (item.typename) {

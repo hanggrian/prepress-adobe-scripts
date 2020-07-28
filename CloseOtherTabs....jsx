@@ -3,26 +3,32 @@
 
 checkActiveDocument()
 
+if (app.documents.length == 1) {
+    throw 'No other tabs'
+}
+
 var document = app.activeDocument
 
 var dialog = new Window('dialog', 'Close other tabs')
 
-dialog.radioGroup = dialog.add('group')
-dialog.radioGroup.alignChildren = 'fill'
-dialog.radioGroup.orientation = 'column'
-dialog.ignoreRadio = dialog.radioGroup.add('radiobutton', undefined, "Ignore changes")
-dialog.ignoreRadio.value = true
-dialog.promptRadio = dialog.radioGroup.add('radiobutton', undefined, "Prompt each tab")
-dialog.saveRadio = dialog.radioGroup.add('radiobutton', undefined, "Save changes")
+dialog.radio = dialog.add('group')
+dialog.radio.alignChildren = 'fill'
+dialog.radio.orientation = 'column'
+var ignoreRadio = dialog.radio.add('radiobutton', undefined, 'Ignore changes')
+ignoreRadio.value = true
+var promptRadio = dialog.radio.add('radiobutton', undefined, 'Prompt each tab')
+var saveRadio = dialog.radio.add('radiobutton', undefined, 'Save changes')
 
-dialog.buttonGroup = dialog.add('group')
-dialog.buttonGroup.alignment = 'right'
-dialog.buttonGroup.add('button', undefined, 'Cancel')
-dialog.buttonGroup.add('button', undefined, 'OK').onClick = function() {
+dialog.buttons = dialog.add('group')
+dialog.buttons.alignment = 'right'
+dialog.buttons.add('button', undefined, 'Cancel')
+dialog.buttons.add('button', undefined, 'OK').onClick = function() {
+    dialog.close()
+
     var options
-    if (dialog.ignoreRadio.value) {
+    if (ignoreRadio.value) {
         options = SaveOptions.DONOTSAVECHANGES
-    } else if (dialog.promptRadio.value) {
+    } else if (promptRadio.value) {
         options = SaveOptions.PROMPTTOSAVECHANGES
     } else {
         options = SaveOptions.SAVECHANGES
@@ -35,8 +41,6 @@ dialog.buttonGroup.add('button', undefined, 'OK').onClick = function() {
         documents[i].close(options)
         i--
     }
-
-    dialog.close()
 }
 
 dialog.show()

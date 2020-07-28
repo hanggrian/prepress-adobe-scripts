@@ -5,7 +5,7 @@ checkActiveDocument()
 
 var document = app.activeDocument
 
-checkEvenArtboards(document)
+checkEvenArtboards()
 
 var end = document.artboards.length
 var start = 1

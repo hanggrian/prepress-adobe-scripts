@@ -56,10 +56,10 @@ dialog.objectNameGroup = dialog.objectPanel.add('group')
 dialog.objectNameGroup.add('statictext', panelTextBounds, 'Name:').justify = 'right'
 dialog.objectNameEdit = dialog.objectNameGroup.add('edittext', editSmallBounds, 'Title')
 
-dialog.buttonGroup = dialog.add('group')
-dialog.buttonGroup.alignment = 'right'
-dialog.buttonGroup.add('button', undefined, 'Cancel')
-dialog.buttonGroup.add('button', undefined, 'OK').onClick = function() {
+dialog.buttons = dialog.add('group')
+dialog.buttons.alignment = 'right'
+dialog.buttons.add('button', undefined, 'Cancel')
+dialog.buttons.add('button', undefined, 'OK').onClick = function() {
     var words
     if (dialog.objectTypeFrameRadio.value) {
         words = document.textFrames.getByName(dialog.objectNameEdit.text).words

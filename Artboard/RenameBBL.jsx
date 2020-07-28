@@ -5,7 +5,7 @@ checkActiveDocument()
 
 var document = app.activeDocument
 
-checkEvenArtboards(document)
+checkEvenArtboards()
 
 var current = 1
 var isFront = true
