@@ -14,5 +14,5 @@ Adobe Illustrator JavaScript Reference Guide:
 
 Usage
 -----
-Copy & paste all `.jsx` files and folders containing `.jsx` files to `Ai installation path/Presets/en_US/Scripts`.
+Copy & paste all files and folders within `Scripts` directory to `Ai installation path/Presets/en_US/Scripts`.
 The scripts can then be accessible from `Ai menu bar > File > Scripts`

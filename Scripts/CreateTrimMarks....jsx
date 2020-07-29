@@ -1,7 +1,6 @@
 ﻿/**
- * Create trim masks with custom size around the selected path item.
+ * Create trim masks around the selected PathItem.
  * The marks are created with clockwise ordering.
- * The selected item will be deleted afterwards.
  */
 
 #target Illustrator
@@ -124,6 +123,7 @@ rightBottomCheck.value = true
 bottomLeftCheck.value = true
 bottomRightCheck.value = true
 
+dialog.lower.add('group')
 dialog.lowerMultiplication = dialog.lower.add('group')
 dialog.lowerMultiplication.add('statictext', panelTextBounds, 'Multiplication:').justify = 'right'
 var horizontalEdit = dialog.lowerMultiplication.add('edittext', panelEditBounds)
