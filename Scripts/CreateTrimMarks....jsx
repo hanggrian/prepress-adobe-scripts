@@ -4,9 +4,9 @@
  */
 
 #target Illustrator
-#include '.lib/colors.jsx'
-#include '.lib/preconditions.jsx'
-#include '.lib/units.jsx'
+#include '.lib/colors.js'
+#include '.lib/preconditions.js'
+#include '.lib/units.js'
 
 const LOCATION_TOP_LEFT = 11
 const LOCATION_TOP_RIGHT = 1

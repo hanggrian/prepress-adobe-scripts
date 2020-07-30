@@ -6,9 +6,9 @@ Tested only on Adobe Illustrator 2020.
 ### Resources
 ExtendScript Basics:
 * https://github.com/ExtendScript
-* https://github.com/fabianmoronzirfas/extendscript
 
-Adobe Illustrator JavaScript Reference Guide:
+JavaScript Reference Guide:
+* https://www.adobe.com/devnet/illustrator/scripting.html
 * https://illustrator-scripting-guide.readthedocs.io/
 * http://jongware.mit.edu/iljscs6html/iljscs6/inxx.html
 

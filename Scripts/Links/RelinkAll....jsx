@@ -1,5 +1,5 @@
 #target Illustrator
-#include '../.lib/preconditions.jsx'
+#include '../.lib/preconditions.js'
 
 Window.alert('This script is a work in progress.')
 

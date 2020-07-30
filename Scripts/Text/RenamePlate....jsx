@@ -1,6 +1,6 @@
 #target Illustrator
-#include '../.lib/preconditions.jsx'
-#include '../.lib/units.jsx'
+#include '../.lib/preconditions.js'
+#include '../.lib/units.js'
 
 const DISTANCES = ['0 cm', '1 cm', '2 cm', '3 cm', '4 cm', '5 cm', '6 cm', '7 cm', '8 cm', '9 cm']
 
@@ -60,6 +60,8 @@ dialog.buttons = dialog.add('group')
 dialog.buttons.alignment = 'right'
 dialog.buttons.add('button', undefined, 'Cancel')
 dialog.buttons.add('button', undefined, 'OK').onClick = function() {
+    dialog.close()
+
     var words
     if (dialog.objectTypeFrameRadio.value) {
         words = document.textFrames.getByName(dialog.objectNameEdit.text).words
@@ -75,8 +77,6 @@ dialog.buttons.add('button', undefined, 'OK').onClick = function() {
         dialog.distanceList.selection.text.substring(0, 1) + '#' +
         getLPI()
     )
-
-    dialog.close()
 }
 
 var width = parseInt(document.width / MULTIPLIER_MM)

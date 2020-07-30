@@ -1,8 +1,7 @@
 #target Illustrator
-#include '.lib/preconditions.jsx'
+#include '.lib/preconditions.js'
 
 checkActiveDocument()
-
 if (app.documents.length == 1) {
     throw 'No other tabs'
 }
