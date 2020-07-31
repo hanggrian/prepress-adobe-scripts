@@ -4,9 +4,10 @@
  */
 
 #target Illustrator
-#include '.lib/colors.js'
-#include '.lib/preconditions.js'
-#include '.lib/units.js'
+#include '../.lib/duplicate.js'
+#include '../.lib/colors.js'
+#include '../.lib/preconditions.js'
+#include '../.lib/units.js'
 
 const LOCATION_TOP_LEFT = 11
 const LOCATION_TOP_RIGHT = 1
@@ -19,9 +20,14 @@ const LOCATION_LEFT_TOP = 10
 
 const DEFAULT_WEIGHT = 0.3 // The same value used in `Ai menu bar > Object > Create Trim Marks`.
 
-const ACTION_NOTHING = 1
-const ACTION_GUIDES = 2
-const ACTION_DELETE = 3
+const ACTION_GUIDES = 1
+const ACTION_DELETE = 2
+
+const BOUNDS_TEXT = [0, 0, 60, 21]
+const BOUNDS_EDIT = [0, 0, 80, 21]
+const BOUNDS_CHECK = [0, 0, 15, 15]
+const BOUNDS_PANEL_TEXT = [0, 0, 75, 21]
+const BOUNDS_PANEL_EDIT = [0, 0, 35, 21]
 
 checkActiveDocument()
 
@@ -30,90 +36,80 @@ var selection = document.selection
 
 checkSingleSelection()
 
-var selectedItem = selection[0]
-
-checkTypename(selectedItem, 'PathItem')
-
-var width = selectedItem.width
-var height = selectedItem.height
-var x = selectedItem.position[0]
-var y = selectedItem.position[1]
-
-var dialog = new Window('dialog', 'Create trim marks')
-dialog.alignChildren = 'fill'
-
-var textBounds = [0, 0, 60, 21]
-var editBounds = [0, 0, 80, 21]
-var checkBounds = [0, 0, 15, 15]
-var panelTextBounds = [0, 0, 90, 21]
-var panelEditBounds = [0, 0, 35, 21]
+checkTypename(selection[0], 'PathItem')
 
 var multiplicationListener = function() {
     dialog.middle.enabled = horizontalEdit.text.length == 0 || verticalEdit.text.length == 0
 }
 
+var dialog = new Window('dialog', 'Create trim marks')
+dialog.alignChildren = 'fill'
+
 dialog.upper = dialog.add('group')
 dialog.middle = dialog.add('panel', undefined, 'Locations')
-dialog.middle.orientation = 'column'
-dialog.lower = dialog.add('panel', undefined, 'Multiple')
-dialog.lower.alignChildren = 'fill'
+dialog.lower = dialog.add('panel', undefined, 'Duplicate')
+dialog.buttons = dialog.add('group')
 
+dialog.upper.alignChildren = 'fill'
 dialog.upperLeft = dialog.upper.add('group')
 dialog.upperLeft.orientation = 'column'
 dialog.upperLeft.offset = dialog.upperLeft.add('group')
-dialog.upperLeft.offset.add('statictext', textBounds, 'Offset:').justify = 'right'
-var offsetEdit = dialog.upperLeft.offset.add('edittext', editBounds, '2.5 mm')
+dialog.upperLeft.offset.add('statictext', BOUNDS_TEXT, 'Offset:').justify = 'right'
+var offsetEdit = dialog.upperLeft.offset.add('edittext', BOUNDS_EDIT, '2.5 mm')
 offsetEdit.active = true
 dialog.upperLeft.length = dialog.upperLeft.add('group')
-dialog.upperLeft.length.add('statictext', textBounds, 'Length:').justify = 'right'
-var lengthEdit = dialog.upperLeft.length.add('edittext', editBounds, '2.5 mm')
+dialog.upperLeft.length.add('statictext', BOUNDS_TEXT, 'Length:').justify = 'right'
+var lengthEdit = dialog.upperLeft.length.add('edittext', BOUNDS_EDIT, '2.5 mm')
 dialog.upperLeft.weight = dialog.upperLeft.add('group')
-dialog.upperLeft.weight.add('statictext', textBounds, 'Weight:').justify = 'right'
-var weightEdit = dialog.upperLeft.weight.add('edittext', editBounds, DEFAULT_WEIGHT)
-
+dialog.upperLeft.weight.add('statictext', BOUNDS_TEXT, 'Weight:').justify = 'right'
+var weightEdit = dialog.upperLeft.weight.add('edittext', BOUNDS_EDIT, DEFAULT_WEIGHT)
 dialog.upperRight = dialog.upper.add('group')
+dialog.upperRight.alignChildren = 'fill'
 dialog.upperRight.orientation = 'column'
+dialog.upperRight.color = dialog.upperRight.add('group')
+dialog.upperRight.color.add('statictext', BOUNDS_TEXT, 'Color:').justify = 'right'
+var colorList = dialog.upperRight.color.add('dropdownlist', undefined, COLORS)
+colorList.selection = 0
 dialog.upperRight.action = dialog.upperRight.add('group')
 dialog.upperRight.action.alignChildren = 'top'
-dialog.upperRight.action.add('statictext', textBounds, 'Selection:').justify = 'right'
+dialog.upperRight.action.add('statictext', BOUNDS_TEXT, 'Selection:').justify = 'right'
 dialog.upperRight.actionInner = dialog.upperRight.action.add('group')
 dialog.upperRight.actionInner.alignChildren = 'fill'
 dialog.upperRight.actionInner.orientation = 'column'
-var actionNothingRadio = dialog.upperRight.actionInner.add('radiobutton', undefined, 'Do nothing')
 var actionGuidesRadio = dialog.upperRight.actionInner.add('radiobutton', undefined, 'Make guides')
-actionGuidesRadio.value = true
 var actionDeleteRadio = dialog.upperRight.actionInner.add('radiobutton', undefined, 'Delete')
 
+dialog.middle.orientation = 'column'
 dialog.middle1 = dialog.middle.add('group')
-dialog.middle1.add('statictext', checkBounds).justify = 'right'
-var topLeftCheck = dialog.middle1.add('checkbox', checkBounds, undefined)
-dialog.middle1.add('statictext', checkBounds).justify = 'right'
-var topRightCheck = dialog.middle1.add('checkbox', checkBounds)
-dialog.middle1.add('statictext', checkBounds).justify = 'right'
+dialog.middle1.add('statictext', BOUNDS_CHECK).justify = 'right'
+var topLeftCheck = dialog.middle1.add('checkbox', BOUNDS_CHECK, undefined)
+dialog.middle1.add('statictext', BOUNDS_CHECK).justify = 'right'
+var topRightCheck = dialog.middle1.add('checkbox', BOUNDS_CHECK)
+dialog.middle1.add('statictext', BOUNDS_CHECK).justify = 'right'
 dialog.middle2 = dialog.middle.add('group')
-var leftTopCheck = dialog.middle2.add('checkbox', checkBounds)
-dialog.middle2.add('statictext', checkBounds, '↖︎').justify = 'right'
-dialog.middle2.add('statictext', checkBounds, '↑').justify = 'right'
-dialog.middle2.add('statictext', checkBounds, '↗').justify = 'right'
-var rightTopCheck = dialog.middle2.add('checkbox', checkBounds)
+var leftTopCheck = dialog.middle2.add('checkbox', BOUNDS_CHECK)
+dialog.middle2.add('statictext', BOUNDS_CHECK, '↖︎').justify = 'right'
+dialog.middle2.add('statictext', BOUNDS_CHECK, '↑').justify = 'right'
+dialog.middle2.add('statictext', BOUNDS_CHECK, '↗').justify = 'right'
+var rightTopCheck = dialog.middle2.add('checkbox', BOUNDS_CHECK)
 dialog.middle3 = dialog.middle.add('group')
-dialog.middle3.add('statictext', checkBounds).justify = 'right'
-dialog.middle3.add('statictext', checkBounds, '←').justify = 'right'
-dialog.middle3.add('statictext', checkBounds, '●').justify = 'right'
-dialog.middle3.add('statictext', checkBounds, '→').justify = 'right'
-dialog.middle3.add('statictext', checkBounds).justify = 'right'
+dialog.middle3.add('statictext', BOUNDS_CHECK).justify = 'right'
+dialog.middle3.add('statictext', BOUNDS_CHECK, '←').justify = 'right'
+dialog.middle3.add('statictext', BOUNDS_CHECK, '●').justify = 'right'
+dialog.middle3.add('statictext', BOUNDS_CHECK, '→').justify = 'right'
+dialog.middle3.add('statictext', BOUNDS_CHECK).justify = 'right'
 dialog.middle4 = dialog.middle.add('group')
-var leftBottomCheck = dialog.middle4.add('checkbox', checkBounds)
-dialog.middle4.add('statictext', checkBounds, '↙').justify = 'right'
-dialog.middle4.add('statictext', checkBounds, '↓').justify = 'right'
-dialog.middle4.add('statictext', checkBounds, '↘').justify = 'right'
-var rightBottomCheck = dialog.middle4.add('checkbox', checkBounds)
+var leftBottomCheck = dialog.middle4.add('checkbox', BOUNDS_CHECK)
+dialog.middle4.add('statictext', BOUNDS_CHECK, '↙').justify = 'right'
+dialog.middle4.add('statictext', BOUNDS_CHECK, '↓').justify = 'right'
+dialog.middle4.add('statictext', BOUNDS_CHECK, '↘').justify = 'right'
+var rightBottomCheck = dialog.middle4.add('checkbox', BOUNDS_CHECK)
 dialog.middle5 = dialog.middle.add('group')
-dialog.middle5.add('statictext', checkBounds).justify = 'right'
-var bottomLeftCheck = dialog.middle5.add('checkbox', checkBounds)
-dialog.middle5.add('statictext', checkBounds).justify = 'right'
-var bottomRightCheck = dialog.middle5.add('checkbox', checkBounds)
-dialog.middle5.add('statictext', checkBounds).justify = 'right'
+dialog.middle5.add('statictext', BOUNDS_CHECK).justify = 'right'
+var bottomLeftCheck = dialog.middle5.add('checkbox', BOUNDS_CHECK)
+dialog.middle5.add('statictext', BOUNDS_CHECK).justify = 'right'
+var bottomRightCheck = dialog.middle5.add('checkbox', BOUNDS_CHECK)
+dialog.middle5.add('statictext', BOUNDS_CHECK).justify = 'right'
 topLeftCheck.value = true
 topRightCheck.value = true
 leftTopCheck.value = true
@@ -123,22 +119,21 @@ rightBottomCheck.value = true
 bottomLeftCheck.value = true
 bottomRightCheck.value = true
 
+dialog.lower.alignChildren = 'fill'
 dialog.lower.add('group')
-dialog.lowerMultiplication = dialog.lower.add('group')
-dialog.lowerMultiplication.add('statictext', panelTextBounds, 'Multiplication:').justify = 'right'
-var horizontalEdit = dialog.lowerMultiplication.add('edittext', panelEditBounds)
+dialog.lower.multiplication = dialog.lower.add('group')
+dialog.lower.multiplication.add('statictext', BOUNDS_PANEL_TEXT, 'Duplication:').justify = 'right'
+var horizontalEdit = dialog.lower.multiplication.add('edittext', BOUNDS_PANEL_EDIT)
 horizontalEdit.justify = 'center' // find out why this doesn't work
 horizontalEdit.onChanging = multiplicationListener
-dialog.lowerMultiplication.add('statictext', undefined, 'x').justify = 'center'
-var verticalEdit = dialog.lowerMultiplication.add('edittext', panelEditBounds)
+dialog.lower.multiplication.add('statictext', undefined, 'x').justify = 'center'
+var verticalEdit = dialog.lower.multiplication.add('edittext', BOUNDS_PANEL_EDIT)
 verticalEdit.justify = 'center' // find out why this doesn't work
 verticalEdit.onChanging = multiplicationListener
+dialog.lower.offset = dialog.lower.add('group')
+dialog.lower.offset.add('statictext', BOUNDS_PANEL_TEXT, 'Offset:').justify = 'right'
+var multiplicationOffsetEdit = dialog.lower.offset.add('edittext', BOUNDS_EDIT)
 
-dialog.lowerBleed = dialog.lower.add('group')
-dialog.lowerBleed.add('statictext', panelTextBounds, 'Bleed:').justify = 'right'
-var bleedEdit = dialog.lowerBleed.add('edittext', editBounds)
-
-dialog.buttons = dialog.add('group')
 dialog.buttons.alignment = 'right'
 dialog.buttons.add('button', undefined, 'Cancel')
 dialog.buttons.add('button', undefined, 'OK').onClick = function() {
@@ -147,15 +142,16 @@ dialog.buttons.add('button', undefined, 'OK').onClick = function() {
     var offset = parseUnit(offsetEdit.text)
     var length = parseUnit(lengthEdit.text)
     var weight = parseUnit(weightEdit.text)
+    var color = parseColor(colorList.selection.text)
     var action = getAction()
     var locations = []
     var paths = []
 
-    var maxHorizontal = parseInt(horizontalEdit.text) || 0
-    var maxVertical = parseInt(verticalEdit.text) || 0
-    var multiplicationOffset = parseUnit(bleedEdit.text) * 2
+    var horizontal = parseInt(horizontalEdit.text) || 0
+    var vertical = parseInt(verticalEdit.text) || 0
+    var multiplicationOffset = parseUnit(multiplicationOffsetEdit.text)
 
-    if (maxHorizontal < 1 || maxVertical < 1) { // multiple disabled
+    if (horizontal < 1 || vertical < 1) { // multiple disabled
         if (topLeftCheck.value) locations.push(LOCATION_TOP_LEFT)
         if (topRightCheck.value) locations.push(LOCATION_TOP_RIGHT)
         if (rightTopCheck.value) locations.push(LOCATION_RIGHT_TOP)
@@ -165,43 +161,33 @@ dialog.buttons.add('button', undefined, 'OK').onClick = function() {
         if (leftBottomCheck.value) locations.push(LOCATION_LEFT_BOTTOM)
         if (leftTopCheck.value) locations.push(LOCATION_LEFT_TOP)
 
-        paths = paths.concat(createTrimMarks(selectedItem, offset, length, weight, locations))
-        doAction(action, selectedItem)
+        paths = paths.concat(createTrimMarks(selection[0], offset, length, weight, color, locations))
+        doAction(action, selection[0])
     } else { // multiple enabled
-        app.copy()
-        selectedItem.remove()
-
-        // vertical is 0 because the starting point doesn't change
-        for (var vertical = 0; vertical < maxVertical; vertical++) {
-            app.paste()
-            selection[0].position = [x, y - vertical * (height + multiplicationOffset)]
-            locations = [LOCATION_LEFT_BOTTOM, LOCATION_LEFT_TOP]
-            if (vertical == 0) {
+        duplicate(horizontal, vertical, multiplicationOffset, function(item, h, v) {
+            locations = []
+            if (h == horizontal - 1) {
+                locations.push(LOCATION_RIGHT_TOP, LOCATION_RIGHT_BOTTOM)
+            }
+            if (v == 0) {
                 locations.push(LOCATION_TOP_LEFT, LOCATION_TOP_RIGHT)
             }
-            if (vertical == maxVertical - 1) {
+            if (v == vertical - 1) {
                 locations.push(LOCATION_BOTTOM_LEFT, LOCATION_BOTTOM_RIGHT)
             }
-            paths = paths.concat(createTrimMarks(selection[0], offset, length, weight, locations))
-            doAction(action, selection[0])
-
-            for (var horizontal = 1; horizontal < maxHorizontal; horizontal++) {
-                app.paste()
-                selection[0].position = [x + horizontal * (width + multiplicationOffset), y - vertical * (height + multiplicationOffset)]
-                locations = []
-                if (horizontal == maxHorizontal - 1) {
-                    locations.push(LOCATION_RIGHT_TOP, LOCATION_RIGHT_BOTTOM)
-                }
-                if (vertical == 0) {
-                    locations.push(LOCATION_TOP_LEFT, LOCATION_TOP_RIGHT)
-                }
-                if (vertical == maxVertical - 1) {
-                    locations.push(LOCATION_BOTTOM_LEFT, LOCATION_BOTTOM_RIGHT)
-                }
-                paths = paths.concat(createTrimMarks(selection[0], offset, length, weight, locations))
-                doAction(action, selection[0])
+            paths = paths.concat(createTrimMarks(item, offset, length, weight, color, locations))
+            doAction(action, item)
+        }, function(item, h, v) {
+            locations = [LOCATION_LEFT_BOTTOM, LOCATION_LEFT_TOP]
+            if (v == 0) {
+                locations.push(LOCATION_TOP_LEFT, LOCATION_TOP_RIGHT)
             }
-        }
+            if (v == vertical - 1) {
+                locations.push(LOCATION_BOTTOM_LEFT, LOCATION_BOTTOM_RIGHT)
+            }
+            paths = paths.concat(createTrimMarks(item, offset, length, weight, color, locations))
+            doAction(action, item)
+        })
     }
 
     selection = paths
@@ -210,12 +196,12 @@ dialog.buttons.add('button', undefined, 'OK').onClick = function() {
 dialog.show()
 
 function getAction() {
-    if (actionNothingRadio.value) {
-        return ACTION_NOTHING
-    } else if (actionGuidesRadio.value) {
+    if (actionGuidesRadio.value) {
         return ACTION_GUIDES
-    } else {
+    } else if (actionDeleteRadio.value) {
         return ACTION_DELETE
+    } else {
+        return 0
     }
 }
 
@@ -238,10 +224,11 @@ function doAction(action, item) {
  * @param {number} offset - space between target and trim marks
  * @param {number} length - trim marks' width
  * @param {number} weight - trim marks' stroke width
+ * @param {Color} color - trim marks' color
  * @param {Array} locations - combination of 8 possible mark locations as defined in constants
  * @return {Array} created trim marks
  */
-function createTrimMarks(target, offset, length, weight, locations) {
+function createTrimMarks(target, offset, length, weight, color, locations) {
     var paths = []
     var width = target.width
     var height = target.height
@@ -258,7 +245,7 @@ function createTrimMarks(target, offset, length, weight, locations) {
                     startY + offset,
                     startX,
                     startY + offset + length,
-                    weight
+                    weight, color
                 ))
                 break;
             case LOCATION_TOP_RIGHT:
@@ -267,7 +254,7 @@ function createTrimMarks(target, offset, length, weight, locations) {
                     startY + offset,
                     endX,
                     startY + offset + length,
-                    weight
+                    weight, color
                 ))
                 break;
             case LOCATION_RIGHT_TOP: 
@@ -276,7 +263,7 @@ function createTrimMarks(target, offset, length, weight, locations) {
                     startY,
                     endX + offset + length,
                     startY,
-                    weight
+                    weight, color
                 ))
                 break;
             case LOCATION_RIGHT_BOTTOM: 
@@ -285,7 +272,7 @@ function createTrimMarks(target, offset, length, weight, locations) {
                     endY,
                     endX + offset + length,
                     endY,
-                    weight
+                    weight, color
                 ))
                 break;
             case LOCATION_BOTTOM_RIGHT: 
@@ -294,7 +281,7 @@ function createTrimMarks(target, offset, length, weight, locations) {
                     endY - offset,
                     endX,
                     endY - offset - length,
-                    weight
+                    weight, color
                 ))
                 break;
             case LOCATION_BOTTOM_LEFT: 
@@ -303,7 +290,7 @@ function createTrimMarks(target, offset, length, weight, locations) {
                     endY - offset,
                     startX,
                     endY - offset - length,
-                    weight
+                    weight, color
                 ))       
                 break;
             case LOCATION_LEFT_BOTTOM: 
@@ -312,7 +299,7 @@ function createTrimMarks(target, offset, length, weight, locations) {
                     endY,
                     startX - offset - length,
                     endY,
-                    weight
+                    weight, color
                 ))
                 break;
             case LOCATION_LEFT_TOP: 
@@ -321,7 +308,7 @@ function createTrimMarks(target, offset, length, weight, locations) {
                     startY,
                     startX - offset - length,
                     startY,
-                    weight
+                    weight, color
                 ))
                 break;
             default:
@@ -339,12 +326,13 @@ function createTrimMarks(target, offset, length, weight, locations) {
  * @param {number} toX - destination X point
  * @param {number} toY - destination Y point
  * @param {number} weight - trim marks' stroke width
- * @return {Object} created trim mark
+ * @param {Color} color - trim marks' color
+ * @return {PathItem} created trim mark
  */
-function createTrimMark(fromX, fromY, toX, toY, weight) {
+function createTrimMark(fromX, fromY, toX, toY, weight, color) {
     var path = document.pathItems.add()
-    path.fillColor = new NoColor()
-    path.strokeColor = registrationColor()
+    path.fillColor = COLOR_NONE
+    path.strokeColor = color
     path.strokeWidth = weight
 
     var fromPosition = [fromX, fromY]

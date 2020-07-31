@@ -7,7 +7,7 @@ const MULTIPLIER_Q = 0.709
 /**
  * Converts text to unit value by dividing parts to value and unit type.
  * 
- * @param {text} value - text to convert
+ * @param {string} text - text to convert
  * @return {number}
  */
 function parseUnit(text) {
