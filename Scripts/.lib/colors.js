@@ -15,7 +15,7 @@ COLOR_BLACK.black = 100
 /**
  * Returns registration color from current document's swatch.
  * 
- * @return {Color}
+ * @return {CMYKColor}
  */
 function registrationColor() {
     return document.swatches['[registration]'].color
@@ -25,7 +25,7 @@ function registrationColor() {
  * Converts text to color.
  * 
  * @param {string} text - text to convert
- * @return {Color}
+ * @return {CMYKColor}
  */
 function parseColor(text) {
     switch (text) {
@@ -49,8 +49,8 @@ function parseColor(text) {
 /**
  * Returns true if CMYK colors are equal.
  * 
- * @param {Color} color1 - CMYK color
- * @param {Color} color2 - CMYK color
+ * @param {CMYKColor} color1 - CMYK color
+ * @param {CMYKColor} color2 - CMYK color
  * @return {bool}
  */
 function sameColor(color1, color2) {

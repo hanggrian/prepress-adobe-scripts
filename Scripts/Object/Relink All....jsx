@@ -1,7 +1,8 @@
 #target Illustrator
 #include '../.lib/preconditions.js'
+#include '../.lib/strings.js'
 
-Window.alert('This script is a work in progress.')
+// alert('This script is a work in progress.')
 
 checkActiveDocument()
 
@@ -14,32 +15,35 @@ for (var i = 0; i < selection.length; i++) {
     checkTypename(selection[i], 'PlacedItem')
 }
 
-// var filters
-// if ($.os.toLowerCase().indexOf('mac') >= 0) {
-// } else {
-//     filters = 'JavaScript:*.jsx;All files:*.*'
-// }
-
-var file = File.openDialog('Relink all')
-
-var dialog = new Window('dialog', 'Relink all')
-
-dialog.file = dialog.add('panel', undefined, 'File')
-dialog.file.orientation = 'row'
-
-dialog.filePath = dialog.file.add('group')
-var fileText = dialog.filePath.add('statictext', undefined, file.absoluteURI)
-dialog.file.add('button', [0, 0, 32, 21], '...').onClick = function() {
-    file = File.openDialog('Relink all')
-    dialog.filePath.remove(fileText)
-    fileText = dialog.filePath.add('statictext', undefined, file.absoluteURI)
+var filters
+if ($.os.toLowerCase().indexOf('mac') >= 0) {
+    filters = function (file) {
+        if (file instanceof Folder) {
+            return true
+        } else if (file.name.endsWith('.ai') || file.name.endsWith('.pdf') || 
+                   file.name.endsWith('.jpg') || file.name.endsWith('.png') || file.name.endsWith('.tif')) {
+            return true
+        }
+        return false
+    }
+} else {
+    filters = 'Adobe Illustrator:*.ai;Adobe PDF:*.pdf;JPEG:*.jpeg,*.jpg'
 }
+var file = File.openDialog('Relink all', filters)
 
-dialog.buttons = dialog.add('group')
-dialog.buttons.alignment = 'right'
-dialog.buttons.add('button', undefined, 'Cancel')
-dialog.buttons.add('button', undefined, 'OK').onClick = function() {
-    dialog.close()
+if (file != null) {
+    var dialog = new Window('dialog', 'Relink all')
+
+    dialog.file = dialog.add('panel', undefined, 'File')
+    dialog.file.orientation = 'row'
+    dialog.file.add('statictext', undefined, decodeURI(file.absoluteURI))
+    
+    dialog.buttons = dialog.add('group')
+    dialog.buttons.alignment = 'right'
+    dialog.buttons.add('button', undefined, 'Cancel')
+    dialog.buttons.add('button', undefined, 'OK').onClick = function() {
+        dialog.close()
+    }
+    
+    dialog.show()
 }
-
-dialog.show()

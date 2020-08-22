@@ -9,4 +9,4 @@ if (typenames == '') {
     typenames = 'No selection.'
 }
 
-Window.alert(typenames)
+alert(typenames)
