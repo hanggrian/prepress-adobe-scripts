@@ -18,6 +18,7 @@ dialog.alignChildren = 'fill'
 
 dialog.main = dialog.add('group')
 initDuplicate(dialog.main)
+duplicateHorizontalEdit.active = true
 
 dialog.buttons = dialog.add('group')
 dialog.buttons.alignment = 'right'
