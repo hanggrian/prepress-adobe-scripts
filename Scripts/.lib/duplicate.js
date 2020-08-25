@@ -1,5 +1,5 @@
 #include 'units.js'
-#include 'validator.js'
+#include 'validation.js'
 
 const BOUNDS_DUPLICATE_TEXT = [0, 0, 65, 21]
 const BOUNDS_DUPLICATE_EDIT = [0, 0, 100, 21]

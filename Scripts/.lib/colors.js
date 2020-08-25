@@ -24,7 +24,7 @@ function registrationColor() {
 /**
  * Converts text to color.
  * 
- * @param {string} text - text to convert
+ * @param {String} text - text to convert
  * @return {CMYKColor}
  */
 function parseColor(text) {
@@ -46,16 +46,10 @@ function parseColor(text) {
     }
 }
 
-/**
- * Returns true if CMYK colors are equal.
- * 
- * @param {CMYKColor} color1 - CMYK color
- * @param {CMYKColor} color2 - CMYK color
- * @return {bool}
- */
-function sameColor(color1, color2) {
-    return color1.cyan == color2.cyan &&
-        color1.magenta == color2.magenta &&
-        color1.yellow == color2.yellow &&
-        color1.black == color2.black
-}
+/** Returns true if both CMYK colors are equal. */
+CMYKColor.prototype.equalTo || (CMYKColor.prototype.equalTo = function(other) {
+    return this.cyan == other.cyan &&
+        this.magenta == other.magenta &&
+        this.yellow == other.yellow &&
+        this.black == other.black
+});

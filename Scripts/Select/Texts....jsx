@@ -65,10 +65,10 @@ dialog.buttons.add('button', undefined, 'OK').onClick = function() {
             condition = condition && attr.underline
         }
         if (fillColorList.selection != null) {
-            condition = condition && sameColor(attr.fillColor, parseColor(fillColorList.selection.text))
+            condition = condition && attr.fillColor.equalTo(parseColor(fillColorList.selection.text))
         }
         if (strokeColorList.selection != null) {
-            condition = condition && sameColor(attr.strokeColor, parseColor(strokeColorList.selection.text))
+            condition = condition && attr.strokeColor.equalTo(parseColor(strokeColorList.selection.text))
         }
 
         return condition

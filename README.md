@@ -4,13 +4,15 @@ Collection of helpful Adobe Illustrator scripts.
 Tested only on Adobe Illustrator 2020.
 
 ### Resources
-ExtendScript Basics:
-* https://github.com/ExtendScript
+General guide:
+* [ExtendScript Wiki](https://github.com/ExtendScript/wiki/wiki)
+* [JavaScript Tools Guide](https://wwwimages2.adobe.com/content/dam/acom/en/devnet/scripting/pdfs/javascript_tools_guide.pdf)
+* [Official Illustrator Scripting](https://www.adobe.com/devnet/illustrator/scripting.html)
+* [Unofficial Illustrator Scripting](https://illustrator-scripting-guide.readthedocs.io/)
 
-JavaScript Reference Guide:
-* https://www.adobe.com/devnet/illustrator/scripting.html
-* https://illustrator-scripting-guide.readthedocs.io/
-* http://jongware.mit.edu/iljscs6html/iljscs6/inxx.html
+JavaScript Reference:
+* [ScriptUI Reference](http://jongware.mit.edu/scriptuihtml/Sui/index_1.html)
+* [Illustrator Reference](http://jongware.mit.edu/iljscs6html/iljscs6/inxx.html)
 
 Usage
 -----

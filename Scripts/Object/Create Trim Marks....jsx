@@ -7,6 +7,7 @@
 #include '../.lib/duplicate.js'
 #include '../.lib/colors.js'
 #include '../.lib/preconditions.js'
+#include '../.lib/validation.js'
 
 const LOCATION_TOP_LEFT = 11
 const LOCATION_TOP_RIGHT = 1
@@ -53,13 +54,16 @@ dialog.main1.orientation = 'column'
 dialog.main1.offset = dialog.main1.add('group')
 dialog.main1.offset.add('statictext', BOUNDS_TEXT, 'Offset:').justify = 'right'
 var offsetEdit = dialog.main1.offset.add('edittext', BOUNDS_EDIT, '2.5 mm')
+offsetEdit.validateUnit()
 offsetEdit.active = true
 dialog.main1.length = dialog.main1.add('group')
 dialog.main1.length.add('statictext', BOUNDS_TEXT, 'Length:').justify = 'right'
 var lengthEdit = dialog.main1.length.add('edittext', BOUNDS_EDIT, '2.5 mm')
+lengthEdit.validateUnit()
 dialog.main1.weight = dialog.main1.add('group')
 dialog.main1.weight.add('statictext', BOUNDS_TEXT, 'Weight:').justify = 'right'
 var weightEdit = dialog.main1.weight.add('edittext', BOUNDS_EDIT, DEFAULT_WEIGHT)
+weightEdit.validateUnit()
 dialog.main1.color = dialog.main1.add('group')
 dialog.main1.color.add('statictext', BOUNDS_TEXT, 'Color:').justify = 'right'
 var colorList = dialog.main1.color.add('dropdownlist', BOUNDS_EDIT, COLORS)

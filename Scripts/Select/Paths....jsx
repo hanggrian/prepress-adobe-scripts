@@ -61,10 +61,10 @@ dialog.buttons.add('button', undefined, 'OK').onClick = function() {
             condition = condition && height == parseInt(item.height)
         }
         if (fillColorList.selection != null) {
-            condition = condition && sameColor(item.fillColor, parseColor(fillColorList.selection.text))
+            condition = condition && item.fillColor.equalTo(parseColor(fillColorList.selection.text))
         }
         if (strokeColorList.selection != null) {
-            condition = condition && sameColor(item.strokeColor, parseColor(strokeColorList.selection.text))
+            condition = condition && item.strokeColor.equalTo(parseColor(strokeColorList.selection.text))
         }
 
         return condition
