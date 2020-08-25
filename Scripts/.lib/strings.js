@@ -21,4 +21,3 @@ String.prototype.isNotDigit || (String.prototype.isNotDigit = function() { retur
 
 String.prototype.first || (String.prototype.first = function() { return this[0] })
 String.prototype.last || (String.prototype.last = function() { return this[this.length - 1] })
-
