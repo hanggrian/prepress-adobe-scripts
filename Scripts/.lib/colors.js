@@ -52,4 +52,4 @@ CMYKColor.prototype.equalTo || (CMYKColor.prototype.equalTo = function(other) {
         this.magenta == other.magenta &&
         this.yellow == other.yellow &&
         this.black == other.black
-});
+})

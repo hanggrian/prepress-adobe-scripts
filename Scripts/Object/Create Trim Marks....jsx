@@ -7,7 +7,7 @@
 #include '../.lib/duplicate.js'
 #include '../.lib/colors.js'
 #include '../.lib/preconditions.js'
-#include '../.lib/validation.js'
+#include '../.lib/validator.js'
 
 const LOCATION_TOP_LEFT = 11
 const LOCATION_TOP_RIGHT = 1
@@ -198,10 +198,10 @@ function doAction(action, item) {
  * Create multiple trim marks around target.
  * 
  * @param {PathItem} target - path where trim marks will be applied to, preferrably Rectangle
- * @param {number} offset - space between target and trim marks
- * @param {number} length - trim marks' width
- * @param {number} weight - trim marks' stroke width
- * @param {Color} color - trim marks' color
+ * @param {Number} offset - space between target and trim marks
+ * @param {Number} length - trim marks' width
+ * @param {Number} weight - trim marks' stroke width
+ * @param {CMYKColor} color - trim marks' color
  * @param {Array} locations - combination of 8 possible mark locations as defined in constants
  * @return {Array} created trim marks
  */

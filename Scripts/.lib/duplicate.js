@@ -1,9 +1,9 @@
 #include 'units.js'
-#include 'validation.js'
+#include 'validator.js'
 
 const BOUNDS_DUPLICATE_TEXT = [0, 0, 65, 21]
 const BOUNDS_DUPLICATE_EDIT = [0, 0, 100, 21]
-const BOUNDS_DUPLICATE_EDIT_SMALL = [0, 0, 48, 21]
+const BOUNDS_DUPLICATE_EDIT_SMALL = [0, 0, 36, 21]
 
 var duplicateHorizontalEdit
 var duplicateVerticalEdit
@@ -21,10 +21,10 @@ function initDuplicate(target) {
     target.copies = target.add('group')
     target.copies.add('statictext', BOUNDS_DUPLICATE_TEXT, 'Copies:').justify = 'right'
     duplicateHorizontalEdit = target.copies.add('edittext', BOUNDS_DUPLICATE_EDIT_SMALL)
-    duplicateHorizontalEdit.validateNumber()
+    duplicateHorizontalEdit.validateDigits()
     target.copies.add('statictext', undefined, 'x')
     duplicateVerticalEdit = target.copies.add('edittext', BOUNDS_DUPLICATE_EDIT_SMALL)
-    duplicateVerticalEdit.validateNumber()
+    duplicateVerticalEdit.validateDigits()
     
     target.gap = target.add('group')
     target.gap.add('statictext', BOUNDS_DUPLICATE_TEXT, 'Gap:').justify = 'right'
