@@ -8,9 +8,7 @@ String.prototype.isNumber || (String.prototype.isNumber = function() { return !i
 
 String.prototype.isDigits || (String.prototype.isDigits = function() {
     for (var i = 0; i < this.length; i++) {
-        if (!this[i].isDigit()) {
-            return false
-        }
+        if (!this[i].isDigit()) return false
     }
     return true
 })

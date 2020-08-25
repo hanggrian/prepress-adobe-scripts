@@ -1,5 +1,5 @@
 #target Illustrator
-#include '../.lib/duplicate.js'
+#include '../.lib/sui/duplicate.js'
 #include '../.lib/preconditions.js'
 
 const BOUNDS_TEXT = [0, 0, 50, 21]
@@ -17,7 +17,7 @@ var dialog = new Window('dialog', 'Duplicate')
 dialog.alignChildren = 'fill'
 
 dialog.main = dialog.add('group')
-initDuplicate(dialog.main)
+Duplicate(dialog.main)
 duplicateHorizontalEdit.active = true
 
 dialog.buttons = dialog.add('group')

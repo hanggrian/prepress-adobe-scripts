@@ -1,5 +1,5 @@
-#include 'units.js'
-#include 'validator.js'
+#include '../units.js'
+#include '../validator.js'
 
 const BOUNDS_DUPLICATE_TEXT = [0, 0, 65, 21]
 const BOUNDS_DUPLICATE_EDIT = [0, 0, 100, 21]
@@ -15,7 +15,7 @@ var duplicateGapEdit
  * @param {Object} target - a window, panel, or group
  * @return {void}
  */
-function initDuplicate(target) {
+function Duplicate(target) {
     target.orientation = 'column'
 
     target.copies = target.add('group')
@@ -29,6 +29,7 @@ function initDuplicate(target) {
     target.gap = target.add('group')
     target.gap.add('statictext', BOUNDS_DUPLICATE_TEXT, 'Gap:').justify = 'right'
     duplicateGapEdit = target.gap.add('edittext', BOUNDS_DUPLICATE_EDIT)
+    duplicateGapEdit.validateUnits()
 }
 
 

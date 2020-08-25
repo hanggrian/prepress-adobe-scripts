@@ -1,29 +1,34 @@
-#include 'strings.js'
+// match regexes are inclusive with optional areas to trim and leading zero
+const MATCH_DIGITS = /^[ ]*[0-9]*[ ]*$/
+const MATCH_UNITS = /^[ ]*([0-9]*(\.[0-9]+)?|\.[0-9]+)[ ]*(?:pt|point|cm|mm|in|inch|"|pica|q)?[ ]*$/
 
-const PATTERN_DIGITS = '^[1-9]+\d*$'
-const PATTERN_UNITS = '^(\d+(\.\d+)?|\.\d+)?[ ]?([a-zA-Z]+)?$'
+// reduce that inclusivity for more readable text
+const REPLACE_LEADING_SPACE = /^\s+/
+const REPLACE_TRAILING_SPACE = /\s+$/
+const REPLACE_LEADING_ZERO = /^0+/
 
-/** Restricts user input to be digits only, or revert to last-known value. */
+/** 
+ * Restricts user input to be digits only.
+ */
 EditText.prototype.validateDigits || (EditText.prototype.validateDigits = function() {
-    registerValidator(this, PATTERN_DIGITS, function(oldValue) { } )
+    var editText = this
+    registerValidator(this, MATCH_DIGITS, function() { 
+        editText.text = editText.text.removeRegexes([REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
+    })
 })
 
-/** Restricts user input to be units only, or revert to last-known value. */
-EditText.prototype.validateUnit || (EditText.prototype.validateUnit = function() {
-    registerValidator(this, PATTERN_UNITS, funtion(oldValue) {
-        var right = ''
-        for (var i = this.text.length - 1; i = 0; i--) {
-            var c = this.text[i]
-            if (c.isNotDigit()) {
-                right = c + right
-                break
-            }       
-        }
-        var left = this.text.slice(0, right.length)
-        while (left.last() = ' ') {
-            left = left.slice(0, -1)
-        }
-        
+/** 
+ * Restricts user input to be units only.
+ * Then reconstruct text to only allow 1 whitespace in the middle.
+ */
+EditText.prototype.validateUnits || (EditText.prototype.validateUnits = function() {
+    var editText = this
+    registerValidator(this, MATCH_UNITS, function() {
+        var s = editText.text.removeRegexes([REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
+        var firstAlphabet = /[a-zA-Z]/.exec(s).index
+        var left = s.substring(0, firstAlphabet).removeRegexes([REPLACE_TRAILING_SPACE])
+        var right = s.substring(firstAlphabet)
+        editText.text = left + ' ' + right
     })
 })
 
@@ -31,17 +36,24 @@ EditText.prototype.validateUnit || (EditText.prototype.validateUnit = function()
  * Duplicate selected item, only support single selection.
  * 
  * @param {EditText} editText - target field
- * @param {String} pattern - regex to match
- * @param {Function} matchAction - optional runnable with old text as the only argument.
+ * @param {RegExp} regex - pattern to match
+ * @param {Function} matchAction - optional runnable with old and new value arguments.
  * @return {void}
  */
-function registerValidator(editText, pattern, matchAction) {
+function registerValidator(editText, regex, matchAction) {
     var oldValue = editText.text
-    this.onActivate = function() { oldValue = editText.text }
-    this.onChange = function() {
-        if (!editText.text.match(PATTERN_DIGITS)) {
-            editText.text = s
+    editText.onActivate = function() { oldValue = editText.text }
+    editText.onChange = function() {
+        if (regex.test(editText.text)) {
+            matchAction()
+        } else {
+            editText.text = oldValue
         }
-        matchAction(oldValue)
     }
 }
+
+String.prototype.removeRegexes || (String.prototype.removeRegexes = function(regexes) { 
+    var s = this
+    for (var i = 0; i < regexes.length; i++) s = s.replace(regexes[i], '')
+    return s
+})
