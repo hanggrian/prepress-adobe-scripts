@@ -4,6 +4,7 @@
  */
 
 #target Illustrator
+#include '../.lib/sui/dialog.js'
 #include '../.lib/preconditions.js'
 #include '../.lib/select.js'
 
@@ -14,15 +15,10 @@ checkActiveDocument()
 var document = app.activeDocument
 var selection = document.selection
 
-var dialog = new Window('dialog', 'Select by types')
+var dialog = Dialog('Select by types')
+dialog.root.orientation = 'column'
 
-dialog.imports = dialog.add('panel', undefined, 'Imports')
-dialog.paths = dialog.add('panel', undefined, 'Paths')
-dialog.types = dialog.add('panel', undefined, 'Types')
-dialog.others = dialog.add('panel', undefined, 'Others')
-dialog.buttons = dialog.add('group')
-
-dialog.imports.add('group')
+dialog.imports = dialog.root.addPanel('Imports')
 dialog.imports1 = dialog.imports.add('group')
 dialog.imports1.orientation = 'row'
 var placedCheck = dialog.imports1.add('checkbox', BOUNDS, 'Linked file')
@@ -32,20 +28,20 @@ dialog.imports2.orientation = 'row'
 var rasterCheck = dialog.imports2.add('checkbox', BOUNDS, 'Image')
 var pluginCheck = dialog.imports2.add('checkbox', BOUNDS, 'Plugin')
 
-dialog.paths.add('group')
+dialog.paths = dialog.root.addPanel('Paths')
 dialog.paths1 = dialog.paths.add('group')
 dialog.paths1.orientation = 'row'
 var pathCheck = dialog.paths1.add('checkbox', BOUNDS, 'Path')
 var compoundPathCheck = dialog.paths1.add('checkbox', BOUNDS, 'Compound path')
 
-dialog.types.add('group')
+dialog.types = dialog.root.addPanel('Types')
 dialog.types1 = dialog.types.add('group')
 dialog.types1.orientation = 'row'
 var textFrameCheck = dialog.types1.add('checkbox', BOUNDS, 'Text frame')
 var legacyTextCheck = dialog.types1.add('checkbox', BOUNDS, 'Legacy text')
 
+dialog.others = dialog.root.addPanel('Others')
 dialog.others.alignChildren = 'fill'
-dialog.others.add('group')
 dialog.others1 = dialog.others.add('group')
 dialog.others1.orientation = 'row'
 var symbolCheck = dialog.others1.add('checkbox', BOUNDS, 'Symbol')
@@ -54,11 +50,7 @@ dialog.others2 = dialog.others.add('group')
 dialog.others2.orientation = 'row'
 var graphCheck = dialog.others2.add('checkbox', BOUNDS, 'Graph')
 
-dialog.buttons.alignment = 'right'
-dialog.buttons.add('button', undefined, 'Cancel')
-dialog.buttons.add('button', undefined, 'OK').onClick = function() {
-    dialog.close()
-
+dialog.onAction(function() {
     var allowedTypes = []
     if (compoundPathCheck.value) {
         allowedTypes.push(SELECT_COMPOUND_PATH)
@@ -83,10 +75,6 @@ dialog.buttons.add('button', undefined, 'OK').onClick = function() {
     } else if (textFrameCheck.value) {
         allowedTypes.push(SELECT_TEXT_FRAME)
     }
-
-    selectItems(allowedTypes, function(item) {
-        return true
-    })
-}
-
+    selectItems(allowedTypes, function(_) { return true })
+})
 dialog.show()

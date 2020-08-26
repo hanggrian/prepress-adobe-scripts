@@ -7,9 +7,7 @@ const REPLACE_LEADING_SPACE = /^\s+/
 const REPLACE_TRAILING_SPACE = /\s+$/
 const REPLACE_LEADING_ZERO = /^0+/
 
-/** 
- * Restricts user input to be digits only.
- */
+/** Digits are non-negative and non-decimal number. */
 EditText.prototype.validateDigits || (EditText.prototype.validateDigits = function() {
     var editText = this
     registerValidator(this, MATCH_DIGITS, function() { 
@@ -17,10 +15,7 @@ EditText.prototype.validateDigits || (EditText.prototype.validateDigits = functi
     })
 })
 
-/** 
- * Restricts user input to be units only.
- * Then reconstruct text to only allow 1 whitespace in the middle.
- */
+/** Unit measurements are decimal number paired with short text. */
 EditText.prototype.validateUnits || (EditText.prototype.validateUnits = function() {
     var editText = this
     registerValidator(this, MATCH_UNITS, function() {

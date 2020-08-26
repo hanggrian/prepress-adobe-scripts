@@ -1,4 +1,5 @@
 #target Illustrator
+#include '../.lib/sui/dialog.js'
 #include '../.lib/preconditions.js'
 
 checkActiveDocument()
@@ -8,20 +9,11 @@ var selection = document.selection
 
 checkHasSelection()
 
-var dialog = new Window('dialog', 'Rename all')
-
-dialog.main = dialog.add('panel', undefined, 'Text')
-dialog.buttons = dialog.add('group')
-
-dialog.main.add('group')
-var edit = dialog.main.add('edittext', [0, 0, 400, 21])
-edit.active = true
-
-dialog.buttons.alignment = 'right'
-dialog.buttons.add('button', undefined, 'Cancel')
-dialog.buttons.add('button', undefined, 'OK').onClick = function() {
-    dialog.close()
-    
+var dialog = Dialog('Rename all')
+dialog.text2 = dialog.root.addPanel('Text')
+dialog.textEdit = dialog.text2.add('edittext', [0, 0, 400, 21])
+dialog.textEdit.active = true
+dialog.onAction(function() {
     for (var i = 0; i < selection.length; i++) {
         if (selection[i].typename == 'TextFrame') {
             var words = selection[i].words
@@ -29,6 +21,5 @@ dialog.buttons.add('button', undefined, 'OK').onClick = function() {
             words.add(edit.text)
         }
     }
-}
-
+})
 dialog.show()

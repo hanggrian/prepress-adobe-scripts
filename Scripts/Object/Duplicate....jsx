@@ -1,6 +1,8 @@
 #target Illustrator
+#include '../.lib/sui/dialog.js'
 #include '../.lib/sui/duplicate.js'
 #include '../.lib/preconditions.js'
+#include '../.lib/units.js'
 
 const BOUNDS_TEXT = [0, 0, 50, 21]
 const BOUNDS_EDIT = [0, 0, 100, 21]
@@ -13,20 +15,16 @@ var selection = document.selection
 
 checkSingleSelection()
 
-var dialog = new Window('dialog', 'Duplicate')
-dialog.alignChildren = 'fill'
-
-dialog.main = dialog.add('group')
-Duplicate(dialog.main)
-duplicateHorizontalEdit.active = true
-
-dialog.buttons = dialog.add('group')
-dialog.buttons.alignment = 'right'
-dialog.buttons.add('button', undefined, 'Cancel')
-dialog.buttons.add('button', undefined, 'OK').onClick = function() {
-    dialog.close()
-
-    duplicate(function(item, h, v) { }, function(item, h, v) { })
-}
-
+var dialog = Dialog('Duplicate')
+dialog.duplicate = dialog.root.addDuplicate()
+dialog.duplicate.copiesHEdit.active = true
+dialog.onAction(function() {
+    duplicate(
+        parseInt(dialog.duplicate.copiesHEdit.text) || 0,
+        parseInt(dialog.duplicate.copiesVEdit.text) || 0,
+        parseUnit(dialog.duplicate.gapEdit.text),
+        function(_, _, _) { },
+        function(_, _, _) { }
+    )
+})
 dialog.show()

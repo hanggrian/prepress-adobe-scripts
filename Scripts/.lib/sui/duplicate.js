@@ -1,50 +1,49 @@
-#include '../units.js'
 #include '../validator.js'
 
-const BOUNDS_DUPLICATE_TEXT = [0, 0, 65, 21]
+const BOUNDS_DUPLICATE_TEXT = [0, 0, 45, 21]
 const BOUNDS_DUPLICATE_EDIT = [0, 0, 100, 21]
 const BOUNDS_DUPLICATE_EDIT_SMALL = [0, 0, 36, 21]
 
-var duplicateHorizontalEdit
-var duplicateVerticalEdit
-var duplicateGapEdit
+Group.prototype.addDuplicate || (Group.prototype.addDuplicate = function() { return createDuplicate(this) })
+Panel.prototype.addDuplicate || (Panel.prototype.addDuplicate = function() { return createDuplicate(this) })
 
 /**
  * Add duplicate layout to target.
  * 
  * @param {Object} target - a window, panel, or group
- * @return {void}
+ * @return {Group}
  */
-function Duplicate(target) {
-    target.orientation = 'column'
+function createDuplicate(target) {
+    var duplicate = target.add('group')
+    duplicate.orientation = 'column'
 
-    target.copies = target.add('group')
-    target.copies.add('statictext', BOUNDS_DUPLICATE_TEXT, 'Copies:').justify = 'right'
-    duplicateHorizontalEdit = target.copies.add('edittext', BOUNDS_DUPLICATE_EDIT_SMALL)
-    duplicateHorizontalEdit.validateDigits()
-    target.copies.add('statictext', undefined, 'x')
-    duplicateVerticalEdit = target.copies.add('edittext', BOUNDS_DUPLICATE_EDIT_SMALL)
-    duplicateVerticalEdit.validateDigits()
+    duplicate.copies = duplicate.add('group')
+    duplicate.copies.add('statictext', BOUNDS_DUPLICATE_TEXT, 'Copies:').justify = 'right'
+    duplicate.copiesHEdit = duplicate.copies.add('edittext', BOUNDS_DUPLICATE_EDIT_SMALL)
+    duplicate.copiesHEdit.validateDigits()
+    duplicate.copies.add('statictext', undefined, 'x')
+    duplicate.copiesVEdit = duplicate.copies.add('edittext', BOUNDS_DUPLICATE_EDIT_SMALL)
+    duplicate.copiesVEdit.validateDigits()
+
+    duplicate.gap = duplicate.add('group')
+    duplicate.gap.add('statictext', BOUNDS_DUPLICATE_TEXT, 'Gap:').justify = 'right'
+    duplicate.gapEdit = duplicate.gap.add('edittext', BOUNDS_DUPLICATE_EDIT)
+    duplicate.gapEdit.validateUnits()
     
-    target.gap = target.add('group')
-    target.gap.add('statictext', BOUNDS_DUPLICATE_TEXT, 'Gap:').justify = 'right'
-    duplicateGapEdit = target.gap.add('edittext', BOUNDS_DUPLICATE_EDIT)
-    duplicateGapEdit.validateUnits()
+    return duplicate
 }
-
 
 /**
  * Duplicate selected item, only support single selection.
  * 
+ * @param {Number} horizontal - 
+ * @param {Number} vertical - 
+ * @param {Number} gap - 
  * @param {Function} horizontalRunnable - custom action that are executed during horizontal loop
  * @param {Function} verticalRunnable - custom action that are executed during vertical loop
  * @return {void}
  */
-function duplicate(horizontalRunnable, verticalRunnable) {
-    var horizontal = parseInt(duplicateHorizontalEdit.text) || 0
-    var vertical = parseInt(duplicateVerticalEdit.text) || 0
-    var gap = parseUnit(duplicateGapEdit.text)
-
+function duplicate(horizontal, vertical, gap, horizontalRunnable, verticalRunnable) {
     var selectedItem = selection[0]
     var width = selectedItem.width
     var height = selectedItem.height

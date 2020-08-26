@@ -4,10 +4,12 @@
  */
 
 #target Illustrator
+#include '../.lib/sui/dialog.js'
 #include '../.lib/colors.js'
 #include '../.lib/preconditions.js'
 #include '../.lib/select.js'
 #include '../.lib/units.js'
+#include '../.lib/validator.js'
 
 const BOUNDS_CHARACTERS_TEXT = [0, 0, 65, 21]
 const BOUNDS_COLOR_TEXT = [0, 0, 45, 21]
@@ -17,62 +19,50 @@ checkActiveDocument()
 var document = app.activeDocument
 var selection = document.selection
 
-var dialog = new Window('dialog', 'Select texts')
+var dialog = Dialog('Select texts')
+dialog.root.alignChildren = 'top'
 
-dialog.main = dialog.add('group')
-dialog.buttons = dialog.add('group')
+dialog.character = dialog.root.addPanel('Character')
+dialog.character.alignChildren = 'left'
+dialog.character.font = dialog.character.add('group')
+dialog.character.font.add('statictext', BOUNDS_CHARACTERS_TEXT, 'Font size:').justify = 'right'
+dialog.character.fontEdit = dialog.character.font.add('edittext', [0, 0, 75, 21])
+dialog.character.fontEdit.validateUnits()
+dialog.character.fontEdit.active = true
+dialog.character.attrs = dialog.character.add('group')
+dialog.character.attrs.add('statictext', BOUNDS_CHARACTERS_TEXT, 'Attributes:').justify = 'right'
+dialog.character.attrsItalic = dialog.character.attrs.add('checkbox', undefined, 'Italic')
+dialog.character.attrsUnderline = dialog.character.attrs.add('checkbox', undefined, 'Underline')
 
-dialog.main.alignChildren = 'fill'
-dialog.character = dialog.main.add('panel', undefined, 'Character')
-dialog.color = dialog.main.add('panel', undefined, 'Color')
-
-dialog.character.alignChildren = 'fill'
-dialog.character.add('group')
-dialog.character.fontSize = dialog.character.add('group')
-dialog.character.fontSize.add('statictext', BOUNDS_CHARACTERS_TEXT, 'Font size:').justify = 'right'
-var fontSizeEdit = dialog.character.fontSize.add('edittext', [0, 0, 75, 21])
-fontSizeEdit.active = true
-dialog.character.attributes = dialog.character.add('group')
-dialog.character.attributes.add('statictext', BOUNDS_CHARACTERS_TEXT, 'Attributes:').justify = 'right'
-var italicCheck = dialog.character.attributes.add('checkbox', undefined, 'Italic')
-var underlineCheck = dialog.character.attributes.add('checkbox', undefined, 'Underline')
-
-dialog.color.add('group')
+dialog.color = dialog.root.addPanel('Color')
 dialog.color.fill = dialog.color.add('group')
 dialog.color.fill.add('statictext', BOUNDS_COLOR_TEXT, 'Fill:').justify = 'right'
-var fillColorList = dialog.color.fill.add('dropdownlist', undefined, COLORS)
+dialog.color.fillList = dialog.color.fill.add('dropdownlist', undefined, COLORS)
 dialog.color.stroke = dialog.color.add('group')
 dialog.color.stroke.add('statictext', BOUNDS_COLOR_TEXT, 'Stroke:').justify = 'right'
-var strokeColorList = dialog.color.stroke.add('dropdownlist', undefined, COLORS)
+dialog.color.strokeList = dialog.color.stroke.add('dropdownlist', undefined, COLORS)
 
-dialog.buttons.alignment = 'right'
-dialog.buttons.add('button', undefined, 'Cancel')
-dialog.buttons.add('button', undefined, 'OK').onClick = function() {
-    dialog.close()
-
+dialog.onAction(function() {
     selectItems([SELECT_TEXT_FRAME], function(item) {
         var attr = item.textRange.characterAttributes
         var condition = true
-        
-        var fontSize = parseInt(fontSizeEdit.text) || 0
+        var fontSize = parseInt(dialog.character.fontEdit.text) || 0
         if (fontSize > 0) {
             condition = condition && fontSize == attr.size
         }
-        if (italicCheck.value) {
+        if (dialog.character.attrsItalic.value) {
             condition = condition && attr.italics
         }
-        if (underlineCheck.value) {
+        if (dialog.character.attrsUnderline.value) {
             condition = condition && attr.underline
         }
-        if (fillColorList.selection != null) {
-            condition = condition && attr.fillColor.equalTo(parseColor(fillColorList.selection.text))
+        if (dialog.color.fillList.selection != null) {
+            condition = condition && attr.fillColor.equalTo(parseColor(dialog.color.fillList.selection.text))
         }
-        if (strokeColorList.selection != null) {
-            condition = condition && attr.strokeColor.equalTo(parseColor(strokeColorList.selection.text))
+        if (dialog.color.strokeList.selection != null) {
+            condition = condition && attr.strokeColor.equalTo(parseColor(dialog.color.strokeList.selection.text))
         }
-
         return condition
     })
-}
-
+})
 dialog.show()

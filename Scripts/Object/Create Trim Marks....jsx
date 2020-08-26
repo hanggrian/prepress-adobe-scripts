@@ -4,6 +4,7 @@
  */
 
 #target Illustrator
+#include '../.lib/sui/dialog.js'
 #include '../.lib/sui/duplicate.js'
 #include '../.lib/colors.js'
 #include '../.lib/preconditions.js'
@@ -23,7 +24,7 @@ const ACTION_DEFAULT = 'OK'
 const ACTION_GUIDES = 'Guides'
 const ACTION_DELETE = 'Delete'
 
-const BOUNDS_TEXT = [0, 0, 44, 21]
+const BOUNDS_TEXT = [0, 0, 60, 21]
 const BOUNDS_EDIT = [0, 0, 100, 21]
 const BOUNDS_CHECK = [0, 0, 13, 13]
 const BOUNDS_EDIT_SMALL = [0, 0, 36, 21]
@@ -37,73 +38,67 @@ checkSingleSelection()
 
 checkTypename(selection[0], 'PathItem')
 
-var dialog = new Window('dialog', 'Create trim marks')
-dialog.alignChildren = 'center'
+var dialog = Dialog('Create trim marks')
 
-dialog.main = dialog.add('group')
-dialog.duplicate = dialog.add('panel', undefined, 'Duplicate')
-dialog.buttons = dialog.add('group')
+dialog.root.alignChildren = 'fill'
+dialog.main = dialog.root.add('group')
+dialog.mini = dialog.root.add('group')
 
-dialog.main.alignChildren = 'fill'
-dialog.main1 = dialog.main.add('group')
-dialog.main.add('statictext', [0, 0, 10, 0])
-dialog.main2 = dialog.main.add('group')
-
-dialog.main1.orientation = 'column'
-dialog.main1.offset = dialog.main1.add('group')
-dialog.main1.offset.add('statictext', BOUNDS_TEXT, 'Offset:').justify = 'right'
-var offsetEdit = dialog.main1.offset.add('edittext', BOUNDS_EDIT, '2.5 mm')
-offsetEdit.validateUnits()
-offsetEdit.active = true
-dialog.main1.length = dialog.main1.add('group')
-dialog.main1.length.add('statictext', BOUNDS_TEXT, 'Length:').justify = 'right'
-var lengthEdit = dialog.main1.length.add('edittext', BOUNDS_EDIT, '2.5 mm')
-lengthEdit.validateUnits()
-dialog.main1.weight = dialog.main1.add('group')
-dialog.main1.weight.add('statictext', BOUNDS_TEXT, 'Weight:').justify = 'right'
-var weightEdit = dialog.main1.weight.add('edittext', BOUNDS_EDIT, DEFAULT_WEIGHT)
-weightEdit.validateUnits()
-dialog.main1.color = dialog.main1.add('group')
-dialog.main1.color.add('statictext', BOUNDS_TEXT, 'Color:').justify = 'right'
-var colorList = dialog.main1.color.add('dropdownlist', BOUNDS_EDIT, COLORS)
-colorList.selection = 0
-
-dialog.main2.orientation = 'column'
-dialog.main2.locations = dialog.main2.add('group')
-dialog.main2.locations.alignChildren = 'top'
-dialog.main2.locations.add('statictext', undefined, 'Locations:').justify = 'right'
-dialog.main2.locations.row = dialog.main2.locations.add('group')
-dialog.main2.locations.row.orientation = 'column'
-dialog.main2.locations.row1 = dialog.main2.locations.row.add('group')
-dialog.main2.locations.row1.add('statictext', BOUNDS_CHECK).justify = 'right'
-var topLeftCheck = dialog.main2.locations.row1.add('checkbox', BOUNDS_CHECK, undefined)
-dialog.main2.locations.row1.add('statictext', BOUNDS_CHECK).justify = 'right'
-var topRightCheck = dialog.main2.locations.row1.add('checkbox', BOUNDS_CHECK)
-dialog.main2.locations.row1.add('statictext', BOUNDS_CHECK).justify = 'right'
-dialog.main2.locations.row2 = dialog.main2.locations.row.add('group')
-var leftTopCheck = dialog.main2.locations.row2.add('checkbox', BOUNDS_CHECK)
-dialog.main2.locations.row2.add('statictext', BOUNDS_CHECK, '↖︎').justify = 'right'
-dialog.main2.locations.row2.add('statictext', BOUNDS_CHECK, '↑').justify = 'right'
-dialog.main2.locations.row2.add('statictext', BOUNDS_CHECK, '↗').justify = 'right'
-var rightTopCheck = dialog.main2.locations.row2.add('checkbox', BOUNDS_CHECK)
-dialog.main2.locations.row3 = dialog.main2.locations.row.add('group')
-dialog.main2.locations.row3.add('statictext', BOUNDS_CHECK).justify = 'right'
-dialog.main2.locations.row3.add('statictext', BOUNDS_CHECK, '←').justify = 'right'
-dialog.main2.locations.row3.add('statictext', BOUNDS_CHECK, '●').justify = 'right'
-dialog.main2.locations.row3.add('statictext', BOUNDS_CHECK, '→').justify = 'right'
-dialog.main2.locations.row3.add('statictext', BOUNDS_CHECK).justify = 'right'
-dialog.main2.locations.row4 = dialog.main2.locations.row.add('group')
-var leftBottomCheck = dialog.main2.locations.row4.add('checkbox', BOUNDS_CHECK)
-dialog.main2.locations.row4.add('statictext', BOUNDS_CHECK, '↙').justify = 'right'
-dialog.main2.locations.row4.add('statictext', BOUNDS_CHECK, '↓').justify = 'right'
-dialog.main2.locations.row4.add('statictext', BOUNDS_CHECK, '↘').justify = 'right'
-var rightBottomCheck = dialog.main2.locations.row4.add('checkbox', BOUNDS_CHECK)
-dialog.main2.locations.row5 = dialog.main2.locations.row.add('group')
-dialog.main2.locations.row5.add('statictext', BOUNDS_CHECK).justify = 'right'
-var bottomLeftCheck = dialog.main2.locations.row5.add('checkbox', BOUNDS_CHECK)
-dialog.main2.locations.row5.add('statictext', BOUNDS_CHECK).justify = 'right'
-var bottomRightCheck = dialog.main2.locations.row5.add('checkbox', BOUNDS_CHECK)
-dialog.main2.locations.row5.add('statictext', BOUNDS_CHECK).justify = 'right'
+dialog.main.orientation = 'column'
+dialog.main.offset = dialog.main.add('group')
+dialog.main.offset.add('statictext', BOUNDS_TEXT, 'Offset:').justify = 'right'
+dialog.main.offsetEdit = dialog.main.offset.add('edittext', BOUNDS_EDIT, '2.5 mm')
+dialog.main.offsetEdit.validateUnits()
+dialog.main.offsetEdit.active = true
+dialog.main.length = dialog.main.add('group')
+dialog.main.length.add('statictext', BOUNDS_TEXT, 'Length:').justify = 'right'
+dialog.main.lengthEdit = dialog.main.length.add('edittext', BOUNDS_EDIT, '2.5 mm')
+dialog.main.lengthEdit.validateUnits()
+dialog.main.weight = dialog.main.add('group')
+dialog.main.weight.add('statictext', BOUNDS_TEXT, 'Weight:').justify = 'right'
+dialog.main.weightEdit = dialog.main.weight.add('edittext', BOUNDS_EDIT, DEFAULT_WEIGHT)
+dialog.main.weightEdit.validateUnits()
+dialog.main.color = dialog.main.add('group')
+dialog.main.color.add('statictext', BOUNDS_TEXT, 'Color:').justify = 'right'
+dialog.main.colorList = dialog.main.color.add('dropdownlist', BOUNDS_EDIT, COLORS)
+dialog.main.colorList.selection = 0
+dialog.main.add('statictext', [0, 0, 0, 5]) // gap
+dialog.main.locations = dialog.main.add('group')
+dialog.main.locations.orientation = 'row'
+dialog.main.locations.alignChildren = 'top'
+dialog.main.locations.add('statictext', BOUNDS_TEXT, 'Locations:').justify = 'right'
+dialog.main.locations.row = dialog.main.locations.add('group')
+dialog.main.locations.row.orientation = 'column'
+dialog.main.locations.row1 = dialog.main.locations.row.add('group')
+dialog.main.locations.row1.add('statictext', BOUNDS_CHECK).justify = 'right'
+var topLeftCheck = dialog.main.locations.row1.add('checkbox', BOUNDS_CHECK, undefined)
+dialog.main.locations.row1.add('statictext', BOUNDS_CHECK).justify = 'right'
+var topRightCheck = dialog.main.locations.row1.add('checkbox', BOUNDS_CHECK)
+dialog.main.locations.row1.add('statictext', BOUNDS_CHECK).justify = 'right'
+dialog.main.locations.row2 = dialog.main.locations.row.add('group')
+var leftTopCheck = dialog.main.locations.row2.add('checkbox', BOUNDS_CHECK)
+dialog.main.locations.row2.add('statictext', BOUNDS_CHECK, '↖︎').justify = 'right'
+dialog.main.locations.row2.add('statictext', BOUNDS_CHECK, '↑').justify = 'right'
+dialog.main.locations.row2.add('statictext', BOUNDS_CHECK, '↗').justify = 'right'
+var rightTopCheck = dialog.main.locations.row2.add('checkbox', BOUNDS_CHECK)
+dialog.main.locations.row3 = dialog.main.locations.row.add('group')
+dialog.main.locations.row3.add('statictext', BOUNDS_CHECK).justify = 'right'
+dialog.main.locations.row3.add('statictext', BOUNDS_CHECK, '←').justify = 'right'
+dialog.main.locations.row3.add('statictext', BOUNDS_CHECK, '●').justify = 'right'
+dialog.main.locations.row3.add('statictext', BOUNDS_CHECK, '→').justify = 'right'
+dialog.main.locations.row3.add('statictext', BOUNDS_CHECK).justify = 'right'
+dialog.main.locations.row4 = dialog.main.locations.row.add('group')
+var leftBottomCheck = dialog.main.locations.row4.add('checkbox', BOUNDS_CHECK)
+dialog.main.locations.row4.add('statictext', BOUNDS_CHECK, '↙').justify = 'right'
+dialog.main.locations.row4.add('statictext', BOUNDS_CHECK, '↓').justify = 'right'
+dialog.main.locations.row4.add('statictext', BOUNDS_CHECK, '↘').justify = 'right'
+var rightBottomCheck = dialog.main.locations.row4.add('checkbox', BOUNDS_CHECK)
+dialog.main.locations.row5 = dialog.main.locations.row.add('group')
+dialog.main.locations.row5.add('statictext', BOUNDS_CHECK).justify = 'right'
+var bottomLeftCheck = dialog.main.locations.row5.add('checkbox', BOUNDS_CHECK)
+dialog.main.locations.row5.add('statictext', BOUNDS_CHECK).justify = 'right'
+var bottomRightCheck = dialog.main.locations.row5.add('checkbox', BOUNDS_CHECK)
+dialog.main.locations.row5.add('statictext', BOUNDS_CHECK).justify = 'right'
 topLeftCheck.value = true
 topRightCheck.value = true
 leftTopCheck.value = true
@@ -113,30 +108,37 @@ rightBottomCheck.value = true
 bottomLeftCheck.value = true
 bottomRightCheck.value = true
 
-dialog.duplicate.add('group')
-Duplicate(dialog.duplicate)
+dialog.mini.orientation = 'column'
+dialog.mini.alignChildren = 'fill'
+dialog.mini.alignment = 'bottom'
+dialog.duplicate = dialog.mini.addPanel('Duplicate').addDuplicate()
+dialog.mini.add('statictext', [0, 0, 0, 45]) // gap
+dialog.buttons2 = dialog.mini.add('group')
+dialog.buttons2.orientation = 'column'
+dialog.buttons2.alignment = 'right'
+dialog.buttons2.add('button', undefined, ACTION_GUIDES).onClick = function() { 
+    dialog.close()
+    process(ACTION_GUIDES) 
+}
+dialog.buttons2.add('button', undefined, ACTION_DELETE).onClick = function() { 
+    dialog.close()
+    process(ACTION_DELETE) 
+}
 
-dialog.buttons.alignment = 'right'
-dialog.buttons.add('button', undefined, ACTION_GUIDES).onClick = function() { process(ACTION_GUIDES) }
-dialog.buttons.add('button', undefined, ACTION_DELETE).onClick = function() { process(ACTION_DELETE) }
-dialog.buttons.add('statictext', [0, 0, 25, 0])
-dialog.buttons.add('button', undefined, 'Cancel')
-dialog.buttons.add('button', undefined, ACTION_DEFAULT).onClick = function() { process(ACTION_DEFAULT) }
-
+dialog.onAction(function() { process(ACTION_DEFAULT) })
 dialog.show()
 
 function process(action) {
-    dialog.close()
-
-    var offset = parseUnit(offsetEdit.text)
-    var length = parseUnit(lengthEdit.text)
-    var weight = parseUnit(weightEdit.text)
-    var color = parseColor(colorList.selection.text)
+    var offset = parseUnit(dialog.main.offsetEdit.text)
+    var length = parseUnit(dialog.main.lengthEdit.text)
+    var weight = parseUnit(dialog.main.weightEdit.text)
+    var color = parseColor(dialog.main.colorList.selection.text)
     var locations = []
     var paths = []
     
-    var horizontal = parseInt(duplicateHorizontalEdit.text) || 0
-    var vertical = parseInt(duplicateVerticalEdit.text) || 0
+    var horizontal = parseInt(dialog.duplicate.copiesHEdit.text) || 0
+    var vertical = parseInt(dialog.duplicate.copiesVEdit.text) || 0
+    var gap = parseUnit(dialog.duplicate.gapEdit.text)
 
     if (horizontal < 1 || vertical < 1) {
         if (topLeftCheck.value) locations.push(LOCATION_TOP_LEFT)
@@ -152,7 +154,7 @@ function process(action) {
         doAction(action, selection[0])
     } else {
         // currently ignore location checkboxes in duplication
-        duplicate(function(item, h, v) {
+        duplicate(horizontal, vertical, gap, function(item, h, v) {
             locations = []
             if (h == horizontal - 1) {
                 locations.push(LOCATION_RIGHT_TOP, LOCATION_RIGHT_BOTTOM)

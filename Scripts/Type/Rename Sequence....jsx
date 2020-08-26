@@ -1,4 +1,5 @@
 #target Illustrator
+#include '../.lib/sui/dialog.js'
 #include '../.lib/preconditions.js'
 
 const ALPHABETS = [
@@ -16,41 +17,32 @@ var selection = document.selection
 
 checkHasSelection()
 
-var dialog = new Window('dialog', 'Rename sequence')
-dialog.alignChildren = 'fill'
+var dialog = Dialog('Rename sequence')
 
-dialog.main = dialog.add('panel', undefined, 'Sequence')
-dialog.reverse = dialog.add('group')
-dialog.buttons = dialog.add('group')
+dialog.sequence = dialog.root.addPanel('Sequence')
+dialog.sequence.alignChildren = 'fill'
+dialog.sequence.stops = dialog.sequence.add('group')
+dialog.sequence.stops.add('statictext', BOUNDS_TEXT, 'Stops at:').justify = 'right'
+dialog.sequence.stopsList = dialog.sequence.stops.add('dropdownlist', undefined, ALPHABETS)
+dialog.sequence.stopsList.selection = 1
+dialog.sequence.space = dialog.sequence.add('group')
+dialog.sequence.space.add('statictext', BOUNDS_TEXT, 'Add space:').justify = 'right'
+dialog.sequence.spaceCheck = dialog.sequence.space.add('checkbox', undefined)
 
-dialog.main.alignChildren = 'fill'
-dialog.main.add('group')
-dialog.main.stops = dialog.main.add('group')
-dialog.main.stops.add('statictext', BOUNDS_TEXT, 'Stops at:').justify = 'right'
-var list = dialog.main.stops.add('dropdownlist', undefined, ALPHABETS)
-list.selection = 1
-dialog.main.space = dialog.main.add('group')
-dialog.main.space.add('statictext', BOUNDS_TEXT, 'Add space:').justify = 'right'
-var spaceCheck = dialog.main.space.add('checkbox', undefined)
-
+dialog.reverse = dialog.root.add('group')
 dialog.reverse.alignment = 'right'
-var reverseCheck = dialog.reverse.add('checkbox', undefined, 'Reverse order')
+dialog.reverseCheck = dialog.reverse.add('checkbox', undefined, 'Reverse order')
 
 var prefix = 1
 var count = 0
 var stopsAt
 
-dialog.buttons.alignment = 'right'
-dialog.buttons.add('button', undefined, 'Cancel')
-dialog.buttons.add('button', undefined, 'OK').onClick = function() {
-    dialog.close()
-    
+dialog.onAction(function() {
     for (var i = 0; i < ALPHABETS.length; i++) {
         if (ALPHABETS[i] == list.selection.text) {
             stopsAt = i + 1
         }
     }
-
     if (!reverseCheck.value) {
         for (var i = 0; i < selection.length; i++) {
             rename(selection[i])
@@ -60,8 +52,7 @@ dialog.buttons.add('button', undefined, 'OK').onClick = function() {
             rename(selection[i])
         }
     }
-}
-
+})
 dialog.show()
 
 function rename(item) {
