@@ -21,44 +21,38 @@ var document = app.activeDocument
 var selection = document.selection
 
 var dialog = Dialog('Select paths')
+dialog.root.horizontal()
 dialog.root.alignChildren = 'top'
 
-dialog.dimension = dialog.root.addPanel('Dimension')
-dialog.dimension.width = dialog.dimension.add('group')
+dialog.dimension = dialog.root.addVPanel('Dimension')
+dialog.dimension.width = dialog.dimension.addHGroup()
 dialog.dimension.width.add('statictext', BOUNDS_DIMENSION_TEXT, 'Width:').justify = 'right'
-dialog.dimension.widthEdit = dialog.dimension.width.add('edittext', BOUNDS_DIMENSION_EDIT)
-dialog.dimension.widthEdit.validateUnits()
-dialog.dimension.widthEdit.active = true
-dialog.dimension.height = dialog.dimension.add('group')
+var widthEdit = dialog.dimension.width.add('edittext', BOUNDS_DIMENSION_EDIT)
+widthEdit.validateUnits()
+widthEdit.active = true
+dialog.dimension.height = dialog.dimension.addHGroup()
 dialog.dimension.height.add('statictext', BOUNDS_DIMENSION_TEXT, 'Height:').justify = 'right'
-dialog.dimension.heightEdit = dialog.dimension.height.add('edittext', BOUNDS_DIMENSION_EDIT)
-dialog.dimension.heightEdit.validateUnits()
+var heightEdit = dialog.dimension.height.add('edittext', BOUNDS_DIMENSION_EDIT)
+heightEdit.validateUnits()
 
-dialog.color = dialog.root.addPanel('Color')
-dialog.color.fill = dialog.color.add('group')
+dialog.color = dialog.root.addVPanel('Color')
+dialog.color.fill = dialog.color.addHGroup()
 dialog.color.fill.add('statictext', BOUNDS_COLOR_TEXT, 'Fill:').justify = 'right'
-dialog.color.fillList = dialog.color.fill.add('dropdownlist', undefined, COLORS)
-dialog.color.stroke = dialog.color.add('group')
+var fillList = dialog.color.fill.add('dropdownlist', undefined, COLORS)
+dialog.color.stroke = dialog.color.addHGroup()
 dialog.color.stroke.add('statictext', BOUNDS_COLOR_TEXT, 'Stroke:').justify = 'right'
-dialog.color.strokeList = dialog.color.stroke.add('dropdownlist', undefined, COLORS)
+var strokeList = dialog.color.stroke.add('dropdownlist', undefined, COLORS)
 
-dialog.onAction(function() {
+dialog.addAction('Cancel')
+dialog.addAction('OK', function() {
     selectItems([SELECT_PATH], function(item) {
         var condition = true
-        var width = parseInt(parseUnit(dialog.dimension.widthEdit.text))
-        if (width > 0) {
-            condition = condition && width == parseInt(item.width)
-        }
-        var height = parseInt(parseUnit(dialog.dimension.heightEdit.text))
-        if (height > 0) {
-            condition = condition && height == parseInt(item.height)
-        }
-        if (dialog.color.fillList.selection != null) {
-            condition = condition && item.fillColor.equalTo(parseColor(dialog.color.fillList.selection.text))
-        }
-        if (dialog.color.strokeList.selection != null) {
-            condition = condition && item.strokeColor.equalTo(parseColor(dialog.color.strokeList.selection.text))
-        }
+        var width = parseInt(parseUnit(widthEdit.text))
+        if (width > 0) condition = condition && width == parseInt(item.width)
+        var height = parseInt(parseUnit(heightEdit.text))
+        if (height > 0) condition = condition && height == parseInt(item.height)
+        if (fillList.selection != null) condition = condition && item.fillColor.equalTo(parseColor(fillList.selection.text))
+        if (strokeList.selection != null) condition = condition && item.strokeColor.equalTo(parseColor(strokeList.selection.text))
         return condition
     })
 })

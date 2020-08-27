@@ -10,7 +10,7 @@ const REPLACE_LEADING_ZERO = /^0+/
 /** Digits are non-negative and non-decimal number. */
 EditText.prototype.validateDigits || (EditText.prototype.validateDigits = function() {
     var editText = this
-    registerValidator(this, MATCH_DIGITS, function() { 
+    _registerValidator(this, MATCH_DIGITS, function() { 
         editText.text = editText.text.removeRegexes([REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
     })
 })
@@ -18,7 +18,7 @@ EditText.prototype.validateDigits || (EditText.prototype.validateDigits = functi
 /** Unit measurements are decimal number paired with short text. */
 EditText.prototype.validateUnits || (EditText.prototype.validateUnits = function() {
     var editText = this
-    registerValidator(this, MATCH_UNITS, function() {
+    _registerValidator(this, MATCH_UNITS, function() {
         var s = editText.text.removeRegexes([REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
         var firstAlphabet = /[a-zA-Z]/.exec(s).index
         var left = s.substring(0, firstAlphabet).removeRegexes([REPLACE_TRAILING_SPACE])
@@ -35,7 +35,7 @@ EditText.prototype.validateUnits || (EditText.prototype.validateUnits = function
  * @param {Function} matchAction - optional runnable with old and new value arguments.
  * @return {void}
  */
-function registerValidator(editText, regex, matchAction) {
+function _registerValidator(editText, regex, matchAction) {
     var oldValue = editText.text
     editText.onActivate = function() { oldValue = editText.text }
     editText.onChange = function() {

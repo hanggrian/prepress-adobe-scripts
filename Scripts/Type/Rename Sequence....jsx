@@ -19,27 +19,28 @@ checkHasSelection()
 
 var dialog = Dialog('Rename sequence')
 
-dialog.sequence = dialog.root.addPanel('Sequence')
+dialog.sequence = dialog.root.addVPanel('Sequence')
 dialog.sequence.alignChildren = 'fill'
-dialog.sequence.stops = dialog.sequence.add('group')
+dialog.sequence.stops = dialog.sequence.addHGroup()
 dialog.sequence.stops.add('statictext', BOUNDS_TEXT, 'Stops at:').justify = 'right'
-dialog.sequence.stopsList = dialog.sequence.stops.add('dropdownlist', undefined, ALPHABETS)
-dialog.sequence.stopsList.selection = 1
-dialog.sequence.space = dialog.sequence.add('group')
+var stopsList = dialog.sequence.stops.add('dropdownlist', undefined, ALPHABETS)
+stopsList.selection = 1
+dialog.sequence.space = dialog.sequence.addHGroup()
 dialog.sequence.space.add('statictext', BOUNDS_TEXT, 'Add space:').justify = 'right'
-dialog.sequence.spaceCheck = dialog.sequence.space.add('checkbox', undefined)
+var spaceCheck = dialog.sequence.space.add('checkbox', undefined)
 
-dialog.reverse = dialog.root.add('group')
+dialog.reverse = dialog.root.addVGroup()
 dialog.reverse.alignment = 'right'
-dialog.reverseCheck = dialog.reverse.add('checkbox', undefined, 'Reverse order')
+var reverseCheck = dialog.reverse.add('checkbox', undefined, 'Reverse order')
 
 var prefix = 1
 var count = 0
 var stopsAt
 
-dialog.onAction(function() {
+dialog.addAction('Cancel')
+dialog.addAction('OK', function() {
     for (var i = 0; i < ALPHABETS.length; i++) {
-        if (ALPHABETS[i] == list.selection.text) {
+        if (ALPHABETS[i] == stopsList.selection.text) {
             stopsAt = i + 1
         }
     }

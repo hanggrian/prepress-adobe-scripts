@@ -30,71 +30,51 @@ var document = app.activeDocument
 var selection = document.selection
 
 var dialog = Dialog('Select links')
+dialog.root.horizontal()
 dialog.root.alignChildren = 'top'
 
-dialog.dimension = dialog.root.addPanel('Dimension')
-dialog.dimension.width = dialog.dimension.add('group')
+dialog.dimension = dialog.root.addVPanel('Dimension')
+dialog.dimension.width = dialog.dimension.addHGroup()
 dialog.dimension.width.add('statictext', BOUNDS_DIMENSION_TEXT, 'Width:').justify = 'right'
-dialog.dimension.widthEdit = dialog.dimension.width.add('edittext', BOUNDS_DIMENSION_EDIT)
-dialog.dimension.widthEdit.validateUnits()
-dialog.dimension.widthEdit.active = true
-dialog.dimension.height = dialog.dimension.add('group')
+var widthEdit = dialog.dimension.width.add('edittext', BOUNDS_DIMENSION_EDIT)
+widthEdit.validateUnits()
+widthEdit.active = true
+dialog.dimension.height = dialog.dimension.addHGroup()
 dialog.dimension.height.add('statictext', BOUNDS_DIMENSION_TEXT, 'Height:').justify = 'right'
-dialog.dimension.heightEdit = dialog.dimension.height.add('edittext', BOUNDS_DIMENSION_EDIT)
-dialog.dimension.heightEdit.validateUnits()
+var heightEdit = dialog.dimension.height.add('edittext', BOUNDS_DIMENSION_EDIT)
+heightEdit.validateUnits()
 
-dialog.file = dialog.root.addPanel('File types')
+dialog.file = dialog.root.addVPanel('File types')
 dialog.file.alignChildren = 'fill'
-dialog.fileAi = dialog.file.add('checkbox', undefined, getTypeString('Adobe Illustrator', FILE_AI))
-dialog.filePdf = dialog.file.add('checkbox', undefined, getTypeString('Adobe PDF', FILE_PDF))
-dialog.fileBmp = dialog.file.add('checkbox', undefined, getTypeString('BMP', FILE_BMP))
-dialog.fileGif = dialog.file.add('checkbox', undefined, getTypeString('GIF89a', FILE_GIF))
-dialog.fileJpeg = dialog.file.add('checkbox', undefined, getTypeString('JPEG', FILE_JPEG))
-dialog.fileJpeg2000 = dialog.file.add('checkbox', undefined, getTypeString('JPEG2000', FILE_JPEG2000))
-dialog.filePng = dialog.file.add('checkbox', undefined, getTypeString('PNG', FILE_PNG))
-dialog.filePsd = dialog.file.add('checkbox', undefined, getTypeString('Photoshop', FILE_PSD))
-dialog.fileTiff = dialog.file.add('checkbox', undefined, getTypeString('TIFF', FILE_TIFF))
+var aiCheck = dialog.file.add('checkbox', undefined, getTypeString('Adobe Illustrator', FILE_AI))
+var pdfCheck = dialog.file.add('checkbox', undefined, getTypeString('Adobe PDF', FILE_PDF))
+var bmpCheck = dialog.file.add('checkbox', undefined, getTypeString('BMP', FILE_BMP))
+var gifCheck = dialog.file.add('checkbox', undefined, getTypeString('GIF89a', FILE_GIF))
+var jpegCheck = dialog.file.add('checkbox', undefined, getTypeString('JPEG', FILE_JPEG))
+var jpeg2000Check = dialog.file.add('checkbox', undefined, getTypeString('JPEG2000', FILE_JPEG2000))
+var pngCheck = dialog.file.add('checkbox', undefined, getTypeString('PNG', FILE_PNG))
+var psdCheck = dialog.file.add('checkbox', undefined, getTypeString('Photoshop', FILE_PSD))
+var tiffCheck = dialog.file.add('checkbox', undefined, getTypeString('TIFF', FILE_TIFF))
 
-dialog.onAction(function() {
+dialog.addAction('Cancel')
+dialog.addAction('OK', function() {
     selectItems([SELECT_PLACED], function(item) {
         var extension = item.file.name.split('.').pop()
         var condition = true
         
-        var width = parseUnit(dialog.dimension.widthEdit.text)
-        if (width > 0) {
-            condition = condition && parseInt(width) == parseInt(item.width)
-        }
-        var height = parseUnit(dialog.dimension.heightEdit.text)
-        if (height > 0) {
-            condition = condition && parseInt(height) == parseInt(item.height)
-        }
-        if (dialog.fileAi.value) {
-            condition = condition && contains(FILE_AI, extension)
-        }
-        if (dialog.filePdf.value) {
-            condition = condition && contains(FILE_PDF, extension)
-        }
-        if (dialog.fileBmp.value) {
-            condition = condition && contains(FILE_BMP, extension)
-        }
-        if (dialog.fileGif.value) {
-            condition = condition && contains(FILE_GIF, extension)
-        }
-        if (dialog.fileJpeg.value) {
-            condition = condition && contains(FILE_JPEG, extension)
-        }
-        if (dialog.fileJpeg2000.value) {
-            condition = condition && contains(FILE_JPEG2000, extension)
-        }
-        if (dialog.filePng.value) {
-            condition = condition && contains(FILE_PNG, extension)
-        }
-        if (dialog.filePsd.value) {
-            condition = condition && contains(FILE_PSD, extension)
-        }
-        if (dialog.fileTiff.value) {
-            condition = condition && contains(FILE_TIFF, extension)
-        }
+        var width = parseUnit(widthEdit.text)
+        if (width > 0) condition = condition && parseInt(width) == parseInt(item.width)
+        var height = parseUnit(heightEdit.text)
+        if (height > 0) condition = condition && parseInt(height) == parseInt(item.height)
+        if (aiCheck.value) condition = condition && contains(FILE_AI, extension)
+        if (pdfCheck.value) condition = condition && contains(FILE_PDF, extension)
+        if (bmpCheck.value) condition = condition && contains(FILE_BMP, extension)
+        if (gifCheck.value) condition = condition && contains(FILE_GIF, extension)
+        if (jpegCheck.value) condition = condition && contains(FILE_JPEG, extension)
+        if (jpeg2000Check.value) condition = condition && contains(FILE_JPEG2000, extension)
+        if (pngCheck.value) condition = condition && contains(FILE_PNG, extension)
+        if (psdCheck.value) condition = condition && contains(FILE_PSD, extension)
+        if (tiffCheck.value) condition = condition && contains(FILE_TIFF, extension)
 
         return condition
     })

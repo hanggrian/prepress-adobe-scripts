@@ -1,11 +1,17 @@
+#include 'dialog.js'
+#include '../units.js'
 #include '../validator.js'
 
 const BOUNDS_DUPLICATE_TEXT = [0, 0, 45, 21]
 const BOUNDS_DUPLICATE_EDIT = [0, 0, 100, 21]
 const BOUNDS_DUPLICATE_EDIT_SMALL = [0, 0, 36, 21]
 
-Group.prototype.addDuplicate || (Group.prototype.addDuplicate = function() { return createDuplicate(this) })
-Panel.prototype.addDuplicate || (Panel.prototype.addDuplicate = function() { return createDuplicate(this) })
+var duplicateHEdit
+var duplicateVEdit
+var duplicateGapEdit
+
+Group.prototype.addDuplicateGroup || (Group.prototype.addDuplicateGroup = function() { return _createDuplicate(this) })
+Panel.prototype.addDuplicateGroup || (Panel.prototype.addDuplicateGroup = function() { return _createDuplicate(this) })
 
 /**
  * Add duplicate layout to target.
@@ -13,22 +19,21 @@ Panel.prototype.addDuplicate || (Panel.prototype.addDuplicate = function() { ret
  * @param {Object} target - a window, panel, or group
  * @return {Group}
  */
-function createDuplicate(target) {
-    var duplicate = target.add('group')
-    duplicate.orientation = 'column'
+function _createDuplicate(target) {
+    var duplicate = target.addVGroup()
 
-    duplicate.copies = duplicate.add('group')
+    duplicate.copies = duplicate.addHGroup()
     duplicate.copies.add('statictext', BOUNDS_DUPLICATE_TEXT, 'Copies:').justify = 'right'
-    duplicate.copiesHEdit = duplicate.copies.add('edittext', BOUNDS_DUPLICATE_EDIT_SMALL)
-    duplicate.copiesHEdit.validateDigits()
+    duplicateHEdit = duplicate.copies.add('edittext', BOUNDS_DUPLICATE_EDIT_SMALL)
+    duplicateHEdit.validateDigits()
     duplicate.copies.add('statictext', undefined, 'x')
-    duplicate.copiesVEdit = duplicate.copies.add('edittext', BOUNDS_DUPLICATE_EDIT_SMALL)
-    duplicate.copiesVEdit.validateDigits()
+    duplicateVEdit = duplicate.copies.add('edittext', BOUNDS_DUPLICATE_EDIT_SMALL)
+    duplicateVEdit.validateDigits()
 
-    duplicate.gap = duplicate.add('group')
+    duplicate.gap = duplicate.addHGroup()
     duplicate.gap.add('statictext', BOUNDS_DUPLICATE_TEXT, 'Gap:').justify = 'right'
-    duplicate.gapEdit = duplicate.gap.add('edittext', BOUNDS_DUPLICATE_EDIT)
-    duplicate.gapEdit.validateUnits()
+    duplicateGapEdit = duplicate.gap.add('edittext', BOUNDS_DUPLICATE_EDIT)
+    duplicateGapEdit.validateUnits()
     
     return duplicate
 }
@@ -36,14 +41,15 @@ function createDuplicate(target) {
 /**
  * Duplicate selected item, only support single selection.
  * 
- * @param {Number} horizontal - 
- * @param {Number} vertical - 
- * @param {Number} gap - 
  * @param {Function} horizontalRunnable - custom action that are executed during horizontal loop
  * @param {Function} verticalRunnable - custom action that are executed during vertical loop
  * @return {void}
  */
-function duplicate(horizontal, vertical, gap, horizontalRunnable, verticalRunnable) {
+function duplicate(horizontalRunnable, verticalRunnable) {
+    var horizontal = parseInt(duplicateHEdit.text) || 0
+    var vertical = parseInt(duplicateVEdit.text) || 0
+    var gap = parseUnit(duplicateGapEdit.text)
+
     var selectedItem = selection[0]
     var width = selectedItem.width
     var height = selectedItem.height
@@ -58,13 +64,17 @@ function duplicate(horizontal, vertical, gap, horizontalRunnable, verticalRunnab
         app.paste()
         var addedItem = selection[0]
         addedItem.position = [x, y - v * (height + gap)]
-        verticalRunnable(addedItem, h, v)
+        if (verticalRunnable !== undefined) {
+            verticalRunnable(addedItem, h, v)
+        }
 
         for (var h = 1; h < horizontal; h++) {
             app.paste()
             addedItem = selection[0]
             addedItem.position = [x + h * (width + gap), y - v * (height + gap)]
-            horizontalRunnable(addedItem, h, v)
+            if (horizontalRunnable !== undefined) {
+                horizontalRunnable(addedItem, h, v)
+            }
         }
     }
 }
