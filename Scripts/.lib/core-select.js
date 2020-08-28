@@ -1,3 +1,5 @@
+#include 'core.js'
+
 const SELECT_COMPOUND_PATH = 'CompoundPathItem'
 const SELECT_GRAPH = 'GraphItem'
 const SELECT_LEGACY_TEXT = 'LegacyTextItem'

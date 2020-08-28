@@ -1,6 +1,6 @@
 #target Illustrator
-#include '../.lib/sui/dialog.js'
-#include '../.lib/preconditions.js'
+#include '../.lib/core.js'
+#include '../.lib/ui.js'
 
 const ALPHABETS = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
@@ -10,35 +10,30 @@ const ALPHABETS = [
 
 const BOUNDS_TEXT = [0, 0, 65, 21]
 
-checkActiveDocument()
-
-var document = app.activeDocument
-var selection = document.selection
-
 checkHasSelection()
 
-var dialog = Dialog('Rename sequence')
+init('Rename sequence')
 
-dialog.sequence = dialog.root.addVPanel('Sequence')
-dialog.sequence.alignChildren = 'fill'
-dialog.sequence.stops = dialog.sequence.addHGroup()
-dialog.sequence.stops.add('statictext', BOUNDS_TEXT, 'Stops at:').justify = 'right'
-var stopsList = dialog.sequence.stops.add('dropdownlist', undefined, ALPHABETS)
+root.sequence = root.addVPanel('Sequence')
+root.sequence.alignChildren = 'fill'
+root.sequence.stops = root.sequence.addHGroup()
+root.sequence.stops.add('statictext', BOUNDS_TEXT, 'Stops at:').justify = 'right'
+var stopsList = root.sequence.stops.add('dropdownlist', undefined, ALPHABETS)
 stopsList.selection = 1
-dialog.sequence.space = dialog.sequence.addHGroup()
-dialog.sequence.space.add('statictext', BOUNDS_TEXT, 'Add space:').justify = 'right'
-var spaceCheck = dialog.sequence.space.add('checkbox', undefined)
+root.sequence.space = root.sequence.addHGroup()
+root.sequence.space.add('statictext', BOUNDS_TEXT, 'Add space:').justify = 'right'
+var spaceCheck = root.sequence.space.add('checkbox', undefined)
 
-dialog.reverse = dialog.root.addVGroup()
-dialog.reverse.alignment = 'right'
-var reverseCheck = dialog.reverse.add('checkbox', undefined, 'Reverse order')
+root.reverse = root.addVGroup()
+root.reverse.alignment = 'right'
+var reverseCheck = root.reverse.add('checkbox', undefined, 'Reverse order')
 
 var prefix = 1
 var count = 0
 var stopsAt
 
-dialog.addAction('Cancel')
-dialog.addAction('OK', function() {
+addAction('Cancel')
+addAction('OK', function() {
     for (var i = 0; i < ALPHABETS.length; i++) {
         if (ALPHABETS[i] == stopsList.selection.text) {
             stopsAt = i + 1
@@ -54,7 +49,7 @@ dialog.addAction('OK', function() {
         }
     }
 })
-dialog.show()
+show()
 
 function rename(item) {
     if (item.typename == 'TextFrame') {

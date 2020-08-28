@@ -4,47 +4,41 @@
  */
 
 #target Illustrator
-#include '../.lib/sui/dialog.js'
-#include '../.lib/preconditions.js'
-#include '../.lib/select.js'
+#include '../.lib/core-select.js'
+#include '../.lib/ui.js'
 
 const BOUNDS = [0, 0, 115, 15]
 
-checkActiveDocument()
+init('Select by types')
 
-var document = app.activeDocument
-var selection = document.selection
+root.imports = root.addVPanel('Imports')
+root.imports1 = root.imports.addHGroup()
+var placedCheck = root.imports1.add('checkbox', BOUNDS, 'Linked file')
+var nonNativeCheck = root.imports1.add('checkbox', BOUNDS, 'Non-native art')
+root.imports2 = root.imports.addHGroup()
+var rasterCheck = root.imports2.add('checkbox', BOUNDS, 'Image')
+var pluginCheck = root.imports2.add('checkbox', BOUNDS, 'Plugin')
 
-var dialog = Dialog('Select by types')
+root.paths = root.addVPanel('Paths')
+root.paths1 = root.paths.addHGroup()
+var pathCheck = root.paths1.add('checkbox', BOUNDS, 'Path')
+var compoundPathCheck = root.paths1.add('checkbox', BOUNDS, 'Compound path')
 
-dialog.imports = dialog.root.addVPanel('Imports')
-dialog.imports1 = dialog.imports.addHGroup()
-var placedCheck = dialog.imports1.add('checkbox', BOUNDS, 'Linked file')
-var nonNativeCheck = dialog.imports1.add('checkbox', BOUNDS, 'Non-native art')
-dialog.imports2 = dialog.imports.addHGroup()
-var rasterCheck = dialog.imports2.add('checkbox', BOUNDS, 'Image')
-var pluginCheck = dialog.imports2.add('checkbox', BOUNDS, 'Plugin')
+root.types = root.addVPanel('Types')
+root.types1 = root.types.addHGroup()
+var textFrameCheck = root.types1.add('checkbox', BOUNDS, 'Text frame')
+var legacyTextCheck = root.types1.add('checkbox', BOUNDS, 'Legacy text')
 
-dialog.paths = dialog.root.addVPanel('Paths')
-dialog.paths1 = dialog.paths.addHGroup()
-var pathCheck = dialog.paths1.add('checkbox', BOUNDS, 'Path')
-var compoundPathCheck = dialog.paths1.add('checkbox', BOUNDS, 'Compound path')
+root.others = root.addVPanel('Others')
+root.others.alignChildren = 'fill'
+root.others1 = root.others.addHGroup()
+var symbolCheck = root.others1.add('checkbox', BOUNDS, 'Symbol')
+var meshCheck = root.others1.add('checkbox', BOUNDS, 'Mesh')
+root.others2 = root.others.addHGroup()
+var graphCheck = root.others2.add('checkbox', BOUNDS, 'Graph')
 
-dialog.types = dialog.root.addVPanel('Types')
-dialog.types1 = dialog.types.addHGroup()
-var textFrameCheck = dialog.types1.add('checkbox', BOUNDS, 'Text frame')
-var legacyTextCheck = dialog.types1.add('checkbox', BOUNDS, 'Legacy text')
-
-dialog.others = dialog.root.addVPanel('Others')
-dialog.others.alignChildren = 'fill'
-dialog.others1 = dialog.others.addHGroup()
-var symbolCheck = dialog.others1.add('checkbox', BOUNDS, 'Symbol')
-var meshCheck = dialog.others1.add('checkbox', BOUNDS, 'Mesh')
-dialog.others2 = dialog.others.addHGroup()
-var graphCheck = dialog.others2.add('checkbox', BOUNDS, 'Graph')
-
-dialog.addAction('Cancel')
-dialog.addAction('OK', function() {
+addAction('Cancel')
+addAction('OK', function() {
     var allowedTypes = []
     if (compoundPathCheck.value) allowedTypes.push(SELECT_COMPOUND_PATH)
     else if (graphCheck.value) allowedTypes.push(SELECT_GRAPH)
@@ -59,4 +53,4 @@ dialog.addAction('OK', function() {
     else if (textFrameCheck.value) allowedTypes.push(SELECT_TEXT_FRAME)
     selectItems(allowedTypes, function(_) { return true })
 })
-dialog.show()
+show()

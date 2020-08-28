@@ -4,11 +4,9 @@
  */
 
 #target Illustrator
-#include '../.lib/sui/dialog.js'
-#include '../.lib/preconditions.js'
-#include '../.lib/select.js'
-#include '../.lib/units.js'
-#include '../.lib/validator.js'
+#include '../.lib/ui-validator.js'
+#include '../.lib/core-select.js'
+#include '../.lib/core-units.js'
 
 const FILE_AI = ['ai']
 const FILE_PDF = ['pdf']
@@ -24,40 +22,35 @@ const BOUNDS_DIMENSION_TEXT = [0, 0, 45, 21]
 const BOUNDS_DIMENSION_EDIT = [0, 0, 100, 21]
 const BOUNDS_COLOR_TEXT = [0, 0, 45, 21]
 
-checkActiveDocument()
+init('Select links')
+root.horizontal()
+root.alignChildren = 'top'
 
-var document = app.activeDocument
-var selection = document.selection
-
-var dialog = Dialog('Select links')
-dialog.root.horizontal()
-dialog.root.alignChildren = 'top'
-
-dialog.dimension = dialog.root.addVPanel('Dimension')
-dialog.dimension.width = dialog.dimension.addHGroup()
-dialog.dimension.width.add('statictext', BOUNDS_DIMENSION_TEXT, 'Width:').justify = 'right'
-var widthEdit = dialog.dimension.width.add('edittext', BOUNDS_DIMENSION_EDIT)
+root.dimension = root.addVPanel('Dimension')
+root.dimension.width = root.dimension.addHGroup()
+root.dimension.width.add('statictext', BOUNDS_DIMENSION_TEXT, 'Width:').justify = 'right'
+var widthEdit = root.dimension.width.add('edittext', BOUNDS_DIMENSION_EDIT)
 widthEdit.validateUnits()
 widthEdit.active = true
-dialog.dimension.height = dialog.dimension.addHGroup()
-dialog.dimension.height.add('statictext', BOUNDS_DIMENSION_TEXT, 'Height:').justify = 'right'
-var heightEdit = dialog.dimension.height.add('edittext', BOUNDS_DIMENSION_EDIT)
+root.dimension.height = root.dimension.addHGroup()
+root.dimension.height.add('statictext', BOUNDS_DIMENSION_TEXT, 'Height:').justify = 'right'
+var heightEdit = root.dimension.height.add('edittext', BOUNDS_DIMENSION_EDIT)
 heightEdit.validateUnits()
 
-dialog.file = dialog.root.addVPanel('File types')
-dialog.file.alignChildren = 'fill'
-var aiCheck = dialog.file.add('checkbox', undefined, getTypeString('Adobe Illustrator', FILE_AI))
-var pdfCheck = dialog.file.add('checkbox', undefined, getTypeString('Adobe PDF', FILE_PDF))
-var bmpCheck = dialog.file.add('checkbox', undefined, getTypeString('BMP', FILE_BMP))
-var gifCheck = dialog.file.add('checkbox', undefined, getTypeString('GIF89a', FILE_GIF))
-var jpegCheck = dialog.file.add('checkbox', undefined, getTypeString('JPEG', FILE_JPEG))
-var jpeg2000Check = dialog.file.add('checkbox', undefined, getTypeString('JPEG2000', FILE_JPEG2000))
-var pngCheck = dialog.file.add('checkbox', undefined, getTypeString('PNG', FILE_PNG))
-var psdCheck = dialog.file.add('checkbox', undefined, getTypeString('Photoshop', FILE_PSD))
-var tiffCheck = dialog.file.add('checkbox', undefined, getTypeString('TIFF', FILE_TIFF))
+root.file = root.addVPanel('File types')
+root.file.alignChildren = 'fill'
+var aiCheck = root.file.add('checkbox', undefined, getTypeString('Adobe Illustrator', FILE_AI))
+var pdfCheck = root.file.add('checkbox', undefined, getTypeString('Adobe PDF', FILE_PDF))
+var bmpCheck = root.file.add('checkbox', undefined, getTypeString('BMP', FILE_BMP))
+var gifCheck = root.file.add('checkbox', undefined, getTypeString('GIF89a', FILE_GIF))
+var jpegCheck = root.file.add('checkbox', undefined, getTypeString('JPEG', FILE_JPEG))
+var jpeg2000Check = root.file.add('checkbox', undefined, getTypeString('JPEG2000', FILE_JPEG2000))
+var pngCheck = root.file.add('checkbox', undefined, getTypeString('PNG', FILE_PNG))
+var psdCheck = root.file.add('checkbox', undefined, getTypeString('Photoshop', FILE_PSD))
+var tiffCheck = root.file.add('checkbox', undefined, getTypeString('TIFF', FILE_TIFF))
 
-dialog.addAction('Cancel')
-dialog.addAction('OK', function() {
+addAction('Cancel')
+addAction('OK', function() {
     selectItems([SELECT_PLACED], function(item) {
         var extension = item.file.name.split('.').pop()
         var condition = true
@@ -79,7 +72,7 @@ dialog.addAction('OK', function() {
         return condition
     })
 })
-dialog.show()
+show()
 
 function getTypeString(prefix, suffix) {
     var s = ''

@@ -1,23 +1,29 @@
-function Dialog(title) {
-    var dialog = new Window('dialog', title)
+var dialog
+var root
+var actions
+
+function init(title) {
+    dialog = new Window('dialog', title)
     dialog.orientation = 'column'
     dialog.alignChildren = 'right'
-    dialog.root = dialog.addVGroup()
-    dialog.actions = dialog.addHGroup()
+    root = dialog.addVGroup()
+    actions = dialog.addHGroup()
     return dialog
 }
 
-Window.prototype.addAction || (Window.prototype.addAction = function(text, onAction) { 
-    var dialog = this
-    var action = dialog.actions.add('button', undefined, text)
+function addAction(text, onAction) {
+    var action = actions.add('button', undefined, text)
     if (onAction !== undefined) {
         action.onClick = function() {
             dialog.close()
             onAction()
         }
     }
-    return action
-})
+}
+
+function show() {
+    dialog.show()
+}
 
 Group.prototype.addHGroup || (Group.prototype.addHGroup = function() { return _createGroup(this, true) })
 Panel.prototype.addHGroup || (Panel.prototype.addHGroup = function() { return _createGroup(this, true) })

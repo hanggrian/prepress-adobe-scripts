@@ -1,3 +1,5 @@
+#include 'core.js'
+
 const MULTIPLIER_CM = 28.346
 const MULTIPLIER_INCH = 72
 const MULTIPLIER_MM = 2.834645

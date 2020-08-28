@@ -3,14 +3,9 @@
  */
 
 #target Illustrator
-#include '.lib/preconditions.js'
+#include '.lib/core.js'
 
-checkActiveDocument()
-if (app.documents.length == 1) {
-    throw 'No other tabs'
-}
-
-var document = app.activeDocument
+check(app.documents.length > 1, 'No other tabs')
 
 if (confirm('Close all other documents without saving?', undefined, 'Close other tabs')) {
     for (var i = 0; i < app.documents.length; i++) {

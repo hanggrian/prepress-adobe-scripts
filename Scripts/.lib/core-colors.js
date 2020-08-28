@@ -1,3 +1,5 @@
+#include 'core.js'
+
 const COLORS = ['Registration', 'White', '-', 'Cyan', 'Magenta', 'Yellow', 'Black']
 
 const COLOR_WHITE = new CMYKColor()

@@ -4,47 +4,39 @@
  */
 
 #target Illustrator
-#include '../.lib/sui/dialog.js'
-#include '../.lib/colors.js'
-#include '../.lib/preconditions.js'
-#include '../.lib/select.js'
-#include '../.lib/units.js'
-#include '../.lib/validator.js'
+#include '../.lib/ui-validator.js'
+#include '../.lib/core-all.js'
+
 
 const BOUNDS_DIMENSION_TEXT = [0, 0, 45, 21]
 const BOUNDS_DIMENSION_EDIT = [0, 0, 100, 21]
 const BOUNDS_COLOR_TEXT = [0, 0, 45, 21]
 
-checkActiveDocument()
+init('Select paths')
+root.horizontal()
+root.alignChildren = 'top'
 
-var document = app.activeDocument
-var selection = document.selection
-
-var dialog = Dialog('Select paths')
-dialog.root.horizontal()
-dialog.root.alignChildren = 'top'
-
-dialog.dimension = dialog.root.addVPanel('Dimension')
-dialog.dimension.width = dialog.dimension.addHGroup()
-dialog.dimension.width.add('statictext', BOUNDS_DIMENSION_TEXT, 'Width:').justify = 'right'
-var widthEdit = dialog.dimension.width.add('edittext', BOUNDS_DIMENSION_EDIT)
+root.dimension = root.addVPanel('Dimension')
+root.dimension.width = root.dimension.addHGroup()
+root.dimension.width.add('statictext', BOUNDS_DIMENSION_TEXT, 'Width:').justify = 'right'
+var widthEdit = root.dimension.width.add('edittext', BOUNDS_DIMENSION_EDIT)
 widthEdit.validateUnits()
 widthEdit.active = true
-dialog.dimension.height = dialog.dimension.addHGroup()
-dialog.dimension.height.add('statictext', BOUNDS_DIMENSION_TEXT, 'Height:').justify = 'right'
-var heightEdit = dialog.dimension.height.add('edittext', BOUNDS_DIMENSION_EDIT)
+root.dimension.height = root.dimension.addHGroup()
+root.dimension.height.add('statictext', BOUNDS_DIMENSION_TEXT, 'Height:').justify = 'right'
+var heightEdit = root.dimension.height.add('edittext', BOUNDS_DIMENSION_EDIT)
 heightEdit.validateUnits()
 
-dialog.color = dialog.root.addVPanel('Color')
-dialog.color.fill = dialog.color.addHGroup()
-dialog.color.fill.add('statictext', BOUNDS_COLOR_TEXT, 'Fill:').justify = 'right'
-var fillList = dialog.color.fill.add('dropdownlist', undefined, COLORS)
-dialog.color.stroke = dialog.color.addHGroup()
-dialog.color.stroke.add('statictext', BOUNDS_COLOR_TEXT, 'Stroke:').justify = 'right'
-var strokeList = dialog.color.stroke.add('dropdownlist', undefined, COLORS)
+root.color = root.addVPanel('Color')
+root.color.fill = root.color.addHGroup()
+root.color.fill.add('statictext', BOUNDS_COLOR_TEXT, 'Fill:').justify = 'right'
+var fillList = root.color.fill.add('dropdownlist', undefined, COLORS)
+root.color.stroke = root.color.addHGroup()
+root.color.stroke.add('statictext', BOUNDS_COLOR_TEXT, 'Stroke:').justify = 'right'
+var strokeList = root.color.stroke.add('dropdownlist', undefined, COLORS)
 
-dialog.addAction('Cancel')
-dialog.addAction('OK', function() {
+addAction('Cancel')
+addAction('OK', function() {
     selectItems([SELECT_PATH], function(item) {
         var condition = true
         var width = parseInt(parseUnit(widthEdit.text))
@@ -56,4 +48,4 @@ dialog.addAction('OK', function() {
         return condition
     })
 })
-dialog.show()
+show()
