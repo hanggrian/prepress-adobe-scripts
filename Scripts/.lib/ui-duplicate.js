@@ -1,5 +1,5 @@
-#include '../.lib/core-units.js'
-#include '../.lib/ui-validator.js'
+#include 'core-units.js'
+#include 'ui-validator.js'
 
 const BOUNDS_DUPLICATE_TEXT = [0, 0, 45, 21]
 const BOUNDS_DUPLICATE_EDIT = [0, 0, 100, 21]

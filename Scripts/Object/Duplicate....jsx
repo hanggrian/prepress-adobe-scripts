@@ -1,5 +1,5 @@
 #target Illustrator
-#include '.duplicate.js'
+#include '../.lib/ui-duplicate.js'
 
 const BOUNDS_TEXT = [0, 0, 50, 21]
 const BOUNDS_EDIT = [0, 0, 100, 21]

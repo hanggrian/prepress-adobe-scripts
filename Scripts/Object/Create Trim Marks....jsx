@@ -4,8 +4,8 @@
  */
 
 #target Illustrator
-#include '.duplicate.js'
 #include '../.lib/core-colors.js'
+#include '../.lib/ui-duplicate.js'
 
 const LOCATION_TOP_LEFT = 11
 const LOCATION_TOP_RIGHT = 1
