@@ -1,5 +1,5 @@
 #target Illustrator
-#include '../.lib/core.js'
+#include '../../.lib/core.js'
 
 checkEvenArtboards()
 

@@ -29,7 +29,6 @@ function selectItems(allowedTypes, callable) {
             _determineItem(selection[i], allowedTypes, callable)
         }
     }
-
     selection = _selectedItems
 }
 

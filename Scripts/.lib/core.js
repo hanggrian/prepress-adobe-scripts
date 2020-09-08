@@ -8,7 +8,7 @@ function check(requirement, errorMessage) {
         if (errorMessage !== undefined) {
             throw errorMessage
         } else {
-            throw 'Requirement failed'
+            throw 'Failed requirement'
         }
     }
 }
@@ -33,4 +33,11 @@ function checkMultipleSelection() {
 
 function checkTypename(item, typename) {
     check(item.typename == typename, 'Selected item is not a ' + typename)
+}
+
+function getClippingPath(item) {
+    if (item instanceof GroupItem && item.clipped) {
+        return item.pathItems[0]
+    }
+    return item
 }

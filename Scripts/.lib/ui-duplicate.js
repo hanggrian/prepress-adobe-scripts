@@ -49,14 +49,15 @@ function duplicate(horizontalRunnable, verticalRunnable) {
     var vertical = parseInt(duplicateVEdit.text) || 0
     var gap = parseUnit(duplicateGapEdit.text)
 
-    var selectedItem = selection[0]
-    var width = selectedItem.width
-    var height = selectedItem.height
-    var x = selectedItem.position[0]
-    var y = selectedItem.position[1]
+    var target = selection[0]
+    var actualTarget = getClippingPath(target)
+    var width = actualTarget.width
+    var height = actualTarget.height
+    var x = target.position[0]
+    var y = target.position[1]
 
     app.copy()
-    selectedItem.remove()
+    target.remove()
 
     // vertical is 0 because the starting point doesn't change
     for (var v = 0; v < vertical; v++) {

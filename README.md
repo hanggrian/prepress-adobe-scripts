@@ -16,5 +16,6 @@ JavaScript Reference:
 
 Usage
 -----
-Copy & paste all files and folders within `Scripts` directory to `Ai installation path/Presets/en_US/Scripts`.
+Copy & paste all files and folders within `Scripts` directory to `Ai installation path/Presets/en_US/Scripts`. Alternatively, run `scripts-patcher.bat` as admin (Windows) or `scripts-patcher.sh` with sudo (Mac) for automatic find and replace scripts.
+
 The scripts can then be accessible from `Ai menu bar > File > Scripts`
