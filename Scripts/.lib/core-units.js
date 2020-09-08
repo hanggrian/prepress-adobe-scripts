@@ -1,14 +1,13 @@
 #include 'core.js'
 
-const MULTIPLIER_CM = 28.346
-const MULTIPLIER_INCH = 72
-const MULTIPLIER_MM = 2.834645
-const MULTIPLIER_PICA = 12
-const MULTIPLIER_Q = 0.709
+var MULTIPLIER_CM = 28.346
+var MULTIPLIER_INCH = 72
+var MULTIPLIER_MM = 2.834645
+var MULTIPLIER_PICA = 12
+var MULTIPLIER_Q = 0.709
 
 /**
  * Converts text to unit value by dividing parts to value and unit type.
- * 
  * @param {String} text - text to convert
  * @return {Number}
  */

@@ -1,25 +1,21 @@
 #include 'core-units.js'
 #include 'ui-validator.js'
 
-const BOUNDS_DUPLICATE_TEXT = [0, 0, 45, 21]
-const BOUNDS_DUPLICATE_EDIT = [0, 0, 100, 21]
-const BOUNDS_DUPLICATE_EDIT_SMALL = [0, 0, 36, 21]
+var BOUNDS_DUPLICATE_TEXT = [0, 0, 45, 21]
+var BOUNDS_DUPLICATE_EDIT = [0, 0, 100, 21]
+var BOUNDS_DUPLICATE_EDIT_SMALL = [0, 0, 36, 21]
 
 var duplicateHEdit
 var duplicateVEdit
 var duplicateGapEdit
 
-Group.prototype.addDuplicateGroup || (Group.prototype.addDuplicateGroup = function() { return _createDuplicate(this) })
-Panel.prototype.addDuplicateGroup || (Panel.prototype.addDuplicateGroup = function() { return _createDuplicate(this) })
-
 /**
  * Add duplicate layout to target.
- * 
- * @param {Object} target - a window, panel, or group
+ * @this {Object} - may be a Group, Panel, or Window
  * @return {Group}
  */
-function _createDuplicate(target) {
-    var duplicate = target.addVGroup()
+Object.prototype.addDuplicateGroup = function() {
+    var duplicate = this.addVGroup()
 
     duplicate.copies = duplicate.addHGroup()
     duplicate.copies.add('statictext', BOUNDS_DUPLICATE_TEXT, 'Copies:').justify = 'right'
@@ -39,9 +35,8 @@ function _createDuplicate(target) {
 
 /**
  * Duplicate selected item, only support single selection.
- * 
- * @param {Function} horizontalRunnable - custom action that are executed during horizontal loop
- * @param {Function} verticalRunnable - custom action that are executed during vertical loop
+ * @param {Function} horizontalRunnable - nullable custom action
+ * @param {Function} verticalRunnable - nullable custom action
  * @return {void}
  */
 function duplicate(horizontalRunnable, verticalRunnable) {
@@ -50,9 +45,9 @@ function duplicate(horizontalRunnable, verticalRunnable) {
     var gap = parseUnit(duplicateGapEdit.text)
 
     var target = selection[0]
-    var actualTarget = getClippingPath(target)
-    var width = actualTarget.width
-    var height = actualTarget.height
+    var clippingTarget = target.getClippingPathItem()
+    var width = clippingTarget.width
+    var height = clippingTarget.height
     var x = target.position[0]
     var y = target.position[1]
 

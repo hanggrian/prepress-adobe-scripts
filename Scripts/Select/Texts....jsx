@@ -7,8 +7,10 @@
 #include '../.lib/ui-validator.js'
 #include '../.lib/core-all.js'
 
-const BOUNDS_CHARACTERS_TEXT = [0, 0, 65, 21]
-const BOUNDS_COLOR_TEXT = [0, 0, 45, 21]
+var BOUNDS_CHARACTERS_TEXT = [0, 0, 65, 21]
+var BOUNDS_COLOR_TEXT = [0, 0, 45, 21]
+
+allowSelectionType(SELECT_TEXT_FRAME)
 
 init('Select texts')
 root.horizontal()
@@ -36,7 +38,7 @@ var strokeList = root.color.stroke.add('dropdownlist', undefined, COLORS)
 
 addAction('Cancel')
 addAction('OK', function() {
-    selectItems([SELECT_TEXT_FRAME], function(item) {
+    selectAll(function(item) {
         var attr = item.textRange.characterAttributes
         var condition = true
         var fontSize = parseInt(fontEdit.text) || 0

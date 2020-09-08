@@ -12,21 +12,21 @@
 #include '../.lib/core-colors.js'
 #include '../.lib/ui-duplicate.js'
 
-const LOCATION_TOP_LEFT = 11
-const LOCATION_TOP_RIGHT = 1
-const LOCATION_RIGHT_TOP = 2
-const LOCATION_RIGHT_BOTTOM = 4
-const LOCATION_BOTTOM_RIGHT = 5
-const LOCATION_BOTTOM_LEFT = 7
-const LOCATION_LEFT_BOTTOM = 8
-const LOCATION_LEFT_TOP = 10
+var LOCATION_TOP_LEFT = 11
+var LOCATION_TOP_RIGHT = 1
+var LOCATION_RIGHT_TOP = 2
+var LOCATION_RIGHT_BOTTOM = 4
+var LOCATION_BOTTOM_RIGHT = 5
+var LOCATION_BOTTOM_LEFT = 7
+var LOCATION_LEFT_BOTTOM = 8
+var LOCATION_LEFT_TOP = 10
 
-const DEFAULT_WEIGHT = 0.3 // the same value used in `Object > Create Trim Marks`
+var DEFAULT_WEIGHT = 0.3 // the same value used in `Object > Create Trim Marks`
 
-const BOUNDS_TEXT = [0, 0, 60, 21]
-const BOUNDS_EDIT = [0, 0, 100, 21]
-const BOUNDS_CHECK = [0, 0, 13, 13]
-const BOUNDS_EDIT_SMALL = [0, 0, 36, 21]
+var BOUNDS_TEXT = [0, 0, 60, 21]
+var BOUNDS_EDIT = [0, 0, 100, 21]
+var BOUNDS_CHECK = [0, 0, 13, 13]
+var BOUNDS_EDIT_SMALL = [0, 0, 36, 21]
 
 checkSingleSelection()
 
@@ -102,14 +102,19 @@ bottomRightCheck.value = true
 root.lower.alignChildren = 'fill'
 root.duplicate = root.lower.addDuplicateGroup()
 
+addAction('Delete', function() { process(true) })
+actions.add('statictext', [0, 0, 90, 0])
 addAction('Cancel')
-addAction('OK', function() { 
+addAction('OK', function() { process(false) })
+show()
+
+function process(isDelete) {
     var offset = parseUnit(offsetEdit.text)
     var length = parseUnit(lengthEdit.text)
     var weight = parseUnit(weightEdit.text)
     var color = parseColor(colorList.selection.text)
     var locations = []
-    var paths = []
+    var marks = []
     
     var horizontal = parseInt(duplicateHEdit.text) || 0
     var vertical = parseInt(duplicateVEdit.text) || 0
@@ -124,7 +129,8 @@ addAction('OK', function() {
         if (leftBottomCheck.value) locations.push(LOCATION_LEFT_BOTTOM)
         if (leftTopCheck.value) locations.push(LOCATION_LEFT_TOP)
 
-        paths = paths.concat(createCropMarks(selection[0], offset, length, weight, color, locations))
+        marks = marks.concat(createCropMarks(selection[0], offset, length, weight, color, locations))
+        if (isDelete) selection[0].remove()
     } else {
         // currently ignore location checkboxes in duplication
         duplicate(function(item, h, v) {
@@ -138,8 +144,9 @@ addAction('OK', function() {
             if (v == vertical - 1) {
                 locations.push(LOCATION_BOTTOM_LEFT, LOCATION_BOTTOM_RIGHT)
             }
-            paths = paths.concat(createCropMarks(item, offset, length, weight, color, locations))
-        }, function(item, h, v) {
+            marks = marks.concat(createCropMarks(item, offset, length, weight, color, locations))
+            if (isDelete) item.remove()
+        }, function(item, _, v) {
             locations = [LOCATION_LEFT_BOTTOM, LOCATION_LEFT_TOP]
             if (v == 0) {
                 locations.push(LOCATION_TOP_LEFT, LOCATION_TOP_RIGHT)
@@ -147,16 +154,15 @@ addAction('OK', function() {
             if (v == vertical - 1) {
                 locations.push(LOCATION_BOTTOM_LEFT, LOCATION_BOTTOM_RIGHT)
             }
-            paths = paths.concat(createCropMarks(item, offset, length, weight, color, locations))
+            marks = marks.concat(createCropMarks(item, offset, length, weight, color, locations))
+            if (isDelete) item.remove()
         })
     }
-    selection = paths
-})
-show()
+    selection = marks
+}
 
 /**
  * Create multiple crop marks around target. The marks are created with clockwise ordering.
- * 
  * @param {PageItem} target - art where crop marks will be applied to
  * @param {Number} offset - space between target and crop marks
  * @param {Number} length - crop marks' width
@@ -166,118 +172,114 @@ show()
  * @return {Array} created crop marks
  */
 function createCropMarks(target, offset, length, weight, color, locations) {
-    var paths = []
-    var actualTarget = getClippingPath(target)
-    var width = actualTarget.width
-    var height = actualTarget.height
-    var startX = actualTarget.position[0]
+    var marks = []
+    var clippingTarget = target.getClippingPathItem()
+    var width = clippingTarget.width
+    var height = clippingTarget.height
+    var startX = clippingTarget.position[0]
     var endX = startX + width
-    var startY = actualTarget.position[1]
+    var startY = clippingTarget.position[1]
     var endY = startY - height
 
     for (var i = 0; i < locations.length; i++) {
-        switch (locations[i]) {
-            case LOCATION_TOP_LEFT: 
-                paths.push(createCropMark(
+        var location = locations[i]
+        switch (location) {
+            case LOCATION_TOP_LEFT:
+                marks.push(createCropMark(
+                    'TOP_LEFT', weight, color,
                     startX,
                     startY + offset,
                     startX,
-                    startY + offset + length,
-                    weight,
-                    color
+                    startY + offset + length
                 ))
                 break;
             case LOCATION_TOP_RIGHT:
-                paths.push(createCropMark(
+                marks.push(createCropMark(
+                    'TOP_RIGHT', weight, color,
                     endX,
                     startY + offset,
                     endX,
-                    startY + offset + length,
-                    weight,
-                    color
+                    startY + offset + length
                 ))
                 break;
             case LOCATION_RIGHT_TOP: 
-                paths.push(createCropMark(
+                marks.push(createCropMark(
+                    'RIGHT_TOP', weight, color,
                     endX + offset,
                     startY,
                     endX + offset + length,
-                    startY,
-                    weight,
-                    color
+                    startY
                 ))
                 break;
             case LOCATION_RIGHT_BOTTOM: 
-                paths.push(createCropMark(
+                marks.push(createCropMark(
+                    'RIGHT_BOTTOM', weight, color,
                     endX + offset,
                     endY,
                     endX + offset + length,
-                    endY,
-                    weight,
-                    color
+                    endY
                 ))
                 break;
             case LOCATION_BOTTOM_RIGHT: 
-                paths.push(createCropMark(
+                marks.push(createCropMark(
+                    'BOTTOM_RIGHT', weight, color,
                     endX,
                     endY - offset,
                     endX,
-                    endY - offset - length,
-                    weight, color
+                    endY - offset - length
                 ))
                 break;
             case LOCATION_BOTTOM_LEFT: 
-                paths.push(createCropMark(
+                marks.push(createCropMark(
+                    'BOTTOM_LEFT', weight, color,
                     startX,
                     endY - offset,
                     startX,
-                    endY - offset - length,
-                    weight,
-                    color
+                    endY - offset - length
                 ))       
                 break;
             case LOCATION_LEFT_BOTTOM: 
-                paths.push(createCropMark(
+                marks.push(createCropMark(
+                    'LEFT_BOTTOM', weight, color,
                     startX - offset,
                     endY,
                     startX - offset - length,
-                    endY,
-                    weight, color
+                    endY
                 ))
                 break;
             case LOCATION_LEFT_TOP: 
-                paths.push(createCropMark(
+                marks.push(createCropMark(
+                    'LEFT_TOP', weight, color,
                     startX - offset,
                     startY,
                     startX - offset - length,
-                    startY,
-                    weight,
-                    color
+                    startY
                 ))
                 break;
             default:
-                throw 'Unrecognizable location ' + locations[i]
+                throw 'Unrecognizable location ' + location
         }
     }
-    return paths
+    return marks
 }
 
 /**
  * Create individual crop mark from point A to point B.
- * 
- * @param {number} fromX - starting X point
- * @param {number} fromY - starting Y point
- * @param {number} toX - destination X point
- * @param {number} toY - destination Y point
- * @param {number} weight - crop marks' stroke width
+ * @param {String} suffixName - item name in the layer
+ * @param {Number} weight - crop marks' stroke width
  * @param {CMYKColor} color - crop marks' color
+ * @param {Number} fromX - starting X point
+ * @param {Number} fromY - starting Y point
+ * @param {Number} toX - destination X point
+ * @param {Number} toY - destination Y point
  * @return {PathItem} created crop mark
  */
-function createCropMark(fromX, fromY, toX, toY, weight, color) {
+function createCropMark(suffixName, weight, color, fromX, fromY, toX, toY) {
     var mark = document.pathItems.add()
+    mark.name = 'Crop ' + suffixName
     mark.fillColor = COLOR_NONE
     mark.strokeColor = color
-    mark.strokeWidth = weight
+    mark.strokeWidth = weight // important to set weight before color
 
     var fromPosition = [fromX, fromY]
     var fromPoint = mark.pathPoints.add()

@@ -2,6 +2,11 @@ var dialog
 var root
 var actions
 
+/**
+ * Initialize a dialog.
+ * @param title - dialog title
+ * @return {void}
+ */
 function init(title) {
     dialog = new Window('dialog', title)
     dialog.orientation = 'column'
@@ -11,6 +16,12 @@ function init(title) {
     return dialog
 }
 
+/**
+ * Add dialog action.
+ * @param text - button text
+ * @param onAction - button onClick
+ * @return {void}
+ */
 function addAction(text, onAction) {
     var action = actions.add('button', undefined, text)
     if (onAction !== undefined) {
@@ -21,48 +32,76 @@ function addAction(text, onAction) {
     }
 }
 
+/**
+ * Show dialog.
+ * @return {void}
+ */
 function show() {
     dialog.show()
 }
 
-Group.prototype.addHGroup || (Group.prototype.addHGroup = function() { return _createGroup(this, true) })
-Panel.prototype.addHGroup || (Panel.prototype.addHGroup = function() { return _createGroup(this, true) })
-Window.prototype.addHGroup || (Window.prototype.addHGroup = function() { return _createGroup(this, true) })
-Group.prototype.addVGroup || (Group.prototype.addVGroup = function() { return _createGroup(this, false) })
-Panel.prototype.addVGroup || (Panel.prototype.addVGroup = function() { return _createGroup(this, false) })
-Window.prototype.addVGroup || (Window.prototype.addVGroup = function() { return _createGroup(this, false) })
-
-function _createGroup(target, isHorizontal) {
-    var group = target.add('group')
-    _orientate(group, isHorizontal)
+/**
+ * Add horizontal group to target.
+ * @this {Object} - may be a Group, Panel, or Window
+ * @return {Group}
+ */
+Object.prototype.addHGroup = function() {
+    var group = this.add('group')
+    group.horizontal()
     return group
 }
 
-Group.prototype.addHPanel || (Group.prototype.addHPanel = function(title) { return _createPanel(this, true, title) })
-Panel.prototype.addHPanel || (Panel.prototype.addHPanel = function(title) { return _createPanel(this, true, title) })
-Window.prototype.addHPanel || (Window.prototype.addHPanel = function(title) { return _createPanel(this, true, title) })
-Group.prototype.addVPanel || (Group.prototype.addVPanel = function(title) { return _createPanel(this, false, title) })
-Panel.prototype.addVPanel || (Panel.prototype.addVPanel = function(title) { return _createPanel(this, false, title) })
-Window.prototype.addVPanel || (Window.prototype.addVPanel = function(title) { return _createPanel(this, false, title) })
+/**
+ * Add vertical group to target.
+ * @this {Object} - may be a Group, Panel, or Window
+ * @return {Group}
+ */
+Object.prototype.addVGroup = function() {
+    var group = this.add('group')
+    group.vertical()
+    return group
+}
 
-function _createPanel(target, isHorizontal, title) {
-    var panel = target.add('panel', undefined, title)
-    _orientate(panel, isHorizontal)
+/**
+ * Add horizontal panel to target.
+ * @this {Object} - may be a Group, Panel, or Window
+ * @param title - panel title
+ * @return {Panel}
+ */
+Object.prototype.addHPanel = function(title) {
+    var panel = this.add('panel', undefined, title)
+    panel.horizontal()
     panel.add('group') // tiny space
     return panel
 }
 
-Panel.prototype.horizontal || (Panel.prototype.horizontal = function() { return _orientate(this, true) })
-Group.prototype.horizontal || (Group.prototype.horizontal = function() { return _orientate(this, true) })
-Window.prototype.horizontal || (Window.prototype.horizontal = function() { return _orientate(this, true) })
-Panel.prototype.vertical || (Panel.prototype.vertical = function() { return _orientate(this, false) })
-Group.prototype.vertical || (Group.prototype.vertical = function() { return _orientate(this, false) })
-Window.prototype.vertical || (Window.prototype.vertical = function() { return _orientate(this, false) })
+/**
+ * Add vertical panel to target.
+ * @this {Object} - may be a Group, Panel, or Window
+ * @param title - panel title
+ * @return {Panel}
+ */
+Object.prototype.addVPanel = function(title) {
+    var panel = this.add('panel', undefined, title)
+    panel.vertical()
+    panel.add('group') // tiny space
+    return panel
+}
 
-function _orientate(target, isHorizontal) {
-    if (isHorizontal) {
-        target.orientation = 'row'
-    } else {
-        target.orientation = 'column'
-    }
+/**
+ * Orientate container content to horizontal.
+ * @this {Object} - may be a Group, Panel, or Window
+ * @return {void}
+ */
+Object.prototype.horizontal = function() {
+    this.orientation = 'row'
+}
+
+/**
+ * Orientate container content to vertical.
+ * @this {Object} - may be a Group, Panel, or Window
+ * @return {void}
+ */
+Object.prototype.vertical = function() {
+    this.orientation = 'column'
 }

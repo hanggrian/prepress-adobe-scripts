@@ -2,13 +2,13 @@
 #include '../.lib/core.js'
 #include '../.lib/ui.js'
 
-const ALPHABETS = [
+var ALPHABETS = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
     'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
     'U', 'V', 'W', 'X', 'Y', 'Z'
 ]
 
-const BOUNDS_TEXT = [0, 0, 65, 21]
+var BOUNDS_TEXT = [0, 0, 65, 21]
 
 checkHasSelection()
 

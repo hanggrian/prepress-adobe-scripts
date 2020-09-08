@@ -7,7 +7,7 @@
 #include '../.lib/core-select.js'
 #include '../.lib/ui.js'
 
-const BOUNDS = [0, 0, 115, 15]
+var BOUNDS = [0, 0, 115, 15]
 
 init('Select by types')
 
@@ -39,18 +39,17 @@ var graphCheck = root.others2.add('checkbox', BOUNDS, 'Graph')
 
 addAction('Cancel')
 addAction('OK', function() {
-    var allowedTypes = []
-    if (compoundPathCheck.value) allowedTypes.push(SELECT_COMPOUND_PATH)
-    else if (graphCheck.value) allowedTypes.push(SELECT_GRAPH)
-    else if (legacyTextCheck.value) allowedTypes.push(SELECT_LEGACY_TEXT)
-    else if (meshCheck.value) allowedTypes.push(SELECT_MESH)
-    else if (nonNativeCheck.value) allowedTypes.push(SELECT_NON_NATIVE)
-    else if (pathCheck.value) allowedTypes.push(SELECT_PATH)
-    else if (placedCheck.value) allowedTypes.push(SELECT_PLACED)
-    else if (pluginCheck.value) allowedTypes.push(SELECT_PLUGIN)
-    else if (rasterCheck.value) allowedTypes.push(SELECT_RASTER)
-    else if (symbolCheck.value) allowedTypes.push(SELECT_SYMBOL)
-    else if (textFrameCheck.value) allowedTypes.push(SELECT_TEXT_FRAME)
-    selectItems(allowedTypes, function(_) { return true })
+    if (compoundPathCheck.value) allowSelectionType(SELECT_COMPOUND_PATH)
+    if (graphCheck.value) allowSelectionType(SELECT_GRAPH)
+    if (legacyTextCheck.value) allowSelectionType(SELECT_LEGACY_TEXT)
+    if (meshCheck.value) allowSelectionType(SELECT_MESH)
+    if (nonNativeCheck.value) allowSelectionType(SELECT_NON_NATIVE)
+    if (pathCheck.value) allowSelectionType(SELECT_PATH)
+    if (placedCheck.value) allowSelectionType(SELECT_PLACED)
+    if (pluginCheck.value) allowSelectionType(SELECT_PLUGIN)
+    if (rasterCheck.value) allowSelectionType(SELECT_RASTER)
+    if (symbolCheck.value) allowSelectionType(SELECT_SYMBOL)
+    if (textFrameCheck.value) allowSelectionType(SELECT_TEXT_FRAME)
+    selectAll()
 })
 show()

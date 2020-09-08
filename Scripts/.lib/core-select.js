@@ -1,58 +1,71 @@
 #include 'core.js'
 
-const SELECT_COMPOUND_PATH = 'CompoundPathItem'
-const SELECT_GRAPH = 'GraphItem'
-const SELECT_LEGACY_TEXT = 'LegacyTextItem'
-const SELECT_MESH = 'MeshItem'
-const SELECT_NON_NATIVE = 'NonNativeItem'
-const SELECT_PATH = 'PathItem'
-const SELECT_PLACED = 'PlacedItem'
-const SELECT_PLUGIN = 'PluginItem'
-const SELECT_RASTER = 'RasterItem'
-const SELECT_SYMBOL = 'SymbolItem'
-const SELECT_TEXT_FRAME = 'TextFrame'
+var SELECT_COMPOUND_PATH = 'CompoundPathItem'
+var SELECT_GRAPH = 'GraphItem'
+var SELECT_LEGACY_TEXT = 'LegacyTextItem'
+var SELECT_MESH = 'MeshItem'
+var SELECT_NON_NATIVE = 'NonNativeItem'
+var SELECT_PATH = 'PathItem'
+var SELECT_PLACED = 'PlacedItem'
+var SELECT_PLUGIN = 'PluginItem'
+var SELECT_RASTER = 'RasterItem'
+var SELECT_SYMBOL = 'SymbolItem'
+var SELECT_TEXT_FRAME = 'TextFrame'
 
-var _selectedItems = []
+var allowedSelectionTypes = []
+var queuedSelection = []
+
+/**
+ * Configure allowed types for later selection.
+ * @param {String} type - any of item above.
+ * @return {void}
+ */
+function allowSelectionType(type) {
+    allowedSelectionTypes.push(type)
+}
 
 /**
  * Select all items that match selected configuration.
- * 
- * @param {Array} allowedTypes - combination of item types that will be selected.
- * @param {Function} callable - custom item checker that should return true if the item parameter should be selected
+ * @param {Function} callable - nullable custom item checker that should return true if the item parameter should be selected
  * @return {void}
  */
-function selectItems(allowedTypes, callable) {
+function selectAll(callable) {
     if (selection == null || selection.length == 0) {
-        _addItems(document.pageItems, allowedTypes, callable)
+        queueAllToSelection(document.pageItems, callable)
     } else {
         for (var i = 0; i < selection.length; i++) {
-            _determineItem(selection[i], allowedTypes, callable)
+            determineSelection(selection[i], callable)
         }
     }
-    selection = _selectedItems
+    selection = queuedSelection
 }
 
-function _determineItem(item, allowedTypes, callable) {
+function determineSelection(item, callable) {
     if (item.typename == 'GroupItem') {
-        _addItems(item.pageItems, allowedTypes, callable)
+        queueAllToSelection(item.pageItems, callable)
         for (var i = 0; i < item.groupItems.length; i++) {
-            _determineItem(item.groupItems[i], allowedTypes, callable)
+            determineSelection(item.groupItems[i], callable)
         }
     } else {
-        _addItem(item, allowedTypes, callable)
+        queueToSelection(item, callable)
     }
 }
 
-function _addItems(items, allowedTypes, callable) {
+function queueAllToSelection(items, callable) {
     for (var i = 0; i < items.length; i++) {
-        _addItem(items[i], allowedTypes, callable)
+        queueToSelection(items[i], callable)
     }
 }
 
-function _addItem(item, allowedTypes, callable) {
-    for (var i = 0; i < allowedTypes.length; i++) { 
-        if (item.typename == allowedTypes[i] && callable(item)) {
-            _selectedItems.push(item)
+function queueToSelection(item, callable) {
+    for (var i = 0; i < allowedSelectionTypes.length; i++) { 
+        if (item.typename == allowedSelectionTypes[i]) {
+            if (callable === undefined) {
+                callable = function() { return true }
+            }
+            if (callable(item)) {
+                queuedSelection.push(item)
+            }
         }
     }
 }

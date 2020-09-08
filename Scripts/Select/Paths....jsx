@@ -8,9 +8,12 @@
 #include '../.lib/core-all.js'
 
 
-const BOUNDS_DIMENSION_TEXT = [0, 0, 45, 21]
-const BOUNDS_DIMENSION_EDIT = [0, 0, 100, 21]
-const BOUNDS_COLOR_TEXT = [0, 0, 45, 21]
+var BOUNDS_DIMENSION_TEXT = [0, 0, 45, 21]
+var BOUNDS_DIMENSION_EDIT = [0, 0, 100, 21]
+var BOUNDS_COLOR_TEXT = [0, 0, 45, 21]
+
+allowSelectionType(SELECT_PATH)
+allowSelectionType(SELECT_COMPOUND_PATH)
 
 init('Select paths')
 root.horizontal()
@@ -37,7 +40,7 @@ var strokeList = root.color.stroke.add('dropdownlist', undefined, COLORS)
 
 addAction('Cancel')
 addAction('OK', function() {
-    selectItems([SELECT_PATH], function(item) {
+    selectAll(function(item) {
         var condition = true
         var width = parseInt(parseUnit(widthEdit.text))
         if (width > 0) condition = condition && width == parseInt(item.width)

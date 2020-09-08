@@ -8,19 +8,21 @@
 #include '../.lib/core-select.js'
 #include '../.lib/core-units.js'
 
-const FILE_AI = ['ai']
-const FILE_PDF = ['pdf']
-const FILE_BMP = ['bmp']
-const FILE_GIF = ['gif']
-const FILE_JPEG = ['jpg', 'jpe', 'jpeg']
-const FILE_JPEG2000 = ['jpf', 'jpx', 'jp2', 'j2k', 'j2c', 'jpc']
-const FILE_PNG = ['png', 'pns']
-const FILE_PSD = ['psd', 'psb', 'pdd']
-const FILE_TIFF = ['tif', 'tiff']
+var FILE_AI = ['ai']
+var FILE_PDF = ['pdf']
+var FILE_BMP = ['bmp']
+var FILE_GIF = ['gif']
+var FILE_JPEG = ['jpg', 'jpe', 'jpeg']
+var FILE_JPEG2000 = ['jpf', 'jpx', 'jp2', 'j2k', 'j2c', 'jpc']
+var FILE_PNG = ['png', 'pns']
+var FILE_PSD = ['psd', 'psb', 'pdd']
+var FILE_TIFF = ['tif', 'tiff']
 
-const BOUNDS_DIMENSION_TEXT = [0, 0, 45, 21]
-const BOUNDS_DIMENSION_EDIT = [0, 0, 100, 21]
-const BOUNDS_COLOR_TEXT = [0, 0, 45, 21]
+var BOUNDS_DIMENSION_TEXT = [0, 0, 45, 21]
+var BOUNDS_DIMENSION_EDIT = [0, 0, 100, 21]
+var BOUNDS_COLOR_TEXT = [0, 0, 45, 21]
+
+allowSelectionType(SELECT_PLACED)
 
 init('Select links')
 root.horizontal()
@@ -51,7 +53,7 @@ var tiffCheck = root.file.add('checkbox', undefined, getTypeString('TIFF', FILE_
 
 addAction('Cancel')
 addAction('OK', function() {
-    selectItems([SELECT_PLACED], function(item) {
+    selectAll(function(item) {
         var extension = item.file.name.split('.').pop()
         var condition = true
         
