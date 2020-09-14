@@ -5,36 +5,39 @@
 
 #target Illustrator
 #include '../.lib/ui-validator.js'
-#include '../.lib/core-all.js'
+#include '../.lib/core-colors.js'
+#include '../.lib/core-select.js'
+#include '../.lib/core-units.js'
 
 var BOUNDS_CHARACTERS_TEXT = [0, 0, 65, 21]
 var BOUNDS_COLOR_TEXT = [0, 0, 45, 21]
 
 allowSelectionType(SELECT_TEXT_FRAME)
 
-init('Select texts')
-root.horizontal()
-root.alignChildren = 'top'
+init('Select Texts')
 
-root.character = root.addVPanel('Character')
-root.character.alignChildren = 'left'
-root.character.font = root.character.addHGroup()
-root.character.font.add('statictext', BOUNDS_CHARACTERS_TEXT, 'Font size:').justify = 'right'
-var fontEdit = root.character.font.add('edittext', [0, 0, 75, 21])
+var main = root.addHGroup()
+main.alignChildren = 'top'
+
+main.character = main.addVPanel('Character')
+main.character.alignChildren = 'left'
+main.character.font = main.character.addHGroup()
+main.character.font.add('statictext', BOUNDS_CHARACTERS_TEXT, 'Font size:').justify = 'right'
+var fontEdit = main.character.font.add('edittext', [0, 0, 75, 21])
 fontEdit.validateUnits()
 fontEdit.active = true
-root.character.attrs = root.character.addHGroup()
-root.character.attrs.add('statictext', BOUNDS_CHARACTERS_TEXT, 'Attributes:').justify = 'right'
-var italicCheck = root.character.attrs.add('checkbox', undefined, 'Italic')
-var underlineCheck = root.character.attrs.add('checkbox', undefined, 'Underline')
+main.character.attrs = main.character.addHGroup()
+main.character.attrs.add('statictext', BOUNDS_CHARACTERS_TEXT, 'Attributes:').justify = 'right'
+var italicCheck = main.character.attrs.add('checkbox', undefined, 'Italic')
+var underlineCheck = main.character.attrs.add('checkbox', undefined, 'Underline')
 
-root.color = root.addVPanel('Color')
-root.color.fill = root.color.addHGroup()
-root.color.fill.add('statictext', BOUNDS_COLOR_TEXT, 'Fill:').justify = 'right'
-var fillList = root.color.fill.add('dropdownlist', undefined, COLORS)
-root.color.stroke = root.color.addHGroup()
-root.color.stroke.add('statictext', BOUNDS_COLOR_TEXT, 'Stroke:').justify = 'right'
-var strokeList = root.color.stroke.add('dropdownlist', undefined, COLORS)
+main.color = main.addVPanel('Color')
+main.color.fill = main.color.addHGroup()
+main.color.fill.add('statictext', BOUNDS_COLOR_TEXT, 'Fill:').justify = 'right'
+var fillList = main.color.fill.add('dropdownlist', undefined, COLORS)
+main.color.stroke = main.color.addHGroup()
+main.color.stroke.add('statictext', BOUNDS_COLOR_TEXT, 'Stroke:').justify = 'right'
+var strokeList = main.color.stroke.add('dropdownlist', undefined, COLORS)
 
 addAction('Cancel')
 addAction('OK', function() {

@@ -12,7 +12,7 @@ var BOUNDS_TEXT = [0, 0, 65, 21]
 
 checkHasSelection()
 
-init('Rename sequence')
+init('Rename Texts by Sequence')
 
 root.sequence = root.addVPanel('Sequence')
 root.sequence.alignChildren = 'fill'

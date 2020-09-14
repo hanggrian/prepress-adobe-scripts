@@ -5,7 +5,9 @@
 
 #target Illustrator
 #include '../.lib/ui-validator.js'
-#include '../.lib/core-all.js'
+#include '../.lib/core-colors.js'
+#include '../.lib/core-select.js'
+#include '../.lib/core-units.js'
 
 
 var BOUNDS_DIMENSION_TEXT = [0, 0, 45, 21]
@@ -15,28 +17,29 @@ var BOUNDS_COLOR_TEXT = [0, 0, 45, 21]
 allowSelectionType(SELECT_PATH)
 allowSelectionType(SELECT_COMPOUND_PATH)
 
-init('Select paths')
-root.horizontal()
-root.alignChildren = 'top'
+init('Select Paths')
 
-root.dimension = root.addVPanel('Dimension')
-root.dimension.width = root.dimension.addHGroup()
-root.dimension.width.add('statictext', BOUNDS_DIMENSION_TEXT, 'Width:').justify = 'right'
-var widthEdit = root.dimension.width.add('edittext', BOUNDS_DIMENSION_EDIT)
+var main = root.addHGroup()
+main.alignChildren = 'top'
+
+main.dimension = main.addVPanel('Dimension')
+main.dimension.width = main.dimension.addHGroup()
+main.dimension.width.add('statictext', BOUNDS_DIMENSION_TEXT, 'Width:').justify = 'right'
+var widthEdit = main.dimension.width.add('edittext', BOUNDS_DIMENSION_EDIT)
 widthEdit.validateUnits()
 widthEdit.active = true
-root.dimension.height = root.dimension.addHGroup()
-root.dimension.height.add('statictext', BOUNDS_DIMENSION_TEXT, 'Height:').justify = 'right'
-var heightEdit = root.dimension.height.add('edittext', BOUNDS_DIMENSION_EDIT)
+main.dimension.height = main.dimension.addHGroup()
+main.dimension.height.add('statictext', BOUNDS_DIMENSION_TEXT, 'Height:').justify = 'right'
+var heightEdit = main.dimension.height.add('edittext', BOUNDS_DIMENSION_EDIT)
 heightEdit.validateUnits()
 
-root.color = root.addVPanel('Color')
-root.color.fill = root.color.addHGroup()
-root.color.fill.add('statictext', BOUNDS_COLOR_TEXT, 'Fill:').justify = 'right'
-var fillList = root.color.fill.add('dropdownlist', undefined, COLORS)
-root.color.stroke = root.color.addHGroup()
-root.color.stroke.add('statictext', BOUNDS_COLOR_TEXT, 'Stroke:').justify = 'right'
-var strokeList = root.color.stroke.add('dropdownlist', undefined, COLORS)
+main.color = main.addVPanel('Color')
+main.color.fill = main.color.addHGroup()
+main.color.fill.add('statictext', BOUNDS_COLOR_TEXT, 'Fill:').justify = 'right'
+var fillList = main.color.fill.add('dropdownlist', undefined, COLORS)
+main.color.stroke = main.color.addHGroup()
+main.color.stroke.add('statictext', BOUNDS_COLOR_TEXT, 'Stroke:').justify = 'right'
+var strokeList = main.color.stroke.add('dropdownlist', undefined, COLORS)
 
 addAction('Cancel')
 addAction('OK', function() {

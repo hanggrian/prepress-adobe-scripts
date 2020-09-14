@@ -1,5 +1,5 @@
-Prepress Adobe Illustrator Scripts
-==================================
+Pre-press Adobe Illustrator Scripts
+===================================
 Collection of helpful Adobe Illustrator scripts.
 Tested only on Adobe Illustrator 2020.
 

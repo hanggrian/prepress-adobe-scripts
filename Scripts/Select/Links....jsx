@@ -24,32 +24,33 @@ var BOUNDS_COLOR_TEXT = [0, 0, 45, 21]
 
 allowSelectionType(SELECT_PLACED)
 
-init('Select links')
-root.horizontal()
-root.alignChildren = 'top'
+init('Select Links')
 
-root.dimension = root.addVPanel('Dimension')
-root.dimension.width = root.dimension.addHGroup()
-root.dimension.width.add('statictext', BOUNDS_DIMENSION_TEXT, 'Width:').justify = 'right'
-var widthEdit = root.dimension.width.add('edittext', BOUNDS_DIMENSION_EDIT)
+var main = root.addHGroup()
+main.alignChildren = 'top'
+
+main.dimension = main.addVPanel('Dimension')
+main.dimension.width = main.dimension.addHGroup()
+main.dimension.width.add('statictext', BOUNDS_DIMENSION_TEXT, 'Width:').justify = 'right'
+var widthEdit = main.dimension.width.add('edittext', BOUNDS_DIMENSION_EDIT)
 widthEdit.validateUnits()
 widthEdit.active = true
-root.dimension.height = root.dimension.addHGroup()
-root.dimension.height.add('statictext', BOUNDS_DIMENSION_TEXT, 'Height:').justify = 'right'
-var heightEdit = root.dimension.height.add('edittext', BOUNDS_DIMENSION_EDIT)
+main.dimension.height = main.dimension.addHGroup()
+main.dimension.height.add('statictext', BOUNDS_DIMENSION_TEXT, 'Height:').justify = 'right'
+var heightEdit = main.dimension.height.add('edittext', BOUNDS_DIMENSION_EDIT)
 heightEdit.validateUnits()
 
-root.file = root.addVPanel('File types')
-root.file.alignChildren = 'fill'
-var aiCheck = root.file.add('checkbox', undefined, getTypeString('Adobe Illustrator', FILE_AI))
-var pdfCheck = root.file.add('checkbox', undefined, getTypeString('Adobe PDF', FILE_PDF))
-var bmpCheck = root.file.add('checkbox', undefined, getTypeString('BMP', FILE_BMP))
-var gifCheck = root.file.add('checkbox', undefined, getTypeString('GIF89a', FILE_GIF))
-var jpegCheck = root.file.add('checkbox', undefined, getTypeString('JPEG', FILE_JPEG))
-var jpeg2000Check = root.file.add('checkbox', undefined, getTypeString('JPEG2000', FILE_JPEG2000))
-var pngCheck = root.file.add('checkbox', undefined, getTypeString('PNG', FILE_PNG))
-var psdCheck = root.file.add('checkbox', undefined, getTypeString('Photoshop', FILE_PSD))
-var tiffCheck = root.file.add('checkbox', undefined, getTypeString('TIFF', FILE_TIFF))
+main.file = main.addVPanel('File types')
+main.file.alignChildren = 'fill'
+var aiCheck = main.file.add('checkbox', undefined, getTypeString('Adobe Illustrator', FILE_AI))
+var pdfCheck = main.file.add('checkbox', undefined, getTypeString('Adobe PDF', FILE_PDF))
+var bmpCheck = main.file.add('checkbox', undefined, getTypeString('BMP', FILE_BMP))
+var gifCheck = main.file.add('checkbox', undefined, getTypeString('GIF89a', FILE_GIF))
+var jpegCheck = main.file.add('checkbox', undefined, getTypeString('JPEG', FILE_JPEG))
+var jpeg2000Check = main.file.add('checkbox', undefined, getTypeString('JPEG2000', FILE_JPEG2000))
+var pngCheck = main.file.add('checkbox', undefined, getTypeString('PNG', FILE_PNG))
+var psdCheck = main.file.add('checkbox', undefined, getTypeString('Photoshop', FILE_PSD))
+var tiffCheck = main.file.add('checkbox', undefined, getTypeString('TIFF', FILE_TIFF))
 
 addAction('Cancel')
 addAction('OK', function() {

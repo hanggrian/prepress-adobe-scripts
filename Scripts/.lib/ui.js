@@ -10,9 +10,11 @@ var actions
 function init(title) {
     dialog = new Window('dialog', title)
     dialog.orientation = 'column'
-    dialog.alignChildren = 'right'
+    // dialog.alignChildren = 'fill'
     root = dialog.addVGroup()
+    root.alignChildren = 'left'
     actions = dialog.addHGroup()
+    actions.alignment = 'right'
     return dialog
 }
 
@@ -40,68 +42,32 @@ function show() {
     dialog.show()
 }
 
-/**
- * Add horizontal group to target.
- * @this {Object} - may be a Group, Panel, or Window
- * @return {Group}
- */
+/** Add horizontal group to target. */
 Object.prototype.addHGroup = function() {
     var group = this.add('group')
-    group.horizontal()
+    group.orientation = 'row'
     return group
 }
 
-/**
- * Add vertical group to target.
- * @this {Object} - may be a Group, Panel, or Window
- * @return {Group}
- */
+/** Add vertical group to target. */
 Object.prototype.addVGroup = function() {
     var group = this.add('group')
-    group.vertical()
+    group.orientation = 'column'
     return group
 }
 
-/**
- * Add horizontal panel to target.
- * @this {Object} - may be a Group, Panel, or Window
- * @param title - panel title
- * @return {Panel}
- */
+/** Add horizontal panel to target. */
 Object.prototype.addHPanel = function(title) {
     var panel = this.add('panel', undefined, title)
-    panel.horizontal()
+    panel.orientation = 'row'
     panel.add('group') // tiny space
     return panel
 }
 
-/**
- * Add vertical panel to target.
- * @this {Object} - may be a Group, Panel, or Window
- * @param title - panel title
- * @return {Panel}
- */
+/** Add vertical panel to target. */
 Object.prototype.addVPanel = function(title) {
     var panel = this.add('panel', undefined, title)
-    panel.vertical()
+    panel.orientation = 'column'
     panel.add('group') // tiny space
     return panel
-}
-
-/**
- * Orientate container content to horizontal.
- * @this {Object} - may be a Group, Panel, or Window
- * @return {void}
- */
-Object.prototype.horizontal = function() {
-    this.orientation = 'row'
-}
-
-/**
- * Orientate container content to vertical.
- * @this {Object} - may be a Group, Panel, or Window
- * @return {void}
- */
-Object.prototype.vertical = function() {
-    this.orientation = 'column'
 }

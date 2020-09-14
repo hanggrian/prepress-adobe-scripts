@@ -3,7 +3,7 @@
 
 checkEvenArtboards()
 
-var end = document.artboards.length
+var end = document.artboards.length * 2
 var start = 1
 var isFront = true
 for (var i = 0; i < document.artboards.length; i++) {

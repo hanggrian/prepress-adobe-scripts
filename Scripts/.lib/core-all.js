@@ -1,5 +1,0 @@
-#include 'core.js'
-#include 'core-colors.js'
-#include 'core-select.js'
-#include 'core-strings.js'
-#include 'core-units.js'

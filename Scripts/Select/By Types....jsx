@@ -9,7 +9,7 @@
 
 var BOUNDS = [0, 0, 115, 15]
 
-init('Select by types')
+init('Select by Types')
 
 root.imports = root.addVPanel('Imports')
 root.imports1 = root.imports.addHGroup()

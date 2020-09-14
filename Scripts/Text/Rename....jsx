@@ -4,9 +4,10 @@
 
 checkHasSelection()
 
-init('Rename all')
+init('Rename Texts')
 
-root.input = root.addVPanel('Text')
+root.input = root.addHGroup()
+root.input.add('statictext', undefined, 'Text:')
 var input = root.input.add('edittext', [0, 0, 400, 21])
 input.active = true
 
