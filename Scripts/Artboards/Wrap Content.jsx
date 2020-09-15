@@ -3,10 +3,10 @@
  */
 
 #target Illustrator
-#include '../../.lib/core.js'
+#include '../../.lib/commons.js'
 
-for (var i = 0; i < document.artboards.length; i++) {
+document.artboards.forEach(function(_, i) {
     document.artboards.setActiveArtboardIndex(i)
     document.selectObjectsOnActiveArtboard(i)
     document.fitArtboardToSelectedArt(i)
-}
+})

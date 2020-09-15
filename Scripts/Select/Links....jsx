@@ -1,12 +1,14 @@
 /**
  * Select all PlacedItem with attributes matching user input.
  * When there are active selection, will only select items within those selection.
+ * 
+ * The file type options are similar with Illustrator native `Relink...` dialog.
  */
 
 #target Illustrator
-#include '../.lib/ui-validator.js'
-#include '../.lib/core-select.js'
 #include '../.lib/core-units.js'
+#include '../.lib/commons-select.js'
+#include '../.lib/ui-validator.js'
 
 var FILE_AI = ['ai']
 var FILE_PDF = ['pdf']
@@ -79,12 +81,12 @@ show()
 
 function getTypeString(prefix, suffix) {
     var s = ''
-    for (var i = 0; i < suffix.length; i++) {
-        s += suffix[i]
-        if (i != suffix.length - 1) {
+    suffix.forEach(function(it, i) {
+        s += it
+        if (i != suffix.lastIndex()) {
             s += ', '
         }
-    }
+    })
     return prefix + ' (' + s + ')'
 }
 

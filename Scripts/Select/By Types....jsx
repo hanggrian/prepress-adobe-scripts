@@ -4,7 +4,7 @@
  */
 
 #target Illustrator
-#include '../.lib/core-select.js'
+#include '../.lib/commons-select.js'
 #include '../.lib/ui.js'
 
 var BOUNDS = [0, 0, 115, 15]

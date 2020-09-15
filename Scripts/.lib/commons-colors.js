@@ -1,4 +1,4 @@
-#include 'core.js'
+#include 'commons.js'
 
 var COLORS = ['Registration', 'White', '-', 'Cyan', 'Magenta', 'Yellow', 'Black']
 

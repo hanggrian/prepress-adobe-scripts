@@ -4,10 +4,10 @@
  */
 
 #target Illustrator
-#include '../.lib/ui-validator.js'
-#include '../.lib/core-colors.js'
-#include '../.lib/core-select.js'
 #include '../.lib/core-units.js'
+#include '../.lib/commons-colors.js'
+#include '../.lib/commons-select.js'
+#include '../.lib/ui-validator.js'
 
 var BOUNDS_CHARACTERS_TEXT = [0, 0, 65, 21]
 var BOUNDS_COLOR_TEXT = [0, 0, 45, 21]

@@ -12,7 +12,7 @@ var MULTIPLIER_Q = 0.709
  * @return {Number}
  */
 function parseUnit(text) {
-    if (text.length == 0) {
+    if (text.isEmpty()) {
         return 0
     }
     var separatorIndex = text.indexOf(' ')

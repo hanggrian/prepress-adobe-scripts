@@ -1,3 +1,9 @@
+/**
+ * UI are related to custom dialog.
+ */
+
+#include 'core.js'
+
 var dialog
 var root
 var actions

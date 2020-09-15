@@ -1,10 +1,9 @@
 #target Illustrator
-#include '../.lib/core.js'
 #include '../.lib/ui.js'
 
 checkHasSelection()
 
-init('Rename Texts')
+init('Reword Texts')
 
 root.input = root.addHGroup()
 root.input.add('statictext', undefined, 'Text:')
@@ -13,12 +12,12 @@ input.active = true
 
 addAction('Cancel')
 addAction('OK', function() {
-    for (var i = 0; i < selection.length; i++) {
-        if (selection[i].typename == 'TextFrame') {
-            var words = selection[i].words
+    selection.forEach(function(it) {
+        if (it.typename == 'TextFrame') {
+            var words = it.words
             words.removeAll()
             words.add(input.text)
         }
-    }
+    })
 })
 show()

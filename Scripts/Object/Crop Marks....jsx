@@ -9,7 +9,7 @@
  */
 
 #target Illustrator
-#include '../.lib/core-colors.js'
+#include '../.lib/commons-colors.js'
 #include '../.lib/ui-duplicate.js'
 
 var LOCATION_TOP_LEFT = 11
@@ -30,7 +30,7 @@ var BOUNDS_EDIT_SMALL = [0, 0, 36, 21]
 
 checkSingleSelection()
 
-init('Create crop marks')
+init('Crop Marks')
 
 root.alignChildren = 'fill'
 root.upper = root.addHGroup()

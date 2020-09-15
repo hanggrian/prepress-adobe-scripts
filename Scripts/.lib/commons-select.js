@@ -1,4 +1,9 @@
-#include 'core.js'
+/**
+ * When nothing is selected, this library will select all items with requested types.
+ * When there are selection, it will instead filter the selection to only match requested types.
+ */
+
+#include 'commons.js'
 
 var SELECT_COMPOUND_PATH = 'CompoundPathItem'
 var SELECT_GRAPH = 'GraphItem'

@@ -1,5 +1,4 @@
 #target Illustrator
-#include '../.lib/core.js'
 #include '../.lib/ui.js'
 
 var ALPHABETS = [
@@ -12,7 +11,7 @@ var BOUNDS_TEXT = [0, 0, 65, 21]
 
 checkHasSelection()
 
-init('Rename Texts by Sequence')
+init('Reword Texts by Sequence')
 
 root.sequence = root.addVPanel('Sequence')
 root.sequence.alignChildren = 'fill'
@@ -40,13 +39,13 @@ addAction('OK', function() {
         }
     }
     if (!reverseCheck.value) {
-        for (var i = 0; i < selection.length; i++) {
-            rename(selection[i])
-        }
+        selection.forEach(function(it) {
+            rename(it)
+        })
     } else {
-        for (var i = selection.length - 1; i >= 0; i--) {
-            rename(selection[i])
-        }
+        selection.forEachReversed(function(it) {
+            rename(it)
+        })
     }
 })
 show()
