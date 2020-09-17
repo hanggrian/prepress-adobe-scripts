@@ -3,7 +3,7 @@
  */
 
 #target Illustrator
-#include '../../.lib/commons.js'
+#include '../.lib/commons.js'
 
 document.artboards.forEach(function(_, i) {
     document.artboards.setActiveArtboardIndex(i)

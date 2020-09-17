@@ -1,5 +1,5 @@
 #target Illustrator
-#include '../.lib/core.js'
+#include '../.lib/commons.js'
 
 var typenames = ''
 selection.forEach(function(it) {

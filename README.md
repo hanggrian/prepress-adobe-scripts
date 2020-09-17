@@ -16,6 +16,8 @@ JavaScript Reference:
 
 Usage
 -----
-Copy & paste all files and folders within `Scripts` directory to `Ai installation path/Presets/en_US/Scripts`. Alternatively, run `scripts-patcher.bat` as admin (Windows) or `scripts-patcher.sh` with sudo (Mac) for automatic find and replace scripts.
+These scripts are **not standalone**, all of them requires `.lib` directory to be in pre-determined paths. This is why it is recommended to put them in Adobe Illustrator installation paths. Download source, then there are 2 ways to install:
+1. Run `scripts-patcher.bat` as admin (Windows) or `scripts-patcher.sh` with sudo (Mac).
+2. Manually copy & paste all files and folders within `Scripts` directory to `{Ai installation path}/Presets/{your locale}/Scripts`.
 
-The scripts can then be accessible from `Ai menu bar > File > Scripts`
+The scripts can then be accessible from `Ai Menu Bar > File > Scripts`.

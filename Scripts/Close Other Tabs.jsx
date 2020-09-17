@@ -3,13 +3,13 @@
  */
 
 #target Illustrator
-#include '.lib/commons.js'
+#include '.lib/core.js'
 
-check(app.documents.length > 1, 'No other tabs')
+check(app.documents.length != 1, 'No other tabs')
 
 if (confirm('Close all other documents without saving?', undefined, 'Close Other Tabs')) {
     for (var i = 0; i < app.documents.length; i++) {
-        if (app.documents[i] == document) {
+        if (app.documents[i] == app.activeDocument) {
             continue
         }
         documents[i].close(SaveOptions.DONOTSAVECHANGES)
