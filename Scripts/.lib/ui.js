@@ -5,46 +5,85 @@
 #include 'core.js'
 
 var dialog
-var root
-var actions
+var positiveAction, negativeAction, neutralAction
+var neutralActionGap
 
 /**
  * Initialize a dialog.
  * @param title - dialog title
  * @return {void}
  */
-function init(title) {
+function createDialog(title) {
     dialog = new Window('dialog', title)
     dialog.orientation = 'column'
     // dialog.alignChildren = 'fill'
-    root = dialog.addVGroup()
-    root.alignChildren = 'left'
-    actions = dialog.addHGroup()
-    actions.alignment = 'right'
+    dialog.main = dialog.addVGroup()
+    dialog.main.alignChildren = 'left'
+    dialog.actions = dialog.addHGroup()
+    dialog.actions.alignment = 'right'
     return dialog
 }
 
 /**
- * Add dialog action.
+ * Set positive dialog button.
  * @param text - button text
- * @param onAction - button onClick
+ * @param onAction - button click, may be undefined
  * @return {void}
  */
-function addAction(text, onAction) {
-    var action = actions.add('button', undefined, text)
-    if (onAction !== undefined) {
-        action.onClick = function() {
-            dialog.close()
-            onAction()
-        }
-    }
+function setPositiveAction(text, onAction) {
+    positiveAction = {'text': text, 'onAction': onAction}
 }
 
 /**
- * Show dialog.
+ * Set negative dialog button.
+ * @param text - button text
+ * @param onAction - button click, may be undefined
+ * @return {void}
+ */
+function setNegativeAction(text, onAction) {
+    negativeAction = {'text': text, 'onAction': onAction}
+}
+
+/**
+ * Set neutral dialog button.
+ * @param text - button text
+ * @param onAction - button click, may be undefined
+ * @param gap - gap between neutral and positive/negative button, may be undefined
+ * @return {void}
+ */
+function setNeutralButton(text, onAction, gap) {
+    neutralAction = {'text': text, 'onAction': onAction}
+    neutralActionGap = gap
+}
+
+/**
+ * Show dialog, after populating actions.
  * @return {void}
  */
 function show() {
+    var actions = [neutralAction]
+    if (isMacOS()) {
+        actions.push(negativeAction)
+        actions.push(positiveAction)
+    } else {
+        actions.push(positiveAction)
+        actions.push(negativeAction)
+    }
+    for (var i = 0; i < actions.length; i++) {
+        var action = actions[i]
+        if (action !== undefined) {
+            var button = dialog.actions.add('button', undefined, action.text)
+            if (neutralAction === action && neutralActionGap !== undefined) {
+                dialog.actions.add('statictext', [0, 0, neutralActionGap, 0])
+            }
+            if (action.onClick !== undefined) {
+                button.onClick = function() {
+                    dialog.close()
+                    action.onClick()
+                }
+            }   
+        }
+    }
     dialog.show()
 }
 

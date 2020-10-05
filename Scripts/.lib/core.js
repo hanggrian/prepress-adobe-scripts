@@ -2,6 +2,9 @@
  * Core libraries have no fields.
  */
 
+/** Returns true if this script is running on macOS. */
+function isMacOS() { return $.os.toLowerCase().indexOf('mac') >= 0 }
+
 /**
  * Assert that a condition is satisfied, throw an error otherwise.
  * @param {Boolean} requirement - expect value to be `true`

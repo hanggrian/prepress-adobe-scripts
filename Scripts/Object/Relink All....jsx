@@ -14,7 +14,7 @@ selection.forEach(function(it) {
 })
 
 var filters
-if ($.os.toLowerCase().indexOf('mac') >= 0) {
+if (isMacOS()) {
     filters = function (file) {
         return file instanceof Folder || 
             file.name.endsWith('.ai') || 

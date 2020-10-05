@@ -3,6 +3,7 @@
  */
 
 #target Illustrator
+#include '../.lib/commons.js'
 #include '../.lib/ui-duplicate.js'
 
 var BOUNDS_TEXT = [0, 0, 50, 21]
