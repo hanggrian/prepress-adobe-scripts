@@ -5,8 +5,8 @@
 #include 'core.js'
 
 var dialog
-var positiveAction, negativeAction, neutralAction
-var neutralActionGap
+var _positiveAction, _negativeAction, _neutralAction
+var _neutralActionGap
 
 /**
  * Initialize a dialog.
@@ -31,7 +31,7 @@ function createDialog(title) {
  * @return {void}
  */
 function setPositiveAction(text, onAction) {
-    positiveAction = {'text': text, 'onAction': onAction}
+    _positiveAction = {'text': text, 'onAction': onAction}
 }
 
 /**
@@ -41,7 +41,7 @@ function setPositiveAction(text, onAction) {
  * @return {void}
  */
 function setNegativeAction(text, onAction) {
-    negativeAction = {'text': text, 'onAction': onAction}
+    _negativeAction = {'text': text, 'onAction': onAction}
 }
 
 /**
@@ -51,9 +51,9 @@ function setNegativeAction(text, onAction) {
  * @param gap - gap between neutral and positive/negative button, may be undefined
  * @return {void}
  */
-function setNeutralButton(text, onAction, gap) {
-    neutralAction = {'text': text, 'onAction': onAction}
-    neutralActionGap = gap
+function setNeutralAction(text, onAction, gap) {
+    _neutralAction = {'text': text, 'onAction': onAction}
+    _neutralActionGap = gap
 }
 
 /**
@@ -61,27 +61,25 @@ function setNeutralButton(text, onAction, gap) {
  * @return {void}
  */
 function show() {
-    var actions = [neutralAction]
+    var actions
     if (isMacOS()) {
-        actions.push(negativeAction)
-        actions.push(positiveAction)
+        actions = [_neutralAction, _negativeAction, _positiveAction]
     } else {
-        actions.push(positiveAction)
-        actions.push(negativeAction)
+        actions = [_neutralAction, _positiveAction, _negativeAction]
     }
     for (var i = 0; i < actions.length; i++) {
         var action = actions[i]
         if (action !== undefined) {
             var button = dialog.actions.add('button', undefined, action.text)
-            if (neutralAction === action && neutralActionGap !== undefined) {
-                dialog.actions.add('statictext', [0, 0, neutralActionGap, 0])
-            }
-            if (action.onClick !== undefined) {
-                button.onClick = function() {
-                    dialog.close()
-                    action.onClick()
+            button.onClick = function() {
+                dialog.close()
+                if (action.onAction !== undefined) {
+                    action.onAction()
                 }
-            }   
+            }
+            if (_neutralAction === action && _neutralActionGap !== undefined) {
+                dialog.actions.add('statictext', [0, 0, _neutralActionGap, 0])
+            }
         }
     }
     dialog.show()

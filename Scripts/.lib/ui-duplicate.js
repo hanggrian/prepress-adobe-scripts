@@ -5,9 +5,7 @@ var BOUNDS_DUPLICATE_TEXT = [0, 0, 45, 21]
 var BOUNDS_DUPLICATE_EDIT = [0, 0, 100, 21]
 var BOUNDS_DUPLICATE_EDIT_SMALL = [0, 0, 36, 21]
 
-var duplicateHEdit
-var duplicateVEdit
-var duplicateGapEdit
+var _duplicate
 
 /**
  * Add duplicate layout to target.
@@ -19,17 +17,18 @@ Object.prototype.addDuplicateGroup = function() {
 
     duplicate.copies = duplicate.addHGroup()
     duplicate.copies.add('statictext', BOUNDS_DUPLICATE_TEXT, 'Copies:').justify = 'right'
-    duplicateHEdit = duplicate.copies.add('edittext', BOUNDS_DUPLICATE_EDIT_SMALL)
-    duplicateHEdit.validateDigits()
+    duplicate.horizontalEdit = duplicate.copies.add('edittext', BOUNDS_DUPLICATE_EDIT_SMALL)
+    duplicate.horizontalEdit.validateDigits()
     duplicate.copies.add('statictext', undefined, 'x')
-    duplicateVEdit = duplicate.copies.add('edittext', BOUNDS_DUPLICATE_EDIT_SMALL)
-    duplicateVEdit.validateDigits()
+    duplicate.verticalEdit = duplicate.copies.add('edittext', BOUNDS_DUPLICATE_EDIT_SMALL)
+    duplicate.verticalEdit.validateDigits()
 
     duplicate.gap = duplicate.addHGroup()
     duplicate.gap.add('statictext', BOUNDS_DUPLICATE_TEXT, 'Gap:').justify = 'right'
-    duplicateGapEdit = duplicate.gap.add('edittext', BOUNDS_DUPLICATE_EDIT)
-    duplicateGapEdit.validateUnits()
+    duplicate.gapEdit = duplicate.gap.add('edittext', BOUNDS_DUPLICATE_EDIT)
+    duplicate.gapEdit.validateUnits()
     
+    _duplicate = duplicate
     return duplicate
 }
 
@@ -40,9 +39,9 @@ Object.prototype.addDuplicateGroup = function() {
  * @return {void}
  */
 function duplicate(horizontalRunnable, verticalRunnable) {
-    var horizontal = parseInt(duplicateHEdit.text) || 0
-    var vertical = parseInt(duplicateVEdit.text) || 0
-    var gap = parseUnit(duplicateGapEdit.text)
+    var horizontal = parseInt(_duplicate.horizontalEdit.text) || 0
+    var vertical = parseInt(_duplicate.verticalEdit.text) || 0
+    var gap = parseUnit(_duplicate.gapEdit.text)
 
     var target = selection[0]
     var clippingTarget = target.getClippingPathItem()

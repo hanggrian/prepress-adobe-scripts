@@ -1,4 +1,5 @@
 #target Illustrator
+#include '../.lib/commons.js'
 #include '../.lib/ui.js'
 
 var ALPHABETS = [
@@ -11,34 +12,34 @@ var BOUNDS_TEXT = [0, 0, 65, 21]
 
 checkHasSelection()
 
-init('Reword Texts by Sequence')
+createDialog('Reword Texts by Sequence')
 
-root.sequence = root.addVPanel('Sequence')
-root.sequence.alignChildren = 'fill'
-root.sequence.stops = root.sequence.addHGroup()
-root.sequence.stops.add('statictext', BOUNDS_TEXT, 'Stops at:').justify = 'right'
-var stopsList = root.sequence.stops.add('dropdownlist', undefined, ALPHABETS)
-stopsList.selection = 1
-root.sequence.space = root.sequence.addHGroup()
-root.sequence.space.add('statictext', BOUNDS_TEXT, 'Add space:').justify = 'right'
-var spaceCheck = root.sequence.space.add('checkbox', undefined)
+var sequence = dialog.main.addVPanel('Sequence')
+sequence.alignChildren = 'fill'
+sequence.stops = sequence.addHGroup()
+sequence.stops.add('statictext', BOUNDS_TEXT, 'Stops at:').justify = 'right'
+sequence.stopsList = sequence.stops.add('dropdownlist', undefined, ALPHABETS)
+sequence.stopsList.selection = 1
+sequence.space = sequence.addHGroup()
+sequence.space.add('statictext', BOUNDS_TEXT, 'Add space:').justify = 'right'
+sequence.spaceCheck = sequence.space.add('checkbox', undefined)
 
-root.reverse = root.addVGroup()
-root.reverse.alignment = 'right'
-var reverseCheck = root.reverse.add('checkbox', undefined, 'Reverse order')
+var reverse = dialog.main.addVGroup()
+reverse.alignment = 'right'
+reverse.reverseCheck = reverse.add('checkbox', undefined, 'Reverse order')
 
 var prefix = 1
 var count = 0
 var stopsAt
 
-addAction('Cancel')
-addAction('OK', function() {
+setNegativeAction('Cancel')
+setPositiveAction('OK', function() {
     for (var i = 0; i < ALPHABETS.length; i++) {
-        if (ALPHABETS[i] == stopsList.selection.text) {
+        if (ALPHABETS[i] == sequence.stopsList.selection.text) {
             stopsAt = i + 1
         }
     }
-    if (!reverseCheck.value) {
+    if (!reverse.reverseCheck.value) {
         selection.forEach(function(it) {
             rename(it)
         })
@@ -53,7 +54,7 @@ show()
 function rename(item) {
     if (item.typename == 'TextFrame') {
         var s = prefix.toString()
-        if (spaceCheck.value) {
+        if (sequence.spaceCheck.value) {
             s += ' '
         }
         s += ALPHABETS[count]

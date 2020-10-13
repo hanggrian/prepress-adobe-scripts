@@ -1,22 +1,23 @@
 #target Illustrator
+#include '../.lib/commons.js'
 #include '../.lib/ui.js'
 
 checkHasSelection()
 
-init('Reword Texts')
+createDialog('Reword Texts')
 
-root.input = root.addHGroup()
-root.input.add('statictext', undefined, 'Text:')
-var input = root.input.add('edittext', [0, 0, 400, 21])
-input.active = true
+var input = dialog.main.addHGroup()
+input.add('statictext', undefined, 'Text:')
+input.inputEdit = input.add('edittext', [0, 0, 400, 21])
+input.inputEdit.active = true
 
-addAction('Cancel')
-addAction('OK', function() {
+setNegativeAction('Cancel')
+setPositiveAction('OK', function() {
     selection.forEach(function(it) {
         if (it.typename == 'TextFrame') {
             var words = it.words
             words.removeAll()
-            words.add(input.text)
+            words.add(input.inputEdit.text)
         }
     })
 })

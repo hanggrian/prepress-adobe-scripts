@@ -14,42 +14,46 @@ var BOUNDS_COLOR_TEXT = [0, 0, 45, 21]
 
 allowSelectionType(SELECT_TEXT_FRAME)
 
-init('Select Texts')
+createDialog('Select Texts')
 
-var main = root.addHGroup()
-main.alignChildren = 'top'
+dialog.line = dialog.main.addHGroup()
+dialog.line.alignChildren = 'top'
 
-main.character = main.addVPanel('Character')
-main.character.alignChildren = 'left'
-main.character.font = main.character.addHGroup()
-main.character.font.add('statictext', BOUNDS_CHARACTERS_TEXT, 'Font size:').justify = 'right'
-var fontEdit = main.character.font.add('edittext', [0, 0, 75, 21])
-fontEdit.validateUnits()
-fontEdit.active = true
-main.character.attrs = main.character.addHGroup()
-main.character.attrs.add('statictext', BOUNDS_CHARACTERS_TEXT, 'Attributes:').justify = 'right'
-var italicCheck = main.character.attrs.add('checkbox', undefined, 'Italic')
-var underlineCheck = main.character.attrs.add('checkbox', undefined, 'Underline')
+var character = dialog.line.addVPanel('Character')
+character.alignChildren = 'left'
+character.font = character.addHGroup()
+character.font.add('statictext', BOUNDS_CHARACTERS_TEXT, 'Font size:').justify = 'right'
+character.fontEdit = character.font.add('edittext', [0, 0, 75, 21])
+character.fontEdit.validateUnits()
+character.fontEdit.active = true
+character.attrs = character.addHGroup()
+character.attrs.add('statictext', BOUNDS_CHARACTERS_TEXT, 'Attributes:').justify = 'right'
+character.italicCheck = character.attrs.add('checkbox', undefined, 'Italic')
+character.underlineCheck = character.attrs.add('checkbox', undefined, 'Underline')
 
-main.color = main.addVPanel('Color')
-main.color.fill = main.color.addHGroup()
-main.color.fill.add('statictext', BOUNDS_COLOR_TEXT, 'Fill:').justify = 'right'
-var fillList = main.color.fill.add('dropdownlist', undefined, COLORS)
-main.color.stroke = main.color.addHGroup()
-main.color.stroke.add('statictext', BOUNDS_COLOR_TEXT, 'Stroke:').justify = 'right'
-var strokeList = main.color.stroke.add('dropdownlist', undefined, COLORS)
+var color = dialog.line.addVPanel('Color')
+color.fill = color.addHGroup()
+color.fill.add('statictext', BOUNDS_COLOR_TEXT, 'Fill:').justify = 'right'
+color.fillList = color.fill.add('dropdownlist', undefined, COLORS)
+color.stroke = color.addHGroup()
+color.stroke.add('statictext', BOUNDS_COLOR_TEXT, 'Stroke:').justify = 'right'
+color.strokeList = color.stroke.add('dropdownlist', undefined, COLORS)
 
-addAction('Cancel')
-addAction('OK', function() {
+setNegativeAction('Cancel')
+setPositiveAction('OK', function() {
     selectAll(function(item) {
         var attr = item.textRange.characterAttributes
         var condition = true
-        var fontSize = parseInt(fontEdit.text) || 0
+        var fontSize = parseInt(character.fontEdit.text) || 0
         if (fontSize > 0) condition = condition && fontSize == attr.size
-        if (italicCheck.value) condition = condition && attr.italics
-        if (underlineCheck.value) condition = condition && attr.underline
-        if (fillList.selection != null) condition = condition && attr.fillColor.equalTo(parseColor(fillList.selection.text))
-        if (strokeList.selection != null) condition = condition && attr.strokeColor.equalTo(parseColor(strokeList.selection.text))
+        if (character.italicCheck.value) condition = condition && attr.italics
+        if (character.underlineCheck.value) condition = condition && attr.underline
+        if (color.fillList.selection != null) {
+            condition = condition && attr.fillColor.equalTo(parseColor(color.fillList.selection.text))
+        }
+        if (color.strokeList.selection != null) {
+            condition = condition && attr.strokeColor.equalTo(parseColor(color.strokeList.selection.text))
+        }
         return condition
     })
 })
