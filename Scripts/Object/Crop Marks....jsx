@@ -103,9 +103,9 @@ locations.row5.add('statictext', BOUNDS_CHECK).justify = 'right'
 dialog.lower.alignChildren = 'fill'
 var duplicate = dialog.lower.addDuplicateGroup()
 
-setNeutralAction('Delete', function() { process(true) }, 90)
-setNegativeAction('Cancel')
-setPositiveAction('OK', function() { process(false) })
+setNegativeButton('Cancel')
+setPositiveButton('OK', function() { process(false) })
+setNeutralButton('Delete', function() { process(true) }, 90)
 show()
 
 function process(isDelete) {

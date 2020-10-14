@@ -5,8 +5,9 @@
 #include 'core.js'
 
 var dialog
-var _positiveAction, _negativeAction, _neutralAction
-var _neutralActionGap
+var _positiveButtonText, _positiveButtonAction
+var _negativeButtonText, _negativeButtonAction
+var _neutralButtonText, _neutralButtonAction, _neutralButtonGap
 
 /**
  * Initialize a dialog.
@@ -19,70 +20,76 @@ function createDialog(title) {
     // dialog.alignChildren = 'fill'
     dialog.main = dialog.addVGroup()
     dialog.main.alignChildren = 'left'
-    dialog.actions = dialog.addHGroup()
-    dialog.actions.alignment = 'right'
+    dialog.buttons = dialog.addHGroup()
+    dialog.buttons.alignment = 'right'
     return dialog
 }
 
 /**
  * Set positive dialog button.
  * @param text - button text
- * @param onAction - button click, may be undefined
+ * @param action - button click, may be undefined
  * @return {void}
  */
-function setPositiveAction(text, onAction) {
-    _positiveAction = {'text': text, 'onAction': onAction}
+function setPositiveButton(text, action) {
+    _positiveButtonText = text
+    _positiveButtonAction = action
 }
 
 /**
  * Set negative dialog button.
  * @param text - button text
- * @param onAction - button click, may be undefined
+ * @param action - button click, may be undefined
  * @return {void}
  */
-function setNegativeAction(text, onAction) {
-    _negativeAction = {'text': text, 'onAction': onAction}
+function setNegativeButton(text, action) {
+    _negativeButtonText = text
+    _negativeButtonAction = action
 }
 
 /**
  * Set neutral dialog button.
  * @param text - button text
- * @param onAction - button click, may be undefined
+ * @param action - button click, may be undefined
  * @param gap - gap between neutral and positive/negative button, may be undefined
  * @return {void}
  */
-function setNeutralAction(text, onAction, gap) {
-    _neutralAction = {'text': text, 'onAction': onAction}
-    _neutralActionGap = gap
+function setNeutralButton(text, action, gap) {
+    _neutralButtonText = text
+    _neutralButtonAction = action
+    _neutralButtonGap = gap
 }
 
 /**
- * Show dialog, after populating actions.
+ * Show dialog, after populating buttons.
  * @return {void}
  */
 function show() {
-    var actions
-    if (isMacOS()) {
-        actions = [_neutralAction, _negativeAction, _positiveAction]
-    } else {
-        actions = [_neutralAction, _positiveAction, _negativeAction]
+    if (_neutralButtonText !== undefined) {
+        _addButton(_neutralButtonText, _neutralButtonAction)
+        if (_neutralButtonGap !== undefined) {
+            dialog.buttons.add('statictext', [0, 0, _neutralButtonGap, 0])
+        }
     }
-    for (var i = 0; i < actions.length; i++) {
-        var action = actions[i]
-        if (action !== undefined) {
-            var button = dialog.actions.add('button', undefined, action.text)
-            button.onClick = function() {
-                dialog.close()
-                if (action.onAction !== undefined) {
-                    action.onAction()
-                }
-            }
-            if (_neutralAction === action && _neutralActionGap !== undefined) {
-                dialog.actions.add('statictext', [0, 0, _neutralActionGap, 0])
+    if (isMacOS()) {
+        _addButton(_negativeButtonText, _negativeButtonAction)
+        _addButton(_positiveButtonText, _positiveButtonAction)
+    } else {
+        _addButton(_positiveButtonText, _positiveButtonAction)
+        _addButton(_negativeButtonText, _negativeButtonAction)
+    }
+    dialog.show()
+}
+
+function _addButton(text, action) {
+    if (text !== undefined) {
+        dialog.buttons.add('button', undefined, text).onClick = function() {
+            dialog.close()
+            if (action !== undefined) {
+                action()
             }
         }
     }
-    dialog.show()
 }
 
 /** Add horizontal group to target. */
