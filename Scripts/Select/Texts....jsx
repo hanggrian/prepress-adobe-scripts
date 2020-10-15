@@ -39,8 +39,8 @@ color.stroke = color.addHGroup()
 color.stroke.add('statictext', BOUNDS_COLOR_TEXT, 'Stroke:').justify = 'right'
 color.strokeList = color.stroke.add('dropdownlist', undefined, COLORS)
 
-setNegativeAction('Cancel')
-setPositiveAction('OK', function() {
+setNegativeButton('Cancel')
+setPositiveButton('OK', function() {
     selectAll(function(item) {
         var attr = item.textRange.characterAttributes
         var condition = true

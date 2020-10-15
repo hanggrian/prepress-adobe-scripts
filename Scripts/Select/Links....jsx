@@ -54,8 +54,8 @@ types.pngCheck = types.add('checkbox', undefined, getTypeString('PNG', FILE_PNG)
 types.psdCheck = types.add('checkbox', undefined, getTypeString('Photoshop', FILE_PSD))
 types.tiffCheck = types.add('checkbox', undefined, getTypeString('TIFF', FILE_TIFF))
 
-setNegativeAction('Cancel')
-setPositiveAction('OK', function() {
+setNegativeButton('Cancel')
+setPositiveButton('OK', function() {
     selectAll(function(item) {
         var condition = true
         var width = parseUnit(dimension.widthEdit.text)

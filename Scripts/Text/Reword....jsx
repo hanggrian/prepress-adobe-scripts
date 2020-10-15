@@ -11,8 +11,8 @@ input.add('statictext', undefined, 'Text:')
 input.inputEdit = input.add('edittext', [0, 0, 400, 21])
 input.inputEdit.active = true
 
-setNegativeAction('Cancel')
-setPositiveAction('OK', function() {
+setNegativeButton('Cancel')
+setPositiveButton('OK', function() {
     selection.forEach(function(it) {
         if (it.typename == 'TextFrame') {
             var words = it.words

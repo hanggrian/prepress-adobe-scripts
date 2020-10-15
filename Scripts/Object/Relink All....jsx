@@ -47,8 +47,8 @@ if (file != null) {
     root.file = root.addHGroup('File')
     root.file.add('statictext', undefined, decodeURI(file.absoluteURI))
     
-    addAction('Cancel')
-    addAction('OK', function() {
+    setNegativeButton('Cancel')
+    setPositiveButton('OK', function() {
         selection.forEach(function(it) {
             it.relink(file)
         })

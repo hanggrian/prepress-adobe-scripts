@@ -5,8 +5,6 @@ var BOUNDS_DUPLICATE_TEXT = [0, 0, 45, 21]
 var BOUNDS_DUPLICATE_EDIT = [0, 0, 100, 21]
 var BOUNDS_DUPLICATE_EDIT_SMALL = [0, 0, 36, 21]
 
-var _duplicate
-
 /**
  * Add duplicate layout to target.
  * @this {Object} - may be a Group, Panel, or Window
@@ -27,8 +25,7 @@ Object.prototype.addDuplicateGroup = function() {
     duplicate.gap.add('statictext', BOUNDS_DUPLICATE_TEXT, 'Gap:').justify = 'right'
     duplicate.gapEdit = duplicate.gap.add('edittext', BOUNDS_DUPLICATE_EDIT)
     duplicate.gapEdit.validateUnits()
-    
-    _duplicate = duplicate
+
     return duplicate
 }
 
@@ -38,10 +35,10 @@ Object.prototype.addDuplicateGroup = function() {
  * @param {Function} verticalRunnable - nullable custom action
  * @return {void}
  */
-function duplicate(horizontalRunnable, verticalRunnable) {
-    var horizontal = parseInt(_duplicate.horizontalEdit.text) || 0
-    var vertical = parseInt(_duplicate.verticalEdit.text) || 0
-    var gap = parseUnit(_duplicate.gapEdit.text)
+Object.prototype.duplicate = function(horizontalRunnable, verticalRunnable) {
+    var horizontal = parseInt(this.horizontalEdit.text) || 0
+    var vertical = parseInt(this.verticalEdit.text) || 0
+    var gap = parseUnit(this.gapEdit.text)
 
     var target = selection[0]
     var clippingTarget = target.getClippingPathItem()

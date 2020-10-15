@@ -32,8 +32,8 @@ var prefix = 1
 var count = 0
 var stopsAt
 
-setNegativeAction('Cancel')
-setPositiveAction('OK', function() {
+setNegativeButton('Cancel')
+setPositiveButton('OK', function() {
     for (var i = 0; i < ALPHABETS.length; i++) {
         if (ALPHABETS[i] == sequence.stopsList.selection.text) {
             stopsAt = i + 1

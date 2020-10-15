@@ -37,8 +37,8 @@ others.meshCheck = others.row1.add('checkbox', BOUNDS, 'Mesh')
 others.row2 = others.addHGroup()
 others.graphCheck = others.row2.add('checkbox', BOUNDS, 'Graph')
 
-setNegativeAction('Cancel')
-setPositiveAction('OK', function() {
+setNegativeButton('Cancel')
+setPositiveButton('OK', function() {
     if (paths.compoundPathCheck.value) allowSelectionType(SELECT_COMPOUND_PATH)
     if (others.graphCheck.value) allowSelectionType(SELECT_GRAPH)
     if (types.legacyTextCheck.value) allowSelectionType(SELECT_LEGACY_TEXT)

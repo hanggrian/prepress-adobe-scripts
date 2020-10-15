@@ -6,28 +6,28 @@
 var BOUNDS_TEXT = [0, 0, 45, 21]
 var BOUNDS_EDIT = [0, 0, 100, 21]
 
-init('Resize Artboards')
+createDialog('Resize Artboards')
 
-root.w = root.addHGroup()
-root.w.add('statictext', BOUNDS_TEXT, 'Width:').justify = 'right'
-var widthEdit = root.w.add('edittext', BOUNDS_EDIT)
-widthEdit.validateUnits()
-widthEdit.active = true
+var width = dialog.main.addHGroup()
+width.add('statictext', BOUNDS_TEXT, 'Width:').justify = 'right'
+width.widthEdit = width.add('edittext', BOUNDS_EDIT)
+width.widthEdit.validateUnits()
+width.widthEdit.active = true
 
-root.h = root.addHGroup()
-root.h.add('statictext', BOUNDS_TEXT, 'Height:').justify = 'right'
-var heightEdit = root.h.add('edittext', BOUNDS_EDIT)
-heightEdit.validateUnits()
+var height = dialog.main.addHGroup()
+height.add('statictext', BOUNDS_TEXT, 'Height:').justify = 'right'
+height.heightEdit = height.add('edittext', BOUNDS_EDIT)
+height.heightEdit.validateUnits()
 
-addAction('Cancel')
-addAction('OK', function() {
-    var width = parseUnit(widthEdit.text)
-    var height = parseUnit(heightEdit.text)
-    if (width <= 0 || height <= 0) {
+setNegativeButton('Cancel')
+setPositiveButton('OK', function() {
+    var w = parseUnit(width.widthEdit.text)
+    var h = parseUnit(height.heightEdit.text)
+    if (w <= 0 || h <= 0) {
         return
     }
     document.artboards.forEach(function(it) {
-        resizeArtboard(it, width, height)
+        resizeArtboard(it, w, h)
     })
 })
 show()

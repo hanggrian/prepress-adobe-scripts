@@ -133,7 +133,7 @@ function process(isDelete) {
         if (isDelete) selection[0].remove()
     } else {
         // currently ignore location checkboxes in duplication
-        duplicate(function(item, h, v) {
+        duplicate.duplicate(function(item, h, v) {
             locs = []
             if (h == horizontal - 1) {
                 locs.push(LOCATION_RIGHT_TOP, LOCATION_RIGHT_BOTTOM)

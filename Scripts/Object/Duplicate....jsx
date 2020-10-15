@@ -13,9 +13,10 @@ var BOUNDS_EDIT_SMALL = [0, 0, 36, 21]
 checkSingleSelection()
 
 createDialog('Duplicate')
+
 var duplicate = dialog.main.addDuplicateGroup()
 duplicate.horizontalEdit.active = true
 
-setNegativeAction('Cancel')
-setPositiveAction('OK', function() { duplicate() })
+setNegativeButton('Cancel')
+setPositiveButton('OK', function() { duplicate.duplicate() })
 show()
