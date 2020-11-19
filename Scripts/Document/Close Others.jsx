@@ -3,7 +3,7 @@
  */
 
 #target Illustrator
-#include '.lib/core.js'
+#include '../.lib/core.js'
 
 check(app.documents.length != 1, 'No other tabs')
 
