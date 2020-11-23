@@ -12,7 +12,7 @@ var BOUNDS_TEXT = [0, 0, 65, 21]
 
 checkHasSelection()
 
-createDialog('Retype by Sequence')
+createDialog('Re-Text by Sequence')
 
 var sequence = dialog.main.addVPanel('Sequence')
 sequence.alignChildren = 'fill'

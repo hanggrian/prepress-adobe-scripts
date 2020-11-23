@@ -1,4 +1,3 @@
-// incomplete script
 /**
  * Apply relink once to all selected `PlacedItem`,
  * as opposed to native Illustrator `Relink...` which is done individually.
