@@ -4,7 +4,7 @@
 
 checkHasSelection()
 
-createDialog('Re-Text Texts')
+createDialog('Retype Texts')
 
 var input = dialog.main.addHGroup()
 input.add('statictext', undefined, 'Text:')

@@ -14,7 +14,7 @@ var BOUNDS_COLOR_TEXT = [0, 0, 45, 21]
 
 allowSelectionType(SELECT_TEXT_FRAME)
 
-createDialog('Select Texts')
+createDialog('Select Types')
 
 dialog.line = dialog.main.addHGroup()
 dialog.line.alignChildren = 'top'
