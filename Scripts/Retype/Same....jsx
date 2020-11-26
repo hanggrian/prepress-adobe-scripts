@@ -4,7 +4,7 @@
 
 checkHasSelection()
 
-createDialog('Retype Texts')
+createDialog('Retype')
 
 var input = dialog.main.addHGroup()
 input.add('statictext', undefined, 'Text:')
@@ -15,9 +15,8 @@ setNegativeButton('Cancel')
 setPositiveButton('OK', function() {
     selection.forEach(function(it) {
         if (it.typename == 'TextFrame') {
-            var words = it.words
-            words.removeAll()
-            words.add(input.inputEdit.text)
+            it.words.removeAll()
+            it.words.add(input.inputEdit.text)
         }
     })
 })

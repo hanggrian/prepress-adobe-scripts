@@ -12,9 +12,9 @@ var BOUNDS_TEXT = [0, 0, 65, 21]
 
 checkHasSelection()
 
-createDialog('Retype by Sequence')
+createDialog('Retype by Alphabet')
 
-var sequence = dialog.main.addVPanel('Sequence')
+var sequence = dialog.main.addVPanel('Alphabet')
 sequence.alignChildren = 'fill'
 sequence.stops = sequence.addHGroup()
 sequence.stops.add('statictext', BOUNDS_TEXT, 'Stops at:').justify = 'right'
@@ -59,9 +59,8 @@ function rename(item) {
         }
         s += ALPHABETS[count]
 
-        var words = item.words
-        words.removeAll()
-        words.add(s)
+        item.words.removeAll()
+        item.words.add(s)
 
         count++
         if (count == stopsAt) {
