@@ -3,112 +3,139 @@
 #include '../.lib/commons.js'
 #include '../.lib/ui.js'
 
-var BOUNDS_LEFT = [0, 0, 90, 21]
-var BOUNDS_RIGHT = [0, 0, 150, 21]
-var BOUNDS_FIX = [0, 0, 50, 21]
-
 createDialog('Health Check')
 
 var fixButtons = []
+var leftBounds = [0, 0, 90, 21]
+var rightBounds = [0, 0, 150, 21]
+var fixBounds = [0, 0, 50, 21]
 
-var general = dialog.main.addVPanel('General')
-general.alignChildren = 'fill'
-
-general.colorMode = general.addHGroup()
-general.colorMode.add('statictext', BOUNDS_LEFT, 'Color mode:').justify = 'right'
-var colorMode = general.colorMode.add('statictext', BOUNDS_RIGHT, document.documentColorSpace.toString().substringAfter('.'))
-if (colorMode.text == 'CMYK') {
-    colorMode.text += ' ✔'
+dialog.general = dialog.main.addVPanel('General')
+dialog.general.alignChildren = 'fill'
+dialog.general.colorMode = dialog.general.addHGroup()
+dialog.general.colorMode.addText(leftBounds, 'Color mode:', 'right')
+dialog.general.colorModeText = dialog.general.colorMode.addText(rightBounds, document.documentColorSpace.toString().substringAfter('.'))
+if (dialog.general.colorModeText.text == 'CMYK') {
+    dialog.general.colorModeText.text += ' ✔'
 } else {
-    colorMode.text += ' ✘'
-    var firstButton = general.colorMode.add('button', BOUNDS_FIX, 'Fix')
-    firstButton.onClick = function() {
+    dialog.general.colorModeText.text += ' ✘'
+    dialog.general.colorMode.firstButton = dialog.general.colorMode.add('button', fixBounds, 'Fix')
+    dialog.general.colorMode.firstButton.onClick = function() {
         alert('Go to File > Document Color Mode > CMYK Color.')
     }
-    fixButtons.push(firstButton)
+    fixButtons.push(dialog.general.colorMode.firstButton)
 }
 
-var rasterEffects = dialog.main.addVPanel('Raster Effects')
-rasterEffects.alignChildren = 'fill'
-
-rasterEffects.colorModel = rasterEffects.addHGroup()
-rasterEffects.colorModel.add('statictext', BOUNDS_LEFT, 'Color model:').justify = 'right'
-var colorModel = rasterEffects.colorModel.add('statictext', BOUNDS_RIGHT, document.rasterEffectSettings.colorModel.toString().substringAfter('.'))
-if (colorModel.text == 'DEFAULTCOLORMODEL') {
-    colorModel.text += ' ✔'
+dialog.rasterEffects = dialog.main.addVPanel('Raster Effects')
+dialog.rasterEffects.alignChildren = 'fill'
+dialog.rasterEffects.colorModel = dialog.rasterEffects.addHGroup()
+dialog.rasterEffects.colorModel.addText(leftBounds, 'Color model:', 'right')
+dialog.rasterEffects.colorModelText = dialog.rasterEffects.colorModel.addText(rightBounds, document.rasterEffectSettings.colorModel.toString().substringAfter('.'))
+if (dialog.rasterEffects.colorModelText.text == 'DEFAULTCOLORMODEL') {
+    dialog.rasterEffects.colorModelText.text += ' ✔'
 } else {
-    colorModel.text += ' ✘'
-    fixButtons.push(addFixButton(rasterEffects.colorModel, colorModel, 'DEFAULTCOLORMODEL ✔', function() {
-        document.rasterEffectSettings.colorModel = RasterizationColorModel.DEFAULTCOLORMODEL
-    }))
+    dialog.rasterEffects.colorModelText.text += ' ✘'
+    fixButtons.push(addFixButton(
+        dialog.rasterEffects.colorModel,
+        dialog.rasterEffects.colorModelText,
+        'DEFAULTCOLORMODEL ✔',
+        function() {
+            document.rasterEffectSettings.colorModel = RasterizationColorModel.DEFAULTCOLORMODEL
+        })
+    )
 }
 
-rasterEffects.resolution = rasterEffects.addHGroup()
-rasterEffects.resolution.add('statictext', BOUNDS_LEFT, 'Resolution:').justify = 'right'
-var resolution = rasterEffects.resolution.add('statictext', BOUNDS_RIGHT, document.rasterEffectSettings.resolution)
-if (resolution.text == '300') {
-    resolution.text += ' ✔'
+dialog.rasterEffects.resolution = dialog.rasterEffects.addHGroup()
+dialog.rasterEffects.resolution.addText(leftBounds, 'Resolution:', 'right')
+dialog.rasterEffects.resolutionText = dialog.rasterEffects.resolution.addText(rightBounds, document.rasterEffectSettings.resolution)
+if (dialog.rasterEffects.resolutionText.text == '300') {
+    dialog.rasterEffects.resolutionText.text += ' ✔'
 } else {
-    resolution.text += ' ✘'
-    fixButtons.push(addFixButton(rasterEffects.resolution, resolution, '300 ✔', function() {
-        document.rasterEffectSettings.resolution = 300
-    }))
+    dialog.rasterEffects.resolutionText.text += ' ✘'
+    fixButtons.push(addFixButton(
+        dialog.rasterEffects.resolution,
+        dialog.rasterEffects.resolutionText,
+        '300 ✔',
+        function() {
+            document.rasterEffectSettings.resolution = 300
+        })
+    )
 }
 
-rasterEffects.background = rasterEffects.addHGroup()
-rasterEffects.background.add('statictext', BOUNDS_LEFT, 'Background:').justify = 'right'
-var background
+dialog.rasterEffects.background = dialog.rasterEffects.addHGroup()
+dialog.rasterEffects.background.addText(leftBounds, 'Background:', 'right')
+dialog.rasterEffects.backgroundText = dialog.rasterEffects.background.addText(rightBounds)
 if (!document.rasterEffectSettings.transparency) {
-    background = rasterEffects.background.add('statictext', BOUNDS_RIGHT, 'White ✔')
+    dialog.rasterEffects.backgroundText.text = 'White ✔'
 } else {
-    background = rasterEffects.background.add('statictext', BOUNDS_RIGHT, 'Transparent ✘')
+    dialog.rasterEffects.backgroundText.text = 'Transparent ✘'
 }
-if (background.text.endsWith('✘')) {
-    fixButtons.push(addFixButton(rasterEffects.background, background, 'White ✔', function() {
-        document.rasterEffectSettings.transparency = false
-    }))
+if (dialog.rasterEffects.backgroundText.text.endsWith('✘')) {
+    fixButtons.push(addFixButton(
+        dialog.rasterEffects.background,
+        dialog.rasterEffects.backgroundText,
+        'White ✔',
+        function() {
+            document.rasterEffectSettings.transparency = false
+        })
+    )
 }
 
-rasterEffects.antiAlias = rasterEffects.addHGroup()
-rasterEffects.antiAlias.add('statictext', BOUNDS_LEFT, 'Anti-alias:').justify = 'right'
-var antiAlias
+dialog.rasterEffects.antiAlias = dialog.rasterEffects.addHGroup()
+dialog.rasterEffects.antiAlias.addText(leftBounds, 'Anti-alias:', 'right')
+dialog.rasterEffects.antiAliasText = dialog.rasterEffects.antiAlias.addText(rightBounds)
 if (!document.rasterEffectSettings.antiAliasing) {
-    antiAlias = rasterEffects.antiAlias.add('statictext', BOUNDS_RIGHT, 'Disabled ✔')
+    dialog.rasterEffects.antiAliasText.text = 'Disabled ✔'
 } else {
-    antiAlias = rasterEffects.antiAlias.add('statictext', BOUNDS_RIGHT, 'Enabled ✘')
+    dialog.rasterEffects.antiAliasText.text = 'Enabled ✘'
 }
-if (antiAlias.text.endsWith('✘')) {
-    fixButtons.push(addFixButton(rasterEffects.antiAlias, antiAlias, 'Disabled ✔', function() {
-        document.rasterEffectSettings.antiAliasing = false
-    }))
+if (dialog.rasterEffects.antiAliasText.text.endsWith('✘')) {
+    fixButtons.push(addFixButton(
+        dialog.rasterEffects.antiAlias,
+        dialog.rasterEffects.antiAliasText,
+        'Disabled ✔',
+        function() {
+            document.rasterEffectSettings.antiAliasing = false
+        })
+    )
 }
 
-rasterEffects.clippingMask = rasterEffects.addHGroup()
-rasterEffects.clippingMask.add('statictext', BOUNDS_LEFT, 'Clipping mask:').justify = 'right'
-var clippingMask
+dialog.rasterEffects.clippingMask = dialog.rasterEffects.addHGroup()
+dialog.rasterEffects.clippingMask.addText(leftBounds, 'Clipping mask:', 'right')
+dialog.rasterEffects.clippingMaskText = dialog.rasterEffects.clippingMask.addText(rightBounds)
 if (!document.rasterEffectSettings.clippingMask) {
-    clippingMask = rasterEffects.clippingMask.add('statictext', BOUNDS_RIGHT, "Don't create ✔")
+    dialog.rasterEffects.clippingMaskText.text = "Don't create ✔"
 } else {
-    clippingMask = rasterEffects.clippingMask.add('statictext', BOUNDS_RIGHT, 'Create ✘')
+    dialog.rasterEffects.clippingMaskText.text = 'Create ✘'
 }
-if (clippingMask.text.endsWith('✘')) {
-    fixButtons.push(addFixButton(rasterEffects.clippingMask, clippingMask, "Don't create ✔", function() {
-        document.rasterEffectSettings.clippingMask = false
-    }))
+if (dialog.rasterEffects.clippingMaskText.text.endsWith('✘')) {
+    fixButtons.push(addFixButton(
+        dialog.rasterEffects.clippingMask,
+        dialog.rasterEffects.clippingMaskText,
+        "Don't create ✔",
+        function() {
+            document.rasterEffectSettings.clippingMask = false
+        })
+    )
 }
 
-rasterEffects.spotColors = rasterEffects.addHGroup()
-rasterEffects.spotColors.add('statictext', BOUNDS_LEFT, 'Spot colors:').justify = 'right'
-var spotColors
+dialog.rasterEffects.spotColors = dialog.rasterEffects.addHGroup()
+dialog.rasterEffects.spotColors.addText(leftBounds, 'Spot colors:', 'right')
+dialog.rasterEffects.spotColorsText = dialog.rasterEffects.spotColors.addText(rightBounds)
 if (!document.rasterEffectSettings.convertSpotColors) {
-    spotColors = rasterEffects.spotColors.add('statictext', BOUNDS_RIGHT, 'Preserve ✔')
+    dialog.rasterEffects.spotColorsText.text = 'Preserve ✔'
 } else {
-    spotColors = rasterEffects.spotColors.add('statictext', BOUNDS_RIGHT, 'Convert ✘')
+    dialog.rasterEffects.spotColorsText.text = 'Convert ✘'
 }
-if (spotColors.text.endsWith('✘')) {
-    fixButtons.push(addFixButton(rasterEffects.spotColors, spotColors, 'Preserve ✔', function() {
-        document.rasterEffectSettings.convertSpotColors = false
-    }))
+if (dialog.rasterEffects.spotColorsText.text.endsWith('✘')) {
+    fixButtons.push(addFixButton(
+        dialog.rasterEffects.spotColors,
+        dialog.rasterEffects.spotColorsText,
+        'Preserve ✔',
+        function() {
+            document.rasterEffectSettings.convertSpotColors = false
+        })
+    )
 }
 
 if (fixButtons.length > 0) {
@@ -121,12 +148,12 @@ if (fixButtons.length > 0) {
 setPositiveButton('OK')
 show()
 
-function addFixButton(parent, staticText, text, onClick) {
-    var button = parent.add('button', BOUNDS_FIX, 'Fix')
+function addFixButton(parent, staticText, fixedText, onClick) {
+    var button = parent.add('button', fixBounds, 'Fix')
     button.onClick = function() {
         onClick()
         parent.remove(button)
-        staticText.text = text
+        staticText.text = fixedText
     }
     return button
 }

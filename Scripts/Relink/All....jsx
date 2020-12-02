@@ -4,6 +4,7 @@
  */
 
 #target Illustrator
+#include '../.lib/commons.js'
 #include '../.lib/core-strings.js'
 #include '../.lib/ui.js'
 
@@ -42,10 +43,10 @@ if (isMacOS()) {
 var file = File.openDialog('Relink All', filters)
 
 if (file != null) {
-    init('Relink All')
+    createDialog('Relink All')
 
-    root.file = root.addHGroup('File')
-    root.file.add('statictext', undefined, decodeURI(file.absoluteURI))
+    dialog.file = dialog.main.addHGroup('File')
+    dialog.file.addText(undefined, decodeURI(file.absoluteURI))
     
     setNegativeButton('Cancel')
     setPositiveButton('OK', function() {

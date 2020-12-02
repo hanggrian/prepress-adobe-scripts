@@ -2,45 +2,45 @@
 #include '../.lib/commons.js'
 #include '../.lib/ui-validator.js'
 
-var BOUNDS_TEXT = [0, 0, 55, 21]
-var BOUNDS_EDIT = [0, 0, 100, 21]
-
 checkHasSelection()
 
 createDialog('Retype by Sequence')
 
-var sequence = dialog.main.addVPanel('Sequence')
-sequence.startsAt = sequence.addHGroup()
-sequence.startsAt.add('statictext', BOUNDS_TEXT, 'Starts at:').justify = 'right'
-sequence.startsAtEdit = sequence.startsAt.add('edittext', BOUNDS_EDIT, '1')
-sequence.startsAtEdit.validateDigits()
-sequence.startsAtEdit.active = true
-sequence.digits = sequence.addHGroup()
-sequence.digits.add('statictext', BOUNDS_TEXT, 'Digits:').justify = 'right'
-sequence.digitsEdit = sequence.digits.add('edittext', BOUNDS_EDIT)
-sequence.digitsEdit.validateDigits()
+var textBounds = [0, 0, 55, 21]
+var editBounds = [0, 0, 100, 21]
 
-var affix = dialog.main.addVPanel('Affix')
-affix.prefix = affix.addHGroup()
-affix.prefix.add('statictext', BOUNDS_TEXT, 'Prefix:').justify = 'right'
-affix.prefixEdit = affix.prefix.add('edittext', BOUNDS_EDIT)
-affix.suffix = affix.addHGroup()
-affix.suffix.add('statictext', BOUNDS_TEXT, 'Suffix:').justify = 'right'
-affix.suffixEdit = affix.suffix.add('edittext', BOUNDS_EDIT)
+dialog.sequence = dialog.main.addVPanel('Sequence')
+dialog.sequence.startsAt = dialog.sequence.addHGroup()
+dialog.sequence.startsAt.addText(textBounds, 'Starts at:', 'right')
+dialog.sequence.startsAtEdit = dialog.sequence.startsAt.addEditText(editBounds, '1')
+dialog.sequence.startsAtEdit.validateDigits()
+dialog.sequence.startsAtEdit.active = true
+dialog.sequence.digits = dialog.sequence.addHGroup()
+dialog.sequence.digits.addText(textBounds, 'Digits:', 'right')
+dialog.sequence.digitsEdit = dialog.sequence.digits.addEditText(editBounds)
+dialog.sequence.digitsEdit.validateDigits()
 
-var reverse = dialog.main.addVGroup()
-reverse.alignment = 'right'
-reverse.reverseCheck = reverse.add('checkbox', undefined, 'Reverse order')
+dialog.affix = dialog.main.addVPanel('Affix')
+dialog.affix.prefix = dialog.affix.addHGroup()
+dialog.affix.prefix.addText(textBounds, 'Prefix:', 'right')
+dialog.affix.prefixEdit = dialog.affix.prefix.addEditText(editBounds)
+dialog.affix.suffix = dialog.affix.addHGroup()
+dialog.affix.suffix.addText(textBounds, 'Suffix:', 'right')
+dialog.affix.suffixEdit = dialog.affix.suffix.addEditText(editBounds)
+
+dialog.reverse = dialog.main.addVGroup()
+dialog.reverse.alignment = 'right'
+dialog.reverse.reverseCheck = dialog.reverse.addCheckBox(undefined, 'Reverse order')
 
 var count, digits, prefix, suffix
 
 setNegativeButton('Cancel')
 setPositiveButton('OK', function() {
-    count = parseInt(sequence.startsAtEdit.text) || 0
-    digits = parseInt(sequence.digitsEdit.text) || 0
-    prefix = affix.prefixEdit.text
-    suffix = affix.suffixEdit.text
-    if (!reverse.reverseCheck.value) {
+    count = parseInt(dialog.sequence.startsAtEdit.text) || 0
+    digits = parseInt(dialog.sequence.digitsEdit.text) || 0
+    prefix = dialog.affix.prefixEdit.text
+    suffix = dialog.affix.suffixEdit.text
+    if (!dialog.reverse.reverseCheck.value) {
         selection.forEach(function(it) {
             rename(it)
         })

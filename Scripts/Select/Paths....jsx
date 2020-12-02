@@ -9,11 +9,6 @@
 #include '../.lib/commons-select.js'
 #include '../.lib/ui-validator.js'
 
-
-var BOUNDS_DIMENSION_TEXT = [0, 0, 45, 21]
-var BOUNDS_DIMENSION_EDIT = [0, 0, 100, 21]
-var BOUNDS_COLOR_TEXT = [0, 0, 45, 21]
-
 allowSelectionType(SELECT_PATH)
 allowSelectionType(SELECT_COMPOUND_PATH)
 
@@ -22,38 +17,41 @@ createDialog('Select Paths')
 dialog.line = dialog.main.addHGroup()
 dialog.line.alignChildren = 'top'
 
-var dimension = dialog.line.addVPanel('Dimension')
-dimension.width = dimension.addHGroup()
-dimension.width.add('statictext', BOUNDS_DIMENSION_TEXT, 'Width:').justify = 'right'
-dimension.widthEdit = dimension.width.add('edittext', BOUNDS_DIMENSION_EDIT)
-dimension.widthEdit.validateUnits()
-dimension.widthEdit.active = true
-dimension.height = dimension.addHGroup()
-dimension.height.add('statictext', BOUNDS_DIMENSION_TEXT, 'Height:').justify = 'right'
-dimension.heightEdit = dimension.height.add('edittext', BOUNDS_DIMENSION_EDIT)
-dimension.heightEdit.validateUnits()
+var dimensionTextBounds = [0, 0, 45, 21]
+var dimensionEditBounds = [0, 0, 100, 21]
+dialog.dimension = dialog.line.addVPanel('Dimension')
+dialog.dimension.width = dialog.dimension.addHGroup()
+dialog.dimension.width.addText(dimensionTextBounds, 'Width:', 'right')
+dialog.dimension.widthEdit = dialog.dimension.width.addEditText(dimensionEditBounds)
+dialog.dimension.widthEdit.validateUnits()
+dialog.dimension.widthEdit.active = true
+dialog.dimension.height = dialog.dimension.addHGroup()
+dialog.dimension.height.addText(dimensionTextBounds, 'Height:', 'right')
+dialog.dimension.heightEdit = dialog.dimension.height.addEditText(dimensionEditBounds)
+dialog.dimension.heightEdit.validateUnits()
 
-var color = dialog.line.addVPanel('Color')
-color.fill = color.addHGroup()
-color.fill.add('statictext', BOUNDS_COLOR_TEXT, 'Fill:').justify = 'right'
-color.fillList = color.fill.add('dropdownlist', undefined, COLORS)
-color.stroke = color.addHGroup()
-color.stroke.add('statictext', BOUNDS_COLOR_TEXT, 'Stroke:').justify = 'right'
-color.strokeList = color.stroke.add('dropdownlist', undefined, COLORS)
+var colorTextBounds = [0, 0, 45, 21]
+dialog.color = dialog.line.addVPanel('Color')
+dialog.color.fill = dialog.color.addHGroup()
+dialog.color.fill.addText(colorTextBounds, 'Fill:', 'right')
+dialog.color.fillList = dialog.color.fill.add('dropdownlist', undefined, COLORS)
+dialog.color.stroke = dialog.color.addHGroup()
+dialog.color.stroke.addText(colorTextBounds, 'Stroke:', 'right')
+dialog.color.strokeList = dialog.color.stroke.addDropDown(undefined, COLORS)
 
 setNegativeButton('Cancel')
 setPositiveButton('OK', function() {
     selectAll(function(item) {
         var condition = true
-        var width = parseInt(parseUnit(dimension.widthEdit.text))
+        var width = parseInt(parseUnit(dialog.dimension.widthEdit.text))
         if (width > 0) condition = condition && width == parseInt(item.width)
-        var height = parseInt(parseUnit(dimension.heightEdit.text))
+        var height = parseInt(parseUnit(dialog.dimension.heightEdit.text))
         if (height > 0) condition = condition && height == parseInt(item.height)
-        if (color.fillList.selection != null) {
-            condition = condition && item.fillColor.equalTo(parseColor(color.fillList.selection.text))
+        if (dialog.color.fillList.selection != null) {
+            condition = condition && item.fillColor.equalTo(parseColor(dialog.color.fillList.selection.text))
         }
-        if (color.strokeList.selection != null) {
-            condition = condition && item.strokeColor.equalTo(parseColor(color.strokeList.selection.text))
+        if (dialog.color.strokeList.selection != null) {
+            condition = condition && item.strokeColor.equalTo(parseColor(dialog.color.strokeList.selection.text))
         }
         return condition
     })

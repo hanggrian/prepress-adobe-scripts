@@ -23,11 +23,6 @@ var LOCATION_LEFT_TOP = 10
 
 var DEFAULT_WEIGHT = 0.3 // the same value used in `Object > Create Trim Marks`
 
-var BOUNDS_TEXT = [0, 0, 60, 21]
-var BOUNDS_EDIT = [0, 0, 100, 21]
-var BOUNDS_CHECK = [0, 0, 13, 13]
-var BOUNDS_EDIT_SMALL = [0, 0, 36, 21]
-
 checkSingleSelection()
 
 createDialog('Crop Marks')
@@ -36,72 +31,75 @@ dialog.main.alignChildren = 'fill'
 dialog.upper = dialog.main.addHGroup()
 dialog.lower = dialog.main.addVPanel('Duplicate')
 
-var main = dialog.upper.addVGroup()
-main.offset = main.addHGroup()
-main.offset.add('statictext', BOUNDS_TEXT, 'Offset:').justify = 'right'
-main.offsetEdit = main.offset.add('edittext', BOUNDS_EDIT, '2.5 mm')
-main.offsetEdit.validateUnits()
-main.offsetEdit.active = true
-main.length = main.addHGroup()
-main.length.add('statictext', BOUNDS_TEXT, 'Length:').justify = 'right'
-main.lengthEdit = main.length.add('edittext', BOUNDS_EDIT, '2.5 mm')
-main.lengthEdit.validateUnits()
-main.weight = main.addHGroup()
-main.weight.add('statictext', BOUNDS_TEXT, 'Weight:').justify = 'right'
-main.weightEdit = main.weight.add('edittext', BOUNDS_EDIT, DEFAULT_WEIGHT)
-main.weightEdit.validateUnits()
-main.color = main.addHGroup()
-main.color.add('statictext', BOUNDS_TEXT, 'Color:').justify = 'right'
-main.colorList = main.color.add('dropdownlist', BOUNDS_EDIT, COLORS)
-main.colorList.selection = 0
+var textBounds = [0, 0, 60, 21]
+var editBounds = [0, 0, 100, 21]
+dialog.main2 = dialog.upper.addVGroup()
+dialog.main2.offset = dialog.main2.addHGroup()
+dialog.main2.offset.addText(textBounds, 'Offset:', 'right')
+dialog.main2.offsetEdit = dialog.main2.offset.addEditText(editBounds, '2.5 mm')
+dialog.main2.offsetEdit.validateUnits()
+dialog.main2.offsetEdit.active = true
+dialog.main2.length = dialog.main2.addHGroup()
+dialog.main2.length.addText(textBounds, 'Length:', 'right')
+dialog.main2.lengthEdit = dialog.main2.length.addEditText(editBounds, '2.5 mm')
+dialog.main2.lengthEdit.validateUnits()
+dialog.main2.weight = dialog.main2.addHGroup()
+dialog.main2.weight.addText(textBounds, 'Weight:', 'right')
+dialog.main2.weightEdit = dialog.main2.weight.addEditText(editBounds, DEFAULT_WEIGHT)
+dialog.main2.weightEdit.validateUnits()
+dialog.main2.color = dialog.main2.addHGroup()
+dialog.main2.color.addText(textBounds, 'Color:', 'right')
+dialog.main2.colorList = dialog.main2.color.addDropDown(editBounds, COLORS)
+dialog.main2.colorList.selection = 0
 
 dialog.upper.add('statictext', [0, 0, 0, 10]) // gap
 
-var locations = dialog.upper.addHGroup()
-locations.alignChildren = 'top'
-locations.add('statictext', BOUNDS_TEXT, 'Locations:').justify = 'right'
-locations.row = locations.addVGroup()
-locations.row1 = locations.row.addHGroup()
-locations.row1.add('statictext', BOUNDS_CHECK).justify = 'right'
-locations.topLeftCheck = locations.row1.add('checkbox', BOUNDS_CHECK, undefined)
-locations.topLeftCheck.value = true
-locations.row1.add('statictext', BOUNDS_CHECK).justify = 'right'
-locations.topRightCheck = locations.row1.add('checkbox', BOUNDS_CHECK)
-locations.topRightCheck.value = true
-locations.row1.add('statictext', BOUNDS_CHECK).justify = 'right'
-locations.row2 = locations.row.addHGroup()
-locations.leftTopCheck = locations.row2.add('checkbox', BOUNDS_CHECK)
-locations.leftTopCheck.value = true
-locations.row2.add('statictext', BOUNDS_CHECK, '↖︎').justify = 'right'
-locations.row2.add('statictext', BOUNDS_CHECK, '↑').justify = 'right'
-locations.row2.add('statictext', BOUNDS_CHECK, '↗').justify = 'right'
-locations.rightTopCheck = locations.row2.add('checkbox', BOUNDS_CHECK)
-locations.rightTopCheck.value = true
-locations.row3 = locations.row.addHGroup()
-locations.row3.add('statictext', BOUNDS_CHECK).justify = 'right'
-locations.row3.add('statictext', BOUNDS_CHECK, '←').justify = 'right'
-locations.row3.add('statictext', BOUNDS_CHECK, '●').justify = 'right'
-locations.row3.add('statictext', BOUNDS_CHECK, '→').justify = 'right'
-locations.row3.add('statictext', BOUNDS_CHECK).justify = 'right'
-locations.row4 = locations.row.addHGroup()
-locations.leftBottomCheck = locations.row4.add('checkbox', BOUNDS_CHECK)
-locations.leftBottomCheck.value = true
-locations.row4.add('statictext', BOUNDS_CHECK, '↙').justify = 'right'
-locations.row4.add('statictext', BOUNDS_CHECK, '↓').justify = 'right'
-locations.row4.add('statictext', BOUNDS_CHECK, '↘').justify = 'right'
-locations.rightBottomCheck = locations.row4.add('checkbox', BOUNDS_CHECK)
-locations.rightBottomCheck.value = true
-locations.row5 = locations.row.addHGroup()
-locations.row5.add('statictext', BOUNDS_CHECK).justify = 'right'
-locations.bottomLeftCheck = locations.row5.add('checkbox', BOUNDS_CHECK)
-locations.bottomLeftCheck.value = true
-locations.row5.add('statictext', BOUNDS_CHECK).justify = 'right'
-locations.bottomRightCheck = locations.row5.add('checkbox', BOUNDS_CHECK)
-locations.bottomRightCheck.value = true
-locations.row5.add('statictext', BOUNDS_CHECK).justify = 'right'
+var checkBounds = [0, 0, 15, 15]
+dialog.locations = dialog.upper.addHGroup()
+dialog.locations.alignChildren = 'top'
+dialog.locations.addText(textBounds, 'Locations:', 'right')
+dialog.locations.row = dialog.locations.addVGroup()
+dialog.locations.row1 = dialog.locations.row.addHGroup()
+dialog.locations.row1.addText(checkBounds)
+dialog.locations.topLeftCheck = dialog.locations.row1.addCheckBox(checkBounds)
+dialog.locations.topLeftCheck.value = true
+dialog.locations.row1.addText(checkBounds)
+dialog.locations.topRightCheck = dialog.locations.row1.addCheckBox(checkBounds)
+dialog.locations.topRightCheck.value = true
+dialog.locations.row1.addText(checkBounds)
+dialog.locations.row2 = dialog.locations.row.addHGroup()
+dialog.locations.leftTopCheck = dialog.locations.row2.addCheckBox(checkBounds)
+dialog.locations.leftTopCheck.value = true
+dialog.locations.row2.addText(checkBounds, '↖︎')
+dialog.locations.row2.addText(checkBounds, '↑')
+dialog.locations.row2.addText(checkBounds, '↗')
+dialog.locations.rightTopCheck = dialog.locations.row2.addCheckBox(checkBounds)
+dialog.locations.rightTopCheck.value = true
+dialog.locations.row3 = dialog.locations.row.addHGroup()
+dialog.locations.row3.addText(checkBounds)
+dialog.locations.row3.addText(checkBounds, '←')
+dialog.locations.row3.addText(checkBounds, '●')
+dialog.locations.row3.addText(checkBounds, '→')
+dialog.locations.row3.addText(checkBounds)
+dialog.locations.row4 = dialog.locations.row.addHGroup()
+dialog.locations.leftBottomCheck = dialog.locations.row4.addCheckBox(checkBounds)
+dialog.locations.leftBottomCheck.value = true
+dialog.locations.row4.addText(checkBounds, '↙')
+dialog.locations.row4.addText(checkBounds, '↓')
+dialog.locations.row4.addText(checkBounds, '↘')
+dialog.locations.rightBottomCheck = dialog.locations.row4.addCheckBox(checkBounds)
+dialog.locations.rightBottomCheck.value = true
+dialog.locations.row5 = dialog.locations.row.addHGroup()
+dialog.locations.row5.addText(checkBounds)
+dialog.locations.bottomLeftCheck = dialog.locations.row5.addCheckBox(checkBounds)
+dialog.locations.bottomLeftCheck.value = true
+dialog.locations.row5.addText(checkBounds)
+dialog.locations.bottomRightCheck = dialog.locations.row5.addCheckBox(checkBounds)
+dialog.locations.bottomRightCheck.value = true
+dialog.locations.row5.addText(checkBounds)
 
 dialog.lower.alignChildren = 'fill'
-var duplicate = dialog.lower.addDuplicateGroup()
+dialog.duplicate = dialog.lower.addDuplicateGroup()
 
 setNegativeButton('Cancel')
 setPositiveButton('OK', function() { process(false) })
@@ -109,31 +107,31 @@ setNeutralButton('Delete', function() { process(true) }, 90)
 show()
 
 function process(isDelete) {
-    var offset = parseUnit(main.offsetEdit.text)
-    var length = parseUnit(main.lengthEdit.text)
-    var weight = parseUnit(main.weightEdit.text)
-    var color = parseColor(main.colorList.selection.text)
+    var offset = parseUnit(dialog.main2.offsetEdit.text)
+    var length = parseUnit(dialog.main2.lengthEdit.text)
+    var weight = parseUnit(dialog.main2.weightEdit.text)
+    var color = parseColor(dialog.main2.colorList.selection.text)
     var locs = []
     var marks = []
     
-    var horizontal = parseInt(duplicate.horizontalEdit.text) || 0
-    var vertical = parseInt(duplicate.verticalEdit.text) || 0
+    var horizontal = parseInt(dialog.duplicate.horizontalEdit.text) || 0
+    var vertical = parseInt(dialog.duplicate.verticalEdit.text) || 0
 
     if (horizontal < 1 || vertical < 1) {
-        if (locations.topLeftCheck.value) locs.push(LOCATION_TOP_LEFT)
-        if (locations.topRightCheck.value) locs.push(LOCATION_TOP_RIGHT)
-        if (locations.rightTopCheck.value) locs.push(LOCATION_RIGHT_TOP)
-        if (locations.rightBottomCheck.value) locs.push(LOCATION_RIGHT_BOTTOM)
-        if (locations.bottomRightCheck.value) locs.push(LOCATION_BOTTOM_RIGHT)
-        if (locations.bottomLeftCheck.value) locs.push(LOCATION_BOTTOM_LEFT)
-        if (locations.leftBottomCheck.value) locs.push(LOCATION_LEFT_BOTTOM)
-        if (locations.leftTopCheck.value) locs.push(LOCATION_LEFT_TOP)
+        if (dialog.locations.topLeftCheck.value) locs.push(LOCATION_TOP_LEFT)
+        if (dialog.locations.topRightCheck.value) locs.push(LOCATION_TOP_RIGHT)
+        if (dialog.locations.rightTopCheck.value) locs.push(LOCATION_RIGHT_TOP)
+        if (dialog.locations.rightBottomCheck.value) locs.push(LOCATION_RIGHT_BOTTOM)
+        if (dialog.locations.bottomRightCheck.value) locs.push(LOCATION_BOTTOM_RIGHT)
+        if (dialog.locations.bottomLeftCheck.value) locs.push(LOCATION_BOTTOM_LEFT)
+        if (dialog.locations.leftBottomCheck.value) locs.push(LOCATION_LEFT_BOTTOM)
+        if (dialog.locations.leftTopCheck.value) locs.push(LOCATION_LEFT_TOP)
 
         marks = marks.concat(createCropMarks(selection[0], offset, length, weight, color, locs))
         if (isDelete) selection[0].remove()
     } else {
         // currently ignore location checkboxes in duplication
-        duplicate.duplicate(function(item, h, v) {
+        dialog.duplicate.duplicate(function(item, h, v) {
             locs = []
             if (h == horizontal - 1) {
                 locs.push(LOCATION_RIGHT_TOP, LOCATION_RIGHT_BOTTOM)

@@ -1,28 +1,39 @@
 #target Illustrator
 #include '../.lib/core-units.js'
 #include '../.lib/commons.js'
+#include '../.lib/resources.js'
 #include '../.lib/ui-validator.js'
-
-var BOUNDS_TEXT = [0, 0, 45, 21]
-var BOUNDS_EDIT = [0, 0, 100, 21]
 
 createDialog('Resize Artboards')
 
-var width = dialog.main.addHGroup()
-width.add('statictext', BOUNDS_TEXT, 'Width:').justify = 'right'
-width.widthEdit = width.add('edittext', BOUNDS_EDIT)
-width.widthEdit.validateUnits()
-width.widthEdit.active = true
+dialog.header = dialog.main.addHGroup()
+dialog.fitButton = dialog.header.addIconButton(undefined, getResource('wrap_content.png'), function() {
+    dialog.close()
+    document.artboards.forEach(function(_, i) {
+        document.artboards.setActiveArtboardIndex(i)
+        document.selectObjectsOnActiveArtboard(i)
+        document.fitArtboardToSelectedArt(i)
+    })
+})
 
-var height = dialog.main.addHGroup()
-height.add('statictext', BOUNDS_TEXT, 'Height:').justify = 'right'
-height.heightEdit = height.add('edittext', BOUNDS_EDIT)
-height.heightEdit.validateUnits()
+var textBounds = [0, 0, 45, 21]
+var editBounds = [0, 0, 100, 21]
+
+dialog.width2 = dialog.main.addHGroup()
+dialog.width2.addText(textBounds, 'Width:', 'right')
+dialog.widthEdit = dialog.width2.addEditText(editBounds)
+dialog.widthEdit.validateUnits()
+dialog.widthEdit.active = true
+
+dialog.height2 = dialog.main.addHGroup()
+dialog.height2.addText(textBounds, 'Height:', 'right')
+dialog.heightEdit = dialog.height2.addEditText(editBounds)
+dialog.heightEdit.validateUnits()
 
 setNegativeButton('Cancel')
 setPositiveButton('OK', function() {
-    var w = parseUnit(width.widthEdit.text)
-    var h = parseUnit(height.heightEdit.text)
+    var w = parseUnit(dialog.widthEdit.text)
+    var h = parseUnit(dialog.heightEdit.text)
     if (w <= 0 || h <= 0) {
         return
     }

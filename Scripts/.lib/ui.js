@@ -68,7 +68,7 @@ function show() {
     if (_neutralButtonText !== undefined) {
         _addButton(_neutralButtonText, _neutralButtonAction)
         if (_neutralButtonGap !== undefined) {
-            dialog.buttons.add('statictext', [0, 0, _neutralButtonGap, 0])
+            dialog.buttons.addText([0, 0, _neutralButtonGap, 0])
         }
     }
     if (isMacOS()) {
@@ -83,13 +83,60 @@ function show() {
 
 function _addButton(text, action) {
     if (text !== undefined) {
-        dialog.buttons.add('button', undefined, text).onClick = function() {
+        dialog.buttons.addButton(undefined, text, function() {
             dialog.close()
             if (action !== undefined) {
                 action()
             }
-        }
+        })
     }
+}
+
+/** Add static text to target. */
+Object.prototype.addText = function(bounds, text, justify) {
+    var staticText = this.add('statictext', bounds, text)
+    if (justify !== undefined) {
+        staticText.justify = justify
+    }
+    return staticText
+}
+
+/** Add edit text to target. */
+Object.prototype.addEditText = function(bounds, text) {
+    return this.add('edittext', bounds, text)
+}
+
+/** Add button to target. */
+Object.prototype.addButton = function(bounds, text, onClick) {
+    var button = this.add('button', bounds, text)
+    if (onClick !== undefined) {
+        button.onClick = onClick
+    }
+    return button
+}
+
+/** Add icon button to target. */
+Object.prototype.addIconButton = function(bounds, path, onClick) {
+    var button = this.add('iconbutton', bounds, File(path), {style: 'toolbutton'})
+    if (onClick !== undefined) {
+        button.onClick = onClick
+    }
+    return button
+}
+
+/** Add check box to target. */
+Object.prototype.addCheckBox = function(bounds, text) {
+    return this.add('checkbox', bounds, text)
+}
+
+/** Add radio button to target. */
+Object.prototype.addRadioButton = function(bounds, text) {
+    return this.add('radiobutton', bounds, text)
+}
+
+/** Add drop down list to target. */
+Object.prototype.addDropDown = function(bounds, content) {
+    return this.add('dropdownlist', bounds, content)
 }
 
 /** Add horizontal group to target. */

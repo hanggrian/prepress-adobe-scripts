@@ -6,17 +6,13 @@
 #include '../.lib/commons.js'
 #include '../.lib/ui-duplicate.js'
 
-var BOUNDS_TEXT = [0, 0, 50, 21]
-var BOUNDS_EDIT = [0, 0, 100, 21]
-var BOUNDS_EDIT_SMALL = [0, 0, 36, 21]
-
 checkSingleSelection()
 
 createDialog('Duplicate')
 
-var duplicate = dialog.main.addDuplicateGroup()
-duplicate.horizontalEdit.active = true
+dialog.duplicate = dialog.main.addDuplicateGroup()
+dialog.duplicate.horizontalEdit.active = true
 
 setNegativeButton('Cancel')
-setPositiveButton('OK', function() { duplicate.duplicate() })
+setPositiveButton('OK', function() { dialog.duplicate.duplicate() })
 show()

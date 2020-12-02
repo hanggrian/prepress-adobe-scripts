@@ -1,9 +1,9 @@
 #include 'core-units.js'
 #include 'ui-validator.js'
 
-var BOUNDS_DUPLICATE_TEXT = [0, 0, 45, 21]
-var BOUNDS_DUPLICATE_EDIT = [0, 0, 100, 21]
-var BOUNDS_DUPLICATE_EDIT_SMALL = [0, 0, 36, 21]
+var duplicateTextBounds = [0, 0, 95, 21]
+var duplicateEditBounds = [0, 0, 100, 21]
+var duplicateEditBounds2 = [0, 0, 36, 21]
 
 /**
  * Add duplicate layout to target.
@@ -14,17 +14,22 @@ Object.prototype.addDuplicateGroup = function() {
     var duplicate = this.addVGroup()
 
     duplicate.copies = duplicate.addHGroup()
-    duplicate.copies.add('statictext', BOUNDS_DUPLICATE_TEXT, 'Copies:').justify = 'right'
-    duplicate.horizontalEdit = duplicate.copies.add('edittext', BOUNDS_DUPLICATE_EDIT_SMALL)
+    duplicate.copies.addText(duplicateTextBounds, 'Copies:', 'right')
+    duplicate.horizontalEdit = duplicate.copies.addEditText(duplicateEditBounds2)
     duplicate.horizontalEdit.validateDigits()
-    duplicate.copies.add('statictext', undefined, 'x')
-    duplicate.verticalEdit = duplicate.copies.add('edittext', BOUNDS_DUPLICATE_EDIT_SMALL)
+    duplicate.copies.addText(undefined, 'x')
+    duplicate.verticalEdit = duplicate.copies.addEditText(duplicateEditBounds2)
     duplicate.verticalEdit.validateDigits()
 
-    duplicate.gap = duplicate.addHGroup()
-    duplicate.gap.add('statictext', BOUNDS_DUPLICATE_TEXT, 'Gap:').justify = 'right'
-    duplicate.gapEdit = duplicate.gap.add('edittext', BOUNDS_DUPLICATE_EDIT)
-    duplicate.gapEdit.validateUnits()
+    duplicate.gapHorizontal = duplicate.addHGroup()
+    duplicate.gapHorizontal.addText(duplicateTextBounds, 'Horizontal Gap:', 'right')
+    duplicate.gapHorizontalEdit = duplicate.gapHorizontal.addEditText(duplicateEditBounds, '0 mm')
+    duplicate.gapHorizontalEdit.validateUnits()
+
+    duplicate.gapVertical = duplicate.addHGroup()
+    duplicate.gapVertical.addText(duplicateTextBounds, 'Vertical Gap:', 'right')
+    duplicate.gapVerticalEdit = duplicate.gapVertical.addEditText(duplicateEditBounds, '0 mm')
+    duplicate.gapVerticalEdit.validateUnits()
 
     return duplicate
 }
@@ -38,7 +43,8 @@ Object.prototype.addDuplicateGroup = function() {
 Object.prototype.duplicate = function(horizontalRunnable, verticalRunnable) {
     var horizontal = parseInt(this.horizontalEdit.text) || 0
     var vertical = parseInt(this.verticalEdit.text) || 0
-    var gap = parseUnit(this.gapEdit.text)
+    var gapHorizontal = parseUnit(this.gapHorizontalEdit.text)
+    var gapVertical = parseUnit(this.gapVerticalEdit.text)
 
     var target = selection[0]
     var clippingTarget = target.getClippingPathItem()
@@ -54,7 +60,7 @@ Object.prototype.duplicate = function(horizontalRunnable, verticalRunnable) {
     for (var v = 0; v < vertical; v++) {
         app.paste()
         var addedItem = selection[0]
-        addedItem.position = [x, y - v * (height + gap)]
+        addedItem.position = [x, y - v * (height + gapVertical)]
         if (verticalRunnable !== undefined) {
             verticalRunnable(addedItem, h, v)
         }
@@ -62,7 +68,7 @@ Object.prototype.duplicate = function(horizontalRunnable, verticalRunnable) {
         for (var h = 1; h < horizontal; h++) {
             app.paste()
             addedItem = selection[0]
-            addedItem.position = [x + h * (width + gap), y - v * (height + gap)]
+            addedItem.position = [x + h * (width + gapHorizontal), y - v * (height + gapVertical)]
             if (horizontalRunnable !== undefined) {
                 horizontalRunnable(addedItem, h, v)
             }

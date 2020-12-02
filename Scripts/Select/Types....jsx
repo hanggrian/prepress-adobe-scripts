@@ -9,9 +9,6 @@
 #include '../.lib/commons-select.js'
 #include '../.lib/ui-validator.js'
 
-var BOUNDS_CHARACTERS_TEXT = [0, 0, 65, 21]
-var BOUNDS_COLOR_TEXT = [0, 0, 45, 21]
-
 allowSelectionType(SELECT_TEXT_FRAME)
 
 createDialog('Select Types')
@@ -19,40 +16,42 @@ createDialog('Select Types')
 dialog.line = dialog.main.addHGroup()
 dialog.line.alignChildren = 'top'
 
-var character = dialog.line.addVPanel('Character')
-character.alignChildren = 'left'
-character.font = character.addHGroup()
-character.font.add('statictext', BOUNDS_CHARACTERS_TEXT, 'Font size:').justify = 'right'
-character.fontEdit = character.font.add('edittext', [0, 0, 75, 21])
-character.fontEdit.validateUnits()
-character.fontEdit.active = true
-character.attrs = character.addHGroup()
-character.attrs.add('statictext', BOUNDS_CHARACTERS_TEXT, 'Attributes:').justify = 'right'
-character.italicCheck = character.attrs.add('checkbox', undefined, 'Italic')
-character.underlineCheck = character.attrs.add('checkbox', undefined, 'Underline')
+var characterTextBounds = [0, 0, 65, 21]
+dialog.character = dialog.line.addVPanel('Character')
+dialog.character.alignChildren = 'left'
+dialog.character.font = dialog.character.addHGroup()
+dialog.character.font.addText(characterTextBounds, 'Font size:', 'right')
+dialog.character.fontEdit = dialog.character.font.add('edittext', [0, 0, 75, 21])
+dialog.character.fontEdit.validateUnits()
+dialog.character.fontEdit.active = true
+dialog.character.attrs = dialog.character.addHGroup()
+dialog.character.attrs.addText(characterTextBounds, 'Attributes:', 'right')
+dialog.character.italicCheck = dialog.character.attrs.addCheckBox(undefined, 'Italic')
+dialog.character.underlineCheck = dialog.character.attrs.addCheckBox(undefined, 'Underline')
 
-var color = dialog.line.addVPanel('Color')
-color.fill = color.addHGroup()
-color.fill.add('statictext', BOUNDS_COLOR_TEXT, 'Fill:').justify = 'right'
-color.fillList = color.fill.add('dropdownlist', undefined, COLORS)
-color.stroke = color.addHGroup()
-color.stroke.add('statictext', BOUNDS_COLOR_TEXT, 'Stroke:').justify = 'right'
-color.strokeList = color.stroke.add('dropdownlist', undefined, COLORS)
+var colorTextBounds = [0, 0, 45, 21]
+dialog.color = dialog.line.addVPanel('Color')
+dialog.color.fill = dialog.color.addHGroup()
+dialog.color.fill.addText(colorTextBounds, 'Fill:', 'right')
+dialog.color.fillList = dialog.color.fill.add('dropdownlist', undefined, COLORS)
+dialog.color.stroke = dialog.color.addHGroup()
+dialog.color.stroke.addText(colorTextBounds, 'Stroke:', 'right')
+dialog.color.strokeList = dialog.color.stroke.add('dropdownlist', undefined, COLORS)
 
 setNegativeButton('Cancel')
 setPositiveButton('OK', function() {
     selectAll(function(item) {
         var attr = item.textRange.characterAttributes
         var condition = true
-        var fontSize = parseInt(character.fontEdit.text) || 0
+        var fontSize = parseInt(dialog.character.fontEdit.text) || 0
         if (fontSize > 0) condition = condition && fontSize == attr.size
-        if (character.italicCheck.value) condition = condition && attr.italics
-        if (character.underlineCheck.value) condition = condition && attr.underline
-        if (color.fillList.selection != null) {
-            condition = condition && attr.fillColor.equalTo(parseColor(color.fillList.selection.text))
+        if (dialog.character.italicCheck.value) condition = condition && attr.italics
+        if (dialog.character.underlineCheck.value) condition = condition && attr.underline
+        if (dialog.color.fillList.selection != null) {
+            condition = condition && attr.fillColor.equalTo(parseColor(dialog.color.fillList.selection.text))
         }
-        if (color.strokeList.selection != null) {
-            condition = condition && attr.strokeColor.equalTo(parseColor(color.strokeList.selection.text))
+        if (dialog.color.strokeList.selection != null) {
+            condition = condition && attr.strokeColor.equalTo(parseColor(dialog.color.strokeList.selection.text))
         }
         return condition
     })
