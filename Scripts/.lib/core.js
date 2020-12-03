@@ -44,13 +44,22 @@ Object.prototype.forEachReversed = function(action) {
     }
 }
 
-/** Last index of this list. */
+/**
+ * Last index of this list.
+ * @return {Boolean}
+ */
 Object.prototype.lastIndex = function() { return this.length - 1 }
 
-/** Returns true if this list is empty. */
+/**
+ * Returns true if this list is empty.
+ * @return {Boolean}
+ */
 Object.prototype.isEmpty = function() { return this.length == 0 }
 
-/** Returns true if this list is not empty. */
+/** 
+ * Returns true if this list is not empty.
+ * @return {Boolean}
+ */
 Object.prototype.isNotEmpty = function() { return this.length > 0 }
 
 /**

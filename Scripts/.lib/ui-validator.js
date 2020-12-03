@@ -9,10 +9,7 @@ var REPLACE_LEADING_SPACE = /^\s+/
 var REPLACE_TRAILING_SPACE = /\s+$/
 var REPLACE_LEADING_ZERO = /^0+/
 
-/**
- * Digits are non-negative and non-decimal number.
- * @return {void}
- */
+/** Digits are non-negative and non-decimal number. */
 EditText.prototype.validateDigits = function() {
     var editText = this
     editText.registerValidator(MATCH_DIGITS, function() { 
@@ -20,10 +17,7 @@ EditText.prototype.validateDigits = function() {
     })
 }
 
-/**
- * Unit measurements are decimal number paired with short text.
- * @return {void}
- */
+/** Unit measurements are decimal number paired with short text. */
 EditText.prototype.validateUnits = function() {
     var editText = this
     editText.registerValidator(MATCH_UNITS, function() {
@@ -40,7 +34,6 @@ EditText.prototype.validateUnits = function() {
  * @this {EditText} - target field
  * @param {RegExp} regex - pattern to match
  * @param {Function} matchAction - optional runnable with old and new value arguments.
- * @return {void}
  */
 EditText.prototype.registerValidator = function(regex, matchAction) {
     var editText = this

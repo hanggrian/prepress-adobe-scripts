@@ -38,7 +38,6 @@ Object.prototype.addDuplicateGroup = function() {
  * Duplicate selected item, only support single selection.
  * @param {Function} horizontalRunnable - nullable custom action
  * @param {Function} verticalRunnable - nullable custom action
- * @return {void}
  */
 Object.prototype.duplicate = function(horizontalRunnable, verticalRunnable) {
     var horizontal = parseInt(this.horizontalEdit.text) || 0

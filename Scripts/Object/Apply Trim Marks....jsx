@@ -1,7 +1,7 @@
 ﻿/**
  * Direct replacement of `Object > Create Trim Marks` with some fixes:
- * - If the selected art is a Path, crop marks will be created around **fill** as opposed to **border**.
- * - If the selected art is a Clip Group, crop marks will be created around **clip size** as opposed to **content size**.
+ * - If the selected art is a Path, trim marks will be created around **fill** as opposed to **border**.
+ * - If the selected art is a Clip Group, trim marks will be created around **clip size** as opposed to **content size**.
  * 
  * And also some enhancements:
  * - Customize marks' appearance and placement.
@@ -25,7 +25,7 @@ var DEFAULT_WEIGHT = 0.3 // the same value used in `Object > Create Trim Marks`
 
 checkSingleSelection()
 
-createDialog('Crop Marks')
+createDialog('Apply Trim Marks')
 
 dialog.main.alignChildren = 'fill'
 dialog.upper = dialog.main.addHGroup()
@@ -127,7 +127,7 @@ function process(isDelete) {
         if (dialog.locations.leftBottomCheck.value) locs.push(LOCATION_LEFT_BOTTOM)
         if (dialog.locations.leftTopCheck.value) locs.push(LOCATION_LEFT_TOP)
 
-        marks = marks.concat(createCropMarks(selection[0], offset, length, weight, color, locs))
+        marks = marks.concat(createTrimMarks(selection[0], offset, length, weight, color, locs))
         if (isDelete) selection[0].remove()
     } else {
         // currently ignore location checkboxes in duplication
@@ -142,7 +142,7 @@ function process(isDelete) {
             if (v == vertical - 1) {
                 locs.push(LOCATION_BOTTOM_LEFT, LOCATION_BOTTOM_RIGHT)
             }
-            marks = marks.concat(createCropMarks(item, offset, length, weight, color, locs))
+            marks = marks.concat(createTrimMarks(item, offset, length, weight, color, locs))
             if (isDelete) item.remove()
         }, function(item, _, v) {
             locs = [LOCATION_LEFT_BOTTOM, LOCATION_LEFT_TOP]
@@ -152,7 +152,7 @@ function process(isDelete) {
             if (v == vertical - 1) {
                 locs.push(LOCATION_BOTTOM_LEFT, LOCATION_BOTTOM_RIGHT)
             }
-            marks = marks.concat(createCropMarks(item, offset, length, weight, color, locs))
+            marks = marks.concat(createTrimMarks(item, offset, length, weight, color, locs))
             if (isDelete) item.remove()
         })
     }
@@ -160,16 +160,16 @@ function process(isDelete) {
 }
 
 /**
- * Create multiple crop marks around target. The marks are created with clockwise ordering.
- * @param {PageItem} target - art where crop marks will be applied to
- * @param {Number} offset - space between target and crop marks
- * @param {Number} length - crop marks' width
- * @param {Number} weight - crop marks' stroke width
- * @param {CMYKColor} color - crop marks' color
+ * Create multiple trim marks around target. The marks are created with clockwise ordering.
+ * @param {PageItem} target - art where trim marks will be applied to
+ * @param {Number} offset - space between target and trim marks
+ * @param {Number} length - trim marks' width
+ * @param {Number} weight - trim marks' stroke width
+ * @param {CMYKColor} color - trim marks' color
  * @param {Array} locations - combination of 8 possible mark locations as defined in constants
- * @return {Array} created crop marks
+ * @return {Array} created trim marks
  */
-function createCropMarks(target, offset, length, weight, color, locations) {
+function createTrimMarks(target, offset, length, weight, color, locations) {
     var marks = []
     var clippingTarget = target.getClippingPathItem()
     var width = clippingTarget.width
@@ -183,7 +183,7 @@ function createCropMarks(target, offset, length, weight, color, locations) {
         var location = locations[i]
         switch (location) {
             case LOCATION_TOP_LEFT:
-                marks.push(createCropMark(
+                marks.push(createTrimMark(
                     'TOP_LEFT', weight, color,
                     startX,
                     startY + offset,
@@ -192,7 +192,7 @@ function createCropMarks(target, offset, length, weight, color, locations) {
                 ))
                 break;
             case LOCATION_TOP_RIGHT:
-                marks.push(createCropMark(
+                marks.push(createTrimMark(
                     'TOP_RIGHT', weight, color,
                     endX,
                     startY + offset,
@@ -201,7 +201,7 @@ function createCropMarks(target, offset, length, weight, color, locations) {
                 ))
                 break;
             case LOCATION_RIGHT_TOP: 
-                marks.push(createCropMark(
+                marks.push(createTrimMark(
                     'RIGHT_TOP', weight, color,
                     endX + offset,
                     startY,
@@ -210,7 +210,7 @@ function createCropMarks(target, offset, length, weight, color, locations) {
                 ))
                 break;
             case LOCATION_RIGHT_BOTTOM: 
-                marks.push(createCropMark(
+                marks.push(createTrimMark(
                     'RIGHT_BOTTOM', weight, color,
                     endX + offset,
                     endY,
@@ -219,7 +219,7 @@ function createCropMarks(target, offset, length, weight, color, locations) {
                 ))
                 break;
             case LOCATION_BOTTOM_RIGHT: 
-                marks.push(createCropMark(
+                marks.push(createTrimMark(
                     'BOTTOM_RIGHT', weight, color,
                     endX,
                     endY - offset,
@@ -228,7 +228,7 @@ function createCropMarks(target, offset, length, weight, color, locations) {
                 ))
                 break;
             case LOCATION_BOTTOM_LEFT: 
-                marks.push(createCropMark(
+                marks.push(createTrimMark(
                     'BOTTOM_LEFT', weight, color,
                     startX,
                     endY - offset,
@@ -237,7 +237,7 @@ function createCropMarks(target, offset, length, weight, color, locations) {
                 ))       
                 break;
             case LOCATION_LEFT_BOTTOM: 
-                marks.push(createCropMark(
+                marks.push(createTrimMark(
                     'LEFT_BOTTOM', weight, color,
                     startX - offset,
                     endY,
@@ -246,7 +246,7 @@ function createCropMarks(target, offset, length, weight, color, locations) {
                 ))
                 break;
             case LOCATION_LEFT_TOP: 
-                marks.push(createCropMark(
+                marks.push(createTrimMark(
                     'LEFT_TOP', weight, color,
                     startX - offset,
                     startY,
@@ -262,19 +262,19 @@ function createCropMarks(target, offset, length, weight, color, locations) {
 }
 
 /**
- * Create individual crop mark from point A to point B.
+ * Create individual trim mark from point A to point B.
  * @param {String} suffixName - item name in the layer
- * @param {Number} weight - crop marks' stroke width
- * @param {CMYKColor} color - crop marks' color
+ * @param {Number} weight - trim marks' stroke width
+ * @param {CMYKColor} color - trim marks' color
  * @param {Number} fromX - starting X point
  * @param {Number} fromY - starting Y point
  * @param {Number} toX - destination X point
  * @param {Number} toY - destination Y point
- * @return {PathItem} created crop mark
+ * @return {PathItem} created trim mark
  */
-function createCropMark(suffixName, weight, color, fromX, fromY, toX, toY) {
+function createTrimMark(suffixName, weight, color, fromX, fromY, toX, toY) {
     var mark = document.pathItems.add()
-    mark.name = 'Crop ' + suffixName
+    mark.name = 'Trim ' + suffixName
     mark.fillColor = COLOR_NONE
     mark.strokeColor = color
     mark.strokeWidth = weight // important to set weight before color
