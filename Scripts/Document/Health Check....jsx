@@ -20,9 +20,7 @@ if (dialog.general.colorModeText.text == 'CMYK') {
 } else {
     dialog.general.colorModeText.text += ' ✘'
     dialog.general.colorMode.firstButton = dialog.general.colorMode.add('button', fixBounds, 'Fix')
-    dialog.general.colorMode.firstButton.onClick = function() {
-        alert('Go to File > Document Color Mode > CMYK Color.')
-    }
+    dialog.general.colorMode.firstButton.onClick = function() { alert("Color mode can't be changed within script.\nGo to File > Document Color Mode > CMYK Color.", 'Unfixable setting') }
     fixButtons.push(dialog.general.colorMode.firstButton)
 }
 
@@ -39,9 +37,7 @@ if (dialog.rasterEffects.colorModelText.text == 'DEFAULTCOLORMODEL') {
         dialog.rasterEffects.colorModel,
         dialog.rasterEffects.colorModelText,
         'DEFAULTCOLORMODEL ✔',
-        function() {
-            document.rasterEffectSettings.colorModel = RasterizationColorModel.DEFAULTCOLORMODEL
-        })
+        function() { document.rasterEffectSettings.colorModel = RasterizationColorModel.DEFAULTCOLORMODEL })
     )
 }
 
@@ -56,9 +52,7 @@ if (dialog.rasterEffects.resolutionText.text == '300') {
         dialog.rasterEffects.resolution,
         dialog.rasterEffects.resolutionText,
         '300 ✔',
-        function() {
-            document.rasterEffectSettings.resolution = 300
-        })
+        function() { document.rasterEffectSettings.resolution = 300 })
     )
 }
 
@@ -75,9 +69,7 @@ if (dialog.rasterEffects.backgroundText.text.endsWith('✘')) {
         dialog.rasterEffects.background,
         dialog.rasterEffects.backgroundText,
         'White ✔',
-        function() {
-            document.rasterEffectSettings.transparency = false
-        })
+        function() { document.rasterEffectSettings.transparency = false })
     )
 }
 
@@ -94,9 +86,7 @@ if (dialog.rasterEffects.antiAliasText.text.endsWith('✘')) {
         dialog.rasterEffects.antiAlias,
         dialog.rasterEffects.antiAliasText,
         'Disabled ✔',
-        function() {
-            document.rasterEffectSettings.antiAliasing = false
-        })
+        function() { document.rasterEffectSettings.antiAliasing = false })
     )
 }
 
@@ -113,9 +103,7 @@ if (dialog.rasterEffects.clippingMaskText.text.endsWith('✘')) {
         dialog.rasterEffects.clippingMask,
         dialog.rasterEffects.clippingMaskText,
         "Don't create ✔",
-        function() {
-            document.rasterEffectSettings.clippingMask = false
-        })
+        function() { document.rasterEffectSettings.clippingMask = false })
     )
 }
 
@@ -132,9 +120,7 @@ if (dialog.rasterEffects.spotColorsText.text.endsWith('✘')) {
         dialog.rasterEffects.spotColors,
         dialog.rasterEffects.spotColorsText,
         'Preserve ✔',
-        function() {
-            document.rasterEffectSettings.convertSpotColors = false
-        })
+        function() { document.rasterEffectSettings.convertSpotColors = false })
     )
 }
 
