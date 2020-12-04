@@ -1,7 +1,9 @@
-Pre-press Adobe Illustrator Scripts
-===================================
-Collection of helpful Adobe Illustrator scripts.
-Tested only on Adobe Illustrator 2020.
+Prepress Adobe Scripts
+======================
+Adobe Illustrator and Photoshop scripts tailored for printing purposes.
+Tested only on latest Adobe suite.
+
+> Photoshop scripts are currently preview.
 
 ### Resources
 General guide:
@@ -16,8 +18,12 @@ JavaScript Reference:
 
 Usage
 -----
-These scripts are **not standalone**, all of them requires `.lib` directory to be in pre-determined paths. This is why it is recommended to put them in Adobe Illustrator installation paths. Download source, then there are 2 ways to install:
-1. Run `scripts-patcher.bat` as admin (Windows) or `scripts-patcher.sh` with sudo (Mac).
-2. Manually copy & paste all files and folders within `Scripts` directory to `{Ai installation path}/Presets/{your locale}/Scripts`.
+These scripts are **not standalone**, all of them requires hidden directories to be in pre-determined location. This is why it is recommended to put them in Adobe installation paths.
 
-The scripts can then be accessible from `Ai Menu Bar > File > Scripts`.
+#### Automatic Installation
+Run `scripts-patcher.bat` as admin (Windows) or `scripts-patcher.sh` with sudo (Mac).
+
+#### Manual Installation
+Manually copy & paste all files and folders within `Scripts` directory to `{App installation path}/Presets/{your locale}/Scripts`.
+
+The scripts can then be accessible from `Menu Bar > File > Scripts`.
