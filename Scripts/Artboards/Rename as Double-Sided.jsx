@@ -6,11 +6,9 @@ checkEvenArtboards()
 var current = 1
 var isFront = true
 document.artboards.forEach(function(it) {
-    if (isFront) {
-        it.name = current + '-' + (current + 2)
-    } else {
-        it.name = (current + 1) + '-' + (current - 1)
-    }
+    it.name = isFront
+        ? current + '-' + (current + 2)
+        : (current + 1) + '-' + (current - 1)
     current += 2
     isFront = !isFront
 })

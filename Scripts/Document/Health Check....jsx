@@ -1,3 +1,7 @@
+/**
+ * TODO: check for images below 300 ppi.
+ */
+
 #target Illustrator
 #include '../.lib/core-strings.js'
 #include '../.lib/commons.js'
@@ -10,22 +14,26 @@ var leftBounds = [0, 0, 90, 21]
 var rightBounds = [0, 0, 150, 21]
 var fixBounds = [0, 0, 50, 21]
 
-dialog.general = dialog.main.addVPanel('General')
-dialog.general.alignChildren = 'fill'
-dialog.general.colorMode = dialog.general.addHGroup()
-dialog.general.colorMode.addText(leftBounds, 'Color mode:', 'right')
-dialog.general.colorModeText = dialog.general.colorMode.addText(rightBounds, document.documentColorSpace.toString().substringAfter('.'))
-if (dialog.general.colorModeText.text == 'CMYK') {
-    dialog.general.colorModeText.text += ' ✔'
+dialog.main2 = dialog.main.addHGroup()
+dialog.main2.alignChildren = 'top'
+
+// panel with fix buttons
+dialog.rasterEffects = dialog.main2.addVPanel('Raster Effects')
+dialog.rasterEffects.alignChildren = 'fill'
+
+// color mode isn't really a part of raster effects settings
+dialog.rasterEffects.colorMode = dialog.rasterEffects.addHGroup()
+dialog.rasterEffects.colorMode.addText(leftBounds, 'Color mode:', 'right')
+dialog.rasterEffects.colorModeText = dialog.rasterEffects.colorMode.addText(rightBounds, document.documentColorSpace.toString().substringAfter('.'))
+if (dialog.rasterEffects.colorModeText.text == 'CMYK') {
+    dialog.rasterEffects.colorModeText.text += ' ✔'
 } else {
-    dialog.general.colorModeText.text += ' ✘'
-    dialog.general.colorMode.firstButton = dialog.general.colorMode.add('button', fixBounds, 'Fix')
-    dialog.general.colorMode.firstButton.onClick = function() { alert("Color mode can't be changed within script.\nGo to File > Document Color Mode > CMYK Color.", 'Unfixable setting') }
-    fixButtons.push(dialog.general.colorMode.firstButton)
+    dialog.rasterEffects.colorModeText.text += ' ✘'
+    dialog.rasterEffects.colorMode.firstButton = dialog.rasterEffects.colorMode.add('button', fixBounds, 'Fix')
+    dialog.rasterEffects.colorMode.firstButton.onClick = function() { alert("Color mode can't be changed within script.\nGo to File > Document Color Mode > CMYK Color.", 'Unfixable setting') }
+    fixButtons.push(dialog.rasterEffects.colorMode.firstButton)
 }
 
-dialog.rasterEffects = dialog.main.addVPanel('Raster Effects')
-dialog.rasterEffects.alignChildren = 'fill'
 dialog.rasterEffects.colorModel = dialog.rasterEffects.addHGroup()
 dialog.rasterEffects.colorModel.addText(leftBounds, 'Color model:', 'right')
 dialog.rasterEffects.colorModelText = dialog.rasterEffects.colorModel.addText(rightBounds, document.rasterEffectSettings.colorModel.toString().substringAfter('.'))
@@ -124,12 +132,35 @@ if (dialog.rasterEffects.spotColorsText.text.endsWith('✘')) {
     )
 }
 
+// panels without fix buttons
+dialog.content = dialog.main2.addVGroup()
+dialog.content.rasters = dialog.content.addVPanel('Rasters Items')
+if (document.rasterItems.length == 0) {
+    dialog.content.rasters.text += ' ✔'
+    dialog.content.rasters.addText(undefined, 'No raster items.')
+} else {
+    var isEmpty = true
+    for (var i = 0; i < document.rasterItems.length; i++) {
+        var item = document.rasterItems[i]
+        if (item.imageColorSpace != ImageColorSpace.CMYK) {
+            isEmpty = false
+            dialog.content.rasters.addText(undefined, getRasterItemName(item) + ' is ' + item.imageColorSpace + '.')
+        }
+    }
+    if (isEmpty) {
+        dialog.content.rasters.text += ' ✔'
+        dialog.content.rasters.addText(undefined, 'All images are CMYK.')
+    } else {
+        dialog.content.rasters.text += ' ✘'
+    }
+}
+
 if (fixButtons.length > 0) {
-    setNeutralButton('Fix All', function() {
+    setNegativeButton('Fix All', function() {
         for (var i = 0; i < fixButtons.length; i++) {
             fixButtons[i].notify('onClick')
         }
-    }, 160)
+    })
 }
 setPositiveButton('OK')
 show()
@@ -142,4 +173,12 @@ function addFixButton(parent, staticText, fixedText, onClick) {
         staticText.text = fixedText
     }
     return button
+}
+
+function getRasterItemName(rasterItem) {
+    var s = rasterItem.name
+    if (s == '') {
+        s = parseFloat(rasterItem.height.toFixed(2)) + '×' + parseFloat(rasterItem.width.toFixed(2)) + ' image'
+    }
+    return s
 }

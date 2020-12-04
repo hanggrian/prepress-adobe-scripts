@@ -1,5 +1,5 @@
 #target Illustrator
-#include '../.lib/commons-select.js'
+#include '../Scripts/.lib/commons-select.js'
 
 allowSelectionType(SELECT_PLACED)
 selectAll()

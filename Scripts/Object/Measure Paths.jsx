@@ -14,12 +14,12 @@ var totalLength = 0
 selection.forEach(function(it) { determine(it) })
 
 alert(pathCount + ' paths measuring at:\n' +
-    totalLength.toFixed(2) + ' pt\n' +
-    totalLength.toCm(2) + ' cm\n' +
-    totalLength.toInch(2) + ' inch\n' +
-    totalLength.toMm(2) + ' mm\n' +
-    totalLength.toPica(2) + ' pica\n' +
-    totalLength.toQ(2) + ' q',
+    parseFloat(totalLength.toFixed(2)) + ' pt\n' +
+    parseFloat(totalLength.toCm(2)) + ' cm\n' +
+    parseFloat(totalLength.toInch(2)) + ' inch\n' +
+    parseFloat(totalLength.toMm(2)) + ' mm\n' +
+    parseFloat(totalLength.toPica(2)) + ' pica\n' +
+    parseFloat(totalLength.toQ(2)) + ' q',
     'Measure Paths')
 
 function determine(item) {
