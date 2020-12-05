@@ -15,6 +15,8 @@ These scripts are **not standalone**, all of them requires hidden directories to
 #### Automatic Installation
 Run `scripts-patcher.bat` as admin (Windows) or `scripts-patcher.sh` with sudo (Mac).
 
+![scripts-patcher](Screenshots/scripts-patcher.jpg)
+
 #### Manual Installation
 Manually copy & paste all files and folders within `Scripts` directory to `{App installation path}/Presets/{your locale}/Scripts`.
 
