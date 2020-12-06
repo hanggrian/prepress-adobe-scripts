@@ -25,7 +25,7 @@ var DEFAULT_WEIGHT = 0.3 // the same value used in `Object > Create Trim Marks`
 
 checkSingleSelection()
 
-createDialog('Apply Trim Marks')
+createDialog('Add Trim Marks')
 
 dialog.main.alignChildren = 'fill'
 dialog.upper = dialog.main.addHGroup()

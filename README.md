@@ -2,11 +2,12 @@ Prepress Adobe Scripts
 ======================
 Adobe Illustrator and Photoshop scripts tailored for printing purposes.
 Tested only on latest Adobe suite.
-* Prioritize CMYK and high resolution (300 ppi) settings.
-* Shared libraries across Adobe apps.
-* Kotlin-esque code style.
 
-> Photoshop scripts are currently in preview.
+<p float="left">
+    <img src="/Screenshots/health-check.gif" width="300" />
+    <img src="/Screenshots/add-trim-marks.gif" width="300" />
+    <img src="/Screenshots/resize-font-until.gif" width="300" />
+</p>
 
 Usage
 -----
@@ -15,7 +16,7 @@ These scripts are **not standalone**, all of them requires hidden directories to
 #### Automatic Installation
 Run `scripts-patcher.bat` as admin (Windows) or `scripts-patcher.sh` with sudo (Mac).
 
-![scripts-patcher](Screenshots/scripts-patcher.jpg)
+![scripts-patcher](/Screenshots/scripts-patcher.png)
 
 #### Manual Installation
 Manually copy & paste all files and folders within `Scripts` directory to `{App installation path}/Presets/{your locale}/Scripts`.

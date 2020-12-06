@@ -3,9 +3,8 @@
  */
 
 #target Photoshop
-#include '../../.sharedlib/core.js'
+#include '../.lib/commons.js'
 
-check(app.documents.length > 0, 'No active document')
 check(app.documents.length != 1, 'No other tabs')
 
 if (confirm('Close all other documents without saving?', undefined, 'Close Others')) {
