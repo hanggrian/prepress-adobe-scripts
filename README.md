@@ -4,9 +4,9 @@ Adobe Illustrator and Photoshop scripts tailored for printing purposes.
 Tested only on latest Adobe suite.
 
 <p float="left">
-    <img src="/Screenshots/health-check.gif" width="300" />
-    <img src="/Screenshots/add-trim-marks.gif" width="300" />
-    <img src="/Screenshots/resize-font-until.gif" width="300" />
+    <img src="/Screenshots/health-check.gif" width="280" />
+    <img src="/Screenshots/add-trim-marks.gif" width="280" />
+    <img src="/Screenshots/resize-font-until.gif" width="280" />
 </p>
 
 Usage
