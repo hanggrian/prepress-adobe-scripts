@@ -25,6 +25,7 @@ read input
 sourceRoot="$(cd `dirname $0` && pwd)"
 sourceLibs="$sourceRoot/.sharedlib"
 
+# In mac, localized directories always have `.localized` suffix.
 patchApp () {
     local adobeApp=$1
     local sourceScripts="$sourceRoot/$adobeApp Scripts"

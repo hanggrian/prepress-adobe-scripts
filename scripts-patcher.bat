@@ -1,4 +1,4 @@
-@rem Windows executable to sync scripts to Adobe installation paths.
+:: Windows executable to sync scripts to Adobe installation paths.
 
 @echo off
 
@@ -33,10 +33,10 @@ if %input% == 1 (
     call :patchApp "Photoshop"
 ) else if %input% == q (
     echo.
-    echo Goodbye!
+    echo Goodbye^^!
 ) else if %input% == Q (
     echo.
-    echo Goodbye!
+    echo Goodbye^^!
 ) else (
     echo.
     echo Unable to recognize input.
@@ -45,7 +45,10 @@ if %input% == 1 (
 
 exit /b 0
 
+:: In Windows, we manually do this manually.
+:: check if `Presets` directly contain `Scripts` directory.
 :patchApp
+    setlocal
     set adobeApp=%~1
     set sourceScripts=%sourceRoot%%adobeApp% Scripts
     set "isEmpty=y"
@@ -58,9 +61,13 @@ exit /b 0
         set appName=%%~nxa
         if NOT !appName!==!appName:%adobeApp%=! (
             set "isEmpty="
-            set presets="%%a"\Presets\*
-            for /d %%p in ("%presets%") do (
-                call :patchPreset "%app%" "%sourceScripts%" "%preset%"
+            set presets=%%a\Presets
+            if not exist !presets!\Scripts (
+                for /d %%p in ("!presets!"\*) do (
+                    call :patchPreset "%%a" "!sourceScripts!" "%%p"
+                )
+            ) else (
+                call :patchPreset "%%a" "!sourceScripts!" "!presets!"
             )
         )
     )
@@ -74,11 +81,15 @@ exit /b 0
         echo.
         for /d %%a in ("%ProgramFiles%"\Adobe\*) do (
             set appName=%%~nxa
-            if NOT !appName!==!appName:Illustrator=! (
+            if NOT !appName!==!appName:%adobeApp%=! (
                 set "isEmpty="
-                set presets="%%a"\Presets\*
-                for /d %%p in ("%presets%") do (
-                    call :patchPreset "%app%" "%sourceScripts%" "%preset%"
+                set presets=%%a\Presets
+                if not exist !presets!\Scripts (
+                    for /d %%p in ("!presets!"\*) do (
+                        call :patchPreset "%%a" "!sourceScripts!" "%%p"
+                    )
+                ) else (
+                    call :patchPreset "%%a" "!sourceScripts!" "!presets!"
                 )
             )
         )
@@ -89,6 +100,7 @@ exit /b 0
 goto :eof
 
 :patchPreset
+    setlocal
     set app=%~1
     set sourceScripts=%~2
     set targetRoot=%~3
@@ -98,13 +110,16 @@ goto :eof
     echo Patching to '!app!'...
     if exist !targetLibs! (
         echo Deleting existing shared libraries...
-        rmdir /s /q !targetLibs!
+        rmdir /s /q "!targetLibs!"
     )
     if exist !targetScripts! (
         echo Deleting existing scripts...
-        rmdir /s /q !targetScripts!
+        rmdir /s /q "!targetScripts!"
     )
     echo Copying new scripts and shared libraries...
-    robocopy /s /unicode "%SOURCE%" !scripts!
+    md "!targetScripts!"
+    robocopy /s /unicode "!sourceScripts!" "!targetScripts!"
+    md "!targetLibs!"
+    robocopy /s /unicode "!sourceLibs!" "!targetLibs!"
     echo Finished.
 goto :eof

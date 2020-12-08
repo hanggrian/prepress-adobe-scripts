@@ -1,4 +1,4 @@
-#target Illustrator
+#target Photoshop
 #include '../../.sharedlib/core-strings.js'
 #include '../../.sharedlib/sui.js'
 #include '../.lib/commons.js'
