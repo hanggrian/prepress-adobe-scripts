@@ -1,36 +1,106 @@
 #!/bin/bash
+# Mac executable to sync scripts to Adobe installation paths.
 
-# Mac executable
-# Copying `Scripts` directory to all Adobe Illustrator installation paths.
-
-if ! [ $(uname) == "Darwin" ]; then
-    echo Unsupported platform.
+if [ "$(uname)" != 'Darwin' ]; then
+    echo 'Unsupported platform.'
+    echo
     exit 1
 fi
 
-SOURCE="$(cd `dirname $0` && pwd)/Scripts"
+echo
+echo
+echo '  ######################################################'
+echo ' #           Prepress Adobe Scripts Patcher           # '
+echo '######################################################  '
+echo
+echo '1. Illustrator'
+echo '2. Photoshop'
+echo 'A. All'
+echo
+echo 'Q. Quit'
+echo
+echo 'Which scripts would you want to install:'
+read input
 
-echo -e "Searching for Adobe Illustrator installation paths...\n"
-isEmpty=true
-for app in /Applications/* ; do
-    appName=`basename $app`
-    if [[ $appName == *Adobe* ]] && [[ $appName == *Illustrator* ]] ; then
-        for preset in "$app"/Presets.localized/* ; do
-            echo Patching to \'$app\'...
+sourceRoot="$(cd `dirname $0` && pwd)"
+sourceLibs="$sourceRoot/.sharedlib"
+
+# In mac, localized directories always have `.localized` suffix.
+patchApp () {
+    local adobeApp=$1
+    local sourceScripts="$sourceRoot/$adobeApp Scripts"
+    local isEmpty=true
+
+    echo
+    echo "Searching for $adobeApp installations..."
+    echo
+
+    for app in '/Applications/'* ; do
+        local appName=`basename $app`
+        if [[ $appName == *'Adobe'* ]] && [[ $appName == *"$adobeApp"* ]] ; then
             isEmpty=false
-            scripts="$preset"/Scripts
-            if [ -d "$scripts" ] ; then
-                echo Deleting existing scripts...
-                rm -rf "$scripts"
+            local presets="$app/Presets"
+            local localizedPresets="$presets.localized"
+            if [ -d "$localizedPresets" ] ; then
+                for preset in "$localizedPresets/"* ; do
+                    patchPreset "$app" "$sourceScripts" "$preset"
+                done
+            else
+                patchPreset "$app" "$sourceScripts" "$presets"
             fi
-            echo Copying new scripts...
-            cp -r "$SOURCE" "$preset"
-            echo -e "Finished.\n"
-        done
+        fi
+    done
+    if [ $isEmpty = true ] ; then
+        echo 'Not found.'
     fi
-done
-if [ $isEmpty = true ] ; then
-    echo -e "Not found.\n"
-fi
+}
 
+patchPreset() {
+    local app=$1
+    local sourceScripts=$2
+    local targetRoot=$3
+    local targetLibs="$targetRoot/.sharedlib"
+    local targetScripts="$targetRoot/Scripts"
+
+    echo "Patching to '$app'..."
+    if [ -d "$targetLibs" ] ; then
+        echo 'Deleting existing shared libraries...'
+        rm -rf "$targetLibs"
+    fi
+    if [ -d "$targetScripts" ] ; then
+        echo 'Deleting existing scripts...'
+        rm -rf "$targetScripts"
+    fi
+    echo 'Copying new scripts and shared libraries...'
+    mkdir "$targetScripts"
+    cp -r "$sourceScripts"/. "$targetScripts"
+    mkdir "$targetLibs"
+    cp -r "$sourceLibs"/. "$targetLibs"
+    echo 'Finished.'
+}
+
+case $input in
+    '1')
+        patchApp 'Illustrator'
+        ;;
+    '2')
+        patchApp 'Photoshop'
+        ;;
+    'a' | 'A')
+        patchApp 'Illustrator'
+        patchApp 'Photoshop'
+        ;;
+    'q' | 'Q')
+        echo
+        echo 'Goodbye!'
+        ;;
+    *)
+        echo
+        echo 'Unable to recognize input.'
+        echo
+        exit 1
+        ;;
+esac
+
+echo
 exit 0
