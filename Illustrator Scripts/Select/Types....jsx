@@ -21,7 +21,7 @@ dialog.character = dialog.line.addVPanel('Character')
 dialog.character.alignChildren = 'left'
 dialog.character.font = dialog.character.addHGroup()
 dialog.character.font.addText(characterTextBounds, 'Font size:', 'right')
-dialog.character.fontEdit = dialog.character.font.add('edittext', [0, 0, 75, 21])
+dialog.character.fontEdit = dialog.character.font.addEditText([0, 0, 75, 21])
 dialog.character.fontEdit.validateUnits()
 dialog.character.fontEdit.active = true
 dialog.character.attrs = dialog.character.addHGroup()
@@ -33,20 +33,26 @@ var colorTextBounds = [0, 0, 45, 21]
 dialog.color = dialog.line.addVPanel('Color')
 dialog.color.fill = dialog.color.addHGroup()
 dialog.color.fill.addText(colorTextBounds, 'Fill:', 'right')
-dialog.color.fillList = dialog.color.fill.add('dropdownlist', undefined, COLORS)
+dialog.color.fillList = dialog.color.fill.addDropDown(undefined, COLORS)
 dialog.color.stroke = dialog.color.addHGroup()
 dialog.color.stroke.addText(colorTextBounds, 'Stroke:', 'right')
-dialog.color.strokeList = dialog.color.stroke.add('dropdownlist', undefined, COLORS)
+dialog.color.strokeList = dialog.color.stroke.addDropDown(undefined, COLORS)
 
 setNegativeButton('Cancel')
 setPositiveButton('OK', function() {
     selectAll(function(item) {
         var attr = item.textRange.characterAttributes
         var condition = true
-        var fontSize = parseInt(dialog.character.fontEdit.text) || 0
-        if (fontSize > 0) condition = condition && fontSize == attr.size
-        if (dialog.character.italicCheck.value) condition = condition && attr.italics
-        if (dialog.character.underlineCheck.value) condition = condition && attr.underline
+        var fontSize = parseUnit(dialog.character.fontEdit.text)
+        if (fontSize > 0) {
+            condition = condition && fontSize == attr.size
+        }
+        if (dialog.character.italicCheck.value) {
+            condition = condition && attr.italics
+        }
+        if (dialog.character.underlineCheck.value) {
+            condition = condition && attr.underline
+        }
         if (dialog.color.fillList.selection != null) {
             condition = condition && attr.fillColor.equalTo(parseColor(dialog.color.fillList.selection.text))
         }

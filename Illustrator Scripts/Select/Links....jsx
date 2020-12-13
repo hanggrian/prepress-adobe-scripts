@@ -57,9 +57,13 @@ setPositiveButton('OK', function() {
     selectAll(function(item) {
         var condition = true
         var width = parseUnit(dialog.dimension.widthEdit.text)
-        if (width > 0) condition = condition && parseInt(width) == parseInt(item.width)
+        if (width > 0) {
+            condition = condition && parseInt(width) == parseInt(item.width)
+        }
         var height = parseUnit(dialog.dimension.heightEdit.text)
-        if (height > 0) condition = condition && parseInt(height) == parseInt(item.height)
+        if (height > 0) {
+            condition = condition && parseInt(height) == parseInt(item.height)
+        }
 
         var condition2 = false
         var extension = item.file.name.split('.').pop()

@@ -13,13 +13,7 @@ var totalLength = 0
 
 selection.forEach(function(it) { determine(it) })
 
-alert(pathCount + ' paths measuring at:\n' +
-    parseFloat(totalLength.toFixed(2)) + ' pt\n' +
-    parseFloat(totalLength.toCm(2)) + ' cm\n' +
-    parseFloat(totalLength.toInch(2)) + ' inch\n' +
-    parseFloat(totalLength.toMm(2)) + ' mm\n' +
-    parseFloat(totalLength.toPica(2)) + ' pica\n' +
-    parseFloat(totalLength.toQ(2)) + ' q',
+alert(pathCount + ' paths measuring at ' + UnitValue(totalLength, 'pt').as('cm').toFixed(2) + ' cm',
     'Measure Paths')
 
 function determine(item) {

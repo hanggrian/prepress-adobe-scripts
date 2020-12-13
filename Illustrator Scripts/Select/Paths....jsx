@@ -34,7 +34,7 @@ var colorTextBounds = [0, 0, 45, 21]
 dialog.color = dialog.line.addVPanel('Color')
 dialog.color.fill = dialog.color.addHGroup()
 dialog.color.fill.addText(colorTextBounds, 'Fill:', 'right')
-dialog.color.fillList = dialog.color.fill.add('dropdownlist', undefined, COLORS)
+dialog.color.fillList = dialog.color.fill.addDropDown(undefined, COLORS)
 dialog.color.stroke = dialog.color.addHGroup()
 dialog.color.stroke.addText(colorTextBounds, 'Stroke:', 'right')
 dialog.color.strokeList = dialog.color.stroke.addDropDown(undefined, COLORS)
@@ -43,10 +43,14 @@ setNegativeButton('Cancel')
 setPositiveButton('OK', function() {
     selectAll(function(item) {
         var condition = true
-        var width = parseInt(parseUnit(dialog.dimension.widthEdit.text))
-        if (width > 0) condition = condition && width == parseInt(item.width)
-        var height = parseInt(parseUnit(dialog.dimension.heightEdit.text))
-        if (height > 0) condition = condition && height == parseInt(item.height)
+        var width = parseUnit(dialog.dimension.widthEdit.text)
+        if (width > 0) {
+            condition = condition && parseInt(width) == parseInt(item.width)
+        }
+        var height = parseUnit(dialog.dimension.heightEdit.text)
+        if (height > 0) {
+            condition = condition && parseInt(height) == parseInt(item.height)
+        }
         if (dialog.color.fillList.selection != null) {
             condition = condition && item.fillColor.equalTo(parseColor(dialog.color.fillList.selection.text))
         }
