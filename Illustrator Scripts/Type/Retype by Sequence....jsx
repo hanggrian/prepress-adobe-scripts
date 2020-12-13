@@ -1,6 +1,7 @@
 #target Illustrator
-#include '../../.sharedlib/sui-validator.js'
+#include '../../.rootlib/sui-validator.js'
 #include '../.lib/commons.js'
+#include '../.lib/sui-affix.js'
 
 checkHasSelection()
 
@@ -20,13 +21,7 @@ dialog.sequence.digits.addText(textBounds, 'Digits:', 'right')
 dialog.sequence.digitsEdit = dialog.sequence.digits.addEditText(editBounds)
 dialog.sequence.digitsEdit.validateDigits()
 
-dialog.affix = dialog.main.addVPanel('Affix')
-dialog.affix.prefix = dialog.affix.addHGroup()
-dialog.affix.prefix.addText(textBounds, 'Prefix:', 'right')
-dialog.affix.prefixEdit = dialog.affix.prefix.addEditText(editBounds)
-dialog.affix.suffix = dialog.affix.addHGroup()
-dialog.affix.suffix.addText(textBounds, 'Suffix:', 'right')
-dialog.affix.suffixEdit = dialog.affix.suffix.addEditText(editBounds)
+dialog.affix = dialog.main.addAffixPanel(textBounds, editBounds)
 
 dialog.reverse = dialog.main.addVGroup()
 dialog.reverse.alignment = 'right'

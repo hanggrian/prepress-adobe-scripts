@@ -4,7 +4,7 @@
  */
 
 #target Illustrator
-#include '../../.sharedlib/sui.js'
+#include '../../.rootlib/sui.js'
 #include '../.lib/commons-select.js'
 
 createDialog('Select by Types')

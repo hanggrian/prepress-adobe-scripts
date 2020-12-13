@@ -3,8 +3,8 @@
  */
 
 #target Illustrator
-#include '../../.sharedlib/core-strings.js'
-#include '../../.sharedlib/sui.js'
+#include '../../.rootlib/core-strings.js'
+#include '../../.rootlib/sui.js'
 #include '../.lib/commons.js'
 
 createDialog('Health Check')

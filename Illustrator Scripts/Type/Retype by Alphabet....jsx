@@ -1,6 +1,7 @@
 #target Illustrator
-#include '../../.sharedlib/sui.js'
+#include '../../.rootlib/sui.js'
 #include '../.lib/commons.js'
+#include '../.lib/sui-affix.js'
 
 var ALPHABETS = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
@@ -12,7 +13,11 @@ checkHasSelection()
 
 createDialog('Retype by Alphabet')
 
-var textBounds = [0, 0, 65, 21]
+dialog.main.alignChildren = 'fill'
+
+var textBounds = [0, 0, 60, 21]
+var editBounds = [0, 0, 100, 21]
+
 dialog.sequence = dialog.main.addVPanel('Alphabet')
 dialog.sequence.alignChildren = 'fill'
 dialog.sequence.stops = dialog.sequence.addHGroup()
@@ -20,19 +25,21 @@ dialog.sequence.stops.addText(textBounds, 'Stops at:', 'right')
 dialog.sequence.stopsList = dialog.sequence.stops.add('dropdownlist', undefined, ALPHABETS)
 dialog.sequence.stopsList.selection = 1
 dialog.sequence.space = dialog.sequence.addHGroup()
-dialog.sequence.space.addText(textBounds, 'Add space:', 'right')
-dialog.sequence.spaceCheck = dialog.sequence.space.addCheckBox()
+dialog.sequence.space.addText(textBounds, 'Midspace:', 'right')
+dialog.sequence.spaceCheck = dialog.sequence.space.addCheckBox(undefined, 'Enable')
+
+dialog.affix = dialog.main.addAffixPanel(textBounds, editBounds)
 
 dialog.reverse = dialog.main.addVGroup()
 dialog.reverse.alignment = 'right'
 dialog.reverse.reverseCheck = dialog.reverse.addCheckBox(undefined, 'Reverse order')
 
-var prefix = 1
-var count = 0
-var stopsAt
+var number = 1, count = 0, stopsAt, prefix, suffix
 
 setNegativeButton('Cancel')
 setPositiveButton('OK', function() {
+    prefix = dialog.affix.prefixEdit.text
+    suffix = dialog.affix.suffixEdit.text
     for (var i = 0; i < ALPHABETS.length; i++) {
         if (ALPHABETS[i] == dialog.sequence.stopsList.selection.text) {
             stopsAt = i + 1
@@ -52,18 +59,18 @@ show()
 
 function rename(item) {
     if (item.typename == 'TextFrame') {
-        var s = prefix.toString()
+        var s = number.toString()
         if (dialog.sequence.spaceCheck.value) {
             s += ' '
         }
         s += ALPHABETS[count]
 
         item.words.removeAll()
-        item.words.add(s)
+        item.words.add(prefix + s + suffix)
 
         count++
         if (count == stopsAt) {
-            prefix++
+            number++
             count = 0
         }
     }

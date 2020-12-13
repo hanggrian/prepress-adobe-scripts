@@ -3,7 +3,7 @@
  */
 
 #target Illustrator
-#include '../../.sharedlib/sui-validator.js'
+#include '../../.rootlib/sui-validator.js'
 #include '../.lib/commons-colors.js'
 
 checkSingleSelection()

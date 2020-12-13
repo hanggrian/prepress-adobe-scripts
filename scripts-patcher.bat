@@ -19,7 +19,7 @@ echo.
 set /p input=Which scripts would you want to install: 
 
 set sourceRoot=%~dp0
-set sourceLibs=%sourceRoot%.sharedlib
+set sourceLibs=%sourceRoot%.rootlib
 
 if %input% == 1 (
     call :patchApp "Illustrator"
@@ -104,19 +104,19 @@ goto :eof
     set app=%~1
     set sourceScripts=%~2
     set targetRoot=%~3
-    set targetLibs=!targetRoot!/.sharedlib
+    set targetLibs=!targetRoot!/.rootlib
     set targetScripts=!targetRoot!/Scripts
 
     echo Patching to '!app!'...
     if exist !targetLibs! (
-        echo Deleting existing shared libraries...
+        echo Deleting existing root libraries...
         rmdir /s /q "!targetLibs!"
     )
     if exist !targetScripts! (
         echo Deleting existing scripts...
         rmdir /s /q "!targetScripts!"
     )
-    echo Copying new scripts and shared libraries...
+    echo Copying new scripts and root libraries...
     md "!targetScripts!"
     robocopy /s /unicode "!sourceScripts!" "!targetScripts!"
     md "!targetLibs!"

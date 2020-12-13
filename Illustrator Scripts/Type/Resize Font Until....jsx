@@ -3,8 +3,8 @@
  */
 
 #target Illustrator
-#include '../../.sharedlib/core-units.js'
-#include '../../.sharedlib/sui-validator.js'
+#include '../../.rootlib/core-units.js'
+#include '../../.rootlib/sui-validator.js'
 #include '../.lib/commons.js'
 
 checkSingleSelection()
@@ -31,7 +31,7 @@ dialog.dimensionSizeEdit.active = true
 
 dialog.roundFont = dialog.main.addHGroup()
 dialog.roundFont.addText(textBounds, 'Round font size:', 'right')
-dialog.roundFontCheck = dialog.roundFont.addCheckBox()
+dialog.roundFontCheck = dialog.roundFont.addCheckBox(undefined, 'Enable')
 dialog.roundFontCheck.value = true
 
 setNegativeButton('Cancel')

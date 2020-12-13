@@ -4,8 +4,8 @@
  */
 
 #target Illustrator
-#include '../../.sharedlib/core-units.js'
-#include '../../.sharedlib/sui-validator.js'
+#include '../../.rootlib/core-units.js'
+#include '../../.rootlib/sui-validator.js'
 #include '../.lib/commons-colors.js'
 #include '../.lib/commons-select.js'
 

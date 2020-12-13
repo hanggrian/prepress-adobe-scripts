@@ -3,7 +3,7 @@
  */
 
 #target Photoshop
-#include '../../.sharedlib/sui-validator.js'
+#include '../../.rootlib/sui-validator.js'
 
 createDialog('Add Bleed')
 

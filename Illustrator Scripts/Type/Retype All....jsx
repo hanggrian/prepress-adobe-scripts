@@ -1,5 +1,5 @@
 #target Illustrator
-#include '../../.sharedlib/sui.js'
+#include '../../.rootlib/sui.js'
 #include '../.lib/commons.js'
 
 checkHasSelection()
@@ -7,7 +7,7 @@ checkHasSelection()
 createDialog('Retype All')
 
 dialog.input = dialog.main.addHGroup()
-dialog.input.addText(undefined, 'Text:')
+dialog.input.addText(undefined, 'Content:')
 dialog.inputEdit = dialog.input.addEditText([0, 0, 400, 21])
 dialog.inputEdit.active = true
 

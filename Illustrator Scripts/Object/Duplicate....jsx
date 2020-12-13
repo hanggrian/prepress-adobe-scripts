@@ -4,7 +4,7 @@
 
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/ui-duplicate.js'
+#include '../.lib/sui-duplicate.js'
 
 checkSingleSelection()
 

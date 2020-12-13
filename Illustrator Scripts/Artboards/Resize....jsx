@@ -1,8 +1,8 @@
 #target Illustrator
-#include '../../.sharedlib/core-units.js'
+#include '../../.rootlib/core-units.js'
+#include '../../.rootlib/sui-validator.js'
 #include '../.lib/commons.js'
 #include '../.lib/resources.js'
-#include '../.lib/sui-validator.js'
 
 createDialog('Resize Artboards')
 
