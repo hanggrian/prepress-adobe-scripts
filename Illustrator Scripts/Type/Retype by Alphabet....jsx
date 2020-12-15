@@ -24,15 +24,18 @@ dialog.sequence.stops = dialog.sequence.addHGroup()
 dialog.sequence.stops.addText(textBounds, 'Stops at:', 'right')
 dialog.sequence.stopsList = dialog.sequence.stops.add('dropdownlist', undefined, ALPHABETS)
 dialog.sequence.stopsList.selection = 1
+dialog.sequence.stops.setTooltip('The iteration will stop at the selected alphabet and the number will reset back to 1.')
 dialog.sequence.space = dialog.sequence.addHGroup()
 dialog.sequence.space.addText(textBounds, 'Midspace:', 'right')
 dialog.sequence.spaceCheck = dialog.sequence.space.addCheckBox(undefined, 'Enable')
+dialog.sequence.space.setTooltip('Add single space between number and alphabet.')
 
 dialog.affix = dialog.main.addAffixPanel(textBounds, editBounds)
 
 dialog.reverse = dialog.main.addVGroup()
 dialog.reverse.alignment = 'right'
 dialog.reverse.reverseCheck = dialog.reverse.addCheckBox(undefined, 'Reverse order')
+dialog.reverse.setTooltip('Iterate items at reverse-order.')
 
 var number = 1, count = 0, stopsAt, prefix, suffix
 

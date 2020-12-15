@@ -69,6 +69,14 @@ Object.prototype.isEmpty = function() { return this.length == 0 }
 Object.prototype.isNotEmpty = function() { return this.length > 0 }
 
 /**
+ * Returns true if value is integer or decimal.
+ * @param {String} value - text to check
+ */
+function isNumeric(value) {
+    return /^-{0,1}\d*\.{0,1}\d+$/.test(value)
+}
+
+/**
  * Returns the clipping path of this clip group, or the item itself if this is not a clip group.
  * @this {PageItem}
  * @return {PathItem}

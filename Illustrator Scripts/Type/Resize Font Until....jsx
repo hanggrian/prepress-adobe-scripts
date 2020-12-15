@@ -3,8 +3,8 @@
  */
 
 #target Illustrator
-#include '../../.rootlib/core-units.js'
 #include '../../.rootlib/sui-validator.js'
+#include '../.lib/core-units.js'
 #include '../.lib/commons.js'
 
 checkSingleSelection()
@@ -22,17 +22,20 @@ dialog.dimension.addText(textBounds, 'Dimension:', 'right')
 dialog.dimension.widthRadio = dialog.dimension.addRadioButton(undefined, 'Width')
 dialog.dimension.widthRadio.value = true
 dialog.dimension.heightRadio = dialog.dimension.addRadioButton(undefined, 'Height')
+dialog.dimension.setTooltip('Selected text will match either width or height.')
 
 dialog.dimensionSize = dialog.main.addHGroup()
 dialog.dimensionSize.addText(textBounds, 'Dimension size:', 'right')
 dialog.dimensionSizeEdit = dialog.dimensionSize.addEditText([0, 0, 100, 21], '0 mm')
 dialog.dimensionSizeEdit.validateUnits()
 dialog.dimensionSizeEdit.active = true
+dialog.dimensionSize.setTooltip('Target size of the text.')
 
 dialog.roundFont = dialog.main.addHGroup()
 dialog.roundFont.addText(textBounds, 'Round font size:', 'right')
 dialog.roundFontCheck = dialog.roundFont.addCheckBox(undefined, 'Enable')
 dialog.roundFontCheck.value = true
+dialog.roundFont.setTooltip('Round font size to nearest non-decimal number.')
 
 setNegativeButton('Cancel')
 setPositiveButton('OK', function() {

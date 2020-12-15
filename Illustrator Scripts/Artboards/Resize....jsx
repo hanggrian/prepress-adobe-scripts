@@ -1,6 +1,6 @@
 #target Illustrator
-#include '../../.rootlib/core-units.js'
 #include '../../.rootlib/sui-validator.js'
+#include '../.lib/core-units.js'
 #include '../.lib/commons.js'
 #include '../.lib/resources.js'
 
@@ -15,6 +15,7 @@ dialog.fitButton = dialog.header.addIconButton(undefined, getResource('wrap_cont
         document.fitArtboardToSelectedArt(i)
     })
 })
+dialog.fitButton.helpTip = 'Wrap content.'
 
 var textBounds = [0, 0, 45, 21]
 var editBounds = [0, 0, 100, 21]

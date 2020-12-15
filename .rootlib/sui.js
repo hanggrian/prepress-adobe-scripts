@@ -194,3 +194,13 @@ Object.prototype.addVPanel = function(title) {
     panel.add('group') // tiny space
     return panel
 }
+
+/**
+ * Apply help tip to all children of this group/panel.
+ * Don't set the tooltip on the group/panel itself since the behavior is different on Illustrator and Photoshop.
+ */
+Object.prototype.setTooltip = function(tooltip) {
+    for (var i = 0; i < this.children.length; i++) {
+        this.children[i].helpTip = tooltip
+    }
+}

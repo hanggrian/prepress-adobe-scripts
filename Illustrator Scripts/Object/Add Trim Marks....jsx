@@ -10,7 +10,8 @@
 
 #target Illustrator
 #include '../.lib/commons-colors.js'
-#include '../.lib/sui-duplicate.js'
+#include '../.lib/commons-colors.js'
+#include '../.lib/sui-duplicator.js'
 
 var LOCATION_TOP_LEFT = 11
 var LOCATION_TOP_RIGHT = 1
@@ -39,20 +40,24 @@ dialog.main2.offset.addText(textBounds, 'Offset:', 'right')
 dialog.main2.offsetEdit = dialog.main2.offset.addEditText(editBounds, '2.5 mm')
 dialog.main2.offsetEdit.validateUnits()
 dialog.main2.offsetEdit.active = true
+dialog.main2.offset.setTooltip('Distance between art and trim marks.')
 dialog.main2.length = dialog.main2.addHGroup()
 dialog.main2.length.addText(textBounds, 'Length:', 'right')
 dialog.main2.lengthEdit = dialog.main2.length.addEditText(editBounds, '2.5 mm')
 dialog.main2.lengthEdit.validateUnits()
+dialog.main2.length.setTooltip('Size of trim marks.')
 dialog.main2.weight = dialog.main2.addHGroup()
 dialog.main2.weight.addText(textBounds, 'Weight:', 'right')
 dialog.main2.weightEdit = dialog.main2.weight.addEditText(editBounds, DEFAULT_WEIGHT)
 dialog.main2.weightEdit.validateUnits()
+dialog.main2.weight.setTooltip('Thickness of trim marks.')
 dialog.main2.color = dialog.main2.addHGroup()
 dialog.main2.color.addText(textBounds, 'Color:', 'right')
 dialog.main2.colorList = dialog.main2.color.addDropDown(editBounds, COLORS)
 dialog.main2.colorList.selection = 0
+dialog.main2.color.setTooltip('Color of trim marks.')
 
-dialog.upper.add('statictext', [0, 0, 0, 10]) // gap
+dialog.upper.addText([0, 0, 0, 10]) // gap
 
 var checkBounds = [0, 0, 15, 15]
 dialog.locations = dialog.upper.addHGroup()
@@ -97,6 +102,7 @@ dialog.locations.row5.addText(checkBounds)
 dialog.locations.bottomRightCheck = dialog.locations.row5.addCheckBox(checkBounds)
 dialog.locations.bottomRightCheck.value = true
 dialog.locations.row5.addText(checkBounds)
+dialog.locations.setTooltip('Select which trim marks will be added.')
 
 dialog.lower.alignChildren = 'fill'
 dialog.duplicate = dialog.lower.addDuplicateGroup()

@@ -1,4 +1,4 @@
-#include 'core.js'
+#include '../../.rootlib/core.js'
 
 /**
  * Converts text to unit value by dividing parts to value and unit type.
@@ -12,16 +12,8 @@ function parseUnit(text, fraction) {
     }
     var value = isNumeric(text)
         ? parseFloat(text)
-        : UnitValue(text).as('pt')
+        : UnitValue(text)
     return fraction === undefined
         ? value
         : value.toFixed(fraction)
-}
-
-/**
- * Returns true if value is number.
- * @param {String} value - text to check
- */
-function isNumeric(value) {
-    return /^-?\d+$/.test(value)
 }

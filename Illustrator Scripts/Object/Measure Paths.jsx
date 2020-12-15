@@ -3,7 +3,7 @@
  * TODO: avoid duplicate paths in the same position and length.
  */
 
-#include '../../.rootlib/core-units.js'
+#include '../.lib/core-units.js'
 #include '../.lib/commons.js'
 
 checkHasSelection()

@@ -16,16 +16,19 @@ dialog.sequence.startsAt.addText(textBounds, 'Starts at:', 'right')
 dialog.sequence.startsAtEdit = dialog.sequence.startsAt.addEditText(editBounds, '1')
 dialog.sequence.startsAtEdit.validateDigits()
 dialog.sequence.startsAtEdit.active = true
+dialog.sequence.startsAt.setTooltip('Starting counter.')
 dialog.sequence.digits = dialog.sequence.addHGroup()
 dialog.sequence.digits.addText(textBounds, 'Digits:', 'right')
 dialog.sequence.digitsEdit = dialog.sequence.digits.addEditText(editBounds)
 dialog.sequence.digitsEdit.validateDigits()
+dialog.sequence.digits.setTooltip('Put n number of zeroes.')
 
 dialog.affix = dialog.main.addAffixPanel(textBounds, editBounds)
 
 dialog.reverse = dialog.main.addVGroup()
 dialog.reverse.alignment = 'right'
 dialog.reverse.reverseCheck = dialog.reverse.addCheckBox(undefined, 'Reverse order')
+dialog.reverse.setTooltip('Iterate items at reverse-order.')
 
 var count, digits, prefix, suffix
 

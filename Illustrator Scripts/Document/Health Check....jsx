@@ -35,6 +35,7 @@ if (dialog.general.colorSpaceText.text == 'CMYK') {
     }
     fixButtons.push(dialog.general.colorSpace.firstButton)
 }
+dialog.general.colorSpace.setTooltip('Image color space should be CMYK.')
 
 dialog.general.colorModel = dialog.general.addHGroup()
 dialog.general.colorModel.addText(leftBounds, 'Color model:', 'right')
@@ -51,6 +52,7 @@ if (dialog.general.colorModelText.text == 'DEFAULTCOLORMODEL') {
             document.rasterEffectSettings.colorModel = RasterizationColorModel.DEFAULTCOLORMODEL 
         }))
 }
+dialog.general.colorModel.setTooltip('Image color model should be default.')
 
 dialog.general.resolution = dialog.general.addHGroup()
 dialog.general.resolution.addText(leftBounds, 'Resolution:', 'right')
@@ -67,6 +69,7 @@ if (dialog.general.resolutionText.text == '300') {
             document.rasterEffectSettings.resolution = 300
         }))
 }
+dialog.general.resolution.setTooltip('Resolution should be 300.')
 
 dialog.general.background = dialog.general.addHGroup()
 dialog.general.background.addText(leftBounds, 'Background:', 'right')
@@ -85,6 +88,7 @@ if (dialog.general.backgroundText.text.endsWith('✘')) {
             document.rasterEffectSettings.transparency = false
         }))
 }
+dialog.general.background.setTooltip('Background should be white.')
 
 dialog.general.antiAlias = dialog.general.addHGroup()
 dialog.general.antiAlias.addText(leftBounds, 'Anti-alias:', 'right')
@@ -103,6 +107,7 @@ if (dialog.general.antiAliasText.text.endsWith('✘')) {
             document.rasterEffectSettings.antiAliasing = false
         }))
 }
+dialog.general.antiAlias.setTooltip('Anti-alias should be disabled.')
 
 dialog.general.clippingMask = dialog.general.addHGroup()
 dialog.general.clippingMask.addText(leftBounds, 'Clipping mask:', 'right')
@@ -121,6 +126,7 @@ if (dialog.general.clippingMaskText.text.endsWith('✘')) {
             document.rasterEffectSettings.clippingMask = false
         }))
 }
+dialog.general.clippingMask.setTooltip('Clipping mask should not be created.')
 
 dialog.general.spotColors = dialog.general.addHGroup()
 dialog.general.spotColors.addText(leftBounds, 'Spot colors:', 'right')
@@ -139,6 +145,7 @@ if (dialog.general.spotColorsText.text.endsWith('✘')) {
             document.rasterEffectSettings.convertSpotColors = false
         }))
 }
+dialog.general.spotColors.setTooltip('Spot colors should be preserved.')
 
 // panels without fix buttons
 dialog.content = dialog.main2.addVGroup()
@@ -162,6 +169,7 @@ if (document.rasterItems.length == 0) {
         dialog.content.rasters.text += ' ✘'
     }
 }
+dialog.content.rasters.setTooltip('Images below 300 resolution.')
 
 if (fixButtons.length > 0) {
     setNegativeButton('Fix All', function() {

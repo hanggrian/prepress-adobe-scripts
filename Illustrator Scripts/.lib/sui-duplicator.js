@@ -1,5 +1,5 @@
-#include '../../.rootlib/core-units.js'
 #include '../../.rootlib/sui-validator.js'
+#include '../.lib/core-units.js'
 
 var duplicateTextBounds = [0, 0, 95, 21]
 var duplicateEditBounds = [0, 0, 100, 21]
@@ -20,16 +20,19 @@ Object.prototype.addDuplicateGroup = function() {
     duplicate.copies.addText(undefined, 'x')
     duplicate.verticalEdit = duplicate.copies.addEditText(duplicateEditBounds2)
     duplicate.verticalEdit.validateDigits()
+    duplicate.copies.setTooltip('2 dimension target.')
 
     duplicate.gapHorizontal = duplicate.addHGroup()
     duplicate.gapHorizontal.addText(duplicateTextBounds, 'Horizontal Gap:', 'right')
     duplicate.gapHorizontalEdit = duplicate.gapHorizontal.addEditText(duplicateEditBounds, '0 mm')
     duplicate.gapHorizontalEdit.validateUnits()
+    duplicate.gapHorizontal.setTooltip('Distance between arts horizontally.')
 
     duplicate.gapVertical = duplicate.addHGroup()
     duplicate.gapVertical.addText(duplicateTextBounds, 'Vertical Gap:', 'right')
     duplicate.gapVerticalEdit = duplicate.gapVertical.addEditText(duplicateEditBounds, '0 mm')
     duplicate.gapVerticalEdit.validateUnits()
+    duplicate.gapVertical.setTooltip('Distance between arts vertically.')
 
     return duplicate
 }

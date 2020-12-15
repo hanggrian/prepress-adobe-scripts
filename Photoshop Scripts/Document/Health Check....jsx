@@ -32,6 +32,7 @@ if (dialog.general.modeText.text == 'CMYK') {
             document.changeMode(ChangeMode.CMYK)
         }))
 }
+dialog.general.mode.setTooltip('Image color mode should be CMYK.')
 
 dialog.general.resolution = dialog.general.addHGroup()
 dialog.general.resolution.addText(leftBounds, 'Resolution:', 'right')
@@ -48,6 +49,7 @@ if (dialog.general.resolutionText.text == '300') {
             document.resizeImage(undefined, undefined, 300)
         }))
 }
+dialog.general.resolution.setTooltip('Resolution should be 300.')
 
 dialog.general.bits = dialog.general.addHGroup()
 dialog.general.bits.addText(leftBounds, 'Bits:', 'right')
@@ -64,6 +66,7 @@ if (dialog.general.bitsText.text == '8') {
             document.bitsPerChannel = BitsPerChannelType.EIGHT
         }))
 }
+dialog.general.bits.setTooltip('Bits depth should be 8.')
 
 if (fixButtons.length > 0) {
     setNegativeButton('Fix All', function() {
