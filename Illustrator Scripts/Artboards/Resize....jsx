@@ -4,7 +4,7 @@
 #include '../.lib/commons.js'
 #include '../.lib/resources.js'
 
-createDialog('Resize Artboards')
+var dialog = new Dialog('Resize Artboards')
 
 dialog.header = dialog.main.addHGroup()
 dialog.fitButton = dialog.header.addIconButton(undefined, getResource('wrap_content.png'), function() {
@@ -31,8 +31,8 @@ dialog.height2.addText(textBounds, 'Height:', 'right')
 dialog.heightEdit = dialog.height2.addEditText(editBounds)
 dialog.heightEdit.validateUnits()
 
-setNegativeButton('Cancel')
-setPositiveButton('OK', function() {
+dialog.setNegativeButton('Cancel')
+dialog.setPositiveButton(function() {
     var w = parseUnit(dialog.widthEdit.text)
     var h = parseUnit(dialog.heightEdit.text)
     if (w <= 0 || h <= 0) {
@@ -42,7 +42,7 @@ setPositiveButton('OK', function() {
         resizeArtboard(it, w, h)
     })
 })
-show()
+dialog.show()
 
 /**
  * Imported from https://github.com/iconifyit/ai-scripts/blob/master/Resize%20All%20Artboards.jsx.
@@ -50,7 +50,7 @@ show()
 function resizeArtboard(artboard, targetWidth, targetHeight) {
     var bounds = artboard.artboardRect;
 
-    var left = bounds[0]
+    var left = bounds.first()
     var top = bounds[1]
     var width = bounds[2] - left
     var height = top - bounds[3]

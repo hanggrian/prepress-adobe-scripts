@@ -5,7 +5,7 @@
 
 checkHasSelection()
 
-createDialog('Retype by Sequence')
+var dialog = new Dialog('Retype by Sequence')
 
 var textBounds = [0, 0, 55, 21]
 var editBounds = [0, 0, 100, 21]
@@ -32,8 +32,8 @@ dialog.reverse.setTooltip('Iterate items at reverse-order.')
 
 var count, digits, prefix, suffix
 
-setNegativeButton('Cancel')
-setPositiveButton('OK', function() {
+dialog.setNegativeButton('Cancel')
+dialog.setPositiveButton(function() {
     count = parseInt(dialog.sequence.startsAtEdit.text) || 0
     digits = parseInt(dialog.sequence.digitsEdit.text) || 0
     prefix = dialog.affix.prefixEdit.text
@@ -48,7 +48,7 @@ setPositiveButton('OK', function() {
         })
     }
 })
-show()
+dialog.show()
 
 function rename(item) {
     if (item.typename == 'TextFrame') {

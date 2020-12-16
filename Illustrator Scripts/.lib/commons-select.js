@@ -22,7 +22,7 @@ var queuedSelection = []
 
 /**
  * Configure allowed types for later selection.
- * @param {String} type - any of item above.
+ * @param {String} type any of item above.
  */
 function allowSelectionType(type) {
     allowedSelectionTypes.push(type)
@@ -30,7 +30,7 @@ function allowSelectionType(type) {
 
 /**
  * Select all items that match selected configuration.
- * @param {Function} callable - nullable custom item checker that should return true if the item parameter should be selected
+ * @param {Function} callable nullable custom item checker that should return true if the item parameter should be selected
  */
 function selectAll(callable) {
     if (selection == null || selection.length == 0) {

@@ -12,7 +12,7 @@
 allowSelectionType(SELECT_PATH)
 allowSelectionType(SELECT_COMPOUND_PATH)
 
-createDialog('Select Paths')
+var dialog = new Dialog('Select Paths')
 
 dialog.line = dialog.main.addHGroup()
 dialog.line.alignChildren = 'top'
@@ -39,8 +39,8 @@ dialog.color.stroke = dialog.color.addHGroup()
 dialog.color.stroke.addText(colorTextBounds, 'Stroke:', 'right')
 dialog.color.strokeList = dialog.color.stroke.addDropDown(undefined, COLORS)
 
-setNegativeButton('Cancel')
-setPositiveButton('OK', function() {
+dialog.setNegativeButton('Cancel')
+dialog.setPositiveButton(function() {
     selectAll(function(item) {
         var condition = true
         var width = parseUnit(dialog.dimension.widthEdit.text)
@@ -60,4 +60,4 @@ setPositiveButton('OK', function() {
         return condition
     })
 })
-show()
+dialog.show()

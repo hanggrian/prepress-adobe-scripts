@@ -7,7 +7,7 @@
 #include '../../.rootlib/sui.js'
 #include '../.lib/commons-select.js'
 
-createDialog('Select by Types')
+var dialog = new Dialog('Select by Types')
 
 var bounds = [0, 0, 115, 15]
 
@@ -37,8 +37,8 @@ dialog.others.meshCheck = dialog.others.row1.addCheckBox(bounds, 'Mesh')
 dialog.others.row2 = dialog.others.addHGroup()
 dialog.others.graphCheck = dialog.others.row2.addCheckBox(bounds, 'Graph')
 
-setNegativeButton('Cancel')
-setPositiveButton('OK', function() {
+dialog.setNegativeButton('Cancel')
+dialog.setPositiveButton(function() {
     if (dialog.paths.compoundPathCheck.value) allowSelectionType(SELECT_COMPOUND_PATH)
     if (dialog.others.graphCheck.value) allowSelectionType(SELECT_GRAPH)
     if (dialog.types.legacyTextCheck.value) allowSelectionType(SELECT_LEGACY_TEXT)
@@ -52,4 +52,4 @@ setPositiveButton('OK', function() {
     if (dialog.types.textFrameCheck.value) allowSelectionType(SELECT_TEXT_FRAME)
     selectAll()
 })
-show()
+dialog.show()

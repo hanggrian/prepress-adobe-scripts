@@ -11,7 +11,7 @@ var ALPHABETS = [
 
 checkHasSelection()
 
-createDialog('Retype by Alphabet')
+var dialog = new Dialog('Retype by Alphabet')
 
 dialog.main.alignChildren = 'fill'
 
@@ -39,8 +39,8 @@ dialog.reverse.setTooltip('Iterate items at reverse-order.')
 
 var number = 1, count = 0, stopsAt, prefix, suffix
 
-setNegativeButton('Cancel')
-setPositiveButton('OK', function() {
+dialog.setNegativeButton('Cancel')
+dialog.setPositiveButton(function() {
     prefix = dialog.affix.prefixEdit.text
     suffix = dialog.affix.suffixEdit.text
     for (var i = 0; i < ALPHABETS.length; i++) {
@@ -58,7 +58,7 @@ setPositiveButton('OK', function() {
         })
     }
 })
-show()
+dialog.show()
 
 function rename(item) {
     if (item.typename == 'TextFrame') {

@@ -26,7 +26,7 @@ var DEFAULT_WEIGHT = 0.3 // the same value used in `Object > Create Trim Marks`
 
 checkSingleSelection()
 
-createDialog('Add Trim Marks')
+var dialog = new Dialog('Add Trim Marks')
 
 dialog.main.alignChildren = 'fill'
 dialog.upper = dialog.main.addHGroup()
@@ -107,10 +107,10 @@ dialog.locations.setTooltip('Select which trim marks will be added.')
 dialog.lower.alignChildren = 'fill'
 dialog.duplicate = dialog.lower.addDuplicateGroup()
 
-setNegativeButton('Cancel')
-setPositiveButton('OK', function() { process(false) })
-setNeutralButton('Delete', function() { process(true) }, 90)
-show()
+dialog.setNegativeButton('Cancel')
+dialog.setPositiveButton(function() { process(false) })
+dialog.setNeutralButton(90, 'Delete', function() { process(true) })
+dialog.show()
 
 function process(isDelete) {
     var offset = parseUnit(dialog.main2.offsetEdit.text)
@@ -133,8 +133,8 @@ function process(isDelete) {
         if (dialog.locations.leftBottomCheck.value) locs.push(LOCATION_LEFT_BOTTOM)
         if (dialog.locations.leftTopCheck.value) locs.push(LOCATION_LEFT_TOP)
 
-        marks = marks.concat(createTrimMarks(selection[0], offset, length, weight, color, locs))
-        if (isDelete) selection[0].remove()
+        marks = marks.concat(createTrimMarks(selection.first(), offset, length, weight, color, locs))
+        if (isDelete) selection.first().remove()
     } else {
         // currently ignore location checkboxes in duplication
         dialog.duplicate.duplicate(function(item, h, v) {
@@ -167,12 +167,12 @@ function process(isDelete) {
 
 /**
  * Create multiple trim marks around target. The marks are created with clockwise ordering.
- * @param {PageItem} target - art where trim marks will be applied to
- * @param {Number} offset - space between target and trim marks
- * @param {Number} length - trim marks' width
- * @param {Number} weight - trim marks' stroke width
- * @param {CMYKColor} color - trim marks' color
- * @param {Array} locations - combination of 8 possible mark locations as defined in constants
+ * @param {PageItem} target art where trim marks will be applied to
+ * @param {Number} offset space between target and trim marks
+ * @param {Number} length trim marks' width
+ * @param {Number} weight trim marks' stroke width
+ * @param {CMYKColor} color trim marks' color
+ * @param {Array} locations combination of 8 possible mark locations as defined in constants
  * @return {Array} created trim marks
  */
 function createTrimMarks(target, offset, length, weight, color, locations) {
@@ -180,7 +180,7 @@ function createTrimMarks(target, offset, length, weight, color, locations) {
     var clippingTarget = target.getClippingPathItem()
     var width = clippingTarget.width
     var height = clippingTarget.height
-    var startX = clippingTarget.position[0]
+    var startX = clippingTarget.position.first()
     var endX = startX + width
     var startY = clippingTarget.position[1]
     var endY = startY - height
@@ -269,13 +269,13 @@ function createTrimMarks(target, offset, length, weight, color, locations) {
 
 /**
  * Create individual trim mark from point A to point B.
- * @param {String} suffixName - item name in the layer
- * @param {Number} weight - trim marks' stroke width
- * @param {CMYKColor} color - trim marks' color
- * @param {Number} fromX - starting X point
- * @param {Number} fromY - starting Y point
- * @param {Number} toX - destination X point
- * @param {Number} toY - destination Y point
+ * @param {String} suffixName item name in the layer
+ * @param {Number} weight trim marks' stroke width
+ * @param {CMYKColor} color trim marks' color
+ * @param {Number} fromX starting X point
+ * @param {Number} fromY starting Y point
+ * @param {Number} toX destination X point
+ * @param {Number} toY destination Y point
  * @return {PathItem} created trim mark
  */
 function createTrimMark(suffixName, weight, color, fromX, fromY, toX, toY) {

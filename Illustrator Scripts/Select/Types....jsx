@@ -11,7 +11,7 @@
 
 allowSelectionType(SELECT_TEXT_FRAME)
 
-createDialog('Select Types')
+var dialog = new Dialog('Select Types')
 
 dialog.line = dialog.main.addHGroup()
 dialog.line.alignChildren = 'top'
@@ -38,8 +38,8 @@ dialog.color.stroke = dialog.color.addHGroup()
 dialog.color.stroke.addText(colorTextBounds, 'Stroke:', 'right')
 dialog.color.strokeList = dialog.color.stroke.addDropDown(undefined, COLORS)
 
-setNegativeButton('Cancel')
-setPositiveButton('OK', function() {
+dialog.setNegativeButton('Cancel')
+dialog.setPositiveButton(function() {
     selectAll(function(item) {
         var attr = item.textRange.characterAttributes
         var condition = true
@@ -62,4 +62,4 @@ setPositiveButton('OK', function() {
         return condition
     })
 })
-show()
+dialog.show()

@@ -7,7 +7,7 @@
 #include '../../.rootlib/sui.js'
 #include '../.lib/commons.js'
 
-createDialog('Health Check')
+var dialog = new Dialog('Health Check')
 
 var fixButtons = []
 var leftBounds = [0, 0, 90, 21]
@@ -172,14 +172,14 @@ if (document.rasterItems.length == 0) {
 dialog.content.rasters.setTooltip('Images below 300 resolution.')
 
 if (fixButtons.length > 0) {
-    setNegativeButton('Fix All', function() {
+    dialog.setNegativeButton('Fix All', function() {
         for (var i = 0; i < fixButtons.length; i++) {
             fixButtons[i].notify('onClick')
         }
     })
 }
-setPositiveButton('OK')
-show()
+dialog.setPositiveButton()
+dialog.show()
 
 function addFixButton(parent, staticText, fixedText, onClick) {
     var button = parent.add('button', fixBounds, 'Fix')

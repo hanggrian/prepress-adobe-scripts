@@ -3,7 +3,7 @@
 #include '../../.rootlib/sui.js'
 #include '../.lib/commons.js'
 
-createDialog('Health Check')
+var dialog = new Dialog('Health Check')
 
 var fixButtons = []
 var leftBounds = [0, 0, 70, 21]
@@ -69,14 +69,14 @@ if (dialog.general.bitsText.text == '8') {
 dialog.general.bits.setTooltip('Bits depth should be 8.')
 
 if (fixButtons.length > 0) {
-    setNegativeButton('Fix All', function() {
+    dialog.setNegativeButton('Fix All', function() {
         for (var i = 0; i < fixButtons.length; i++) {
             fixButtons[i].notify('onClick')
         }
     })
 }
-setPositiveButton('OK')
-show()
+dialog.setPositiveButton()
+dialog.show()
 
 function getBits() {
     switch(document.bitsPerChannel) {

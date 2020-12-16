@@ -4,7 +4,7 @@
 #include '../.lib/commons-colors.js'
 #include '../.lib/ui-validator.js'
 
-createDialog('Add Header/Footer')
+var dialog = new Dialog('Add Header/Footer')
 
 dialog.main.alignChildren = 'fill'
 
@@ -49,12 +49,12 @@ dialog.character.attrs.addText(characterTextBounds, 'Attributes:', 'right')
 dialog.character.italicCheck = dialog.character.attrs.addCheckBox(undefined, 'Italic')
 dialog.character.underlineCheck = dialog.character.attrs.addCheckBox(undefined, 'Underline')
 
-setNegativeButton('Cancel')
-setPositiveButton('OK', function() {
+dialog.setNegativeButton('Cancel')
+dialog.setPositiveButton(function() {
     if (dialog.kind.headerCheck.value) createType()
     if (dialog.kind.footerCheck.value) createType()
 })
-show()
+dialog.show()
 
 function createType() {
     var text = document.textFrames.add()

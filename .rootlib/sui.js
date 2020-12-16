@@ -4,89 +4,96 @@
 
 #include 'core.js'
 
-var dialog
-var _positiveButtonText, _positiveButtonAction
-var _negativeButtonText, _negativeButtonAction
-var _neutralButtonText, _neutralButtonAction, _neutralButtonGap
-
 /**
- * Initialize a dialog.
- * @param title - dialog title
+ * Construct a new dialog.
+ * @param {String} title window title.
  */
-function createDialog(title) {
-    dialog = new Window('dialog', title)
-    dialog.orientation = 'column'
-    // dialog.alignChildren = 'fill'
-    dialog.main = dialog.addVGroup()
-    dialog.main.alignChildren = 'left'
-    dialog.buttons = dialog.addHGroup()
-    dialog.buttons.alignment = 'right'
-    return dialog
-}
+function Dialog(title) {
+    var self = this
+    var window = new Window('dialog', title)
+    window.orientation = 'column'
+    // window.alignChildren = 'fill'
+    
+    this.main = window.addVGroup()
+    this.main.alignChildren = 'left'
+    this.buttons = window.addHGroup()
+    this.buttons.alignment = 'right'
 
-/**
- * Set positive dialog button.
- * @param text - button text
- * @param action - button click, may be undefined
- */
-function setPositiveButton(text, action) {
-    _positiveButtonText = text
-    _positiveButtonAction = action
-}
+    var positiveButtonText, positiveButtonAction
+    var negativeButtonText, negativeButtonAction
+    var neutralButtonText, neutralButtonAction, neutralButtonGap
 
-/**
- * Set negative dialog button.
- * @param text - button text
- * @param action - button click, may be undefined
- */
-function setNegativeButton(text, action) {
-    _negativeButtonText = text
-    _negativeButtonAction = action
-}
-
-/**
- * Set neutral dialog button.
- * @param text - button text
- * @param action - button click, may be undefined
- * @param gap - gap between neutral and positive/negative button, may be undefined
- */
-function setNeutralButton(text, action, gap) {
-    _neutralButtonText = text
-    _neutralButtonAction = action
-    _neutralButtonGap = gap
-}
-
-/** Show dialog, after populating buttons. */
-function show() {
-    if (_neutralButtonText !== undefined) {
-        _addButton(_neutralButtonText, _neutralButtonAction)
-        if (_neutralButtonGap !== undefined) {
-            dialog.buttons.addText([0, 0, _neutralButtonGap, 0])
-        }
+    /**
+     * Set positive dialog button, the text will always be `OK`.
+     * @param {Function} action button click listener, may be undefined.
+     */
+    this.setPositiveButton = function(action) {
+        positiveButtonText = 'OK' // automatically marked as positive button by Adobe
+        positiveButtonAction = action
     }
-    if (isMacOS()) {
-        _addButton(_negativeButtonText, _negativeButtonAction)
-        _addButton(_positiveButtonText, _positiveButtonAction)
-    } else {
-        _addButton(_positiveButtonText, _positiveButtonAction)
-        _addButton(_negativeButtonText, _negativeButtonAction)
-    }
-    dialog.show()
-}
 
-function _addButton(text, action) {
-    if (text !== undefined) {
-        dialog.buttons.addButton(undefined, text, function() {
-            dialog.close()
-            if (action !== undefined) {
-                action()
+    /**
+     * Set negative dialog button.
+     * @param {String} text button text.
+     * @param {Function} action button click listener, may be undefined.
+     */
+    this.setNegativeButton = function(text, action) {
+        negativeButtonText = text
+        negativeButtonAction = action
+    }
+
+    /**
+     * Set neutral dialog button.
+     * @param {Number} gap gap between neutral and positive/negative button, may be undefined.
+     * @param {String} text button text.
+     * @param {Function} action button click listener, may be undefined.
+     */
+    this.setNeutralButton = function(gap, text, action) {
+        neutralButtonText = text
+        neutralButtonAction = action
+        neutralButtonGap = gap
+    }
+    
+    /** Show the dialog, after populating buttons. */
+    this.show = function() {
+        if (neutralButtonText !== undefined) {
+            addButton(neutralButtonText, neutralButtonAction)
+            if (neutralButtonGap !== undefined) {
+                self.buttons.addText([0, 0, neutralButtonGap, 0])
             }
-        })
+        }
+        if (isMacOS()) {
+            addButton(negativeButtonText, negativeButtonAction)
+            addButton(positiveButtonText, positiveButtonAction)
+        } else {
+            addButton(positiveButtonText, positiveButtonAction)
+            addButton(negativeButtonText, negativeButtonAction)
+        }
+		window.show()
+    }
+
+    /** Manually close the dialog. */
+    this.close = function() {
+        window.close()
+    }
+
+    function addButton(text, action) {
+        if (text !== undefined) {
+            self.buttons.addButton(undefined, text, function() {
+                self.close()
+                if (action !== undefined) {
+                    action()
+                }
+            })
+        }
     }
 }
 
 /** 
  * Add static text to target.
+ * @param {Bounds} bounds size of this object.
+ * @param {String} text text to display.
+ * @param {String} justify text alignment.
  * @return {StaticText}
  */
 Object.prototype.addText = function(bounds, text, justify) {
@@ -99,6 +106,8 @@ Object.prototype.addText = function(bounds, text, justify) {
 
 /** 
  * Add edit text to target.
+ * @param {Bounds} bounds size of this object.
+ * @param {String} text text to display.
  * @return {EditText}
  */
 Object.prototype.addEditText = function(bounds, text) {
@@ -107,30 +116,38 @@ Object.prototype.addEditText = function(bounds, text) {
 
 /** 
  * Add button to target.
+ * @param {Bounds} bounds size of this object.
+ * @param {String} path source image location.
+ * @param {Function} action on click listener.
  * @return {Button}
  */
-Object.prototype.addButton = function(bounds, text, onClick) {
+Object.prototype.addButton = function(bounds, text, action) {
     var button = this.add('button', bounds, text)
-    if (onClick !== undefined) {
-        button.onClick = onClick
+    if (action !== undefined) {
+        button.onClick = action
     }
     return button
 }
 
 /**
  * Add icon button to target.
+ * @param {Bounds} bounds size of this object.
+ * @param {String} path source image location.
+ * @param {Function} action on click listener.
  * @return {IconButton}
  */
-Object.prototype.addIconButton = function(bounds, path, onClick) {
+Object.prototype.addIconButton = function(bounds, path, action) {
     var button = this.add('iconbutton', bounds, File(path), {style: 'toolbutton'})
-    if (onClick !== undefined) {
-        button.onClick = onClick
+    if (action !== undefined) {
+        button.onClick = action
     }
     return button
 }
 
 /**
  * Add check box to target.
+ * @param {Bounds} bounds size of this object.
+ * @param {String} text text to display.
  * @return {CheckBox}
  */
 Object.prototype.addCheckBox = function(bounds, text) {
@@ -139,6 +156,8 @@ Object.prototype.addCheckBox = function(bounds, text) {
 
 /**
  * Add radio button to target.
+ * @param {Bounds} bounds size of this object.
+ * @param {String} text text to display.
  * @return {RadioButton}
  */
 Object.prototype.addRadioButton = function(bounds, text) {
@@ -147,10 +166,12 @@ Object.prototype.addRadioButton = function(bounds, text) {
 
 /**
  * Add drop down list to target.
+ * @param {Bounds} bounds size of this object.
+ * @param {Array} items drop down collection.
  * @return {DropDownList}
  */
-Object.prototype.addDropDown = function(bounds, content) {
-    return this.add('dropdownlist', bounds, content)
+Object.prototype.addDropDown = function(bounds, items) {
+    return this.add('dropdownlist', bounds, items)
 }
 
 /**
@@ -175,6 +196,7 @@ Object.prototype.addVGroup = function() {
 
 /**
  * Add horizontal panel to target.
+ * @param {String} title of the panel.
  * @return {Panel}
  */
 Object.prototype.addHPanel = function(title) {
@@ -186,6 +208,7 @@ Object.prototype.addHPanel = function(title) {
 
 /**
  * Add vertical panel to target.
+ * @param {String} title of the panel.
  * @return {Panel}
  */
 Object.prototype.addVPanel = function(title) {
@@ -198,6 +221,7 @@ Object.prototype.addVPanel = function(title) {
 /**
  * Apply help tip to all children of this group/panel.
  * Don't set the tooltip on the group/panel itself since the behavior is different on Illustrator and Photoshop.
+ * @param {String} tooltip help tip to install.
  */
 Object.prototype.setTooltip = function(tooltip) {
     for (var i = 0; i < this.children.length; i++) {

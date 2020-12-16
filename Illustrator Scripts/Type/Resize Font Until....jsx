@@ -9,11 +9,11 @@
 
 checkSingleSelection()
 
-var item = selection[0]
+var item = selection.first()
 
 checkTypename(item, 'TextFrame')
 
-createDialog('Resize Font Until')
+var dialog = new Dialog('Resize Font Until')
 
 var textBounds = [0, 0, 100, 21]
 
@@ -37,8 +37,8 @@ dialog.roundFontCheck = dialog.roundFont.addCheckBox(undefined, 'Enable')
 dialog.roundFontCheck.value = true
 dialog.roundFont.setTooltip('Round font size to nearest non-decimal number.')
 
-setNegativeButton('Cancel')
-setPositiveButton('OK', function() {
+dialog.setNegativeButton('Cancel')
+dialog.setPositiveButton(function() {
     var currentFont = item.textRange.characterAttributes.size
     var currentDimension = dialog.dimension.widthRadio.value
         ? item.width
@@ -50,4 +50,4 @@ setPositiveButton('OK', function() {
     }
     item.textRange.characterAttributes.size = targetFont
 })
-show()
+dialog.show()

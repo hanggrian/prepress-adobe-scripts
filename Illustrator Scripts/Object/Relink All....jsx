@@ -43,16 +43,16 @@ if (isMacOS()) {
 var file = File.openDialog('Relink All', filters)
 
 if (file != null) {
-    createDialog('Relink All')
+    var dialog = new Dialog('Relink All')
 
     dialog.file = dialog.main.addHGroup('File')
     dialog.file.addText(undefined, decodeURI(file.absoluteURI))
     
-    setNegativeButton('Cancel')
-    setPositiveButton('OK', function() {
+    dialog.setNegativeButton('Cancel')
+    dialog.setPositiveButton(function() {
         selection.forEach(function(it) {
             it.relink(file)
         })
     })
-    show()   
+    dialog.show()   
 }

@@ -7,7 +7,7 @@
 #include '.lib/core-units.js'
 #include '.lib/commons.js'
 
-createDialog('Add Bleed')
+var dialog = new Dialog('Add Bleed')
 
 var textBounds = [0, 0, 95, 21]
 var editBounds = [0, 0, 100, 21]
@@ -30,8 +30,8 @@ dialog.contentAware.addText(textBounds, 'Content-Aware:', 'right')
 dialog.contentAwareCheck = dialog.contentAware.addCheckBox(undefined, 'Enable')
 dialog.contentAware.setTooltip('Layers will be flattened, and bleed will be deleted as content-aware.')*/
 
-setNegativeButton('Cancel')
-setPositiveButton('OK', function() {
+dialog.setNegativeButton('Cancel')
+dialog.setPositiveButton(function() {
     if (dialog.guideLayoutCheck.value) {
         document.guides.add(Direction.HORIZONTAL, 0)
         document.guides.add(Direction.HORIZONTAL, document.height)
@@ -45,4 +45,4 @@ setPositiveButton('OK', function() {
         AnchorPosition.MIDDLECENTER
     )
 })
-show()
+dialog.show()

@@ -2,7 +2,7 @@
 
 /**
  * Returns true if text starts with word.
- * @param {String} s - expected prefix
+ * @param {String} s expected prefix
  * @return {Boolean}
  */
 String.prototype.startsWith = function(s) {
@@ -11,7 +11,7 @@ String.prototype.startsWith = function(s) {
 
 /**
  * Returns true if text ends with word.
- * @param {String} s - expected suffix
+ * @param {String} s expected suffix
  * @return {Boolean}
  */
 String.prototype.endsWith = function(s) {
@@ -20,7 +20,7 @@ String.prototype.endsWith = function(s) {
 
 /**
  * Returns prefix that ends with target.
- * @param {String} s - target
+ * @param {String} s target
  * @return {Boolean}
  */
 String.prototype.substringBefore = function(s) {
@@ -29,7 +29,7 @@ String.prototype.substringBefore = function(s) {
 
 /**
  * Returns suffix that starts with target.
- * @param {String} s - target
+ * @param {String} s target
  * @return {Boolean}
  */
 String.prototype.substringAfter = function(s) {

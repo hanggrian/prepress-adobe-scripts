@@ -8,10 +8,10 @@
 
 checkSingleSelection()
 
-var item = selection[0]
+var item = selection.first()
 checkTypename(item, 'PathItem')
 
-createDialog('Add Flap')
+var dialog = new Dialog('Add Flap')
 
 var textBounds = [0, 0, 60, 21]
 var editBounds = [0, 0, 100, 21]
@@ -52,9 +52,9 @@ dialog.scratches.path.addText(scratchesTextBounds, 'Path gap:', 'right')
 dialog.scratches.pathEdit = dialog.scratches.path.addEditText(editBounds, '20 mm')
 dialog.scratches.pathEdit.validateUnits()
 
-setNegativeButton('Cancel')
-setPositiveButton('OK', function() { process() })
-show()
+dialog.setNegativeButton('Cancel')
+dialog.setPositiveButton(function() { process() })
+dialog.show()
 
 function process() {
 }

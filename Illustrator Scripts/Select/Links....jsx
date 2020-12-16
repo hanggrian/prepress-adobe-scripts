@@ -22,7 +22,7 @@ var FILE_TIFF = ['tif', 'tiff']
 
 allowSelectionType(SELECT_PLACED)
 
-createDialog('Select Links')
+var dialog = new Dialog('Select Links')
 
 dialog.line = dialog.main.addHGroup()
 dialog.line.alignChildren = 'top'
@@ -52,8 +52,8 @@ dialog.types.pngCheck = dialog.types.addCheckBox(undefined, getTypeString('PNG',
 dialog.types.psdCheck = dialog.types.addCheckBox(undefined, getTypeString('Photoshop', FILE_PSD))
 dialog.types.tiffCheck = dialog.types.addCheckBox(undefined, getTypeString('TIFF', FILE_TIFF))
 
-setNegativeButton('Cancel')
-setPositiveButton('OK', function() {
+dialog.setNegativeButton('Cancel')
+dialog.setPositiveButton(function() {
     selectAll(function(item) {
         var condition = true
         var width = parseUnit(dialog.dimension.widthEdit.text)
@@ -80,7 +80,7 @@ setPositiveButton('OK', function() {
         return condition && condition2
     })
 })
-show()
+dialog.show()
 
 function getTypeString(prefix, suffix) {
     var s = ''

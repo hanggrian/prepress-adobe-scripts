@@ -8,11 +8,11 @@
 
 checkSingleSelection()
 
-createDialog('Duplicate')
+var dialog = new Dialog('Duplicate')
 
 dialog.duplicate = dialog.main.addDuplicateGroup()
 dialog.duplicate.horizontalEdit.active = true
 
-setNegativeButton('Cancel')
-setPositiveButton('OK', function() { dialog.duplicate.duplicate() })
-show()
+dialog.setNegativeButton('Cancel')
+dialog.setPositiveButton(function() { dialog.duplicate.duplicate() })
+dialog.show()

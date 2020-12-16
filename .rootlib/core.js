@@ -7,8 +7,8 @@ function isMacOS() { return $.os.toLowerCase().indexOf('mac') >= 0 }
 
 /**
  * Assert that a condition is satisfied, throw an error otherwise.
- * @param {Boolean} requirement - expect value to be `true`
- * @param {String} errorMessage - nullable
+ * @param {Boolean} requirement expect value to be `true`
+ * @param {String} errorMessage nullable
  * @return {void}
  */
 function check(requirement, errorMessage) {
@@ -32,7 +32,7 @@ function checkTypename(item, typename) { check(item.typename == typename, 'Selec
 
 /** 
  * Iterate each element of this list, doesn't work on array.
- * @param {Function} action - runnable to execute
+ * @param {Function} action runnable to execute
  */
 Object.prototype.forEach = function(action) {
     for (var i = 0; i < this.length; i++) {
@@ -42,13 +42,25 @@ Object.prototype.forEach = function(action) {
 
 /**
  * Iterate each element of this list as reversed, doesn't work on array.
- * @param {Function} action - runnable to execute
+ * @param {Function} action runnable to execute
  */
 Object.prototype.forEachReversed = function(action) {
     for (var i = this.lastIndex(); i >= 0; i--) {
         action(this[i], i)
     }
 }
+
+/**
+ * First item of this list.
+ * @return {Object}
+ */
+Object.prototype.first = function() { return this[0] }
+
+/**
+ * Last item of this list.
+ * @return {Object}
+ */
+Object.prototype.last = function() { return this[this.lastIndex] }
 
 /**
  * Last index of this list.
@@ -70,7 +82,7 @@ Object.prototype.isNotEmpty = function() { return this.length > 0 }
 
 /**
  * Returns true if value is integer or decimal.
- * @param {String} value - text to check
+ * @param {String} value text to check
  */
 function isNumeric(value) {
     return /^-{0,1}\d*\.{0,1}\d+$/.test(value)
@@ -83,7 +95,7 @@ function isNumeric(value) {
  */
 Object.prototype.getClippingPathItem = function() {
     if (this.typename == 'GroupItem' && this.clipped) {
-        return this.pathItems[0]
+        return this.pathItems.first()
     }
     return this
 }
