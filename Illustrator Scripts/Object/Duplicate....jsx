@@ -3,8 +3,7 @@
  */
 
 #target Illustrator
-#include '../.lib/commons.js'
-#include '../.lib/sui-duplicator.js'
+#include '../.lib/duplicator.js'
 
 checkSingleSelection()
 

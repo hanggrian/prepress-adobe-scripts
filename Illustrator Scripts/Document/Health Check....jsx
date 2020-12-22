@@ -3,7 +3,6 @@
  */
 
 #target Illustrator
-#include '../../.rootlib/core-strings.js'
 #include '../../.rootlib/sui.js'
 #include '../.lib/commons.js'
 

@@ -1,7 +1,6 @@
 #target Illustrator
-#include '../../.rootlib/sui.js'
+#include '../.lib/affix.js'
 #include '../.lib/commons.js'
-#include '../.lib/sui-affix.js'
 
 var ALPHABETS = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',

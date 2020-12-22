@@ -5,7 +5,7 @@
 
 #target Illustrator
 #include '../../.rootlib/sui.js'
-#include '../.lib/commons-select.js'
+#include '../.lib/commons.js'
 
 var dialog = new Dialog('Select by Types')
 

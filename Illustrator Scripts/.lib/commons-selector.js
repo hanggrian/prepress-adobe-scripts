@@ -3,8 +3,6 @@
  * When there are selection, it will instead filter the selection to only match requested types.
  */
 
-#include 'commons.js'
-
 var SELECT_COMPOUND_PATH = 'CompoundPathItem'
 var SELECT_GRAPH = 'GraphItem'
 var SELECT_LEGACY_TEXT = 'LegacyTextItem'

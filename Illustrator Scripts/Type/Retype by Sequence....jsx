@@ -1,7 +1,6 @@
 #target Illustrator
-#include '../../.rootlib/sui-validator.js'
+#include '../.lib/affix.js'
 #include '../.lib/commons.js'
-#include '../.lib/sui-affix.js'
 
 checkHasSelection()
 

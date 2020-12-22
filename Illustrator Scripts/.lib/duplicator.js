@@ -1,5 +1,5 @@
-#include '../../.rootlib/sui-validator.js'
-#include '../.lib/core-units.js'
+#include '../../.rootlib/sui.js'
+#include '../.lib/commons.js'
 
 var duplicateTextBounds = [0, 0, 95, 21]
 var duplicateEditBounds = [0, 0, 100, 21]

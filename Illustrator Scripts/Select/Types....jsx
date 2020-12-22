@@ -4,10 +4,8 @@
  */
 
 #target Illustrator
-#include '../../.rootlib/sui-validator.js'
-#include '../.lib/core-units.js'
-#include '../.lib/commons-colors.js'
-#include '../.lib/commons-select.js'
+#include '../../.rootlib/sui.js'
+#include '../.lib/commons.js'
 
 allowSelectionType(SELECT_TEXT_FRAME)
 

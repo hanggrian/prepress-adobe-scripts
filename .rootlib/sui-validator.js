@@ -1,4 +1,4 @@
-#include 'sui.js'
+#include 'sui-base.js'
 
 // match regexes are inclusive with optional areas to trim and leading zero
 var MATCH_DIGITS = /^[ ]*[0-9]*[ ]*$/

@@ -9,9 +9,7 @@
  */
 
 #target Illustrator
-#include '../.lib/commons-colors.js'
-#include '../.lib/commons-colors.js'
-#include '../.lib/sui-duplicator.js'
+#include '../.lib/duplicator.js'
 
 var LOCATION_TOP_LEFT = 11
 var LOCATION_TOP_RIGHT = 1

@@ -1,5 +1,3 @@
-#include 'core.js'
-
 /**
  * Returns true if text starts with word.
  * @param {String} s expected prefix
