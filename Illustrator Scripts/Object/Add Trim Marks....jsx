@@ -165,13 +165,13 @@ function process(isDelete) {
 
 /**
  * Create multiple trim marks around target. The marks are created with clockwise ordering.
- * @param {PageItem} target art where trim marks will be applied to
- * @param {Number} offset space between target and trim marks
- * @param {Number} length trim marks' width
- * @param {Number} weight trim marks' stroke width
- * @param {CMYKColor} color trim marks' color
- * @param {Array} locations combination of 8 possible mark locations as defined in constants
- * @return {Array} created trim marks
+ * @param {PageItem} target art where trim marks will be applied to.
+ * @param {Number} offset space between target and trim marks.
+ * @param {Number} length trim marks' width.
+ * @param {Number} weight trim marks' stroke width.
+ * @param {CMYKColor} color trim marks' color.
+ * @param {Array} locations combination of 8 possible mark locations as defined in constants.
+ * @return {Array} created trim marks.
  */
 function createTrimMarks(target, offset, length, weight, color, locations) {
     var marks = []
@@ -267,14 +267,14 @@ function createTrimMarks(target, offset, length, weight, color, locations) {
 
 /**
  * Create individual trim mark from point A to point B.
- * @param {String} suffixName item name in the layer
- * @param {Number} weight trim marks' stroke width
- * @param {CMYKColor} color trim marks' color
- * @param {Number} fromX starting X point
- * @param {Number} fromY starting Y point
- * @param {Number} toX destination X point
- * @param {Number} toY destination Y point
- * @return {PathItem} created trim mark
+ * @param {String} suffixName item name in the layer.
+ * @param {Number} weight trim marks' stroke width.
+ * @param {CMYKColor} color trim marks' color.
+ * @param {Number} fromX starting X point.
+ * @param {Number} fromY starting Y point.
+ * @param {Number} toX destination X point.
+ * @param {Number} toY destination Y point.
+ * @return {PathItem} created trim mark.
  */
 function createTrimMark(suffixName, weight, color, fromX, fromY, toX, toY) {
     var mark = document.pathItems.add()

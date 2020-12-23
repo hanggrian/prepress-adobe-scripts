@@ -1,6 +1,6 @@
 /** 
  * Iterate each element of this list, doesn't work on array.
- * @param {Function} action runnable to execute
+ * @param {Function} action runnable to execute.
  */
 Object.prototype.forEach = function(action) {
     for (var i = 0; i < this.length; i++) {
@@ -10,7 +10,7 @@ Object.prototype.forEach = function(action) {
 
 /**
  * Iterate each element of this list as reversed, doesn't work on array.
- * @param {Function} action runnable to execute
+ * @param {Function} action runnable to execute.
  */
 Object.prototype.forEachReversed = function(action) {
     for (var i = this.lastIndex(); i >= 0; i--) {

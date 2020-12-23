@@ -31,8 +31,8 @@ EditText.prototype.validateUnits = function() {
 
 /**
  * Restricts EditText input to only match regex, reverts to previous value otherwise.
- * @this {EditText} target field
- * @param {RegExp} regex pattern to match
+ * @this {EditText} target field.
+ * @param {RegExp} regex pattern to match.
  * @param {Function} matchAction optional runnable with old and new value arguments.
  */
 EditText.prototype.registerValidator = function(regex, matchAction) {

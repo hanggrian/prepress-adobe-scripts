@@ -28,7 +28,7 @@ function allowSelectionType(type) {
 
 /**
  * Select all items that match selected configuration.
- * @param {Function} callable nullable custom item checker that should return true if the item parameter should be selected
+ * @param {Function} callable nullable custom item checker that should return true if the item parameter should be selected.
  */
 function selectAll(callable) {
     if (selection == null || selection.length == 0) {

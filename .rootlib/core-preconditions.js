@@ -1,7 +1,7 @@
 /**
  * Assert that a condition is satisfied, throw an error otherwise.
- * @param {Boolean} requirement expect value to be `true`
- * @param {String} errorMessage nullable
+ * @param {Boolean} requirement expect value to be `true`.
+ * @param {String} errorMessage helpful alert, may be null.
  * @return {void}
  */
 function check(requirement, errorMessage) {

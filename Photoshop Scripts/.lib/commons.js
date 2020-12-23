@@ -1,7 +1,3 @@
-/**
- * Commons are related to libraries using `Document` reference.
- */
-
 #include '../../.rootlib/core.js'
 #include 'commons-units.js'
 

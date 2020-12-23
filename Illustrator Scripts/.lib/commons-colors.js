@@ -14,7 +14,7 @@ COLOR_BLACK.black = 100.0
 
 /**
  * Converts text to color.
- * @param {String} text text to convert
+ * @param {String} text text to convert.
  * @return {CMYKColor}
  */
 function parseColor(text) {
@@ -38,8 +38,8 @@ function parseColor(text) {
 
 /**
  * Returns true if both CMYK colors are equal.
- * @this {CMYKColor} color A
- * @param {CMYKColor} other color B
+ * @this {CMYKColor} color A.
+ * @param {CMYKColor} other color B.
  * @return {Boolean}
  */
 CMYKColor.prototype.equalTo = function(other) {

@@ -7,7 +7,7 @@ var duplicateEditBounds2 = [0, 0, 36, 21]
 
 /**
  * Add duplicate layout to target.
- * @this {Object} may be a Group, Panel, or Window
+ * @this {Object} may be a Group, Panel, or Window.
  * @return {Group}
  */
 Object.prototype.addDuplicateGroup = function() {
@@ -39,8 +39,8 @@ Object.prototype.addDuplicateGroup = function() {
 
 /**
  * Duplicate selected item, only support single selection.
- * @param {Function} horizontalRunnable nullable custom action
- * @param {Function} verticalRunnable nullable custom action
+ * @param {Function} horizontalRunnable nullable custom action.
+ * @param {Function} verticalRunnable nullable custom action.
  */
 Object.prototype.duplicate = function(horizontalRunnable, verticalRunnable) {
     var horizontal = parseInt(this.horizontalEdit.text) || 0
