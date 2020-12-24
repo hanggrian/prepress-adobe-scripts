@@ -50,10 +50,10 @@ dialog.setPositiveButton(function() {
             condition = condition && parseInt(height) == parseInt(item.height)
         }
         if (dialog.color.fillList.selection != null) {
-            condition = condition && item.fillColor.equalTo(parseColor(dialog.color.fillList.selection.text))
+            condition = condition && isColorEqual(item.fillColor, parseColor(dialog.color.fillList.selection.text))
         }
         if (dialog.color.strokeList.selection != null) {
-            condition = condition && item.strokeColor.equalTo(parseColor(dialog.color.strokeList.selection.text))
+            condition = condition && isColorEqual(item.strokeColor, parseColor(dialog.color.strokeList.selection.text))
         }
         return condition
     })

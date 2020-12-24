@@ -10,7 +10,7 @@ function parseUnit(text, fraction) {
     }
     var value = isNumeric(text)
         ? parseFloat(text)
-        : UnitValue(text)
+        : UnitValue(text).as('px')
     return fraction === undefined
         ? value
         : value.toFixed(fraction)

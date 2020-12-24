@@ -3,8 +3,8 @@
  */
 
 #target Photoshop
-#include '../.rootlib/sui.js'
-#include '.lib/commons.js'
+#include '../../.rootlib/sui.js'
+#include '../.lib/commons.js'
 
 var dialog = new Dialog('Add Bleed')
 

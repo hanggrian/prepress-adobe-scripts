@@ -52,10 +52,10 @@ dialog.setPositiveButton(function() {
             condition = condition && attr.underline
         }
         if (dialog.color.fillList.selection != null) {
-            condition = condition && attr.fillColor.equalTo(parseColor(dialog.color.fillList.selection.text))
+            condition = condition && isColorEqual(attr.fillColor, parseColor(dialog.color.fillList.selection.text))
         }
         if (dialog.color.strokeList.selection != null) {
-            condition = condition && attr.strokeColor.equalTo(parseColor(dialog.color.strokeList.selection.text))
+            condition = condition && isColorEqual(attr.strokeColor, parseColor(dialog.color.strokeList.selection.text))
         }
         return condition
     })

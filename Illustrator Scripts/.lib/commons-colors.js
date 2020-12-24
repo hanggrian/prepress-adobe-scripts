@@ -20,7 +20,7 @@ COLOR_BLACK.black = 100.0
 function parseColor(text) {
     switch (text) {
         case 'Registration':
-            return document.swatches['[registration]'].color
+            return getRegistrationColor()
         case 'White':
             return COLOR_WHITE
         case 'Cyan':
@@ -37,14 +37,23 @@ function parseColor(text) {
 }
 
 /**
+ * Refer to current swatch to obtain registration color.
+ * @return {SpotColor}
+ */
+function getRegistrationColor() {
+    return document.swatches['[registration]'].color
+}
+
+/**
  * Returns true if both CMYK colors are equal.
+ * Avoid prototype function since `Color` may be `CMYKColor` or `SpotColor` (Registration).
  * @this {CMYKColor} color A.
  * @param {CMYKColor} other color B.
  * @return {Boolean}
  */
-CMYKColor.prototype.equalTo = function(other) {
-    return this.cyan == other.cyan &&
-        this.magenta == other.magenta &&
-        this.yellow == other.yellow &&
-        this.black == other.black
+function isColorEqual(colorA, colorB) {
+    return colorA.cyan == colorB.cyan &&
+        colorA.magenta == colorB.magenta &&
+        colorA.yellow == colorB.yellow &&
+        colorA.black == colorB.black
 }

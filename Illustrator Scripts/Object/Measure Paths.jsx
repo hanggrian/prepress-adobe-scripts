@@ -7,17 +7,18 @@
 
 checkHasSelection()
 
-var pathCount = 0
-var totalRegistrationLength = 0
-var totalNonRegistrationLength = 0
+var count = 0
+var registrationCount = 0
+var length = 0
+var registrationLength = 0
 
 selection.forEach(function(it) { determine(it) })
 
-var message = pathCount + ' paths measuring at ' +
-    UnitValue(totalRegistrationLength + totalNonRegistrationLength, 'pt').as('cm').toFixed(2) + ' cm'
-if (totalRegistrationLength > 0 && totalNonRegistrationLength > 0) {
-    message += '\n' + 'Registration stroke: ' + UnitValue(totalRegistrationLength, 'pt').as('cm').toFixed(2) + ' cm'
-    message += '\n' + 'Non-registration stroke: ' + UnitValue(totalNonRegistrationLength, 'pt').as('cm').toFixed(2) + ' cm'
+var message = (count + registrationCount) + ' paths measuring at ' + asCmString(length + registrationLength)
+if (length > 0 && registrationLength > 0) {
+    message += '\nConsist of:\n' +
+        count + ' non-registrations = ' + asCmString(length) + '\n' +
+        registrationCount + ' registrations = ' + asCmString(registrationLength)
 }
 alert(message, 'Measure Paths')
 
@@ -40,10 +41,15 @@ function determine(item) {
 }
 
 function increment(item) {
-    pathCount++
-    if (item.strokeColor.equalTo(document.swatches['[registration]'].color)) {
-        totalRegistrationLength += item.length    
+    if (isColorEqual(item.strokeColor, getRegistrationColor())) {
+        registrationCount++
+        registrationLength += item.length
     } else {
-        totalNonRegistrationLength += item.length
+        count++
+        length += item.length
     }
+}
+
+function asCmString(pt) {
+    return UnitValue(pt, 'pt').as('cm').toFixed(2) + ' cm'
 }

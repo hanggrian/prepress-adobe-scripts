@@ -1,3 +1,7 @@
+/**
+ * Sum up all items recursively.
+ */
+
 #include '../.lib/commons.js'
 
 checkHasSelection()

@@ -28,3 +28,15 @@ function checkMultipleSelection() {
     checkHasSelection()
     check(selection.length > 1, 'Single selection is not supported')
 }
+
+/**
+ * Returns the clipping path of this clip group, or the item itself if this is not a clip group.
+ * @this {PageItem}
+ * @return {PathItem}
+ */
+Object.prototype.getClippingPathItem = function() {
+    if (this.typename == 'GroupItem' && this.clipped) {
+        return this.pathItems.first()
+    }
+    return this
+}
