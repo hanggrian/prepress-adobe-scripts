@@ -17,7 +17,7 @@ Object.prototype.addDuplicateGroup = function() {
     duplicate.copies.addText(duplicateTextBounds, 'Copies:', 'right')
     duplicate.horizontalEdit = duplicate.copies.addEditText(duplicateEditBounds2)
     duplicate.horizontalEdit.validateDigits()
-    duplicate.copies.addText(undefined, 'x')
+    duplicate.copies.addText(undefined, '×')
     duplicate.verticalEdit = duplicate.copies.addEditText(duplicateEditBounds2)
     duplicate.verticalEdit.validateDigits()
     duplicate.copies.setTooltip('2 dimension target.')

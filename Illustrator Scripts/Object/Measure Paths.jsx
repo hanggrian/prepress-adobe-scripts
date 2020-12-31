@@ -7,18 +7,16 @@
 
 checkHasSelection()
 
-var count = 0
-var registrationCount = 0
-var length = 0
-var registrationLength = 0
+var count = 0, registrationCount = 0
+var length = 0, registrationLength = 0
 
 selection.forEach(function(it) { determine(it) })
 
 var message = (count + registrationCount) + ' paths measuring at ' + asCmString(length + registrationLength)
 if (length > 0 && registrationLength > 0) {
     message += '\nConsist of:\n' +
-        count + ' non-registrations = ' + asCmString(length) + '\n' +
-        registrationCount + ' registrations = ' + asCmString(registrationLength)
+        count + ' non-registrations (' + asCmString(length) + ')\n' +
+        registrationCount + ' registrations (' + asCmString(registrationLength) + ')'
 }
 alert(message, 'Measure Paths')
 

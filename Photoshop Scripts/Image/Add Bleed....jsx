@@ -24,10 +24,10 @@ dialog.guideLayoutCheck = dialog.guideLayout.addCheckBox(undefined, 'Enable')
 dialog.guideLayoutCheck.value = true
 dialog.guideLayout.setTooltip('Guides will mark where bleed are added.')
 
-/*dialog.contentAware = dialog.main.addHGroup()
-dialog.contentAware.addText(textBounds, 'Content-Aware:', 'right')
-dialog.contentAwareCheck = dialog.contentAware.addCheckBox(undefined, 'Enable')
-dialog.contentAware.setTooltip('Layers will be flattened, and bleed will be deleted as content-aware.')*/
+dialog.flatten = dialog.main.addHGroup()
+dialog.flatten.addText(textBounds, 'Content-Aware:', 'right')
+dialog.flattenCheck = dialog.flatten.addCheckBox(undefined, 'Enable')
+dialog.flatten.setTooltip('Layers will be flattened.')
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
@@ -37,11 +37,10 @@ dialog.setPositiveButton(function() {
         document.guides.add(Direction.VERTICAL, 0)
         document.guides.add(Direction.VERTICAL, document.width)
     }
-    var bleed = parseUnit(dialog.bleedEdit.text)
-    document.resizeCanvas(
-        document.width + bleed * 2,
-        document.height + bleed * 2,
-        AnchorPosition.MIDDLECENTER
-    )
+    var bleed = UnitValue(dialog.bleedEdit.text) * 2
+    document.resizeCanvas(document.width + bleed, document.height + bleed)
+    if (dialog.flatten.value) {
+        document.flatten()
+    }
 })
 dialog.show()

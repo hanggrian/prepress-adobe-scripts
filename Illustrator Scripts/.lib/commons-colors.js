@@ -7,10 +7,10 @@ var COLOR_YELLOW = new CMYKColor()
 var COLOR_BLACK = new CMYKColor()
 var COLOR_NONE = new NoColor()
 
-COLOR_CYAN.cyan = 100.0
-COLOR_MAGENTA.magenta = 100.0
-COLOR_YELLOW.yellow = 100.0
-COLOR_BLACK.black = 100.0
+COLOR_CYAN.cyan = 100
+COLOR_MAGENTA.magenta = 100
+COLOR_YELLOW.yellow = 100
+COLOR_BLACK.black = 100
 
 /**
  * Converts text to color.

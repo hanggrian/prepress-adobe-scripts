@@ -1,5 +1,3 @@
-#include 'core.js'
-
 /**
  * Construct a new dialog.
  * @param {String} title window title.
@@ -220,7 +218,7 @@ Object.prototype.addVPanel = function(title) {
  * @param {String} tooltip help tip to install.
  */
 Object.prototype.setTooltip = function(tooltip) {
-    for (var i = 0; i < this.children.length; i++) {
-        this.children[i].helpTip = tooltip
-    }
+    this.children.forEach(function(it) {
+        it.helpTip = tooltip
+    })
 }
