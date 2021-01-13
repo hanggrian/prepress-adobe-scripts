@@ -10,3 +10,14 @@ function isMacOS() { return $.os.toLowerCase().indexOf('mac') >= 0 }
  * @param {String} value text to check.
  */
 function isNumeric(value) { return /^-{0,1}\d*\.{0,1}\d+$/.test(value) }
+
+/**
+ * Iterate n times with provided action.
+ * @param {Number} times n times to execute.
+ * @param {Function} action runnable to execute.
+ */
+function repeat(times, action) {
+    for (var i = 0; i < times; i++) {
+        action(i)
+    }
+}

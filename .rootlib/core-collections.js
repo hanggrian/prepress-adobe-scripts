@@ -1,7 +1,7 @@
 // Functions declared in this script are `Object.prototype` and not `Array.prototype`.
 // This is due to Adobe's custom non-array collection objects like `Artboards`, `PageItems`, etc.
 
-/** 
+/**
  * Iterate each element of this collection.
  * @param {Function} action runnable to execute.
  */
@@ -22,6 +22,18 @@ Object.prototype.forEachReversed = function(action) {
 }
 
 /**
+ * Returns an array containing the results of applying the given transform function to each entry in the original map.
+ * @param {Function} tranform runnable with return value.
+ */
+Object.prototype.map = function(tranform) {
+    var array = []
+    for (var i = 0; i < this.length; i++) {
+        array.push(tranform(this[i], i))
+    }
+    return array
+}
+
+/**
  * First item of this collection.
  * @return {Object}
  */
@@ -31,7 +43,7 @@ Object.prototype.first = function() { return this[0] }
  * Last item of this collection.
  * @return {Object}
  */
-Object.prototype.last = function() { return this[this.lastIndex] }
+Object.prototype.last = function() { return this[this.lastIndex()] }
 
 /**
  * Last index of this collection.
