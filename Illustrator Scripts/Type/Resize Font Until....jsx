@@ -1,6 +1,4 @@
-/**
- * Doesn't work on text with multiple font sizes.
- */
+// Doesn't work on text with multiple font sizes.
 
 #target Illustrator
 #include '../../.rootlib/sui.js'
@@ -9,7 +7,6 @@
 checkSingleSelection()
 
 var item = selection.first()
-
 checkTypename(item, 'TextFrame')
 
 var dialog = new Dialog('Resize Font Until')

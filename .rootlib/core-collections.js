@@ -33,6 +33,16 @@ Object.prototype.map = function(tranform) {
     return array
 }
 
+Object.prototype.filter = function(condition) {
+    var array = []
+    for (var i = 0; i < this.length; i++) {
+        if (condition(this[i], i)) {
+            array.push(this[i])
+        }
+    }
+    return array
+}
+
 /**
  * First item of this collection.
  * @return {Object}

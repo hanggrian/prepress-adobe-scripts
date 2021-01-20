@@ -12,9 +12,9 @@ selection.forEach(function(it) { determine(it) })
 
 var message = 'There are ' + selection.length + ' items.'
 if (selection.length != innerCount) {
-    message += '\n' + innerCount + ' if you count grouped items.'
+    message += '\n' + innerCount + ' items across all groups.'
 }
-alert(message, 'Count Objects')
+alert(message, 'Show Count')
 
 function determine(item) {
     switch(item.typename) {

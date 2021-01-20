@@ -8,7 +8,6 @@
 #include '../.lib/commons.js'
 
 checkHasSelection()
-
 selection.forEach(function(it) {
     checkTypename(it, 'PlacedItem')
 })

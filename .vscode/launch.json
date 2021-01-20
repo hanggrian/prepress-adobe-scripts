@@ -8,7 +8,7 @@
             "type": "extendscript-debug",
             "request": "launch",
             "name": "prepress-adobe-scripts",
-            "program": "${workspaceFolder}/Illustrator Scripts/Object/Arrange/Reverse.jsx",
+            "program": "${workspaceFolder}/Illustrator Scripts/Object/Showcase.jsx",
             "stopOnEntry": false
         }
     ]

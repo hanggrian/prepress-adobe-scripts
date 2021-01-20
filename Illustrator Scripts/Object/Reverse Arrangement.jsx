@@ -6,13 +6,13 @@
 
 checkHasSelection()
 
-var targetPositions = selection.map(function(it) { return it.zOrderPosition }).reverse()
+var targetPositions = selection.map(function(it) { return it.absoluteZOrderPosition }).reverse()
 
 selection.forEach(function(it, index) {
     var target = targetPositions[index]
-    $.writeln('Moving ' + it.layerName() + ' from ' + it.zOrderPosition + ' to ' + target)
-    while (target != it.zOrderPosition) {
-        if (target > it.zOrderPosition) {
+    $.writeln('Moving ' + it.layerName() + ' from ' + it.absoluteZOrderPosition + ' to ' + target)
+    while (target != it.absoluteZOrderPosition) {
+        if (target > it.absoluteZOrderPosition) {
             it.zOrder(ZOrderMethod.BRINGFORWARD)
         } else {
             it.zOrder(ZOrderMethod.SENDBACKWARD)

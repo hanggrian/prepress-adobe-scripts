@@ -3,6 +3,8 @@
  * @param {String} title window title.
  */
 function Dialog(title) {
+    this.title = title // self-preservation
+
     var self = this
     var window = new Window('dialog', title)
     window.orientation = 'column'

@@ -30,7 +30,7 @@ if (dialog.general.colorSpaceText.text == 'CMYK') {
     dialog.general.colorSpaceText.text += ' ✘'
     dialog.general.colorSpace.firstButton = dialog.general.colorSpace.add('button', fixBounds, 'Fix')
     dialog.general.colorSpace.firstButton.onClick = function() {
-        alert("Color mode can't be changed within script.\nGo to File > Document Color Mode > CMYK Color.", 'Unfixable setting')
+        alert("Color mode can't be changed within script.\nGo to File > Document Color Mode > CMYK Color.", dialog.title)
     }
     fixButtons.push(dialog.general.colorSpace.firstButton)
 }

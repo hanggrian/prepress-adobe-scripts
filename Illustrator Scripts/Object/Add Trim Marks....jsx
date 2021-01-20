@@ -9,7 +9,7 @@
  */
 
 #target Illustrator
-#include '../.lib/duplicator.js'
+#include '../.lib/spreader.js'
 
 var LOCATION_TOP_LEFT = 11
 var LOCATION_TOP_RIGHT = 1
@@ -28,7 +28,7 @@ var dialog = new Dialog('Add Trim Marks')
 
 dialog.main.alignChildren = 'fill'
 dialog.upper = dialog.main.addHGroup()
-dialog.lower = dialog.main.addVPanel('Duplicate')
+dialog.lower = dialog.main.addVPanel('Spread')
 
 var textBounds = [0, 0, 60, 21]
 var editBounds = [0, 0, 100, 21]
@@ -103,7 +103,7 @@ dialog.locations.row5.addText(checkBounds)
 dialog.locations.setTooltip('Select which trim marks will be added.')
 
 dialog.lower.alignChildren = 'fill'
-dialog.duplicate = dialog.lower.addDuplicateGroup()
+dialog.spreader = dialog.lower.addSpreaderGroup()
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() { process(false) })
@@ -118,8 +118,8 @@ function process(isDelete) {
     var locs = []
     var marks = []
     
-    var horizontal = parseInt(dialog.duplicate.horizontalEdit.text) || 0
-    var vertical = parseInt(dialog.duplicate.verticalEdit.text) || 0
+    var horizontal = parseInt(dialog.spreader.horizontalEdit.text) || 0
+    var vertical = parseInt(dialog.spreader.verticalEdit.text) || 0
 
     if (horizontal < 1 || vertical < 1) {
         if (dialog.locations.topLeftCheck.value) locs.push(LOCATION_TOP_LEFT)
@@ -135,7 +135,7 @@ function process(isDelete) {
         if (isDelete) selection.first().remove()
     } else {
         // currently ignore location checkboxes in duplication
-        dialog.duplicate.duplicate(function(item, h, v) {
+        dialog.spreader.spread(function(item, h, v) {
             locs = []
             if (h == horizontal - 1) {
                 locs.push(LOCATION_RIGHT_TOP, LOCATION_RIGHT_BOTTOM)
