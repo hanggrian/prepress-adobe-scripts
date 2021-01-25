@@ -15,10 +15,10 @@ function check(requirement, errorMessage) {
 }
 
 /** Assert that a value is null. */
-function checkNull(value) { check(value == null, 'Expected value to be null') }
+function checkNull(value) { check(value == null || value === undefined, 'Expected value to be null') }
 
 /** Assert that a value is not null. */
-function checkNotNull(value) { check(value != null, 'Expected value to be not null') }
+function checkNotNull(value) { check(value != null || value !== undefined, 'Expected value to be not null') }
 
 /** Assert an item's typename. */
 function checkTypename(item, typename) { check(item.typename == typename, 'Selected item is not a ' + typename) }

@@ -5,6 +5,7 @@
  * @return {Number}
  */
 function parseUnit(text, fraction) {
+    checkNotNull(text)
     if (text.isEmpty()) {
         return 0
     }

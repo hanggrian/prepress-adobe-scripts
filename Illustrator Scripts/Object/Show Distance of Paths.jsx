@@ -1,5 +1,5 @@
 /**
- * Gather length of all selected path items.
+ * Measure length of all selected path items.
  * TODO: avoid duplicate paths in the same position and length.
  */
 
@@ -8,17 +8,17 @@
 checkHasSelection()
 
 var count = 0, registrationCount = 0
-var length = 0, registrationLength = 0
+var distance = 0, registrationDistance = 0
 
 selection.forEach(function(it) { determine(it) })
 
-var message = (count + registrationCount) + ' paths measuring at ' + asCmString(length + registrationLength)
-if (length > 0 && registrationLength > 0) {
+var message = (count + registrationCount) + ' paths measuring at ' + formatUnit(distance + registrationDistance, 'cm', 2)
+if (distance > 0 && registrationDistance > 0) {
     message += '\nConsist of:\n' +
-        count + ' non-registrations (' + asCmString(length) + ')\n' +
-        registrationCount + ' registrations (' + asCmString(registrationLength) + ')'
+        count + ' non-registrations (' + formatUnit(distance, 'cm', 2) + ')\n' +
+        registrationCount + ' registrations (' + formatUnit(registrationDistance, 'cm', 2) + ')'
 }
-alert(message, 'Measure Paths')
+alert(message, 'Show Distance of Paths')
 
 function determine(item) {
     switch(item.typename) {
@@ -41,13 +41,9 @@ function determine(item) {
 function increment(item) {
     if (isColorEqual(item.strokeColor, getRegistrationColor())) {
         registrationCount++
-        registrationLength += item.length
+        registrationDistance += item.length
     } else {
         count++
-        length += item.length
+        distance += item.length
     }
-}
-
-function asCmString(pt) {
-    return UnitValue(pt, 'pt').as('cm').toFixed(2) + ' cm'
 }
