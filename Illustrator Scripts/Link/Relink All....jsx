@@ -1,11 +1,9 @@
-/**
- * Apply relink once to all selected `PlacedItem`,
- * as opposed to native Illustrator `Relink...` which is done individually.
- */
+// Apply relink once to all selected `PlacedItem`,
+// as opposed to native Illustrator `Relink...` which is done individually.
 
 #target Illustrator
-#include '../../.rootlib/sui.js'
 #include '../.lib/commons.js'
+#include '../.lib/sui.js'
 
 checkHasSelection()
 selection.forEach(function(it) {

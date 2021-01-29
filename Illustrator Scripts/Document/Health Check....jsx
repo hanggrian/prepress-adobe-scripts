@@ -1,10 +1,8 @@
-/**
- * TODO: check for images below 300 ppi.
- */
+// TODO: check for images below 300 ppi.
 
 #target Illustrator
-#include '../../.rootlib/sui.js'
 #include '../.lib/commons.js'
+#include '../.lib/sui.js'
 
 var dialog = new Dialog('Health Check')
 

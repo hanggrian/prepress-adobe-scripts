@@ -1,11 +1,9 @@
-/**
- * Select all items with multiple allowed types.
- * When there are active selection, will only select items within those selection.
- */
+// Select all items with multiple allowed types.
+// When there are active selection, will only select items within those selection.
 
 #target Illustrator
-#include '../../.rootlib/sui.js'
 #include '../.lib/commons.js'
+#include '../.lib/sui.js'
 
 var dialog = new Dialog('Select by Types')
 

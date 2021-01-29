@@ -1,9 +1,8 @@
-/**
- * Multiply arts in 2-D fashion.
- */
+// Multiply arts in 2-D fashion.
 
 #target Illustrator
-#include '../.lib/spreader.js'
+#include '../.lib/commons.js'
+#include '../.lib/sui.js'
 
 checkSingleSelection()
 

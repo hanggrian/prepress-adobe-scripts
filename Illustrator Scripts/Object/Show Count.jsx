@@ -1,6 +1,4 @@
-/**
- * Sum up all items recursively.
- */
+// Sum up all items recursively.
 
 #include '../.lib/commons.js'
 
@@ -17,7 +15,7 @@ if (selection.length != innerCount) {
 alert(message, 'Show Count')
 
 function determine(item) {
-    switch(item.typename) {
+    switch (item.typename) {
         case 'GroupItem':
             for (var i = 0; i < item.pageItems.length; i++) {
                 determine(item.pageItems[i])

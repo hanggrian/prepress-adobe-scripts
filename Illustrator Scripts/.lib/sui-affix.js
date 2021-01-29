@@ -1,5 +1,3 @@
-#include '../../.rootlib/sui.js'
-
 Object.prototype.addAffixPanel = function(textBounds, editBounds) {
     var affix = this.addVPanel('Affix')
 

@@ -1,6 +1,6 @@
-#include 'core-collections.js'
-#include 'core-preconditions.js'
-#include 'core-strings.js'
+#include 'kt-collections.js'
+#include 'kt-preconditions.js'
+#include 'kt-strings.js'
 
 /** Returns true if this script is running on macOS. */
 function isMacOS() { return $.os.toLowerCase().indexOf('mac') >= 0 }

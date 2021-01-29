@@ -1,6 +1,4 @@
-/**
- * Close other tabs without saving.
- */
+// Close other tabs without saving.
 
 #target Photoshop
 #include '../.lib/commons.js'

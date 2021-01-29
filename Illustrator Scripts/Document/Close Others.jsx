@@ -1,6 +1,4 @@
-/**
- * Close other tabs without saving.
- */
+// Close other tabs without saving.
 
 #target Illustrator
 #include '../.lib/commons.js'

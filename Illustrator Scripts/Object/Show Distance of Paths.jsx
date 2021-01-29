@@ -1,7 +1,5 @@
-/**
- * Measure length of all selected path items.
- * TODO: avoid duplicate paths in the same position and length.
- */
+// Measure length of all selected path items.
+// TODO: avoid duplicate paths in the same position and length.
 
 #include '../.lib/commons.js'
 
@@ -21,7 +19,7 @@ if (distance > 0 && registrationDistance > 0) {
 alert(message, 'Show Distance of Paths')
 
 function determine(item) {
-    switch(item.typename) {
+    switch (item.typename) {
         case 'PathItem':
             increment(item)
             break;

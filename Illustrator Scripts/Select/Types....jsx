@@ -1,11 +1,9 @@
-/**
- * Select all TextFrame with attributes matching user input.
- * When there are active selection, will only select items within those selection.
- */
+// Select all TextFrame with attributes matching user input.
+// When there are active selection, will only select items within those selection.
 
 #target Illustrator
-#include '../../.rootlib/sui.js'
 #include '../.lib/commons.js'
+#include '../.lib/sui.js'
 
 allowSelectionType(SELECT_TEXT_FRAME)
 

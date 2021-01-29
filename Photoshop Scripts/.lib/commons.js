@@ -1,5 +1,4 @@
-#include '../../.rootlib/core.js'
-#include 'commons-units.js'
+#include 'core.js'
 
 check(app.documents.length > 0, 'No active document')
 

@@ -1,6 +1,6 @@
 #target Photoshop
-#include '../../.rootlib/sui.js'
 #include '../.lib/commons.js'
+#include '../.lib/sui.js'
 
 var dialog = new Dialog('Health Check')
 
@@ -78,7 +78,7 @@ dialog.setPositiveButton()
 dialog.show()
 
 function getBits() {
-    switch(document.bitsPerChannel) {
+    switch (document.bitsPerChannel) {
         case BitsPerChannelType.ONE:
             return 1
         case BitsPerChannelType.EIGHT:

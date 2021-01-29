@@ -1,6 +1,3 @@
-#include '../../.rootlib/sui.js'
-#include '../.lib/commons.js'
-
 var spreaderTextBounds = [0, 0, 95, 21]
 var spreaderEditBounds = [0, 0, 100, 21]
 var spreaderEditBounds2 = [0, 0, 36, 21]
