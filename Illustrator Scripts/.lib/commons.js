@@ -1,6 +1,5 @@
 #include 'core.js'
 #include 'commons-selector.js'
-#include 'commons-spreader.js'
 
 check(app.documents.length > 0, 'No active document')
 

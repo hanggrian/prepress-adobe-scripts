@@ -3,7 +3,7 @@
 
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/sui.js'
+#include '../.lib/dialog.js'
 
 allowSelectionType(SELECT_PATH)
 allowSelectionType(SELECT_COMPOUND_PATH)

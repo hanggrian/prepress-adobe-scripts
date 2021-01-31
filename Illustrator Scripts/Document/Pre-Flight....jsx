@@ -2,9 +2,9 @@
 
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/sui.js'
+#include '../.lib/dialog.js'
 
-var dialog = new Dialog('Health Check')
+var dialog = new Dialog('Pre-Flight')
 
 var fixButtons = []
 var leftBounds = [0, 0, 90, 21]
