@@ -1,10 +1,8 @@
-/**
- * Increase canvas size and create new guide layout accordingly. 
- */
+// Increase canvas size and create new guide layout accordingly.
 
 #target Photoshop
-#include '../../.rootlib/sui.js'
 #include '../.lib/commons.js'
+#include '../.lib/dialog.js'
 
 var dialog = new Dialog('Add Bleed')
 

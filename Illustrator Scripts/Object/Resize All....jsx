@@ -1,8 +1,8 @@
 // Resize all items to target size regardless of their XY positions.
 
 #target Illustrator
-#include '../../.rootlib/sui.js'
 #include '../.lib/commons.js'
+#include '../.lib/dialog.js'
 
 checkHasSelection()
 

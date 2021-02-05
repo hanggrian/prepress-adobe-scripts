@@ -1,8 +1,8 @@
 // Doesn't work on text with multiple font sizes.
 
 #target Illustrator
-#include '../../.rootlib/sui.js'
 #include '../.lib/commons.js'
+#include '../.lib/dialog.js'
 
 checkSingleSelection()
 

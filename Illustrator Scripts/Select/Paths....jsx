@@ -1,11 +1,9 @@
-/**
- * Select all PathItem with attributes matching user input.
- * When there are active selection, will only select items within those selection.
- */
+// Select all PathItem with attributes matching user input.
+// When there are active selection, will only select items within those selection.
 
 #target Illustrator
-#include '../../.rootlib/sui.js'
 #include '../.lib/commons.js'
+#include '../.lib/dialog.js'
 
 allowSelectionType(SELECT_PATH)
 allowSelectionType(SELECT_COMPOUND_PATH)
@@ -14,28 +12,55 @@ var dialog = new Dialog('Select Paths')
 
 dialog.line = dialog.main.addHGroup()
 dialog.line.alignChildren = 'top'
+dialog.left = dialog.line.addVGroup()
+dialog.right = dialog.line.addVGroup()
 
-var dimensionTextBounds = [0, 0, 45, 21]
-var dimensionEditBounds = [0, 0, 100, 21]
-dialog.dimension = dialog.line.addVPanel('Dimension')
+var leftTextBounds = [0, 0, 45, 21]
+var leftEditBounds = [0, 0, 100, 21]
+
+dialog.dimension = dialog.left.addVPanel('Dimension')
 dialog.dimension.width = dialog.dimension.addHGroup()
-dialog.dimension.width.addText(dimensionTextBounds, 'Width:', 'right')
-dialog.dimension.widthEdit = dialog.dimension.width.addEditText(dimensionEditBounds)
+dialog.dimension.width.addText(leftTextBounds, 'Width:', 'right')
+dialog.dimension.widthEdit = dialog.dimension.width.addEditText(leftEditBounds)
 dialog.dimension.widthEdit.validateUnits()
 dialog.dimension.widthEdit.active = true
 dialog.dimension.height = dialog.dimension.addHGroup()
-dialog.dimension.height.addText(dimensionTextBounds, 'Height:', 'right')
-dialog.dimension.heightEdit = dialog.dimension.height.addEditText(dimensionEditBounds)
+dialog.dimension.height.addText(leftTextBounds, 'Height:', 'right')
+dialog.dimension.heightEdit = dialog.dimension.height.addEditText(leftEditBounds)
 dialog.dimension.heightEdit.validateUnits()
 
-var colorTextBounds = [0, 0, 45, 21]
-dialog.color = dialog.line.addVPanel('Color')
+dialog.color = dialog.left.addVPanel('Color')
 dialog.color.fill = dialog.color.addHGroup()
-dialog.color.fill.addText(colorTextBounds, 'Fill:', 'right')
-dialog.color.fillList = dialog.color.fill.addDropDown(undefined, COLORS)
+dialog.color.fill.addText(leftTextBounds, 'Fill:', 'right')
+dialog.color.fillList = dialog.color.fill.addDropDown(leftEditBounds, COLORS)
 dialog.color.stroke = dialog.color.addHGroup()
-dialog.color.stroke.addText(colorTextBounds, 'Stroke:', 'right')
-dialog.color.strokeList = dialog.color.stroke.addDropDown(undefined, COLORS)
+dialog.color.stroke.addText(leftTextBounds, 'Stroke:', 'right')
+dialog.color.strokeList = dialog.color.stroke.addDropDown(leftEditBounds, COLORS)
+
+var rightTextBounds = [0, 0, 55, 21]
+
+dialog.properties = dialog.right.addVPanel('Properties')
+dialog.properties.clipping = dialog.properties.addHGroup()
+dialog.properties.clipping.addText(rightTextBounds, 'Clipping:', 'right')
+dialog.properties.clipping.anyCheck = dialog.properties.clipping.addRadioButton(undefined, 'Any')
+dialog.properties.clipping.anyCheck.value = true
+dialog.properties.clipping.enabledCheck = dialog.properties.clipping.addRadioButton(undefined, 'Enabled')
+dialog.properties.clipping.disabledCheck = dialog.properties.clipping.addRadioButton(undefined, 'Disabled')
+dialog.properties.clipping.setTooltip('Should this be used as a clipping path?')
+dialog.properties.closed = dialog.properties.addHGroup()
+dialog.properties.closed.addText(rightTextBounds, 'Closed:', 'right')
+dialog.properties.closed.anyCheck = dialog.properties.closed.addRadioButton(undefined, 'Any')
+dialog.properties.closed.anyCheck.value = true
+dialog.properties.closed.enabledCheck = dialog.properties.closed.addRadioButton(undefined, 'Enabled')
+dialog.properties.closed.disabledCheck = dialog.properties.closed.addRadioButton(undefined, 'Disabled')
+dialog.properties.closed.setTooltip('Is this path closed?')
+dialog.properties.guides = dialog.properties.addHGroup()
+dialog.properties.guides.addText(rightTextBounds, 'Guides:', 'right')
+dialog.properties.guides.anyCheck = dialog.properties.guides.addRadioButton(undefined, 'Any')
+dialog.properties.guides.anyCheck.value = true
+dialog.properties.guides.enabledCheck = dialog.properties.guides.addRadioButton(undefined, 'Enabled')
+dialog.properties.guides.disabledCheck = dialog.properties.guides.addRadioButton(undefined, 'Disabled')
+dialog.properties.guides.setTooltip('Is this path a guide object?')
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
@@ -54,6 +79,21 @@ dialog.setPositiveButton(function() {
         }
         if (dialog.color.strokeList.selection != null) {
             condition = condition && isColorEqual(item.strokeColor, parseColor(dialog.color.strokeList.selection.text))
+        }
+        if (!dialog.properties.clipping.anyCheck.value) {
+            condition = condition && dialog.properties.clipping.enabledCheck.value
+                ? item.clipping
+                : !item.clipping
+        }
+        if (!dialog.properties.closed.anyCheck.value) {
+            condition = condition && dialog.properties.closed.enabledCheck.value
+                ? item.closed
+                : !item.closed
+        }
+        if (!dialog.properties.guides.anyCheck.value) {
+            condition = condition && dialog.properties.guides.enabledCheck.value
+                ? item.guides
+                : !item.guides
         }
         return condition
     })

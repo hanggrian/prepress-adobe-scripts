@@ -1,6 +1,6 @@
 #target Illustrator
-#include '../.lib/affix.js'
 #include '../.lib/commons.js'
+#include '../.lib/dialog.js'
 
 var ALPHABETS = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',

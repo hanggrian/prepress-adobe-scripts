@@ -1,12 +1,10 @@
-/**
- * TODO: check for images below 300 ppi.
- */
+// TODO: check for images below 300 ppi.
 
 #target Illustrator
-#include '../../.rootlib/sui.js'
 #include '../.lib/commons.js'
+#include '../.lib/dialog.js'
 
-var dialog = new Dialog('Health Check')
+var dialog = new Dialog('Pre-Flight')
 
 var fixButtons = []
 var leftBounds = [0, 0, 90, 21]

@@ -1,13 +1,11 @@
-/**
- * Select all PlacedItem with attributes matching user input.
- * When there are active selection, will only select items within those selection.
- * 
- * The file type options are similar with Illustrator native `Relink...` dialog.
- */
+// Select all PlacedItem with attributes matching user input.
+// When there are active selection, will only select items within those selection.
+// 
+// The file type options are similar with Illustrator native `Relink...` dialog.
 
 #target Illustrator
-#include '../../.rootlib/sui.js'
 #include '../.lib/commons.js'
+#include '../.lib/dialog.js'
 
 var FILE_AI = ['ai']
 var FILE_PDF = ['pdf']

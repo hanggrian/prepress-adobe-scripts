@@ -1,6 +1,6 @@
 #target Illustrator
-#include '../../.rootlib/sui.js'
 #include '../.lib/commons.js'
+#include '../.lib/dialog.js'
 
 checkHasSelection()
 
