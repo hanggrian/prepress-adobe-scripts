@@ -1,6 +1,6 @@
-#include 'standard-collections.js'
-#include 'standard-preconditions.js'
-#include 'standard-strings.js'
+#include 'stdlib-collections.js'
+#include 'stdlib-preconditions.js'
+#include 'stdlib-strings.js'
 
 /** Returns true if this script is running on macOS. */
 function isMacOS() { return $.os.toLowerCase().indexOf('mac') >= 0 }

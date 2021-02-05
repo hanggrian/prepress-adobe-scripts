@@ -9,21 +9,39 @@ var REPLACE_LEADING_ZERO = /^0+/
 
 /** Digits are non-negative and non-decimal number. */
 EditText.prototype.validateDigits = function() {
-    var editText = this
-    editText.registerValidator(MATCH_DIGITS, function() { 
-        editText.text = editText.text.removeRegexes([REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
+    this.registerValidator(MATCH_DIGITS, function(_, newValue) { 
+        return newValue.removeRegexes([REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
     })
 }
 
 /** Unit measurements are decimal number paired with short text. */
 EditText.prototype.validateUnits = function() {
-    var editText = this
-    editText.registerValidator(MATCH_UNITS, function() {
-        var s = editText.text.removeRegexes([REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
-        var firstAlphabet = /[a-zA-Z]/.exec(s).index
-        var left = s.substring(0, firstAlphabet).removeRegexes([REPLACE_TRAILING_SPACE])
-        var right = s.substring(firstAlphabet)
-        editText.text = left + ' ' + right
+    this.registerValidator(MATCH_UNITS, function(oldValue, newValue) {
+        var alphabetRegex = /[a-zA-Z]/
+        var exec
+
+        // check for old unit type
+        var old = oldValue.removeRegexes([REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
+        var oldUnitType
+        exec = alphabetRegex.exec(old)
+        if (exec !== null) {
+            oldUnitType = old.substring(exec.index)
+        }
+
+        // parse new unit value and type
+        var _new = newValue.removeRegexes([REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
+        exec = alphabetRegex.exec(_new)
+        if (exec !== null) {
+            // new unit type found, use it
+            var newUnitValue = _new.substring(0, exec.index).removeRegexes([REPLACE_TRAILING_SPACE])
+            var newUnitType = _new.substring(exec.index)
+            return newUnitValue + ' ' + newUnitType
+        } else {
+            // new unit type not found, use old unit value if exist
+            return oldUnitType !== undefined
+                ? _new + ' ' + oldUnitType
+                : _new
+        }
     })
 }
 
@@ -31,23 +49,24 @@ EditText.prototype.validateUnits = function() {
  * Restricts EditText input to only match regex, reverts to previous value otherwise.
  * @this {EditText} target field.
  * @param {RegExp} regex pattern to match.
- * @param {Function} matchAction optional runnable with old and new value arguments.
+ * @param {Function} valueProvider consumer with `oldValue`, `newValue` parameters and final value return.
  */
-EditText.prototype.registerValidator = function(regex, matchAction) {
+EditText.prototype.registerValidator = function(regex, valueProvider) {
     var editText = this
     var oldValue = editText.text
     editText.onActivate = function() { oldValue = editText.text }
     editText.onChange = function() {
-        if (regex.test(editText.text)) {
-            matchAction()
-        } else {
-            editText.text = oldValue
-        }
+        var newValue = editText.text
+        editText.text = regex.test(newValue)
+            ? valueProvider(oldValue, newValue)
+            : oldValue
     }
 }
 
 String.prototype.removeRegexes = function(regexes) { 
     var s = this
-    for (var i = 0; i < regexes.length; i++) s = s.replace(regexes[i], '')
+    for (var i = 0; i < regexes.length; i++) {
+        s = s.replace(regexes[i], '')
+    }
     return s
 }

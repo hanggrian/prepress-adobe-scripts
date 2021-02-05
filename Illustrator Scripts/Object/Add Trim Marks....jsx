@@ -260,7 +260,7 @@ function createTrimMarks(target, offset, length, weight, color, locations) {
                 ))
                 break;
             default:
-                throw 'Unrecognizable location ' + location
+                throw new Error('Unrecognizable location ' + location)
         }
     }
     return marks

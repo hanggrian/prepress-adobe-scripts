@@ -191,6 +191,16 @@ Object.prototype.addVGroup = function() {
 }
 
 /**
+ * Add stack group to target.
+ * @return {Group}
+ */
+Object.prototype.addGroup = function() {
+    var group = this.add('group')
+    group.orientation = 'stack'
+    return group
+}
+
+/**
  * Add horizontal panel to target.
  * @param {String} title of the panel.
  * @return {Panel}
@@ -210,6 +220,18 @@ Object.prototype.addHPanel = function(title) {
 Object.prototype.addVPanel = function(title) {
     var panel = this.add('panel', undefined, title)
     panel.orientation = 'column'
+    panel.add('group') // tiny space
+    return panel
+}
+
+/**
+ * Add stack panel to target.
+ * @param {String} title of the panel.
+ * @return {Panel}
+ */
+Object.prototype.addPanel = function(title) {
+    var panel = this.add('panel', undefined, title)
+    panel.orientation = 'stack'
     panel.add('group') // tiny space
     return panel
 }

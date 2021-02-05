@@ -1,10 +1,8 @@
 function Spreader() {
     var self = this
 
-    this.horizontalEdit = null
-    this.verticalEdit = null
-    this.gapHorizontalEdit = null
-    this.gapVerticalEdit = null
+    this.horizontalEdit, this.verticalEdit
+    this.gapHorizontalEdit, this.gapVerticalEdit
 
     var spreaderTextBounds = [0, 0, 95, 21]
     var spreaderEditBounds = [0, 0, 100, 21]

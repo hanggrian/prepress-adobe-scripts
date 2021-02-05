@@ -1,4 +1,4 @@
-#include '../../.rootlib/standard.js'
+#include '../../.rootlib/stdlib.js'
 #include 'core-colors.js'
 #include 'core-resources.js'
 #include 'core-units.js'

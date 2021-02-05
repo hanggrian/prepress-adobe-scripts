@@ -1,5 +1,5 @@
 #target Illustrator
-#include '../.lib/commons.js'
+#include '../.lib/core.js'
 
 check(COLOR_CYAN.cyan == 100)
 check(COLOR_MAGENTA.magenta == 100)
@@ -12,7 +12,7 @@ check(isColorEqual(parseColor('Yellow'), COLOR_YELLOW))
 check(isColorEqual(parseColor('Black'), COLOR_BLACK))
 
 // https://illustrator-scripting-guide.readthedocs.io/scripting/measurementUnits/
-check(parseUnit('1 cm', 3) == 28.346)
+check(Math.round(parseUnit('1 cm')) == 28)
 check(parseUnit('1 inch') == 72)
-check(parseUnit('1 mm', 6) == 2.834646)
+check(Math.round(parseUnit('1 mm')) == 3)
 check(parseUnit('1 pica') == 12)
