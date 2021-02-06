@@ -19,7 +19,7 @@ echo.
 set /p input=Which scripts would you want to install: 
 
 set sourceRoot=%~dp0
-set sourceLibs=%sourceRoot%.rootlib
+set sourceLibs=%sourceRoot%.stdlib
 
 if %input% == 1 (
     call :patchApp "Illustrator"
@@ -104,7 +104,7 @@ goto :eof
     set app=%~1
     set sourceScripts=%~2
     set targetRoot=%~3
-    set targetLibs=!targetRoot!/.rootlib
+    set targetLibs=!targetRoot!/.stdlib
     set targetScripts=!targetRoot!/Scripts
 
     echo Patching to '!app!'...

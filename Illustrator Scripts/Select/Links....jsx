@@ -5,7 +5,6 @@
 
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/dialog.js'
 
 var FILE_AI = ['ai']
 var FILE_PDF = ['pdf']

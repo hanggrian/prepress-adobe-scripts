@@ -8,7 +8,6 @@
 
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/dialog.js'
 #include '../.lib/spreader.js'
 
 var LOCATION_TOP_LEFT = 11

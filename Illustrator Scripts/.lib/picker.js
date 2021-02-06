@@ -13,14 +13,16 @@ function Picker(title, fileFilters, allowFolder) {
         picker.column.alignChildren = 'left'
         self.fileText = picker.column.addText([0, 0, 200, 21], '-')
         picker.row2 = picker.column.addHGroup()
-        picker.row2.addButton(undefined, 'Open File', function() {
-            var result = openFile(title, fileFilters)
-            if (result != null) {
-                self.file = result
-                self.isFolder = false
-                updateText()
-            }
-        })
+        if (fileFilters != null) {
+            picker.row2.addButton(undefined, 'Open File', function() {
+                var result = openFile(title, fileFilters)
+                if (result != null) {
+                    self.file = result
+                    self.isFolder = false
+                    updateText()
+                }
+            })
+        }
         if (allowFolder !== undefined && allowFolder) {
             picker.row2.addButton(undefined, 'Open Folder', function() {
                 var result = openFolder(title)

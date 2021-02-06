@@ -1,6 +1,8 @@
-#include 'stdlib-collections.js'
-#include 'stdlib-preconditions.js'
-#include 'stdlib-strings.js'
+#include 'collections.js'
+#include 'dialog-validator.js'
+#include 'dialog.js'
+#include 'preconditions.js'
+#include 'strings.js'
 
 /** Returns true if this script is running on macOS. */
 function isMacOS() { return $.os.toLowerCase().indexOf('mac') >= 0 }

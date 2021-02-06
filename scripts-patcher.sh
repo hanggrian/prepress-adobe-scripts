@@ -23,7 +23,7 @@ echo 'Which scripts would you want to install:'
 read input
 
 sourceRoot="$(cd `dirname $0` && pwd)"
-sourceLibs="$sourceRoot/.rootlib"
+sourceLibs="$sourceRoot/.stdlib"
 
 # In mac, localized directories always have `.localized` suffix.
 patchApp () {
@@ -59,7 +59,7 @@ patchPreset() {
     local app=$1
     local sourceScripts=$2
     local targetRoot=$3
-    local targetLibs="$targetRoot/.rootlib"
+    local targetLibs="$targetRoot/.stdlib"
     local targetScripts="$targetRoot/Scripts"
 
     echo "Patching to '$app'..."

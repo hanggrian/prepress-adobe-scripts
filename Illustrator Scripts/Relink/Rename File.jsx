@@ -14,7 +14,7 @@ var currentFileName = unescape(item.file.name)
 var currentName = currentFileName.substringBefore('.')
 var currentExt = currentFileName.substringAfter('.')
 
-var input = prompt('New file name:', currentName, 'Rename Link')
+var input = prompt('New file name:', currentName, 'Rename File & Relink')
 
 if (input == null || input == '') {
     alert('Invalid input.', 'Rename Link')
@@ -28,8 +28,7 @@ if (input == null || input == '') {
         alert("Can't rename.", 'Rename Link')
     } else {
         item.relink(parent.getFiles()
-            .filter(function(it) { return unescape(it.name) == newName })
-            .first()
-        )
+            .filter(function(file) { return unescape(file.name) == newName })
+            .first())
     }
 }

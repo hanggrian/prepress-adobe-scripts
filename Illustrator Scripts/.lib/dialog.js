@@ -1,5 +1,0 @@
-#include '../../.rootlib/stdlib.js'
-#include '../../.rootlib/dialog-base.js'
-#include '../../.rootlib/dialog-validator.js'
-#include 'dialog-affix.js'
-#include 'dialog-anchor.js'

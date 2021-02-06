@@ -3,7 +3,6 @@
 
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/dialog.js'
 
 allowSelectionType(SELECT_TEXT_FRAME)
 

@@ -1,6 +1,6 @@
 #target Illustrator
 
-#include '../../.rootlib/sui2.js'
+#include '../../.stdlib/sui2.js'
 #include '../.lib/commons.js'
 
 var dialog = new Dialog('Print PostScript')

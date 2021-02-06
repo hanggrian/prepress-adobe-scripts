@@ -1,6 +1,5 @@
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/dialog.js'
 
 var dialog = new Dialog('Resize Artboards')
 

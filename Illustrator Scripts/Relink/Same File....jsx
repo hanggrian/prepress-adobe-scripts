@@ -1,17 +1,20 @@
 // Apply relink once to all selected `PlacedItem`,
 // as opposed to native Illustrator `Relink...` which is done individually.
+// Only tested on images, not documents.
 
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/dialog.js'
 #include '../.lib/picker.js'
 
 checkHasSelection()
-selection.forEach(function(it) {
-    checkTypename(it, 'PlacedItem')
+var items = selection.mapItemNotNull(function(it) {
+    return it.typename == 'PlacedItem'
+        ? it
+        : null
 })
+check(items.isNotEmpty(), 'No links found in selection.')
 
-var dialog = new Dialog('Relink All')
+var dialog = new Dialog('Relink to Same File')
 var picker = new Picker(dialog.title, [
     ['Adobe Illustrator', 'ai'],
     ['Adobe PDF', 'pdf'],
@@ -27,8 +30,8 @@ var picker = new Picker(dialog.title, [
 dialog.source = picker.getGroup(dialog.main, [0, 0, 45, 21])
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    selection.forEach(function(it) {
-        it.relink(picker.file)
+    items.forEach(function(item) {
+        item.relink(picker.file)
     })
 })
 dialog.show()

@@ -1,6 +1,5 @@
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/dialog.js'
 
 var ALPHABETS = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',

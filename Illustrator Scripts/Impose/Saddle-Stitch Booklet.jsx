@@ -2,7 +2,6 @@
 
 #target Illustrator
 #include '../.lib/core.js'
-#include '../.lib/dialog.js'
 #include '../.lib/picker.js'
 
 var dialog = new Dialog('Impose Saddle-Stich Booklet')

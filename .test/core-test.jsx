@@ -1,4 +1,4 @@
-#include '../.rootlib/core.js'
+#include '../.stdlib/core.js'
 
 check('Hello World'.startsWith('Hello'))
 check('Hello World'.endsWith('World'))
