@@ -1,44 +1,32 @@
-function Spreader() {
+function Spreader(parent) {
     var self = this
-
-    this.horizontalEdit, this.verticalEdit
-    this.gapHorizontalEdit, this.gapVerticalEdit
 
     var spreaderTextBounds = [0, 0, 95, 21]
     var spreaderEditBounds = [0, 0, 100, 21]
     var spreaderEditBounds2 = [0, 0, 36, 21]
     
-    /**
-     * Add spreader layout to target.
-     * @this {Object} may be a Group, Panel, or Window.
-     * @return {Group}
-     */
-    this.getGroup = function(parent) {
-        var spreader = parent.addVGroup()
+    var main = parent.addVGroup()
     
-        spreader.copies = spreader.addHGroup()
-        spreader.copies.addText(spreaderTextBounds, 'Copies:', 'right')
-        self.horizontalEdit = spreader.copies.addEditText(spreaderEditBounds2)
-        self.horizontalEdit.validateDigits()
-        spreader.copies.addText(undefined, '×')
-        self.verticalEdit = spreader.copies.addEditText(spreaderEditBounds2)
-        self.verticalEdit.validateDigits()
-        spreader.copies.setTooltip('2 dimension target.')
-    
-        spreader.gapHorizontal = spreader.addHGroup()
-        spreader.gapHorizontal.addText(spreaderTextBounds, 'Horizontal Gap:', 'right')
-        self.gapHorizontalEdit = spreader.gapHorizontal.addEditText(spreaderEditBounds, '0 mm')
-        self.gapHorizontalEdit.validateUnits()
-        spreader.gapHorizontal.setTooltip('Distance between arts horizontally.')
-    
-        spreader.gapVertical = spreader.addHGroup()
-        spreader.gapVertical.addText(spreaderTextBounds, 'Vertical Gap:', 'right')
-        self.gapVerticalEdit = spreader.gapVertical.addEditText(spreaderEditBounds, '0 mm')
-        self.gapVerticalEdit.validateUnits()
-        spreader.gapVertical.setTooltip('Distance between arts vertically.')
-    
-        return spreader
-    }
+    this.copies = main.addHGroup()
+    this.copies.addText(spreaderTextBounds, 'Copies:', 'right')
+    this.horizontalEdit = this.copies.addEditText(spreaderEditBounds2)
+    this.horizontalEdit.validateDigits()
+    this.copies.addText(undefined, '×')
+    this.verticalEdit = this.copies.addEditText(spreaderEditBounds2)
+    this.verticalEdit.validateDigits()
+    this.copies.setTooltip('2 dimension target.')
+
+    this.gapHorizontal = main.addHGroup()
+    this.gapHorizontal.addText(spreaderTextBounds, 'Horizontal Gap:', 'right')
+    this.gapHorizontalEdit = this.gapHorizontal.addEditText(spreaderEditBounds, '0 mm')
+    this.gapHorizontalEdit.validateUnits()
+    this.gapHorizontal.setTooltip('Distance between arts horizontally.')
+
+    this.gapVertical = main.addHGroup()
+    this.gapVertical.addText(spreaderTextBounds, 'Vertical Gap:', 'right')
+    this.gapVerticalEdit = this.gapVertical.addEditText(spreaderEditBounds, '0 mm')
+    this.gapVerticalEdit.validateUnits()
+    this.gapVertical.setTooltip('Distance between arts vertically.')
 
     /**
      * spreader selected item, only support single selection.

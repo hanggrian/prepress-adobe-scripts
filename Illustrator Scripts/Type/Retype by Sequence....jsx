@@ -1,5 +1,6 @@
 #target Illustrator
 #include '../.lib/commons.js'
+#include '../.lib/affix.js'
 
 checkHasSelection()
 
@@ -21,7 +22,7 @@ dialog.sequence.digitsEdit = dialog.sequence.digits.addEditText(editBounds)
 dialog.sequence.digitsEdit.validateDigits()
 dialog.sequence.digits.setTooltip('Put n number of zeroes.')
 
-dialog.affix = dialog.main.addAffixPanel(textBounds, editBounds)
+dialog.affix = new Affix(dialog.main, textBounds, editBounds)
 
 dialog.reverse = dialog.main.addVGroup()
 dialog.reverse.alignment = 'right'

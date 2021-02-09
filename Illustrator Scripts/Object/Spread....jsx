@@ -7,11 +7,10 @@
 checkSingleSelection()
 
 var dialog = new Dialog('Spread')
-var spreader = new Spreader()
 
-dialog.spreader = spreader.getGroup(dialog.main)
-spreader.horizontalEdit.active = true
+dialog.spreader = new Spreader(dialog.main)
+dialog.spreader.horizontalEdit.active = true
 
 dialog.setNegativeButton('Cancel')
-dialog.setPositiveButton(function() { spreader.spread() })
+dialog.setPositiveButton(function() { dialog.spreader.spread() })
 dialog.show()

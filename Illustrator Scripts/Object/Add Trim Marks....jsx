@@ -24,7 +24,6 @@ var DEFAULT_WEIGHT = 0.3 // the same value used in `Object > Create Trim Marks`
 checkSingleSelection()
 
 var dialog = new Dialog('Add Trim Marks')
-var spreader = new Spreader()
 
 dialog.main.alignChildren = 'fill'
 dialog.upper = dialog.main.addHGroup()
@@ -103,7 +102,7 @@ dialog.locations.row5.addText(checkBounds)
 dialog.locations.setTooltip('Select which trim marks will be added.')
 
 dialog.lower.alignChildren = 'fill'
-dialog.spreader = spreader.getGroup(dialog.lower)
+dialog.spreader = new Spreader(dialog.lower)
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() { process(false) })
@@ -118,8 +117,8 @@ function process(isDelete) {
     var locs = []
     var marks = []
     
-    var horizontal = parseInt(spreader.horizontalEdit.text) || 0
-    var vertical = parseInt(spreader.verticalEdit.text) || 0
+    var horizontal = parseInt(dialog.spreader.horizontalEdit.text) || 0
+    var vertical = parseInt(dialog.spreader.verticalEdit.text) || 0
 
     if (horizontal < 1 || vertical < 1) {
         if (dialog.locations.topLeftCheck.value) locs.push(LOCATION_TOP_LEFT)
@@ -135,7 +134,7 @@ function process(isDelete) {
         if (isDelete) selection.first().remove()
     } else {
         // currently ignore location checkboxes in duplication
-        spreader.spread(function(item, h, v) {
+        dialog.spreader.spread(function(item, h, v) {
             locs = []
             if (h == horizontal - 1) {
                 locs.push(LOCATION_RIGHT_TOP, LOCATION_RIGHT_BOTTOM)

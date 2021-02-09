@@ -2,11 +2,11 @@
 
 #target Illustrator
 #include '../../.lib/commons.js'
+#include '../../.lib/anchor.js'
 
 checkHasSelection()
 
 var dialog = new Dialog('Rotate All')
-var anchor = new DialogAnchor()
 
 dialog.line = dialog.main.addHGroup()
 dialog.line.alignChildren = 'fill'
@@ -21,7 +21,7 @@ dialog.angleEdit = dialog.angle.addEditText(editBounds, '0')
 dialog.angleEdit.validateDigits()
 dialog.angleEdit.active = true
 
-dialog.angle = anchor.getGroup(dialog.line)
+dialog.anchor = new Anchor(dialog.line)
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {

@@ -15,7 +15,7 @@ var items = selection.mapItemNotNull(function(it) {
 check(items.isNotEmpty(), 'No links found in selection.')
 
 var dialog = new Dialog('Relink to Same File')
-var picker = new Picker(dialog.title, [
+dialog.picker = new Picker(dialog.main, [0, 0, 45, 21], dialog.title, [
     ['Adobe Illustrator', 'ai'],
     ['Adobe PDF', 'pdf'],
     ['BMP', 'bmp'],
@@ -27,11 +27,10 @@ var picker = new Picker(dialog.title, [
     ['TIFF', 'tif', 'tiff']
 ])
 
-dialog.source = picker.getGroup(dialog.main, [0, 0, 45, 21])
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     items.forEach(function(item) {
-        item.relink(picker.file)
+        item.relink(dialog.picker.file)
     })
 })
 dialog.show()

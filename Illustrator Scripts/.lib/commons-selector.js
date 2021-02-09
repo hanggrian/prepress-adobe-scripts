@@ -14,7 +14,6 @@ var SELECT_SYMBOL = 'SymbolItem'
 var SELECT_TEXT_FRAME = 'TextFrame'
 
 var _allowedSelectionTypes = []
-var _queuedSelection = []
 
 /**
  * Configure allowed types for later selection.
@@ -29,43 +28,16 @@ function allowSelectionType(type) {
  * @param {Function} callable nullable custom item checker that should return true if the item parameter should be selected.
  */
 function selectAll(callable) {
-    if (selection == null || selection.length == 0) {
-        _queueAllToSelection(document.pageItems, callable)
-    } else {
-        selection.forEach(function(it) {
-            _determineSelection(it, callable)
-        })
-    }
-    selection = _queuedSelection
-}
-
-/** Recursively search groups. */
-function _determineSelection(item, callable) {
-    if (item.typename == 'GroupItem') {
-        _queueAllToSelection(item.pageItems, callable)
-        for (var i = 0; i < item.groupItems.length; i++) {
-            _determineSelection(item.groupItems[i], callable)
+    var queue = []
+    _forEachItem(selection == null || selection.length == 0 ? document.pageItems : selection, function(item) {
+        if (_allowedSelectionTypes.contains(item.typename)) {
+            if (callable === undefined) {
+                callable = function() { return true }
+            }
+            if (callable(item)) {
+                queue.push(item)
+            }
         }
-    } else {
-        _queueToSelection(item, callable)
-    }
-}
-
-/** `PageItems` doesn't have a function `get`, therefore must be manually iterated. */
-function _queueAllToSelection(items, callable) {
-    for (var i = 0; i < items.length; i++) {
-        _queueToSelection(items[i], callable)
-    }
-}
-
-/** Only queue if item types are allowed. */
-function _queueToSelection(item, callable) {
-    if (_allowedSelectionTypes.contains(item.typename)) {
-        if (callable === undefined) {
-            callable = function() { return true }
-        }
-        if (callable(item)) {
-            _queuedSelection.push(item)
-        }
-    }
+    })
+    selection = queue
 }

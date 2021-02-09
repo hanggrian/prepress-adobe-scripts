@@ -1,5 +1,6 @@
 #target Illustrator
 #include '../.lib/commons.js'
+#include '../.lib/affix.js'
 
 var ALPHABETS = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
@@ -28,7 +29,7 @@ dialog.sequence.space.addText(textBounds, 'Midspace:', 'right')
 dialog.sequence.spaceCheck = dialog.sequence.space.addCheckBox(undefined, 'Enable')
 dialog.sequence.space.setTooltip('Add single space between number and alphabet.')
 
-dialog.affix = dialog.main.addAffixPanel(textBounds, editBounds)
+dialog.affix = new Affix(dialog.main, textBounds, editBounds)
 
 dialog.reverse = dialog.main.addVGroup()
 dialog.reverse.alignment = 'right'

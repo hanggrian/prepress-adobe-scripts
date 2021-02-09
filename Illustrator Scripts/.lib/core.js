@@ -3,8 +3,6 @@
 #include 'core-colors.js'
 #include 'core-resources.js'
 #include 'core-units.js'
-#include 'dialog-affix.js'
-#include 'dialog-anchor.js'
 
 /**
  * Returns layer name, or type if it is unnamed.
