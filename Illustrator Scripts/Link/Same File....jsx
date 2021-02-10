@@ -4,18 +4,16 @@
 
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/picker.js'
+#include '../.lib/ui/file-picker.js'
 
 checkHasSelection()
 var items = selection.mapItemNotNull(function(it) {
-    return it.typename == 'PlacedItem'
-        ? it
-        : null
+    return it.typename == 'PlacedItem' ? it : null
 })
 check(items.isNotEmpty(), 'No links found in selection.')
 
 var dialog = new Dialog('Relink to Same File')
-dialog.picker = new Picker(dialog.main, [0, 0, 45, 21], dialog.title, [
+dialog.picker = new FilePicker(dialog.main, [0, 0, 45, 21], dialog.title, [
     ['Adobe Illustrator', 'ai'],
     ['Adobe PDF', 'pdf'],
     ['BMP', 'bmp'],

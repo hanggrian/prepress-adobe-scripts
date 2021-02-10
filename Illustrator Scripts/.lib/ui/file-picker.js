@@ -1,7 +1,7 @@
-function Picker(parent, textBounds, title, fileFilters, allowFolder) {
+function FilePicker(parent, textBounds, title, fileFilters, allowFolder) {
     var self = this
-
     var main = parent.addHGroup()
+    
     main.addText(textBounds, 'Source:', 'right')
     main.alignChildren = 'top'
     main.column = main.addVGroup()

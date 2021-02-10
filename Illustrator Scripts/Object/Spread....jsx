@@ -2,13 +2,13 @@
 
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/spreader.js'
+#include '../.lib/ui/item-spreader.js'
 
 checkSingleSelection()
 
 var dialog = new Dialog('Spread')
 
-dialog.spreader = new Spreader(dialog.main)
+dialog.spreader = new ItemSpreader(dialog.main)
 dialog.spreader.horizontalEdit.active = true
 
 dialog.setNegativeButton('Cancel')

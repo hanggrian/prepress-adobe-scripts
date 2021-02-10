@@ -172,45 +172,61 @@ Object.prototype.addDropDown = function(bounds, items) {
 
 /**
  * Add horizontal group to target.
+ * @param {String} alignChildren optional arrangement.
  * @return {Group}
  */
-Object.prototype.addHGroup = function() {
+Object.prototype.addHGroup = function(alignChildren) {
     var group = this.add('group')
     group.orientation = 'row'
+    if (alignChildren !== undefined) {
+        group.alignChildren = alignChildren
+    }
     return group
 }
 
 /**
  * Add vertical group to target.
+ * @param {String} alignChildren optional arrangement.
  * @return {Group}
  */
-Object.prototype.addVGroup = function() {
+Object.prototype.addVGroup = function(alignChildren) {
     var group = this.add('group')
     group.orientation = 'column'
+    if (alignChildren !== undefined) {
+        group.alignChildren = alignChildren
+    }
     return group
 }
 
 /**
  * Add horizontal panel to target.
  * @param {String} title of the panel.
+ * @param {String} alignChildren optional arrangement.
  * @return {Panel}
  */
-Object.prototype.addHPanel = function(title) {
+Object.prototype.addHPanel = function(title, alignChildren) {
     var panel = this.add('panel', undefined, title)
     panel.orientation = 'row'
     panel.add('group') // tiny space
+    if (alignChildren !== undefined) {
+        panel.alignChildren = alignChildren
+    }
     return panel
 }
 
 /**
  * Add vertical panel to target.
  * @param {String} title of the panel.
+ * @param {String} alignChildren optional arrangement.
  * @return {Panel}
  */
-Object.prototype.addVPanel = function(title) {
+Object.prototype.addVPanel = function(title, alignChildren) {
     var panel = this.add('panel', undefined, title)
     panel.orientation = 'column'
     panel.add('group') // tiny space
+    if (alignChildren !== undefined) {
+        panel.alignChildren = alignChildren
+    }
     return panel
 }
 

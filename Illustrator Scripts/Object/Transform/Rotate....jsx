@@ -2,14 +2,13 @@
 
 #target Illustrator
 #include '../../.lib/commons.js'
-#include '../../.lib/anchor.js'
+#include '../../.lib/ui/item-transform.js'
 
 checkHasSelection()
 
-var dialog = new Dialog('Rotate All')
+var dialog = new Dialog('Rotate')
 
-dialog.line = dialog.main.addHGroup()
-dialog.line.alignChildren = 'fill'
+dialog.line = dialog.main.addHGroup('top')
 dialog.left = dialog.line.addVGroup()
 
 var textBounds = [0, 0, 50, 21]
@@ -21,13 +20,22 @@ dialog.angleEdit = dialog.angle.addEditText(editBounds, '0')
 dialog.angleEdit.validateDigits()
 dialog.angleEdit.active = true
 
-dialog.anchor = new Anchor(dialog.line)
+dialog.change = new ItemChange(dialog.left)
+
+dialog.anchor = new ItemAnchor(dialog.line)
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    selection.forEach(function(it) {
-        it.width = parseUnit(dialog.widthEdit.text)
-        it.height = parseUnit(dialog.heightEdit.text)
-    })
+    var angle = parseInt(dialog.angleEdit.text)
+    if (angle != 0) {
+        selection.forEachItem(function(it) {
+            it.rotate(angle,
+                dialog.change.isPositions(),
+                dialog.change.isFillPatterns(),
+                dialog.change.isFillGradients(),
+                dialog.change.isStrokePattern(),
+                dialog.anchor.getTransformation())
+        })
+    }
 })
 dialog.show()

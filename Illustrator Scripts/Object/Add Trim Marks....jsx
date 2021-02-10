@@ -8,7 +8,7 @@
 
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/spreader.js'
+#include '../.lib/ui/item-spreader.js'
 
 var LOCATION_TOP_LEFT = 11
 var LOCATION_TOP_RIGHT = 1
@@ -102,7 +102,7 @@ dialog.locations.row5.addText(checkBounds)
 dialog.locations.setTooltip('Select which trim marks will be added.')
 
 dialog.lower.alignChildren = 'fill'
-dialog.spreader = new Spreader(dialog.lower)
+dialog.spreader = new ItemSpreader(dialog.lower)
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() { process(false) })

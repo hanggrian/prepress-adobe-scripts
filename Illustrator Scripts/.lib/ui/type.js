@@ -1,4 +1,18 @@
-function Affix(parent, textBounds, editBounds) {
+function TypeArrangement(parent, textBounds) {
+    var self = this
+    var main = parent.addHGroup()
+
+    main.addText(textBounds, 'Arrangement:', 'right')
+    this.arrangementCheck = main.addCheckBox(undefined, 'Reverse')
+    main.setTooltip('Iterate items at reverse-order.')
+
+    this.isReverse = function() {
+        return self.arrangementCheck.value
+    }
+}
+
+function TypeAffix(parent, textBounds, editBounds) {
+    var self = this
     var main = parent.addVPanel('Affix')
 
     this.prefix = main.addHGroup()

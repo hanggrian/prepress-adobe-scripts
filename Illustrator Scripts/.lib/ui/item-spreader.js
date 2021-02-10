@@ -1,11 +1,10 @@
-function Spreader(parent) {
+function ItemSpreader(parent) {
     var self = this
+    var main = parent.addVGroup()
 
     var spreaderTextBounds = [0, 0, 95, 21]
     var spreaderEditBounds = [0, 0, 100, 21]
     var spreaderEditBounds2 = [0, 0, 36, 21]
-    
-    var main = parent.addVGroup()
     
     this.copies = main.addHGroup()
     this.copies.addText(spreaderTextBounds, 'Copies:', 'right')
