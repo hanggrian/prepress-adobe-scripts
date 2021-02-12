@@ -10,7 +10,7 @@ checkTypename(item, 'TextFrame')
 
 var dialog = new Dialog('Resize Font Until')
 
-var textBounds = [0, 0, 100, 21]
+var textBounds = [0, 0, 110, 21]
 
 dialog.dimension = dialog.main.addHGroup()
 dialog.dimension.addText(textBounds, 'Dimension:', 'right')
@@ -26,11 +26,13 @@ dialog.dimensionSizeEdit.validateUnits()
 dialog.dimensionSizeEdit.active = true
 dialog.dimensionSize.setTooltip('Target size of the text.')
 
-dialog.roundFont = dialog.main.addHGroup()
-dialog.roundFont.addText(textBounds, 'Round font size:', 'right')
-dialog.roundFontCheck = dialog.roundFont.addCheckBox(undefined, 'Enable')
-dialog.roundFontCheck.value = true
-dialog.roundFont.setTooltip('Round font size to nearest non-decimal number.')
+dialog.round = dialog.main.addHGroup()
+dialog.round.addText(textBounds, 'Rounding method:', 'right')
+dialog.roundRadio = dialog.round.addRadioButton(undefined, 'Round')
+dialog.roundRadio.value = true
+dialog.roundFloorRadio = dialog.round.addRadioButton(undefined, 'Floor')
+dialog.roundNoneRadio = dialog.round.addRadioButton(undefined, 'None')
+dialog.round.setTooltip('Round font size to nearest non-decimal number.')
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
@@ -40,8 +42,10 @@ dialog.setPositiveButton(function() {
         : item.height
     var targetDimension = parseUnit(dialog.dimensionSizeEdit.text)
     var targetFont = currentFont * targetDimension / currentDimension
-    if (dialog.roundFontCheck.value) {
-        targetFont = parseInt(targetFont)
+    if (dialog.roundRadio.value) {
+        targetFont = Math.round(targetFont)
+    } else if (dialog.roundFloorRadio.value) {
+        targetFont = Math.floor(targetFont)
     }
     item.textRange.characterAttributes.size = targetFont
 })

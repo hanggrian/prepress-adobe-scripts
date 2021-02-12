@@ -1,18 +1,19 @@
-function ItemChange(parent) {
+function ItemChangePanel(parent) {
     var self = this
-    var main = parent.addHGroup('top')
+    var main = parent.addVPanel('Change', 'fill')
 
-    main.addText(textBounds, 'Change:', 'right')
-    this.checks = main.addVGroup('fill')
-    this.changePositionsCheck = this.checks.addCheckBox(undefined, 'Positions')
+    this.changePositionsCheck = main.addCheckBox(undefined, 'Positions')
+    this.changePositionsCheck.value = true
     this.changePositionsCheck.helpTip = 'Are art object positions and orientations effected?'
-    this.changeFillPatternsCheck = this.checks.addCheckBox(undefined, 'Fill Patterns')
+    this.changeFillPatternsCheck = main.addCheckBox(undefined, 'Fill Patterns')
+    this.changeFillPatternsCheck.value = true
     this.changeFillPatternsCheck.helpTip = 'Are the fill patterns assigned to paths to be transformed?'
-    this.changeFillGradientsCheck = this.checks.addCheckBox(undefined, 'Fill Gradients')
+    this.changeFillGradientsCheck = main.addCheckBox(undefined, 'Fill Gradients')
+    this.changeFillGradientsCheck.value = true
     this.changeFillGradientsCheck.helpTip = 'Are the fill gradients assigned to paths to be transformed?'
-    this.changeStrokePatternCheck = this.checks.addCheckBox(undefined, 'Stroke Pattern')
+    this.changeStrokePatternCheck = main.addCheckBox(undefined, 'Stroke Pattern')
+    this.changeStrokePatternCheck.value = true
     this.changeStrokePatternCheck.helpTip = 'Are the stroke patterns assigned to paths to be transformed?'
-    this.checks.children.forEach(function(it) { it.value = true }) // default is all true
 
     this.isPositions = function() { return self.changePositionsCheck.value }
     this.isFillPatterns = function() { return self.changeFillPatternsCheck.value }
@@ -20,7 +21,7 @@ function ItemChange(parent) {
     this.isStrokePattern = function() { return self.changeStrokePatternCheck.value }
 }
 
-function ItemAnchor(parent) {
+function ItemAnchorPanel(parent) {
     var self = this
     var main = parent.addVPanel('Anchor')
     main.alignChildren = 'fill'

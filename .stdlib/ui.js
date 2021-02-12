@@ -2,16 +2,14 @@
  * Construct a new dialog.
  * @param {String} title window title.
  */
-function Dialog(title) {
+function Dialog(title, alignChildren) {
     var self = this
     this.title = title
 
     var window = new Window('dialog', title)
     window.orientation = 'column'
-    // window.alignChildren = 'fill'
     
-    this.main = window.addVGroup()
-    this.main.alignChildren = 'left'
+    this.main = window.addVGroup(alignChildren !== undefined ? alignChildren : 'left')
     this.buttons = window.addHGroup()
     this.buttons.alignment = 'right'
 
@@ -104,10 +102,11 @@ Object.prototype.addText = function(bounds, text, justify) {
  * Add edit text to target.
  * @param {Bounds} bounds size of this object.
  * @param {String} text text to display.
+ * @param {Boolean} multiline default is false.
  * @return {EditText}
  */
-Object.prototype.addEditText = function(bounds, text) {
-    return this.add('edittext', bounds, text)
+Object.prototype.addEditText = function(bounds, text, multiline) {
+    return this.add('edittext', bounds, text, { multiline: multiline !== undefined ? multiline : false })
 }
 
 /** 
@@ -237,6 +236,10 @@ Object.prototype.addVPanel = function(title, alignChildren) {
  */
 Object.prototype.setTooltip = function(tooltip) {
     this.children.forEach(function(it) {
-        it.helpTip = tooltip
+        if (it.type == 'group' || it.type == 'panel') {
+            it.setTooltip(tooltip)
+        } else {
+            it.helpTip = tooltip
+        }
     })
 }

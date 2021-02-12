@@ -29,9 +29,9 @@ dialog.main.alignChildren = 'fill'
 dialog.upper = dialog.main.addHGroup()
 dialog.lower = dialog.main.addVPanel('Spread')
 
-var textBounds = [0, 0, 60, 21]
+var textBounds = [0, 0, 45, 21]
 var editBounds = [0, 0, 100, 21]
-dialog.main2 = dialog.upper.addVGroup()
+dialog.main2 = dialog.upper.addVPanel('Trim Marks')
 dialog.main2.offset = dialog.main2.addHGroup()
 dialog.main2.offset.addText(textBounds, 'Offset:', 'right')
 dialog.main2.offsetEdit = dialog.main2.offset.addEditText(editBounds, '2.5 mm')
@@ -57,52 +57,49 @@ dialog.main2.color.setTooltip('Color of trim marks.')
 dialog.upper.addText([0, 0, 0, 10]) // gap
 
 var checkBounds = [0, 0, 15, 15]
-dialog.locations = dialog.upper.addHGroup()
-dialog.locations.alignChildren = 'top'
-dialog.locations.addText(textBounds, 'Locations:', 'right')
-dialog.locations.row = dialog.locations.addVGroup()
-dialog.locations.row1 = dialog.locations.row.addHGroup()
-dialog.locations.row1.addText(checkBounds)
-dialog.locations.topLeftCheck = dialog.locations.row1.addCheckBox(checkBounds)
+dialog.locations = dialog.upper.addVPanel('Locations')
+dialog.locations1 = dialog.locations.addHGroup()
+dialog.locations1.addText(checkBounds)
+dialog.locations.topLeftCheck = dialog.locations1.addCheckBox(checkBounds)
 dialog.locations.topLeftCheck.value = true
-dialog.locations.row1.addText(checkBounds)
-dialog.locations.topRightCheck = dialog.locations.row1.addCheckBox(checkBounds)
+dialog.locations1.addText(checkBounds)
+dialog.locations.topRightCheck = dialog.locations1.addCheckBox(checkBounds)
 dialog.locations.topRightCheck.value = true
-dialog.locations.row1.addText(checkBounds)
-dialog.locations.row2 = dialog.locations.row.addHGroup()
-dialog.locations.leftTopCheck = dialog.locations.row2.addCheckBox(checkBounds)
+dialog.locations1.addText(checkBounds)
+dialog.locations2 = dialog.locations.addHGroup()
+dialog.locations.leftTopCheck = dialog.locations2.addCheckBox(checkBounds)
 dialog.locations.leftTopCheck.value = true
-dialog.locations.row2.addText(checkBounds, '↖︎')
-dialog.locations.row2.addText(checkBounds, '↑')
-dialog.locations.row2.addText(checkBounds, '↗')
-dialog.locations.rightTopCheck = dialog.locations.row2.addCheckBox(checkBounds)
+dialog.locations2.addText(checkBounds, '↖︎')
+dialog.locations2.addText(checkBounds, '↑')
+dialog.locations2.addText(checkBounds, '↗')
+dialog.locations.rightTopCheck = dialog.locations2.addCheckBox(checkBounds)
 dialog.locations.rightTopCheck.value = true
-dialog.locations.row3 = dialog.locations.row.addHGroup()
-dialog.locations.row3.addText(checkBounds)
-dialog.locations.row3.addText(checkBounds, '←')
-dialog.locations.row3.addText(checkBounds, '●')
-dialog.locations.row3.addText(checkBounds, '→')
-dialog.locations.row3.addText(checkBounds)
-dialog.locations.row4 = dialog.locations.row.addHGroup()
-dialog.locations.leftBottomCheck = dialog.locations.row4.addCheckBox(checkBounds)
+dialog.locations3 = dialog.locations.addHGroup()
+dialog.locations3.addText(checkBounds)
+dialog.locations3.addText(checkBounds, '←')
+dialog.locations3.addText(checkBounds, '●')
+dialog.locations3.addText(checkBounds, '→')
+dialog.locations3.addText(checkBounds)
+dialog.locations4 = dialog.locations.addHGroup()
+dialog.locations.leftBottomCheck = dialog.locations4.addCheckBox(checkBounds)
 dialog.locations.leftBottomCheck.value = true
-dialog.locations.row4.addText(checkBounds, '↙')
-dialog.locations.row4.addText(checkBounds, '↓')
-dialog.locations.row4.addText(checkBounds, '↘')
-dialog.locations.rightBottomCheck = dialog.locations.row4.addCheckBox(checkBounds)
+dialog.locations4.addText(checkBounds, '↙')
+dialog.locations4.addText(checkBounds, '↓')
+dialog.locations4.addText(checkBounds, '↘')
+dialog.locations.rightBottomCheck = dialog.locations4.addCheckBox(checkBounds)
 dialog.locations.rightBottomCheck.value = true
-dialog.locations.row5 = dialog.locations.row.addHGroup()
-dialog.locations.row5.addText(checkBounds)
-dialog.locations.bottomLeftCheck = dialog.locations.row5.addCheckBox(checkBounds)
+dialog.locations5 = dialog.locations.addHGroup()
+dialog.locations5.addText(checkBounds)
+dialog.locations.bottomLeftCheck = dialog.locations5.addCheckBox(checkBounds)
 dialog.locations.bottomLeftCheck.value = true
-dialog.locations.row5.addText(checkBounds)
-dialog.locations.bottomRightCheck = dialog.locations.row5.addCheckBox(checkBounds)
+dialog.locations5.addText(checkBounds)
+dialog.locations.bottomRightCheck = dialog.locations5.addCheckBox(checkBounds)
 dialog.locations.bottomRightCheck.value = true
-dialog.locations.row5.addText(checkBounds)
+dialog.locations5.addText(checkBounds)
 dialog.locations.setTooltip('Select which trim marks will be added.')
 
 dialog.lower.alignChildren = 'fill'
-dialog.spreader = new ItemSpreader(dialog.lower)
+dialog.spreader = new ItemSpreaderGroup(dialog.lower)
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() { process(false) })

@@ -1,32 +1,37 @@
 #target Illustrator
 #include '../../.lib/commons.js'
-#include '../../.lib/ui/type.js'
+#include '../../.lib/ui/type-affix.js'
 
 checkHasSelection()
-
-var dialog = new Dialog('Retype Numerize')
 var items = selection.mapItemNotNull(function(it) {
     return it.typename == 'TextFrame' ? it : null
 })
-check(items.isNotEmpty(), 'No types found in selection.')
+check(items.isNotEmpty(), 'No types found in selection')
 
-var textBounds = [0, 0, 80, 21]
+var dialog = new Dialog('Retype Numerize')
+
+var textBounds = [0, 0, 55, 21]
 var editBounds = [0, 0, 100, 21]
 
-dialog.startsAt = dialog.main.addHGroup()
+dialog.retype = dialog.main.addVPanel('Retype')
+dialog.startsAt = dialog.retype.addHGroup()
 dialog.startsAt.addText(textBounds, 'Starts at:', 'right')
 dialog.startsAtEdit = dialog.startsAt.addEditText(editBounds, '1')
 dialog.startsAtEdit.validateDigits()
 dialog.startsAtEdit.active = true
 dialog.startsAt.setTooltip('Starting counter.')
-dialog.digits = dialog.main.addHGroup()
+dialog.digits = dialog.retype.addHGroup()
 dialog.digits.addText(textBounds, 'Digits:', 'right')
 dialog.digitsEdit = dialog.digits.addEditText(editBounds)
 dialog.digitsEdit.validateDigits()
 dialog.digits.setTooltip('Put n number of zeroes.')
-dialog.arrangement = new TypeArrangement(dialog.main, textBounds)
 
-dialog.affix = new TypeAffix(dialog.main, textBounds, editBounds)
+dialog.affix = new TypeAffixPanel(dialog.main, textBounds, editBounds)
+
+dialog.reverse = dialog.main.addVGroup()
+dialog.reverse.alignment = 'right'
+dialog.reverseCheck = dialog.reverse.addCheckBox(undefined, 'Reverse order')
+dialog.reverse.setTooltip('Iterate items at reverse order.')
 
 var count, digits, prefix, suffix
 
@@ -36,7 +41,7 @@ dialog.setPositiveButton(function() {
     digits = parseInt(dialog.digitsEdit.text) || 0
     prefix = dialog.affix.prefixEdit.text
     suffix = dialog.affix.suffixEdit.text
-    if (!dialog.arrangement.isReverse()) {
+    if (!dialog.reverseCheck.value) {
         items.forEach(function(it) { retype(it) })
     } else {
         items.forEachReversed(function(it) { retype(it) })

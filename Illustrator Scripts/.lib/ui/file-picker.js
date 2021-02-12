@@ -1,4 +1,4 @@
-function FilePicker(parent, textBounds, title, fileFilters, allowFolder) {
+function FilePickerGroup(parent, textBounds, title, fileFilters, allowFolder) {
     var self = this
     var main = parent.addHGroup()
     

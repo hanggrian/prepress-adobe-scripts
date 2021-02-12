@@ -1,4 +1,4 @@
-function ItemSpreader(parent) {
+function ItemSpreaderGroup(parent) {
     var self = this
     var main = parent.addVGroup()
 

@@ -1,6 +1,6 @@
 #target Illustrator
 #include '../../.lib/commons.js'
-#include '../../.lib/ui/type.js'
+#include '../../.lib/ui/type-affix.js'
 
 var ALPHABETS = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
@@ -12,27 +12,31 @@ checkHasSelection()
 var items = selection.mapItemNotNull(function(it) {
     return it.typename == 'TextFrame' ? it : null
 })
-check(items.isNotEmpty(), 'No types found in selection.')
+check(items.isNotEmpty(), 'No types found in selection')
 
-var dialog = new Dialog('Retype Numerize (Alphabet Suffix)')
-
+var dialog = new Dialog('Retype Numerize (Alphabet Suffix)', 'fill')
 dialog.main.alignChildren = 'fill'
 
-var textBounds = [0, 0, 80, 21]
+var textBounds = [0, 0, 70, 21]
 var editBounds = [0, 0, 100, 21]
 
-dialog.stops = dialog.main.addHGroup()
+dialog.retype = dialog.main.addVPanel('Retype', 'fill')
+dialog.stops = dialog.retype.addHGroup()
 dialog.stops.addText(textBounds, 'Stops at:', 'right')
 dialog.stopsList = dialog.stops.add('dropdownlist', undefined, ALPHABETS)
 dialog.stopsList.selection = 1
 dialog.stops.setTooltip('The iteration will stop at the selected alphabet and the number will reset back to 1.')
-dialog.space = dialog.main.addHGroup()
+dialog.space = dialog.retype.addHGroup()
 dialog.space.addText(textBounds, 'Midspace:', 'right')
 dialog.spaceCheck = dialog.space.addCheckBox(undefined, 'Enable')
 dialog.space.setTooltip('Add single space between number and alphabet.')
-dialog.arrangement = new TypeArrangement(dialog.main, textBounds)
 
-dialog.affix = new TypeAffix(dialog.main, textBounds, editBounds)
+dialog.affix = new TypeAffixPanel(dialog.main, textBounds, editBounds)
+
+dialog.reverse = dialog.main.addVGroup()
+dialog.reverse.alignment = 'right'
+dialog.reverseCheck = dialog.reverse.addCheckBox(undefined, 'Reverse order')
+dialog.reverse.setTooltip('Iterate items at reverse order.')
 
 var number = 1, count = 0, stopsAt, prefix, suffix
 
@@ -45,7 +49,7 @@ dialog.setPositiveButton(function() {
             stopsAt = i + 1
         }
     }
-    if (!dialog.arrangement.isReverse()) {
+    if (!dialog.reverseCheck.value) {
         items.forEach(function(it) { retype(it) })
     } else {
         items.forEachReversed(function(it) { retype(it) })

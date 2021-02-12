@@ -8,7 +8,7 @@ checkSingleSelection()
 
 var dialog = new Dialog('Spread')
 
-dialog.spreader = new ItemSpreader(dialog.main)
+dialog.spreader = new ItemSpreaderGroup(dialog.main)
 dialog.spreader.horizontalEdit.active = true
 
 dialog.setNegativeButton('Cancel')

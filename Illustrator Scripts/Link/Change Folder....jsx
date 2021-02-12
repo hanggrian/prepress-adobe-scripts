@@ -9,10 +9,10 @@ checkHasSelection()
 var items = selection.mapItemNotNull(function(it) {
     return it.typename == 'PlacedItem' ? it : null
 })
-check(items.isNotEmpty(), 'No links found in selection.')
+check(items.isNotEmpty(), 'No links found in selection')
 
 var dialog = new Dialog("Change Links' Folder")
-dialog.picker = new FilePicker(dialog.main, [0, 0, 45, 21], dialog.title, null, true)
+dialog.picker = new FilePickerGroup(dialog.main, [0, 0, 45, 21], dialog.title, null, true)
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
