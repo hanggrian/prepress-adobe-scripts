@@ -91,7 +91,7 @@ Object.prototype.filterItem = function(predicate) {
 function _filterItem(items, predicate, result) {
     for (var i = 0; i < items.length; i++) {
         if (items[i].typename == 'GroupItem') {
-            _filterItem(items[i].pageItems, transform, result)
+            _filterItem(items[i].pageItems, predicate, result)
         } else {
             if (predicate(items[i], i)) {
                 result.push(items[i])

@@ -9,13 +9,10 @@ var ALPHABETS = [
 ]
 
 checkHasSelection()
-var items = selection.mapItemNotNull(function(it) {
-    return it.typename == 'TextFrame' ? it : null
-})
+var items = selection.filterItem(function(it) { return it.typename == 'TextFrame' })
 check(items.isNotEmpty(), 'No types found in selection')
 
 var dialog = new Dialog('Retype Numerize (Alphabet Suffix)', 'fill')
-dialog.main.alignChildren = 'fill'
 
 var textBounds = [0, 0, 70, 21]
 var editBounds = [0, 0, 100, 21]

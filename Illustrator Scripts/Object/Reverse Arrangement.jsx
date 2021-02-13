@@ -4,7 +4,7 @@
 #target Illustrator
 #include '../.lib/commons.js'
 
-checkHasSelection()
+checkMultipleSelection()
 
 var targetPositions = selection.map(function(it) { return it.absoluteZOrderPosition }).reverse()
 

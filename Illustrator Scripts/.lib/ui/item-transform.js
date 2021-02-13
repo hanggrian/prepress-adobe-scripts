@@ -4,16 +4,16 @@ function ItemChangePanel(parent) {
 
     this.changePositionsCheck = main.addCheckBox(undefined, 'Positions')
     this.changePositionsCheck.value = true
-    this.changePositionsCheck.helpTip = 'Are art object positions and orientations effected?'
+    this.changePositionsCheck.setTooltip('Are art object positions and orientations effected?')
     this.changeFillPatternsCheck = main.addCheckBox(undefined, 'Fill Patterns')
     this.changeFillPatternsCheck.value = true
-    this.changeFillPatternsCheck.helpTip = 'Are the fill patterns assigned to paths to be transformed?'
+    this.changeFillPatternsCheck.setTooltip('Are the fill patterns assigned to paths to be transformed?')
     this.changeFillGradientsCheck = main.addCheckBox(undefined, 'Fill Gradients')
     this.changeFillGradientsCheck.value = true
-    this.changeFillGradientsCheck.helpTip = 'Are the fill gradients assigned to paths to be transformed?'
+    this.changeFillGradientsCheck.setTooltip('Are the fill gradients assigned to paths to be transformed?')
     this.changeStrokePatternCheck = main.addCheckBox(undefined, 'Stroke Pattern')
     this.changeStrokePatternCheck.value = true
-    this.changeStrokePatternCheck.helpTip = 'Are the stroke patterns assigned to paths to be transformed?'
+    this.changeStrokePatternCheck.setTooltip('Are the stroke patterns assigned to paths to be transformed?')
 
     this.isPositions = function() { return self.changePositionsCheck.value }
     this.isFillPatterns = function() { return self.changeFillPatternsCheck.value }
@@ -23,11 +23,10 @@ function ItemChangePanel(parent) {
 
 function ItemAnchorPanel(parent) {
     var self = this
-    var main = parent.addVPanel('Anchor')
-    main.alignChildren = 'fill'
+    var main = parent.addVPanel('Anchor', 'fill')
 
     this.documentOrigin = main.addCheckBox(undefined, 'Default')
-    this.documentOrigin.helpTip = 'Use current reference point preference.'
+    this.documentOrigin.setTooltip('Use current reference point preference.')
     this.documentOrigin.onClick = function() {
         self.row1.enabled = !self.documentOrigin.value
         self.row2.enabled = !self.documentOrigin.value

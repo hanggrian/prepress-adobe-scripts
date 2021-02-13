@@ -10,12 +10,10 @@ var leftBounds = [0, 0, 90, 21]
 var rightBounds = [0, 0, 150, 21]
 var fixBounds = [0, 0, 50, 21]
 
-dialog.main2 = dialog.main.addHGroup()
-dialog.main2.alignChildren = 'top'
+dialog.main2 = dialog.main.addHGroup('top')
 
 // panel with fix buttons
-dialog.general = dialog.main2.addVPanel('General')
-dialog.general.alignChildren = 'fill'
+dialog.general = dialog.main2.addVPanel('General', 'fill')
 
 // color space isn't really a part of raster effects settings
 dialog.general.colorSpace = dialog.general.addHGroup()

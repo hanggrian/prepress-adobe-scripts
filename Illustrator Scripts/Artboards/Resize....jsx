@@ -12,20 +12,20 @@ dialog.fitButton = dialog.header.addIconButton(undefined, getResource('wrap_cont
         document.fitArtboardToSelectedArt(i)
     })
 })
-dialog.fitButton.helpTip = 'Wrap content.'
+dialog.fitButton.setTooltip('Wrap content.')
 
 var textBounds = [0, 0, 45, 21]
 var editBounds = [0, 0, 100, 21]
 
 dialog.width2 = dialog.main.addHGroup()
 dialog.width2.addText(textBounds, 'Width:', 'right')
-dialog.widthEdit = dialog.width2.addEditText(editBounds)
+dialog.widthEdit = dialog.width2.addEditText(editBounds, formatUnit(document.width, 'mm', 2))
 dialog.widthEdit.validateUnits()
 dialog.widthEdit.active = true
 
 dialog.height2 = dialog.main.addHGroup()
 dialog.height2.addText(textBounds, 'Height:', 'right')
-dialog.heightEdit = dialog.height2.addEditText(editBounds)
+dialog.heightEdit = dialog.height2.addEditText(editBounds, formatUnit(document.height, 'mm', 2))
 dialog.heightEdit.validateUnits()
 
 dialog.setNegativeButton('Cancel')

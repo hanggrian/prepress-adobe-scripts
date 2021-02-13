@@ -4,16 +4,14 @@
 #target Illustrator
 #include '../.lib/commons.js'
 
-allowSelectionType(SELECT_TEXT_FRAME)
+allowSelectionType('TextFrame')
 
 var dialog = new Dialog('Select Types')
 
-dialog.line = dialog.main.addHGroup()
-dialog.line.alignChildren = 'top'
+dialog.line = dialog.main.addHGroup('top')
 
 var characterTextBounds = [0, 0, 65, 21]
-dialog.character = dialog.line.addVPanel('Character')
-dialog.character.alignChildren = 'left'
+dialog.character = dialog.line.addVPanel('Character', 'left')
 dialog.character.font = dialog.character.addHGroup()
 dialog.character.font.addText(characterTextBounds, 'Font size:', 'right')
 dialog.character.fontEdit = dialog.character.font.addEditText([0, 0, 75, 21])

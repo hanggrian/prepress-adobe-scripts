@@ -13,11 +13,27 @@ function check(requirement, errorMessage) {
     }
 }
 
-/** Assert that a value is null. */
-function checkNull(value) { check(value === null || value === undefined, 'Expected value to be null') }
+/** 
+ * Assert that a value is null.
+ * @param {String} errorMessage helpful alert, may be null.
+ * @return {Object}
+ */
+function checkNull(value, errorMessage) { 
+    check(value === undefined || value === null, 
+        errorMessage !== undefined ? errorMessage : 'Expected value to be null')
+    return value
+}
 
-/** Assert that a value is not null. */
-function checkNotNull(value) { check(value !== null || value !== undefined, 'Expected value to be not null') }
+/** 
+ * Assert that a value is not null.
+ * @param {String} errorMessage helpful alert, may be null.
+ * @return {Object}
+ */
+function checkNotNull(value, errorMessage) {
+    check(value !== undefined && value !== null, 
+        errorMessage !== undefined ? errorMessage : 'Expected value to be not null')
+    return value
+}
 
 /** Assert an item's typename. */
-function checkTypename(item, typename) { check(item.typename == typename, 'Selected item is not a ' + typename) }
+function checkTypename(item, typename) { check(item.typename === typename, 'Selected item is not a ' + typename) }

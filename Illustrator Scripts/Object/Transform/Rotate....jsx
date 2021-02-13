@@ -8,21 +8,18 @@ checkHasSelection()
 
 var dialog = new Dialog('Rotate')
 
-dialog.line = dialog.main.addHGroup('top')
-dialog.left = dialog.line.addVGroup('fill')
+var editBounds = [0, 0, 150, 21]
 
-var editBounds = [0, 0, 100, 21]
-
-dialog.rotate = dialog.left.addVPanel(dialog.title)
+dialog.rotate = dialog.main.addVPanel(dialog.title)
 dialog.angle = dialog.rotate.addHGroup()
 dialog.angle.addText(undefined, 'Angle:', 'right')
 dialog.angleEdit = dialog.angle.addEditText(editBounds, '0')
 dialog.angleEdit.validateDigits()
 dialog.angleEdit.active = true
 
-dialog.change = new ItemChangePanel(dialog.left)
-
-dialog.anchor = new ItemAnchorPanel(dialog.line)
+dialog.bottom = dialog.main.addHGroup('fill')
+dialog.change = new ItemChangePanel(dialog.bottom)
+dialog.anchor = new ItemAnchorPanel(dialog.bottom)
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {

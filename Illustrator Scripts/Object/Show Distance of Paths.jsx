@@ -4,11 +4,23 @@
 #include '../.lib/commons.js'
 
 checkHasSelection()
+var items = selection.filterItem(function(it) { return it.typename == 'PathItem' || it.typename == 'CompoundPathItem' })
+check(items.isNotEmpty(), 'No paths found in selection')
 
 var count = 0, registrationCount = 0
 var distance = 0, registrationDistance = 0
-
-selection.forEach(function(it) { determine(it) })
+items.forEachItem(function(it) {
+    switch (it.typename) {
+        case 'PathItem':
+            increment(it)
+            break;
+        case 'CompoundPathItem':
+            for (var i = 0; i < it.pathItems.length; i++) {
+                increment(it.pathItems[i])
+            }
+            break;
+    }
+})
 
 var message = (count + registrationCount) + ' paths measuring at ' + formatUnit(distance + registrationDistance, 'cm', 2)
 if (distance > 0 && registrationDistance > 0) {
@@ -17,24 +29,6 @@ if (distance > 0 && registrationDistance > 0) {
         registrationCount + ' registrations (' + formatUnit(registrationDistance, 'cm', 2) + ')'
 }
 alert(message, 'Show Distance of Paths')
-
-function determine(item) {
-    switch (item.typename) {
-        case 'PathItem':
-            increment(item)
-            break;
-        case 'CompoundPathItem':
-            for (var i = 0; i < item.pathItems.length; i++) {
-                increment(item.pathItems[i])
-            }
-            break;
-        case 'GroupItem':
-            for (var i = 0; i < item.pageItems.length; i++) {
-                determine(item.pageItems[i])
-            }
-            break;
-    }
-}
 
 function increment(item) {
     if (isColorEqual(item.strokeColor, getRegistrationColor())) {

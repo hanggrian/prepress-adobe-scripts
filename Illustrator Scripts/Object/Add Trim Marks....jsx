@@ -23,11 +23,10 @@ var DEFAULT_WEIGHT = 0.3 // the same value used in `Object > Create Trim Marks`
 
 checkSingleSelection()
 
-var dialog = new Dialog('Add Trim Marks')
+var dialog = new Dialog('Add Trim Marks', 'fill')
 
-dialog.main.alignChildren = 'fill'
 dialog.upper = dialog.main.addHGroup()
-dialog.lower = dialog.main.addVPanel('Spread')
+dialog.lower = dialog.main.addVPanel('Spread', 'fill')
 
 var textBounds = [0, 0, 45, 21]
 var editBounds = [0, 0, 100, 21]
@@ -98,7 +97,6 @@ dialog.locations.bottomRightCheck.value = true
 dialog.locations5.addText(checkBounds)
 dialog.locations.setTooltip('Select which trim marks will be added.')
 
-dialog.lower.alignChildren = 'fill'
 dialog.spreader = new ItemSpreaderGroup(dialog.lower)
 
 dialog.setNegativeButton('Cancel')

@@ -1,8 +1,9 @@
 #include 'collections.js'
 #include 'preconditions.js'
 #include 'strings.js'
-#include 'ui-validator.js'
-#include 'ui.js'
+#include 'sui-dialog.js'
+#include 'sui-validator.js'
+#include 'sui.js'
 
 /** Returns true if this script is running on macOS. */
 function isMacOS() { return $.os.toLowerCase().indexOf('mac') >= 0 }

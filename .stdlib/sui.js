@@ -1,88 +1,3 @@
-/**
- * Construct a new dialog.
- * @param {String} title window title.
- */
-function Dialog(title, alignChildren) {
-    var self = this
-    this.title = title
-
-    var window = new Window('dialog', title)
-    window.orientation = 'column'
-    
-    this.main = window.addVGroup(alignChildren !== undefined ? alignChildren : 'left')
-    this.buttons = window.addHGroup()
-    this.buttons.alignment = 'right'
-
-    var positiveButtonText, positiveButtonAction
-    var negativeButtonText, negativeButtonAction
-    var neutralButtonText, neutralButtonAction, neutralButtonGap
-
-    /**
-     * Set positive dialog button, the text will always be `OK`.
-     * @param {Function} action button click listener, may be undefined.
-     */
-    this.setPositiveButton = function(action) {
-        positiveButtonText = 'OK' // automatically marked as positive button by Adobe
-        positiveButtonAction = action
-    }
-
-    /**
-     * Set negative dialog button.
-     * @param {String} text button text.
-     * @param {Function} action button click listener, may be undefined.
-     */
-    this.setNegativeButton = function(text, action) {
-        negativeButtonText = text
-        negativeButtonAction = action
-    }
-
-    /**
-     * Set neutral dialog button.
-     * @param {Number} gap gap between neutral and positive/negative button, may be undefined.
-     * @param {String} text button text.
-     * @param {Function} action button click listener, may be undefined.
-     */
-    this.setNeutralButton = function(gap, text, action) {
-        neutralButtonText = text
-        neutralButtonAction = action
-        neutralButtonGap = gap
-    }
-    
-    /** Show the dialog, after populating buttons. */
-    this.show = function() {
-        if (neutralButtonText !== undefined) {
-            addButton(neutralButtonText, neutralButtonAction)
-            if (neutralButtonGap !== undefined) {
-                self.buttons.addText([0, 0, neutralButtonGap, 0])
-            }
-        }
-        if (isMacOS()) {
-            addButton(negativeButtonText, negativeButtonAction)
-            addButton(positiveButtonText, positiveButtonAction)
-        } else {
-            addButton(positiveButtonText, positiveButtonAction)
-            addButton(negativeButtonText, negativeButtonAction)
-        }
-		window.show()
-    }
-
-    /** Manually close the dialog. */
-    this.close = function() {
-        window.close()
-    }
-
-    function addButton(text, action) {
-        if (text !== undefined) {
-            self.buttons.addButton(undefined, text, function() {
-                self.close()
-                if (action !== undefined) {
-                    action()
-                }
-            })
-        }
-    }
-}
-
 /** 
  * Add static text to target.
  * @param {Bounds} bounds size of this object.
@@ -171,7 +86,7 @@ Object.prototype.addDropDown = function(bounds, items) {
 
 /**
  * Add horizontal group to target.
- * @param {String} alignChildren optional arrangement.
+ * @param {String} alignChildren optional arrangement of this group.
  * @return {Group}
  */
 Object.prototype.addHGroup = function(alignChildren) {
@@ -185,7 +100,7 @@ Object.prototype.addHGroup = function(alignChildren) {
 
 /**
  * Add vertical group to target.
- * @param {String} alignChildren optional arrangement.
+ * @param {String} alignChildren optional arrangement of this group.
  * @return {Group}
  */
 Object.prototype.addVGroup = function(alignChildren) {
@@ -200,7 +115,7 @@ Object.prototype.addVGroup = function(alignChildren) {
 /**
  * Add horizontal panel to target.
  * @param {String} title of the panel.
- * @param {String} alignChildren optional arrangement.
+ * @param {String} alignChildren optional arrangement of this panel.
  * @return {Panel}
  */
 Object.prototype.addHPanel = function(title, alignChildren) {
@@ -216,7 +131,7 @@ Object.prototype.addHPanel = function(title, alignChildren) {
 /**
  * Add vertical panel to target.
  * @param {String} title of the panel.
- * @param {String} alignChildren optional arrangement.
+ * @param {String} alignChildren optional arrangement of this panel.
  * @return {Panel}
  */
 Object.prototype.addVPanel = function(title, alignChildren) {
@@ -235,11 +150,11 @@ Object.prototype.addVPanel = function(title, alignChildren) {
  * @param {String} tooltip help tip to install.
  */
 Object.prototype.setTooltip = function(tooltip) {
+    if (this.type != 'group' && this.type != 'panel') {
+        this.helpTip = tooltip
+        return
+    }
     this.children.forEach(function(it) {
-        if (it.type == 'group' || it.type == 'panel') {
-            it.setTooltip(tooltip)
-        } else {
-            it.helpTip = tooltip
-        }
+        it.setTooltip(tooltip)
     })
 }

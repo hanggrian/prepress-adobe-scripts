@@ -8,15 +8,11 @@ checkHasSelection()
 
 var dialog = new Dialog('Resize')
 
-dialog.line = dialog.main.addHGroup('top')
-dialog.left = dialog.line.addVGroup('fill')
-
-var textBounds = [0, 0, 45, 21]
-var editBounds = [0, 0, 100, 21]
-
 var prefill = selection.first()
+var textBounds = [0, 0, 45, 21]
+var editBounds = [0, 0, 150, 21]
 
-dialog.resize = dialog.left.addVPanel(dialog.title)
+dialog.resize = dialog.main.addVPanel(dialog.title)
 
 dialog.width2 = dialog.resize.addHGroup()
 dialog.width2.addText(textBounds, 'Width:', 'right')
@@ -29,9 +25,9 @@ dialog.height2.addText(textBounds, 'Height:', 'right')
 dialog.heightEdit = dialog.height2.addEditText(editBounds, formatUnit(prefill.height, 'mm', 2))
 dialog.heightEdit.validateUnits()
 
-dialog.change = new ItemChangePanel(dialog.left)
-
-dialog.anchor = new ItemAnchorPanel(dialog.line)
+dialog.bottom = dialog.main.addHGroup('fill')
+dialog.change = new ItemChangePanel(dialog.bottom)
+dialog.anchor = new ItemAnchorPanel(dialog.bottom)
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {

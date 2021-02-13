@@ -4,57 +4,54 @@
 #target Illustrator
 #include '../.lib/commons.js'
 
-allowSelectionType(SELECT_PATH)
-allowSelectionType(SELECT_COMPOUND_PATH)
+allowSelectionType('PathItem')
+allowSelectionType('CompoundPathItem')
 
 var dialog = new Dialog('Select Paths')
 
 dialog.line = dialog.main.addHGroup()
-dialog.line.alignChildren = 'top'
-dialog.left = dialog.line.addVGroup()
-dialog.right = dialog.line.addVGroup()
 
-var leftTextBounds = [0, 0, 45, 21]
-var leftEditBounds = [0, 0, 100, 21]
+var lineTextBounds = [0, 0, 45, 21]
+var lineEditBounds = [0, 0, 100, 21]
 
-dialog.dimension = dialog.left.addVPanel('Dimension')
+dialog.dimension = dialog.line.addVPanel('Dimension')
 dialog.dimension.width = dialog.dimension.addHGroup()
-dialog.dimension.width.addText(leftTextBounds, 'Width:', 'right')
-dialog.dimension.widthEdit = dialog.dimension.width.addEditText(leftEditBounds)
+dialog.dimension.width.addText(lineTextBounds, 'Width:', 'right')
+dialog.dimension.widthEdit = dialog.dimension.width.addEditText(lineEditBounds)
 dialog.dimension.widthEdit.validateUnits()
 dialog.dimension.widthEdit.active = true
 dialog.dimension.height = dialog.dimension.addHGroup()
-dialog.dimension.height.addText(leftTextBounds, 'Height:', 'right')
-dialog.dimension.heightEdit = dialog.dimension.height.addEditText(leftEditBounds)
+dialog.dimension.height.addText(lineTextBounds, 'Height:', 'right')
+dialog.dimension.heightEdit = dialog.dimension.height.addEditText(lineEditBounds)
 dialog.dimension.heightEdit.validateUnits()
 
-dialog.color = dialog.left.addVPanel('Color')
+dialog.color = dialog.line.addVPanel('Color')
 dialog.color.fill = dialog.color.addHGroup()
-dialog.color.fill.addText(leftTextBounds, 'Fill:', 'right')
-dialog.color.fillList = dialog.color.fill.addDropDown(leftEditBounds, COLORS)
+dialog.color.fill.addText(lineTextBounds, 'Fill:', 'right')
+dialog.color.fillList = dialog.color.fill.addDropDown(lineEditBounds, COLORS)
 dialog.color.stroke = dialog.color.addHGroup()
-dialog.color.stroke.addText(leftTextBounds, 'Stroke:', 'right')
-dialog.color.strokeList = dialog.color.stroke.addDropDown(leftEditBounds, COLORS)
+dialog.color.stroke.addText(lineTextBounds, 'Stroke:', 'right')
+dialog.color.strokeList = dialog.color.stroke.addDropDown(lineEditBounds, COLORS)
 
-var rightTextBounds = [0, 0, 55, 21]
+var propertiesTextBounds = [0, 0, 55, 21]
 
-dialog.properties = dialog.right.addVPanel('Properties')
+dialog.properties = dialog.main.addVPanel('Properties')
 dialog.properties.clipping = dialog.properties.addHGroup()
-dialog.properties.clipping.addText(rightTextBounds, 'Clipping:', 'right')
+dialog.properties.clipping.addText(propertiesTextBounds, 'Clipping:', 'right')
 dialog.properties.clipping.anyCheck = dialog.properties.clipping.addRadioButton(undefined, 'Any')
 dialog.properties.clipping.anyCheck.value = true
 dialog.properties.clipping.enabledCheck = dialog.properties.clipping.addRadioButton(undefined, 'Enabled')
 dialog.properties.clipping.disabledCheck = dialog.properties.clipping.addRadioButton(undefined, 'Disabled')
 dialog.properties.clipping.setTooltip('Should this be used as a clipping path?')
 dialog.properties.closed = dialog.properties.addHGroup()
-dialog.properties.closed.addText(rightTextBounds, 'Closed:', 'right')
+dialog.properties.closed.addText(propertiesTextBounds, 'Closed:', 'right')
 dialog.properties.closed.anyCheck = dialog.properties.closed.addRadioButton(undefined, 'Any')
 dialog.properties.closed.anyCheck.value = true
 dialog.properties.closed.enabledCheck = dialog.properties.closed.addRadioButton(undefined, 'Enabled')
 dialog.properties.closed.disabledCheck = dialog.properties.closed.addRadioButton(undefined, 'Disabled')
 dialog.properties.closed.setTooltip('Is this path closed?')
 dialog.properties.guides = dialog.properties.addHGroup()
-dialog.properties.guides.addText(rightTextBounds, 'Guides:', 'right')
+dialog.properties.guides.addText(propertiesTextBounds, 'Guides:', 'right')
 dialog.properties.guides.anyCheck = dialog.properties.guides.addRadioButton(undefined, 'Any')
 dialog.properties.guides.anyCheck.value = true
 dialog.properties.guides.enabledCheck = dialog.properties.guides.addRadioButton(undefined, 'Enabled')

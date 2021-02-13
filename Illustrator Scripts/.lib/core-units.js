@@ -12,10 +12,7 @@ function formatUnit(unitValue, unitName, fraction) {
     var s = fraction !== undefined
         ? value.toFixed(fraction)
         : value.toString()
-    while (s.endsWith('.') || s.endsWith('0')) {
-        s = s.slice(0, -1)
-    }
-    return s + ' ' + unitName
+    return parseFloat(s) + ' ' + unitName
 }
 
 /**

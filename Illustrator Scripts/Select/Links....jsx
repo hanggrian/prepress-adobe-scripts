@@ -16,12 +16,11 @@ var FILE_PNG = ['png', 'pns']
 var FILE_PSD = ['psd', 'psb', 'pdd']
 var FILE_TIFF = ['tif', 'tiff']
 
-allowSelectionType(SELECT_PLACED)
+allowSelectionType('PlacedItem')
 
 var dialog = new Dialog('Select Links')
 
-dialog.line = dialog.main.addHGroup()
-dialog.line.alignChildren = 'top'
+dialog.line = dialog.main.addHGroup('top')
 
 var dimensionTextBounds = [0, 0, 45, 21]
 var dimensionEditBounds = [0, 0, 100, 21]
@@ -36,8 +35,7 @@ dialog.dimension.height.addText(dimensionTextBounds, 'Height:', 'right')
 dialog.dimension.heightEdit = dialog.dimension.height.addEditText(dimensionEditBounds)
 dialog.dimension.heightEdit.validateUnits()
 
-dialog.types = dialog.line.addVPanel('File types')
-dialog.types.alignChildren = 'fill'
+dialog.types = dialog.line.addVPanel('File types', 'fill')
 dialog.types.aiCheck = dialog.types.addCheckBox(undefined, getTypeString('Adobe Illustrator', FILE_AI))
 dialog.types.pdfCheck = dialog.types.addCheckBox(undefined, getTypeString('Adobe PDF', FILE_PDF))
 dialog.types.bmpCheck = dialog.types.addCheckBox(undefined, getTypeString('BMP', FILE_BMP))

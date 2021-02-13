@@ -6,13 +6,11 @@
 #include '../.lib/ui/file-picker.js'
 
 checkHasSelection()
-var items = selection.mapItemNotNull(function(it) {
-    return it.typename == 'PlacedItem' ? it : null
-})
+var items = selection.filterItem(function(it) { return it.typename == 'PlacedItem' })
 check(items.isNotEmpty(), 'No links found in selection')
 
 var dialog = new Dialog("Change Links' Folder")
-dialog.picker = new FilePickerGroup(dialog.main, [0, 0, 45, 21], dialog.title, null, true)
+dialog.picker = new FilePickerGroup(dialog, dialog.main, [0, 0, 45, 21], dialog.title, null, true)
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
@@ -21,5 +19,5 @@ dialog.setPositiveButton(function() {
             .filter(function(file) { return file.name == item.file.name })
             .first())
     })
-})
+}, false)
 dialog.show()

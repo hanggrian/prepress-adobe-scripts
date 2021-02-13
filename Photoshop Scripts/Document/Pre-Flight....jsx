@@ -9,12 +9,10 @@ var leftBounds = [0, 0, 70, 21]
 var rightBounds = [0, 0, 100, 21]
 var fixBounds = [0, 0, 50, 21]
 
-dialog.main2 = dialog.main.addHGroup()
-dialog.main2.alignChildren = 'top'
+dialog.main2 = dialog.main.addHGroup('top')
 
 // panel with fix buttons
-dialog.general = dialog.main2.addVPanel('General')
-dialog.general.alignChildren = 'fill'
+dialog.general = dialog.main2.addVPanel('General', 'fill')
 
 dialog.general.mode = dialog.general.addHGroup()
 dialog.general.mode.addText(leftBounds, 'Mode:', 'right')

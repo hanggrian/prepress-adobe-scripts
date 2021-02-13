@@ -1,18 +1,6 @@
 // When nothing is selected, this library will select all items with requested types.
 // When there are selection, it will instead filter the selection to only match requested types.
 
-var SELECT_COMPOUND_PATH = 'CompoundPathItem'
-var SELECT_GRAPH = 'GraphItem'
-var SELECT_LEGACY_TEXT = 'LegacyTextItem'
-var SELECT_MESH = 'MeshItem'
-var SELECT_NON_NATIVE = 'NonNativeItem'
-var SELECT_PATH = 'PathItem'
-var SELECT_PLACED = 'PlacedItem'
-var SELECT_PLUGIN = 'PluginItem'
-var SELECT_RASTER = 'RasterItem'
-var SELECT_SYMBOL = 'SymbolItem'
-var SELECT_TEXT_FRAME = 'TextFrame'
-
 var _allowedSelectionTypes = []
 
 /**
