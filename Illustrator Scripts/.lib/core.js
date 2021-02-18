@@ -23,8 +23,8 @@ Object.prototype.layerName = function() {
  * @return {PathItem}
  */
 Object.prototype.getClippingPathItem = function() {
-    if (this.typename == 'GroupItem' && this.clipped) {
-        return this.pathItems.first()
+    if (this.typename === 'GroupItem' && this.clipped) {
+        return this.pathItems[0]
     }
     return this
 }

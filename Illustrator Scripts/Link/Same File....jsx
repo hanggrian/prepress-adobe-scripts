@@ -11,7 +11,7 @@ var items = selection.filterItem(function(it) { return it.typename == 'PlacedIte
 check(items.isNotEmpty(), 'No links found in selection')
 
 var dialog = new Dialog('Relink to Same File')
-dialog.picker = new FilePickerGroup(dialog, dialog.main, [0, 0, 45, 21], dialog.title, [
+dialog.picker = new FilePickerPanel(dialog, dialog.main, dialog.title, [
     ['Adobe Illustrator', 'ai'],
     ['Adobe PDF', 'pdf'],
     ['BMP', 'bmp'],

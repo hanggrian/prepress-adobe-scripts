@@ -6,14 +6,13 @@
 
 var dialog = new Dialog('Impose Saddle-Stich Booklet')
 
-var textBounds = [0, 0, 45, 21]
-var editBounds = [0, 0, 100, 21]
-
-dialog.picker = new FilePickerGroup(dialog, dialog.main, textBounds, dialog.title, [
+dialog.picker = new FilePickerPanel(dialog, dialog.main, dialog.title, [
     ['Adobe Illustrator', 'ai'],
     ['Adobe PDF', 'pdf']
 ], true)
 
+var textBounds = [0, 0, 45, 21]
+var editBounds = [0, 0, 100, 21]
 dialog.bleed = dialog.main.addHGroup()
 dialog.bleed.addText(textBounds, 'Bleed:', 'right')
 dialog.bleedText = dialog.bleed.addEditText(editBounds, '0 mm')

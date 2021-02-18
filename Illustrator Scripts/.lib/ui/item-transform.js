@@ -1,17 +1,17 @@
 function ItemChangePanel(parent) {
     var self = this
-    var main = parent.addVPanel('Change', 'fill')
+    this.main = parent.addVPanel('Change', 'fill')
 
-    this.changePositionsCheck = main.addCheckBox(undefined, 'Positions')
+    this.changePositionsCheck = this.main.addCheckBox(undefined, 'Positions')
     this.changePositionsCheck.value = true
     this.changePositionsCheck.setTooltip('Are art object positions and orientations effected?')
-    this.changeFillPatternsCheck = main.addCheckBox(undefined, 'Fill Patterns')
+    this.changeFillPatternsCheck = this.main.addCheckBox(undefined, 'Fill Patterns')
     this.changeFillPatternsCheck.value = true
     this.changeFillPatternsCheck.setTooltip('Are the fill patterns assigned to paths to be transformed?')
-    this.changeFillGradientsCheck = main.addCheckBox(undefined, 'Fill Gradients')
+    this.changeFillGradientsCheck = this.main.addCheckBox(undefined, 'Fill Gradients')
     this.changeFillGradientsCheck.value = true
     this.changeFillGradientsCheck.setTooltip('Are the fill gradients assigned to paths to be transformed?')
-    this.changeStrokePatternCheck = main.addCheckBox(undefined, 'Stroke Pattern')
+    this.changeStrokePatternCheck = this.main.addCheckBox(undefined, 'Stroke Pattern')
     this.changeStrokePatternCheck.value = true
     this.changeStrokePatternCheck.setTooltip('Are the stroke patterns assigned to paths to be transformed?')
 
@@ -23,9 +23,9 @@ function ItemChangePanel(parent) {
 
 function ItemAnchorPanel(parent) {
     var self = this
-    var main = parent.addVPanel('Anchor', 'fill')
+    this.main = parent.addVPanel('Anchor', 'fill')
 
-    this.documentOrigin = main.addCheckBox(undefined, 'Default')
+    this.documentOrigin = this.main.addCheckBox(undefined, 'Default')
     this.documentOrigin.setTooltip('Use current reference point preference.')
     this.documentOrigin.onClick = function() {
         self.row1.enabled = !self.documentOrigin.value
@@ -33,9 +33,9 @@ function ItemAnchorPanel(parent) {
         self.row3.enabled = !self.documentOrigin.value
     }
 
-    this.row1 = main.addHGroup()
-    this.row2 = main.addHGroup()
-    this.row3 = main.addHGroup()
+    this.row1 = this.main.addHGroup()
+    this.row2 = this.main.addHGroup()
+    this.row3 = this.main.addHGroup()
     
     var radioBounds = [0, 0, 15, 15]
 

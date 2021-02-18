@@ -10,7 +10,7 @@ var items = selection.filterItem(function(it) { return it.typename == 'PlacedIte
 check(items.isNotEmpty(), 'No links found in selection')
 
 var dialog = new Dialog("Change Links' Folder")
-dialog.picker = new FilePickerGroup(dialog, dialog.main, [0, 0, 45, 21], dialog.title, null, true)
+dialog.picker = new FilePickerPanel(dialog, dialog.main, dialog.title, null, true)
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
