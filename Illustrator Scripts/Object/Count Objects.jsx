@@ -11,4 +11,4 @@ var message = 'There are ' + selection.length + ' items.'
 if (selection.length != innerCount) {
     message += '\n' + innerCount + ' items across all groups.'
 }
-alert(message, 'Show Count')
+alert(message, 'Count Objects')

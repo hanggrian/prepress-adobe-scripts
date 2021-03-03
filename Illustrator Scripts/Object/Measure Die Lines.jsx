@@ -28,7 +28,7 @@ if (distance > 0 && registrationDistance > 0) {
         count + ' non-registrations (' + formatUnit(distance, 'cm', 2) + ')\n' +
         registrationCount + ' registrations (' + formatUnit(registrationDistance, 'cm', 2) + ')'
 }
-alert(message, 'Show Distance of Paths')
+alert(message, 'Measure Die Lines')
 
 function increment(item) {
     if (isColorEqual(item.strokeColor, getRegistrationColor())) {
