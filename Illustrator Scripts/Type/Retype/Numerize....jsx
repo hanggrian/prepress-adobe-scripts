@@ -22,7 +22,7 @@ dialog.digits = dialog.retype.addHGroup()
 dialog.digits.addText(textBounds, 'Digits:', 'right')
 dialog.digitsEdit = dialog.digits.addEditText(editBounds)
 dialog.digitsEdit.validateDigits()
-dialog.digits.setTooltip('Put n number of zeroes.')
+dialog.digits.setTooltip('Put n number of zeroes, can be left empty.')
 
 dialog.affix = new TypeAffixPanel(dialog.main, textBounds, editBounds)
 
@@ -39,19 +39,18 @@ dialog.setPositiveButton(function() {
     digits = parseInt(dialog.digitsEdit.text) || 0
     prefix = dialog.affix.prefixEdit.text
     suffix = dialog.affix.suffixEdit.text
+    var func = function(item) {
+        item.words.removeAll()
+        item.words.add(prefix + pad(count, digits) + suffix) 
+        count++
+    }
     if (!dialog.reverseCheck.value) {
-        items.forEach(function(it) { retype(it) })
+        items.forEach(func)
     } else {
-        items.forEachReversed(function(it) { retype(it) })
+        items.forEachReversed(func)
     }
 })
 dialog.show()
-
-function retype(item) {
-    item.words.removeAll()
-    item.words.add(prefix + pad(count, digits) + suffix) 
-    count++
-}
 
 // https://stackoverflow.com/questions/10073699/pad-a-number-with-leading-zeros-in-javascript
 function pad(n, width, z) {

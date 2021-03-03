@@ -22,15 +22,20 @@ items.forEachItem(function(it) {
     }
 })
 
-var message = (count + registrationCount) + ' paths measuring at ' + formatUnit(distance + registrationDistance, 'cm', 2)
+var message = (count + registrationCount) + ' lines measuring at ' + formatUnit(distance + registrationDistance, 'cm', 2)
 if (distance > 0 && registrationDistance > 0) {
     message += '\nConsist of:\n' +
         count + ' non-registrations (' + formatUnit(distance, 'cm', 2) + ')\n' +
         registrationCount + ' registrations (' + formatUnit(registrationDistance, 'cm', 2) + ')'
 }
-alert(message, 'Measure Die Lines')
+alert(count === 0 && registrationCount === 0 && distance === 0 && registrationDistance === 0
+    ? 'No die lines found in selection.'
+    : message, 'Measure Die Lines')
 
 function increment(item) {
+    if (item.filled) {
+        return // die lines usually aren't filled
+    }
     if (isColorEqual(item.strokeColor, getRegistrationColor())) {
         registrationCount++
         registrationDistance += item.length

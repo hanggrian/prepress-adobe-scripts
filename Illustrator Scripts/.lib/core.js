@@ -30,6 +30,26 @@ Object.prototype.getClippingPathItem = function() {
 }
 
 /**
+ * Returns true if this file is PDF type, and should be opened with `PDFFileOptions`.
+ * @return {Boolean}
+ */
+File.prototype.isPDF = function() {
+    var ext = unescape(this.name).substringAfter('.').toLowerCase()
+    return ext === 'pdf' || ext === 'ai'
+}
+
+/**
+ * Set PDF file options for opening/relinking.
+ * @param {PDFBoxType} boxType cropping method.
+ * @param {Number} page PDF page to open.
+ */
+function updatePDFPreferences(boxType, page) {
+    var options = app.preferences.PDFFileOptions
+    options.pDFCropToBox = boxType
+    options.pageToOpen = page
+}
+
+/**
  * Pick a folder.
  * @param {String} prompt title of the picker
  * @return {Folder}

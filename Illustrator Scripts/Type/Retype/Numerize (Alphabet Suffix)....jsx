@@ -46,27 +46,26 @@ dialog.setPositiveButton(function() {
             stopsAt = i + 1
         }
     }
+    var func = function(item) {
+        var s = number.toString()
+        if (dialog.spaceCheck.value) {
+            s += ' '
+        }
+        s += ALPHABETS[count]
+    
+        item.words.removeAll()
+        item.words.add(prefix + s + suffix)
+    
+        count++
+        if (count == stopsAt) {
+            number++
+            count = 0
+        }
+    }
     if (!dialog.reverseCheck.value) {
-        items.forEach(function(it) { retype(it) })
+        items.forEach(func)
     } else {
-        items.forEachReversed(function(it) { retype(it) })
+        items.forEachReversed(func)
     }
 })
 dialog.show()
-
-function retype(item) {
-    var s = number.toString()
-    if (dialog.spaceCheck.value) {
-        s += ' '
-    }
-    s += ALPHABETS[count]
-
-    item.words.removeAll()
-    item.words.add(prefix + s + suffix)
-
-    count++
-    if (count == stopsAt) {
-        number++
-        count = 0
-    }
-}
