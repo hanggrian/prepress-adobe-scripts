@@ -34,7 +34,7 @@ Object.prototype.getClippingPathItem = function() {
  * @return {Boolean}
  */
 File.prototype.isPDF = function() {
-    var ext = unescape(this.name).substringAfter('.').toLowerCase()
+    var ext = unescape(this.name).substringAfterLast('.').toLowerCase()
     return ext === 'pdf' || ext === 'ai'
 }
 
@@ -79,23 +79,19 @@ function openFile(prompt, filters, multiSelect) {
         }
     } else {
         // expected filters = 'Adobe Illustrator:*.ai;Photoshop:*.psd,*.psb,*.pdd;'
+        nativeFilters = ''
+        var allExtensions = []
         filters.forEach(function(array) {
             check(array.length > 1, 'File extension required')
-            array.forEach(function(it, index) {
-                switch (index) {
-                    case 0:
-                        nativeFilters = it + ':'
-                        break;
-                    case 1:
-                        nativeFilters += '*.' + it
-                        break;
-                    default:
-                        nativeFilters += ',*.' + it
-                        break;
-                }
-            })
-            nativeFilters += ';'
+            var name = array.first()
+            var extensions = array.slice(1)
+            nativeFilters += name + ':*.' + extensions.join(';*.') + ','
+            allExtensions = allExtensions.concat(extensions)
         })
+        nativeFilters = 'All Formats:*.' + allExtensions.join(';*.') + ',' + nativeFilters
+        if (nativeFilters.endsWith(',')) {
+            nativeFilters = nativeFilters.substringBeforeLast(',')
+        }
         $.writeln('Native filters = ' + nativeFilters)
     }
     return File.openDialog(prompt, nativeFilters, multiSelect === undefined ? false : multiSelect)

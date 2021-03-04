@@ -1,5 +1,6 @@
 #target Illustrator
 #include '../../.lib/commons.js'
+#include '../../.lib/ui/reverse-order.js'
 #include '../../.lib/ui/type-affix.js'
 
 checkHasSelection()
@@ -26,10 +27,7 @@ dialog.digits.setTooltip('Put n number of zeroes, can be left empty.')
 
 dialog.affix = new TypeAffixPanel(dialog.main, textBounds, editBounds)
 
-dialog.reverse = dialog.main.addVGroup()
-dialog.reverse.alignment = 'right'
-dialog.reverseCheck = dialog.reverse.addCheckBox(undefined, 'Reverse order')
-dialog.reverse.setTooltip('Iterate items at reverse order.')
+dialog.reverse = new ReverseOrderGroup(dialog.main)
 
 var count, digits, prefix, suffix
 
@@ -39,16 +37,11 @@ dialog.setPositiveButton(function() {
     digits = parseInt(dialog.digitsEdit.text) || 0
     prefix = dialog.affix.prefixEdit.text
     suffix = dialog.affix.suffixEdit.text
-    var func = function(item) {
+    dialog.reverse.forEachAware(items, function(item) {
         item.words.removeAll()
         item.words.add(prefix + pad(count, digits) + suffix) 
         count++
-    }
-    if (!dialog.reverseCheck.value) {
-        items.forEach(func)
-    } else {
-        items.forEachReversed(func)
-    }
+    })
 })
 dialog.show()
 

@@ -11,8 +11,8 @@ checkTypename(selection.first(), 'PlacedItem')
 checkNotNull(item.file)
 
 var currentFileName = unescape(item.file.name)
-var currentName = currentFileName.substringBefore('.')
-var currentExt = currentFileName.substringAfter('.')
+var currentName = currentFileName.substringBeforeLast('.')
+var currentExt = currentFileName.substringAfterLast('.')
 
 var input = prompt('New file name:', currentName, 'Relink Rename File')
 

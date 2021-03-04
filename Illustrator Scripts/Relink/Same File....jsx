@@ -4,7 +4,7 @@
 
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/ui/relink-options.js'
+#include '../.lib/ui/relink.js'
 
 checkHasSelection()
 var items = selection.filterItem(function(it) { return it.typename == 'PlacedItem' })
@@ -12,15 +12,15 @@ check(items.isNotEmpty(), 'No links found in selection')
 
 var dialog = new Dialog('Relink Same File', 'fill')
 var file = openFile(dialog.title, [
-    ['Adobe Illustrator', 'ai'],
-    ['Adobe PDF', 'pdf'],
-    ['BMP', 'bmp'],
-    ['GIF89a', 'gif'],
-    ['JPEG', 'jpg', 'jpe', 'jpeg'],
-    ['JPEG2000', 'jpf', 'jpx', 'jp2', 'j2k', 'j2c', 'jpc'],
-    ['PNG', 'png', 'pns'],
-    ['Photoshop', 'psd', 'psb', 'pdd'],
-    ['TIFF', 'tif', 'tiff']
+    ['Adobe Illustrator', 'AI'],
+    ['Adobe PDF', 'PDF'],
+    ['BMP', 'BMP'],
+    ['GIF89a', 'GIF'],
+    ['JPEG', 'JPG', 'JPE', 'JPEG'],
+    ['JPEG2000', 'JPF', 'JPX', 'JP2', 'J2K', 'J2C', 'JPC'],
+    ['PNG', 'PNG', 'PNS'],
+    ['Photoshop', 'PSD', 'PSB', 'PDD'],
+    ['TIFF', 'TIF', 'TIFF']
 ])
 
 if (file != null) {
@@ -28,25 +28,30 @@ if (file != null) {
     var editBounds = [0, 0, 100, 21]
 
     if (file.isPDF()) {
-        dialog.pdfOptions = new PdfOptionsPanel(dialog.main, textBounds, editBounds, true)
-        dialog.pdfOptions.pageEdit.active = true
+        dialog.pdf = new RelinkPDFPanel(dialog.main, textBounds, editBounds)
+        
+        dialog.pdf.page = dialog.pdf.main.addHGroup()
+        dialog.pdf.page.addText(textBounds, 'Page:', 'right')
+        dialog.pdf.pageEdit = dialog.pdf.page.addEditText(editBounds, '1')
+        dialog.pdf.pageEdit.validateDigits()
+        dialog.pdf.pageEdit.active = true
+        dialog.pdf.page.setTooltip('What page should be used when opening a multipage document.')
     }
 
-    dialog.dimension = dialog.main.addVPanel('Dimension')
-    dialog.dimensionCheck = dialog.dimension.addCheckBox(undefined, 'Maintain size & position')
-    dialog.dimension.setTooltip('Keep current dimension after relinking.')
+    dialog.dimension = new RelinkDimensionPanel(dialog.main)
 
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
         if (file.isPDF()) {
-            updatePDFPreferences(dialog.pdfOptions.getBoxType(), dialog.pdfOptions.getPage())
+            var page = parseInt(dialog.pdf.pageEdit.text) || 1
+            updatePDFPreferences(dialog.pdf.getBoxType(), page)
         }
         items.forEach(function(item) {
             var width = item.width
             var height = item.height
             var position = item.position
             item.relink(file)
-            if (dialog.dimensionCheck.value) {
+            if (dialog.dimension.isMaintain()) {
                 item.width = width
                 item.height = height
                 item.position = position

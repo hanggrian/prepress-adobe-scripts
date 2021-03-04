@@ -26,10 +26,28 @@ String.prototype.substringBefore = function(s) {
 }
 
 /**
+ * Returns prefix that ends with last target.
+ * @param {String} s target.
+ * @return {Boolean}
+ */
+String.prototype.substringBeforeLast = function(s) {
+    return this.substring(0, this.lastIndexOf(s))
+}
+
+/**
  * Returns suffix that starts with target.
  * @param {String} s target.
  * @return {Boolean}
  */
 String.prototype.substringAfter = function(s) {
+    return this.substring(this.indexOf(s) + 1)
+}
+
+/**
+ * Returns suffix that starts with last target.
+ * @param {String} s target.
+ * @return {Boolean}
+ */
+String.prototype.substringAfterLast = function(s) {
     return this.substring(this.lastIndexOf(s) + 1)
 }

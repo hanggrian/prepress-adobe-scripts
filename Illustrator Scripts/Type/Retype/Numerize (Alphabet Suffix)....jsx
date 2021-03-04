@@ -1,5 +1,6 @@
 #target Illustrator
 #include '../../.lib/commons.js'
+#include '../../.lib/ui/reverse-order.js'
 #include '../../.lib/ui/type-affix.js'
 
 var ALPHABETS = [
@@ -30,10 +31,7 @@ dialog.space.setTooltip('Add single space between number and alphabet.')
 
 dialog.affix = new TypeAffixPanel(dialog.main, textBounds, editBounds)
 
-dialog.reverse = dialog.main.addVGroup()
-dialog.reverse.alignment = 'right'
-dialog.reverseCheck = dialog.reverse.addCheckBox(undefined, 'Reverse order')
-dialog.reverse.setTooltip('Iterate items at reverse order.')
+dialog.reverse = new ReverseOrderGroup(dialog.main)
 
 var number = 1, count = 0, stopsAt, prefix, suffix
 
@@ -46,7 +44,7 @@ dialog.setPositiveButton(function() {
             stopsAt = i + 1
         }
     }
-    var func = function(item) {
+    dialog.reverse.forEachAware(items, function(item) {
         var s = number.toString()
         if (dialog.spaceCheck.value) {
             s += ' '
@@ -61,11 +59,6 @@ dialog.setPositiveButton(function() {
             number++
             count = 0
         }
-    }
-    if (!dialog.reverseCheck.value) {
-        items.forEach(func)
-    } else {
-        items.forEachReversed(func)
-    }
+    })
 })
 dialog.show()
