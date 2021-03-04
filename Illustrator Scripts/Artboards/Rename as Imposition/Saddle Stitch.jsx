@@ -8,9 +8,9 @@ var end = document.artboards.length * 2
 var isFront = true
 document.artboards.forEach(function(it) {
     it.name = isFront
-        ? it.name = end + '-' + start
-        : it.name = start + '-' + end
-    end--
+        ? end + '-' + start
+        : start + '-' + end
     start++
+    end--
     isFront = !isFront
 })

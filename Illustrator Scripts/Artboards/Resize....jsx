@@ -3,17 +3,6 @@
 
 var dialog = new Dialog('Resize Artboards')
 
-dialog.header = dialog.main.addHGroup()
-dialog.fitButton = dialog.header.addIconButton(undefined, getResource('wrap_content.png'), function() {
-    dialog.close()
-    document.artboards.forEach(function(_, i) {
-        document.artboards.setActiveArtboardIndex(i)
-        document.selectObjectsOnActiveArtboard(i)
-        document.fitArtboardToSelectedArt(i)
-    })
-})
-dialog.fitButton.setTooltip('Wrap content.')
-
 var textBounds = [0, 0, 45, 21]
 var editBounds = [0, 0, 100, 21]
 

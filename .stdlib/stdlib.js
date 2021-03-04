@@ -1,4 +1,5 @@
 #include 'collections.js'
+#include 'files.js'
 #include 'preconditions.js'
 #include 'strings.js'
 #include 'sui-dialog.js'

@@ -50,7 +50,7 @@ if (file != null) {
             var width = item.width
             var height = item.height
             var position = item.position
-            item.relink(file)
+            item.file = file
             if (dialog.dimension.isMaintain()) {
                 item.width = width
                 item.height = height

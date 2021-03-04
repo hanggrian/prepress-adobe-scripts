@@ -30,15 +30,6 @@ Object.prototype.getClippingPathItem = function() {
 }
 
 /**
- * Returns true if this file is PDF type, and should be opened with `PDFFileOptions`.
- * @return {Boolean}
- */
-File.prototype.isPDF = function() {
-    var ext = unescape(this.name).substringAfterLast('.').toLowerCase()
-    return ext === 'pdf' || ext === 'ai'
-}
-
-/**
  * Set PDF file options for opening/relinking.
  * @param {PDFBoxType} boxType cropping method.
  * @param {Number} page PDF page to open.
@@ -69,10 +60,8 @@ function openFile(prompt, filters, multiSelect) {
         nativeFilters = function(file) {
             var condition = file instanceof Folder // required to go through directory
             filters.forEach(function(array) {
-                array.forEach(function(it, index) {
-                    if (index > 0) {
-                        condition = condition || file.name.endsWith('.' + it)
-                    }
+                array.slice(1).forEach(function(ext) {
+                    condition = condition || file.fileExt() === ext.toLowerCase()
                 })
             })
             return condition
