@@ -75,7 +75,9 @@ dialog.setPositiveButton(function() {
     var y = target.position[1]
 
     app.copy()
-    target.remove()
+    if (!dialog.target.trimMarksCheck.value) {
+        target.remove()
+    }
 
     // vertical starts with 0 because the starting point doesn't change
     for (var v = 0; v < vertical; v++) {

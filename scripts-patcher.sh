@@ -64,14 +64,14 @@ patchPreset() {
 
     echo "Patching to '$app'..."
     if [ -d "$targetLibs" ] ; then
-        echo 'Deleting existing root libraries...'
+        echo 'Deleting existing shared libraries...'
         rm -rf "$targetLibs"
     fi
     if [ -d "$targetScripts" ] ; then
         echo 'Deleting existing scripts...'
         rm -rf "$targetScripts"
     fi
-    echo 'Copying new scripts and root libraries...'
+    echo 'Copying new shared libraries and scripts...'
     mkdir "$targetScripts"
     cp -r "$sourceScripts"/. "$targetScripts"
     mkdir "$targetLibs"
