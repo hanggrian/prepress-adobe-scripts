@@ -46,6 +46,20 @@ Object.prototype.contains = function(element) {
 }
 
 /**
+ * Returns an array containing only distinct elements from the given collection.
+ * @return {Array}
+ */
+Object.prototype.distinct = function() {
+    var distinct = []
+    this.forEach(function(element) {
+        if (!distinct.contains(element)) {
+            distinct.push(element)
+        }
+    })
+    return distinct
+}
+
+/**
  * Iterate each element of this collection.
  * @param {Function} action runnable to execute.
  */

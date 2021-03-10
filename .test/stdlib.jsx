@@ -1,3 +1,4 @@
+#target Illustrator
 #include '../.stdlib/stdlib.js'
 
 check('Hello World'.startsWith('Hello'))

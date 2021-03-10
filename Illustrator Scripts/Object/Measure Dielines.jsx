@@ -1,14 +1,17 @@
 // Measure length of all selected path items.
 // TODO: avoid duplicate paths in the same position and length.
 
+#target Illustrator
 #include '../.lib/commons.js'
 
 checkHasSelection()
 var items = selection.filterItem(function(it) { return it.typename == 'PathItem' || it.typename == 'CompoundPathItem' })
 check(items.isNotEmpty(), 'No paths found in selection')
 
+var hasFilledLine = false
 var count = 0, registrationCount = 0
 var distance = 0, registrationDistance = 0
+
 items.forEachItem(function(it) {
     switch (it.typename) {
         case 'PathItem':
@@ -22,19 +25,28 @@ items.forEachItem(function(it) {
     }
 })
 
-var message = (count + registrationCount) + ' lines measuring at ' + formatUnit(distance + registrationDistance, 'cm', 2)
-if (distance > 0 && registrationDistance > 0) {
-    message += '\nConsist of:\n' +
-        count + ' non-registrations (' + formatUnit(distance, 'cm', 2) + ')\n' +
-        registrationCount + ' registrations (' + formatUnit(registrationDistance, 'cm', 2) + ')'
+var message
+if (count + registrationCount + distance + registrationDistance === 0) {
+    message = 'No dielines found in selection.'
+    if (hasFilledLine) {
+        message += '\nLines with color fill are ignored.'
+    }
+} else {
+    message = (count + registrationCount) + ' lines measuring at ' + formatUnit(distance + registrationDistance, 'cm', 2)
+    if (distance > 0 && registrationDistance > 0) {
+        message += ', containing:' +
+            '\n' + count + ' lines at ' + formatUnit(distance, 'cm', 2) +
+            '\n' + registrationCount + ' registration lines at ' + formatUnit(registrationDistance, 'cm', 2)
+    } else {
+        message += '.'
+    }
 }
-alert(count === 0 && registrationCount === 0 && distance === 0 && registrationDistance === 0
-    ? 'No die lines found in selection.'
-    : message, 'Measure Die Lines')
+alert(message, 'Measure Dielines')
 
 function increment(item) {
     if (item.filled) {
-        return // die lines usually aren't filled
+        hasFilledLine = true
+        return // dielines usually aren't filled
     }
     if (isColorEqual(item.strokeColor, getRegistrationColor())) {
         registrationCount++

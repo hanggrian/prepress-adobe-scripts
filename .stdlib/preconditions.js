@@ -19,8 +19,9 @@ function check(requirement, errorMessage) {
  * @return {Object}
  */
 function checkNull(value, errorMessage) { 
-    check(value === undefined || value === null, 
-        errorMessage !== undefined ? errorMessage : 'Expected value to be null')
+    check(value === undefined || value === null, errorMessage !== undefined
+        ? errorMessage
+        : 'Expected value to be null')
     return value
 }
 
@@ -30,8 +31,9 @@ function checkNull(value, errorMessage) {
  * @return {Object}
  */
 function checkNotNull(value, errorMessage) {
-    check(value !== undefined && value !== null, 
-        errorMessage !== undefined ? errorMessage : 'Expected value to be not null')
+    check(value !== undefined && value !== null, errorMessage !== undefined
+        ? errorMessage
+        : 'Expected value to be not null')
     return value
 }
 
