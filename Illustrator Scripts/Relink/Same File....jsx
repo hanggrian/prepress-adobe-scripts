@@ -7,6 +7,7 @@
 #include '../.lib/ui/relink.js'
 
 checkHasSelection()
+
 var items = selection.filterItem(function(it) { return it.typename == 'PlacedItem' })
 check(items.isNotEmpty(), 'No links found in selection')
 

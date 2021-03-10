@@ -5,6 +5,7 @@
 #include '../.lib/commons.js'
 
 checkHasSelection()
+
 var items = selection.filterItem(function(it) { return it.typename == 'PathItem' || it.typename == 'CompoundPathItem' })
 check(items.isNotEmpty(), 'No paths found in selection')
 

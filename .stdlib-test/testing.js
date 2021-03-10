@@ -1,6 +1,4 @@
-#include 'preconditions.js'
-
-const ASSERT_PREFIX = 'TEST FAIL'
+#include '../.stdlib/stdlib.js'
 
 function assertEquals(expected, actual) {
     check(expected === actual, _getMessage('`' + actual + '` to be `' + expected + '`'))

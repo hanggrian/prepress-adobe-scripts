@@ -1,5 +1,13 @@
+/**
+ * Returns file name without extension.
+ * @return {String}
+ */
 File.prototype.fileName = function() { return unescape(this.name).substringBeforeLast('.') }
 
+/**
+ * Returns file extension in lower-case without `.`.
+ * @return {String}
+ */
 File.prototype.fileExt = function() { return unescape(this.name).substringAfterLast('.').toLowerCase() }
 
 /**

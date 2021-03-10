@@ -1,4 +1,5 @@
-#target Photoshop
+#target Illustrator
+#include '../../.stdlib-test/testing.js'
 #include '../.lib/core.js'
 
 // https://illustrator-scripting-guide.readthedocs.io/scripting/measurementUnits/

@@ -1,6 +1,5 @@
 #target Illustrator
-#include '../.stdlib/assertions.js'
-#include '../.stdlib/stdlib.js'
+#include 'testing.js'
 
 assertEquals([0, 1, 2].first(), 0)
 

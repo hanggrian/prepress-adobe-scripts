@@ -10,6 +10,7 @@ var ALPHABETS = [
 ]
 
 checkHasSelection()
+
 var items = selection.filterItem(function(it) { return it.typename == 'TextFrame' })
 check(items.isNotEmpty(), 'No types found in selection')
 

@@ -4,6 +4,7 @@
 #include '../.lib/ui/reverse-order.js'
 
 checkHasSelection()
+
 var items = selection.filterItem(function(it) { return it.typename == 'PlacedItem' })
 check(items.isNotEmpty(), 'No links found in selection')
 
