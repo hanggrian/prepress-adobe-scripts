@@ -4,7 +4,9 @@
  * Iterate each element of this collection.
  * @param {Function} action runnable to execute.
  */
-Object.prototype.forEachItem = function(action) { _forEachItem(this, action) }
+Object.prototype.forEachItem = function(action) {
+    _forEachItem(this, action)
+}
 
 function _forEachItem(items, action) {
     for (var i = 0; i < items.length; i++) {
@@ -20,7 +22,9 @@ function _forEachItem(items, action) {
  * Iterate each element of this collection as reversed.
  * @param {Function} action runnable to execute.
  */
-Object.prototype.forEachItemReversed = function(action) { _forEachItemReversed(this, action) }
+Object.prototype.forEachItemReversed = function(action) {
+    _forEachItemReversed(this, action)
+}
 
 function _forEachItemReversed(items, action) {
     for (var i = items.lastIndex(); i >= 0; i--) {

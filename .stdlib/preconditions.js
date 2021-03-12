@@ -38,4 +38,6 @@ function checkNotNull(value, errorMessage) {
 }
 
 /** Assert an item's typename. */
-function checkTypename(item, typename) { check(item.typename === typename, 'Selected item is not a ' + typename) }
+function checkTypename(item, typename) {
+    check(item.typename === typename, 'Selected item is not a ' + typename)
+}

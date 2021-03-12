@@ -4,9 +4,6 @@
 #target Illustrator
 #include '../.lib/commons.js'
 
-allowSelectionType('PathItem')
-allowSelectionType('CompoundPathItem')
-
 var dialog = new Dialog('Select Paths')
 
 dialog.line = dialog.main.addHGroup()
@@ -60,7 +57,7 @@ dialog.properties.guides.setTooltip('Is this path a guide object?')
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    selectAll(function(item) {
+    selectAll(['PathItem', 'CompoundPathItem'], function(item) {
         var condition = true
         var width = parseUnit(dialog.dimension.widthEdit.text)
         if (width > 0) {

@@ -16,8 +16,6 @@ var FILE_PNG = ['png', 'pns']
 var FILE_PSD = ['psd', 'psb', 'pdd']
 var FILE_TIFF = ['tif', 'tiff']
 
-allowSelectionType('PlacedItem')
-
 var dialog = new Dialog('Select Links')
 
 dialog.line = dialog.main.addHGroup('top')
@@ -48,7 +46,7 @@ dialog.types.tiffCheck = dialog.types.addCheckBox(undefined, getTypeString('TIFF
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    selectAll(function(item) {
+    selectAll(['PlacedItem'], function(item) {
         var condition = true
         var width = parseUnit(dialog.dimension.widthEdit.text)
         if (width > 0) {

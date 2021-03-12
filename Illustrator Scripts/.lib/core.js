@@ -45,7 +45,9 @@ function updatePDFPreferences(boxType, page) {
  * @param {String} prompt title of the picker
  * @return {Folder}
  */
-function openFolder(prompt) { return Folder.selectDialog(prompt) }
+function openFolder(prompt) {
+    return Folder.selectDialog(prompt)
+}
 
 /**
  * Pick single/multiple file.
@@ -61,7 +63,7 @@ function openFile(prompt, filters, multiSelect) {
             var condition = file instanceof Folder // required to go through directory
             filters.forEach(function(array) {
                 array.slice(1).forEach(function(ext) {
-                    condition = condition || file.fileExt() === ext.toLowerCase()
+                    condition = condition || file.extension() === ext.toLowerCase()
                 })
             })
             return condition

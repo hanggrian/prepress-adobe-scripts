@@ -4,8 +4,6 @@
 #target Illustrator
 #include '../.lib/commons.js'
 
-allowSelectionType('TextFrame')
-
 var dialog = new Dialog('Select Types')
 
 dialog.line = dialog.main.addHGroup('top')
@@ -33,7 +31,7 @@ dialog.color.strokeList = dialog.color.stroke.addDropDown(undefined, COLORS)
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    selectAll(function(item) {
+    selectAll(['TextFrame'], function(item) {
         var attr = item.textRange.characterAttributes
         var condition = true
         var fontSize = parseUnit(dialog.character.fontEdit.text)

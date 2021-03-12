@@ -13,8 +13,8 @@ check(items.map(function(it) { it.file }).distinct().length === 1, 'Multiple fil
 var file = items.first().file
 checkNotNull(file)
 
-var currentFileName = file.fileName()
-var currentFileExt = file.fileExt()
+var currentFileName = file.nameWithoutExtension()
+var currentFileExt = file.extension()
 
 var input = prompt('New file name:', currentFileName, 'Relink Rename File')
 
