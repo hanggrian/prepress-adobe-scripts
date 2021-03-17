@@ -1,5 +1,12 @@
+// https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/
 // Functions declared in this script are `Object.prototype` and not `Array.prototype`.
 // This is due to Adobe's custom non-array collection objects like `Artboards`, `PageItems`, etc.
+
+/**
+ * Last index of this collection.
+ * @return {Boolean}
+ */
+Object.prototype.lastIndex = function() { return this.length - 1 }
 
 /**
  * First item of this collection.
@@ -12,12 +19,6 @@ Object.prototype.first = function() { return this[0] }
  * @return {Object}
  */
 Object.prototype.last = function() { return this[this.lastIndex()] }
-
-/**
- * Last index of this collection.
- * @return {Boolean}
- */
-Object.prototype.lastIndex = function() { return this.length - 1 }
 
 /**
  * Returns true if this collection is empty.

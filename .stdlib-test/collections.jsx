@@ -1,17 +1,42 @@
 #target Illustrator
 #include 'testing.js'
 
-assertEquals([0, 1, 2].first(), 0)
+var lastIndex; (lastIndex = function() {
+    var a = [1, 2, 3]
+    assertEquals(2, a.lastIndex())
+})()
 
-assertEquals([0, 1, 2].last(), 2)
+var first; (first = function() {
+    var a = [1, 2, 3]
+    assertEquals(1, a.first())
+})()
 
-assertEquals([0, 1, 2].lastIndex(), 2)
+var last; (last = function() {
+    var a = [1, 2, 3]
+    assertEquals(3, a.last())
+})()
 
-assertFalse([0, 1, 2].isEmpty())
+var isEmpty; (isEmpty = function() {
+    var a = [1, 2, 3]
+    assertTrue([].isEmpty())
+    assertFalse(a.isEmpty())
+})()
 
-assertTrue([0, 1, 2].isNotEmpty())
+var isNotEmpty; (isEmpty = function() {
+    var a = [1, 2, 3]
+    assertTrue([].isEmpty())
+    assertFalse(a.isEmpty())
+})()
 
-assertTrue([0, 1, 2].contains(0))
-assertFalse([0, 1, 2].contains(3))
+var contains; (contains = function() {
+    var a = [1, 2, 3]
+    assertTrue(a.contains(2))
+    assertFalse(a.contains(4))
+})()
 
-assertEquals([0, 1, 1, 2, 2, 2].distinct().length, 3)
+var distinct; (distinct = function() {
+    var a = [1, 2, 2, 3, 3, 3].distinct()
+    assertEquals(1, a[0])
+    assertEquals(2, a[1])
+    assertEquals(3, a[2])
+})()

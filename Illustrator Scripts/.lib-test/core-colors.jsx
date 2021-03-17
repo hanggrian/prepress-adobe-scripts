@@ -2,12 +2,16 @@
 #include '../../.stdlib-test/testing.js'
 #include '../.lib/core.js'
 
-check(COLOR_CYAN.cyan == 100)
-check(COLOR_MAGENTA.magenta == 100)
-check(COLOR_YELLOW.yellow == 100)
-check(COLOR_BLACK.black == 100)
+var cmyk; (cmyk = function() {
+    assertEquals(100, COLOR_CYAN.cyan)
+    assertEquals(100, COLOR_MAGENTA.magenta)
+    assertEquals(100, COLOR_YELLOW.yellow)
+    assertEquals(100, COLOR_BLACK.black)
+})()
 
-check(isColorEqual(parseColor('Cyan'), COLOR_CYAN))
-check(isColorEqual(parseColor('Magenta'), COLOR_MAGENTA))
-check(isColorEqual(parseColor('Yellow'), COLOR_YELLOW))
-check(isColorEqual(parseColor('Black'), COLOR_BLACK))
+var isColorEqual; (isColorEqual = function() {
+    assertTrue(isColorEqual(parseColor('Cyan'), COLOR_CYAN))
+    assertTrue(isColorEqual(parseColor('Magenta'), COLOR_MAGENTA))
+    assertTrue(isColorEqual(parseColor('Yellow'), COLOR_YELLOW))
+    assertTrue(isColorEqual(parseColor('Black'), COLOR_BLACK))
+})()

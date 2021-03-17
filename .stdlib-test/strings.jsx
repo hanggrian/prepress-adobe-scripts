@@ -1,16 +1,34 @@
 #target Illustrator
 #include 'testing.js'
 
-assertTrue('Hello World'.startsWith('Hello'))
-assertFalse('Hello World'.startsWith('World'))
+var startsWith; (startsWith = function() {
+    var s = 'Hello World'
+    assertTrue(s.startsWith('Hello'))
+    assertFalse(s.startsWith('World'))
+})
 
-assertFalse('Hello World'.endsWith('Hello'))
-assertTrue('Hello World'.endsWith('World'))
+var endsWith; (endsWith = function() {
+    var s = 'Hello World'
+    assertFalse(s.endsWith('Hello'))
+    assertTrue(s.endsWith('World'))
+})
 
-assertEquals('Hello World'.substringBefore('o'), 'Hell')
+var substringBefore; (endsWith = function() {
+    var s = 'Hello World'
+    assertEquals('Hell', s.substringBefore('o'))
+})
 
-assertEquals('Hello World'.substringAfter('o'), ' World')
+var substringAfter; (substringAfter = function() {
+    var s = 'Hello World'
+    assertEquals(' World', s.substringAfter('o'))
+})
 
-assertEquals('Hello World'.substringBeforeLast('o'), 'Hello W')
+var substringBeforeLast; (endsWith = function() {
+    var s = 'Hello World'
+    assertEquals('Hello W', s.substringBeforeLast('o'))
+})
 
-assertEquals('Hello World'.substringAfterLast('o'), 'rld')
+var substringAfterLast; (substringAfter = function() {
+    var s = 'Hello World'
+    assertEquals('rld', s.substringAfterLast('o'))
+})
