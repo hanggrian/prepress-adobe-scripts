@@ -7,8 +7,8 @@
 // - Support for creating multiple marks by duplicating.
 
 #target Illustrator
-#include '../.lib/commons.js'
-#include '../.lib/ui/trim-marks.js'
+#include '../../.lib/commons.js'
+#include '../../.lib/ui/trim-marks.js'
 
 checkHasSelection()
 
