@@ -23,7 +23,7 @@ echo 'Which scripts would you want to install:'
 read input
 
 sourceRoot="$(cd `dirname $0` && pwd)"
-sourceLibs="$sourceRoot/.stdlib"
+sourceStdLib="$sourceRoot/.stdlib"
 
 # In mac, localized directories always have `.localized` suffix.
 patchApp () {
@@ -59,23 +59,36 @@ patchPreset() {
     local app=$1
     local sourceScripts=$2
     local targetRoot=$3
-    local targetLibs="$targetRoot/.stdlib"
+    local targetStdLib="$targetRoot/.stdlib"
     local targetScripts="$targetRoot/Scripts"
+    local targetScriptsIdea="$targetScripts/.idea"
+    local targetScriptsLibTest="$targetScripts/.lib-test"
 
     echo "Patching to '$app'..."
-    if [ -d "$targetLibs" ] ; then
+
+    if [ -d "$targetStdLib" ] ; then
         echo 'Deleting existing shared libraries...'
-        rm -rf "$targetLibs"
+        rm -rf "$targetStdLib"
     fi
     if [ -d "$targetScripts" ] ; then
         echo 'Deleting existing scripts...'
         rm -rf "$targetScripts"
     fi
+
     echo 'Copying new shared libraries and scripts...'
     mkdir "$targetScripts"
     cp -r "$sourceScripts"/. "$targetScripts"
-    mkdir "$targetLibs"
-    cp -r "$sourceLibs"/. "$targetLibs"
+    mkdir "$targetStdLib"
+    cp -r "$sourceStdLib"/. "$targetStdLib"
+
+    echo 'Cleaning up...'
+    if [ -d "$targetScriptsIdea" ] ; then
+        rm -rf "$targetScriptsIdea"
+    fi
+    if [ -d "$targetScriptsLibTest" ] ; then
+        rm -rf "$targetScriptsLibTest"
+    fi
+
     echo 'Finished.'
 }
 
@@ -91,8 +104,6 @@ case $input in
         patchApp 'Photoshop'
         ;;
     'q' | 'Q')
-        echo
-        echo 'Goodbye!'
         ;;
     *)
         echo
@@ -102,5 +113,7 @@ case $input in
         ;;
 esac
 
+echo
+echo 'Goodbye!'
 echo
 exit 0

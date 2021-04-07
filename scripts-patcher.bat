@@ -19,7 +19,7 @@ echo.
 set /p input=Which scripts would you want to install: 
 
 set sourceRoot=%~dp0
-set sourceLibs=%sourceRoot%.stdlib
+set sourceStdLib=%sourceRoot%.stdlib
 
 if %input% == 1 (
     call :patchApp "Illustrator"
@@ -33,16 +33,16 @@ if %input% == 1 (
     call :patchApp "Photoshop"
 ) else if %input% == q (
     echo.
-    echo Goodbye^^!
 ) else if %input% == Q (
     echo.
-    echo Goodbye^^!
 ) else (
     echo.
     echo Unable to recognize input.
     exit /b 1
 )
 
+echo.
+echo Goodbye^^!
 exit /b 0
 
 :: In Windows, we manually do this manually.
@@ -79,7 +79,7 @@ exit /b 0
         set "isEmpty=y"
         echo Searching for 32-bit %adobeApp% installation paths...
         echo.
-        for /d %%a in ("%ProgramFiles%"\Adobe\*) do (
+        for /d %%a in ("%ProgramFiles(x86)%"\Adobe\*) do (
             set appName=%%~nxa
             if NOT !appName!==!appName:%adobeApp%=! (
                 set "isEmpty="
@@ -104,22 +104,36 @@ goto :eof
     set app=%~1
     set sourceScripts=%~2
     set targetRoot=%~3
-    set targetLibs=!targetRoot!/.stdlib
+    set targetStdLib=!targetRoot!/.stdlib
     set targetScripts=!targetRoot!/Scripts
+    set targetScriptsIdea=!targetScripts!/.idea
+    set targetScriptsLibTest=!targetScripts!/.lib-test
 
     echo Patching to '!app!'...
-    if exist !targetLibs! (
+
+    if exist !targetStdLib! (
         echo Deleting existing shared libraries...
-        rmdir /s /q "!targetLibs!"
+        rmdir /s /q "!targetStdLib!"
     )
     if exist !targetScripts! (
         echo Deleting existing scripts...
         rmdir /s /q "!targetScripts!"
     )
+
     echo Copying new shared libraries and scripts...
+    md "!targetStdLib!"
+    robocopy /s "!sourceStdLib!" "!targetStdLib!" /njh /njs /ndl /nc /ns /nfl
     md "!targetScripts!"
-    robocopy /s /unicode "!sourceScripts!" "!targetScripts!"
-    md "!targetLibs!"
-    robocopy /s /unicode "!sourceLibs!" "!targetLibs!"
+    robocopy /s "!sourceScripts!" "!targetScripts!" /njh /njs /ndl /nc /ns /nfl
+
+    echo Cleaning up...
+    if exist !targetScriptsIdea! (
+        rmdir /s /q "!targetScriptsIdea!"
+    )
+    if exist !targetScriptsLibTest! (
+        rmdir /s /q "!targetScriptsLibTest!"
+    )
+
     echo Finished.
+    echo.
 goto :eof
