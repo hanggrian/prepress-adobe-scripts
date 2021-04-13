@@ -108,6 +108,7 @@ goto :eof
     set targetScripts=!targetRoot!/Scripts
     set targetScriptsIdea=!targetScripts!/.idea
     set targetScriptsLibTest=!targetScripts!/.lib-test
+    set targetScriptsReadme=!targetScripts!/README.md
 
     echo Patching to '!app!'...
 
@@ -132,6 +133,9 @@ goto :eof
     )
     if exist !targetScriptsLibTest! (
         rmdir /s /q "!targetScriptsLibTest!"
+    )
+    if exist !targetScriptsReadme! (
+        del "!targetScriptsReadme!"
     )
 
     echo Finished.

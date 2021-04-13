@@ -63,6 +63,7 @@ patchPreset() {
     local targetScripts="$targetRoot/Scripts"
     local targetScriptsIdea="$targetScripts/.idea"
     local targetScriptsLibTest="$targetScripts/.lib-test"
+    local targetScriptsReadme="$targetScripts/README.md"
 
     echo "Patching to '$app'..."
 
@@ -87,6 +88,9 @@ patchPreset() {
     fi
     if [ -d "$targetScriptsLibTest" ] ; then
         rm -rf "$targetScriptsLibTest"
+    fi
+    if [ -f "$targetScriptsReadme" ] ; then
+        rm -rf "$targetScriptsReadme"
     fi
 
     echo 'Finished.'

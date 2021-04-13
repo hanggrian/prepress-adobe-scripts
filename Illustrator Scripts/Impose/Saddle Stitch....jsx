@@ -48,7 +48,7 @@ if (files !== null && files.isNotEmpty()) {
         if (pages === 0 || pages % 4 !== 0) {
             alert('Total pages must be a non-zero number that can be divided by 4.')
         } else {
-            var document = app.documents.add(DocumentColorSpace.CMYK, width * 2, height, pages / 2)
+            var document = app.documents.addDocument(DocumentPresetType.Print, dialog.impose.getDocumentPreset())
             document.artboards.forEach(function(artboard) {
                 var rect = artboard.artboardRect
                 var artboardRight = rect[0] + rect[2]

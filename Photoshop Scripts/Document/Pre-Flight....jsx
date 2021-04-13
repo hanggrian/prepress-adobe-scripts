@@ -1,6 +1,11 @@
+/*
+<javascriptresource>
+<category>1</category>
+</javascriptresource>
+*/
+
 #target Photoshop
 #include '../.lib/commons.js'
-#include '../.lib/dialog.js'
 
 var dialog = new Dialog('Pre-Flight')
 
@@ -89,7 +94,7 @@ function getBits() {
 }
 
 function addFixButton(parent, staticText, fixedText, onClick) {
-    var button = parent.add('button', fixBounds, 'Fix')
+    var button = parent.addButton(fixBounds, 'Fix')
     button.onClick = function() {
         onClick()
         button.hide()

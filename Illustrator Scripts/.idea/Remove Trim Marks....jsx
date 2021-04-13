@@ -2,7 +2,7 @@
 // TODO: avoid duplicate paths in the same position and length.
 
 #target Illustrator
-#include '../../.lib/commons.js'
+#include '../.lib/commons.js'
 
 checkHasSelection()
 

@@ -1,5 +1,11 @@
 // Close other tabs without saving.
 
+/*
+<javascriptresource>
+<category>1</category>
+</javascriptresource>
+*/
+
 #target Photoshop
 #include '../.lib/commons.js'
 

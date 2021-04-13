@@ -1,18 +1,25 @@
 // Increase canvas size and create new guide layout accordingly.
 
+/*
+<javascriptresource>
+<category>2</category>
+</javascriptresource>
+*/
+
 #target Photoshop
 #include '../.lib/commons.js'
 
 var dialog = new Dialog('Add Bleed')
 
-var textBounds = [0, 0, 70, 21]
+var textBounds = [0, 0, 85, 21]
 var editBounds = [0, 0, 100, 21]
 
 dialog.document = dialog.main.addHGroup()
 dialog.document.addText(textBounds, 'Document:', 'right')
-dialog.documentCurrentCheck = dialog.document.addRadioButton(undefined, 'Current')
-dialog.documentCurrentCheck.value = true
-dialog.documentAllCheck = dialog.document.addRadioButton(undefined, 'All')
+dialog.documentCurrentRadio = dialog.document.addRadioButton(undefined, 'Current')
+dialog.documentCurrentRadio.value = true
+dialog.documentAllRadio = dialog.document.addRadioButton(undefined, 'All')
+dialog.document.setTooltip('Which document should be affected.')
 
 dialog.bleed = dialog.main.addHGroup()
 dialog.bleed.addText(textBounds, 'Bleed:', 'right')
@@ -34,7 +41,7 @@ dialog.flatten.setTooltip('Layers will be flattened.')
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    var isAll = dialog.documentAllCheck.value
+    var isAll = dialog.documentAllRadio.value
     var bleed = UnitValue(dialog.bleedEdit.text) * 2
     var shouldAddGuide = dialog.guideLayoutCheck.value
     var shouldFlatten = dialog.flatten.value
