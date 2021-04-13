@@ -5,8 +5,14 @@
 
 var dialog = new Dialog('Add Bleed')
 
-var textBounds = [0, 0, 95, 21]
+var textBounds = [0, 0, 70, 21]
 var editBounds = [0, 0, 100, 21]
+
+dialog.document = dialog.main.addHGroup()
+dialog.document.addText(textBounds, 'Document:', 'right')
+dialog.documentCurrentCheck = dialog.document.addRadioButton(undefined, 'Current')
+dialog.documentCurrentCheck.value = true
+dialog.documentAllCheck = dialog.document.addRadioButton(undefined, 'All')
 
 dialog.bleed = dialog.main.addHGroup()
 dialog.bleed.addText(textBounds, 'Bleed:', 'right')
@@ -22,22 +28,36 @@ dialog.guideLayoutCheck.value = true
 dialog.guideLayout.setTooltip('Guides will mark where bleed are added.')
 
 dialog.flatten = dialog.main.addHGroup()
-dialog.flatten.addText(textBounds, 'Content-Aware:', 'right')
+dialog.flatten.addText(textBounds, 'Flatten:', 'right')
 dialog.flattenCheck = dialog.flatten.addCheckBox(undefined, 'Enable')
 dialog.flatten.setTooltip('Layers will be flattened.')
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    if (dialog.guideLayoutCheck.value) {
+    var isAll = dialog.documentAllCheck.value
+    var bleed = UnitValue(dialog.bleedEdit.text) * 2
+    var shouldAddGuide = dialog.guideLayoutCheck.value
+    var shouldFlatten = dialog.flatten.value
+    if (!isAll) {
+        process(document, bleed, shouldAddGuide, shouldFlatten)
+    } else {
+        for (var i = 0; i < app.documents.length; i++) {
+            app.activeDocument = app.documents[i]
+            process(app.activeDocument, bleed, shouldAddGuide, shouldFlatten)            
+        }
+    }
+})
+dialog.show()
+
+function process(document, bleed, shouldAddGuide, shouldFlatten) {
+    if (shouldAddGuide) {
         document.guides.add(Direction.HORIZONTAL, 0)
         document.guides.add(Direction.HORIZONTAL, document.height)
         document.guides.add(Direction.VERTICAL, 0)
         document.guides.add(Direction.VERTICAL, document.width)
     }
-    var bleed = UnitValue(dialog.bleedEdit.text) * 2
     document.resizeCanvas(document.width + bleed, document.height + bleed)
-    if (dialog.flatten.value) {
+    if (shouldFlatten) {
         document.flatten()
     }
-})
-dialog.show()
+}
