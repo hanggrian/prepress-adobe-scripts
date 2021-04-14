@@ -1,4 +1,5 @@
-// Increase canvas size and create new guide layout accordingly.
+// Increase canvas size and create new guide layout separating content
+// and bleed area.
 
 /*
 <javascriptresource>
@@ -44,7 +45,7 @@ dialog.setPositiveButton(function() {
     var isAll = dialog.documentAllRadio.value
     var bleed = UnitValue(dialog.bleedEdit.text) * 2
     var shouldAddGuide = dialog.guideLayoutCheck.value
-    var shouldFlatten = dialog.flatten.value
+    var shouldFlatten = dialog.flattenCheck.value
     if (!isAll) {
         process(document, bleed, shouldAddGuide, shouldFlatten)
     } else {
