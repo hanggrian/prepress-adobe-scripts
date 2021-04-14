@@ -35,44 +35,42 @@ if (files !== null && files.isNotEmpty()) {
         var pages = dialog.impose.getPages()
         var width = dialog.impose.getWidth()
         var height = dialog.impose.getHeight()
-        var currentPage
-        if (files.first().isPDF()) {
-            currentPage = 1
-        } else {
-            currentPage = 0
-        }
-        var isFront = true
-
         if (pages === 0 || pages % 4 !== 0) {
             alert('Total pages must be a non-zero number that can be divided by 4.')
         } else {
-            var document = app.documents.addDocument(DocumentPresetType.Print, dialog.impose.getDocumentPreset())
-            document.artboards.forEach(function(artboard) {
-                var rect = artboard.artboardRect
-                var artboardRight = rect[0] + rect[2]
-                var artboardBottom = rect[1] + rect[3]
-
+            var document = app.documents.addDocument(DocumentPresetType.Print, dialog.impose.getDocumentPreset('Untitled-Perfect Binding'))
+            var pager
+            if (files.first().isPDF()) {
+                pager = new PerfectBindingPager(document, 1)
+            } else {
+                pager = new PerfectBindingPager(document, 0)
+            }
+            pager.forEachArtboard(function(artboard, left, right) {
                 var leftItem = document.placedItems.add()
                 var rightItem = document.placedItems.add()
                 if (files.first().isPDF()) {
-                    updatePDFPreferences(dialog.pdf.getBoxType(), isFront ? currentPage : (currentPage + 1))
+                    updatePDFPreferences(dialog.pdf.getBoxType(), left)
                     leftItem.file = files.first()
-                    updatePDFPreferences(dialog.pdf.getBoxType(), isFront ? (currentPage + 2) : (currentPage - 1))
+                    updatePDFPreferences(dialog.pdf.getBoxType(), right)
                     rightItem.file = files.first()
                 } else {
-                    leftItem.file = files[isFront ? currentPage : (currentPage + 1)]
-                    rightItem.file = files[isFront ? (currentPage + 2) : (currentPage - 1)]
+                    leftItem.file = files[left]
+                    rightItem.file = files[right]
                 }
+                var rect = artboard.artboardRect
+                var artboardRight = rect[0] + rect[2]
+                var artboardBottom = rect[1] + rect[3]
+                var leftX = (artboardRight - width) / 2 - width / 2
+                var rightX = (artboardRight - width) / 2 + width / 2
+                var y = (artboardBottom + height) / 2
                 leftItem.width = width
                 rightItem.width = width
                 leftItem.height = height
                 rightItem.height = height
-                leftItem.position = [(artboardRight - width) / 2 - width / 2, (artboardBottom + height) / 2]
-                rightItem.position = [(artboardRight - width) / 2 + width / 2, (artboardBottom + height) / 2]
-                
-                currentPage += 2
-                isFront = !isFront
+                leftItem.position = [leftX, y]
+                rightItem.position = [rightX, y]
             })
+            new PerfectBindingPager(document).bindArtboardName()
         }
     })
     dialog.show()

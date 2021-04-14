@@ -3,4 +3,4 @@
 
 checkEvenArtboards()
 
-new SaddleStitchPager(document).bindArtboardName()
+new OneSidePager(document).bindArtboardName()

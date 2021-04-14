@@ -1,6 +1,7 @@
 #include '../../.stdlib/stdlib.js'
 #include 'core-collections.js'
 #include 'core-colors.js'
+#include 'core-pager.js'
 #include 'core-resources.js'
 #include 'core-units.js'
 

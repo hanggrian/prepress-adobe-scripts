@@ -29,53 +29,77 @@ if (files !== null && files.isNotEmpty()) {
     }
 
     dialog.impose = new ImposePanel(dialog.main, textBounds, editBounds)
+    dialog.impose.bleed = dialog.impose.main.addHGroup()
+    dialog.impose.bleed.addText(textBounds, 'Bleed:', 'right')
+    dialog.impose.bleedEdit = dialog.impose.bleed.addEditText(editBounds, '0 mm')
+    dialog.impose.bleedEdit.validateUnits()
 
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
         var pages = dialog.impose.getPages()
         var width = dialog.impose.getWidth()
         var height = dialog.impose.getHeight()
-        var startPage, endPage
-        if (files.first().isPDF()) {
-            startPage = 1
-            endPage = pages
-        } else {
-            startPage = 0
-            endPage = pages - 1
-        }
-        var isFront = true
-
+        var bleed = parseUnit(dialog.impose.bleedEdit.text)
         if (pages === 0 || pages % 4 !== 0) {
             alert('Total pages must be a non-zero number that can be divided by 4.')
         } else {
-            var document = app.documents.addDocument(DocumentPresetType.Print, dialog.impose.getDocumentPreset())
-            document.artboards.forEach(function(artboard) {
-                var rect = artboard.artboardRect
-                var artboardRight = rect[0] + rect[2]
-                var artboardBottom = rect[1] + rect[3]
-
+            document = app.documents.addDocument(DocumentPresetType.Print, dialog.impose.getDocumentPreset('Untitled-Saddle Stitch', bleed))
+            var pager
+            if (files.first().isPDF()) {
+                pager = new SaddleStitchPager(document, 1, pages)
+            } else {
+                pager = new SaddleStitchPager(document, 0, pages - 1)
+            }
+            pager.forEachArtboard(function(artboard, left, right) {
                 var leftItem = document.placedItems.add()
                 var rightItem = document.placedItems.add()
                 if (files.first().isPDF()) {
-                    updatePDFPreferences(dialog.pdf.getBoxType(), isFront ? endPage : startPage)
+                    updatePDFPreferences(dialog.pdf.getBoxType(), left)
                     leftItem.file = files.first()
-                    updatePDFPreferences(dialog.pdf.getBoxType(), isFront ? startPage : endPage)
+                    updatePDFPreferences(dialog.pdf.getBoxType(), right)
                     rightItem.file = files.first()
                 } else {
-                    leftItem.file = files[isFront ? endPage : startPage]
-                    rightItem.file = files[isFront ? startPage : endPage]
+                    leftItem.file = files[left]
+                    rightItem.file = files[right]
                 }
-                leftItem.width = width
-                rightItem.width = width
-                leftItem.height = height
-                rightItem.height = height
-                leftItem.position = [(artboardRight - width) / 2 - width / 2, (artboardBottom + height) / 2]
-                rightItem.position = [(artboardRight - width) / 2 + width / 2, (artboardBottom + height) / 2]
-                
-                startPage++
-                endPage--
-                isFront = !isFront
+                var rect = artboard.artboardRect
+                var artboardRight = rect[0] + rect[2]
+                var artboardBottom = rect[1] + rect[3]
+                var leftX = (artboardRight - width) / 2 - width / 2
+                var rightX = (artboardRight - width) / 2 + width / 2
+                var y = (artboardBottom + height) / 2
+                if (bleed <= 0) {
+                    leftItem.width = width
+                    rightItem.width = width
+                    leftItem.height = height
+                    rightItem.height = height
+                    leftItem.position = [leftX, y]
+                    rightItem.position = [rightX, y]
+                } else {
+                    leftItem.width = width + bleed * 2
+                    rightItem.width = width + bleed * 2
+                    leftItem.height = height + bleed * 2
+                    rightItem.height = height + bleed * 2
+
+                    var leftGroup = document.groupItems.add()
+                    leftItem.moveToBeginning(leftGroup)
+                    var leftClip = document.pathItems.rectangle(y + bleed, leftX - bleed, width + bleed, height)
+                    leftClip.clipping = true
+                    leftClip.moveToBeginning(leftGroup)
+                    leftGroup.clipped = true
+
+                    var rightGroup = document.groupItems.add()
+                    rightItem.moveToBeginning(rightGroup)
+                    var rightClip = document.pathItems.rectangle(y + bleed, rightX, width + bleed, height)
+                    rightClip.clipping = true
+                    rightClip.moveToBeginning(rightGroup)
+                    rightGroup.clipped = true
+
+                    leftItem.position = [leftX - bleed, y + bleed]
+                    rightItem.position = [rightX - bleed, y + bleed]
+                }
             })
+            new SaddleStitchPager(document).bindArtboardName()
         }
     })
     dialog.show()

@@ -19,11 +19,6 @@ function ImposePanel(parent, textBounds, editBounds) {
     this.heightEdit = this.height.addEditText(editBounds, '297 mm')
     this.heightEdit.validateUnits()
 
-    this.bleed = this.main.addHGroup()
-    this.bleed.addText(textBounds, 'Bleed:', 'right')
-    this.bleedEdit = this.bleed.addEditText(editBounds, '0 mm')
-    this.bleedEdit.validateUnits()
-
     this.getPages = function() {
         return parseUnit(self.pagesEdit.text)
     }
@@ -36,24 +31,23 @@ function ImposePanel(parent, textBounds, editBounds) {
         return parseUnit(self.heightEdit.text)
     }
 
-    this.getBleed = function() {
-        return parseUnit(self.bleedEdit.text)
-    }
-
-    this.getDocumentPreset = function() {
+    /**
+     * @param {String} title default new document name, may be null.
+     * @param {Number} bleed area around artboard, may be null.
+     * @returns 
+     */
+    this.getDocumentPreset = function(title, bleed) {
         var preset = new DocumentPreset()
+        if (title !== undefined) {
+            preset.title = title
+        }
         preset.width = self.getWidth() * 2
         preset.height = self.getHeight()
         preset.numArtboards = self.getPages() / 2
         preset.rasterResolution = DocumentRasterResolution.HighResolution
-        if (self.getBleed() > 0) {
+        if (bleed !== undefined && bleed > 0) {
             preset.documentBleedLink = true
-            preset.documentBleedOffset = [
-                self.getBleed(),
-                self.getBleed(),
-                self.getBleed(),
-                self.getBleed()
-            ]
+            preset.documentBleedOffset = [bleed, bleed, bleed, bleed]
         }
         return preset
     }
