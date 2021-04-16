@@ -4,9 +4,23 @@
 
 /**
  * Last index of this collection.
+ * @param {Object} element value within this collection.
  * @return {Boolean}
  */
-Object.prototype.lastIndex = function() { return this.length - 1 }
+ Object.prototype.indexOf = function(element) {
+    for (var i = 0; i < this.length; i++) {
+        if (this[i] === element) {
+            return i
+        }
+    }
+    throw 'Element not found in this collection'
+}
+
+ /**
+  * Last index of this collection.
+  * @return {Boolean}
+  */
+ Object.prototype.lastIndex = function() { return this.length - 1 }
 
 /**
  * First item of this collection.

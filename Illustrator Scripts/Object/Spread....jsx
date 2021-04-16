@@ -40,13 +40,13 @@ dialog.spread.copies.setTooltip('2 dimension target.')
 
 dialog.spread.gapHorizontal = dialog.spread.addHGroup()
 dialog.spread.gapHorizontal.addText(textBounds, 'Horizontal Gap:', 'right')
-dialog.spread.gapHorizontalEdit = dialog.spread.gapHorizontal.addEditText(editBounds, '0 mm')
+dialog.spread.gapHorizontalEdit = dialog.spread.gapHorizontal.addEditText(editBounds, unitsOf('0 mm'))
 dialog.spread.gapHorizontalEdit.validateUnits()
 dialog.spread.gapHorizontal.setTooltip('Distance between arts horizontally.')
 
 dialog.spread.gapVertical = dialog.spread.addHGroup()
 dialog.spread.gapVertical.addText(textBounds, 'Vertical Gap:', 'right')
-dialog.spread.gapVerticalEdit = dialog.spread.gapVertical.addEditText(editBounds, '0 mm')
+dialog.spread.gapVerticalEdit = dialog.spread.gapVertical.addEditText(editBounds, unitsOf('0 mm'))
 dialog.spread.gapVerticalEdit.validateUnits()
 dialog.spread.gapVertical.setTooltip('Distance between arts vertically.')
 
@@ -59,8 +59,8 @@ dialog.setPositiveButton(function() {
 
     var horizontal = parseInt(dialog.spread.horizontalEdit.text) || 0
     var vertical = parseInt(dialog.spread.verticalEdit.text) || 0
-    var gapHorizontal = parseUnit(dialog.spread.gapHorizontalEdit.text)
-    var gapVertical = parseUnit(dialog.spread.gapVerticalEdit.text)
+    var gapHorizontal = parseUnits(dialog.spread.gapHorizontalEdit.text)
+    var gapVertical = parseUnits(dialog.spread.gapVerticalEdit.text)
 
     if (horizontal < 1 || vertical < 1) {
         alert('Minimal value is 1×1')

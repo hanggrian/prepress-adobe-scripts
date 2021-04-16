@@ -16,7 +16,7 @@ var editBounds = [0, 0, 100, 21]
 
 dialog.length = dialog.main.addHGroup()
 dialog.length.addText(textBounds, 'Length:', 'right')
-dialog.lengthEdit = dialog.length.addEditText(editBounds, '15 mm') // slightly larger than Illustrator default (12.7 mm)
+dialog.lengthEdit = dialog.length.addEditText(editBounds, unitsOf('15 mm')) // slightly larger than Illustrator default (12.7 mm)
 dialog.lengthEdit.validateUnits()
 dialog.length.setTooltip('Remove trim marks lower or equal to this length.')
 
@@ -31,13 +31,13 @@ COLORS.forEach(function(it) { colors.push(it) })
 dialog.color = dialog.main.addHGroup()
 dialog.color.addText(textBounds, 'Colors:', 'right')
 dialog.colorList = dialog.color.addDropDown(editBounds, colors)
-dialog.colorList.selection = 0
+dialog.colorList.selection = COLORS.indexOf('Registration')
 dialog.colorList.setTooltip('Remove trim marks with this color.')
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    var length = parseUnit(dialog.lengthEdit.text)
-    var weight = parseUnit(dialog.lengthEdit.text)
+    var length = parseUnits(dialog.lengthEdit.text)
+    var weight = parseUnits(dialog.lengthEdit.text)
     var color = dialog.colorList.selection.text === 'Any'
         ? null
         : parseColor(dialog.colorList.selection.text)

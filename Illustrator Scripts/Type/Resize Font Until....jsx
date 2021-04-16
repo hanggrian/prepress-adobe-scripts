@@ -21,7 +21,7 @@ dialog.dimension.setTooltip('Selected text will match either width or height.')
 
 dialog.dimensionSize = dialog.main.addHGroup()
 dialog.dimensionSize.addText(textBounds, 'Dimension size:', 'right')
-dialog.dimensionSizeEdit = dialog.dimensionSize.addEditText([0, 0, 100, 21], '0 mm')
+dialog.dimensionSizeEdit = dialog.dimensionSize.addEditText([0, 0, 100, 21], '0 ' + unitName)
 dialog.dimensionSizeEdit.validateUnits()
 dialog.dimensionSizeEdit.active = true
 dialog.dimensionSize.setTooltip('Target size of the text.')
@@ -40,7 +40,7 @@ dialog.setPositiveButton(function() {
     var currentDimension = dialog.dimension.widthRadio.value
         ? item.width
         : item.height
-    var targetDimension = parseUnit(dialog.dimensionSizeEdit.text)
+    var targetDimension = parseUnits(dialog.dimensionSizeEdit.text)
     var targetFont = currentFont * targetDimension / currentDimension
     if (dialog.roundRadio.value) {
         targetFont = Math.round(targetFont)

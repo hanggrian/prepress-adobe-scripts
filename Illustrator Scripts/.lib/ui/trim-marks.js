@@ -1,5 +1,3 @@
-var DEFAULT_WEIGHT = 0.3 // the same value used in `Object > Create Trim Marks`
-
 var LOCATION_TOP_LEFT = 11
 var LOCATION_TOP_RIGHT = 1
 var LOCATION_RIGHT_TOP = 2
@@ -15,26 +13,26 @@ function TrimMarksPanel(parent, textBounds, editBounds) {
 
     this.offset = this.main.addHGroup()
     this.offset.addText(textBounds, 'Offset:', 'right')
-    this.offsetEdit = this.offset.addEditText(editBounds, '2.5 mm')
+    this.offsetEdit = this.offset.addEditText(editBounds, unitsOf('2.5 mm'))
     this.offsetEdit.validateUnits()
     this.offset.setTooltip('Distance between art and trim marks.')
 
     this.length = this.main.addHGroup()
     this.length.addText(textBounds, 'Length:', 'right')
-    this.lengthEdit = this.length.addEditText(editBounds, '2.5 mm')
+    this.lengthEdit = this.length.addEditText(editBounds, unitsOf('2.5 mm'))
     this.lengthEdit.validateUnits()
     this.length.setTooltip('Size of trim marks.')
     
     this.weight = this.main.addHGroup()
     this.weight.addText(textBounds, 'Weight:', 'right')
-    this.weightEdit = this.weight.addEditText(editBounds, DEFAULT_WEIGHT)
+    this.weightEdit = this.weight.addEditText(editBounds, '0.3') // the same value used in `Object > Create Trim Marks`
     this.weightEdit.validateUnits()
     this.weight.setTooltip('Thickness of trim marks.')
 
     this.color = this.main.addHGroup()
     this.color.addText(textBounds, 'Color:', 'right')
     this.colorList = this.color.addDropDown(editBounds, COLORS)
-    this.colorList.selection = 0
+    this.colorList.selection = COLORS.indexOf('Registration')
     this.color.setTooltip('Color of trim marks.')
     
     /**
@@ -63,8 +61,8 @@ function TrimMarksPanel(parent, textBounds, editBounds) {
      * @return {Array} created trim marks.
      */
     this.addToBounds = function(startX, startY, endX, endY, locations) {
-        var offset = parseUnit(self.offsetEdit.text)
-        var length = parseUnit(self.lengthEdit.text)
+        var offset = parseUnits(self.offsetEdit.text)
+        var length = parseUnits(self.lengthEdit.text)
         var marks = []
         for (var i = 0; i < locations.length; i++) {
             var location = locations[i]
@@ -149,7 +147,7 @@ function TrimMarksPanel(parent, textBounds, editBounds) {
     }
 
     function createTrimMark(suffixName, fromX, fromY, toX, toY) {
-        var weight = parseUnit(self.weightEdit.text)
+        var weight = parseUnits(self.weightEdit.text)
         var color = parseColor(self.colorList.selection.text)
 
         var mark = document.pathItems.add()

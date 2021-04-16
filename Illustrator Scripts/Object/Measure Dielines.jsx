@@ -33,11 +33,11 @@ if (count + registrationCount + distance + registrationDistance === 0) {
         message += '\nLines with color fill are ignored.'
     }
 } else {
-    message = (count + registrationCount) + ' lines measuring at ' + formatUnit(distance + registrationDistance, 'cm', 2)
+    message = (count + registrationCount) + ' lines measuring at ' + formatUnits(distance + registrationDistance, unitName, 2)
     if (distance > 0 && registrationDistance > 0) {
         message += ', containing:' +
-            '\n' + count + ' lines at ' + formatUnit(distance, 'cm', 2) +
-            '\n' + registrationCount + ' registration lines at ' + formatUnit(registrationDistance, 'cm', 2)
+            '\n' + count + ' lines at ' + formatUnits(distance, unitName, 2) +
+            '\n' + registrationCount + ' registration lines at ' + formatUnits(registrationDistance, unitName, 2)
     } else {
         message += '.'
     }

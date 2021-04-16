@@ -24,7 +24,7 @@ dialog.document.setTooltip('Which document should be affected.')
 
 dialog.bleed = dialog.main.addHGroup()
 dialog.bleed.addText(textBounds, 'Bleed:', 'right')
-dialog.bleedEdit = dialog.bleed.addEditText(editBounds, '2.5 mm')
+dialog.bleedEdit = dialog.bleed.addEditText(editBounds, unitsOf('2.5 mm'))
 dialog.bleedEdit.validateUnits()
 dialog.bleedEdit.active = true
 dialog.bleed.setTooltip('Bleed are distributed around image.')

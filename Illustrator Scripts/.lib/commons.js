@@ -1,33 +1,61 @@
 #include 'core.js'
-#include 'commons-selector.js'
+#include 'commons-preconditions.js'
 
 check(app.documents.length > 0, 'No active document')
 
 var document = app.activeDocument
-
-/** Assert that artboards are even numbered. */
-function checkEvenArtboards() {
-    check(document.artboards.length % 2 == 0, 'Odd number of pages')
+var unitName = ''
+switch (document.rulerUnits) {
+    case RulerUnits.Inches:
+        unitName = 'in'
+        break;
+    case RulerUnits.Centimeters:
+        unitName = 'cm'
+        break;
+    case RulerUnits.Points:
+        unitName = 'pt'
+        break;
+    case RulerUnits.Picas:
+        unitName = 'pica'
+        break;
+    case RulerUnits.Millimeters:
+        unitName = 'mm'
+        break;
+    case RulerUnits.Qs:
+        unitName = 'q'
+        break;
+    case RulerUnits.Pixels:
+        unitName = 'px'
+        break;
 }
 
-/** Assert that artboards are odd numbered. */
-function checkOddArtboards() {
-    check(document.artboards.length % 2 != 0, 'Even number of pages')
-}
+/**
+ * Recalibrate unit text (e.g: '20 mm') to current document's units.
+ * @return {String}
+ */
+function unitsOf(input) { return UnitValue(input).as(unitName) + ' ' + unitName }
 
-/** Assert that document currently has any selection. */
-function checkHasSelection() {
-    check(selection != null && selection.length > 0, 'No selection')
-}
-
-/** Assert that document currently has single selection. */
-function checkSingleSelection() {
-    checkHasSelection()
-    check(selection.length == 1, 'Multiple selection is not supported')
-}
-
-/** Assert that document currently has multiple selection. */
-function checkMultipleSelection() {
-    checkHasSelection()
-    check(selection.length > 1, 'Single selection is not supported')
+/**
+ * Select all items that match selected configuration.
+ * When nothing is selected, this library will select all items with requested types.
+ * When there are selection, it will instead filter the selection to only match requested types.
+ * @param {Array} types array of `PageItem` typenames.
+ * @param {Function} callable nullable custom item checker that should return true if the item parameter should be selected.
+ */
+ function selectAll(types, callable) {
+    var queue = []
+    var target = selection === null || selection.length === 0
+        ? document.pageItems
+        : selection
+    _forEachItem(target, function(item) {
+        if (types.contains(item.typename)) {
+            if (callable === undefined) {
+                callable = function() { return true }
+            }
+            if (callable(item)) {
+                queue.push(item)
+            }
+        }
+    })
+    selection = queue
 }

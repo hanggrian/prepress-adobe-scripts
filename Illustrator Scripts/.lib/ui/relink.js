@@ -7,7 +7,7 @@ function RelinkPDFPanel(parent, textBounds, editBounds) {
     this.boxType = this.main.addHGroup()
     this.boxType.addText(textBounds, 'Crop to:', 'right')
     this.boxTypeList = this.boxType.addDropDown(editBounds, PDF_BOX_TYPES)
-    this.boxTypeList.selection = 0
+    this.boxTypeList.selection = PDF_BOX_TYPES.indexOf('Bounding')
     this.boxType.setTooltip('Which box should be used when placing a pdf document.')
 
     this.getBoxType = function() {

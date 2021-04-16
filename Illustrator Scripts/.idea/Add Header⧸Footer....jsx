@@ -43,7 +43,7 @@ dialog.character.fontEdit.validateUnits()
 dialog.character.fill = dialog.character.addHGroup()
 dialog.character.fill.addText(characterTextBounds, 'Fill:', 'right')
 dialog.character.fillList = dialog.character.fill.addDropDown(undefined, COLORS)
-dialog.character.fillList.selection = 0
+dialog.character.fillList.selection = COLORS.indexOf('Registration')
 dialog.character.attrs = dialog.character.addHGroup()
 dialog.character.attrs.addText(characterTextBounds, 'Attributes:', 'right')
 dialog.character.italicCheck = dialog.character.attrs.addCheckBox(undefined, 'Italic')

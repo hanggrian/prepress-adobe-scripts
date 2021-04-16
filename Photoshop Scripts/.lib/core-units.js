@@ -1,14 +1,14 @@
 /**
- * Converts text to unit value by dividing parts to value and unit type.
- * @param {String} text text to convert.
+ * Converts units to unit value in points.
+ * @param {String} units units to convert.
  * @return {Number}
  */
-function parseUnit(text) {
-    checkNotNull(text)
-    if (text.isEmpty()) {
+ function parseUnits(units) {
+    checkNotNull(units)
+    if (units.isEmpty()) {
         return 0
     }
-    return isNumeric(text)
-        ? parseFloat(text)
-        : UnitValue(text).as('px')
+    return isNumeric(units)
+        ? parseFloat(units)
+        : UnitValue(units).as('px')
 }

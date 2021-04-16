@@ -8,19 +8,19 @@ var editBounds = [0, 0, 100, 21]
 
 dialog.width2 = dialog.main.addHGroup()
 dialog.width2.addText(textBounds, 'Width:', 'right')
-dialog.widthEdit = dialog.width2.addEditText(editBounds, formatUnit(document.width, 'mm', 2))
+dialog.widthEdit = dialog.width2.addEditText(editBounds, formatUnits(document.width, unitName, 2))
 dialog.widthEdit.validateUnits()
 dialog.widthEdit.active = true
 
 dialog.height2 = dialog.main.addHGroup()
 dialog.height2.addText(textBounds, 'Height:', 'right')
-dialog.heightEdit = dialog.height2.addEditText(editBounds, formatUnit(document.height, 'mm', 2))
+dialog.heightEdit = dialog.height2.addEditText(editBounds, formatUnits(document.height, unitName, 2))
 dialog.heightEdit.validateUnits()
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    var w = parseUnit(dialog.widthEdit.text)
-    var h = parseUnit(dialog.heightEdit.text)
+    var w = parseUnits(dialog.widthEdit.text)
+    var h = parseUnits(dialog.heightEdit.text)
     if (w <= 0 || h <= 0) {
         return
     }

@@ -2,6 +2,12 @@ function ImposePanel(parent, textBounds, editBounds) {
     var self = this
     this.main = parent.addVPanel('Impose Options')
 
+    this.units = this.main.addHGroup()
+    this.units.addText(textBounds, 'Units:', 'right')
+    this.unitsList = this.units.addDropDown(editBounds, UNITS)
+    this.unitsList.selection = UNITS.indexOf('Millimeters')
+    this.units.setTooltip('Ruler units for the new document.')
+
     this.pages = this.main.addHGroup()
     this.pages.addText(textBounds, 'Pages:', 'right')
     this.pagesEdit = this.pages.addEditText(editBounds, '4')
@@ -19,16 +25,20 @@ function ImposePanel(parent, textBounds, editBounds) {
     this.heightEdit = this.height.addEditText(editBounds, '297 mm')
     this.heightEdit.validateUnits()
 
+    this.getUnits = function() {
+        return parseRulerUnits(self.unitsList.selection.text)
+    }
+
     this.getPages = function() {
-        return parseUnit(self.pagesEdit.text)
+        return parseUnits(self.pagesEdit.text)
     }
 
     this.getWidth = function() {
-        return parseUnit(self.widthEdit.text)
+        return parseUnits(self.widthEdit.text)
     }
 
     this.getHeight = function() {
-        return parseUnit(self.heightEdit.text)
+        return parseUnits(self.heightEdit.text)
     }
 
     /**
@@ -41,6 +51,7 @@ function ImposePanel(parent, textBounds, editBounds) {
         if (title !== undefined) {
             preset.title = title
         }
+        preset.units = self.getUnits()
         preset.width = self.getWidth() * 2
         preset.height = self.getHeight()
         preset.numArtboards = self.getPages() / 2

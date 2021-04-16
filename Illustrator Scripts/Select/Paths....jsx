@@ -59,11 +59,11 @@ dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     selectAll(['PathItem', 'CompoundPathItem'], function(item) {
         var condition = true
-        var width = parseUnit(dialog.dimension.widthEdit.text)
+        var width = parseUnits(dialog.dimension.widthEdit.text)
         if (width > 0) {
             condition = condition && parseInt(width) == parseInt(item.width)
         }
-        var height = parseUnit(dialog.dimension.heightEdit.text)
+        var height = parseUnits(dialog.dimension.heightEdit.text)
         if (height > 0) {
             condition = condition && parseInt(height) == parseInt(item.height)
         }

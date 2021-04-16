@@ -39,7 +39,7 @@ if (files !== null && files.isNotEmpty()) {
         var pages = dialog.impose.getPages()
         var width = dialog.impose.getWidth()
         var height = dialog.impose.getHeight()
-        var bleed = parseUnit(dialog.impose.bleedEdit.text)
+        var bleed = parseUnits(dialog.impose.bleedEdit.text)
         if (pages === 0 || pages % 4 !== 0) {
             alert('Total pages must be a non-zero number that can be divided by 4.')
         } else {

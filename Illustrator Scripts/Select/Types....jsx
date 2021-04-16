@@ -34,7 +34,7 @@ dialog.setPositiveButton(function() {
     selectAll(['TextFrame'], function(item) {
         var attr = item.textRange.characterAttributes
         var condition = true
-        var fontSize = parseUnit(dialog.character.fontEdit.text)
+        var fontSize = parseUnits(dialog.character.fontEdit.text)
         if (fontSize > 0) {
             condition = condition && fontSize == attr.size
         }

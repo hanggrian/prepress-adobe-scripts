@@ -23,7 +23,7 @@ dialog.retype = dialog.main.addVPanel('Retype', 'fill')
 dialog.stops = dialog.retype.addHGroup()
 dialog.stops.addText(textBounds, 'Stops at:', 'right')
 dialog.stopsList = dialog.stops.add('dropdownlist', undefined, ALPHABETS)
-dialog.stopsList.selection = 1
+dialog.stopsList.selection = ALPHABETS.indexOf('B')
 dialog.stops.setTooltip('The iteration will stop at the selected alphabet and the number will reset back to 1.')
 dialog.space = dialog.retype.addHGroup()
 dialog.space.addText(textBounds, 'Midspace:', 'right')
