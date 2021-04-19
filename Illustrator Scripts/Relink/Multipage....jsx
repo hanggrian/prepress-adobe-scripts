@@ -9,6 +9,9 @@ var items = selection.filterItem(function(it) { return it.typename == 'PlacedIte
 check(items.isNotEmpty(), 'No links found in selection')
 
 var dialog = new Dialog('Relink Multipage', 'fill')
+var pdfPanel, dimensionPanel, reverseGroup
+var startPageEdit, endPageEdit
+
 var files = openFile(dialog.title, [
     ['Adobe Illustrator', 'AI'],
     ['Adobe PDF', 'PDF'],
@@ -32,48 +35,48 @@ if (files !== null && files.isNotEmpty()) {
     var editBounds = [0, 0, 100, 21]
 
     if (files.first().isPDF()) {
-        dialog.pdf = new RelinkPDFPanel(dialog.main, textBounds, editBounds)
-        
-        dialog.pdf.startPage = dialog.pdf.main.addHGroup()
-        dialog.pdf.startPage.addText(textBounds, 'Start page:', 'right')
-        dialog.pdf.startPageEdit = dialog.pdf.startPage.addEditText(editBounds, '1')
-        dialog.pdf.startPageEdit.validateDigits()
-        dialog.pdf.startPage.setTooltip('Beginning page of PDF file.')
-
-        dialog.pdf.endPage = dialog.pdf.main.addHGroup()
-        dialog.pdf.endPage.addText(textBounds, 'End page:', 'right')
-        dialog.pdf.endPageEdit = dialog.pdf.endPage.addEditText(editBounds)
-        dialog.pdf.endPageEdit.validateDigits()
-        dialog.pdf.endPageEdit.active = true
-        dialog.pdf.endPage.setTooltip('Final page of PDF file.')
+        pdfPanel = new RelinkPDFPanel(dialog.main, textBounds, editBounds)
+        pdfPanel.main.hgroup(function(group) {
+            group.staticText(textBounds, 'Start page:', JUSTIFY_RIGHT)
+            startPageEdit = group.editText(editBounds, '1', VALIDATE_DIGITS)
+            group.setTooltip('Beginning page of PDF file.')
+        })
+        pdfPanel.main.hgroup(function(group) {
+            group.staticText(textBounds, 'End page:', JUSTIFY_RIGHT)
+            endPageEdit = group.editText(editBounds, undefined, function(it) {
+                it.validateDigits()
+                it.active = true  
+            })
+            group.setTooltip('Final page of PDF file.')
+        })
     }
 
-    dialog.dimension = new RelinkDimensionPanel(dialog.main)
+    dimensionPanel = new RelinkDimensionPanel(dialog.main)
 
-    dialog.reverse = new ReverseOrderGroup(dialog.main)
+    reverseGroup = new ReverseOrderGroup(dialog.main)
 
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
         var resetPage, currentPage, endPage
         if (files.first().isPDF()) {
-            resetPage = function() { currentPage = parseInt(dialog.pdf.startPageEdit.text) || 1 }
-            endPage = parseInt(dialog.pdf.endPageEdit.text) || 1
+            resetPage = function() { currentPage = parseInt(startPageEdit.text) || 1 }
+            endPage = parseInt(endPageEdit.text) || 1
         } else { 
             resetPage = function() { currentPage = 0 }
             endPage = files.lastIndex()
         }
         resetPage()
-        dialog.reverse.forEachAware(items, function(item) {
+        reverseGroup.forEachAware(items, function(item) {
             var width = item.width
             var height = item.height
             var position = item.position
             if (files.first().isPDF()) {
-                updatePDFPreferences(dialog.pdf.getBoxType(), currentPage++)
+                updatePDFPreferences(pdfPanel.getBoxType(), currentPage++)
                 item.file = files.first()
             } else {
                 item.file = files[currentPage++]
             }
-            if (dialog.dimension.isMaintain()) {
+            if (dimensionPanel.isMaintain()) {
                 item.width = width
                 item.height = height
                 item.position = position

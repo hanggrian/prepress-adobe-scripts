@@ -8,67 +8,65 @@
 #include '../.lib/commons.js'
 
 var dialog = new Dialog('Pre-Flight')
+var generalModeText
+var generalResolutionText
+var generalBitsText
 
 var fixButtons = []
 var leftBounds = [0, 0, 70, 21]
 var rightBounds = [0, 0, 100, 21]
 var fixBounds = [0, 0, 50, 21]
 
-dialog.main2 = dialog.main.addHGroup('top')
+dialog.hgroup(function(mainGroup) {
+    mainGroup.alignChildren = 'top'
 
-// panel with fix buttons
-dialog.general = dialog.main2.addVPanel('General', 'fill')
-
-dialog.general.mode = dialog.general.addHGroup()
-dialog.general.mode.addText(leftBounds, 'Mode:', 'right')
-dialog.general.modeText = dialog.general.mode.addText(rightBounds, document.mode.toString().substringAfter('.'))
-if (dialog.general.modeText.text == 'CMYK') {
-    dialog.general.modeText.text += ' ✔'
-} else {
-    dialog.general.modeText.text += ' ✘'
-    fixButtons.push(addFixButton(
-        dialog.general.mode,
-        dialog.general.modeText,
-        'CMYK ✔',
-        function() {
-            document.changeMode(ChangeMode.CMYK)
-        }))
-}
-dialog.general.mode.setTooltip('Image color mode should be CMYK.')
-
-dialog.general.resolution = dialog.general.addHGroup()
-dialog.general.resolution.addText(leftBounds, 'Resolution:', 'right')
-dialog.general.resolutionText = dialog.general.resolution.addText(rightBounds, Math.round(document.resolution))
-if (dialog.general.resolutionText.text == '300') {
-    dialog.general.resolutionText.text += ' ✔'
-} else {
-    dialog.general.resolutionText.text += ' ✘'
-    fixButtons.push(addFixButton(
-        dialog.general.resolution,
-        dialog.general.resolutionText,
-        '300 ✔',
-        function() {
-            document.resizeImage(undefined, undefined, 300)
-        }))
-}
-dialog.general.resolution.setTooltip('Resolution should be 300.')
-
-dialog.general.bits = dialog.general.addHGroup()
-dialog.general.bits.addText(leftBounds, 'Bits:', 'right')
-dialog.general.bitsText = dialog.general.bits.addText(rightBounds, getBits())
-if (dialog.general.bitsText.text == '8') {
-    dialog.general.bitsText.text += ' ✔'
-} else {
-    dialog.general.bitsText.text += ' ✘'
-    fixButtons.push(addFixButton(
-        dialog.general.bits,
-        dialog.general.bitsText,
-        '8 ✔',
-        function() {
-            document.bitsPerChannel = BitsPerChannelType.EIGHT
-        }))
-}
-dialog.general.bits.setTooltip('Bits depth should be 8.')
+    // panel with fix buttons
+    mainGroup.vpanel('General', function(panel) {
+        panel.alignChildren = 'fill'
+        panel.hgroup(function(group) {
+            group.staticText(leftBounds, 'Mode:', JUSTIFY_RIGHT)
+            generalModeText = group.staticText(rightBounds, document.mode.toString().substringAfter('.'), function(it) {
+                if (it.text == 'CMYK') {
+                    it.text += ' ✔'
+                } else {
+                    it.text += ' ✘'
+                    fixButtons.push(addFixButton(group, it, 'CMYK ✔', function() {
+                        document.changeMode(ChangeMode.CMYK)
+                    }))
+                }
+            })
+            group.setTooltip('Image color mode should be CMYK.')
+        })
+        panel.hgroup(function(group) {
+            group.staticText(leftBounds, 'Resolution:', JUSTIFY_RIGHT)
+            generalResolutionText = group.staticText(rightBounds, Math.round(document.resolution), function(it) {
+                if (it.text == '300') {
+                    it.text += ' ✔'
+                } else {
+                    it.text += ' ✘'
+                    fixButtons.push(addFixButton(group, it, '300 ✔', function() {
+                        document.resizeImage(undefined, undefined, 300)
+                    }))
+                }
+            })
+            group.setTooltip('Resolution should be 300.')
+        })
+        panel.hgroup(function(group) {
+            group.staticText(leftBounds, 'Bits:', JUSTIFY_RIGHT)
+            generalBitsText = group.staticText(rightBounds, getBits(), function(it) {
+                if (it.text == '8') {
+                    it.text += ' ✔'
+                } else {
+                    it.text += ' ✘'
+                    fixButtons.push(addFixButton(group, it, '8 ✔', function() {
+                        document.bitsPerChannel = BitsPerChannelType.EIGHT
+                    }))
+                }
+            })
+            group.setTooltip('Bits depth should be 8.')
+        })
+    })
+})
 
 if (fixButtons.length > 0) {
     dialog.setNegativeButton('Fix All', function() {
@@ -94,11 +92,12 @@ function getBits() {
 }
 
 function addFixButton(parent, staticText, fixedText, onClick) {
-    var button = parent.addButton(fixBounds, 'Fix')
-    button.onClick = function() {
-        onClick()
-        button.hide()
-        staticText.text = fixedText
-    }
+    var button = parent.button(fixBounds, 'Fix', function(it) {
+        it.onClick = function() {
+            onClick()
+            button.hide()
+            staticText.text = fixedText
+        }
+    })
     return button
 }

@@ -7,31 +7,37 @@
 checkHasSelection()
 
 var dialog = new Dialog('Rotate')
+var angleEdit, changePanel, anchorPanel
 
 var editBounds = [0, 0, 150, 21]
 
-dialog.rotate = dialog.main.addVPanel(dialog.title)
-dialog.angle = dialog.rotate.addHGroup()
-dialog.angle.addText(undefined, 'Angle:', 'right')
-dialog.angleEdit = dialog.angle.addEditText(editBounds, '0')
-dialog.angleEdit.validateDigits()
-dialog.angleEdit.active = true
+dialog.vpanel(dialog.title, function(panel) {
+    panel.hgroup(function(group) {
+        group.staticText(undefined, 'Angle:', JUSTIFY_RIGHT)
+        angleEdit = group.editText(editBounds, '0', function(it) {
+            it.validateDigits()
+            it.active = true
+        })
+    })
+})
 
-dialog.bottom = dialog.main.addHGroup('fill')
-dialog.change = new ItemChangePanel(dialog.bottom)
-dialog.anchor = new ItemAnchorPanel(dialog.bottom)
+dialog.hgroup(function(group) {
+    group.alignChildren = 'fill'    
+    changePanel = new ItemChangePanel(group)
+    anchorPanel = new ItemAnchorPanel(group)
+})
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    var angle = parseInt(dialog.angleEdit.text)
+    var angle = parseInt(angleEdit.text)
     if (angle != 0) {
         selection.forEachItem(function(it) {
             it.rotate(angle,
-                dialog.change.isPositions(),
-                dialog.change.isFillPatterns(),
-                dialog.change.isFillGradients(),
-                dialog.change.isStrokePattern(),
-                dialog.anchor.getTransformation())
+                changePanel.isPositions(),
+                changePanel.isFillPatterns(),
+                changePanel.isFillGradients(),
+                changePanel.isStrokePatterns(),
+                anchorPanel.getTransformation())
         })
     }
 })

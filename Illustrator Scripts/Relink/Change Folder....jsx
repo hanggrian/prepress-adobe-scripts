@@ -11,13 +11,15 @@ var items = selection.filterItem(function(it) { return it.typename == 'PlacedIte
 check(items.isNotEmpty(), 'No links found in selection')
 
 var dialog = new Dialog('Relink Change Folder', 'fill')
+var dimensionPanel
+
 var folder = openFolder(dialog.title)
 
 if (folder != null) {
     var textBounds = [0, 0, 50, 21]
     var editBounds = [0, 0, 100, 21]
 
-    dialog.dimension = new RelinkDimensionPanel(dialog.main)
+    dimensionPanel = new RelinkDimensionPanel(dialog.main)
     
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
@@ -28,7 +30,7 @@ if (folder != null) {
             item.relink(folder.getFiles()
                 .filter(function(file) { return file.name == item.file.name })
                 .first())
-            if (dialog.dimension.isMaintain()) {
+            if (dimensionPanel.isMaintain()) {
                 item.width = width
                 item.height = height
                 item.position = position

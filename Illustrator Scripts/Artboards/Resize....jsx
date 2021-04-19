@@ -2,25 +2,28 @@
 #include '../.lib/commons.js'
 
 var dialog = new Dialog('Resize Artboards')
+var widthEdit, heightEdit
 
 var textBounds = [0, 0, 45, 21]
 var editBounds = [0, 0, 100, 21]
 
-dialog.width2 = dialog.main.addHGroup()
-dialog.width2.addText(textBounds, 'Width:', 'right')
-dialog.widthEdit = dialog.width2.addEditText(editBounds, formatUnits(document.width, unitName, 2))
-dialog.widthEdit.validateUnits()
-dialog.widthEdit.active = true
+dialog.hgroup(function(group) {
+    group.staticText(textBounds, 'Width:', JUSTIFY_RIGHT)
+    widthEdit = group.editText(editBounds, formatUnits(document.width, unitName, 2))
+    widthEdit.validateUnits()
+    widthEdit.active = true
+})
 
-dialog.height2 = dialog.main.addHGroup()
-dialog.height2.addText(textBounds, 'Height:', 'right')
-dialog.heightEdit = dialog.height2.addEditText(editBounds, formatUnits(document.height, unitName, 2))
-dialog.heightEdit.validateUnits()
+dialog.hgroup(function(group) {
+    group.staticText(textBounds, 'Height:', JUSTIFY_RIGHT)
+    heightEdit = group.editText(editBounds, formatUnits(document.height, unitName, 2))
+    heightEdit.validateUnits()
+})
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    var w = parseUnits(dialog.widthEdit.text)
-    var h = parseUnits(dialog.heightEdit.text)
+    var w = parseUnits(widthEdit.text)
+    var h = parseUnits(heightEdit.text)
     if (w <= 0 || h <= 0) {
         return
     }

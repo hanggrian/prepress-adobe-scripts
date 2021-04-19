@@ -11,41 +11,43 @@
 #include '../.lib/commons.js'
 
 var dialog = new Dialog('Add Bleed')
+var documentCurrentRadio, documentAllRadio
+var bleedEdit, guideLayoutCheck, flattenCheck
 
 var textBounds = [0, 0, 85, 21]
 var editBounds = [0, 0, 100, 21]
 
-dialog.document = dialog.main.addHGroup()
-dialog.document.addText(textBounds, 'Document:', 'right')
-dialog.documentCurrentRadio = dialog.document.addRadioButton(undefined, 'Current')
-dialog.documentCurrentRadio.value = true
-dialog.documentAllRadio = dialog.document.addRadioButton(undefined, 'All')
-dialog.document.setTooltip('Which document should be affected.')
-
-dialog.bleed = dialog.main.addHGroup()
-dialog.bleed.addText(textBounds, 'Bleed:', 'right')
-dialog.bleedEdit = dialog.bleed.addEditText(editBounds, unitsOf('2.5 mm'))
-dialog.bleedEdit.validateUnits()
-dialog.bleedEdit.active = true
-dialog.bleed.setTooltip('Bleed are distributed around image.')
-
-dialog.guideLayout = dialog.main.addHGroup()
-dialog.guideLayout.addText(textBounds, 'Guide Layout:', 'right')
-dialog.guideLayoutCheck = dialog.guideLayout.addCheckBox(undefined, 'Enable')
-dialog.guideLayoutCheck.value = true
-dialog.guideLayout.setTooltip('Guides will mark where bleed are added.')
-
-dialog.flatten = dialog.main.addHGroup()
-dialog.flatten.addText(textBounds, 'Flatten:', 'right')
-dialog.flattenCheck = dialog.flatten.addCheckBox(undefined, 'Enable')
-dialog.flatten.setTooltip('Layers will be flattened.')
+dialog.hgroup(function(group) {
+    group.staticText(textBounds, 'Document:', JUSTIFY_RIGHT)
+    documentCurrentRadio = group.radioButton(undefined, 'Current', SELECTED)
+    documentAllRadio = group.radioButton(undefined, 'All')
+    group.setTooltip('Which document should be affected.')
+})
+dialog.hgroup(function(group) {
+    group.staticText(textBounds, 'Bleed:', JUSTIFY_RIGHT)
+    bleedEdit = group.editText(editBounds, unitsOf('2.5 mm'), function(it) {
+        it.validateUnits()
+        it.active = true
+    })
+    group.setTooltip('Bleed are distributed around image.')
+})
+dialog.hgroup(function(group) {
+    group.staticText(textBounds, 'Guide Layout:', JUSTIFY_RIGHT)
+    guideLayoutCheck = group.checkBox(undefined, 'Enable', SELECTED)
+    group.setTooltip('Guides will mark where bleed are added.')
+})
+dialog.hgroup(function(group) {
+    group.staticText(textBounds, 'Flatten:', JUSTIFY_RIGHT)
+    flattenCheck = group.checkBox(undefined, 'Enable')
+    group.setTooltip('Layers will be flattened.')
+})
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    var isAll = dialog.documentAllRadio.value
-    var bleed = UnitValue(dialog.bleedEdit.text) * 2
-    var shouldAddGuide = dialog.guideLayoutCheck.value
-    var shouldFlatten = dialog.flattenCheck.value
+    var isAll = documentAllRadio.value
+    var bleed = UnitValue(bleedEdit.text) * 2
+    var shouldAddGuide = guideLayoutCheck.value
+    var shouldFlatten = flattenCheck.value
     if (!isAll) {
         process(document, bleed, shouldAddGuide, shouldFlatten)
     } else {

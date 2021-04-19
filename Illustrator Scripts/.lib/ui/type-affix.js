@@ -1,14 +1,26 @@
 function TypeAffixPanel(parent, textBounds, editBounds) {
     var self = this
-    this.main = parent.addVPanel('Affix')
+    this.prefixEdit, this.suffixEdit
 
-    this.prefix = this.main.addHGroup()
-    this.prefix.addText(textBounds, 'Prefix:', 'right')
-    this.prefixEdit = this.prefix.addEditText(editBounds)
-    this.prefix.setTooltip('Extra text before content, can be left empty.')
+    this.main = parent.vpanel('Affix', function(panel) {
+        panel.hgroup(function(group) {
+            group.staticText(textBounds, 'Prefix:', JUSTIFY_RIGHT)
+            self.prefixEdit = group.editText(editBounds)
+            group.setTooltip('Extra text before content, can be left empty.')
+        
+        })
+        panel.hgroup(function(group) {
+            group.staticText(textBounds, 'Suffix:', JUSTIFY_RIGHT)
+            self.suffixEdit = group.editText(editBounds)
+            group.setTooltip('Extra text after content, can be left empty.')
+        })
+    })
 
-    this.suffix = this.main.addHGroup()
-    this.suffix.addText(textBounds, 'Suffix:', 'right')
-    this.suffixEdit = this.suffix.addEditText(editBounds)
-    this.suffix.setTooltip('Extra text after content, can be left empty.')
+    this.getPrefix = function() {
+        return self.prefixEdit.text
+    }
+
+    this.getSuffix = function() {
+        return self.suffixEdit.text
+    }
 }

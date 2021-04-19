@@ -4,6 +4,9 @@
 #include '../.lib/ui/relink.js'
 
 var dialog = new Dialog('Impose Saddle Stich')
+var pdfPanel, imposePanel
+var bleedEdit
+
 var files = openFile(dialog.title, [
     ['Adobe Illustrator', 'ai'],
     ['Adobe PDF', 'pdf'],
@@ -25,25 +28,25 @@ if (files !== null && files.isNotEmpty()) {
     var editBounds = [0, 0, 100, 21]
 
     if (files.first().isPDF()) {
-        dialog.pdf = new RelinkPDFPanel(dialog.main, textBounds, editBounds)
+        pdfPanel = new RelinkPDFPanel(dialog.main, textBounds, editBounds)
     }
 
-    dialog.impose = new ImposePanel(dialog.main, textBounds, editBounds)
-    dialog.impose.bleed = dialog.impose.main.addHGroup()
-    dialog.impose.bleed.addText(textBounds, 'Bleed:', 'right')
-    dialog.impose.bleedEdit = dialog.impose.bleed.addEditText(editBounds, '0 mm')
-    dialog.impose.bleedEdit.validateUnits()
+    imposePanel = new ImposePanel(dialog.main, textBounds, editBounds)
+    imposePanel.main.hgroup(function(group) {
+        group.staticText(textBounds, 'Bleed:', JUSTIFY_RIGHT)
+        bleedEdit = group.editText(editBounds, '0 mm', VALIDATE_UNITS)
+    })
 
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
-        var pages = dialog.impose.getPages()
-        var width = dialog.impose.getWidth()
-        var height = dialog.impose.getHeight()
-        var bleed = parseUnits(dialog.impose.bleedEdit.text)
+        var pages = imposePanel.getPages()
+        var width = imposePanel.getWidth()
+        var height = imposePanel.getHeight()
+        var bleed = parseUnits(bleedEdit.text)
         if (pages === 0 || pages % 4 !== 0) {
             alert('Total pages must be a non-zero number that can be divided by 4.')
         } else {
-            document = app.documents.addDocument(DocumentPresetType.Print, dialog.impose.getDocumentPreset('Untitled-Saddle Stitch', bleed))
+            document = app.documents.addDocument(DocumentPresetType.Print, imposePanel.getDocumentPreset('Untitled-Saddle Stitch', bleed))
             var pager
             if (files.first().isPDF()) {
                 pager = new SaddleStitchPager(document, 1, pages)
@@ -54,9 +57,9 @@ if (files !== null && files.isNotEmpty()) {
                 var leftItem = document.placedItems.add()
                 var rightItem = document.placedItems.add()
                 if (files.first().isPDF()) {
-                    updatePDFPreferences(dialog.pdf.getBoxType(), left)
+                    updatePDFPreferences(pdfPanel.getBoxType(), left)
                     leftItem.file = files.first()
-                    updatePDFPreferences(dialog.pdf.getBoxType(), right)
+                    updatePDFPreferences(pdfPanel.getBoxType(), right)
                     rightItem.file = files.first()
                 } else {
                     leftItem.file = files[left]

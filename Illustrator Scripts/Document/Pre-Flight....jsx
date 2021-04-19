@@ -4,166 +4,163 @@
 #include '../.lib/commons.js'
 
 var dialog = new Dialog('Pre-Flight')
+var generalColorSpaceText, generalColorSpaceButton
+var generalColorModelText
+var generalResolutionText
+var generalBackgroundText
+var generalAntiAliasText
+var generalClippingMaskText
+var generalSpotColorsText
 
 var fixButtons = []
 var leftBounds = [0, 0, 90, 21]
 var rightBounds = [0, 0, 150, 21]
 var fixBounds = [0, 0, 50, 21]
 
-dialog.main2 = dialog.main.addHGroup('top')
+dialog.hgroup(function(mainGroup) {
+    mainGroup.alignChildren = 'top'
 
-// panel with fix buttons
-dialog.general = dialog.main2.addVPanel('General', 'fill')
-
-// color space isn't really a part of raster effects settings
-dialog.general.colorSpace = dialog.general.addHGroup()
-dialog.general.colorSpace.addText(leftBounds, 'Color space:', 'right')
-dialog.general.colorSpaceText = dialog.general.colorSpace.addText(rightBounds, document.documentColorSpace.toString().substringAfter('.'))
-if (dialog.general.colorSpaceText.text == 'CMYK') {
-    dialog.general.colorSpaceText.text += ' ✔'
-} else {
-    dialog.general.colorSpaceText.text += ' ✘'
-    dialog.general.colorSpace.firstButton = dialog.general.colorSpace.add('button', fixBounds, 'Fix')
-    dialog.general.colorSpace.firstButton.onClick = function() {
-        alert("Color mode can't be changed within script.\nGo to File > Document Color Mode > CMYK Color.", dialog.title)
-    }
-    fixButtons.push(dialog.general.colorSpace.firstButton)
-}
-dialog.general.colorSpace.setTooltip('Image color space should be CMYK.')
-
-dialog.general.colorModel = dialog.general.addHGroup()
-dialog.general.colorModel.addText(leftBounds, 'Color model:', 'right')
-dialog.general.colorModelText = dialog.general.colorModel.addText(rightBounds, document.rasterEffectSettings.colorModel.toString().substringAfter('.'))
-if (dialog.general.colorModelText.text == 'DEFAULTCOLORMODEL') {
-    dialog.general.colorModelText.text += ' ✔'
-} else {
-    dialog.general.colorModelText.text += ' ✘'
-    fixButtons.push(addFixButton(
-        dialog.general.colorModel,
-        dialog.general.colorModelText,
-        'DEFAULTCOLORMODEL ✔',
-        function() { 
-            document.rasterEffectSettings.colorModel = RasterizationColorModel.DEFAULTCOLORMODEL 
-        }))
-}
-dialog.general.colorModel.setTooltip('Image color model should be default.')
-
-dialog.general.resolution = dialog.general.addHGroup()
-dialog.general.resolution.addText(leftBounds, 'Resolution:', 'right')
-dialog.general.resolutionText = dialog.general.resolution.addText(rightBounds, document.rasterEffectSettings.resolution)
-if (dialog.general.resolutionText.text == '300') {
-    dialog.general.resolutionText.text += ' ✔'
-} else {
-    dialog.general.resolutionText.text += ' ✘'
-    fixButtons.push(addFixButton(
-        dialog.general.resolution,
-        dialog.general.resolutionText,
-        '300 ✔',
-        function() {
-            document.rasterEffectSettings.resolution = 300
-        }))
-}
-dialog.general.resolution.setTooltip('Resolution should be 300.')
-
-dialog.general.background = dialog.general.addHGroup()
-dialog.general.background.addText(leftBounds, 'Background:', 'right')
-dialog.general.backgroundText = dialog.general.background.addText(rightBounds)
-if (!document.rasterEffectSettings.transparency) {
-    dialog.general.backgroundText.text = 'White ✔'
-} else {
-    dialog.general.backgroundText.text = 'Transparent ✘'
-}
-if (dialog.general.backgroundText.text.endsWith('✘')) {
-    fixButtons.push(addFixButton(
-        dialog.general.background,
-        dialog.general.backgroundText,
-        'White ✔',
-        function() {
-            document.rasterEffectSettings.transparency = false
-        }))
-}
-dialog.general.background.setTooltip('Background should be white.')
-
-dialog.general.antiAlias = dialog.general.addHGroup()
-dialog.general.antiAlias.addText(leftBounds, 'Anti-alias:', 'right')
-dialog.general.antiAliasText = dialog.general.antiAlias.addText(rightBounds)
-if (!document.rasterEffectSettings.antiAliasing) {
-    dialog.general.antiAliasText.text = 'Disabled ✔'
-} else {
-    dialog.general.antiAliasText.text = 'Enabled ✘'
-}
-if (dialog.general.antiAliasText.text.endsWith('✘')) {
-    fixButtons.push(addFixButton(
-        dialog.general.antiAlias,
-        dialog.general.antiAliasText,
-        'Disabled ✔',
-        function() {
-            document.rasterEffectSettings.antiAliasing = false
-        }))
-}
-dialog.general.antiAlias.setTooltip('Anti-alias should be disabled.')
-
-dialog.general.clippingMask = dialog.general.addHGroup()
-dialog.general.clippingMask.addText(leftBounds, 'Clipping mask:', 'right')
-dialog.general.clippingMaskText = dialog.general.clippingMask.addText(rightBounds)
-if (!document.rasterEffectSettings.clippingMask) {
-    dialog.general.clippingMaskText.text = "Don't create ✔"
-} else {
-    dialog.general.clippingMaskText.text = 'Create ✘'
-}
-if (dialog.general.clippingMaskText.text.endsWith('✘')) {
-    fixButtons.push(addFixButton(
-        dialog.general.clippingMask,
-        dialog.general.clippingMaskText,
-        "Don't create ✔",
-        function() {
-            document.rasterEffectSettings.clippingMask = false
-        }))
-}
-dialog.general.clippingMask.setTooltip('Clipping mask should not be created.')
-
-dialog.general.spotColors = dialog.general.addHGroup()
-dialog.general.spotColors.addText(leftBounds, 'Spot colors:', 'right')
-dialog.general.spotColorsText = dialog.general.spotColors.addText(rightBounds)
-if (!document.rasterEffectSettings.convertSpotColors) {
-    dialog.general.spotColorsText.text = 'Preserve ✔'
-} else {
-    dialog.general.spotColorsText.text = 'Convert ✘'
-}
-if (dialog.general.spotColorsText.text.endsWith('✘')) {
-    fixButtons.push(addFixButton(
-        dialog.general.spotColors,
-        dialog.general.spotColorsText,
-        'Preserve ✔',
-        function() {
-            document.rasterEffectSettings.convertSpotColors = false
-        }))
-}
-dialog.general.spotColors.setTooltip('Spot colors should be preserved.')
-
-// panels without fix buttons
-dialog.content = dialog.main2.addVGroup()
-dialog.content.rasters = dialog.content.addVPanel('Rasters Items')
-if (document.rasterItems.length == 0) {
-    dialog.content.rasters.text += ' ✔'
-    dialog.content.rasters.addText(undefined, 'No raster items.')
-} else {
-    var isEmpty = true
-    for (var i = 0; i < document.rasterItems.length; i++) {
-        var item = document.rasterItems[i]
-        if (item.imageColorSpace != ImageColorSpace.CMYK) {
-            isEmpty = false
-            dialog.content.rasters.addText(undefined, getRasterItemName(item) + ' is ' + item.imageColorSpace + '.')
-        }
-    }
-    if (isEmpty) {
-        dialog.content.rasters.text += ' ✔'
-        dialog.content.rasters.addText(undefined, 'All images are CMYK.')
-    } else {
-        dialog.content.rasters.text += ' ✘'
-    }
-}
-dialog.content.rasters.setTooltip('Images below 300 resolution.')
+    // panel with fix buttons
+    mainGroup.vpanel('General', function(panel) {
+        panel.alignChildren = 'fill'
+        // color space isn't really a part of raster effects settings
+        panel.hgroup(function(group) {
+            group.staticText(leftBounds, 'Color space:', JUSTIFY_RIGHT)
+            generalColorSpaceText = group.staticText(rightBounds, document.documentColorSpace.toString().substringAfter('.'), function(it) {
+                if (it.text == 'CMYK') {
+                    it.text += ' ✔'
+                } else {
+                    it.text += ' ✘'
+                    generalColorSpaceButton = group.button(fixBounds, 'Fix', function(button) {
+                        it.onClick = function() {
+                            alert("Color mode can't be changed within script.\nGo to File > Document Color Mode > CMYK Color.", dialog.title)
+                        }
+                        fixButtons.push(it)
+                    })
+                }
+            })
+            group.setTooltip('Image color space should be CMYK.')
+        })
+        panel.hgroup(function(group) {
+            group.staticText(leftBounds, 'Color model:', JUSTIFY_RIGHT)
+            generalColorModelText = group.staticText(rightBounds, document.rasterEffectSettings.colorModel.toString().substringAfter('.'), function(it) {
+                if (it.text == 'DEFAULTCOLORMODEL') {
+                    it.text += ' ✔'
+                } else {
+                    it.text += ' ✘'
+                    fixButtons.push(addFixButton(group, it, 'DEFAULTCOLORMODEL ✔', function() { 
+                        document.rasterEffectSettings.colorModel = RasterizationColorModel.DEFAULTCOLORMODEL 
+                    }))
+                }
+            })
+            group.setTooltip('Image color model should be default.')
+        })
+        panel.hgroup(function(group) {
+            group.staticText(leftBounds, 'Resolution:', JUSTIFY_RIGHT)
+            generalResolutionText = group.staticText(rightBounds, document.rasterEffectSettings.resolution, function(it) {
+                if (it.text == '300') {
+                    it.text += ' ✔'
+                } else {
+                    it.text += ' ✘'
+                    fixButtons.push(addFixButton(group, it, '300 ✔', function() {
+                        document.rasterEffectSettings.resolution = 300
+                    }))
+                }
+            })
+            group.setTooltip('Resolution should be 300.')
+        })
+        panel.hgroup(function(group) {
+            group.staticText(leftBounds, 'Background:', JUSTIFY_RIGHT)
+            generalBackgroundText = group.staticText(rightBounds, undefined, function(it) {
+                if (!document.rasterEffectSettings.transparency) {
+                    it.text = 'White ✔'
+                } else {
+                    it.text = 'Transparent ✘'
+                }
+                if (it.text.endsWith('✘')) {
+                    fixButtons.push(addFixButton(group, it, 'White ✔', function() {
+                        document.rasterEffectSettings.transparency = false
+                    }))
+                }
+            })
+            group.setTooltip('Background should be white.')
+        })
+        panel.hgroup(function(group) {
+            group.staticText(leftBounds, 'Anti-alias:', JUSTIFY_RIGHT)
+            generalAntiAliasText = group.staticText(rightBounds, undefined, function(it) {
+                if (!document.rasterEffectSettings.antiAliasing) {
+                    it.text = 'Disabled ✔'
+                } else {
+                    it.text = 'Enabled ✘'
+                }
+                if (it.text.endsWith('✘')) {
+                    fixButtons.push(addFixButton(group, it, 'Disabled ✔', function() {
+                        document.rasterEffectSettings.antiAliasing = false
+                    }))
+                }
+            })
+            group.setTooltip('Anti-alias should be disabled.')
+        })
+        panel.hgroup(function(group) {
+            group.staticText(leftBounds, 'Clipping mask:', JUSTIFY_RIGHT)
+            generalClippingMaskText = group.staticText(rightBounds, undefined, function(it) {
+                if (!document.rasterEffectSettings.clippingMask) {
+                    it.text = "Don't create ✔"
+                } else {
+                    it.text = 'Create ✘'
+                }
+                if (it.text.endsWith('✘')) {
+                    fixButtons.push(addFixButton(group, it, "Don't create ✔", function() {
+                        document.rasterEffectSettings.clippingMask = false
+                    }))
+                }
+            })
+            group.setTooltip('Clipping mask should not be created.')
+        })
+        panel.hgroup(function(group) {
+            group.staticText(leftBounds, 'Spot colors:', JUSTIFY_RIGHT)
+            generalSpotColorsText = group.staticText(rightBounds, undefined, function(it) {
+                if (!document.rasterEffectSettings.convertSpotColors) {
+                    it.text = 'Preserve ✔'
+                } else {
+                    it.text = 'Convert ✘'
+                }
+                if (it.text.endsWith('✘')) {
+                    fixButtons.push(addFixButton(group, it, 'Preserve ✔', function() {
+                        document.rasterEffectSettings.convertSpotColors = false
+                    }))
+                }
+            })
+            group.setTooltip('Spot colors should be preserved.')
+        })
+    })
+    
+    // panels without fix buttons
+    mainGroup.vgroup(function(group) {
+        group.vpanel('Rasters Items', function(panel) {
+            if (document.rasterItems.length == 0) {
+                panel.text += ' ✔'
+                panel.staticText(undefined, 'No raster items.')
+            } else {
+                var isEmpty = true
+                for (var i = 0; i < document.rasterItems.length; i++) {
+                    var item = document.rasterItems[i]
+                    if (item.imageColorSpace != ImageColorSpace.CMYK) {
+                        isEmpty = false
+                        panel.staticText(undefined, getRasterItemName(item) + ' is ' + item.imageColorSpace + '.')
+                    }
+                }
+                if (isEmpty) {
+                    panel.text += ' ✔'
+                    panel.staticText(undefined, 'All images are CMYK.')
+                } else {
+                    panel.text += ' ✘'
+                }
+            }
+            panel.setTooltip('Images below 300 resolution.')
+        })
+    })
+})
 
 if (fixButtons.length > 0) {
     dialog.setNegativeButton('Fix All', function() {
@@ -176,12 +173,13 @@ dialog.setPositiveButton()
 dialog.show()
 
 function addFixButton(parent, staticText, fixedText, onClick) {
-    var button = parent.addButton(fixBounds, 'Fix')
-    button.onClick = function() {
-        onClick()
-        button.hide()
-        staticText.text = fixedText
-    }
+    var button = parent.button(fixBounds, 'Fix', function(it) {
+        it.onClick = function() {
+            onClick()
+            button.hide()
+            staticText.text = fixedText
+        }
+    })
     return button
 }
 

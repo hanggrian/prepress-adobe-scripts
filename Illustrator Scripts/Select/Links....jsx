@@ -17,57 +17,64 @@ var FILE_PSD = ['psd', 'psb', 'pdd']
 var FILE_TIFF = ['tif', 'tiff']
 
 var dialog = new Dialog('Select Links')
+var widthEdit, heightEdit
+var aiCheck, pdfCheck, bmpCheck, gifCheck, jpegCheck, jpeg2000Check, pngCheck, psdCheck, tiffCheck
 
-dialog.line = dialog.main.addHGroup('top')
-
-var dimensionTextBounds = [0, 0, 45, 21]
-var dimensionEditBounds = [0, 0, 100, 21]
-dialog.dimension = dialog.line.addVPanel('Dimension')
-dialog.dimension.width = dialog.dimension.addHGroup()
-dialog.dimension.width.addText(dimensionTextBounds, 'Width:', 'right')
-dialog.dimension.widthEdit = dialog.dimension.width.addEditText(dimensionEditBounds)
-dialog.dimension.widthEdit.validateUnits()
-dialog.dimension.widthEdit.active = true
-dialog.dimension.height = dialog.dimension.addHGroup()
-dialog.dimension.height.addText(dimensionTextBounds, 'Height:', 'right')
-dialog.dimension.heightEdit = dialog.dimension.height.addEditText(dimensionEditBounds)
-dialog.dimension.heightEdit.validateUnits()
-
-dialog.types = dialog.line.addVPanel('File types', 'fill')
-dialog.types.aiCheck = dialog.types.addCheckBox(undefined, getTypeString('Adobe Illustrator', FILE_AI))
-dialog.types.pdfCheck = dialog.types.addCheckBox(undefined, getTypeString('Adobe PDF', FILE_PDF))
-dialog.types.bmpCheck = dialog.types.addCheckBox(undefined, getTypeString('BMP', FILE_BMP))
-dialog.types.gifCheck = dialog.types.addCheckBox(undefined, getTypeString('GIF89a', FILE_GIF))
-dialog.types.jpegCheck = dialog.types.addCheckBox(undefined, getTypeString('JPEG', FILE_JPEG))
-dialog.types.jpeg2000Check = dialog.types.addCheckBox(undefined, getTypeString('JPEG2000', FILE_JPEG2000))
-dialog.types.pngCheck = dialog.types.addCheckBox(undefined, getTypeString('PNG', FILE_PNG))
-dialog.types.psdCheck = dialog.types.addCheckBox(undefined, getTypeString('Photoshop', FILE_PSD))
-dialog.types.tiffCheck = dialog.types.addCheckBox(undefined, getTypeString('TIFF', FILE_TIFF))
+dialog.hgroup(function(mainGroup) {
+    mainGroup.alignChildren = 'top'
+    mainGroup.vpanel('Dimension', function(panel) {
+        var dimensionTextBounds = [0, 0, 45, 21]
+        var dimensionEditBounds = [0, 0, 100, 21]
+        panel.hgroup(function(group) {
+            group.staticText(dimensionTextBounds, 'Width:', JUSTIFY_RIGHT)
+            widthEdit = group.editText(dimensionEditBounds, function(it) {
+                it.validateUnits()
+                it.active = true
+            })
+        })
+        panel.hgroup(function(group) {
+            group.staticText(dimensionTextBounds, 'Height:', JUSTIFY_RIGHT)
+            heightEdit = group.editText(dimensionEditBounds, VALIDATE_UNITS)
+        })
+    })
+    mainGroup.vpanel('File Types', function(panel) {
+        panel.alignChildren = 'fill'
+        aiCheck = panel.checkBox(undefined, getTypeString('Adobe Illustrator', FILE_AI))
+        pdfCheck = panel.checkBox(undefined, getTypeString('Adobe PDF', FILE_PDF))
+        bmpCheck = panel.checkBox(undefined, getTypeString('BMP', FILE_BMP))
+        gifCheck = panel.checkBox(undefined, getTypeString('GIF89a', FILE_GIF))
+        jpegCheck = panel.checkBox(undefined, getTypeString('JPEG', FILE_JPEG))
+        jpeg2000Check = panel.checkBox(undefined, getTypeString('JPEG2000', FILE_JPEG2000))
+        pngCheck = panel.checkBox(undefined, getTypeString('PNG', FILE_PNG))
+        psdCheck = panel.checkBox(undefined, getTypeString('Photoshop', FILE_PSD))
+        tiffCheck = panel.checkBox(undefined, getTypeString('TIFF', FILE_TIFF))
+    })
+})
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     selectAll(['PlacedItem'], function(item) {
         var condition = true
-        var width = parseUnits(dialog.dimension.widthEdit.text)
+        var width = parseUnits(widthEdit.text)
         if (width > 0) {
             condition = condition && parseInt(width) == parseInt(item.width)
         }
-        var height = parseUnits(dialog.dimension.heightEdit.text)
+        var height = parseUnits(heightEdit.text)
         if (height > 0) {
             condition = condition && parseInt(height) == parseInt(item.height)
         }
 
         var condition2 = false
         var extension = item.file.name.split('.').pop()
-        if (dialog.types.aiCheck.value) condition2 = condition2 || contains(FILE_AI, extension)
-        if (dialog.types.pdfCheck.value) condition2 = condition2 || contains(FILE_PDF, extension)
-        if (dialog.types.bmpCheck.value) condition2 = condition2 || contains(FILE_BMP, extension)
-        if (dialog.types.gifCheck.value) condition2 = condition2 || contains(FILE_GIF, extension)
-        if (dialog.types.jpegCheck.value) condition2 = condition2 || contains(FILE_JPEG, extension)
-        if (dialog.types.jpeg2000Check.value) condition2 = condition2 || contains(FILE_JPEG2000, extension)
-        if (dialog.types.pngCheck.value) condition2 = condition2 || contains(FILE_PNG, extension)
-        if (dialog.types.psdCheck.value) condition2 = condition2 || contains(FILE_PSD, extension)
-        if (dialog.types.tiffCheck.value) condition2 = condition2 || contains(FILE_TIFF, extension)
+        if (aiCheck.value) condition2 = condition2 || contains(FILE_AI, extension)
+        if (pdfCheck.value) condition2 = condition2 || contains(FILE_PDF, extension)
+        if (bmpCheck.value) condition2 = condition2 || contains(FILE_BMP, extension)
+        if (gifCheck.value) condition2 = condition2 || contains(FILE_GIF, extension)
+        if (jpegCheck.value) condition2 = condition2 || contains(FILE_JPEG, extension)
+        if (jpeg2000Check.value) condition2 = condition2 || contains(FILE_JPEG2000, extension)
+        if (pngCheck.value) condition2 = condition2 || contains(FILE_PNG, extension)
+        if (psdCheck.value) condition2 = condition2 || contains(FILE_PSD, extension)
+        if (tiffCheck.value) condition2 = condition2 || contains(FILE_TIFF, extension)
 
         return condition && condition2
     })

@@ -7,17 +7,19 @@ var items = selection.filterItem(function(it) { return it.typename == 'TextFrame
 check(items.isNotEmpty(), 'No types found in selection')
 
 var dialog = new Dialog('Retype Same Text')
+var inputEdit
 
-dialog.input = dialog.main.addHGroup('top')
-dialog.input.addText(undefined, 'Content:')
-dialog.inputEdit = dialog.input.addEditText([0, 0, 400, 100], undefined, true)
-dialog.inputEdit.active = true
+dialog.hgroup(function(group) {
+    group.alignChildren = 'top'
+    group.staticText(undefined, 'Content:')
+    inputEdit = group.multilineEditText([0, 0, 400, 100], undefined, ACTIVE)
+})
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     items.forEach(function(it) {
         it.words.removeAll()
-        it.words.add(dialog.inputEdit.text)
+        it.words.add(inputEdit.text)
     })
 })
 dialog.show()

@@ -4,6 +4,8 @@
 #include '../.lib/ui/relink.js'
 
 var dialog = new Dialog('Impose One-Sided Perfect Bound')
+var pdfPanel, imposePanel
+
 var files = openFile(dialog.title, [
     ['Adobe Illustrator', 'ai'],
     ['Adobe PDF', 'pdf'],
@@ -25,20 +27,20 @@ if (files !== null && files.isNotEmpty()) {
     var editBounds = [0, 0, 100, 21]
 
     if (files.first().isPDF()) {
-        dialog.pdf = new RelinkPDFPanel(dialog.main, textBounds, editBounds)
+        pdfPanel = new RelinkPDFPanel(dialog.main, textBounds, editBounds)
     }
 
-    dialog.impose = new ImposePanel(dialog.main, textBounds, editBounds)
+    imposePanel = new ImposePanel(dialog.main, textBounds, editBounds)
 
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
-        var pages = dialog.impose.getPages()
-        var width = dialog.impose.getWidth()
-        var height = dialog.impose.getHeight()
+        var pages = imposePanel.getPages()
+        var width = imposePanel.getWidth()
+        var height = imposePanel.getHeight()
         if (pages === 0 || pages % 4 !== 0) {
             alert('Total pages must be a non-zero number that can be divided by 4.')
         } else {
-            var document = app.documents.addDocument(DocumentPresetType.Print, dialog.impose.getDocumentPreset('Untitled-One Side'))
+            var document = app.documents.addDocument(DocumentPresetType.Print, imposePanel.getDocumentPreset('Untitled-One Side'))
             var pager
             if (files.first().isPDF()) {
                 pager = new OneSidePager(document, 1)
@@ -49,9 +51,9 @@ if (files !== null && files.isNotEmpty()) {
                 var leftItem = document.placedItems.add()
                 var rightItem = document.placedItems.add()
                 if (files.first().isPDF()) {
-                    updatePDFPreferences(dialog.pdf.getBoxType(), left)
+                    updatePDFPreferences(pdfPanel.getBoxType(), left)
                     leftItem.file = files.first()
-                    updatePDFPreferences(dialog.pdf.getBoxType(), right)
+                    updatePDFPreferences(pdfPanel.getBoxType(), right)
                     rightItem.file = files.first()
                 } else {
                     leftItem.file = files[left]

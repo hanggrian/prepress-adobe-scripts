@@ -15,39 +15,46 @@ var items = selection.filterItem(function(it) { return it.typename == 'TextFrame
 check(items.isNotEmpty(), 'No types found in selection')
 
 var dialog = new Dialog('Retype Numerize (Alphabet Suffix)', 'fill')
+var stopsList, spaceCheck
+var affixPanel, reverseGroup
 
 var textBounds = [0, 0, 70, 21]
 var editBounds = [0, 0, 100, 21]
 
-dialog.retype = dialog.main.addVPanel('Retype', 'fill')
-dialog.stops = dialog.retype.addHGroup()
-dialog.stops.addText(textBounds, 'Stops at:', 'right')
-dialog.stopsList = dialog.stops.add('dropdownlist', undefined, ALPHABETS)
-dialog.stopsList.selection = ALPHABETS.indexOf('B')
-dialog.stops.setTooltip('The iteration will stop at the selected alphabet and the number will reset back to 1.')
-dialog.space = dialog.retype.addHGroup()
-dialog.space.addText(textBounds, 'Midspace:', 'right')
-dialog.spaceCheck = dialog.space.addCheckBox(undefined, 'Enable')
-dialog.space.setTooltip('Add single space between number and alphabet.')
+dialog.vpanel('Retype', function(panel) {
+    panel.alignChildren = 'fill'
+    panel.hgroup(function(group) {
+        group.staticText(textBounds, 'Stops at:', JUSTIFY_RIGHT)
+        stopsList = group.dropDownList(undefined, ALPHABETS, function(it) {
+            it.selection = ALPHABETS.indexOf('B')
+        })
+        group.setTooltip('The iteration will stop at the selected alphabet and the number will reset back to 1.')        
+    })
+    panel.hgroup(function(group) {
+        group.staticText(textBounds, 'Midspace:', JUSTIFY_RIGHT)
+        spaceCheck = group.checkBox(undefined, 'Enable')
+        group.setTooltip('Add single space between number and alphabet.')      
+    })
+})
 
-dialog.affix = new TypeAffixPanel(dialog.main, textBounds, editBounds)
+affixPanel = new TypeAffixPanel(dialog.main, textBounds, editBounds)
 
-dialog.reverse = new ReverseOrderGroup(dialog.main)
+reverseGroup = new ReverseOrderGroup(dialog.main)
 
 var number = 1, count = 0, stopsAt, prefix, suffix
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    prefix = dialog.affix.prefixEdit.text
-    suffix = dialog.affix.suffixEdit.text
+    prefix = affixPanel.getPrefix()
+    suffix = affixPanel.getSuffix()
     for (var i = 0; i < ALPHABETS.length; i++) {
-        if (ALPHABETS[i] == dialog.stopsList.selection.text) {
+        if (ALPHABETS[i] == stopsList.selection.text) {
             stopsAt = i + 1
         }
     }
-    dialog.reverse.forEachAware(items, function(item) {
+    reverseGroup.forEachAware(items, function(item) {
         var s = number.toString()
-        if (dialog.spaceCheck.value) {
+        if (spaceCheck.value) {
             s += ' '
         }
         s += ALPHABETS[count]

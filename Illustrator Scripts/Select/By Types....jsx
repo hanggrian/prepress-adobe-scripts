@@ -5,48 +5,66 @@
 #include '../.lib/commons.js'
 
 var dialog = new Dialog('Select by Types')
+var placedCheck, nonNativeCheck, rasterCheck, pluginCheck
+var pathCheck, compoundPathCheck
+var textFrameCheck, legacyTextCheck
+var symbolCheck, meshCheck, graphCheck
 
 var bounds = [0, 0, 115, 15]
 
-dialog.imports = dialog.main.addVPanel('Imports', 'fill')
-dialog.imports.row1 = dialog.imports.addHGroup()
-dialog.imports.placedCheck = dialog.imports.row1.addCheckBox(bounds, 'Linked file')
-dialog.imports.nonNativeCheck = dialog.imports.row1.addCheckBox(bounds, 'Non-native art')
-dialog.imports.row2 = dialog.imports.addHGroup()
-dialog.imports.rasterCheck = dialog.imports.row2.addCheckBox(bounds, 'Image')
-dialog.imports.pluginCheck = dialog.imports.row2.addCheckBox(bounds, 'Plugin')
+dialog.vpanel('Imports', function(panel) {
+    panel.alignChildren = 'fill'
+    panel.hgroup(function(group) {
+        placedCheck = group.checkBox(bounds, 'Linked file')
+        nonNativeCheck = group.checkBox(bounds, 'Non-native art')
+    })
+    panel.hgroup(function(group) {
+        rasterCheck = group.checkBox(bounds, 'Image')
+        pluginCheck = group.checkBox(bounds, 'Plugin')
+    })
+})
 
-dialog.paths = dialog.main.addVPanel('Paths', 'fill')
-dialog.paths.row1 = dialog.paths.addHGroup()
-dialog.paths.pathCheck = dialog.paths.row1.addCheckBox(bounds, 'Path')
-dialog.paths.compoundPathCheck = dialog.paths.row1.addCheckBox(bounds, 'Compound path')
+dialog.vpanel('Paths', function(panel) {
+    panel.alignChildren = 'fill'
+    panel.hgroup(function(group) {
+        pathCheck = group.checkBox(bounds, 'Path')
+        compoundPathCheck = group.checkBox(bounds, 'Compound path')
+    })
+})
 
-dialog.types = dialog.main.addVPanel('Types', 'fill')
-dialog.types.row1 = dialog.types.addHGroup()
-dialog.types.textFrameCheck = dialog.types.row1.addCheckBox(bounds, 'Text frame')
-dialog.types.legacyTextCheck = dialog.types.row1.addCheckBox(bounds, 'Legacy text')
+dialog.vpanel('Types', function(panel) {
+    panel.alignChildren = 'fill'
+    panel.hgroup(function(group) {
+        textFrameCheck = group.checkBox(bounds, 'Text frame')
+        legacyTextCheck = group.checkBox(bounds, 'Legacy text')
+    })
+})
 
-dialog.others = dialog.main.addVPanel('Others', 'fill')
-dialog.others.row1 = dialog.others.addHGroup()
-dialog.others.symbolCheck = dialog.others.row1.addCheckBox(bounds, 'Symbol')
-dialog.others.meshCheck = dialog.others.row1.addCheckBox(bounds, 'Mesh')
-dialog.others.row2 = dialog.others.addHGroup()
-dialog.others.graphCheck = dialog.others.row2.addCheckBox(bounds, 'Graph')
+dialog.vpanel('Others', function(panel) {
+    panel.alignChildren = 'fill'
+    panel.hgroup(function(group) {
+        symbolCheck = group.checkBox(bounds, 'Symbol')
+        meshCheck = group.checkBox(bounds, 'Mesh')
+    })
+    panel.hgroup(function(group) {
+        graphCheck = group.checkBox(bounds, 'Graph')
+    })
+})
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     var types = []
-    if (dialog.paths.compoundPathCheck.value) types.push('CompoundPathItem')
-    if (dialog.others.graphCheck.value) types.push('GraphItem')
-    if (dialog.types.legacyTextCheck.value) types.push('LegacyTextItem')
-    if (dialog.others.meshCheck.value) types.push('MeshItem')
-    if (dialog.imports.nonNativeCheck.value) types.push('NonNativeItem')
-    if (dialog.paths.pathCheck.value) types.push('PathItem')
-    if (dialog.imports.placedCheck.value) types.push('PlacedItem')
-    if (dialog.imports.pluginCheck.value) types.push('PluginItem')
-    if (dialog.imports.rasterCheck.value) types.push('RasterItem')
-    if (dialog.others.symbolCheck.value) types.push('SymbolItem')
-    if (dialog.types.textFrameCheck.value) types.push('TextFrame')
+    if (compoundPathCheck.value) types.push('CompoundPathItem')
+    if (graphCheck.value) types.push('GraphItem')
+    if (legacyTextCheck.value) types.push('LegacyTextItem')
+    if (meshCheck.value) types.push('MeshItem')
+    if (nonNativeCheck.value) types.push('NonNativeItem')
+    if (pathCheck.value) types.push('PathItem')
+    if (placedCheck.value) types.push('PlacedItem')
+    if (pluginCheck.value) types.push('PluginItem')
+    if (rasterCheck.value) types.push('RasterItem')
+    if (symbolCheck.value) types.push('SymbolItem')
+    if (textFrameCheck.value) types.push('TextFrame')
     selectAll(types)
 })
 dialog.show()

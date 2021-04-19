@@ -1,29 +1,35 @@
 function ImposePanel(parent, textBounds, editBounds) {
     var self = this
-    this.main = parent.addVPanel('Impose Options')
-
-    this.units = this.main.addHGroup()
-    this.units.addText(textBounds, 'Units:', 'right')
-    this.unitsList = this.units.addDropDown(editBounds, UNITS)
-    this.unitsList.selection = UNITS.indexOf('Millimeters')
-    this.units.setTooltip('Ruler units for the new document.')
-
-    this.pages = this.main.addHGroup()
-    this.pages.addText(textBounds, 'Pages:', 'right')
-    this.pagesEdit = this.pages.addEditText(editBounds, '4')
-    this.pagesEdit.validateDigits()
-    this.pagesEdit.active = true
-    this.pages.setTooltip('Number of pages.')
-
-    this.width = this.main.addHGroup()
-    this.width.addText(textBounds, 'Width:', 'right')
-    this.widthEdit = this.width.addEditText(editBounds, '210 mm')
-    this.widthEdit.validateUnits()
-
-    this.height = this.main.addHGroup()
-    this.height.addText(textBounds, 'Height:', 'right')
-    this.heightEdit = this.height.addEditText(editBounds, '297 mm')
-    this.heightEdit.validateUnits()
+    this.unitsList, this.pagesEdit, this.widthEdit, this.heightEdit
+    
+    this.main = parent.vpanel('Impose Options', function(panel) {
+        panel.hgroup(function(group) {
+            group.staticText(textBounds, 'Units:', JUSTIFY_RIGHT)
+            self.unitsList = group.dropDownList(editBounds, UNITS, function(it) {
+                it.selection = UNITS.indexOf('Millimeters')
+            })
+            group.setTooltip('Ruler units for the new document.')
+        })
+    
+        panel.hgroup(function(group) {
+            group.staticText(textBounds, 'Pages:', JUSTIFY_RIGHT)
+            self.pagesEdit = group.editText(editBounds, '4', function(it) {
+                it.validateDigits()
+                it.active = true
+            })
+            group.setTooltip('Number of pages.')
+        })
+    
+        panel.hgroup(function(group) {
+            group.staticText(textBounds, 'Width:', JUSTIFY_RIGHT)
+            self.widthEdit = group.editText(editBounds, '210 mm', VALIDATE_UNITS)
+        })
+    
+        panel.hgroup(function(group) {
+            group.staticText(textBounds, 'Height:', JUSTIFY_RIGHT)
+            self.heightEdit = group.editText(editBounds, '297 mm', VALIDATE_UNITS)
+        })
+    })
 
     this.getUnits = function() {
         return parseRulerUnits(self.unitsList.selection.text)

@@ -9,42 +9,47 @@ var item = selection.first()
 checkTypename(item, 'TextFrame')
 
 var dialog = new Dialog('Resize Font Until')
+var widthRadio, heightRadio
+var dimensionSizeEdit
+var roundRadio, roundFloorRadio, roundNoneRadio
 
 var textBounds = [0, 0, 110, 21]
 
-dialog.dimension = dialog.main.addHGroup()
-dialog.dimension.addText(textBounds, 'Dimension:', 'right')
-dialog.dimension.widthRadio = dialog.dimension.addRadioButton(undefined, 'Width')
-dialog.dimension.widthRadio.value = true
-dialog.dimension.heightRadio = dialog.dimension.addRadioButton(undefined, 'Height')
-dialog.dimension.setTooltip('Selected text will match either width or height.')
+dialog.hgroup(function(group) {
+    group.staticText(textBounds, 'Dimension:', JUSTIFY_RIGHT)
+    widthRadio = group.radioButton(undefined, 'Width', SELECTED)
+    heightRadio = group.radioButton(undefined, 'Height')
+    group.setTooltip('Selected text will match either width or height.')
+})
 
-dialog.dimensionSize = dialog.main.addHGroup()
-dialog.dimensionSize.addText(textBounds, 'Dimension size:', 'right')
-dialog.dimensionSizeEdit = dialog.dimensionSize.addEditText([0, 0, 100, 21], '0 ' + unitName)
-dialog.dimensionSizeEdit.validateUnits()
-dialog.dimensionSizeEdit.active = true
-dialog.dimensionSize.setTooltip('Target size of the text.')
+dialog.hgroup(function(group) {
+    group.staticText(textBounds, 'Dimension size:', JUSTIFY_RIGHT)
+    dimensionSizeEdit = group.editText([0, 0, 100, 21], '0 ' + unitName, function(it) {
+        it.validateUnits()
+        it.active = true
+    })
+    group.setTooltip('Target size of the text.')
+})
 
-dialog.round = dialog.main.addHGroup()
-dialog.round.addText(textBounds, 'Rounding method:', 'right')
-dialog.roundRadio = dialog.round.addRadioButton(undefined, 'Round')
-dialog.roundRadio.value = true
-dialog.roundFloorRadio = dialog.round.addRadioButton(undefined, 'Floor')
-dialog.roundNoneRadio = dialog.round.addRadioButton(undefined, 'None')
-dialog.round.setTooltip('Round font size to nearest non-decimal number.')
+dialog.hgroup(function(group) {
+    group.staticText(textBounds, 'Rounding method:', JUSTIFY_RIGHT)
+    roundRadio = group.radioButton(undefined, 'Round', SELECTED)
+    roundFloorRadio = group.radioButton(undefined, 'Floor')
+    roundNoneRadio = group.radioButton(undefined, 'None')
+    group.setTooltip('Round font size to nearest non-decimal number.')
+})
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     var currentFont = item.textRange.characterAttributes.size
-    var currentDimension = dialog.dimension.widthRadio.value
+    var currentDimension = widthRadio.value
         ? item.width
         : item.height
-    var targetDimension = parseUnits(dialog.dimensionSizeEdit.text)
+    var targetDimension = parseUnits(dimensionSizeEdit.text)
     var targetFont = currentFont * targetDimension / currentDimension
-    if (dialog.roundRadio.value) {
+    if (roundRadio.value) {
         targetFont = Math.round(targetFont)
-    } else if (dialog.roundFloorRadio.value) {
+    } else if (roundFloorRadio.value) {
         targetFont = Math.floor(targetFont)
     }
     item.textRange.characterAttributes.size = targetFont

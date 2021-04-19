@@ -9,36 +9,41 @@ var items = selection.filterItem(function(it) { return it.typename == 'TextFrame
 check(items.isNotEmpty(), 'No types found in selection')
 
 var dialog = new Dialog('Retype Numerize')
+var startsAtEdit, digitsEdit
+var affixPanel, reverseGroup
 
 var textBounds = [0, 0, 55, 21]
 var editBounds = [0, 0, 100, 21]
 
-dialog.retype = dialog.main.addVPanel('Retype')
-dialog.startsAt = dialog.retype.addHGroup()
-dialog.startsAt.addText(textBounds, 'Starts at:', 'right')
-dialog.startsAtEdit = dialog.startsAt.addEditText(editBounds, '1')
-dialog.startsAtEdit.validateDigits()
-dialog.startsAtEdit.active = true
-dialog.startsAt.setTooltip('Starting counter.')
-dialog.digits = dialog.retype.addHGroup()
-dialog.digits.addText(textBounds, 'Digits:', 'right')
-dialog.digitsEdit = dialog.digits.addEditText(editBounds)
-dialog.digitsEdit.validateDigits()
-dialog.digits.setTooltip('Put n number of zeroes, can be left empty.')
+dialog.vpanel('Retype', function(panel) {
+    panel.hgroup(function(group) {
+        group.staticText(textBounds, 'Starts at:', JUSTIFY_RIGHT)
+        startsAtEdit = group.editText(editBounds, '1', function(it) {
+            it.validateDigits()
+            it.active = true
+        })
+        group.setTooltip('Starting counter.')
+    })
+    panel.hgroup(function(group) {
+        group.staticText(textBounds, 'Digits:', JUSTIFY_RIGHT)
+        digitsEdit = group.editText(editBounds, undefined, VALIDATE_DIGITS)
+        group.setTooltip('Put n number of zeroes, can be left empty.')
+    })
+})
 
-dialog.affix = new TypeAffixPanel(dialog.main, textBounds, editBounds)
+affixPanel = new TypeAffixPanel(dialog.main, textBounds, editBounds)
 
-dialog.reverse = new ReverseOrderGroup(dialog.main)
+reverseGroup = new ReverseOrderGroup(dialog.main)
 
 var count, digits, prefix, suffix
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    count = parseInt(dialog.startsAtEdit.text) || 0
-    digits = parseInt(dialog.digitsEdit.text) || 0
-    prefix = dialog.affix.prefixEdit.text
-    suffix = dialog.affix.suffixEdit.text
-    dialog.reverse.forEachAware(items, function(item) {
+    count = parseInt(startsAtEdit.text) || 0
+    digits = parseInt(digitsEdit.text) || 0
+    prefix = affixPanel.getPrefix()
+    suffix = affixPanel.getSuffix()
+    reverseGroup.forEachAware(items, function(item) {
         item.words.removeAll()
         item.words.add(prefix + pad(count, digits) + suffix) 
         count++

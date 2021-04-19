@@ -9,31 +9,33 @@ var LOCATION_LEFT_TOP = 10
 
 function TrimMarksPanel(parent, textBounds, editBounds) {
     var self = this
-    this.main = parent.addVPanel('Trim Marks', 'fill')
+    this.offsetEdit, this.lengthEdit, this.weightEdit, this.colorList
 
-    this.offset = this.main.addHGroup()
-    this.offset.addText(textBounds, 'Offset:', 'right')
-    this.offsetEdit = this.offset.addEditText(editBounds, unitsOf('2.5 mm'))
-    this.offsetEdit.validateUnits()
-    this.offset.setTooltip('Distance between art and trim marks.')
-
-    this.length = this.main.addHGroup()
-    this.length.addText(textBounds, 'Length:', 'right')
-    this.lengthEdit = this.length.addEditText(editBounds, unitsOf('2.5 mm'))
-    this.lengthEdit.validateUnits()
-    this.length.setTooltip('Size of trim marks.')
-    
-    this.weight = this.main.addHGroup()
-    this.weight.addText(textBounds, 'Weight:', 'right')
-    this.weightEdit = this.weight.addEditText(editBounds, '0.3') // the same value used in `Object > Create Trim Marks`
-    this.weightEdit.validateUnits()
-    this.weight.setTooltip('Thickness of trim marks.')
-
-    this.color = this.main.addHGroup()
-    this.color.addText(textBounds, 'Color:', 'right')
-    this.colorList = this.color.addDropDown(editBounds, COLORS)
-    this.colorList.selection = COLORS.indexOf('Registration')
-    this.color.setTooltip('Color of trim marks.')
+    this.main = parent.vpanel('Trim Marks', function(panel) {
+        panel.alignChildren = 'fill'
+        panel.hgroup(function(group) {
+            group.staticText(textBounds, 'Offset:', JUSTIFY_RIGHT)
+            self.offsetEdit = group.editText(editBounds, unitsOf('2.5 mm'), VALIDATE_UNITS)
+            group.setTooltip('Distance between art and trim marks.')
+        })
+        panel.hgroup(function(group) {
+            group.staticText(textBounds, 'Length:', JUSTIFY_RIGHT)
+            self.lengthEdit = group.editText(editBounds, unitsOf('2.5 mm'), VALIDATE_UNITS)
+            group.setTooltip('Size of trim marks.')
+        })
+        panel.hgroup(function(group) {
+            group.staticText(textBounds, 'Weight:', JUSTIFY_RIGHT)
+            self.weightEdit = group.editText(editBounds, '0.3', VALIDATE_UNITS) // the same value used in `Object > Create Trim Marks`
+            group.setTooltip('Thickness of trim marks.')
+        })
+        panel.hgroup(function(group) {
+            group.staticText(textBounds, 'Color:', JUSTIFY_RIGHT)
+            self.colorList = group.dropDownList(editBounds, COLORS, function(it) {
+                it.selection = COLORS.indexOf('Registration')
+            })
+            group.setTooltip('Color of trim marks.')
+        })
+    })
     
     /**
      * Create multiple trim marks around item.
@@ -174,48 +176,50 @@ function TrimMarksPanel(parent, textBounds, editBounds) {
 
 function TrimMarkLocationsPanel(parent) {
     var self = this
-    this.main = parent.addVPanel('Locations')
-
+    this.topLeftCheck, this.topRightCheck
+    this.leftTopCheck, this.rightTopCheck
+    this.leftBottomCheck, this.rightBottomCheck
+    this.bottomLeftCheck, this.bottomRightCheck
     var checkBounds = [0, 0, 15, 15]
-    this.locations1 = this.main.addHGroup()
-    this.locations1.addText(checkBounds)
-    this.topLeftCheck = this.locations1.addCheckBox(checkBounds)
-    this.topLeftCheck.value = true
-    this.locations1.addText(checkBounds)
-    this.topRightCheck = this.locations1.addCheckBox(checkBounds)
-    this.topRightCheck.value = true
-    this.locations1.addText(checkBounds)
-    this.locations2 = this.main.addHGroup()
-    this.leftTopCheck = this.locations2.addCheckBox(checkBounds)
-    this.leftTopCheck.value = true
-    this.locations2.addText(checkBounds, '\u2196', 'center')
-    this.locations2.addText(checkBounds, '\u2191', 'center')
-    this.locations2.addText(checkBounds, '\u2197', 'center')
-    this.rightTopCheck = this.locations2.addCheckBox(checkBounds)
-    this.rightTopCheck.value = true
-    this.locations3 = this.main.addHGroup()
-    this.locations3.addText(checkBounds)
-    this.locations3.addText(checkBounds, '\u2190', 'center')
-    this.locations3.addText(checkBounds, '\u25CF', 'center')
-    this.locations3.addText(checkBounds, '\u2192', 'center')
-    this.locations3.addText(checkBounds)
-    this.locations4 = this.main.addHGroup()
-    this.leftBottomCheck = this.locations4.addCheckBox(checkBounds)
-    this.leftBottomCheck.value = true
-    this.locations4.addText(checkBounds, '\u2199', 'center')
-    this.locations4.addText(checkBounds, '\u2193', 'center')
-    this.locations4.addText(checkBounds, '\u2198', 'center')
-    this.rightBottomCheck = this.locations4.addCheckBox(checkBounds)
-    this.rightBottomCheck.value = true
-    this.locations5 = this.main.addHGroup()
-    this.locations5.addText(checkBounds)
-    this.bottomLeftCheck = this.locations5.addCheckBox(checkBounds)
-    this.bottomLeftCheck.value = true
-    this.locations5.addText(checkBounds)
-    this.bottomRightCheck = this.locations5.addCheckBox(checkBounds)
-    this.bottomRightCheck.value = true
-    this.locations5.addText(checkBounds)
-    this.main.setTooltip('Select which trim marks will be added.')
+
+    this.main = parent.vpanel('Locations', function(panel) {
+        panel.hgroup(function(group) {
+            group.staticText(checkBounds)
+            self.topLeftCheck = group.checkBox(checkBounds, undefined, SELECTED)
+            group.staticText(checkBounds)
+            self.topRightCheck = group.checkBox(checkBounds, undefined, SELECTED)
+            group.staticText(checkBounds)
+        })
+        panel.hgroup(function(group) {
+            self.leftTopCheck = group.checkBox(checkBounds, undefined, SELECTED)
+            group.staticText(checkBounds, '\u2196', JUSTIFY_CENTER)
+            group.staticText(checkBounds, '\u2191', JUSTIFY_CENTER)
+            group.staticText(checkBounds, '\u2197', JUSTIFY_CENTER)
+            self.rightTopCheck = group.checkBox(checkBounds, undefined, SELECTED)
+        })
+        panel.hgroup(function(group) {
+            group.staticText(checkBounds)
+            group.staticText(checkBounds, '\u2190', JUSTIFY_CENTER)
+            group.staticText(checkBounds, '\u25CF', JUSTIFY_CENTER)
+            group.staticText(checkBounds, '\u2192', JUSTIFY_CENTER)
+            group.staticText(checkBounds)
+        })
+        panel.hgroup(function(group) {
+            self.leftBottomCheck = group.checkBox(checkBounds, undefined, SELECTED)
+            group.staticText(checkBounds, '\u2199', JUSTIFY_CENTER)
+            group.staticText(checkBounds, '\u2193', JUSTIFY_CENTER)
+            group.staticText(checkBounds, '\u2198', JUSTIFY_CENTER)
+            self.rightBottomCheck = group.checkBox(checkBounds, undefined, SELECTED)
+        })
+        panel.hgroup(function(group) {
+            group.staticText(checkBounds)
+            self.bottomLeftCheck = group.checkBox(checkBounds, undefined, SELECTED)
+            group.staticText(checkBounds)
+            self.bottomRightCheck = group.checkBox(checkBounds, undefined, SELECTED)
+            group.staticText(checkBounds)
+        })
+        panel.setTooltip('Select which trim marks will be added.')
+    })
 
     this.getLocations = function() {
         var locations = []

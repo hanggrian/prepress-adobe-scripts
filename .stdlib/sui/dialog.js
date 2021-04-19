@@ -9,8 +9,10 @@ function Dialog(title, alignChildren) {
     var window = new Window('dialog', title)
     window.orientation = 'column'
     
-    this.main = window.addVGroup(alignChildren !== undefined ? alignChildren : 'left')
-    this.buttons = window.addHGroup()
+    this.main = _group(window, 'column', function(group) {
+        group.alignChildren = alignChildren !== undefined ? alignChildren : 'left'
+    })
+    this.buttons = _group(window, 'row')
     this.buttons.alignment = 'right'
 
     var positiveButtonText, positiveButtonAction, positveButtonEnabled
@@ -55,17 +57,25 @@ function Dialog(title, alignChildren) {
     /** Show the dialog, after populating buttons. */
     this.show = function() {
         if (neutralButtonText !== undefined) {
-            self.neutralButton = addButton(neutralButtonText, neutralButtonAction, neutralButtonEnabled)
+            self.neutralButton = appendButton(neutralButtonText, neutralButtonAction, neutralButtonEnabled)
             if (neutralButtonGap !== undefined) {
-                self.buttons.addText([0, 0, neutralButtonGap, 0])
+                self.buttons.staticText([0, 0, neutralButtonGap, 0])
             }
         }
         if (isMacOS()) {
-            self.negativeButton = addButton(negativeButtonText, negativeButtonAction)
-            self.positiveButton = addButton(positiveButtonText, positiveButtonAction, positveButtonEnabled)
+            if (negativeButtonText !== undefined) {
+                self.negativeButton = appendButton(negativeButtonText, negativeButtonAction)
+            }
+            if (positiveButtonText !== undefined) {
+                self.positiveButton = appendButton(positiveButtonText, positiveButtonAction, positveButtonEnabled)
+            }
         } else {
-            self.positiveButton = addButton(positiveButtonText, positiveButtonAction, positveButtonEnabled)
-            self.negativeButton = addButton(negativeButtonText, negativeButtonAction)
+            if (positiveButtonText !== undefined) {
+                self.positiveButton = appendButton(positiveButtonText, positiveButtonAction, positveButtonEnabled)
+            }
+            if (negativeButtonText !== undefined) {
+                self.negativeButton = appendButton(negativeButtonText, negativeButtonAction)
+            }
         }
 		window.show()
     }
@@ -75,11 +85,13 @@ function Dialog(title, alignChildren) {
         window.close()
     }
 
-    function addButton(text, action, enabled) {
-        var button = self.buttons.addButton(undefined, text, function() {
-            self.close()
-            if (action !== undefined) {
-                action()
+    function appendButton(text, action, enabled) {
+        var button = self.buttons.button(undefined, text, function(button) {
+            button.onClick = function() {
+                self.close()
+                if (action !== undefined) {
+                    action()
+                }
             }
         })
         button.enabled = enabled !== undefined ? enabled : true

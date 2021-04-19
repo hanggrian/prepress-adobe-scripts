@@ -5,86 +5,95 @@
 #include '../.lib/commons.js'
 
 var dialog = new Dialog('Select Paths')
+var widthEdit, heightEdit
+var fillList, strokeList
+var clippingAnyCheck, clippingEnabledCheck, clippingDisabledCheck
+var closedAnyCheck, closedEnabledCheck, closedDisabledCheck
+var guidesAnyCheck, guidesEnabledCheck, guidesDisabledCheck
 
-dialog.line = dialog.main.addHGroup()
+dialog.hgroup(function(mainGroup) {
+    var lineTextBounds = [0, 0, 45, 21]
+    var lineEditBounds = [0, 0, 100, 21]
+    mainGroup.vpanel('Dimension', function(panel) {
+        panel.hgroup(function(group) {
+            group.staticText(lineTextBounds, 'Width:', JUSTIFY_RIGHT)
+            widthEdit = group.editText(lineEditBounds, undefined, function(it) {
+                it.validateUnits()
+                it.active = true  
+            })
+        })
+        panel.hgroup(function(group) {
+            group.staticText(lineTextBounds, 'Height:', JUSTIFY_RIGHT)
+            heightEdit = group.editText(lineEditBounds, VALIDATE_UNITS)
+        })
+    })
+    mainGroup.vpanel('Color', function(panel) {
+        panel.hgroup(function(group) {
+            group.staticText(lineTextBounds, 'Fill:', JUSTIFY_RIGHT)
+            fillList = group.dropDownList(lineEditBounds, COLORS)    
+        })
+        panel.hgroup(function(group) {
+            group.staticText(lineTextBounds, 'Stroke:', JUSTIFY_RIGHT)
+            strokeList = group.dropDownList(lineEditBounds, COLORS)  
+        })
+    })
+})
 
-var lineTextBounds = [0, 0, 45, 21]
-var lineEditBounds = [0, 0, 100, 21]
-
-dialog.dimension = dialog.line.addVPanel('Dimension')
-dialog.dimension.width = dialog.dimension.addHGroup()
-dialog.dimension.width.addText(lineTextBounds, 'Width:', 'right')
-dialog.dimension.widthEdit = dialog.dimension.width.addEditText(lineEditBounds)
-dialog.dimension.widthEdit.validateUnits()
-dialog.dimension.widthEdit.active = true
-dialog.dimension.height = dialog.dimension.addHGroup()
-dialog.dimension.height.addText(lineTextBounds, 'Height:', 'right')
-dialog.dimension.heightEdit = dialog.dimension.height.addEditText(lineEditBounds)
-dialog.dimension.heightEdit.validateUnits()
-
-dialog.color = dialog.line.addVPanel('Color')
-dialog.color.fill = dialog.color.addHGroup()
-dialog.color.fill.addText(lineTextBounds, 'Fill:', 'right')
-dialog.color.fillList = dialog.color.fill.addDropDown(lineEditBounds, COLORS)
-dialog.color.stroke = dialog.color.addHGroup()
-dialog.color.stroke.addText(lineTextBounds, 'Stroke:', 'right')
-dialog.color.strokeList = dialog.color.stroke.addDropDown(lineEditBounds, COLORS)
-
-var propertiesTextBounds = [0, 0, 55, 21]
-
-dialog.properties = dialog.main.addVPanel('Properties')
-dialog.properties.clipping = dialog.properties.addHGroup()
-dialog.properties.clipping.addText(propertiesTextBounds, 'Clipping:', 'right')
-dialog.properties.clipping.anyCheck = dialog.properties.clipping.addRadioButton(undefined, 'Any')
-dialog.properties.clipping.anyCheck.value = true
-dialog.properties.clipping.enabledCheck = dialog.properties.clipping.addRadioButton(undefined, 'Enabled')
-dialog.properties.clipping.disabledCheck = dialog.properties.clipping.addRadioButton(undefined, 'Disabled')
-dialog.properties.clipping.setTooltip('Should this be used as a clipping path?')
-dialog.properties.closed = dialog.properties.addHGroup()
-dialog.properties.closed.addText(propertiesTextBounds, 'Closed:', 'right')
-dialog.properties.closed.anyCheck = dialog.properties.closed.addRadioButton(undefined, 'Any')
-dialog.properties.closed.anyCheck.value = true
-dialog.properties.closed.enabledCheck = dialog.properties.closed.addRadioButton(undefined, 'Enabled')
-dialog.properties.closed.disabledCheck = dialog.properties.closed.addRadioButton(undefined, 'Disabled')
-dialog.properties.closed.setTooltip('Is this path closed?')
-dialog.properties.guides = dialog.properties.addHGroup()
-dialog.properties.guides.addText(propertiesTextBounds, 'Guides:', 'right')
-dialog.properties.guides.anyCheck = dialog.properties.guides.addRadioButton(undefined, 'Any')
-dialog.properties.guides.anyCheck.value = true
-dialog.properties.guides.enabledCheck = dialog.properties.guides.addRadioButton(undefined, 'Enabled')
-dialog.properties.guides.disabledCheck = dialog.properties.guides.addRadioButton(undefined, 'Disabled')
-dialog.properties.guides.setTooltip('Is this path a guide object?')
+dialog.vpanel('Properties', function(panel) {
+    var propertiesTextBounds = [0, 0, 55, 21]
+    panel.hgroup(function(group) {
+        group.staticText(propertiesTextBounds, 'Clipping:', JUSTIFY_RIGHT)
+        clippingAnyCheck = group.radioButton(undefined, 'Any', SELECTED)
+        clippingEnabledCheck = group.radioButton(undefined, 'Enabled')
+        clippingDisabledCheck = group.radioButton(undefined, 'Disabled')
+        group.setTooltip('Should this be used as a clipping path?')
+    })
+    panel.hgroup(function(group) {
+        group.staticText(propertiesTextBounds, 'Closed:', JUSTIFY_RIGHT)
+        closedAnyCheck = group.radioButton(undefined, 'Any', SELECTED)
+        closedEnabledCheck = group.radioButton(undefined, 'Enabled')
+        closedDisabledCheck = group.radioButton(undefined, 'Disabled')
+        group.setTooltip('Is this path closed?')
+    })
+    panel.hgroup(function(group) {
+        group.staticText(propertiesTextBounds, 'Guides:', JUSTIFY_RIGHT)
+        guidesAnyCheck = group.radioButton(undefined, 'Any', SELECTED)
+        guidesEnabledCheck = group.radioButton(undefined, 'Enabled')
+        guidesDisabledCheck = group.radioButton(undefined, 'Disabled')
+        group.setTooltip('Is this path a guide object?')
+    })
+})
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     selectAll(['PathItem', 'CompoundPathItem'], function(item) {
         var condition = true
-        var width = parseUnits(dialog.dimension.widthEdit.text)
+        var width = parseUnits(widthEdit.text)
         if (width > 0) {
             condition = condition && parseInt(width) == parseInt(item.width)
         }
-        var height = parseUnits(dialog.dimension.heightEdit.text)
+        var height = parseUnits(heightEdit.text)
         if (height > 0) {
             condition = condition && parseInt(height) == parseInt(item.height)
         }
-        if (dialog.color.fillList.selection != null) {
-            condition = condition && isColorEqual(item.fillColor, parseColor(dialog.color.fillList.selection.text))
+        if (fillList.selection != null) {
+            condition = condition && isColorEqual(item.fillColor, parseColor(fillList.selection.text))
         }
-        if (dialog.color.strokeList.selection != null) {
-            condition = condition && isColorEqual(item.strokeColor, parseColor(dialog.color.strokeList.selection.text))
+        if (strokeList.selection != null) {
+            condition = condition && isColorEqual(item.strokeColor, parseColor(strokeList.selection.text))
         }
-        if (!dialog.properties.clipping.anyCheck.value) {
-            condition = condition && dialog.properties.clipping.enabledCheck.value
+        if (!clippingAnyCheck.value) {
+            condition = condition && clippingEnabledCheck.value
                 ? item.clipping
                 : !item.clipping
         }
-        if (!dialog.properties.closed.anyCheck.value) {
-            condition = condition && dialog.properties.closed.enabledCheck.value
+        if (!closedAnyCheck.value) {
+            condition = condition && closedEnabledCheck.value
                 ? item.closed
                 : !item.closed
         }
-        if (!dialog.properties.guides.anyCheck.value) {
-            condition = condition && dialog.properties.guides.enabledCheck.value
+        if (!guidesAnyCheck.value) {
+            condition = condition && guidesEnabledCheck.value
                 ? item.guides
                 : !item.guides
         }

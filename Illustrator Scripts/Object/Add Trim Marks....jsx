@@ -13,12 +13,14 @@
 checkHasSelection()
 
 var dialog = new Dialog('Add Trim Marks')
-dialog.line = dialog.main.addHGroup()
+var trimMarksPanel, locationsPanel
 
-dialog.trimMarks = new TrimMarksPanel(dialog.line, [0, 0, 45, 21], [0, 0, 100, 21])
-dialog.trimMarks.offsetEdit.active = true
+dialog.hgroup(function(group) {
+    trimMarksPanel = new TrimMarksPanel(group, [0, 0, 45, 21], [0, 0, 100, 21])
+    trimMarksPanel.offsetEdit.active = true
 
-dialog.locations = new TrimMarkLocationsPanel(dialog.line)
+    locationsPanel = new TrimMarkLocationsPanel(group)
+})
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() { process(false) })
@@ -41,7 +43,7 @@ function process(isDelete) {
         if (endY === undefined || _endY < endY) endY = _endY
     })
 
-    var marks = dialog.trimMarks.addToBounds(startX, startY, endX, endY, dialog.locations.getLocations())
+    var marks = trimMarksPanel.addToBounds(startX, startY, endX, endY, locationsPanel.getLocations())
     if (isDelete) {
         selection.first().remove()
     }

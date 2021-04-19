@@ -5,50 +5,60 @@
 #include '../.lib/commons.js'
 
 var dialog = new Dialog('Select Types')
+var characterFontEdit, characterItalicCheck, characterUnderlineCheck
+var colorFillList, colorStrokeList
 
-dialog.line = dialog.main.addHGroup('top')
-
-var characterTextBounds = [0, 0, 65, 21]
-dialog.character = dialog.line.addVPanel('Character', 'left')
-dialog.character.font = dialog.character.addHGroup()
-dialog.character.font.addText(characterTextBounds, 'Font size:', 'right')
-dialog.character.fontEdit = dialog.character.font.addEditText([0, 0, 75, 21])
-dialog.character.fontEdit.validateUnits()
-dialog.character.fontEdit.active = true
-dialog.character.attrs = dialog.character.addHGroup()
-dialog.character.attrs.addText(characterTextBounds, 'Attributes:', 'right')
-dialog.character.italicCheck = dialog.character.attrs.addCheckBox(undefined, 'Italic')
-dialog.character.underlineCheck = dialog.character.attrs.addCheckBox(undefined, 'Underline')
-
-var colorTextBounds = [0, 0, 45, 21]
-dialog.color = dialog.line.addVPanel('Color')
-dialog.color.fill = dialog.color.addHGroup()
-dialog.color.fill.addText(colorTextBounds, 'Fill:', 'right')
-dialog.color.fillList = dialog.color.fill.addDropDown(undefined, COLORS)
-dialog.color.stroke = dialog.color.addHGroup()
-dialog.color.stroke.addText(colorTextBounds, 'Stroke:', 'right')
-dialog.color.strokeList = dialog.color.stroke.addDropDown(undefined, COLORS)
+dialog.hgroup(function(mainGroup) {
+    mainGroup.alignChildren = 'top'
+    mainGroup.vpanel('Character', function(panel) {
+        var characterTextBounds = [0, 0, 65, 21]
+        panel.alignChildren = 'left'
+        panel.hgroup(function(group) {
+            group.staticText(characterTextBounds, 'Font size:', JUSTIFY_RIGHT)
+            characterFontEdit = group.editText([0, 0, 75, 21], undefined, function(it) {
+                it.validateUnits()
+                it.active = true
+            })
+        })
+        panel.hgroup(function(group) {
+            group.staticText(characterTextBounds, 'Attributes:', JUSTIFY_RIGHT)
+            characterItalicCheck = group.checkBox(undefined, 'Italic')
+            characterUnderlineCheck = group.checkBox(undefined, 'Underline') 
+        })
+    })
+    mainGroup.vpanel('Color', function(panel) {
+        var colorTextBounds = [0, 0, 45, 21]
+        panel.hgroup(function(group) {
+            group.staticText(colorTextBounds, 'Fill:', JUSTIFY_RIGHT)
+            colorFillList = group.dropDownList(undefined, COLORS)    
+        })
+        panel.hgroup(function(group) {
+            group.staticText(colorTextBounds, 'Stroke:', JUSTIFY_RIGHT)
+            colorStrokeList = group.dropDownList(undefined, COLORS)  
+        })
+    })
+})
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     selectAll(['TextFrame'], function(item) {
         var attr = item.textRange.characterAttributes
         var condition = true
-        var fontSize = parseUnits(dialog.character.fontEdit.text)
+        var fontSize = parseUnits(characterFontEdit.text)
         if (fontSize > 0) {
             condition = condition && fontSize == attr.size
         }
-        if (dialog.character.italicCheck.value) {
+        if (characterItalicCheck.value) {
             condition = condition && attr.italics
         }
-        if (dialog.character.underlineCheck.value) {
+        if (characterUnderlineCheck.value) {
             condition = condition && attr.underline
         }
-        if (dialog.color.fillList.selection != null) {
-            condition = condition && isColorEqual(attr.fillColor, parseColor(dialog.color.fillList.selection.text))
+        if (colorFillList.selection != null) {
+            condition = condition && isColorEqual(attr.fillColor, parseColor(colorFillList.selection.text))
         }
-        if (dialog.color.strokeList.selection != null) {
-            condition = condition && isColorEqual(attr.strokeColor, parseColor(dialog.color.strokeList.selection.text))
+        if (colorStrokeList.selection != null) {
+            condition = condition && isColorEqual(attr.strokeColor, parseColor(colorStrokeList.selection.text))
         }
         return condition
     })

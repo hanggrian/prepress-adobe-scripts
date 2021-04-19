@@ -7,60 +7,65 @@
 checkSingleSelection()
 
 var dialog = new Dialog('Spread', 'fill')
-
-var enableTrimMarks = function() { dialog.trimMarks.main.enabled = true }
-var disableTrimMarks = function() { dialog.trimMarks.main.enabled = false }
-
-dialog.target = dialog.main.addHGroup()
-dialog.target.addText(textBounds, 'Target:', 'right')
-dialog.target.artworkCheck = dialog.target.addRadioButton(undefined, 'Artwork')
-dialog.target.artworkCheck.value = true
-dialog.target.artworkCheck.onClick = disableTrimMarks
-dialog.target.trimMarksCheck = dialog.target.addRadioButton(undefined, 'Trim Marks')
-dialog.target.trimMarksCheck.onClick = enableTrimMarks
-dialog.target.bothCheck = dialog.target.addRadioButton(undefined, 'Both')
-dialog.target.bothCheck.onClick = enableTrimMarks
-dialog.target.setTooltip('Select which item to spread.')
+var artworkCheck, trimMarksCheck, bothCheck
+var horizontalEdit, verticalEdit, gapHorizontalEdit, gapVerticalEdit
+var trimMarksPanel
 
 var textBounds = [0, 0, 95, 21]
 var editBounds = [0, 0, 100, 21]
 var editBounds2 = [0, 0, 35, 21]
+var enableTrimMarks = function() { trimMarksPanel.main.enabled = true }
+var disableTrimMarks = function() { trimMarksPanel.main.enabled = false }
 
-dialog.spread = dialog.main.addVPanel(dialog.title, 'fill')
+dialog.hgroup(function(group) {
+    group.staticText(undefined, 'Target:', JUSTIFY_RIGHT)
+    artworkCheck = group.radioButton(undefined, 'Artwork', function(it) {
+        it.value = true
+        it.onClick = disableTrimMarks
+    })
+    trimMarksCheck = group.radioButton(undefined, 'Trim Marks', function(it) {
+        it.onClick = enableTrimMarks
+    })
+    bothCheck = group.radioButton(undefined, 'Both', function(it) {
+        it.onClick = enableTrimMarks
+    })
+    group.setTooltip('Select which item to spread.')
+})
 
-dialog.spread.copies = dialog.spread.addHGroup()
-dialog.spread.copies.addText(textBounds, 'Copies:', 'right')
-dialog.spread.horizontalEdit = dialog.spread.copies.addEditText(editBounds2)
-dialog.spread.horizontalEdit.validateDigits()
-dialog.spread.horizontalEdit.active = true
-dialog.spread.copies.addText(undefined, '×')
-dialog.spread.verticalEdit = dialog.spread.copies.addEditText(editBounds2)
-dialog.spread.verticalEdit.validateDigits()
-dialog.spread.copies.setTooltip('2 dimension target.')
+dialog.vpanel(dialog.title, function(panel) {
+    panel.alignChildren = 'fill'
+    panel.hgroup(function(group) {
+        group.staticText(textBounds, 'Copies:', JUSTIFY_RIGHT)
+        horizontalEdit = group.editText(editBounds2, undefined, VALIDATE_DIGITS)
+        group.staticText(undefined, '×')
+        verticalEdit = group.editText(editBounds2, undefined, VALIDATE_DIGITS)
+        group.setTooltip('2 dimension target.')
+    })
+    panel.hgroup(function(group) {
+        group.staticText(textBounds, 'Horizontal Gap:', JUSTIFY_RIGHT)
+        gapHorizontalEdit = group.editText(editBounds, unitsOf('0 mm'), VALIDATE_UNITS)
+        group.setTooltip('Distance between arts horizontally.')
+    })
+    panel.hgroup(function(group) {
+        group.staticText(textBounds, 'Vertical Gap:', JUSTIFY_RIGHT)
+        gapVerticalEdit = group.editText(editBounds, unitsOf('0 mm'), VALIDATE_UNITS)
+        group.setTooltip('Distance between arts vertically.')
+    })
+})
 
-dialog.spread.gapHorizontal = dialog.spread.addHGroup()
-dialog.spread.gapHorizontal.addText(textBounds, 'Horizontal Gap:', 'right')
-dialog.spread.gapHorizontalEdit = dialog.spread.gapHorizontal.addEditText(editBounds, unitsOf('0 mm'))
-dialog.spread.gapHorizontalEdit.validateUnits()
-dialog.spread.gapHorizontal.setTooltip('Distance between arts horizontally.')
+trimMarksPanel = new TrimMarksPanel(dialog.main, textBounds, editBounds)
+trimMarksPanel.main.enabled = false
 
-dialog.spread.gapVertical = dialog.spread.addHGroup()
-dialog.spread.gapVertical.addText(textBounds, 'Vertical Gap:', 'right')
-dialog.spread.gapVerticalEdit = dialog.spread.gapVertical.addEditText(editBounds, unitsOf('0 mm'))
-dialog.spread.gapVerticalEdit.validateUnits()
-dialog.spread.gapVertical.setTooltip('Distance between arts vertically.')
-
-dialog.trimMarks = new TrimMarksPanel(dialog.main, textBounds, editBounds)
-dialog.trimMarks.main.enabled = false
+horizontalEdit.active = true
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     var locations = []
 
-    var horizontal = parseInt(dialog.spread.horizontalEdit.text) || 0
-    var vertical = parseInt(dialog.spread.verticalEdit.text) || 0
-    var gapHorizontal = parseUnits(dialog.spread.gapHorizontalEdit.text)
-    var gapVertical = parseUnits(dialog.spread.gapVerticalEdit.text)
+    var horizontal = parseInt(horizontalEdit.text) || 0
+    var vertical = parseInt(verticalEdit.text) || 0
+    var gapHorizontal = parseUnits(gapHorizontalEdit.text)
+    var gapVertical = parseUnits(gapVerticalEdit.text)
 
     if (horizontal < 1 || vertical < 1) {
         alert('Minimal value is 1×1')
@@ -75,7 +80,7 @@ dialog.setPositiveButton(function() {
     var y = target.position[1]
 
     app.copy()
-    if (!dialog.target.trimMarksCheck.value) {
+    if (!trimMarksCheck.value) {
         target.remove()
     }
 
@@ -84,7 +89,7 @@ dialog.setPositiveButton(function() {
         app.paste()
         var addedItem = selection.first()
         addedItem.position = [x, y - v * (height + gapVertical)]
-        if (dialog.trimMarks.main.enabled) {
+        if (trimMarksPanel.main.enabled) {
             locations = [LOCATION_LEFT_BOTTOM, LOCATION_LEFT_TOP]
             if (v == 0) {
                 locations.push(LOCATION_TOP_LEFT, LOCATION_TOP_RIGHT)
@@ -92,9 +97,9 @@ dialog.setPositiveButton(function() {
             if (v == vertical - 1) {
                 locations.push(LOCATION_BOTTOM_LEFT, LOCATION_BOTTOM_RIGHT)
             }
-            dialog.trimMarks.addToItem(addedItem, locations)
+            trimMarksPanel.addToItem(addedItem, locations)
         }
-        if (dialog.target.trimMarksCheck.value) {
+        if (trimMarksCheck.value) {
             addedItem.remove()
         }
         
@@ -102,7 +107,7 @@ dialog.setPositiveButton(function() {
             app.paste()
             addedItem = selection.first()
             addedItem.position = [x + h * (width + gapHorizontal), y - v * (height + gapVertical)]
-            if (dialog.trimMarks.main.enabled) {
+            if (trimMarksPanel.main.enabled) {
                 locations = []
                 if (h == horizontal - 1) {
                     locations.push(LOCATION_RIGHT_TOP, LOCATION_RIGHT_BOTTOM)
@@ -113,9 +118,9 @@ dialog.setPositiveButton(function() {
                 if (v == vertical - 1) {
                     locations.push(LOCATION_BOTTOM_LEFT, LOCATION_BOTTOM_RIGHT)
                 }
-                dialog.trimMarks.addToItem(addedItem, locations)
+                trimMarksPanel.addToItem(addedItem, locations)
             }
-            if (dialog.target.trimMarksCheck.value) {
+            if (trimMarksCheck.value) {
                 addedItem.remove()
             }
         }

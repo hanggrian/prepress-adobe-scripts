@@ -12,6 +12,9 @@ var items = selection.filterItem(function(it) { return it.typename == 'PlacedIte
 check(items.isNotEmpty(), 'No links found in selection')
 
 var dialog = new Dialog('Relink Same File', 'fill')
+var pdfPanel, dimensionPanel
+var pageEdit
+
 var file = openFile(dialog.title, [
     ['Adobe Illustrator', 'AI'],
     ['Adobe PDF', 'PDF'],
@@ -29,30 +32,31 @@ if (file != null) {
     var editBounds = [0, 0, 100, 21]
 
     if (file.isPDF()) {
-        dialog.pdf = new RelinkPDFPanel(dialog.main, textBounds, editBounds)
-        
-        dialog.pdf.page = dialog.pdf.main.addHGroup()
-        dialog.pdf.page.addText(textBounds, 'Page:', 'right')
-        dialog.pdf.pageEdit = dialog.pdf.page.addEditText(editBounds, '1')
-        dialog.pdf.pageEdit.validateDigits()
-        dialog.pdf.pageEdit.active = true
-        dialog.pdf.page.setTooltip('What page should be used when opening a multipage document.')
+        pdfPanel = new RelinkPDFPanel(dialog.main, textBounds, editBounds)
+        pdfPanel.main.hgroup(function(panel) {
+            panel.staticText(textBounds, 'Page:', JUSTIFY_RIGHT)
+            pageEdit = group.editText(editBounds, '1', function(it) {
+                it.validateDigits()
+                it.active = true
+            })
+            panel.setTooltip('What page should be used when opening a multipage document.')
+        })
     }
 
-    dialog.dimension = new RelinkDimensionPanel(dialog.main)
+    dimensionPanel = new RelinkDimensionPanel(dialog.main)
 
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
         if (file.isPDF()) {
-            var page = parseInt(dialog.pdf.pageEdit.text) || 1
-            updatePDFPreferences(dialog.pdf.getBoxType(), page)
+            var page = parseInt(pageEdit.text) || 1
+            updatePDFPreferences(pdfPanel.getBoxType(), page)
         }
         items.forEach(function(item) {
             var width = item.width
             var height = item.height
             var position = item.position
             item.file = file
-            if (dialog.dimension.isMaintain()) {
+            if (dimensionPanel.isMaintain()) {
                 item.width = width
                 item.height = height
                 item.position = position
