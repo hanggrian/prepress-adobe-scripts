@@ -34,12 +34,12 @@ if (file != null) {
     if (file.isPDF()) {
         pdfPanel = new RelinkPDFPanel(dialog.main, textBounds, editBounds)
         pdfPanel.main.hgroup(function(panel) {
+            panel.setHelpTips('What page should be used when opening a multipage document.')
             panel.staticText(textBounds, 'Page:', JUSTIFY_RIGHT)
             pageEdit = group.editText(editBounds, '1', function(it) {
                 it.validateDigits()
                 it.active = true
             })
-            panel.setTooltip('What page should be used when opening a multipage document.')
         })
     }
 

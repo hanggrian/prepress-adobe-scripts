@@ -18,6 +18,7 @@ var enableTrimMarks = function() { trimMarksPanel.main.enabled = true }
 var disableTrimMarks = function() { trimMarksPanel.main.enabled = false }
 
 dialog.hgroup(function(group) {
+    group.setHelpTips('Select which item to spread.')
     group.staticText(undefined, 'Target:', JUSTIFY_RIGHT)
     artworkCheck = group.radioButton(undefined, 'Artwork', function(it) {
         it.value = true
@@ -29,27 +30,26 @@ dialog.hgroup(function(group) {
     bothCheck = group.radioButton(undefined, 'Both', function(it) {
         it.onClick = enableTrimMarks
     })
-    group.setTooltip('Select which item to spread.')
 })
 
 dialog.vpanel(dialog.title, function(panel) {
     panel.alignChildren = 'fill'
     panel.hgroup(function(group) {
+        group.setHelpTips('2 dimension target.')
         group.staticText(textBounds, 'Copies:', JUSTIFY_RIGHT)
         horizontalEdit = group.editText(editBounds2, undefined, VALIDATE_DIGITS)
         group.staticText(undefined, '×')
         verticalEdit = group.editText(editBounds2, undefined, VALIDATE_DIGITS)
-        group.setTooltip('2 dimension target.')
     })
     panel.hgroup(function(group) {
+        group.setHelpTips('Distance between arts horizontally.')
         group.staticText(textBounds, 'Horizontal Gap:', JUSTIFY_RIGHT)
         gapHorizontalEdit = group.editText(editBounds, unitsOf('0 mm'), VALIDATE_UNITS)
-        group.setTooltip('Distance between arts horizontally.')
     })
     panel.hgroup(function(group) {
+        group.setHelpTips('Distance between arts vertically.')
         group.staticText(textBounds, 'Vertical Gap:', JUSTIFY_RIGHT)
         gapVerticalEdit = group.editText(editBounds, unitsOf('0 mm'), VALIDATE_UNITS)
-        group.setTooltip('Distance between arts vertically.')
     })
 })
 

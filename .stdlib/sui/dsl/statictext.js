@@ -37,6 +37,9 @@ Panel.prototype.staticText = function(bounds, text, configuration) {
 
 function _staticText(parent, bounds, text, configuration) {
     var staticText = parent.add('statictext', bounds, text)
+    if (parent.helpTips !== undefined) {
+        staticText.helpTip = parent.helpTips
+    }
     if (configuration !== undefined) {
         configuration(staticText)
     }

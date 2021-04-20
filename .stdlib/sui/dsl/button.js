@@ -33,6 +33,9 @@ Panel.prototype.button = function(bounds, text, configuration) {
 
 function _button(parent, bounds, text, configuration) {
     var button = parent.add('button', bounds, text)
+    if (parent.helpTips !== undefined) {
+        button.helpTip = parent.helpTips
+    }
     if (configuration !== undefined) {
         configuration(button)
     }

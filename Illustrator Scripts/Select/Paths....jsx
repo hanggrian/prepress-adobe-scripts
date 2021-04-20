@@ -42,25 +42,25 @@ dialog.hgroup(function(mainGroup) {
 dialog.vpanel('Properties', function(panel) {
     var propertiesTextBounds = [0, 0, 55, 21]
     panel.hgroup(function(group) {
+        group.setHelpTips('Should this be used as a clipping path?')
         group.staticText(propertiesTextBounds, 'Clipping:', JUSTIFY_RIGHT)
         clippingAnyCheck = group.radioButton(undefined, 'Any', SELECTED)
         clippingEnabledCheck = group.radioButton(undefined, 'Enabled')
         clippingDisabledCheck = group.radioButton(undefined, 'Disabled')
-        group.setTooltip('Should this be used as a clipping path?')
     })
     panel.hgroup(function(group) {
+        group.setHelpTips('Is this path closed?')
         group.staticText(propertiesTextBounds, 'Closed:', JUSTIFY_RIGHT)
         closedAnyCheck = group.radioButton(undefined, 'Any', SELECTED)
         closedEnabledCheck = group.radioButton(undefined, 'Enabled')
         closedDisabledCheck = group.radioButton(undefined, 'Disabled')
-        group.setTooltip('Is this path closed?')
     })
     panel.hgroup(function(group) {
+        group.setHelpTips('Is this path a guide object?')
         group.staticText(propertiesTextBounds, 'Guides:', JUSTIFY_RIGHT)
         guidesAnyCheck = group.radioButton(undefined, 'Any', SELECTED)
         guidesEnabledCheck = group.radioButton(undefined, 'Enabled')
         guidesDisabledCheck = group.radioButton(undefined, 'Disabled')
-        group.setTooltip('Is this path a guide object?')
     })
 })
 

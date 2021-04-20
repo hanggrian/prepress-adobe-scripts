@@ -37,17 +37,17 @@ if (files !== null && files.isNotEmpty()) {
     if (files.first().isPDF()) {
         pdfPanel = new RelinkPDFPanel(dialog.main, textBounds, editBounds)
         pdfPanel.main.hgroup(function(group) {
+            group.setHelpTips('Beginning page of PDF file.')
             group.staticText(textBounds, 'Start page:', JUSTIFY_RIGHT)
             startPageEdit = group.editText(editBounds, '1', VALIDATE_DIGITS)
-            group.setTooltip('Beginning page of PDF file.')
         })
         pdfPanel.main.hgroup(function(group) {
+            group.setHelpTips('Final page of PDF file.')
             group.staticText(textBounds, 'End page:', JUSTIFY_RIGHT)
             endPageEdit = group.editText(editBounds, undefined, function(it) {
                 it.validateDigits()
                 it.active = true  
             })
-            group.setTooltip('Final page of PDF file.')
         })
     }
 

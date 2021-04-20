@@ -4,20 +4,20 @@ function ImposePanel(parent, textBounds, editBounds) {
     
     this.main = parent.vpanel('Impose Options', function(panel) {
         panel.hgroup(function(group) {
+            group.setHelpTips('Ruler units for the new document.')
             group.staticText(textBounds, 'Units:', JUSTIFY_RIGHT)
             self.unitsList = group.dropDownList(editBounds, UNITS, function(it) {
                 it.selection = UNITS.indexOf('Millimeters')
             })
-            group.setTooltip('Ruler units for the new document.')
         })
     
         panel.hgroup(function(group) {
+            group.setHelpTips('Number of pages.')
             group.staticText(textBounds, 'Pages:', JUSTIFY_RIGHT)
             self.pagesEdit = group.editText(editBounds, '4', function(it) {
                 it.validateDigits()
                 it.active = true
             })
-            group.setTooltip('Number of pages.')
         })
     
         panel.hgroup(function(group) {

@@ -24,16 +24,16 @@ var editBounds = [0, 0, 100, 21]
 dialog.vpanel('Retype', function(panel) {
     panel.alignChildren = 'fill'
     panel.hgroup(function(group) {
+        group.setHelpTips('The iteration will stop at the selected alphabet and the number will reset back to 1.')
         group.staticText(textBounds, 'Stops at:', JUSTIFY_RIGHT)
         stopsList = group.dropDownList(undefined, ALPHABETS, function(it) {
             it.selection = ALPHABETS.indexOf('B')
         })
-        group.setTooltip('The iteration will stop at the selected alphabet and the number will reset back to 1.')        
     })
     panel.hgroup(function(group) {
+        group.setHelpTips('Add single space between number and alphabet.')
         group.staticText(textBounds, 'Midspace:', JUSTIFY_RIGHT)
         spaceCheck = group.checkBox(undefined, 'Enable')
-        group.setTooltip('Add single space between number and alphabet.')      
     })
 })
 

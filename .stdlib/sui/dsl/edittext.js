@@ -70,6 +70,9 @@ Panel.prototype.multilineEditText = function(bounds, text, configuration) {
 
 function _editText(parent, multiline, bounds, text, configuration) {
     var editText = parent.add('edittext', bounds, text, { multiline: multiline !== undefined ? multiline : false })
+    if (parent.helpTips !== undefined) {
+        editText.helpTip = parent.helpTips
+    }
     if (configuration !== undefined) {
         configuration(editText)
     }

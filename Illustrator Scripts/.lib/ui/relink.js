@@ -7,11 +7,11 @@ function RelinkPDFPanel(parent, textBounds, editBounds) {
     this.main = parent.vpanel('PDF Options', function(panel) {
         panel.alignChildren = 'fill'
         panel.hgroup(function(group) {
+            group.setHelpTips('Which box should be used when placing a pdf document.')
             group.staticText(textBounds, 'Crop to:', JUSTIFY_RIGHT)
             self.boxTypeList = group.dropDownList(editBounds, PDF_BOX_TYPES, function(it) {
                 it.selection = PDF_BOX_TYPES.indexOf('Bounding')
             })
-            group.setTooltip('Which box should be used when placing a pdf document.')
         })
     })
 
@@ -39,8 +39,8 @@ function RelinkDimensionPanel(parent) {
 
     this.main = parent.vpanel('Dimension', function(group) {
         group.alignChildren = 'fill'
+        group.setHelpTips('Keep current dimension after relinking.')
         self.dimensionCheck = group.checkBox(undefined, 'Maintain size & position')
-        group.setTooltip('Keep current dimension after relinking.')
     })
 
     this.isMaintain = function() {

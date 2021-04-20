@@ -8,16 +8,18 @@ var textBounds = [0, 0, 45, 21]
 var editBounds = [0, 0, 100, 21]
 
 dialog.hgroup(function(group) {
+    group.setHelpTips("Artboards' new width.")
     group.staticText(textBounds, 'Width:', JUSTIFY_RIGHT)
-    widthEdit = group.editText(editBounds, formatUnits(document.width, unitName, 2))
-    widthEdit.validateUnits()
-    widthEdit.active = true
+    widthEdit = group.editText(editBounds, formatUnits(document.width, unitName, 2), function(it) {
+        it.validateUnits()
+        it.active = true
+    })
 })
 
 dialog.hgroup(function(group) {
+    group.setHelpTips("Artboards' new height.")
     group.staticText(textBounds, 'Height:', JUSTIFY_RIGHT)
-    heightEdit = group.editText(editBounds, formatUnits(document.height, unitName, 2))
-    heightEdit.validateUnits()
+    heightEdit = group.editText(editBounds, formatUnits(document.height, unitName, 2), VALIDATE_UNITS)
 })
 
 dialog.setNegativeButton('Cancel')

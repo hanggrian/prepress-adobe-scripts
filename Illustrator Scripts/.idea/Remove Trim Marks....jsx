@@ -15,24 +15,24 @@ var textBounds = [0, 0, 45, 21]
 var editBounds = [0, 0, 100, 21]
 
 dialog.length = dialog.main.addHGroup()
+dialog.length.setHelpTips('Remove trim marks lower or equal to this length.')
 dialog.length.addText(textBounds, 'Length:', 'right')
 dialog.lengthEdit = dialog.length.addEditText(editBounds, unitsOf('15 mm')) // slightly larger than Illustrator default (12.7 mm)
 dialog.lengthEdit.validateUnits()
-dialog.length.setTooltip('Remove trim marks lower or equal to this length.')
 
 dialog.weight = dialog.main.addHGroup()
+dialog.weight.setHelpTips('Remove trim marks lower or equal to this weight.')
 dialog.weight.addText(textBounds, 'Weight:', 'right')
 dialog.weightEdit = dialog.weight.addEditText(editBounds, '0.5') // slightly larger than Illustrator default (0.5 pt)
 dialog.weightEdit.validateUnits()
-dialog.weight.setTooltip('Remove trim marks lower or equal to this weight.')
 
 var colors = ['Any', '-']
 COLORS.forEach(function(it) { colors.push(it) })
 dialog.color = dialog.main.addHGroup()
+dialog.color.setHelpTips('Remove trim marks with this color.')
 dialog.color.addText(textBounds, 'Colors:', 'right')
 dialog.colorList = dialog.color.addDropDown(editBounds, colors)
 dialog.colorList.selection = COLORS.indexOf('Registration')
-dialog.colorList.setTooltip('Remove trim marks with this color.')
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {

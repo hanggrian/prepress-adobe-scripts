@@ -43,7 +43,7 @@ function ItemAnchorPanel(parent) {
         panel.alignChildren = 'fill'
 
         self.documentOrigin = panel.checkBox(undefined, 'Default', function(it) {
-            it.setTooltip('Use current reference point preference.')
+            it.helpTip = 'Use current reference point preference.'
             it.onClick = function() {
                 self.row1.enabled = !self.documentOrigin.value
                 self.row2.enabled = !self.documentOrigin.value
@@ -53,25 +53,25 @@ function ItemAnchorPanel(parent) {
 
         var radioBounds = [0, 0, 15, 15]
         self.row1 = panel.hgroup(function(group) {
+            group.setHelpTips('Reference point.')
             self.topLeftRadio = group.radioButton(radioBounds, undefined, function(radio) { registerRadioClick(radio) })
             self.topRadio = group.radioButton(radioBounds, undefined, function(radio) { registerRadioClick(radio) })
             self.topRightRadio = group.radioButton(radioBounds, undefined, function(radio) { registerRadioClick(radio) })
-            group.setTooltip('Reference point.')
         })
         self.row2 = panel.hgroup(function(group) {
+            group.setHelpTips('Reference point.')
             self.leftRadio = group.radioButton(radioBounds, undefined, function(radio) { registerRadioClick(radio) })
             self.centerRadio = group.radioButton(radioBounds, undefined, function(radio) {
                 radio.value = true
                 registerRadioClick(radio)
             })
             self.rightRadio = group.radioButton(radioBounds, undefined, function(radio) { registerRadioClick(radio) })
-            group.setTooltip('Reference point.')
         })
         self.row3 = panel.hgroup(function(group) {
+            group.setHelpTips('Reference point.')
             self.bottomLeftRadio = group.radioButton(radioBounds, undefined, function(radio) { registerRadioClick(radio) })
             self.bottomRadio = group.radioButton(radioBounds, undefined, function(radio) { registerRadioClick(radio) })
             self.bottomRightRadio = group.radioButton(radioBounds, undefined, function(radio) { registerRadioClick(radio) })
-            group.setTooltip('Reference point.')
         })
     })
 

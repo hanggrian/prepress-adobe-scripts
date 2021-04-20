@@ -33,6 +33,9 @@ Panel.prototype.dropDownList = function(bounds, items, configuration) {
 
 function _dropDownList(parent, bounds, items, configuration) {
     var dropDownList = parent.add('dropdownlist', bounds, items)
+    if (parent.helpTips !== undefined) {
+        dropDownList.helpTip = parent.helpTips
+    }
     if (configuration !== undefined) {
         configuration(dropDownList)
     }

@@ -4,8 +4,8 @@ function ReverseOrderGroup(parent) {
 
     this.main = parent.vgroup(function(group) {
         group.alignment = 'right'
+        group.setHelpTips('Iterate items at reverse order.')
         self.reverseCheck = group.checkBox(undefined, 'Reverse order')
-        group.setTooltip('Iterate items at reverse order.')
     })
 
     this.forEachAware = function(collection, action) {

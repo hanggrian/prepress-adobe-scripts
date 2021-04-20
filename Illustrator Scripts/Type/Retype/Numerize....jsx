@@ -17,17 +17,17 @@ var editBounds = [0, 0, 100, 21]
 
 dialog.vpanel('Retype', function(panel) {
     panel.hgroup(function(group) {
+        group.setHelpTips('Starting counter.')
         group.staticText(textBounds, 'Starts at:', JUSTIFY_RIGHT)
         startsAtEdit = group.editText(editBounds, '1', function(it) {
             it.validateDigits()
             it.active = true
         })
-        group.setTooltip('Starting counter.')
     })
     panel.hgroup(function(group) {
+        group.setHelpTips('Put n number of zeroes, can be left empty.')
         group.staticText(textBounds, 'Digits:', JUSTIFY_RIGHT)
         digitsEdit = group.editText(editBounds, undefined, VALIDATE_DIGITS)
-        group.setTooltip('Put n number of zeroes, can be left empty.')
     })
 })
 

@@ -4,15 +4,15 @@ function TypeAffixPanel(parent, textBounds, editBounds) {
 
     this.main = parent.vpanel('Affix', function(panel) {
         panel.hgroup(function(group) {
+            group.setHelpTips('Extra text before content, can be left empty.')
             group.staticText(textBounds, 'Prefix:', JUSTIFY_RIGHT)
             self.prefixEdit = group.editText(editBounds)
-            group.setTooltip('Extra text before content, can be left empty.')
         
         })
         panel.hgroup(function(group) {
+            group.setHelpTips('Extra text after content, can be left empty.')
             group.staticText(textBounds, 'Suffix:', JUSTIFY_RIGHT)
             self.suffixEdit = group.editText(editBounds)
-            group.setTooltip('Extra text after content, can be left empty.')
         })
     })
 

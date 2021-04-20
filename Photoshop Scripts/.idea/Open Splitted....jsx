@@ -20,18 +20,18 @@ var textBounds = [0, 0, 50, 21]
 var editBounds = [0, 0, 100, 21]
 
 dialog.split = dialog.main.addHGroup()
+dialog.split.setHelpTips('Divide image horizontally/vertically.')
 dialog.split.addText(textBounds, 'Split:', 'right')
 dialog.splitHorizontalRadio = dialog.split.addRadioButton(undefined, 'Horizontal')
 dialog.splitHorizontalRadio.value = true
 dialog.splitVerticalRadio = dialog.split.addRadioButton(undefined, 'Vertical')
-dialog.split.setTooltip('Divide image horizontally/vertically.')
 
 dialog.parts = dialog.main.addHGroup()
+dialog.parts.setHelpTips('Total number of divison.')
 dialog.parts.addText(textBounds, 'Parts:', 'right')
 dialog.partsEdit = dialog.bleed.addEditText(editBounds, '2')
 dialog.partsEdit.validateDigits()
 dialog.partsEdit.active = true
-dialog.parts.setTooltip('Total number of divison.')
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {

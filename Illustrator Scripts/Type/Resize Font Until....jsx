@@ -16,27 +16,27 @@ var roundRadio, roundFloorRadio, roundNoneRadio
 var textBounds = [0, 0, 110, 21]
 
 dialog.hgroup(function(group) {
+    group.setHelpTips('Selected text will match either width or height.')
     group.staticText(textBounds, 'Dimension:', JUSTIFY_RIGHT)
     widthRadio = group.radioButton(undefined, 'Width', SELECTED)
     heightRadio = group.radioButton(undefined, 'Height')
-    group.setTooltip('Selected text will match either width or height.')
 })
 
 dialog.hgroup(function(group) {
+    group.setHelpTips('Target size of the text.')
     group.staticText(textBounds, 'Dimension size:', JUSTIFY_RIGHT)
     dimensionSizeEdit = group.editText([0, 0, 100, 21], '0 ' + unitName, function(it) {
         it.validateUnits()
         it.active = true
     })
-    group.setTooltip('Target size of the text.')
 })
 
 dialog.hgroup(function(group) {
+    group.setHelpTips('Round font size to nearest non-decimal number.')
     group.staticText(textBounds, 'Rounding method:', JUSTIFY_RIGHT)
     roundRadio = group.radioButton(undefined, 'Round', SELECTED)
     roundFloorRadio = group.radioButton(undefined, 'Floor')
     roundNoneRadio = group.radioButton(undefined, 'None')
-    group.setTooltip('Round font size to nearest non-decimal number.')
 })
 
 dialog.setNegativeButton('Cancel')

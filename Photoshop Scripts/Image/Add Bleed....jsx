@@ -18,28 +18,28 @@ var textBounds = [0, 0, 85, 21]
 var editBounds = [0, 0, 100, 21]
 
 dialog.hgroup(function(group) {
+    group.setHelpTips('Which document should be affected.')
     group.staticText(textBounds, 'Document:', JUSTIFY_RIGHT)
     documentCurrentRadio = group.radioButton(undefined, 'Current', SELECTED)
     documentAllRadio = group.radioButton(undefined, 'All')
-    group.setTooltip('Which document should be affected.')
 })
 dialog.hgroup(function(group) {
+    group.setHelpTips('Bleed are distributed around image.')
     group.staticText(textBounds, 'Bleed:', JUSTIFY_RIGHT)
     bleedEdit = group.editText(editBounds, unitsOf('2.5 mm'), function(it) {
         it.validateUnits()
         it.active = true
     })
-    group.setTooltip('Bleed are distributed around image.')
 })
 dialog.hgroup(function(group) {
+    group.setHelpTips('Guides will mark where bleed are added.')
     group.staticText(textBounds, 'Guide Layout:', JUSTIFY_RIGHT)
     guideLayoutCheck = group.checkBox(undefined, 'Enable', SELECTED)
-    group.setTooltip('Guides will mark where bleed are added.')
 })
 dialog.hgroup(function(group) {
+    group.setHelpTips('Layers will be flattened.')
     group.staticText(textBounds, 'Flatten:', JUSTIFY_RIGHT)
     flattenCheck = group.checkBox(undefined, 'Enable')
-    group.setTooltip('Layers will be flattened.')
 })
 
 dialog.setNegativeButton('Cancel')
