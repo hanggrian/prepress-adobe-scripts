@@ -1,4 +1,4 @@
-var ACTIVE = function(editText) { editText.active = true }
+var ACTIVE = function(editText) { editText.activate() }
 var VALIDATE_DIGITS = function(editText) { editText.validateDigits() }
 var VALIDATE_UNITS = function(editText) { editText.validateUnits() }
 
@@ -69,7 +69,7 @@ Panel.prototype.multilineEditText = function(bounds, text, configuration) {
 }
 
 function _editText(parent, multiline, bounds, text, configuration) {
-    var editText = parent.add('edittext', bounds, text, { multiline: multiline !== undefined ? multiline : false })
+    var editText = parent.add('edittext', _expandBounds(bounds), text, { multiline: multiline !== undefined ? multiline : false })
     if (parent.helpTips !== undefined) {
         editText.helpTip = parent.helpTips
     }

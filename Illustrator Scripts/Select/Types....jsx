@@ -11,13 +11,13 @@ var colorFillList, colorStrokeList
 dialog.hgroup(function(mainGroup) {
     mainGroup.alignChildren = 'top'
     mainGroup.vpanel('Character', function(panel) {
-        var characterTextBounds = [0, 0, 65, 21]
+        var characterTextBounds = [65, 21]
         panel.alignChildren = 'left'
         panel.hgroup(function(group) {
             group.staticText(characterTextBounds, 'Font size:', JUSTIFY_RIGHT)
-            characterFontEdit = group.editText([0, 0, 75, 21], undefined, function(it) {
+            characterFontEdit = group.editText([75, 21], undefined, function(it) {
                 it.validateUnits()
-                it.active = true
+                it.activate()
             })
         })
         panel.hgroup(function(group) {
@@ -27,7 +27,7 @@ dialog.hgroup(function(mainGroup) {
         })
     })
     mainGroup.vpanel('Color', function(panel) {
-        var colorTextBounds = [0, 0, 45, 21]
+        var colorTextBounds = [45, 21]
         panel.hgroup(function(group) {
             group.staticText(colorTextBounds, 'Fill:', JUSTIFY_RIGHT)
             colorFillList = group.dropDownList(undefined, COLORS)    
@@ -46,7 +46,7 @@ dialog.setPositiveButton(function() {
         var condition = true
         var fontSize = parseUnits(characterFontEdit.text)
         if (fontSize > 0) {
-            condition = condition && fontSize == attr.size
+            condition = condition && fontSize === attr.size
         }
         if (characterItalicCheck.value) {
             condition = condition && attr.italics

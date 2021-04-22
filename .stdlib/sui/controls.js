@@ -1,3 +1,6 @@
+// Focus on this edit text.
+EditText.prototype.activate = function() { if (!this.active) this.active = true }
+
 /**
  * Apply help tip to all children of this group, before or after children creation.
  * Don't set the tooltip on the group/panel itself since the behavior is different on Illustrator and Photoshop.
@@ -25,4 +28,10 @@ function _setHelpTips(parent, helpTips) {
             it.helpTip = helpTips
         }
     })
+}
+
+function _expandBounds(bounds) {
+    return bounds !== undefined && bounds.length === 2
+        ? [0, 0, bounds[0], bounds[1]]
+        : bounds
 }

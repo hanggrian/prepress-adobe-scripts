@@ -7,7 +7,7 @@
 
 checkHasSelection()
 
-var items = selection.filterItem(function(it) { return it.typename == 'PlacedItem' })
+var items = selection.filterItem(function(it) { return it.typename === 'PlacedItem' })
 check(items.isNotEmpty(), 'No links found in selection')
 
 var dialog = new Dialog('Relink Change Folder', 'fill')
@@ -16,8 +16,8 @@ var dimensionPanel
 var folder = openFolder(dialog.title)
 
 if (folder != null) {
-    var textBounds = [0, 0, 50, 21]
-    var editBounds = [0, 0, 100, 21]
+    var textBounds = [50, 21]
+    var editBounds = [100, 21]
 
     dimensionPanel = new RelinkDimensionPanel(dialog.main)
     
@@ -28,7 +28,7 @@ if (folder != null) {
             var height = item.height
             var position = item.position
             item.relink(folder.getFiles()
-                .filter(function(file) { return file.name == item.file.name })
+                .filter(function(file) { return file.name === item.file.name })
                 .first())
             if (dimensionPanel.isMaintain()) {
                 item.width = width

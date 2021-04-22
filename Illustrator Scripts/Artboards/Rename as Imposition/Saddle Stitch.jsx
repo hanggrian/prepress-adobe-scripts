@@ -3,4 +3,7 @@
 
 checkEvenArtboards()
 
-new SaddleStitchPager(document).bindArtboardName()
+var pager = new SaddleStitchPager(document)
+pager.forEachArtboard(function(artboard) {
+    artboard.name = pager.getLeftTitle() + '-' + pager.getRightTitle()
+})

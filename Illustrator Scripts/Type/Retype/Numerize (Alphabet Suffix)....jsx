@@ -11,15 +11,15 @@ var ALPHABETS = [
 
 checkHasSelection()
 
-var items = selection.filterItem(function(it) { return it.typename == 'TextFrame' })
+var items = selection.filterItem(function(it) { return it.typename === 'TextFrame' })
 check(items.isNotEmpty(), 'No types found in selection')
 
 var dialog = new Dialog('Retype Numerize (Alphabet Suffix)', 'fill')
 var stopsList, spaceCheck
 var affixPanel, reverseGroup
 
-var textBounds = [0, 0, 70, 21]
-var editBounds = [0, 0, 100, 21]
+var textBounds = [70, 21]
+var editBounds = [100, 21]
 
 dialog.vpanel('Retype', function(panel) {
     panel.alignChildren = 'fill'
@@ -48,7 +48,7 @@ dialog.setPositiveButton(function() {
     prefix = affixPanel.getPrefix()
     suffix = affixPanel.getSuffix()
     for (var i = 0; i < ALPHABETS.length; i++) {
-        if (ALPHABETS[i] == stopsList.selection.text) {
+        if (ALPHABETS[i] === stopsList.selection.text) {
             stopsAt = i + 1
         }
     }
@@ -63,7 +63,7 @@ dialog.setPositiveButton(function() {
         item.words.add(prefix + s + suffix)
     
         count++
-        if (count == stopsAt) {
+        if (count === stopsAt) {
             number++
             count = 0
         }

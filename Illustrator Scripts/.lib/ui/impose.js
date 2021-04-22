@@ -16,7 +16,7 @@ function ImposePanel(parent, textBounds, editBounds) {
             group.staticText(textBounds, 'Pages:', JUSTIFY_RIGHT)
             self.pagesEdit = group.editText(editBounds, '4', function(it) {
                 it.validateDigits()
-                it.active = true
+                it.activate()
             })
         })
     

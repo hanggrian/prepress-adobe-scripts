@@ -10,12 +10,8 @@
  * @this {PageItem}
  * @return {String}
  */
-Object.prototype.layerName = function() {
-    var name = this.name
-    if (name != null & name.length > 0) {
-        return name
-    }
-    return this.typename
+Object.prototype.getLayerName = function() {
+    return this.name != null & this.name.length > 0 ? this.name : this.typename
 }
 
 /**
@@ -25,7 +21,13 @@ Object.prototype.layerName = function() {
  */
 Object.prototype.getClippingPathItem = function() {
     if (this.typename === 'GroupItem' && this.clipped) {
-        return this.pathItems[0]
+        // can't use `first { }` because PathItems is not an Array
+        for (var i = 0; i < this.pathItems.length; i++) {
+            var pathItem = this.pathItems[i]
+            if (pathItem.clipping) {
+                return pathItem
+            }
+        }
     }
     return this
 }
@@ -36,7 +38,8 @@ Object.prototype.getClippingPathItem = function() {
  * @param {Number} page PDF page to open.
  */
 function updatePDFPreferences(boxType, page) {
-    var options = app.preferences.PDFFileOptions
-    options.pDFCropToBox = boxType
-    options.pageToOpen = page
+    app.preferences.PDFFileOptions.let(function(it) {
+        it.pDFCropToBox = boxType
+        it.pageToOpen = page
+    })
 }

@@ -6,13 +6,13 @@
 
 checkHasSelection()
 
-var items = selection.filterItem(function(it) { return it.typename == 'PathItem' })
+var items = selection.filterItem(function(it) { return it.typename === 'PathItem' })
 check(items.isNotEmpty(), 'No paths found in selection')
 
 var dialog = new Dialog('Remove Trim Marks')
 
-var textBounds = [0, 0, 45, 21]
-var editBounds = [0, 0, 100, 21]
+var textBounds = [45, 21]
+var editBounds = [100, 21]
 
 dialog.length = dialog.main.addHGroup()
 dialog.length.setHelpTips('Remove trim marks lower or equal to this length.')

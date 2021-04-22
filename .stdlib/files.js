@@ -2,7 +2,7 @@
  * Returns file name without extension.
  * @return {String}
  */
-File.prototype.nameWithoutExtension = function() {
+File.prototype.getNameWithoutExtension = function() {
     return unescape(this.name).substringBeforeLast('.')
 }
 
@@ -10,7 +10,7 @@ File.prototype.nameWithoutExtension = function() {
  * Returns file extension in lower-case without `.`.
  * @return {String}
  */
-File.prototype.extension = function() {
+File.prototype.getExtension = function() {
     return unescape(this.name).substringAfterLast('.').toLowerCase()
 }
 
@@ -20,8 +20,9 @@ File.prototype.extension = function() {
  * @return {Boolean}
  */
 File.prototype.isPDF = function() {
-    var ext = this.extension()
-    return ext === 'ai' || ext === 'pdf'
+    return this.getExtension().let(function(it) {
+        return it == 'ai' || it == 'pdf'
+    })
 }
 
 /**
@@ -47,7 +48,7 @@ function openFile(prompt, filters, multiSelect) {
             var condition = file instanceof Folder // required to go through directory
             filters.forEach(function(array) {
                 array.slice(1).forEach(function(ext) {
-                    condition = condition || file.extension() === ext.toLowerCase()
+                    condition = condition || file.getExtension() === ext.toLowerCase()
                 })
             })
             return condition

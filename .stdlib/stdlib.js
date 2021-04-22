@@ -1,9 +1,10 @@
 #include 'collections.js'
 #include 'files.js'
 #include 'preconditions.js'
+#include 'standard.js'
 #include 'strings.js'
+#include 'sui/controls.js'
 #include 'sui/dialog.js'
-#include 'sui/tooltip.js'
 #include 'sui/validator.js'
 #include 'sui/dsl/button.js'
 #include 'sui/dsl/dropdownlist.js'
@@ -21,14 +22,3 @@ function isMacOS() { return $.os.toLowerCase().indexOf('mac') >= 0 }
  * @param {String} value text to check.
  */
 function isNumeric(value) { return /^-{0,1}\d*\.{0,1}\d+$/.test(value) }
-
-/**
- * Iterate n times with provided action.
- * @param {Number} times n times to execute.
- * @param {Function} action runnable to execute.
- */
-function repeat(times, action) {
-    for (var i = 0; i < times; i++) {
-        action(i)
-    }
-}

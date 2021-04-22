@@ -5,7 +5,7 @@
 
 checkHasSelection()
 
-var items = selection.filterItem(function(it) { return it.typename == 'PlacedItem' })
+var items = selection.filterItem(function(it) { return it.typename === 'PlacedItem' })
 check(items.isNotEmpty(), 'No links found in selection')
 
 var dialog = new Dialog('Relink Multipage', 'fill')
@@ -31,8 +31,8 @@ if (files !== null && files.isNotEmpty()) {
         check(files.length > 1, 'Only single image file selected, use Relink Same File instead')
     }
 
-    var textBounds = [0, 0, 70, 21]
-    var editBounds = [0, 0, 100, 21]
+    var textBounds = [70, 21]
+    var editBounds = [100, 21]
 
     if (files.first().isPDF()) {
         pdfPanel = new RelinkPDFPanel(dialog.main, textBounds, editBounds)
@@ -46,7 +46,7 @@ if (files !== null && files.isNotEmpty()) {
             group.staticText(textBounds, 'End page:', JUSTIFY_RIGHT)
             endPageEdit = group.editText(editBounds, undefined, function(it) {
                 it.validateDigits()
-                it.active = true  
+                it.activate()  
             })
         })
     }

@@ -3,7 +3,7 @@
 #include '../.lib/ui/impose.js'
 #include '../.lib/ui/relink.js'
 
-var dialog = new Dialog('Impose Two-Sided Perfect Bound')
+var dialog = new Dialog('Impose Perfect Binding')
 var pdfPanel, imposePanel
 
 var files = openFile(dialog.title, [
@@ -23,8 +23,8 @@ if (files !== null && files.isNotEmpty()) {
         check(files.length === 1, 'Only supports single PDF file')
     }
 
-    var textBounds = [0, 0, 45, 21]
-    var editBounds = [0, 0, 100, 21]
+    var textBounds = [45, 21]
+    var editBounds = [100, 21]
 
     if (files.first().isPDF()) {
         pdfPanel = new RelinkPDFPanel(dialog.main, textBounds, editBounds)
@@ -41,23 +41,20 @@ if (files !== null && files.isNotEmpty()) {
             alert('Total pages must be a non-zero number that can be divided by 4.')
         } else {
             var document = app.documents.addDocument(DocumentPresetType.Print, imposePanel.getDocumentPreset('Untitled-Perfect Binding'))
-            var pager
-            if (files.first().isPDF()) {
-                pager = new PerfectBindingPager(document, 1)
-            } else {
-                pager = new PerfectBindingPager(document, 0)
-            }
+            var pager = new PerfectBindingPager(document, files.first().isPDF())
             pager.forEachArtboard(function(artboard, left, right) {
+                artboard.name = pager.getLeftTitle() + '-' + pager.getRightTitle()
+                
                 var leftItem = document.placedItems.add()
                 var rightItem = document.placedItems.add()
                 if (files.first().isPDF()) {
-                    updatePDFPreferences(pdfPanel.getBoxType(), left)
+                    updatePDFPreferences(pdfPanel.getBoxType(), pager.getLeftIndex())
                     leftItem.file = files.first()
-                    updatePDFPreferences(pdfPanel.getBoxType(), right)
+                    updatePDFPreferences(pdfPanel.getBoxType(), pager.getRightIndex())
                     rightItem.file = files.first()
                 } else {
-                    leftItem.file = files[left]
-                    rightItem.file = files[right]
+                    leftItem.file = files[pager.getLeftIndex()]
+                    rightItem.file = files[pager.getRightIndex()]
                 }
                 var rect = artboard.artboardRect
                 var artboardRight = rect[0] + rect[2]
@@ -72,7 +69,6 @@ if (files !== null && files.isNotEmpty()) {
                 leftItem.position = [leftX, y]
                 rightItem.position = [rightX, y]
             })
-            new PerfectBindingPager(document).bindArtboardName()
         }
     })
     dialog.show()

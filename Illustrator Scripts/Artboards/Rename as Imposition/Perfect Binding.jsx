@@ -3,4 +3,7 @@
 
 checkEvenArtboards()
 
-new PerfectBindingPager(document).bindArtboardName()
+var pager = new PerfectBindingPager(document)
+pager.forEachArtboard(function(artboard) {
+    artboard.name = pager.getLeftTitle() + '-' + pager.getRightTitle()
+})

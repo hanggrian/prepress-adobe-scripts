@@ -5,15 +5,15 @@
 
 checkHasSelection()
 
-var items = selection.filterItem(function(it) { return it.typename == 'TextFrame' })
+var items = selection.filterItem(function(it) { return it.typename === 'TextFrame' })
 check(items.isNotEmpty(), 'No types found in selection')
 
 var dialog = new Dialog('Retype Numerize')
 var startsAtEdit, digitsEdit
 var affixPanel, reverseGroup
 
-var textBounds = [0, 0, 55, 21]
-var editBounds = [0, 0, 100, 21]
+var textBounds = [55, 21]
+var editBounds = [100, 21]
 
 dialog.vpanel('Retype', function(panel) {
     panel.hgroup(function(group) {
@@ -21,7 +21,7 @@ dialog.vpanel('Retype', function(panel) {
         group.staticText(textBounds, 'Starts at:', JUSTIFY_RIGHT)
         startsAtEdit = group.editText(editBounds, '1', function(it) {
             it.validateDigits()
-            it.active = true
+            it.activate()
         })
     })
     panel.hgroup(function(group) {

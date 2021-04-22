@@ -23,13 +23,13 @@ var aiCheck, pdfCheck, bmpCheck, gifCheck, jpegCheck, jpeg2000Check, pngCheck, p
 dialog.hgroup(function(mainGroup) {
     mainGroup.alignChildren = 'top'
     mainGroup.vpanel('Dimension', function(panel) {
-        var dimensionTextBounds = [0, 0, 45, 21]
-        var dimensionEditBounds = [0, 0, 100, 21]
+        var dimensionTextBounds = [45, 21]
+        var dimensionEditBounds = [100, 21]
         panel.hgroup(function(group) {
             group.staticText(dimensionTextBounds, 'Width:', JUSTIFY_RIGHT)
             widthEdit = group.editText(dimensionEditBounds, function(it) {
                 it.validateUnits()
-                it.active = true
+                it.activate()
             })
         })
         panel.hgroup(function(group) {
@@ -57,11 +57,11 @@ dialog.setPositiveButton(function() {
         var condition = true
         var width = parseUnits(widthEdit.text)
         if (width > 0) {
-            condition = condition && parseInt(width) == parseInt(item.width)
+            condition = condition && parseInt(width) === parseInt(item.width)
         }
         var height = parseUnits(heightEdit.text)
         if (height > 0) {
-            condition = condition && parseInt(height) == parseInt(item.height)
+            condition = condition && parseInt(height) === parseInt(item.height)
         }
 
         var condition2 = false
@@ -94,7 +94,7 @@ function getTypeString(prefix, suffix) {
 
 function contains(elements, element) {
     for (var i = 0; i < elements.length; i++) {
-        if (elements[i].toLowerCase() == element) {
+        if (elements[i].toLowerCase() === element) {
             return true
         }
     }

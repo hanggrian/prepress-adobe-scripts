@@ -11,9 +11,9 @@ var artworkCheck, trimMarksCheck, bothCheck
 var horizontalEdit, verticalEdit, gapHorizontalEdit, gapVerticalEdit
 var trimMarksPanel
 
-var textBounds = [0, 0, 95, 21]
-var editBounds = [0, 0, 100, 21]
-var editBounds2 = [0, 0, 35, 21]
+var textBounds = [95, 21]
+var editBounds = [100, 21]
+var editBounds2 = [35, 21]
 var enableTrimMarks = function() { trimMarksPanel.main.enabled = true }
 var disableTrimMarks = function() { trimMarksPanel.main.enabled = false }
 
@@ -56,7 +56,7 @@ dialog.vpanel(dialog.title, function(panel) {
 trimMarksPanel = new TrimMarksPanel(dialog.main, textBounds, editBounds)
 trimMarksPanel.main.enabled = false
 
-horizontalEdit.active = true
+horizontalEdit.activate()
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
@@ -91,10 +91,10 @@ dialog.setPositiveButton(function() {
         addedItem.position = [x, y - v * (height + gapVertical)]
         if (trimMarksPanel.main.enabled) {
             locations = [LOCATION_LEFT_BOTTOM, LOCATION_LEFT_TOP]
-            if (v == 0) {
+            if (v === 0) {
                 locations.push(LOCATION_TOP_LEFT, LOCATION_TOP_RIGHT)
             }
-            if (v == vertical - 1) {
+            if (v === vertical - 1) {
                 locations.push(LOCATION_BOTTOM_LEFT, LOCATION_BOTTOM_RIGHT)
             }
             trimMarksPanel.addToItem(addedItem, locations)
@@ -109,13 +109,13 @@ dialog.setPositiveButton(function() {
             addedItem.position = [x + h * (width + gapHorizontal), y - v * (height + gapVertical)]
             if (trimMarksPanel.main.enabled) {
                 locations = []
-                if (h == horizontal - 1) {
+                if (h === horizontal - 1) {
                     locations.push(LOCATION_RIGHT_TOP, LOCATION_RIGHT_BOTTOM)
                 }
-                if (v == 0) {
+                if (v === 0) {
                     locations.push(LOCATION_TOP_LEFT, LOCATION_TOP_RIGHT)
                 }
-                if (v == vertical - 1) {
+                if (v === vertical - 1) {
                     locations.push(LOCATION_BOTTOM_LEFT, LOCATION_BOTTOM_RIGHT)
                 }
                 trimMarksPanel.addToItem(addedItem, locations)

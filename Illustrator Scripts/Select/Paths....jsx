@@ -12,14 +12,14 @@ var closedAnyCheck, closedEnabledCheck, closedDisabledCheck
 var guidesAnyCheck, guidesEnabledCheck, guidesDisabledCheck
 
 dialog.hgroup(function(mainGroup) {
-    var lineTextBounds = [0, 0, 45, 21]
-    var lineEditBounds = [0, 0, 100, 21]
+    var lineTextBounds = [45, 21]
+    var lineEditBounds = [100, 21]
     mainGroup.vpanel('Dimension', function(panel) {
         panel.hgroup(function(group) {
             group.staticText(lineTextBounds, 'Width:', JUSTIFY_RIGHT)
             widthEdit = group.editText(lineEditBounds, undefined, function(it) {
                 it.validateUnits()
-                it.active = true  
+                it.activate()  
             })
         })
         panel.hgroup(function(group) {
@@ -40,7 +40,7 @@ dialog.hgroup(function(mainGroup) {
 })
 
 dialog.vpanel('Properties', function(panel) {
-    var propertiesTextBounds = [0, 0, 55, 21]
+    var propertiesTextBounds = [55, 21]
     panel.hgroup(function(group) {
         group.setHelpTips('Should this be used as a clipping path?')
         group.staticText(propertiesTextBounds, 'Clipping:', JUSTIFY_RIGHT)
@@ -70,11 +70,11 @@ dialog.setPositiveButton(function() {
         var condition = true
         var width = parseUnits(widthEdit.text)
         if (width > 0) {
-            condition = condition && parseInt(width) == parseInt(item.width)
+            condition = condition && parseInt(width) === parseInt(item.width)
         }
         var height = parseUnits(heightEdit.text)
         if (height > 0) {
-            condition = condition && parseInt(height) == parseInt(item.height)
+            condition = condition && parseInt(height) === parseInt(item.height)
         }
         if (fillList.selection != null) {
             condition = condition && isColorEqual(item.fillColor, parseColor(fillList.selection.text))

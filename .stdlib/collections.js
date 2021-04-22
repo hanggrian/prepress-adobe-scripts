@@ -7,7 +7,7 @@
  * @param {Object} element value within this collection.
  * @return {Boolean}
  */
- Object.prototype.indexOf = function(element) {
+Object.prototype.indexOf = function(element) {
     for (var i = 0; i < this.length; i++) {
         if (this[i] === element) {
             return i
@@ -20,25 +20,47 @@
   * Last index of this collection.
   * @return {Boolean}
   */
- Object.prototype.lastIndex = function() { return this.length - 1 }
+Object.prototype.lastIndex = function() { return this.length - 1 }
 
 /**
  * First item of this collection.
+ * @param {Function} predicate if defined, will search first item given the predicate.
  * @return {Object}
  */
-Object.prototype.first = function() { return this[0] }
+Object.prototype.first = function(predicate) {
+    if (predicate === undefined) {
+        return this[0]
+    }
+    for (var i = 0; i < this.length; i++) {
+        if (predicate(this[i], i)) {
+            return this[i]
+        }
+    }
+    throw new Error('Element not found given the predicate')
+}
 
 /**
  * Last item of this collection.
+ * @param {Function} predicate if defined, will search first item given the predicate.
  * @return {Object}
  */
-Object.prototype.last = function() { return this[this.lastIndex()] }
+Object.prototype.last = function(predicate) {
+    if (predicate === undefined) {
+        return this[this.lastIndex()]
+    }
+    for (var i = this.lastIndex(); i >= 0; i--) {
+        if (predicate(this[i], i)) {
+            return this[i]
+        }
+    }
+    throw new Error('Element not found given the predicate')
+}
 
 /**
  * Returns true if this collection is empty.
  * @return {Boolean}
  */
-Object.prototype.isEmpty = function() { return this.length == 0 }
+Object.prototype.isEmpty = function() { return this.length === 0 }
 
 /** 
  * Returns true if this collection is not empty.

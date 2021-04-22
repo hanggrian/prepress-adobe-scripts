@@ -24,8 +24,8 @@ if (files !== null && files.isNotEmpty()) {
         check(files.length === 1, 'Only supports single PDF file')
     }
 
-    var textBounds = [0, 0, 45, 21]
-    var editBounds = [0, 0, 100, 21]
+    var textBounds = [45, 21]
+    var editBounds = [100, 21]
 
     if (files.first().isPDF()) {
         pdfPanel = new RelinkPDFPanel(dialog.main, textBounds, editBounds)
@@ -47,23 +47,20 @@ if (files !== null && files.isNotEmpty()) {
             alert('Total pages must be a non-zero number that can be divided by 4.')
         } else {
             document = app.documents.addDocument(DocumentPresetType.Print, imposePanel.getDocumentPreset('Untitled-Saddle Stitch', bleed))
-            var pager
-            if (files.first().isPDF()) {
-                pager = new SaddleStitchPager(document, 1, pages)
-            } else {
-                pager = new SaddleStitchPager(document, 0, pages - 1)
-            }
-            pager.forEachArtboard(function(artboard, left, right) {
+            var pager = new SaddleStitchPager(document, pages, files.first().isPDF())
+            pager.forEachArtboard(function(artboard) {
+                artboard.name = pager.getLeftTitle() + '-' + pager.getRightTitle()
+
                 var leftItem = document.placedItems.add()
                 var rightItem = document.placedItems.add()
                 if (files.first().isPDF()) {
-                    updatePDFPreferences(pdfPanel.getBoxType(), left)
+                    updatePDFPreferences(pdfPanel.getBoxType(), pager.getLeftIndex())
                     leftItem.file = files.first()
-                    updatePDFPreferences(pdfPanel.getBoxType(), right)
+                    updatePDFPreferences(pdfPanel.getBoxType(), pager.getRightIndex())
                     rightItem.file = files.first()
                 } else {
-                    leftItem.file = files[left]
-                    rightItem.file = files[right]
+                    leftItem.file = files[pager.getLeftIndex()]
+                    rightItem.file = files[pager.getRightIndex()]
                 }
                 var rect = artboard.artboardRect
                 var artboardRight = rect[0] + rect[2]
@@ -86,14 +83,22 @@ if (files !== null && files.isNotEmpty()) {
 
                     var leftGroup = document.groupItems.add()
                     leftItem.moveToBeginning(leftGroup)
-                    var leftClip = document.pathItems.rectangle(y + bleed, leftX - bleed, width + bleed, height)
+                    var leftClip = document.pathItems.rectangle(
+                        y + bleed,
+                        leftX - bleed,
+                        width + bleed,
+                        height + bleed * 2)
                     leftClip.clipping = true
                     leftClip.moveToBeginning(leftGroup)
                     leftGroup.clipped = true
 
                     var rightGroup = document.groupItems.add()
                     rightItem.moveToBeginning(rightGroup)
-                    var rightClip = document.pathItems.rectangle(y + bleed, rightX, width + bleed, height)
+                    var rightClip = document.pathItems.rectangle(
+                        y + bleed,
+                        rightX,
+                        width + bleed,
+                        height + bleed * 2)
                     rightClip.clipping = true
                     rightClip.moveToBeginning(rightGroup)
                     rightGroup.clipped = true
@@ -102,7 +107,6 @@ if (files !== null && files.isNotEmpty()) {
                     rightItem.position = [rightX - bleed, y + bleed]
                 }
             })
-            new SaddleStitchPager(document).bindArtboardName()
         }
     })
     dialog.show()

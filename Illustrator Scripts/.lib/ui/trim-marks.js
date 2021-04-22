@@ -180,7 +180,7 @@ function TrimMarkLocationsPanel(parent) {
     this.leftTopCheck, this.rightTopCheck
     this.leftBottomCheck, this.rightBottomCheck
     this.bottomLeftCheck, this.bottomRightCheck
-    var checkBounds = [0, 0, 15, 15]
+    var checkBounds = [15, 15]
 
     this.main = parent.vpanel('Locations', function(panel) {
         panel.hgroup(function(group) {

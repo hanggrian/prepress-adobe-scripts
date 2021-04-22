@@ -13,9 +13,9 @@ var generalClippingMaskText
 var generalSpotColorsText
 
 var fixButtons = []
-var leftBounds = [0, 0, 90, 21]
-var rightBounds = [0, 0, 150, 21]
-var fixBounds = [0, 0, 50, 21]
+var leftBounds = [90, 21]
+var rightBounds = [150, 21]
+var fixBounds = [50, 21]
 
 dialog.hgroup(function(mainGroup) {
     mainGroup.alignChildren = 'top'
@@ -28,7 +28,7 @@ dialog.hgroup(function(mainGroup) {
             group.setHelpTips('Image color space should be CMYK.')
             group.staticText(leftBounds, 'Color space:', JUSTIFY_RIGHT)
             generalColorSpaceText = group.staticText(rightBounds, document.documentColorSpace.toString().substringAfter('.'), function(it) {
-                if (it.text == 'CMYK') {
+                if (it.text === 'CMYK') {
                     it.text += ' ✔'
                 } else {
                     it.text += ' ✘'
@@ -45,7 +45,7 @@ dialog.hgroup(function(mainGroup) {
             group.setHelpTips('Image color model should be default.')
             group.staticText(leftBounds, 'Color model:', JUSTIFY_RIGHT)
             generalColorModelText = group.staticText(rightBounds, document.rasterEffectSettings.colorModel.toString().substringAfter('.'), function(it) {
-                if (it.text == 'DEFAULTCOLORMODEL') {
+                if (it.text === 'DEFAULTCOLORMODEL') {
                     it.text += ' ✔'
                 } else {
                     it.text += ' ✘'
@@ -59,7 +59,7 @@ dialog.hgroup(function(mainGroup) {
             group.setHelpTips('Resolution should be 300.')
             group.staticText(leftBounds, 'Resolution:', JUSTIFY_RIGHT)
             generalResolutionText = group.staticText(rightBounds, document.rasterEffectSettings.resolution, function(it) {
-                if (it.text == '300') {
+                if (it.text === '300') {
                     it.text += ' ✔'
                 } else {
                     it.text += ' ✘'
@@ -139,7 +139,7 @@ dialog.hgroup(function(mainGroup) {
     mainGroup.vgroup(function(group) {
         group.vpanel('Rasters Items', function(panel) {
             panel.setHelpTips('Images below 300 resolution.')
-            if (document.rasterItems.length == 0) {
+            if (document.rasterItems.length === 0) {
                 panel.text += ' ✔'
                 panel.staticText(undefined, 'No raster items.')
             } else {
@@ -185,7 +185,7 @@ function addFixButton(parent, staticText, fixedText, onClick) {
 
 function getRasterItemName(rasterItem) {
     var s = rasterItem.name
-    if (s == '') {
+    if (s === '') {
         s = parseFloat(rasterItem.height.toFixed(2)) + '×' + parseFloat(rasterItem.width.toFixed(2)) + ' image'
     }
     return s

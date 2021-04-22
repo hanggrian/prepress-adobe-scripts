@@ -1,6 +1,6 @@
 /** Assert that artboards are even numbered. */
 function checkEvenArtboards() {
-    check(document.artboards.length % 2 == 0, 'Odd number of pages')
+    check(document.artboards.length % 2 === 0, 'Odd number of pages')
 }
 
 /** Assert that artboards are odd numbered. */
@@ -16,7 +16,7 @@ function checkHasSelection() {
 /** Assert that document currently has single selection. */
 function checkSingleSelection() {
     checkHasSelection()
-    check(selection.length == 1, 'Multiple selection is not supported')
+    check(selection.length === 1, 'Multiple selection is not supported')
 }
 
 /** Assert that document currently has multiple selection. */

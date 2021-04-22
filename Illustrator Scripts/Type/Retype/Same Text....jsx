@@ -3,7 +3,7 @@
 
 checkHasSelection()
 
-var items = selection.filterItem(function(it) { return it.typename == 'TextFrame' })
+var items = selection.filterItem(function(it) { return it.typename === 'TextFrame' })
 check(items.isNotEmpty(), 'No types found in selection')
 
 var dialog = new Dialog('Retype Same Text')
@@ -12,7 +12,7 @@ var inputEdit
 dialog.hgroup(function(group) {
     group.alignChildren = 'top'
     group.staticText(undefined, 'Content:')
-    inputEdit = group.multilineEditText([0, 0, 400, 100], undefined, ACTIVE)
+    inputEdit = group.multilineEditText([400, 100], undefined, ACTIVATE)
 })
 
 dialog.setNegativeButton('Cancel')

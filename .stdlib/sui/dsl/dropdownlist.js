@@ -32,7 +32,7 @@ Panel.prototype.dropDownList = function(bounds, items, configuration) {
 }
 
 function _dropDownList(parent, bounds, items, configuration) {
-    var dropDownList = parent.add('dropdownlist', bounds, items)
+    var dropDownList = parent.add('dropdownlist', _expandBounds(bounds), items)
     if (parent.helpTips !== undefined) {
         dropDownList.helpTip = parent.helpTips
     }

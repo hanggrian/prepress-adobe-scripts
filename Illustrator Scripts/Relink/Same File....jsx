@@ -8,7 +8,7 @@
 
 checkHasSelection()
 
-var items = selection.filterItem(function(it) { return it.typename == 'PlacedItem' })
+var items = selection.filterItem(function(it) { return it.typename === 'PlacedItem' })
 check(items.isNotEmpty(), 'No links found in selection')
 
 var dialog = new Dialog('Relink Same File', 'fill')
@@ -28,8 +28,8 @@ var file = openFile(dialog.title, [
 ])
 
 if (file != null) {
-    var textBounds = [0, 0, 50, 21]
-    var editBounds = [0, 0, 100, 21]
+    var textBounds = [50, 21]
+    var editBounds = [100, 21]
 
     if (file.isPDF()) {
         pdfPanel = new RelinkPDFPanel(dialog.main, textBounds, editBounds)
@@ -38,7 +38,7 @@ if (file != null) {
             panel.staticText(textBounds, 'Page:', JUSTIFY_RIGHT)
             pageEdit = group.editText(editBounds, '1', function(it) {
                 it.validateDigits()
-                it.active = true
+                it.activate()
             })
         })
     }

@@ -6,15 +6,15 @@
 
 checkHasSelection()
 
-var items = selection.filterItem(function(it) { return it.typename == 'PlacedItem' })
+var items = selection.filterItem(function(it) { return it.typename === 'PlacedItem' })
 check(items.isNotEmpty(), 'No links found in selection')
 check(items.map(function(it) { it.file }).distinct().length === 1, 'Multiple files are associated with selected links.')
 
 var file = items.first().file
 checkNotNull(file)
 
-var currentFileName = file.nameWithoutExtension()
-var currentFileExt = file.extension()
+var currentFileName = file.getNameWithoutExtension()
+var currentFileExt = file.getExtension()
 
 var input = prompt('New file name:', currentFileName, 'Relink Rename File')
 

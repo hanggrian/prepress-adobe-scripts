@@ -3,92 +3,106 @@
 /** 
  * Construct a new One Side Pager.
  * @param {Document} document to attach to, use `document` for active document.
- * @param {Number} start starting page number, default is 1.
+ * @param {Boolean} isPDF when set to true, the first page is 1.
  */
- function OneSidePager(document, start) {
+ function OneSidePager(document, isPDF) {
     var self = this
-    var _current = start === undefined ? 1 : start
+    var _current = 0
+
+    this.getLeftIndex = function() { return isPDF ? getLeft() + 1 : getLeft() }
+    this.getRightIndex = function() { return isPDF ? getRight() + 1 : getRight() }
+    this.getLeftTitle = function() { return getLeft() + 1 }
+    this.getRightTitle = function() { return getRight() + 1 }
 
     this.forEachArtboard = function(action) {
         document.artboards.forEach(function(artboard) {
-            action(artboard, _current++, _current++)
+            action(artboard)
+            _current += 2
         })
     }
 
-    this.bindArtboardName = function() {
-        self.forEachArtboard(function(artboard, left, right) {
-            artboard.name = left + '-' + right
-        }) 
+    function getLeft() {
+        return _current
+    }
+
+    function getRight() {
+        return _current + 1
     }
 }
 
 /** 
  * Construct a new Perfect Binding Pager.
  * @param {Document} document to attach to, use `document` for active document.
- * @param {Number} start starting page number, default is 1.
+ * @param {Boolean} isPDF when set to true, the first page is 1.
  */
- function PerfectBindingPager(document, start) {
+ function PerfectBindingPager(document, isPDF) {
     var self = this
-    var _current = start === undefined ? 1 : start
+    var _current = 0
     var _isFront = true
+
+    this.getLeftIndex = function() { return isPDF ? getLeft() + 1 : getLeft() }
+    this.getRightIndex = function() { return isPDF ? getRight() + 1 : getRight() }
+    this.getLeftTitle = function() { return getLeft() + 1 }
+    this.getRightTitle = function() { return getRight() + 1 }
 
     this.forEachArtboard = function(action) {
         document.artboards.forEach(function(artboard) {
-            if (_isFront) {
-                action(artboard, _current, _current + 2)
-            } else {
-                action(artboard, _current + 1, _current - 1)
-            }
+            action(artboard)
             _current += 2
             _isFront = !_isFront
         })
     }
 
-    this.bindArtboardName = function() {
-        self.forEachArtboard(function(artboard, left, right) {
-            artboard.name = left + '-' + right
-        }) 
+    function getLeft() {
+        return _isFront
+            ? _current
+            : _current + 1
+    }
+
+    function getRight() {
+        return _isFront
+            ? _current + 2
+            : _current - 1
     }
 }
 
 /** 
  * Construct a new Saddle Stitch Pager.
  * @param {Document} document to attach to, use `document` for active document.
- * @param {Number} start starting page number, default is 1.
  * @param {Number} end final page number, default is artboards' length times 2.
+ * @param {Boolean} isPDF when set to true, the first page is 1.
  * @param {Boolean} isRtl useful for arabic layout, default is false.
  */
-function SaddleStitchPager(document, start, end, isRtl) {
+function SaddleStitchPager(document, end, isPDF, isRtl) {
     var self = this
-    var _start = start === undefined ? 1 : start
-    var _end = end === undefined ? document.artboards.length * 2 : end
+    var _start = 0
+    var _end = end === undefined ? document.artboards.length * 2 - 1 : end - 1
     var _isRtl = isRtl === undefined ? false : isRtl
     var _isFront = true
 
+    this.getLeftIndex = function() { return isPDF ? getLeft() + 1 : getLeft() }
+    this.getRightIndex = function() { return isPDF ? getRight() + 1 : getRight() }
+    this.getLeftTitle = function() { return getLeft() + 1 }
+    this.getRightTitle = function() { return getRight() + 1 }
+
     this.forEachArtboard = function(action) {
         document.artboards.forEach(function(artboard) {
-            if (_isFront) {
-                if (!_isRtl) {
-                    action(artboard, _end, _start)
-                } else {
-                    action(artboard, _start, _end)
-                }
-            } else {
-                if (!_isRtl) {
-                    action(artboard, _start, _end)
-                } else {
-                    action(artboard, _end, _start)
-                }
-            }
+            action(artboard)
             _start++
             _end--
             _isFront = !_isFront
         })
     }
 
-    this.bindArtboardName = function() {
-        self.forEachArtboard(function(artboard, left, right) {
-            artboard.name = left + '-' + right
-        }) 
+    function getLeft() {
+        return _isFront
+            ? (!_isRtl ? _end : _start)
+            : (!_isRtl ? _start : _end)
+    }
+
+    function getRight() {
+        return _isFront
+            ? (!_isRtl ? _start : _end)
+            : (!_isRtl ? _end : _start)
     }
 }

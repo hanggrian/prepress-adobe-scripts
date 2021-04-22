@@ -13,7 +13,7 @@ var widthRadio, heightRadio
 var dimensionSizeEdit
 var roundRadio, roundFloorRadio, roundNoneRadio
 
-var textBounds = [0, 0, 110, 21]
+var textBounds = [110, 21]
 
 dialog.hgroup(function(group) {
     group.setHelpTips('Selected text will match either width or height.')
@@ -25,9 +25,9 @@ dialog.hgroup(function(group) {
 dialog.hgroup(function(group) {
     group.setHelpTips('Target size of the text.')
     group.staticText(textBounds, 'Dimension size:', JUSTIFY_RIGHT)
-    dimensionSizeEdit = group.editText([0, 0, 100, 21], '0 ' + unitName, function(it) {
+    dimensionSizeEdit = group.editText([100, 21], '0 ' + unitName, function(it) {
         it.validateUnits()
-        it.active = true
+        it.activate()
     })
 })
 

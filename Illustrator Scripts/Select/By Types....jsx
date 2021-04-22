@@ -10,7 +10,7 @@ var pathCheck, compoundPathCheck
 var textFrameCheck, legacyTextCheck
 var symbolCheck, meshCheck, graphCheck
 
-var bounds = [0, 0, 115, 15]
+var bounds = [115, 15]
 
 dialog.vpanel('Imports', function(panel) {
     panel.alignChildren = 'fill'

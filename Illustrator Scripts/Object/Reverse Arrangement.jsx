@@ -10,7 +10,7 @@ var targetPositions = selection.map(function(it) { return it.absoluteZOrderPosit
 
 selection.forEach(function(it, index) {
     var target = targetPositions[index]
-    $.writeln('Moving ' + it.layerName() + ' from ' + it.absoluteZOrderPosition + ' to ' + target)
+    $.writeln('Moving ' + it.getLayerName() + ' from ' + it.absoluteZOrderPosition + ' to ' + target)
     while (target != it.absoluteZOrderPosition) {
         if (target > it.absoluteZOrderPosition) {
             it.zOrder(ZOrderMethod.BRINGFORWARD)

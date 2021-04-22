@@ -51,7 +51,7 @@ function ItemAnchorPanel(parent) {
             }
         })
 
-        var radioBounds = [0, 0, 15, 15]
+        var radioBounds = [15, 15]
         self.row1 = panel.hgroup(function(group) {
             group.setHelpTips('Reference point.')
             self.topLeftRadio = group.radioButton(radioBounds, undefined, function(radio) { registerRadioClick(radio) })

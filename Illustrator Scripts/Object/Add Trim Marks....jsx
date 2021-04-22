@@ -16,9 +16,8 @@ var dialog = new Dialog('Add Trim Marks')
 var trimMarksPanel, locationsPanel
 
 dialog.hgroup(function(group) {
-    trimMarksPanel = new TrimMarksPanel(group, [0, 0, 45, 21], [0, 0, 100, 21])
-    trimMarksPanel.offsetEdit.active = true
-
+    trimMarksPanel = new TrimMarksPanel(group, [45, 21], [100, 21])
+    trimMarksPanel.offsetEdit.activate()
     locationsPanel = new TrimMarkLocationsPanel(group)
 })
 

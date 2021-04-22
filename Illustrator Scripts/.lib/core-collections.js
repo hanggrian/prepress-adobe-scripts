@@ -10,7 +10,7 @@ Object.prototype.forEachItem = function(action) {
 
 function _forEachItem(items, action) {
     for (var i = 0; i < items.length; i++) {
-        if (items[i].typename == 'GroupItem') {
+        if (items[i].typename === 'GroupItem') {
             _forEachItem(items[i].pageItems, action)
         } else {
             action(items[i], i)
@@ -28,7 +28,7 @@ Object.prototype.forEachItemReversed = function(action) {
 
 function _forEachItemReversed(items, action) {
     for (var i = items.lastIndex(); i >= 0; i--) {
-        if (items[i].typename == 'GroupItem') {
+        if (items[i].typename === 'GroupItem') {
             _forEachItemReversed(items[i].pageItems, action)
         } else {
             action(items[i], i)
@@ -49,7 +49,7 @@ Object.prototype.mapItem = function(transform) {
 
 function _mapItem(items, transform, result) {
     for (var i = 0; i < items.length; i++) {
-        if (items[i].typename == 'GroupItem') {
+        if (items[i].typename === 'GroupItem') {
             _mapItem(items[i].pageItems, transform, result)
         } else {
             result.push(transform(items[i], i))
@@ -70,7 +70,7 @@ Object.prototype.mapItemNotNull = function(transform) {
 
 function _mapItemNotNull(items, transform, result) {
     for (var i = 0; i < items.length; i++) {
-        if (items[i].typename == 'GroupItem') {
+        if (items[i].typename === 'GroupItem') {
             _mapItemNotNull(items[i].pageItems, transform, result)
         } else {
             var element = transform(items[i], i)
@@ -94,7 +94,7 @@ Object.prototype.filterItem = function(predicate) {
 
 function _filterItem(items, predicate, result) {
     for (var i = 0; i < items.length; i++) {
-        if (items[i].typename == 'GroupItem') {
+        if (items[i].typename === 'GroupItem') {
             _filterItem(items[i].pageItems, predicate, result)
         } else {
             if (predicate(items[i], i)) {

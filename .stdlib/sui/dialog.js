@@ -59,7 +59,7 @@ function Dialog(title, alignChildren) {
         if (neutralButtonText !== undefined) {
             self.neutralButton = appendButton(neutralButtonText, neutralButtonAction, neutralButtonEnabled)
             if (neutralButtonGap !== undefined) {
-                self.buttons.staticText([0, 0, neutralButtonGap, 0])
+                self.buttons.staticText([neutralButtonGap, 0])
             }
         }
         if (isMacOS()) {

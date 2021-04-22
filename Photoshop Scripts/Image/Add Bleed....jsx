@@ -3,7 +3,7 @@
 
 /*
 <javascriptresource>
-<category>2</category>
+<category>3</category>
 </javascriptresource>
 */
 
@@ -14,8 +14,8 @@ var dialog = new Dialog('Add Bleed')
 var documentCurrentRadio, documentAllRadio
 var bleedEdit, guideLayoutCheck, flattenCheck
 
-var textBounds = [0, 0, 85, 21]
-var editBounds = [0, 0, 100, 21]
+var textBounds = [85, 21]
+var editBounds = [100, 21]
 
 dialog.hgroup(function(group) {
     group.setHelpTips('Which document should be affected.')
@@ -28,7 +28,7 @@ dialog.hgroup(function(group) {
     group.staticText(textBounds, 'Bleed:', JUSTIFY_RIGHT)
     bleedEdit = group.editText(editBounds, unitsOf('2.5 mm'), function(it) {
         it.validateUnits()
-        it.active = true
+        it.activate()
     })
 })
 dialog.hgroup(function(group) {

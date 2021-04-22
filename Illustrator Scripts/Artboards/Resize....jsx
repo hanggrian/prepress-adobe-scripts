@@ -4,15 +4,15 @@
 var dialog = new Dialog('Resize Artboards')
 var widthEdit, heightEdit
 
-var textBounds = [0, 0, 45, 21]
-var editBounds = [0, 0, 100, 21]
+var textBounds = [45, 21]
+var editBounds = [100, 21]
 
 dialog.hgroup(function(group) {
     group.setHelpTips("Artboards' new width.")
     group.staticText(textBounds, 'Width:', JUSTIFY_RIGHT)
     widthEdit = group.editText(editBounds, formatUnits(document.width, unitName, 2), function(it) {
         it.validateUnits()
-        it.active = true
+        it.activate()
     })
 })
 

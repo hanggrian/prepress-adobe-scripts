@@ -10,15 +10,15 @@ var dialog = new Dialog('Resize')
 var prefill = selection.first()
 var widthEdit, heightEdit, changePanel, anchorPanel
 
-var textBounds = [0, 0, 45, 21]
-var editBounds = [0, 0, 150, 21]
+var textBounds = [45, 21]
+var editBounds = [150, 21]
 
 dialog.vpanel(dialog.title, function(panel) {
     panel.hgroup(function(group) {
         group.staticText(textBounds, 'Width:', JUSTIFY_RIGHT)
         widthEdit = group.editText(editBounds, formatUnits(prefill.width, unitName, 2), function(it) {
             it.validateUnits()
-            it.active = true
+            it.activate()
         })
     })
     panel.hgroup(function(group) {

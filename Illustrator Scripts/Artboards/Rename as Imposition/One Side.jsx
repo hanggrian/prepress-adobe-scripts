@@ -3,4 +3,7 @@
 
 checkEvenArtboards()
 
-new OneSidePager(document).bindArtboardName()
+var pager = new OneSidePager(document)
+pager.forEachArtboard(function(artboard) {
+    artboard.name = pager.getLeftTitle() + '-' + pager.getRightTitle()
+})

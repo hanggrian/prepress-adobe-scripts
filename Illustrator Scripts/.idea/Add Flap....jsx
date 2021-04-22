@@ -13,8 +13,8 @@ checkTypename(item, 'PathItem')
 
 var dialog = new Dialog('Add Flap')
 
-var textBounds = [0, 0, 60, 21]
-var editBounds = [0, 0, 100, 21]
+var textBounds = [60, 21]
+var editBounds = [100, 21]
 
 var flapOnClick = function() { dialog.scratches.enabled = dialog.flap.glueRadio.value}
 dialog.flap = dialog.main.addHGroup()
@@ -29,7 +29,7 @@ dialog.length = dialog.main.addHGroup()
 dialog.length.addText(textBounds, 'Length:', 'right')
 dialog.lengthEdit = dialog.length.addEditText(editBounds, unitsOf('20 mm'))
 dialog.lengthEdit.validateUnits()
-dialog.lengthEdit.active = true
+dialog.lengthEdit.activate()
 
 dialog.weight = dialog.main.addHGroup()
 dialog.weight.addText(textBounds, 'Weight:', 'right')
@@ -41,7 +41,7 @@ dialog.color.addText(textBounds, 'Color:', 'right')
 dialog.colorList = dialog.color.addDropDown(undefined, COLORS)
 dialog.colorList.selection = COLORS.indexOf('Black')
 
-var scratchesTextBounds = [0, 0, 60, 21]
+var scratchesTextBounds = [60, 21]
 dialog.scratches = dialog.main.addVPanel('Glue Scratches')
 dialog.scratches.dash = dialog.scratches.addHGroup()
 dialog.scratches.dash.addText(scratchesTextBounds, 'Dash gap:', 'right')

@@ -9,14 +9,14 @@ checkHasSelection()
 var dialog = new Dialog('Rotate')
 var angleEdit, changePanel, anchorPanel
 
-var editBounds = [0, 0, 150, 21]
+var editBounds = [150, 21]
 
 dialog.vpanel(dialog.title, function(panel) {
     panel.hgroup(function(group) {
         group.staticText(undefined, 'Angle:', JUSTIFY_RIGHT)
         angleEdit = group.editText(editBounds, '0', function(it) {
             it.validateDigits()
-            it.active = true
+            it.activate()
         })
     })
 })

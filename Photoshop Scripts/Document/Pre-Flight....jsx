@@ -1,6 +1,6 @@
 /*
 <javascriptresource>
-<category>1</category>
+<category>2</category>
 </javascriptresource>
 */
 
@@ -13,9 +13,9 @@ var generalResolutionText
 var generalBitsText
 
 var fixButtons = []
-var leftBounds = [0, 0, 70, 21]
-var rightBounds = [0, 0, 100, 21]
-var fixBounds = [0, 0, 50, 21]
+var leftBounds = [70, 21]
+var rightBounds = [100, 21]
+var fixBounds = [50, 21]
 
 dialog.hgroup(function(mainGroup) {
     mainGroup.alignChildren = 'top'
@@ -27,7 +27,7 @@ dialog.hgroup(function(mainGroup) {
             group.setHelpTips('Image color mode should be CMYK.')
             group.staticText(leftBounds, 'Mode:', JUSTIFY_RIGHT)
             generalModeText = group.staticText(rightBounds, document.mode.toString().substringAfter('.'), function(it) {
-                if (it.text == 'CMYK') {
+                if (it.text === 'CMYK') {
                     it.text += ' ✔'
                 } else {
                     it.text += ' ✘'
@@ -41,7 +41,7 @@ dialog.hgroup(function(mainGroup) {
             group.setHelpTips('Resolution should be 300.')
             group.staticText(leftBounds, 'Resolution:', JUSTIFY_RIGHT)
             generalResolutionText = group.staticText(rightBounds, Math.round(document.resolution), function(it) {
-                if (it.text == '300') {
+                if (it.text === '300') {
                     it.text += ' ✔'
                 } else {
                     it.text += ' ✘'
@@ -55,7 +55,7 @@ dialog.hgroup(function(mainGroup) {
             group.setHelpTips('Bits depth should be 8.')
             group.staticText(leftBounds, 'Bits:', JUSTIFY_RIGHT)
             generalBitsText = group.staticText(rightBounds, getBits(), function(it) {
-                if (it.text == '8') {
+                if (it.text === '8') {
                     it.text += ' ✔'
                 } else {
                     it.text += ' ✘'

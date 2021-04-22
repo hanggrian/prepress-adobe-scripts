@@ -16,8 +16,8 @@ var files = openFile(dialog.title, [
 
 /* 
 
-var textBounds = [0, 0, 50, 21]
-var editBounds = [0, 0, 100, 21]
+var textBounds = [50, 21]
+var editBounds = [100, 21]
 
 dialog.split = dialog.main.addHGroup()
 dialog.split.setHelpTips('Divide image horizontally/vertically.')
@@ -31,7 +31,7 @@ dialog.parts.setHelpTips('Total number of divison.')
 dialog.parts.addText(textBounds, 'Parts:', 'right')
 dialog.partsEdit = dialog.bleed.addEditText(editBounds, '2')
 dialog.partsEdit.validateDigits()
-dialog.partsEdit.active = true
+dialog.partsEdit.activate()
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {

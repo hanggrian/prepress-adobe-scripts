@@ -52,8 +52,8 @@ function getRegistrationColor() {
  * @return {Boolean}
  */
 function isColorEqual(colorA, colorB) {
-    return colorA.cyan == colorB.cyan &&
-        colorA.magenta == colorB.magenta &&
-        colorA.yellow == colorB.yellow &&
-        colorA.black == colorB.black
+    return colorA.cyan === colorB.cyan &&
+        colorA.magenta === colorB.magenta &&
+        colorA.yellow === colorB.yellow &&
+        colorA.black === colorB.black
 }
