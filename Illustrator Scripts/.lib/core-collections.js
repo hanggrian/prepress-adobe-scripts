@@ -58,30 +58,6 @@ function _mapItem(items, transform, result) {
 }
 
 /**
- * Returns an array containing the results of applying the given transform function while rejecting null value.
- * @param {Function} transform runnable with return value.
- * @return {Array}
- */
-Object.prototype.mapItemNotNull = function(transform) { 
-    var result = []
-    _mapItemNotNull(this, transform, result)
-    return result
-}
-
-function _mapItemNotNull(items, transform, result) {
-    for (var i = 0; i < items.length; i++) {
-        if (items[i].typename === 'GroupItem') {
-            _mapItemNotNull(items[i].pageItems, transform, result)
-        } else {
-            var element = transform(items[i], i)
-            if (element !== null) {
-                result.push(transform(items[i], i))
-            }
-        }
-    }
-}
-
-/**
  * Returns a list containing only elements matching the given predicate.
  * @param {Function} predicate runnable with return value.
  * @return {Array}

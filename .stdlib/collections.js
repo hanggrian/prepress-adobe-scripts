@@ -130,16 +130,15 @@ Object.prototype.map = function(transform) {
 }
 
 /**
- * Returns an array containing the results of applying the given transform function while rejecting null value.
+ * Returns a single sequence of all elements from results of transform function being invoked on each element of original sequence.
  * @param {Function} transform runnable with return value.
  * @return {Array}
  */
-Object.prototype.mapNotNull = function(transform) {
+Object.prototype.flatMap = function(transform) {
     var result = []
     for (var i = 0; i < this.length; i++) {
-        var element = transform(this[i], i)
-        if (element !== null) {
-            result.push(element)
+        for (var j = 0; j < this[i].length; j++) {
+            result.push(transform(this[i][j]))
         }
     }
     return result

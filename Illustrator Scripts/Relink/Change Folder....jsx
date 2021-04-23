@@ -3,7 +3,7 @@
 
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/ui/relink.js'
+#include '../.lib/ui/checks.js'
 
 checkHasSelection()
 
@@ -11,7 +11,7 @@ var items = selection.filterItem(function(it) { return it.typename === 'PlacedIt
 check(items.isNotEmpty(), 'No links found in selection')
 
 var dialog = new Dialog('Relink Change Folder', 'fill')
-var dimensionPanel
+var maintainGroup
 
 var folder = openFolder(dialog.title)
 
@@ -19,7 +19,7 @@ if (folder != null) {
     var textBounds = [50, 21]
     var editBounds = [100, 21]
 
-    dimensionPanel = new RelinkDimensionPanel(dialog.main)
+    maintainGroup = new MaintainDimensionGroup(dialog.main)
     
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
@@ -30,7 +30,7 @@ if (folder != null) {
             item.relink(folder.getFiles()
                 .filter(function(file) { return file.name === item.file.name })
                 .first())
-            if (dimensionPanel.isMaintain()) {
+            if (maintainGroup.isMaintain()) {
                 item.width = width
                 item.height = height
                 item.position = position

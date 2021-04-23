@@ -1,10 +1,9 @@
 #target Illustrator
 #include '../.lib/core.js'
-#include '../.lib/ui/impose.js'
-#include '../.lib/ui/relink.js'
+#include '../.lib/ui/open-options.js'
 
 var dialog = new Dialog('Impose One Side')
-var pdfPanel, imposePanel
+var pdfPanel, documentPanel
 
 var files = openFile(dialog.title, [
     ['Adobe Illustrator', 'ai'],
@@ -27,20 +26,19 @@ if (files !== null && files.isNotEmpty()) {
     var editBounds = [100, 21]
 
     if (files.first().isPDF()) {
-        pdfPanel = new RelinkPDFPanel(dialog.main, textBounds, editBounds)
+        pdfPanel = new OpenPDFOptionsPanel(dialog.main, textBounds, editBounds)
     }
-
-    imposePanel = new ImposePanel(dialog.main, textBounds, editBounds)
+    documentPanel = new OpenDocumentOptionsPanel(dialog.main, textBounds, editBounds)
 
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
-        var pages = imposePanel.getPages()
-        var width = imposePanel.getWidth()
-        var height = imposePanel.getHeight()
+        var pages = documentPanel.getPages()
+        var width = documentPanel.getWidth()
+        var height = documentPanel.getHeight()
         if (pages === 0 || pages % 4 !== 0) {
             alert('Total pages must be a non-zero number that can be divided by 4.')
         } else {
-            var document = app.documents.addDocument(DocumentPresetType.Print, imposePanel.getDocumentPreset('Untitled-One Side'))
+            var document = documentPanel.impose('Untitled-One Side')
             var pager = new OneSidePager(document, files.first().isPDF())
             pager.forEachArtboard(function(artboard, left, right) {
                 artboard.name = pager.getLeftTitle() + '-' + pager.getRightTitle()

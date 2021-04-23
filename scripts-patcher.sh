@@ -61,7 +61,7 @@ patchPreset() {
     local targetRoot=$3
     local targetStdLib="$targetRoot/.stdlib"
     local targetScripts="$targetRoot/Scripts"
-    local targetScriptsIdea="$targetScripts/.idea"
+    local targetScriptsScratch="$targetScripts/.scratch"
     local targetScriptsLibTest="$targetScripts/.lib-test"
     local targetScriptsReadme="$targetScripts/README.md"
 
@@ -83,8 +83,8 @@ patchPreset() {
     cp -r "$sourceStdLib"/. "$targetStdLib"
 
     echo 'Cleaning up...'
-    if [ -d "$targetScriptsIdea" ] ; then
-        rm -rf "$targetScriptsIdea"
+    if [ -d "$targetScriptsScratch" ] ; then
+        rm -rf "$targetScriptsScratch"
     fi
     if [ -d "$targetScriptsLibTest" ] ; then
         rm -rf "$targetScriptsLibTest"

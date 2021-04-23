@@ -1,9 +1,7 @@
-// Known bug: when item's current file is missing and trying to relink a pdf file, the page is always set to 2. In this case, relink again.
-
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/ui/relink.js'
-#include '../.lib/ui/reverse-order.js'
+#include '../.lib/ui/checks.js'
+#include '../.lib/ui/open-options.js'
 
 checkHasSelection()
 
@@ -11,7 +9,7 @@ var items = selection.filterItem(function(it) { return it.typename === 'PlacedIt
 check(items.isNotEmpty(), 'No links found in selection')
 
 var dialog = new Dialog('Relink Multipage', 'fill')
-var pdfPanel, dimensionPanel, reverseGroup
+var pdfPanel, maintainGroup, reverseGroup
 var startPageEdit, endPageEdit
 
 var files = openFile(dialog.title, [
@@ -37,7 +35,7 @@ if (files !== null && files.isNotEmpty()) {
     var editBounds = [100, 21]
 
     if (files.first().isPDF()) {
-        pdfPanel = new RelinkPDFPanel(dialog.main, textBounds, editBounds)
+        pdfPanel = new OpenPDFOptionsPanel(dialog.main, textBounds, editBounds)
         pdfPanel.main.hgroup(function(group) {
             group.setHelpTips('Beginning page of PDF file.')
             group.staticText(textBounds, 'Start page:', JUSTIFY_RIGHT)
@@ -52,9 +50,7 @@ if (files !== null && files.isNotEmpty()) {
             })
         })
     }
-
-    dimensionPanel = new RelinkDimensionPanel(dialog.main)
-
+    maintainGroup = new MaintainDimensionGroup(dialog.main)
     reverseGroup = new ReverseOrderGroup(dialog.main)
 
     dialog.setNegativeButton('Cancel')

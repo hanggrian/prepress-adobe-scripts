@@ -1,6 +1,10 @@
 Illustrator Scripts
 ===================
 
+Known Bug
+---------
+* Relink Same File & Multipage - when item's current file is missing and trying to relink a pdf file, the page is always set to 2. In this case, relink again.
+
 Resources
 ---------
 [Official]((https://www.adobe.com/devnet/illustrator/scripting.html)):

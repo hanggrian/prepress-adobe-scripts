@@ -106,7 +106,7 @@ goto :eof
     set targetRoot=%~3
     set targetStdLib=!targetRoot!\.stdlib
     set targetScripts=!targetRoot!\Scripts
-    set targetScriptsIdea=!targetScripts!\.idea
+    set targetScriptsScratch=!targetScripts!\.scratch
     set targetScriptsLibTest=!targetScripts!\.lib-test
     set targetScriptsReadme=!targetScripts!\README.md
 
@@ -128,8 +128,8 @@ goto :eof
     robocopy /s "!sourceScripts!" "!targetScripts!" /njh /njs /ndl /nc /ns /nfl
 
     echo Cleaning up...
-    if exist !targetScriptsIdea! (
-        rmdir /s /q "!targetScriptsIdea!"
+    if exist !targetScriptsScratch! (
+        rmdir /s /q "!targetScriptsScratch!"
     )
     if exist !targetScriptsLibTest! (
         rmdir /s /q "!targetScriptsLibTest!"

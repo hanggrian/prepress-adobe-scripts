@@ -32,7 +32,7 @@ Object.prototype.takeUnless = function(predicate) {
 
 /** Iterate n times with provided action. */
 function repeat(times, action) {
-    for (var i = 0; i < times; i++) {
+    for (var i = 1; i <= times; i++) {
         action(i)
     }
 }

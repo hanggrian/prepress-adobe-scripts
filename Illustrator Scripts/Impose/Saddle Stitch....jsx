@@ -1,10 +1,9 @@
 #target Illustrator
 #include '../.lib/core.js'
-#include '../.lib/ui/impose.js'
-#include '../.lib/ui/relink.js'
+#include '../.lib/ui/open-options.js'
 
 var dialog = new Dialog('Impose Saddle Stich')
-var pdfPanel, imposePanel
+var pdfPanel, documentPanel
 var bleedEdit
 
 var files = openFile(dialog.title, [
@@ -28,25 +27,24 @@ if (files !== null && files.isNotEmpty()) {
     var editBounds = [100, 21]
 
     if (files.first().isPDF()) {
-        pdfPanel = new RelinkPDFPanel(dialog.main, textBounds, editBounds)
+        pdfPanel = new OpenPDFOptionsPanel(dialog.main, textBounds, editBounds)
     }
-
-    imposePanel = new ImposePanel(dialog.main, textBounds, editBounds)
-    imposePanel.main.hgroup(function(group) {
+    documentPanel = new OpenDocumentOptionsPanel(dialog.main, textBounds, editBounds)
+    documentPanel.main.hgroup(function(group) {
         group.staticText(textBounds, 'Bleed:', JUSTIFY_RIGHT)
         bleedEdit = group.editText(editBounds, '0 mm', VALIDATE_UNITS)
     })
 
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
-        var pages = imposePanel.getPages()
-        var width = imposePanel.getWidth()
-        var height = imposePanel.getHeight()
+        var pages = documentPanel.getPages()
+        var width = documentPanel.getWidth()
+        var height = documentPanel.getHeight()
         var bleed = parseUnits(bleedEdit.text)
         if (pages === 0 || pages % 4 !== 0) {
             alert('Total pages must be a non-zero number that can be divided by 4.')
         } else {
-            document = app.documents.addDocument(DocumentPresetType.Print, imposePanel.getDocumentPreset('Untitled-Saddle Stitch', bleed))
+            var document = documentPanel.impose('Untitled-Saddle Stitch', bleed)
             var pager = new SaddleStitchPager(document, pages, files.first().isPDF())
             pager.forEachArtboard(function(artboard) {
                 artboard.name = pager.getLeftTitle() + '-' + pager.getRightTitle()

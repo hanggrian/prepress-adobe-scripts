@@ -15,8 +15,8 @@ var bounds = [115, 15]
 dialog.vpanel('Imports', function(panel) {
     panel.alignChildren = 'fill'
     panel.hgroup(function(group) {
-        placedCheck = group.checkBox(bounds, 'Linked file')
-        nonNativeCheck = group.checkBox(bounds, 'Non-native art')
+        placedCheck = group.checkBox(bounds, 'Linked File')
+        nonNativeCheck = group.checkBox(bounds, 'Non-Native Art')
     })
     panel.hgroup(function(group) {
         rasterCheck = group.checkBox(bounds, 'Image')
@@ -28,15 +28,15 @@ dialog.vpanel('Paths', function(panel) {
     panel.alignChildren = 'fill'
     panel.hgroup(function(group) {
         pathCheck = group.checkBox(bounds, 'Path')
-        compoundPathCheck = group.checkBox(bounds, 'Compound path')
+        compoundPathCheck = group.checkBox(bounds, 'Compound Path')
     })
 })
 
 dialog.vpanel('Types', function(panel) {
     panel.alignChildren = 'fill'
     panel.hgroup(function(group) {
-        textFrameCheck = group.checkBox(bounds, 'Text frame')
-        legacyTextCheck = group.checkBox(bounds, 'Legacy text')
+        textFrameCheck = group.checkBox(bounds, 'Text Frame')
+        legacyTextCheck = group.checkBox(bounds, 'Legacy Text')
     })
 })
 

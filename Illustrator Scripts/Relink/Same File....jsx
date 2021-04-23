@@ -1,8 +1,7 @@
-// Known bug: when item's current file is missing and trying to relink a pdf file, the page is always set to 2. In this case, relink again.
-
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/ui/relink.js'
+#include '../.lib/ui/checks.js'
+#include '../.lib/ui/open-options.js'
 
 checkHasSelection()
 
@@ -10,7 +9,7 @@ var items = selection.filterItem(function(it) { return it.typename === 'PlacedIt
 check(items.isNotEmpty(), 'No links found in selection')
 
 var dialog = new Dialog('Relink Same File', 'fill')
-var pdfPanel, dimensionPanel
+var pdfPanel, maintainGroup
 var pageEdit
 
 var file = openFile(dialog.title, [
@@ -30,7 +29,7 @@ if (file != null) {
     var editBounds = [100, 21]
 
     if (file.isPDF()) {
-        pdfPanel = new RelinkPDFPanel(dialog.main, textBounds, editBounds)
+        pdfPanel = new OpenPDFOptionsPanel(dialog.main, textBounds, editBounds)
         pdfPanel.main.hgroup(function(panel) {
             panel.setHelpTips('What page should be used when opening a multipage document.')
             panel.staticText(textBounds, 'Page:', JUSTIFY_RIGHT)
@@ -40,8 +39,7 @@ if (file != null) {
             })
         })
     }
-
-    dimensionPanel = new RelinkDimensionPanel(dialog.main)
+    maintainGroup = new MaintainDimensionGroup(dialog.main)
 
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
@@ -62,7 +60,7 @@ if (file != null) {
                 $.writeln(e.message)
             }
             item.relink(file)
-            if (dimensionPanel.isMaintain()) {
+            if (maintainGroup.isMaintain()) {
                 item.width = width
                 item.height = height
                 item.position = position
