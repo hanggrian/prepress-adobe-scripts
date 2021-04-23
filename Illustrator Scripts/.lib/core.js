@@ -34,12 +34,12 @@ Object.prototype.getClippingPathItem = function() {
 
 /**
  * Set PDF file options for opening/relinking.
- * @param {PDFBoxType} boxType cropping method.
  * @param {Number} page PDF page to open.
+ * @param {PDFBoxType} boxType cropping method, default is bounding box when left undefined.
  */
-function updatePDFPreferences(boxType, page) {
+function setPDFPage(page, boxType) {
     app.preferences.PDFFileOptions.let(function(it) {
-        it.pDFCropToBox = boxType
         it.pageToOpen = page
+        it.pDFCropToBox = boxType !== undefined ? boxType : PDFBoxType.PDFBOUNDINGBOX 
     })
 }

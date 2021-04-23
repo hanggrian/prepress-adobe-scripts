@@ -54,9 +54,9 @@ if (files !== null && files.isNotEmpty()) {
                 var leftItem = document.placedItems.add()
                 var rightItem = document.placedItems.add()
                 if (files.first().isPDF()) {
-                    updatePDFPreferences(pdfPanel.getBoxType(), pager.getLeftIndex())
+                    setPDFPage(pager.getLeftIndex(), pdfPanel.getBoxType())
                     leftItem.file = files.first()
-                    updatePDFPreferences(pdfPanel.getBoxType(), pager.getRightIndex())
+                    setPDFPage(pager.getRightIndex(), pdfPanel.getBoxType())
                     rightItem.file = files.first()
                 } else {
                     leftItem.file = files[pager.getLeftIndex()]

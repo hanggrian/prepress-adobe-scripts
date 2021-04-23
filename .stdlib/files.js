@@ -1,4 +1,12 @@
 /**
+ * Returns true if both files point to the same location.
+ * @return {Boolean}
+ */
+File.prototype.equalTo = function(other) {
+    return this.absoluteURI === other.absoluteURI
+}
+
+/**
  * Returns file name without extension.
  * @return {String}
  */
@@ -62,7 +70,8 @@ function openFile(prompt, filters, multiSelect) {
             var name = array.first()
             var extensions = array.slice(1)
             nativeFilters += name + ':*.' + extensions.join(';*.') + ','
-            allExtensions = allExtensions.addAll(extensions)
+            
+            allExtensions = allExtensions.concat(extensions)
         })
         nativeFilters = 'All Formats:*.' + allExtensions.join(';*.') + ',' + nativeFilters
         if (nativeFilters.endsWith(',')) {

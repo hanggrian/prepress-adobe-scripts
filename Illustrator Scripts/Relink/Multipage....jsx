@@ -1,3 +1,5 @@
+// Known bug: when item's current file is missing and trying to relink a pdf file, the page is always set to 2. In this case, relink again.
+
 #target Illustrator
 #include '../.lib/commons.js'
 #include '../.lib/ui/relink.js'
@@ -71,10 +73,18 @@ if (files !== null && files.isNotEmpty()) {
             var height = item.height
             var position = item.position
             if (files.first().isPDF()) {
-                updatePDFPreferences(pdfPanel.getBoxType(), currentPage++)
-                item.file = files.first()
+                try {
+                    // code below will throw error if PlacedItem file is missing, ignore for now
+                    if (item.file !== undefined && item.file.equalTo(files.first())) {
+                        item.file = getResource(R.png.blank)
+                    }
+                } catch (e) {
+                    $.writeln(e.message)
+                }
+                setPDFPage(currentPage++, pdfPanel.getBoxType())
+                item.relink(files.first())
             } else {
-                item.file = files[currentPage++]
+                item.relink(files[currentPage++])
             }
             if (dimensionPanel.isMaintain()) {
                 item.width = width

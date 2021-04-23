@@ -1,6 +1,4 @@
-// Apply relink once to all selected `PlacedItem`,
-// as opposed to native Illustrator `Relink...` which is done individually.
-// Only tested on images, not documents.
+// Known bug: when item's current file is missing and trying to relink a pdf file, the page is always set to 2. In this case, relink again.
 
 #target Illustrator
 #include '../.lib/commons.js'
@@ -36,7 +34,7 @@ if (file != null) {
         pdfPanel.main.hgroup(function(panel) {
             panel.setHelpTips('What page should be used when opening a multipage document.')
             panel.staticText(textBounds, 'Page:', JUSTIFY_RIGHT)
-            pageEdit = group.editText(editBounds, '1', function(it) {
+            pageEdit = panel.editText(editBounds, '1', function(it) {
                 it.validateDigits()
                 it.activate()
             })
@@ -49,13 +47,21 @@ if (file != null) {
     dialog.setPositiveButton(function() {
         if (file.isPDF()) {
             var page = parseInt(pageEdit.text) || 1
-            updatePDFPreferences(pdfPanel.getBoxType(), page)
+            setPDFPage(page, pdfPanel.getBoxType())
         }
         items.forEach(function(item) {
             var width = item.width
             var height = item.height
             var position = item.position
-            item.file = file
+            try {
+                // code below will throw error if PlacedItem file is missing
+                if (item.file.exists && item.file.equalTo(file) && file.isPDF()) {
+                    item.file = getResource(R.png.blank)
+                }
+            } catch (e) {
+                $.writeln(e.message)
+            }
+            item.relink(file)
             if (dimensionPanel.isMaintain()) {
                 item.width = width
                 item.height = height

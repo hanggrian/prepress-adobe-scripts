@@ -40,7 +40,7 @@ function RelinkDimensionPanel(parent) {
     this.main = parent.vpanel('Dimension', function(group) {
         group.alignChildren = 'fill'
         group.setHelpTips('Keep current dimension after relinking.')
-        self.dimensionCheck = group.checkBox(undefined, 'Maintain size & position')
+        self.dimensionCheck = group.checkBox(undefined, 'Maintain size & position', SELECTED)
     })
 
     this.isMaintain = function() {

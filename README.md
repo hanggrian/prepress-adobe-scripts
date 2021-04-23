@@ -25,7 +25,10 @@ The scripts can then be accessible from `Menu Bar > File > Scripts`.
 
 Resources
 ---------
+Official:
 * [ExtendScript Wiki](https://github.com/ExtendScript/wiki/wiki)
 * [JavaScript Tools Guide](https://wwwimages2.adobe.com/content/dam/acom/en/devnet/scripting/pdfs/javascript_tools_guide.pdf)
+
+Unofficial:
 * [ScriptUI for Dummies](https://adobeindd.com/view/publications/a0207571-ff5b-4bbf-a540-07079bd21d75/92ra/publication-web-resources/pdf/scriptui-2-16-j.pdf)
-* [ScriptUI Reference](http://jongware.mit.edu/scriptuihtml/Sui/index_1.html)
+* [ScriptUI JavaScript Reference](http://jongware.mit.edu/scriptuihtml/Sui/index_1.html)

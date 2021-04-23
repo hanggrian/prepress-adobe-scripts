@@ -6,37 +6,40 @@ var JUSTIFY_RIGHT = function(staticText) { staticText.justify = 'right' }
  * Add static text to dialog.
  * @param {Bounds} bounds size of this object, may be null.
  * @param {String} text text to display.
- * @param {Function} configuration may be null.
+ * @param {Function} configuration optional setup after creation.
+ * @param {String} properties optional setup before creation.
  * @return {StaticText}
  */
-Dialog.prototype.staticText = function(bounds, text, configuration) {
-    return _staticText(this.main, bounds, text, configuration)
+Dialog.prototype.staticText = function(bounds, text, configuration, properties) {
+    return _staticText(this.main, bounds, text, configuration, properties)
 }
 
 /** 
  * Add static text to group.
  * @param {Bounds} bounds size of this object, may be null.
  * @param {String} text text to display.
- * @param {Function} configuration may be null.
+ * @param {Function} configuration optional setup after creation.
+ * @param {String} properties optional setup before creation.
  * @return {StaticText}
  */
-Group.prototype.staticText = function(bounds, text, configuration) {
-    return _staticText(this, bounds, text, configuration)
+Group.prototype.staticText = function(bounds, text, configuration, properties) {
+    return _staticText(this, bounds, text, configuration, properties)
 }
 
 /** 
  * Add static text to panel.
  * @param {Bounds} bounds size of this object, may be null.
  * @param {String} text text to display.
- * @param {Function} configuration may be null.
+ * @param {Function} configuration optional setup after creation.
+ * @param {String} properties optional setup before creation.
  * @return {StaticText}
  */
-Panel.prototype.staticText = function(bounds, text, configuration) {
-    return _staticText(this, bounds, text, configuration)
+Panel.prototype.staticText = function(bounds, text, configuration, properties) {
+    return _staticText(this, bounds, text, configuration, properties)
 }
 
-function _staticText(parent, bounds, text, configuration) {
-    var staticText = parent.add('statictext', _expandBounds(bounds), text)
+function _staticText(parent, bounds, text, configuration, properties) {
+    var staticText = parent.add('statictext', _expandBounds(bounds), text, properties)
     if (parent.helpTips !== undefined) {
         staticText.helpTip = parent.helpTips
     }
