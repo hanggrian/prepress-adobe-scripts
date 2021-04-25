@@ -7,15 +7,15 @@
 #target Photoshop
 #include '../.lib/commons.js'
 
+var BOUNDS_LEFT = [70, 21]
+var BOUNDS_RIGHT = [100, 21]
+var BOUNDS_FIX = [50, 21]
+
 var dialog = new Dialog('Pre-Flight')
 var generalModeText
 var generalResolutionText
 var generalBitsText
-
 var fixButtons = []
-var leftBounds = [70, 21]
-var rightBounds = [100, 21]
-var fixBounds = [50, 21]
 
 dialog.hgroup(function(mainGroup) {
     mainGroup.alignChildren = 'top'
@@ -25,8 +25,8 @@ dialog.hgroup(function(mainGroup) {
         panel.alignChildren = 'fill'
         panel.hgroup(function(group) {
             group.setHelpTips('Image color mode should be CMYK.')
-            group.staticText(leftBounds, 'Mode:', JUSTIFY_RIGHT)
-            generalModeText = group.staticText(rightBounds, document.mode.toString().substringAfter('.'), function(it) {
+            group.staticText(BOUNDS_LEFT, 'Mode:', JUSTIFY_RIGHT)
+            generalModeText = group.staticText(BOUNDS_RIGHT, document.mode.toString().substringAfter('.'), function(it) {
                 if (it.text === 'CMYK') {
                     it.text += ' ✔'
                 } else {
@@ -39,8 +39,8 @@ dialog.hgroup(function(mainGroup) {
         })
         panel.hgroup(function(group) {
             group.setHelpTips('Resolution should be 300.')
-            group.staticText(leftBounds, 'Resolution:', JUSTIFY_RIGHT)
-            generalResolutionText = group.staticText(rightBounds, Math.round(document.resolution), function(it) {
+            group.staticText(BOUNDS_LEFT, 'Resolution:', JUSTIFY_RIGHT)
+            generalResolutionText = group.staticText(BOUNDS_RIGHT, Math.round(document.resolution), function(it) {
                 if (it.text === '300') {
                     it.text += ' ✔'
                 } else {
@@ -53,8 +53,8 @@ dialog.hgroup(function(mainGroup) {
         })
         panel.hgroup(function(group) {
             group.setHelpTips('Bits depth should be 8.')
-            group.staticText(leftBounds, 'Bits:', JUSTIFY_RIGHT)
-            generalBitsText = group.staticText(rightBounds, getBits(), function(it) {
+            group.staticText(BOUNDS_LEFT, 'Bits:', JUSTIFY_RIGHT)
+            generalBitsText = group.staticText(BOUNDS_RIGHT, getBits(), function(it) {
                 if (it.text === '8') {
                     it.text += ' ✔'
                 } else {
@@ -92,7 +92,7 @@ function getBits() {
 }
 
 function addFixButton(parent, staticText, fixedText, onClick) {
-    var button = parent.button(fixBounds, 'Fix', function(it) {
+    var button = parent.button(BOUNDS_FIX, 'Fix', function(it) {
         it.onClick = function() {
             onClick()
             button.hide()

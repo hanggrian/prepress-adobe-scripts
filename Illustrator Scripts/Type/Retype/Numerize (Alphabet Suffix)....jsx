@@ -3,6 +3,9 @@
 #include '../../.lib/ui/reverse-order.js'
 #include '../../.lib/ui/type-affix.js'
 
+var BOUNDS_TEXT = [70, 21]
+var BOUNDS_EDIT = [100, 21]
+
 var ALPHABETS = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
     'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
@@ -18,26 +21,23 @@ var dialog = new Dialog('Retype Numerize (Alphabet Suffix)', 'fill')
 var stopsList, spaceCheck
 var affixPanel, reverseGroup
 
-var textBounds = [70, 21]
-var editBounds = [100, 21]
-
 dialog.vpanel('Retype', function(panel) {
     panel.alignChildren = 'fill'
     panel.hgroup(function(group) {
         group.setHelpTips('The iteration will stop at the selected alphabet and the number will reset back to 1.')
-        group.staticText(textBounds, 'Stops at:', JUSTIFY_RIGHT)
+        group.staticText(BOUNDS_TEXT, 'Stops at:', JUSTIFY_RIGHT)
         stopsList = group.dropDownList(undefined, ALPHABETS, function(it) {
             it.selection = ALPHABETS.indexOf('B')
         })
     })
     panel.hgroup(function(group) {
         group.setHelpTips('Add single space between number and alphabet.')
-        group.staticText(textBounds, 'Midspace:', JUSTIFY_RIGHT)
+        group.staticText(BOUNDS_TEXT, 'Midspace:', JUSTIFY_RIGHT)
         spaceCheck = group.checkBox(undefined, 'Enable')
     })
 })
 
-affixPanel = new TypeAffixPanel(dialog.main, textBounds, editBounds)
+affixPanel = new TypeAffixPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
 
 reverseGroup = new ReverseOrderGroup(dialog.main)
 

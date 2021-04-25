@@ -4,16 +4,16 @@
 #include '../.lib/commons.js'
 #include '../.lib/ui/trim-marks.js'
 
+var BOUNDS_TEXT = [95, 21]
+var BOUNDS_EDIT = [100, 21]
+var BOUNDS_EDIT2 = [35, 21]
+
 checkSingleSelection()
 
 var dialog = new Dialog('Spread', 'fill')
 var artworkCheck, trimMarksCheck, bothCheck
 var horizontalEdit, verticalEdit, gapHorizontalEdit, gapVerticalEdit
 var trimMarksPanel
-
-var textBounds = [95, 21]
-var editBounds = [100, 21]
-var editBounds2 = [35, 21]
 var enableTrimMarks = function() { trimMarksPanel.main.enabled = true }
 var disableTrimMarks = function() { trimMarksPanel.main.enabled = false }
 
@@ -36,24 +36,24 @@ dialog.vpanel(dialog.title, function(panel) {
     panel.alignChildren = 'fill'
     panel.hgroup(function(group) {
         group.setHelpTips('2 dimension target.')
-        group.staticText(textBounds, 'Copies:', JUSTIFY_RIGHT)
-        horizontalEdit = group.editText(editBounds2, undefined, VALIDATE_DIGITS)
+        group.staticText(BOUNDS_TEXT, 'Copies:', JUSTIFY_RIGHT)
+        horizontalEdit = group.editText(BOUNDS_EDIT2, undefined, VALIDATE_DIGITS)
         group.staticText(undefined, '×')
-        verticalEdit = group.editText(editBounds2, undefined, VALIDATE_DIGITS)
+        verticalEdit = group.editText(BOUNDS_EDIT2, undefined, VALIDATE_DIGITS)
     })
     panel.hgroup(function(group) {
         group.setHelpTips('Distance between arts horizontally.')
-        group.staticText(textBounds, 'Horizontal Gap:', JUSTIFY_RIGHT)
-        gapHorizontalEdit = group.editText(editBounds, unitsOf('0 mm'), VALIDATE_UNITS)
+        group.staticText(BOUNDS_TEXT, 'Horizontal Gap:', JUSTIFY_RIGHT)
+        gapHorizontalEdit = group.editText(BOUNDS_EDIT, unitsOf('0 mm'), VALIDATE_UNITS)
     })
     panel.hgroup(function(group) {
         group.setHelpTips('Distance between arts vertically.')
-        group.staticText(textBounds, 'Vertical Gap:', JUSTIFY_RIGHT)
-        gapVerticalEdit = group.editText(editBounds, unitsOf('0 mm'), VALIDATE_UNITS)
+        group.staticText(BOUNDS_TEXT, 'Vertical Gap:', JUSTIFY_RIGHT)
+        gapVerticalEdit = group.editText(BOUNDS_EDIT, unitsOf('0 mm'), VALIDATE_UNITS)
     })
 })
 
-trimMarksPanel = new TrimMarksPanel(dialog.main, textBounds, editBounds)
+trimMarksPanel = new TrimMarksPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
 trimMarksPanel.main.enabled = false
 
 horizontalEdit.activate()

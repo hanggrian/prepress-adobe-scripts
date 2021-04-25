@@ -3,6 +3,9 @@
 #include '../.lib/ui/checks.js'
 #include '../.lib/ui/open-options.js'
 
+var BOUNDS_TEXT = [50, 21]
+var BOUNDS_EDIT = [100, 21]
+
 checkHasSelection()
 
 var items = selection.filterItem(function(it) { return it.typename === 'PlacedItem' })
@@ -25,15 +28,12 @@ var file = openFile(dialog.title, [
 ])
 
 if (file != null) {
-    var textBounds = [50, 21]
-    var editBounds = [100, 21]
-
     if (file.isPDF()) {
-        pdfPanel = new OpenPDFOptionsPanel(dialog.main, textBounds, editBounds)
+        pdfPanel = new OpenPDFOptionsPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
         pdfPanel.main.hgroup(function(panel) {
             panel.setHelpTips('What page should be used when opening a multipage document.')
-            panel.staticText(textBounds, 'Page:', JUSTIFY_RIGHT)
-            pageEdit = panel.editText(editBounds, '1', function(it) {
+            panel.staticText(BOUNDS_TEXT, 'Page:', JUSTIFY_RIGHT)
+            pageEdit = panel.editText(BOUNDS_EDIT, '1', function(it) {
                 it.validateDigits()
                 it.activate()
             })

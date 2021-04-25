@@ -9,7 +9,7 @@
  * @param {String} units units to convert.
  * @return {Number}
  */
- function parseUnits(units) {
+function parseUnits(units) {
     checkNotNull(units)
     if (units.isEmpty()) {
         return 0

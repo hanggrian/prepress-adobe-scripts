@@ -3,6 +3,9 @@
 #include '../../.lib/ui/reverse-order.js'
 #include '../../.lib/ui/type-affix.js'
 
+var BOUNDS_TEXT = [55, 21]
+var BOUNDS_EDIT = [100, 21]
+
 checkHasSelection()
 
 var items = selection.filterItem(function(it) { return it.typename === 'TextFrame' })
@@ -12,26 +15,23 @@ var dialog = new Dialog('Retype Numerize')
 var startsAtEdit, digitsEdit
 var affixPanel, reverseGroup
 
-var textBounds = [55, 21]
-var editBounds = [100, 21]
-
 dialog.vpanel('Retype', function(panel) {
     panel.hgroup(function(group) {
         group.setHelpTips('Starting counter.')
-        group.staticText(textBounds, 'Starts at:', JUSTIFY_RIGHT)
-        startsAtEdit = group.editText(editBounds, '1', function(it) {
+        group.staticText(BOUNDS_TEXT, 'Starts at:', JUSTIFY_RIGHT)
+        startsAtEdit = group.editText(BOUNDS_EDIT, '1', function(it) {
             it.validateDigits()
             it.activate()
         })
     })
     panel.hgroup(function(group) {
         group.setHelpTips('Put n number of zeroes, can be left empty.')
-        group.staticText(textBounds, 'Digits:', JUSTIFY_RIGHT)
-        digitsEdit = group.editText(editBounds, undefined, VALIDATE_DIGITS)
+        group.staticText(BOUNDS_TEXT, 'Digits:', JUSTIFY_RIGHT)
+        digitsEdit = group.editText(BOUNDS_EDIT, undefined, VALIDATE_DIGITS)
     })
 })
 
-affixPanel = new TypeAffixPanel(dialog.main, textBounds, editBounds)
+affixPanel = new TypeAffixPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
 
 reverseGroup = new ReverseOrderGroup(dialog.main)
 

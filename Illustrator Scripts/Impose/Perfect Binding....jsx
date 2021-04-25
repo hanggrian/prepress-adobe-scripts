@@ -2,6 +2,9 @@
 #include '../.lib/core.js'
 #include '../.lib/ui/open-options.js'
 
+var BOUNDS_TEXT = [45, 21]
+var BOUNDS_EDIT = [100, 21]
+
 var dialog = new Dialog('Impose Perfect Binding')
 var pdfPanel, documentPanel
 
@@ -22,13 +25,10 @@ if (files !== null && files.isNotEmpty()) {
         check(files.length === 1, 'Only supports single PDF file')
     }
 
-    var textBounds = [45, 21]
-    var editBounds = [100, 21]
-
     if (files.first().isPDF()) {
-        pdfPanel = new OpenPDFOptionsPanel(dialog.main, textBounds, editBounds)
+        pdfPanel = new OpenPDFOptionsPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
     }
-    documentPanel = new OpenDocumentOptionsPanel(dialog.main, textBounds, editBounds)
+    documentPanel = new OpenDocumentOptionsPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
 
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {

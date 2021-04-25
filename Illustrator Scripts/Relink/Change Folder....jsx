@@ -16,9 +16,6 @@ var maintainGroup
 var folder = openFolder(dialog.title)
 
 if (folder != null) {
-    var textBounds = [50, 21]
-    var editBounds = [100, 21]
-
     maintainGroup = new MaintainDimensionGroup(dialog.main)
     
     dialog.setNegativeButton('Cancel')

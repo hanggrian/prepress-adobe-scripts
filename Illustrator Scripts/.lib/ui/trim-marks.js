@@ -7,6 +7,8 @@ var LOCATION_BOTTOM_LEFT = 7
 var LOCATION_LEFT_BOTTOM = 8
 var LOCATION_LEFT_TOP = 10
 
+var BOUNDS_CHECK = [15, 15]
+
 function TrimMarksPanel(parent, textBounds, editBounds) {
     var self = this
     this.offsetEdit, this.lengthEdit, this.weightEdit, this.colorList
@@ -180,48 +182,47 @@ function TrimMarkLocationsPanel(parent) {
     this.leftTopCheck, this.rightTopCheck
     this.leftBottomCheck, this.rightBottomCheck
     this.bottomLeftCheck, this.bottomRightCheck
-    var checkBounds = [15, 15]
 
     this.main = parent.vpanel('Locations', function(panel) {
         panel.hgroup(function(group) {
             group.setHelpTips('Select which trim marks will be added.')
-            group.staticText(checkBounds)
-            self.topLeftCheck = group.checkBox(checkBounds, undefined, SELECTED)
-            group.staticText(checkBounds)
-            self.topRightCheck = group.checkBox(checkBounds, undefined, SELECTED)
-            group.staticText(checkBounds)
+            group.staticText(BOUNDS_CHECK)
+            self.topLeftCheck = group.checkBox(BOUNDS_CHECK, undefined, SELECTED)
+            group.staticText(BOUNDS_CHECK)
+            self.topRightCheck = group.checkBox(BOUNDS_CHECK, undefined, SELECTED)
+            group.staticText(BOUNDS_CHECK)
         })
         panel.hgroup(function(group) {
             group.setHelpTips('Select which trim marks will be added.')
-            self.leftTopCheck = group.checkBox(checkBounds, undefined, SELECTED)
-            group.staticText(checkBounds, '\u2196', JUSTIFY_CENTER)
-            group.staticText(checkBounds, '\u2191', JUSTIFY_CENTER)
-            group.staticText(checkBounds, '\u2197', JUSTIFY_CENTER)
-            self.rightTopCheck = group.checkBox(checkBounds, undefined, SELECTED)
+            self.leftTopCheck = group.checkBox(BOUNDS_CHECK, undefined, SELECTED)
+            group.staticText(BOUNDS_CHECK, '\u2196', JUSTIFY_CENTER)
+            group.staticText(BOUNDS_CHECK, '\u2191', JUSTIFY_CENTER)
+            group.staticText(BOUNDS_CHECK, '\u2197', JUSTIFY_CENTER)
+            self.rightTopCheck = group.checkBox(BOUNDS_CHECK, undefined, SELECTED)
         })
         panel.hgroup(function(group) {
             group.setHelpTips('Select which trim marks will be added.')
-            group.staticText(checkBounds)
-            group.staticText(checkBounds, '\u2190', JUSTIFY_CENTER)
-            group.staticText(checkBounds, '\u25CF', JUSTIFY_CENTER)
-            group.staticText(checkBounds, '\u2192', JUSTIFY_CENTER)
-            group.staticText(checkBounds)
+            group.staticText(BOUNDS_CHECK)
+            group.staticText(BOUNDS_CHECK, '\u2190', JUSTIFY_CENTER)
+            group.staticText(BOUNDS_CHECK, '\u25CF', JUSTIFY_CENTER)
+            group.staticText(BOUNDS_CHECK, '\u2192', JUSTIFY_CENTER)
+            group.staticText(BOUNDS_CHECK)
         })
         panel.hgroup(function(group) {
             group.setHelpTips('Select which trim marks will be added.')
-            self.leftBottomCheck = group.checkBox(checkBounds, undefined, SELECTED)
-            group.staticText(checkBounds, '\u2199', JUSTIFY_CENTER)
-            group.staticText(checkBounds, '\u2193', JUSTIFY_CENTER)
-            group.staticText(checkBounds, '\u2198', JUSTIFY_CENTER)
-            self.rightBottomCheck = group.checkBox(checkBounds, undefined, SELECTED)
+            self.leftBottomCheck = group.checkBox(BOUNDS_CHECK, undefined, SELECTED)
+            group.staticText(BOUNDS_CHECK, '\u2199', JUSTIFY_CENTER)
+            group.staticText(BOUNDS_CHECK, '\u2193', JUSTIFY_CENTER)
+            group.staticText(BOUNDS_CHECK, '\u2198', JUSTIFY_CENTER)
+            self.rightBottomCheck = group.checkBox(BOUNDS_CHECK, undefined, SELECTED)
         })
         panel.hgroup(function(group) {
             group.setHelpTips('Select which trim marks will be added.')
-            group.staticText(checkBounds)
-            self.bottomLeftCheck = group.checkBox(checkBounds, undefined, SELECTED)
-            group.staticText(checkBounds)
-            self.bottomRightCheck = group.checkBox(checkBounds, undefined, SELECTED)
-            group.staticText(checkBounds)
+            group.staticText(BOUNDS_CHECK)
+            self.bottomLeftCheck = group.checkBox(BOUNDS_CHECK, undefined, SELECTED)
+            group.staticText(BOUNDS_CHECK)
+            self.bottomRightCheck = group.checkBox(BOUNDS_CHECK, undefined, SELECTED)
+            group.staticText(BOUNDS_CHECK)
         })
     })
 

@@ -4,26 +4,26 @@
 #include '../../.lib/commons.js'
 #include '../../.lib/ui/item-transform.js'
 
+var BOUNDS_TEXT = [45, 21]
+var BOUNDS_EDIT = [150, 21]
+
 checkHasSelection()
 
 var dialog = new Dialog('Resize')
 var prefill = selection.first()
 var widthEdit, heightEdit, changePanel, anchorPanel
 
-var textBounds = [45, 21]
-var editBounds = [150, 21]
-
 dialog.vpanel(dialog.title, function(panel) {
     panel.hgroup(function(group) {
-        group.staticText(textBounds, 'Width:', JUSTIFY_RIGHT)
-        widthEdit = group.editText(editBounds, formatUnits(prefill.width, unitName, 2), function(it) {
+        group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
+        widthEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.width, unitName, 2), function(it) {
             it.validateUnits()
             it.activate()
         })
     })
     panel.hgroup(function(group) {
-        group.staticText(textBounds, 'Height:', JUSTIFY_RIGHT)
-        heightEdit = group.editText(editBounds, formatUnits(prefill.height, unitName, 2), VALIDATE_UNITS)
+        group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
+        heightEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.height, unitName, 2), VALIDATE_UNITS)
     })
 })
 

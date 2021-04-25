@@ -3,6 +3,9 @@
 #include '../.lib/ui/checks.js'
 #include '../.lib/ui/open-options.js'
 
+var BOUNDS_TEXT = [70, 21]
+var BOUNDS_EDIT = [100, 21]
+
 checkHasSelection()
 
 var items = selection.filterItem(function(it) { return it.typename === 'PlacedItem' })
@@ -31,20 +34,17 @@ if (files !== null && files.isNotEmpty()) {
         check(files.length > 1, 'Only single image file selected, use Relink Same File instead')
     }
 
-    var textBounds = [70, 21]
-    var editBounds = [100, 21]
-
     if (files.first().isPDF()) {
-        pdfPanel = new OpenPDFOptionsPanel(dialog.main, textBounds, editBounds)
+        pdfPanel = new OpenPDFOptionsPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
         pdfPanel.main.hgroup(function(group) {
             group.setHelpTips('Beginning page of PDF file.')
-            group.staticText(textBounds, 'Start page:', JUSTIFY_RIGHT)
-            startPageEdit = group.editText(editBounds, '1', VALIDATE_DIGITS)
+            group.staticText(BOUNDS_TEXT, 'Start page:', JUSTIFY_RIGHT)
+            startPageEdit = group.editText(BOUNDS_EDIT, '1', VALIDATE_DIGITS)
         })
         pdfPanel.main.hgroup(function(group) {
             group.setHelpTips('Final page of PDF file.')
-            group.staticText(textBounds, 'End page:', JUSTIFY_RIGHT)
-            endPageEdit = group.editText(editBounds, undefined, function(it) {
+            group.staticText(BOUNDS_TEXT, 'End page:', JUSTIFY_RIGHT)
+            endPageEdit = group.editText(BOUNDS_EDIT, undefined, function(it) {
                 it.validateDigits()
                 it.activate()  
             })

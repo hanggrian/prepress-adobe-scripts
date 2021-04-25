@@ -1,25 +1,24 @@
 #target Illustrator
 #include '../.lib/commons.js'
 
+var BOUNDS_TEXT = [45, 21]
+var BOUNDS_EDIT = [100, 21]
+
 var dialog = new Dialog('Resize Artboards')
 var widthEdit, heightEdit
 
-var textBounds = [45, 21]
-var editBounds = [100, 21]
-
 dialog.hgroup(function(group) {
     group.setHelpTips("Artboards' new width.")
-    group.staticText(textBounds, 'Width:', JUSTIFY_RIGHT)
-    widthEdit = group.editText(editBounds, formatUnits(document.width, unitName, 2), function(it) {
+    group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
+    widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2), function(it) {
         it.validateUnits()
         it.activate()
     })
 })
-
 dialog.hgroup(function(group) {
     group.setHelpTips("Artboards' new height.")
-    group.staticText(textBounds, 'Height:', JUSTIFY_RIGHT)
-    heightEdit = group.editText(editBounds, formatUnits(document.height, unitName, 2), VALIDATE_UNITS)
+    group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
+    heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2), VALIDATE_UNITS)
 })
 
 dialog.setNegativeButton('Cancel')

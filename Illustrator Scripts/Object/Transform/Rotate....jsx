@@ -4,17 +4,17 @@
 #include '../../.lib/commons.js'
 #include '../../.lib/ui/item-transform.js'
 
+var BOUNDS_EDIT = [150, 21]
+
 checkHasSelection()
 
 var dialog = new Dialog('Rotate')
 var angleEdit, changePanel, anchorPanel
 
-var editBounds = [150, 21]
-
 dialog.vpanel(dialog.title, function(panel) {
     panel.hgroup(function(group) {
         group.staticText(undefined, 'Angle:', JUSTIFY_RIGHT)
-        angleEdit = group.editText(editBounds, '0', function(it) {
+        angleEdit = group.editText(BOUNDS_EDIT, '0', function(it) {
             it.validateDigits()
             it.activate()
         })

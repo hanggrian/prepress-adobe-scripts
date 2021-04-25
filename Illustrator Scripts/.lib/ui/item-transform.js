@@ -1,3 +1,5 @@
+var BOUNDS_ANCHOR_RADIO = [15, 15]
+
 function ItemChangePanel(parent) {
     var self = this
     this.changePositionsCheck
@@ -51,27 +53,26 @@ function ItemAnchorPanel(parent) {
             }
         })
 
-        var radioBounds = [15, 15]
         self.row1 = panel.hgroup(function(group) {
             group.setHelpTips('Reference point.')
-            self.topLeftRadio = group.radioButton(radioBounds, undefined, function(radio) { registerRadioClick(radio) })
-            self.topRadio = group.radioButton(radioBounds, undefined, function(radio) { registerRadioClick(radio) })
-            self.topRightRadio = group.radioButton(radioBounds, undefined, function(radio) { registerRadioClick(radio) })
+            self.topLeftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(radio) { registerRadioClick(radio) })
+            self.topRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(radio) { registerRadioClick(radio) })
+            self.topRightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(radio) { registerRadioClick(radio) })
         })
         self.row2 = panel.hgroup(function(group) {
             group.setHelpTips('Reference point.')
-            self.leftRadio = group.radioButton(radioBounds, undefined, function(radio) { registerRadioClick(radio) })
-            self.centerRadio = group.radioButton(radioBounds, undefined, function(radio) {
+            self.leftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(radio) { registerRadioClick(radio) })
+            self.centerRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(radio) {
                 radio.value = true
                 registerRadioClick(radio)
             })
-            self.rightRadio = group.radioButton(radioBounds, undefined, function(radio) { registerRadioClick(radio) })
+            self.rightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(radio) { registerRadioClick(radio) })
         })
         self.row3 = panel.hgroup(function(group) {
             group.setHelpTips('Reference point.')
-            self.bottomLeftRadio = group.radioButton(radioBounds, undefined, function(radio) { registerRadioClick(radio) })
-            self.bottomRadio = group.radioButton(radioBounds, undefined, function(radio) { registerRadioClick(radio) })
-            self.bottomRightRadio = group.radioButton(radioBounds, undefined, function(radio) { registerRadioClick(radio) })
+            self.bottomLeftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(radio) { registerRadioClick(radio) })
+            self.bottomRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(radio) { registerRadioClick(radio) })
+            self.bottomRightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(radio) { registerRadioClick(radio) })
         })
     })
 

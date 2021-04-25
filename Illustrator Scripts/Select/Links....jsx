@@ -6,6 +6,9 @@
 #target Illustrator
 #include '../.lib/commons.js'
 
+var BOUNDS_DIMENSION_TEXT = [45, 21]
+var BOUNDS_DIMENSION_EDIT = [100, 21]
+
 var FILE_AI = ['ai']
 var FILE_PDF = ['pdf']
 var FILE_BMP = ['bmp']
@@ -23,18 +26,16 @@ var aiCheck, pdfCheck, bmpCheck, gifCheck, jpegCheck, jpeg2000Check, pngCheck, p
 dialog.hgroup(function(mainGroup) {
     mainGroup.alignChildren = 'top'
     mainGroup.vpanel('Dimension', function(panel) {
-        var dimensionTextBounds = [45, 21]
-        var dimensionEditBounds = [100, 21]
         panel.hgroup(function(group) {
-            group.staticText(dimensionTextBounds, 'Width:', JUSTIFY_RIGHT)
-            widthEdit = group.editText(dimensionEditBounds, function(it) {
+            group.staticText(BOUNDS_DIMENSION_TEXT, 'Width:', JUSTIFY_RIGHT)
+            widthEdit = group.editText(BOUNDS_DIMENSION_EDIT, function(it) {
                 it.validateUnits()
                 it.activate()
             })
         })
         panel.hgroup(function(group) {
-            group.staticText(dimensionTextBounds, 'Height:', JUSTIFY_RIGHT)
-            heightEdit = group.editText(dimensionEditBounds, VALIDATE_UNITS)
+            group.staticText(BOUNDS_DIMENSION_TEXT, 'Height:', JUSTIFY_RIGHT)
+            heightEdit = group.editText(BOUNDS_DIMENSION_EDIT, VALIDATE_UNITS)
         })
     })
     mainGroup.vpanel('File Types', function(panel) {

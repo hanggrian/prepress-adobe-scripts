@@ -10,6 +10,9 @@
 #include '../.lib/core.js'
 #include '../.lib/ui/open-options.js'
 
+var BOUNDS_TEXT = [60, 21]
+var BOUNDS_EDIT = [100, 21]
+
 var dialog = new Dialog('Open Splitted')
 var horizontalRadio, verticalRadio, partsEdit
 var documentPanel
@@ -31,13 +34,10 @@ if (files !== null && files.isNotEmpty()) {
         check(files.length === 1, 'Only supports single PDF file')
     }
 
-    var textBounds = [60, 21]
-    var editBounds = [100, 21]
-
     dialog.main.vpanel('Split Options', function(panel) {
         panel.hgroup(function(group) {
             group.setHelpTips('Divide image horizontally/vertically.')
-            group.staticText(textBounds, 'Direction:', JUSTIFY_RIGHT)
+            group.staticText(BOUNDS_TEXT, 'Direction:', JUSTIFY_RIGHT)
             group.vgroup(function(group2) {
                 group2.alignChildren = 'left'
                 horizontalRadio = group2.radioButton(undefined, 'Horizontal', SELECTED)
@@ -46,14 +46,14 @@ if (files !== null && files.isNotEmpty()) {
         })
         panel.hgroup(function(group) {
             group.setHelpTips('Total number of divison.')
-            group.staticText(textBounds, 'Parts:', JUSTIFY_RIGHT)
-            partsEdit = group.editText(editBounds, '2', function(it) {
+            group.staticText(BOUNDS_TEXT, 'Parts:', JUSTIFY_RIGHT)
+            partsEdit = group.editText(BOUNDS_EDIT, '2', function(it) {
                 it.validateDigits()
                 it.activate()
             })
         })
     })
-    documentPanel = new OpenDocumentOptionsPanel(dialog.main, textBounds, editBounds)
+    documentPanel = new OpenDocumentOptionsPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
 
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {

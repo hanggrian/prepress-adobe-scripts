@@ -4,6 +4,10 @@
 #target Illustrator
 #include '../.lib/commons.js'
 
+var BOUNDS_LINE_TEXT = [45, 21]
+var BOUNDS_LINE_EDIT = [100, 21]
+var BOUNDS_PROPERTIES_TEXT = [55, 21]
+
 var dialog = new Dialog('Select Paths')
 var widthEdit, heightEdit
 var fillList, strokeList
@@ -12,52 +16,49 @@ var closedAnyCheck, closedEnabledCheck, closedDisabledCheck
 var guidesAnyCheck, guidesEnabledCheck, guidesDisabledCheck
 
 dialog.hgroup(function(mainGroup) {
-    var lineTextBounds = [45, 21]
-    var lineEditBounds = [100, 21]
     mainGroup.vpanel('Dimension', function(panel) {
         panel.hgroup(function(group) {
-            group.staticText(lineTextBounds, 'Width:', JUSTIFY_RIGHT)
-            widthEdit = group.editText(lineEditBounds, undefined, function(it) {
+            group.staticText(BOUNDS_LINE_TEXT, 'Width:', JUSTIFY_RIGHT)
+            widthEdit = group.editText(BOUNDS_LINE_EDIT, undefined, function(it) {
                 it.validateUnits()
                 it.activate()  
             })
         })
         panel.hgroup(function(group) {
-            group.staticText(lineTextBounds, 'Height:', JUSTIFY_RIGHT)
-            heightEdit = group.editText(lineEditBounds, VALIDATE_UNITS)
+            group.staticText(BOUNDS_LINE_TEXT, 'Height:', JUSTIFY_RIGHT)
+            heightEdit = group.editText(BOUNDS_LINE_EDIT, VALIDATE_UNITS)
         })
     })
     mainGroup.vpanel('Color', function(panel) {
         panel.hgroup(function(group) {
-            group.staticText(lineTextBounds, 'Fill:', JUSTIFY_RIGHT)
-            fillList = group.dropDownList(lineEditBounds, COLORS)    
+            group.staticText(BOUNDS_LINE_TEXT, 'Fill:', JUSTIFY_RIGHT)
+            fillList = group.dropDownList(BOUNDS_LINE_EDIT, COLORS)    
         })
         panel.hgroup(function(group) {
-            group.staticText(lineTextBounds, 'Stroke:', JUSTIFY_RIGHT)
-            strokeList = group.dropDownList(lineEditBounds, COLORS)  
+            group.staticText(BOUNDS_LINE_TEXT, 'Stroke:', JUSTIFY_RIGHT)
+            strokeList = group.dropDownList(BOUNDS_LINE_EDIT, COLORS)  
         })
     })
 })
 
 dialog.vpanel('Properties', function(panel) {
-    var propertiesTextBounds = [55, 21]
     panel.hgroup(function(group) {
         group.setHelpTips('Should this be used as a clipping path?')
-        group.staticText(propertiesTextBounds, 'Clipping:', JUSTIFY_RIGHT)
+        group.staticText(BOUNDS_PROPERTIES_TEXT, 'Clipping:', JUSTIFY_RIGHT)
         clippingAnyCheck = group.radioButton(undefined, 'Any', SELECTED)
         clippingEnabledCheck = group.radioButton(undefined, 'Enabled')
         clippingDisabledCheck = group.radioButton(undefined, 'Disabled')
     })
     panel.hgroup(function(group) {
         group.setHelpTips('Is this path closed?')
-        group.staticText(propertiesTextBounds, 'Closed:', JUSTIFY_RIGHT)
+        group.staticText(BOUNDS_PROPERTIES_TEXT, 'Closed:', JUSTIFY_RIGHT)
         closedAnyCheck = group.radioButton(undefined, 'Any', SELECTED)
         closedEnabledCheck = group.radioButton(undefined, 'Enabled')
         closedDisabledCheck = group.radioButton(undefined, 'Disabled')
     })
     panel.hgroup(function(group) {
         group.setHelpTips('Is this path a guide object?')
-        group.staticText(propertiesTextBounds, 'Guides:', JUSTIFY_RIGHT)
+        group.staticText(BOUNDS_PROPERTIES_TEXT, 'Guides:', JUSTIFY_RIGHT)
         guidesAnyCheck = group.radioButton(undefined, 'Any', SELECTED)
         guidesEnabledCheck = group.radioButton(undefined, 'Enabled')
         guidesDisabledCheck = group.radioButton(undefined, 'Disabled')
