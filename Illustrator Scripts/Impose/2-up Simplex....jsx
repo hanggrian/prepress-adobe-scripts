@@ -5,8 +5,9 @@
 var BOUNDS_TEXT = [75, 21]
 var BOUNDS_EDIT = [100, 21]
 
-var dialog = new Dialog('Impose Saddle Stitch')
-var pdfPanel, documentGroup, rtlCheck
+
+var dialog = new Dialog('Impose 2-up Simplex')
+var pdfPanel, documentGroup
 
 var files = openFile(dialog.title, [
     ['Adobe Illustrator', 'ai'],
@@ -24,18 +25,9 @@ if (files !== null && files.isNotEmpty()) {
     if (files.filter(function(it) { return it.isPDF() }).isNotEmpty()) {
         check(files.length === 1, 'Only supports single PDF file')
     }
-    dialog.main.hgroup(function(mainGroup) {
-        if (files.first().isPDF()) {
-            pdfPanel = new OpenPDFPanel(mainGroup, BOUNDS_TEXT, BOUNDS_EDIT)
-        }
-        mainGroup.vpanel('Booklet', function(panel) {
-            panel.hgroup(function(group) {
-                group.setHelpTips('Useful for Arabic layout.')
-                group.staticText(undefined, 'Right-to-Left:', JUSTIFY_RIGHT)
-                rtlCheck = group.checkBox(BOUNDS_EDIT, 'Enable')
-            })
-        })
-    })
+    if (files.first().isPDF()) {
+        pdfPanel = new OpenPDFPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
+    }
     documentGroup = new OpenDocumentGroup(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
 
     dialog.setNegativeButton('Cancel')
@@ -48,12 +40,14 @@ if (files !== null && files.isNotEmpty()) {
             alert('Total pages must be a non-zero number that can be divided by 4.')
         } else {
             var document = app.documents.addDocument(DocumentPresetType.Print, documentGroup.getPreset().let(function(preset) {
-                preset.title = 'Untitled-Saddle Stitch'
+                preset.title = 'Untitled-2-up Simplex'
                 preset.numArtboards = pages / 2
-                preset.width = width * 2
+                preset.width = (width + bleed * 2) * 2
+                preset.height = height + bleed * 2
+                preset.documentBleedOffset = [0, 0, 0, 0]
                 return preset
             }))
-            var pager = new SaddleStitchPager(document, pages, files.first().isPDF(), rtlCheck.value)
+            var pager = new SimplexPager2(document, files.first().isPDF())
             pager.forEachArtboard(function(artboard) {
                 artboard.name = pager.getArtboardTitle()
 
@@ -74,43 +68,27 @@ if (files !== null && files.isNotEmpty()) {
                 var leftX = (artboardRight - width) / 2 - width / 2
                 var rightX = (artboardRight - width) / 2 + width / 2
                 var y = (artboardBottom + height) / 2
-                if (bleed <= 0) {
-                    leftItem.width = width
-                    rightItem.width = width
-                    leftItem.height = height
-                    rightItem.height = height
-                    leftItem.position = [leftX, y]
-                    rightItem.position = [rightX, y]
-                } else {
-                    leftItem.width = width + bleed * 2
-                    rightItem.width = width + bleed * 2
-                    leftItem.height = height + bleed * 2
-                    rightItem.height = height + bleed * 2
-
-                    var leftGroup = document.groupItems.add()
-                    leftItem.moveToBeginning(leftGroup)
-                    var leftClip = document.pathItems.rectangle(
-                        y + bleed,
+                leftItem.width = width + bleed * 2
+                rightItem.width = width + bleed * 2
+                leftItem.height = height + bleed * 2
+                rightItem.height = height + bleed * 2
+                leftItem.position = [leftX - bleed * 2, y + bleed]
+                rightItem.position = [rightX, y + bleed]
+                if (bleed > 0) {
+                    var leftGuide = document.pathItems.rectangle(
+                        y,
                         leftX - bleed,
-                        width + bleed,
-                        height + bleed * 2)
-                    leftClip.clipping = true
-                    leftClip.moveToBeginning(leftGroup)
-                    leftGroup.clipped = true
-
-                    var rightGroup = document.groupItems.add()
-                    rightItem.moveToBeginning(rightGroup)
-                    var rightClip = document.pathItems.rectangle(
-                        y + bleed,
-                        rightX,
-                        width + bleed,
-                        height + bleed * 2)
-                    rightClip.clipping = true
-                    rightClip.moveToBeginning(rightGroup)
-                    rightGroup.clipped = true
-
-                    leftItem.position = [leftX - bleed, y + bleed]
-                    rightItem.position = [rightX - bleed, y + bleed]
+                        width,
+                        height)
+                    leftGuide.filled = false
+                    leftGuide.guides = true
+                    var rightGuide = document.pathItems.rectangle(
+                        y,
+                        rightX + bleed,
+                        width,
+                        height)
+                    rightGuide.filled = false
+                    rightGuide.guides = true
                 }
             })
         }

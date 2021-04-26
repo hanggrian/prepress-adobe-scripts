@@ -53,8 +53,8 @@ dialog.vpanel('Selection', function(panel) {
     })
     horizontalExtraGroup = panel.hgroup(function(group) {
         group.enabled = false
-        group.setHelpTips('Extra area to horizontal bleed.', JUSTIFY_RIGHT)
-        group.staticText(BOUNDS_TEXT, 'Horizontal Extra:')
+        group.setHelpTips('Extra area to horizontal bleed.')
+        group.staticText(BOUNDS_TEXT, 'Horizontal Extra:', JUSTIFY_RIGHT)
         horizontalExtraEdit = group.editText(BOUNDS_EDIT, '0 px', VALIDATE_UNITS)
     })
     verticalExtraGroup = panel.hgroup(function(group) {

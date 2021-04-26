@@ -11,6 +11,7 @@
 #include 'sui/dsl/edittext.js'
 #include 'sui/dsl/group.js'
 #include 'sui/dsl/panel.js'
+#include 'sui/dsl/space.js'
 #include 'sui/dsl/statictext.js'
 #include 'sui/dsl/toggle.js'
 
