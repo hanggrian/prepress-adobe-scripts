@@ -8,7 +8,7 @@
             "type": "extendscript-debug",
             "request": "launch",
             "name": "prepress-adobe-scripts",
-            "program": "${workspaceFolder}/Illustrator Scripts/Relink/Multipage....jsx",
+            "program": "${workspaceFolder}/Illustrator Scripts/Impose/Saddle Stitch....jsx",
             "stopOnEntry": false
         }
     ]

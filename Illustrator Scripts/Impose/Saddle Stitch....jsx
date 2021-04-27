@@ -37,8 +37,10 @@ if (files !== null && files.isNotEmpty()) {
         })
         documentPanel = new OpenDocumentPanel(mainGroup)
     })
-    rtlCheck = dialog.main.checkBox(undefined, 'Right-to-Left', function(it) {
-        it.helpTip = 'Useful for Arabic layout.'
+    dialog.main.hgroup(function(group) {
+        rtlCheck = group.checkBox(undefined, 'Right-to-Left', function(it) {
+            it.helpTip = 'Useful for Arabic layout.'
+        })
     })
 
     dialog.setNegativeButton('Cancel')
@@ -57,47 +59,47 @@ if (files !== null && files.isNotEmpty()) {
                 bleed)
             var pager = new SaddleStitchPager(document, pages, rtlCheck.value)
             pager.forEachArtboard(function(artboard, leftIndex, rightIndex) {
-                var leftItem = document.placedItems.add()
-                var rightItem = document.placedItems.add()
+                var item1 = document.placedItems.add()
+                var item2 = document.placedItems.add()
                 if (files.first().isPDF()) {
-                    leftItem.setPDFFile(files.first(), leftIndex, pdfPanel.getBoxType())
-                    rightItem.setPDFFile(files.first(), rightIndex, pdfPanel.getBoxType())
+                    item1.setPDFFile(files.first(), leftIndex, pdfPanel.getBoxType())
+                    item2.setPDFFile(files.first(), rightIndex, pdfPanel.getBoxType())
                 } else {
-                    leftItem.file = files[leftIndex]
-                    rightItem.file = files[rightIndex]
+                    item1.file = files[leftIndex]
+                    item2.file = files[rightIndex]
                 }
                 var rect = artboard.artboardRect
-                var leftX = rect[0]
-                var rightX = leftX + width
+                var x1 = rect[0]
+                var x2 = x1 + width
                 var y = rect[1]
-                leftItem.width = width + bleed * 2
-                rightItem.width = width + bleed * 2
-                leftItem.height = height + bleed * 2
-                rightItem.height = height + bleed * 2
-                leftItem.position = [leftX - bleed, y + bleed]
-                rightItem.position = [rightX - bleed, y + bleed]
+                Array(item1, item2).forEach(function(it) {
+                    it.width = width + bleed * 2
+                    it.height = height + bleed * 2
+                })
+                item1.position = [x1 - bleed, y + bleed]
+                item2.position = [x2 - bleed, y + bleed]
                 if (bleed > 0) {
-                    var leftGroup = document.groupItems.add()
-                    leftItem.moveToBeginning(leftGroup)
-                    var leftClip = document.pathItems.rectangle(
+                    var group1 = document.groupItems.add()
+                    item1.moveToBeginning(group1)
+                    var clip1 = document.pathItems.rectangle(
                         y + bleed,
-                        leftX - bleed,
+                        x1 - bleed,
                         width + bleed,
                         height + bleed * 2)
-                    leftClip.clipping = true
-                    leftClip.moveToBeginning(leftGroup)
-                    leftGroup.clipped = true
+                    clip1.clipping = true
+                    clip1.moveToBeginning(group1)
+                    group1.clipped = true
 
-                    var rightGroup = document.groupItems.add()
-                    rightItem.moveToBeginning(rightGroup)
-                    var rightClip = document.pathItems.rectangle(
+                    var group2 = document.groupItems.add()
+                    item2.moveToBeginning(group2)
+                    var clip2 = document.pathItems.rectangle(
                         y + bleed,
-                        rightX,
+                        x2,
                         width + bleed,
                         height + bleed * 2)
-                    rightClip.clipping = true
-                    rightClip.moveToBeginning(rightGroup)
-                    rightGroup.clipped = true
+                    clip2.clipping = true
+                    clip2.moveToBeginning(group2)
+                    group2.clipped = true
                 }
             })
         }

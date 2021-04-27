@@ -1,6 +1,6 @@
 #target Illustrator
 #include '../../.lib/commons.js'
 
-checkEvenArtboards()
+check(document.artboards.length.isEven(), 'Odd number of pages')
 
 new SaddleStitchPager(document).forEachArtboard(function() { })

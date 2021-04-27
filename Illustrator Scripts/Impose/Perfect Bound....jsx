@@ -5,9 +5,9 @@
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
 
-var dialog = new Dialog('Impose Perfect Bound')
+var dialog = new Dialog('Impose Perfect Bound', 'right')
 var pdfPanel, pagesPanel, documentPanel
-var rtlCheck
+var rotateCheck
 
 var files = openFile(dialog.title, [
     ['Adobe Illustrator', 'ai'],
@@ -37,6 +37,9 @@ if (files !== null && files.isNotEmpty()) {
         })
         documentPanel = new OpenDocumentPanel(mainGroup)
     })
+    dialog.main.hgroup(function(group) {
+        rotateCheck = group.checkBox(undefined, 'Rotate Page')
+    })
 
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
@@ -44,13 +47,15 @@ if (files !== null && files.isNotEmpty()) {
         var width = pagesPanel.getWidth()
         var height = pagesPanel.getHeight()
         var bleed = pagesPanel.getBleed()
+        var rotatedWidth = !rotateCheck.value ? width : height
+        var rotatedHeight = !rotateCheck.value ? height : width
         if (pages < 1) {
             alert('Pages must be higher than 0.')
         } else {
             var document = documentPanel.open('Untitled-Perfect Bound',
                 pages,
-                width,
-                height,
+                rotatedWidth,
+                rotatedHeight,
                 bleed)
             var pager = new PerfectBoundPager(document)
             pager.forEachArtboard(function(artboard, index) {
@@ -65,6 +70,9 @@ if (files !== null && files.isNotEmpty()) {
                 var y = rect[1]
                 item.width = width + bleed * 2
                 item.height = height + bleed * 2
+                if (rotateCheck.value) {
+                    item.rotate(90)
+                }
                 item.position = [x - bleed, y + bleed]
             })
         }

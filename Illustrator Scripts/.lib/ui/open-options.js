@@ -132,7 +132,7 @@ function OpenDocumentPanel(parent) {
             preset.numArtboards = pages
             preset.width = width
             preset.height = height
-            if (bleed !== undefined && bleed > 0) {
+            if (bleed > 0) {
                 preset.documentBleedLink = true
                 preset.documentBleedOffset = [bleed, bleed, bleed, bleed]
             }

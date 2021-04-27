@@ -5,7 +5,7 @@
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
 
-var dialog = new Dialog('Impose 4-Up', 'right')
+var dialog = new Dialog('Impose 8-Up', 'right')
 var pdfPanel, pagesPanel, documentPanel
 var rotateCheck, duplexCheck
 
@@ -33,7 +33,7 @@ if (files !== null && files.isNotEmpty()) {
                 pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
             }
             pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
-            pagesPanel.pagesEdit.text = '8'
+            pagesPanel.pagesEdit.text = '16'
         })
         documentPanel = new OpenDocumentPanel(mainGroup)
     })
@@ -52,38 +52,52 @@ if (files !== null && files.isNotEmpty()) {
         var bleed = pagesPanel.getBleed()
         var rotatedWidth = !rotateCheck.value ? width : height
         var rotatedHeight = !rotateCheck.value ? height : width
-        if (pages < 1 || pages % 8 !== 0) {
+        if (pages < 1 || pages % 16 !== 0) {
             alert('Pages must be higher than 0 and can be divided by 8.')
         } else {
-            var document = documentPanel.open('Untitled-4-Up',
-                pages / 4,
-                (rotatedWidth + bleed * 2) * 2,
+            var document = documentPanel.open('Untitled-8-Up',
+                pages / 8,
+                (rotatedWidth + bleed * 2) * 4,
                 (rotatedHeight + bleed * 2) * 2)
-            var pager = duplexCheck.value ? new FourUpDuplexPager(document) : new FourUpSimplexPager(document)
+            var pager = duplexCheck.value ? new EightUpDuplexPager(document) : new EightUpSimplexPager(document)
             pager.forEachArtboard(function(artboard,
-                topLeftIndex, topRightIndex,
-                bottomLeftIndex, bottomRightIndex) {
+                top1Index, top2Index, top3Index, top4Index,
+                bottom1Index, bottom2Index, bottom3Index, bottom4Index) {
                 var topItem1 = document.placedItems.add()
                 var topItem2 = document.placedItems.add()
+                var topItem3 = document.placedItems.add()
+                var topItem4 = document.placedItems.add()
                 var bottomItem1 = document.placedItems.add()
                 var bottomItem2 = document.placedItems.add()
+                var bottomItem3 = document.placedItems.add()
+                var bottomItem4 = document.placedItems.add()
                 if (files.first().isPDF()) {
-                    topItem1.setPDFFile(files.first(), topLeftIndex, pdfPanel.getBoxType())
-                    topItem2.setPDFFile(files.first(), topRightIndex, pdfPanel.getBoxType())
-                    bottomItem1.setPDFFile(files.first(), bottomLeftIndex, pdfPanel.getBoxType())
-                    bottomItem2.setPDFFile(files.first(), bottomRightIndex, pdfPanel.getBoxType())
+                    topItem1.setPDFFile(files.first(), top1Index, pdfPanel.getBoxType())
+                    topItem2.setPDFFile(files.first(), top2Index, pdfPanel.getBoxType())
+                    topItem3.setPDFFile(files.first(), top3Index, pdfPanel.getBoxType())
+                    topItem4.setPDFFile(files.first(), top4Index, pdfPanel.getBoxType())
+                    bottomItem1.setPDFFile(files.first(), bottom1Index, pdfPanel.getBoxType())
+                    bottomItem2.setPDFFile(files.first(), bottom2Index, pdfPanel.getBoxType())
+                    bottomItem3.setPDFFile(files.first(), bottom3Index, pdfPanel.getBoxType())
+                    bottomItem4.setPDFFile(files.first(), bottom4Index, pdfPanel.getBoxType())
                 } else {
-                    topItem1.file = files[topLeftIndex]
-                    topItem2.file = files[topRightIndex]
-                    bottomItem1.file = files[bottomLeftIndex]
-                    bottomItem2.file = files[bottomRightIndex]
+                    topItem1.file = files[top1]
+                    topItem2.file = files[top2]
+                    topItem3.file = files[top3]
+                    topItem4.file = files[top4]
+                    bottomItem1.file = files[bottom1]
+                    bottomItem2.file = files[bottom2]
+                    bottomItem3.file = files[bottom3]
+                    bottomItem4.file = files[bottom4]
                 }
                 var rect = artboard.artboardRect
                 var x1 = rect[0]
                 var x2 = x1 + rotatedWidth + bleed * 2
+                var x3 = x2 + rotatedWidth + bleed * 2
+                var x4 = x3 + rotatedWidth + bleed * 2
                 var y1 = rect[1]
                 var y2 = y1 - rotatedHeight - bleed * 2
-                Array(topItem1, topItem2, bottomItem1, bottomItem2).forEach(function(it) {
+                Array(topItem1, topItem2, topItem3, topItem4, bottomItem1, bottomItem2, bottomItem3, bottomItem4).forEach(function(it) {
                     it.width = width + bleed * 2
                     it.height = height + bleed * 2
                     if (rotateCheck.value) {
@@ -92,8 +106,12 @@ if (files !== null && files.isNotEmpty()) {
                 })
                 topItem1.position = [x1, y1]
                 topItem2.position = [x2, y1]
+                topItem3.position = [x3, y1]
+                topItem4.position = [x4, y1]
                 bottomItem1.position = [x1, y2]
                 bottomItem2.position = [x2, y2]
+                bottomItem3.position = [x3, y2]
+                bottomItem4.position = [x4, y2]
                 if (bleed > 0) {
                     var topGuide1 = document.pathItems.rectangle(
                         y1 - bleed,
@@ -109,6 +127,20 @@ if (files !== null && files.isNotEmpty()) {
                         rotatedHeight)
                     topGuide2.filled = false
                     topGuide2.guides = true
+                    var topGuide3 = document.pathItems.rectangle(
+                        y1 - bleed,
+                        x3 + bleed,
+                        rotatedWidth,
+                        rotatedHeight)
+                    topGuide3.filled = false
+                    topGuide3.guides = true
+                    var topGuide4 = document.pathItems.rectangle(
+                        y1 - bleed,
+                        x4 + bleed,
+                        rotatedWidth,
+                        rotatedHeight)
+                    topGuide4.filled = false
+                    topGuide4.guides = true
                     var bottomGuide1 = document.pathItems.rectangle(
                         y2 - bleed,
                         x1 + bleed,
@@ -123,6 +155,20 @@ if (files !== null && files.isNotEmpty()) {
                         rotatedHeight)
                     bottomGuide2.filled = false
                     bottomGuide2.guides = true
+                    var bottomGuide3 = document.pathItems.rectangle(
+                        y2 - bleed,
+                        x3 + bleed,
+                        rotatedWidth,
+                        rotatedHeight)
+                    bottomGuide3.filled = false
+                    bottomGuide3.guides = true
+                    var bottomGuide4 = document.pathItems.rectangle(
+                        y2 - bleed,
+                        x4 + bleed,
+                        rotatedWidth,
+                        rotatedHeight)
+                    bottomGuide4.filled = false
+                    bottomGuide4.guides = true
                 }
             })
         }
