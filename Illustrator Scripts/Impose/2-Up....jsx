@@ -2,11 +2,12 @@
 #include '../.lib/core.js'
 #include '../.lib/ui/open-options.js'
 
-var BOUNDS_TEXT = [75, 21]
+var BOUNDS_TEXT = [65, 21]
 var BOUNDS_EDIT = [100, 21]
 
-var dialog = new Dialog('Impose 2-up Duplex')
-var pdfPanel, documentGroup
+var dialog = new Dialog('Impose 2-Up')
+var pdfPanel, pagesPanel, documentPanel
+var duplexCheck
 
 var files = openFile(dialog.title, [
     ['Adobe Illustrator', 'ai'],
@@ -24,29 +25,39 @@ if (files !== null && files.isNotEmpty()) {
     if (files.filter(function(it) { return it.isPDF() }).isNotEmpty()) {
         check(files.length === 1, 'Only supports single PDF file')
     }
-    if (files.first().isPDF()) {
-        pdfPanel = new OpenPDFPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
-    }
-    documentGroup = new OpenDocumentGroup(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
+    
+    dialog.main.hgroup(function(mainGroup) {
+        mainGroup.alignChildren = 'fill'
+        mainGroup.vgroup(function(group) {
+            if (files.first().isPDF()) {
+                pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
+            }
+            pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
+            pagesPanel.main.hgroup(function(group) {
+                group.setHelpTips('Is this layout double-sided?')
+                group.staticText(BOUNDS_TEXT, 'Duplexing:', JUSTIFY_RIGHT)
+                duplexCheck = group.checkBox(BOUNDS_EDIT, 'Enable')
+            })
+        })
+        documentPanel = new OpenDocumentPanel(mainGroup)
+    })
 
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
-        var pages = documentGroup.getPages()
-        var width = documentGroup.getPageWidth()
-        var height = documentGroup.getPageHeight()
-        var bleed = documentGroup.getPageBleed()
+        var pages = pagesPanel.getPages()
+        var width = pagesPanel.getWidth()
+        var height = pagesPanel.getHeight()
+        var bleed = pagesPanel.getBleed()
         if (pages === 0 || pages % 4 !== 0) {
             alert('Total pages must be a non-zero number that can be divided by 4.')
         } else {
-            var document = app.documents.addDocument(DocumentPresetType.Print, documentGroup.getPreset().let(function(preset) {
-                preset.title = 'Untitled-2-up Duplex'
-                preset.numArtboards = pages / 2
-                preset.width = (width + bleed * 2) * 2
-                preset.height = height + bleed * 2
-                preset.documentBleedOffset = [0, 0, 0, 0]
-                return preset
-            }))
-            var pager = new DuplexPager2(document, files.first().isPDF())
+            var document = documentPanel.open('Untitled-2-Up',
+                pages / 2,
+                (width + bleed * 2) * 2,
+                (height + bleed * 2))
+            var pager = duplexCheck.value
+                ? new DuplexPager2(document, files.first().isPDF())
+                : new SimplexPager2(document, files.first().isPDF())
             pager.forEachArtboard(function(artboard) {
                 artboard.name = pager.getArtboardTitle()
                 

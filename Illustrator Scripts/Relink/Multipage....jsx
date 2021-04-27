@@ -35,7 +35,7 @@ if (files !== null && files.isNotEmpty()) {
     }
 
     if (files.first().isPDF()) {
-        pdfPanel = new OpenPDFOptionsPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
+        pdfPanel = new OpenPDFPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
         pdfPanel.main.hgroup(function(group) {
             group.setHelpTips('Beginning page of PDF file.')
             group.staticText(BOUNDS_TEXT, 'Start page:', JUSTIFY_RIGHT)

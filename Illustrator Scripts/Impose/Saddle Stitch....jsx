@@ -6,7 +6,8 @@ var BOUNDS_TEXT = [75, 21]
 var BOUNDS_EDIT = [100, 21]
 
 var dialog = new Dialog('Impose Saddle Stitch')
-var pdfPanel, documentGroup, rtlCheck
+var pdfPanel, pagesPanel, documentPanel
+var rtlCheck
 
 var files = openFile(dialog.title, [
     ['Adobe Illustrator', 'ai'],
@@ -24,35 +25,37 @@ if (files !== null && files.isNotEmpty()) {
     if (files.filter(function(it) { return it.isPDF() }).isNotEmpty()) {
         check(files.length === 1, 'Only supports single PDF file')
     }
+    
     dialog.main.hgroup(function(mainGroup) {
-        if (files.first().isPDF()) {
-            pdfPanel = new OpenPDFPanel(mainGroup, BOUNDS_TEXT, BOUNDS_EDIT)
-        }
-        mainGroup.vpanel('Booklet', function(panel) {
-            panel.hgroup(function(group) {
+        mainGroup.alignChildren = 'fill'
+        mainGroup.vgroup(function(group) {
+            if (files.first().isPDF()) {
+                pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
+            }
+            pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
+            pagesPanel.main.hgroup(function(group) {
                 group.setHelpTips('Useful for Arabic layout.')
-                group.staticText(undefined, 'Right-to-Left:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_TEXT, 'Right-to-Left:', JUSTIFY_RIGHT)
                 rtlCheck = group.checkBox(BOUNDS_EDIT, 'Enable')
             })
         })
+        documentPanel = new OpenDocumentPanel(mainGroup)
     })
-    documentGroup = new OpenDocumentGroup(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
 
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
-        var pages = documentGroup.getPages()
-        var width = documentGroup.getPageWidth()
-        var height = documentGroup.getPageHeight()
-        var bleed = documentGroup.getPageBleed()
+        var pages = pagesPanel.getPages()
+        var width = pagesPanel.getWidth()
+        var height = pagesPanel.getHeight()
+        var bleed = pagesPanel.getBleed()
         if (pages === 0 || pages % 4 !== 0) {
             alert('Total pages must be a non-zero number that can be divided by 4.')
         } else {
-            var document = app.documents.addDocument(DocumentPresetType.Print, documentGroup.getPreset().let(function(preset) {
-                preset.title = 'Untitled-Saddle Stitch'
-                preset.numArtboards = pages / 2
-                preset.width = width * 2
-                return preset
-            }))
+            var document = documentPanel.open('Untitled-Saddle Stitch',
+                pages / 2,
+                width * 2,
+                height,
+                bleed)
             var pager = new SaddleStitchPager(document, pages, files.first().isPDF(), rtlCheck.value)
             pager.forEachArtboard(function(artboard) {
                 artboard.name = pager.getArtboardTitle()

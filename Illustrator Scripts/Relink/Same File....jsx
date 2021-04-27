@@ -29,7 +29,7 @@ var file = openFile(dialog.title, [
 
 if (file != null) {
     if (file.isPDF()) {
-        pdfPanel = new OpenPDFOptionsPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
+        pdfPanel = new OpenPDFPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
         pdfPanel.main.hgroup(function(panel) {
             panel.setHelpTips('What page should be used when opening a multipage document.')
             panel.staticText(BOUNDS_TEXT, 'Page:', JUSTIFY_RIGHT)

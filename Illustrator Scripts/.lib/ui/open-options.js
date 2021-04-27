@@ -4,6 +4,11 @@ var OPEN_DOCUMENTRESOLUTIONS = ['Screen', 'Medium', 'High']
 var OPEN_DOCUMENTLAYOUTS = ['Grid by Row', 'Grid by Column', 'Row', 'Column', 'RTL Grid by Row', 'RTL Grid by Column', 'RTL Row']
 var OPEN_DOCUMENTPREVIEWMODES = ['Default', 'Pixel', 'Overprint']
 
+var BOUNDS_DOCUMENT_TEXT = [85, 21]
+var BOUNDS_DOCUMENT_EDIT = [100, 21]
+var BOUNDS_DOCUMENT_EDIT2 = [75, 21]
+var BOUNDS_DOCUMENT_EDITMAX = [185, 21]
+
 function OpenPDFPanel(parent, textBounds, editBounds) {
     var self = this
     this.boxTypeList
@@ -37,105 +42,97 @@ function OpenPDFPanel(parent, textBounds, editBounds) {
     }
 }
 
-function OpenDocumentGroup(parent, textBounds, editBounds) {
+function OpenPagesPanel(parent, textBounds, editBounds) {
     var self = this
-    this.pagesEdit
-    this.pageWidthEdit
-    this.pageHeightEdit
-    this.pageBleedEdit
-    this.documentModeList, this.documentResolutionList
-    this.documentLayoutList, this.documentRowsOrColsText, this.documentRowsOrColsEdit
-    this.documentUnitsList, this.documentSpacingEdit
-    this.documentPreviewModeList
+    this.pagesEdit, this.widthEdit, this.heightEdit, this.bleedEdit
 
-    this.main = parent.hgroup(function(mainGroup) {
-        mainGroup.vpanel('Pages', function(panel) {
-            mainGroup.alignChildren = 'fill'
-            panel.hgroup(function(group) {
-                group.staticText(textBounds, 'Total:', JUSTIFY_RIGHT)
-                self.pagesEdit = group.editText(editBounds, undefined, function(it) {
-                    it.validateDigits()
-                    it.activate()
-                })
-            })
-            panel.hgroup(function(group) {
-                group.staticText(textBounds, 'Width:', JUSTIFY_RIGHT)
-                self.pageWidthEdit = group.editText(editBounds, '210 mm', VALIDATE_UNITS)
-            })
-            panel.hgroup(function(group) {
-                group.staticText(textBounds, 'Height:', JUSTIFY_RIGHT)
-                self.pageHeightEdit = group.editText(editBounds, '297 mm', VALIDATE_UNITS)
-            })
-            panel.hgroup(function(group) {
-                group.staticText(textBounds, 'Bleed:', JUSTIFY_RIGHT)
-                self.pageBleedEdit = group.editText(editBounds, '0 mm', VALIDATE_UNITS)
+    this.main = parent.vpanel('Pages', function(panel) {
+        panel.alignChildren = 'fill'
+        panel.hgroup(function(group) {
+            group.staticText(textBounds, 'Total:', JUSTIFY_RIGHT)
+            self.pagesEdit = group.editText(editBounds, undefined, function(it) {
+                it.validateDigits()
+                it.activate()
             })
         })
-        mainGroup.vpanel('Document Preset', function(panel) {
-            panel.alignChildren = 'right'
-            panel.hgroup(function(group) {
-                group.staticText(textBounds, 'Color Mode:', JUSTIFY_RIGHT)
-                self.documentModeList = group.dropDownList(editBounds, OPEN_DOCUMENTMODES, function(it) {
-                    it.helpTip = 'The color mode for the new document.'
-                    it.selection = OPEN_DOCUMENTMODES.indexOf('CMYK')
-                })
-                group.staticText(textBounds, 'Resolution:', JUSTIFY_RIGHT)
-                self.documentResolutionList = group.dropDownList(editBounds, OPEN_DOCUMENTRESOLUTIONS, function(it) {
-                    it.helpTip = 'The raster resolution for the new document.'
-                    it.selection = OPEN_DOCUMENTRESOLUTIONS.indexOf('High')
-                })
+        panel.hgroup(function(group) {
+            group.staticText(textBounds, 'Width:', JUSTIFY_RIGHT)
+            self.widthEdit = group.editText(editBounds, '210 mm', VALIDATE_UNITS)
+        })
+        panel.hgroup(function(group) {
+            group.staticText(textBounds, 'Height:', JUSTIFY_RIGHT)
+            self.heightEdit = group.editText(editBounds, '297 mm', VALIDATE_UNITS)
+        })
+        panel.hgroup(function(group) {
+            group.staticText(textBounds, 'Bleed:', JUSTIFY_RIGHT)
+            self.bleedEdit = group.editText(editBounds, '0 mm', VALIDATE_UNITS)
+        })
+    })
+    
+    this.getPages = function() { return parseInt(self.pagesEdit.text) }
+    this.getWidth = function() { return parseUnits(self.widthEdit.text) }
+    this.getHeight = function() { return parseUnits(self.heightEdit.text) }
+    this.getBleed = function() { return parseUnits(self.bleedEdit.text) }
+}
+
+function OpenDocumentPanel(parent) {
+    var self = this
+    this.modeList, this.resolutionList, this.layoutList, this.rowsOrColsEdit, this.unitsList, this.spacingEdit, this.previewModeList
+
+    this.main = parent.vpanel('Document Preset', function(panel) {
+        panel.alignChildren = 'fill'
+        panel.hgroup(function(group) {
+            group.setHelpTips('The color mode and resolution for the new document.')
+            group.staticText(BOUNDS_DOCUMENT_TEXT, 'Mode:', JUSTIFY_RIGHT)
+            self.modeList = group.dropDownList(BOUNDS_DOCUMENT_EDIT, OPEN_DOCUMENTMODES, function(it) {
+                it.selection = OPEN_DOCUMENTMODES.indexOf('CMYK')
             })
-            panel.hgroup(function(group) {
-                group.staticText(textBounds, 'Layout:', JUSTIFY_RIGHT)
-                self.documentLayoutList = group.dropDownList(editBounds, OPEN_DOCUMENTLAYOUTS, function(it) {
-                    it.helpTip = 'Layout for artboards.'
-                    it.selection = OPEN_DOCUMENTLAYOUTS.indexOf('Grid by Row')
-                    it.onChange = function() {
-                        self.documentRowsOrColsText.text = it.selection.text.substringAfterLast(' ') + 's:'
-                    }
-                })
-                self.documentRowsOrColsText = group.staticText(textBounds, 'Rows:', JUSTIFY_RIGHT)
-                self.documentRowsOrColsEdit = group.editText(editBounds, '2', VALIDATE_DIGITS)
+            self.resolutionList = group.dropDownList(BOUNDS_DOCUMENT_EDIT2, OPEN_DOCUMENTRESOLUTIONS, function(it) {
+                it.selection = OPEN_DOCUMENTRESOLUTIONS.indexOf('High')
             })
-            panel.hgroup(function(group) {
-                group.staticText(textBounds, 'Units:', JUSTIFY_RIGHT)
-                self.documentUnitsList = group.dropDownList(editBounds, UNITS, function(it) {
-                    it.helpTip = 'The units for the new document.'
-                    it.selection = UNITS.indexOf('Millimeters')
-                })
-                group.staticText(textBounds, 'Spacing:', JUSTIFY_RIGHT)
-                self.documentSpacingEdit = group.editText(editBounds, '10 mm', function(it) {
-                    it.helpTip = 'Spacing between artboards.'
-                    it.validateUnits()
-                })
+        })
+        panel.hgroup(function(group) {
+            group.setHelpTips('Layout for artboards.')
+            group.staticText(BOUNDS_DOCUMENT_TEXT, 'Layout:', JUSTIFY_RIGHT)
+            self.layoutList = group.dropDownList(BOUNDS_DOCUMENT_EDIT, OPEN_DOCUMENTLAYOUTS, function(it) {
+                it.selection = OPEN_DOCUMENTLAYOUTS.indexOf('Grid by Row')
             })
-            panel.hgroup(function(group) {
-                group.staticText(undefined, 'Preview Mode:', JUSTIFY_RIGHT)
-                self.documentPreviewModeList = group.dropDownList(editBounds, OPEN_DOCUMENTPREVIEWMODES, function(it) {
-                    it.helpTip = 'The preview mode for the new document.'
-                    it.selection = OPEN_DOCUMENTPREVIEWMODES.indexOf('Default')
-                })
+            self.rowsOrColsEdit = group.editText(BOUNDS_DOCUMENT_EDIT2, '2', VALIDATE_DIGITS)
+        })
+        panel.hgroup(function(group) {
+            group.setHelpTips('The units for the new document.')
+            group.staticText(BOUNDS_DOCUMENT_TEXT, 'Units:', JUSTIFY_RIGHT)
+            self.unitsList = group.dropDownList(BOUNDS_DOCUMENT_EDITMAX, UNITS, function(it) {
+                it.selection = UNITS.indexOf('Millimeters')
+            })
+        })
+        panel.hgroup(function(group) {
+            group.setHelpTips('Spacing between artboards.')
+            group.staticText(BOUNDS_DOCUMENT_TEXT, 'Spacing:', JUSTIFY_RIGHT)
+            self.spacingEdit = group.editText(BOUNDS_DOCUMENT_EDITMAX, '10 mm', function(it) {
+                it.validateUnits()
+            })
+        })
+        panel.hgroup(function(group) {
+            group.setHelpTips('The preview mode for the new document.')
+            group.staticText(BOUNDS_DOCUMENT_TEXT, 'Preview Mode:', JUSTIFY_RIGHT)
+            self.previewModeList = group.dropDownList(BOUNDS_DOCUMENT_EDITMAX, OPEN_DOCUMENTPREVIEWMODES, function(it) {
+                it.selection = OPEN_DOCUMENTPREVIEWMODES.indexOf('Default')
             })
         })
     })
-
-    this.getPages = function() { return parseInt(self.pagesEdit.text) }
-    this.getPageWidth = function() { return parseUnits(self.pageWidthEdit.text) }
-    this.getPageHeight = function() { return parseUnits(self.pageHeightEdit.text) }
-    this.getPageBleed = function() { return parseUnits(self.pageBleedEdit.text) }
-    this.getPreset = function() {
-        return new DocumentPreset().let(function(preset) {
-            preset.numArtboards = self.getPages()
-            preset.width = self.getPageWidth()
-            preset.height = self.getPageHeight()
-            self.getPageBleed().let(function(bleed) {
-                bleed = parseInt(bleed)
-                if (bleed > 0) {
-                    preset.documentBleedLink = true
-                    preset.documentBleedOffset = [bleed, bleed, bleed, bleed]
-                }
-            })
-            switch(self.documentModeList.selection.text) {
+    
+    this.open = function(title, pages, width, height, bleed) {
+        return app.documents.addDocument(DocumentPresetType.Print, new DocumentPreset().let(function(preset) {
+            preset.title = title
+            preset.numArtboards = pages
+            preset.width = width
+            preset.height = height
+            if (bleed !== undefined && bleed > 0) {
+                preset.documentBleedLink = true
+                preset.documentBleedOffset = [bleed, bleed, bleed, bleed]
+            }
+            switch(self.modeList.selection.text) {
                 case 'RGB':
                     preset.colorMode = DocumentColorSpace.RGB
                     break;
@@ -143,7 +140,7 @@ function OpenDocumentGroup(parent, textBounds, editBounds) {
                     preset.colorMode = DocumentColorSpace.CMYK
                     break;
             }
-            switch(self.documentResolutionList.selection.text) {
+            switch(self.resolutionList.selection.text) {
                 case 'Screen':
                     preset.rasterResolution = DocumentRasterResolution.ScreenResolution
                     break;
@@ -154,7 +151,7 @@ function OpenDocumentGroup(parent, textBounds, editBounds) {
                     preset.rasterResolution = DocumentRasterResolution.HighResolution
                     break;
             }
-            switch (self.documentLayoutList.selection.text) {
+            switch (self.layoutList.selection.text) {
                 case 'Grid by Row':
                     preset.artboardLayout = DocumentArtboardLayout.GridByRow
                     break;
@@ -177,10 +174,10 @@ function OpenDocumentGroup(parent, textBounds, editBounds) {
                     preset.artboardLayout = DocumentArtboardLayout.RLRow
                     break;
             }
-            preset.artboardRowsOrCols = parseInt(self.documentRowsOrColsEdit.text)
-            preset.units = parseRulerUnits(self.documentUnitsList.selection.text)
-            preset.spacing = parseUnits(self.documentSpacingEdit.text)
-            switch(self.documentPreviewModeList.selection.text) {
+            preset.artboardRowsOrCols = parseInt(self.rowsOrColsEdit.text)
+            preset.units = parseRulerUnits(self.unitsList.selection.text)
+            preset.spacing = parseUnits(self.spacingEdit.text)
+            switch(self.previewModeList.selection.text) {
                 case 'Default':
                     preset.previewMode = DocumentPreviewMode.DefaultPreview
                     break;
@@ -192,6 +189,6 @@ function OpenDocumentGroup(parent, textBounds, editBounds) {
                     break;
             }
             return preset
-        })
+        }))
     }
 }
