@@ -3,7 +3,4 @@
 
 checkEvenArtboards()
 
-var pager = new SimplexPager4(document)
-pager.forEachArtboard(function(artboard) {
-    artboard.name = pager.getArtboardTitle()
-})
+new FourUpSimplexPager(document).forEachArtboard(function() { })

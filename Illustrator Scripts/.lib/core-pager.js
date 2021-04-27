@@ -2,101 +2,141 @@
 
 /** 
  * @param {Document} document to attach to, use `document` for active document.
- * @param {Boolean} isPDF when set to true, the first page is 1.
  */
- function SimplexPager4(document, isPDF) {
+function FourUpSimplexPager(document) {
     var _current = 0
-
-    this.getTopLeftIndex = function() { return isPDF ? getTopLeft() + 1 : getTopLeft() }
-    this.getTopRightIndex = function() { return isPDF ? getTopRight() + 1 : getTopRight() }
-    this.getBottomLeftIndex = function() { return isPDF ? getBottomLeft() + 1 : getBottomLeft() }
-    this.getBottomRightIndex = function() { return isPDF ? getBottomRight() + 1 : getBottomRight() }
-    this.getArtboardTitle = function() { return (getTopLeft() + 1) + '-' + (getTopRight() + 1) + '-' + (getBottomLeft() + 1) + '-' + (getBottomRight() + 1) }
 
     this.forEachArtboard = function(action) {
         document.artboards.forEach(function(artboard) {
-            action(artboard)
+            var topLeft = _current
+            var topRight = _current + 1
+            var bottomLeft = _current + 2
+            var bottomRight = _current + 3
+            artboard.name = (topLeft + 1) + '-' + (topRight + 1) + '-' + (bottomLeft + 1) + '-' + (bottomRight + 1)
+            action(artboard, topLeft, topRight, bottomLeft, bottomRight)
             _current += 4
         })
     }
+}
 
-    function getTopLeft() { return _current }
-    function getTopRight() { return _current + 1 }
-    function getBottomLeft() { return _current + 2 }
-    function getBottomRight() { return _current + 3 }
+function FourUpDuplexPager(document) {
+   var _current = 0
+   var _isFront = true
+
+   this.forEachArtboard = function(action) {
+       document.artboards.forEach(function(artboard) {
+            var topLeft, topRight, bottomLeft, bottomRight
+            if (_isFront) {
+                topLeft = _current
+                topRight = _current + 2
+                bottomLeft = _current + 4
+                bottomRight = _current + 6
+            } else {
+                topLeft = _current - 1
+                topRight = _current - 3
+                bottomLeft = _current + 3
+                bottomRight = _current + 1
+            }
+           artboard.name = (topLeft + 1) + '-' + (topRight + 1) + '-' + (bottomLeft + 1) + '-' + (bottomRight + 1)
+           action(artboard, topLeft, topRight, bottomLeft, bottomRight)
+           _current += 4
+           _isFront = !_isFront
+       })
+   }
 }
 
 /** 
  * @param {Document} document to attach to, use `document` for active document.
- * @param {Boolean} isPDF when set to true, the first page is 1.
  */
- function SimplexPager2(document, isPDF) {
+function TwoUpSimplexPager(document) {
     var _current = 0
 
-    this.getLeftIndex = function() { return isPDF ? getLeft() + 1 : getLeft() }
-    this.getRightIndex = function() { return isPDF ? getRight() + 1 : getRight() }
-    this.getArtboardTitle = function() { return (getLeft() + 1) + '-' + (getRight() + 1) }
-    
     this.forEachArtboard = function(action) {
         document.artboards.forEach(function(artboard) {
-            action(artboard)
+            var left = _current
+            var right = _current + 1
+            artboard.name = (left + 1) + '-' + (right + 1)
+            action(artboard, left, right)
             _current += 2
         })
     }
-    
-    function getLeft() { return _current }
-    function getRight() { return _current + 1 }
 }
 
 /** 
  * @param {Document} document to attach to, use `document` for active document.
- * @param {Boolean} isPDF when set to true, the first page is 1.
  */
- function DuplexPager2(document, isPDF) {
+function TwoUpDuplexPager(document) {
     var _current = 0
     var _isFront = true
 
-    this.getLeftIndex = function() { return isPDF ? getLeft() + 1 : getLeft() }
-    this.getRightIndex = function() { return isPDF ? getRight() + 1 : getRight() }
-    this.getArtboardTitle = function() { return (getLeft() + 1) + '-' + (getRight() + 1) }
-
     this.forEachArtboard = function(action) {
         document.artboards.forEach(function(artboard) {
-            action(artboard)
+            var left, right
+            if (_isFront) {
+                left = _current
+                right = _current + 2
+            } else {
+                left = _current + 1
+                right = _current - 1
+            }
+            artboard.name = (left + 1) + '-' + (right + 1)
+            action(artboard, left, right)
             _current += 2
             _isFront = !_isFront
         })
     }
+}
 
-    function getLeft() { return _isFront ? _current : _current + 1 }
-    function getRight() { return _isFront ? _current + 2 : _current - 1 }
+/** 
+ * @param {Document} document to attach to, use `document` for active document.
+ */
+function PerfectBoundPager(document) {
+    var _current = 0
+
+    this.forEachArtboard = function(action) {
+        document.artboards.forEach(function(artboard) {
+            artboard.name = _current + 1
+            action(artboard, _current++)
+        })
+    }
 }
 
 /** 
  * @param {Document} document to attach to, use `document` for active document.
  * @param {Number} end final page number, default is artboards' length times 2.
- * @param {Boolean} isPDF when set to true, the first page is 1.
  * @param {Boolean} isRtl useful for arabic layout, default is false.
  */
-function SaddleStitchPager(document, end, isPDF, isRtl) {
+function SaddleStitchPager(document, end, isRtl) {
     var _start = 0
     var _end = end === undefined ? document.artboards.length * 2 - 1 : end - 1
     var _isRtl = isRtl === undefined ? false : isRtl
     var _isFront = true
 
-    this.getLeftIndex = function() { return isPDF ? getLeft() + 1 : getLeft() }
-    this.getRightIndex = function() { return isPDF ? getRight() + 1 : getRight() }
-    this.getArtboardTitle = function() { return (getLeft() + 1) + '-' + (getRight() + 1) }
-
     this.forEachArtboard = function(action) {
         document.artboards.forEach(function(artboard) {
-            action(artboard)
+            var left, right
+            if (_isFront) {
+                if (!_isRtl) {
+                    left = _end
+                    right = _start
+                } else {
+                    left = _start
+                    right = _end
+                }
+            } else {
+                if (!_isRtl) {
+                    left = _start
+                    right = _end
+                } else {
+                    left = _end
+                    right = _start
+                }
+            }
+            artboard.name = (left + 1) + '-' + (right + 1)
+            action(artboard, left, right)
             _start++
             _end--
             _isFront = !_isFront
         })
     }
-
-    function getLeft() { return _isFront ? (!_isRtl ? _end : _start) : (!_isRtl ? _start : _end) }
-    function getRight() { return _isFront ? (!_isRtl ? _start : _end) : (!_isRtl ? _end : _start) }
 }

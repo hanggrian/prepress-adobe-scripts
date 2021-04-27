@@ -3,4 +3,4 @@
 
 checkEvenArtboards()
 
-new TwoUpDuplexPager(document).forEachArtboard(function() { })
+new FourUpDuplexPager(document).forEachArtboard(function() { })

@@ -4,6 +4,8 @@
 // * `unitName` are the suffix. (e.g. : `pt`, `mm`)
 // * `unitFullName` are the full form name. (e.g.: `Points`, `Millimeters`)
 
+var UNITS = ['Pixels', 'Points', 'Inches', 'Millimeters', 'Centimeters']
+
 /**
  * Converts units to unit value in points.
  * @param {String} units units to convert.

@@ -150,7 +150,7 @@ function TrimMarksPanel(parent, textBounds, editBounds) {
         return marks
     }
 
-    function createTrimMark(suffixName, fromX, fromY, toX, toY) {
+function createTrimMark(suffixName, fromX, fromY, toX, toY) {
         var weight = parseUnits(self.weightEdit.text)
         var color = parseColor(self.colorList.selection.text)
 

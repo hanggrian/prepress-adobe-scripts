@@ -14,7 +14,6 @@ var BOUNDS_TEXT = [60, 21]
 var BOUNDS_EDIT = [100, 21]
 
 var dialog = new Dialog('Open Splitted')
-var horizontalRadio, verticalRadio, partsEdit
 var documentPanel
 
 var files = openFile(dialog.title, [
@@ -34,7 +33,7 @@ if (files !== null && files.isNotEmpty()) {
         check(files.length === 1, 'Only supports single PDF file')
     }
 
-    dialog.main.vpanel('Split Options', function(panel) {
+    /* dialog.main.vpanel('Split Options', function(panel) {
         panel.hgroup(function(group) {
             group.setHelpTips('Divide image horizontally/vertically.')
             group.staticText(BOUNDS_TEXT, 'Direction:', JUSTIFY_RIGHT)
@@ -52,8 +51,8 @@ if (files !== null && files.isNotEmpty()) {
                 it.activate()
             })
         })
-    })
-    documentPanel = new OpenDocumentOptionsPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
+    }) */
+    documentPanel = new OpenDocumentPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
 
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {

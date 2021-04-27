@@ -55,14 +55,9 @@ if (files !== null && files.isNotEmpty()) {
 
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
-        var resetPage, currentPage, endPage
-        if (files.first().isPDF()) {
-            resetPage = function() { currentPage = parseInt(startPageEdit.text) || 1 }
-            endPage = parseInt(endPageEdit.text) || 1
-        } else { 
-            resetPage = function() { currentPage = 0 }
-            endPage = files.lastIndex()
-        }
+        var currentPage
+        var resetPage = function() { currentPage = parseInt(startPageEdit.text) - 1 }
+        var endPage = parseInt(endPageEdit.text) - 1
         resetPage()
         reverseGroup.forEachAware(items, function(item) {
             var width = item.width
@@ -77,12 +72,11 @@ if (files !== null && files.isNotEmpty()) {
                 } catch (e) {
                     $.writeln(e.message)
                 }
-                setPDFPage(currentPage++, pdfPanel.getBoxType())
-                item.relink(files.first())
+                item.relinkPDF(files.first(), currentPage++, pdfPanel.getBoxType())
             } else {
                 item.relink(files[currentPage++])
             }
-            if (dimensionPanel.isMaintain()) {
+            if (maintainGroup.isMaintain()) {
                 item.width = width
                 item.height = height
                 item.position = position

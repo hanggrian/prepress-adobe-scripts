@@ -42,7 +42,7 @@ function unitsOf(input) { return UnitValue(input).as(unitName) + ' ' + unitName 
  * @param {Array} types array of `PageItem` typenames.
  * @param {Function} callable nullable custom item checker that should return true if the item parameter should be selected.
  */
- function selectAll(types, callable) {
+function selectAll(types, callable) {
     var queue = []
     var target = selection === null || selection.length === 0
         ? document.pageItems

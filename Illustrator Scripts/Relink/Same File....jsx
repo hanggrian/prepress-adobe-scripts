@@ -44,8 +44,7 @@ if (file != null) {
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
         if (file.isPDF()) {
-            var page = parseInt(pageEdit.text) || 1
-            setPDFPage(page, pdfPanel.getBoxType())
+            _updatePDFPref(parseInt(pageEdit.text) - 1, pdfPanel.getBoxType())
         }
         items.forEach(function(item) {
             var width = item.width

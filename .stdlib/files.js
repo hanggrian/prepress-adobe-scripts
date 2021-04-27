@@ -38,7 +38,7 @@ File.prototype.isPDF = function() {
  * @param {String} prompt title of the picker
  * @return {Folder}
  */
- function openFolder(prompt) {
+function openFolder(prompt) {
     return Folder.selectDialog(prompt)
 }
 

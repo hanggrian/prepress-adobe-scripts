@@ -2,10 +2,10 @@
 #include '../.lib/core.js'
 #include '../.lib/ui/open-options.js'
 
-var BOUNDS_TEXT = [75, 21]
+var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
 
-var dialog = new Dialog('Impose Saddle Stitch')
+var dialog = new Dialog('Impose Saddle Stitch', 'right')
 var pdfPanel, pagesPanel, documentPanel
 var rtlCheck
 
@@ -33,13 +33,12 @@ if (files !== null && files.isNotEmpty()) {
                 pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
             }
             pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
-            pagesPanel.main.hgroup(function(group) {
-                group.setHelpTips('Useful for Arabic layout.')
-                group.staticText(BOUNDS_TEXT, 'Right-to-Left:', JUSTIFY_RIGHT)
-                rtlCheck = group.checkBox(BOUNDS_EDIT, 'Enable')
-            })
+            pagesPanel.pagesEdit.text = '4'
         })
         documentPanel = new OpenDocumentPanel(mainGroup)
+    })
+    rtlCheck = dialog.main.checkBox(undefined, 'Right-to-Left', function(it) {
+        it.helpTip = 'Useful for Arabic layout.'
     })
 
     dialog.setNegativeButton('Cancel')
@@ -48,48 +47,36 @@ if (files !== null && files.isNotEmpty()) {
         var width = pagesPanel.getWidth()
         var height = pagesPanel.getHeight()
         var bleed = pagesPanel.getBleed()
-        if (pages === 0 || pages % 4 !== 0) {
-            alert('Total pages must be a non-zero number that can be divided by 4.')
+        if (pages < 1 || pages % 4 !== 0) {
+            alert('Pages must be higher than 0 and can be divided by 4.')
         } else {
             var document = documentPanel.open('Untitled-Saddle Stitch',
                 pages / 2,
                 width * 2,
                 height,
                 bleed)
-            var pager = new SaddleStitchPager(document, pages, files.first().isPDF(), rtlCheck.value)
-            pager.forEachArtboard(function(artboard) {
-                artboard.name = pager.getArtboardTitle()
-
+            var pager = new SaddleStitchPager(document, pages, rtlCheck.value)
+            pager.forEachArtboard(function(artboard, leftIndex, rightIndex) {
                 var leftItem = document.placedItems.add()
                 var rightItem = document.placedItems.add()
                 if (files.first().isPDF()) {
-                    setPDFPage(pager.getLeftIndex(), pdfPanel.getBoxType())
-                    leftItem.file = files.first()
-                    setPDFPage(pager.getRightIndex(), pdfPanel.getBoxType())
-                    rightItem.file = files.first()
+                    leftItem.setPDFFile(files.first(), leftIndex, pdfPanel.getBoxType())
+                    rightItem.setPDFFile(files.first(), rightIndex, pdfPanel.getBoxType())
                 } else {
-                    leftItem.file = files[pager.getLeftIndex()]
-                    rightItem.file = files[pager.getRightIndex()]
+                    leftItem.file = files[leftIndex]
+                    rightItem.file = files[rightIndex]
                 }
                 var rect = artboard.artboardRect
-                var artboardRight = rect[0] + rect[2]
-                var artboardBottom = rect[1] + rect[3]
-                var leftX = (artboardRight - width) / 2 - width / 2
-                var rightX = (artboardRight - width) / 2 + width / 2
-                var y = (artboardBottom + height) / 2
-                if (bleed <= 0) {
-                    leftItem.width = width
-                    rightItem.width = width
-                    leftItem.height = height
-                    rightItem.height = height
-                    leftItem.position = [leftX, y]
-                    rightItem.position = [rightX, y]
-                } else {
-                    leftItem.width = width + bleed * 2
-                    rightItem.width = width + bleed * 2
-                    leftItem.height = height + bleed * 2
-                    rightItem.height = height + bleed * 2
-
+                var leftX = rect[0]
+                var rightX = leftX + width
+                var y = rect[1]
+                leftItem.width = width + bleed * 2
+                rightItem.width = width + bleed * 2
+                leftItem.height = height + bleed * 2
+                rightItem.height = height + bleed * 2
+                leftItem.position = [leftX - bleed, y + bleed]
+                rightItem.position = [rightX - bleed, y + bleed]
+                if (bleed > 0) {
                     var leftGroup = document.groupItems.add()
                     leftItem.moveToBeginning(leftGroup)
                     var leftClip = document.pathItems.rectangle(
@@ -111,9 +98,6 @@ if (files !== null && files.isNotEmpty()) {
                     rightClip.clipping = true
                     rightClip.moveToBeginning(rightGroup)
                     rightGroup.clipped = true
-
-                    leftItem.position = [leftX - bleed, y + bleed]
-                    rightItem.position = [rightX - bleed, y + bleed]
                 }
             })
         }

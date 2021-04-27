@@ -33,40 +33,32 @@ Object.prototype.getClippingPathItem = function() {
 }
 
 /**
- * @param {RulerUnits} rulerUnits measurement used for the new document.
- * @param {Number} pages number of artboards.
- * @param {Number} width width of artboards.
- * @param {Number} height height of artboards.
- * @param {Number} bleed extra area around content, may be null.
- * @param {String} title new document name, may be null.
- * @return {Document}
+ * Set PDF file while specifying its page.
+ * @param {File} file source PDF file.
+ * @param {Number} page PDF page, first page is 0.
+ * @param {PDFBoxType} boxType optional cropping style.
+ * @this {PlacedItem}
  */
-function addDocument(rulerUnits, pages, width, height, bleed, title) {
-    return app.documents.addDocument(DocumentPresetType.Print, new DocumentPreset().let(function(it) {
-        it.units = rulerUnits
-        it.width = width
-        it.height = height
-        it.numArtboards = pages
-        it.rasterResolution = DocumentRasterResolution.HighResolution
-        if (bleed !== undefined && bleed > 0) {
-            it.documentBleedLink = true
-            it.documentBleedOffset = [bleed, bleed, bleed, bleed]
-        }
-        if (title !== undefined) {
-            it.title = title
-        }
-        return it
-    }))
+Object.prototype.setPDFFile = function(file, page, boxType) {
+    _updatePDFPref(page, boxType)
+    this.file = file
 }
 
 /**
- * Set PDF file options for opening/relinking.
- * @param {Number} page PDF page to open.
- * @param {PDFBoxType} boxType cropping method, default is bounding box when left undefined.
+ * Relink PDF file while specifying its page.
+ * @param {File} file source PDF file.
+ * @param {Number} page PDF page, first page is 0.
+ * @param {PDFBoxType} boxType optional cropping style.
+ * @this {PlacedItem}
  */
-function setPDFPage(page, boxType) {
+Object.prototype.relinkPDF = function(file, page, boxType) {
+    _updatePDFPref(page, boxType)
+    this.relink(file)
+}
+
+function _updatePDFPref(page, boxType) {
     app.preferences.PDFFileOptions.let(function(it) {
-        it.pageToOpen = page
+        it.pageToOpen = page + 1
         it.pDFCropToBox = boxType !== undefined ? boxType : PDFBoxType.PDFBOUNDINGBOX 
     })
 }

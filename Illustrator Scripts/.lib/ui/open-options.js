@@ -5,9 +5,9 @@ var OPEN_DOCUMENTLAYOUTS = ['Grid by Row', 'Grid by Column', 'Row', 'Column', 'R
 var OPEN_DOCUMENTPREVIEWMODES = ['Default', 'Pixel', 'Overprint']
 
 var BOUNDS_DOCUMENT_TEXT = [85, 21]
-var BOUNDS_DOCUMENT_EDIT = [100, 21]
+var BOUNDS_DOCUMENT_EDIT = [125, 21]
 var BOUNDS_DOCUMENT_EDIT2 = [75, 21]
-var BOUNDS_DOCUMENT_EDITMAX = [185, 21]
+var BOUNDS_DOCUMENT_EDITMAX = [125 + 75 +10, 21]
 
 function OpenPDFPanel(parent, textBounds, editBounds) {
     var self = this
@@ -77,13 +77,17 @@ function OpenPagesPanel(parent, textBounds, editBounds) {
 
 function OpenDocumentPanel(parent) {
     var self = this
-    this.modeList, this.resolutionList, this.layoutList, this.rowsOrColsEdit, this.unitsList, this.spacingEdit, this.previewModeList
+    this.modeList, this.resolutionList
+    this.layoutList, this.rowsOrColsEdit,
+    this.unitsList
+    this.spacingEdit
+    this.previewDefaultRadio, this.previewPixelRadio, this.previewOverprintRadio
 
     this.main = parent.vpanel('Document Preset', function(panel) {
         panel.alignChildren = 'fill'
         panel.hgroup(function(group) {
             group.setHelpTips('The color mode and resolution for the new document.')
-            group.staticText(BOUNDS_DOCUMENT_TEXT, 'Mode:', JUSTIFY_RIGHT)
+            group.staticText(BOUNDS_DOCUMENT_TEXT, 'Color Mode:', JUSTIFY_RIGHT)
             self.modeList = group.dropDownList(BOUNDS_DOCUMENT_EDIT, OPEN_DOCUMENTMODES, function(it) {
                 it.selection = OPEN_DOCUMENTMODES.indexOf('CMYK')
             })
@@ -116,9 +120,9 @@ function OpenDocumentPanel(parent) {
         panel.hgroup(function(group) {
             group.setHelpTips('The preview mode for the new document.')
             group.staticText(BOUNDS_DOCUMENT_TEXT, 'Preview Mode:', JUSTIFY_RIGHT)
-            self.previewModeList = group.dropDownList(BOUNDS_DOCUMENT_EDITMAX, OPEN_DOCUMENTPREVIEWMODES, function(it) {
-                it.selection = OPEN_DOCUMENTPREVIEWMODES.indexOf('Default')
-            })
+            self.previewDefaultRadio = group.radioButton(undefined, 'Default', SELECTED)
+            self.previewPixelRadio = group.radioButton(undefined, 'Pixel')
+            self.previewOverprintRadio = group.radioButton(undefined, 'Overprint')
         })
     })
     
@@ -177,16 +181,12 @@ function OpenDocumentPanel(parent) {
             preset.artboardRowsOrCols = parseInt(self.rowsOrColsEdit.text)
             preset.units = parseRulerUnits(self.unitsList.selection.text)
             preset.spacing = parseUnits(self.spacingEdit.text)
-            switch(self.previewModeList.selection.text) {
-                case 'Default':
-                    preset.previewMode = DocumentPreviewMode.DefaultPreview
-                    break;
-                case 'Pixel':
-                    preset.previewMode = DocumentPreviewMode.PixelPreview
-                    break;
-                default:
-                    preset.previewMode = DocumentPreviewMode.OverprintPreview
-                    break;
+            if (self.previewDefaultRadio.value) {
+                preset.previewMode = DocumentPreviewMode.DefaultPreview
+            } else if (self.previewPixelRadio.value) {
+                preset.previewMode = DocumentPreviewMode.PixelPreview
+            } else {
+                preset.previewMode = DocumentPreviewMode.OverprintPreview
             }
             return preset
         }))
