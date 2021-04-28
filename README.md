@@ -4,22 +4,27 @@ Adobe Illustrator and Photoshop scripts tailored for printing purposes.
 Tested only on latest Adobe suite.
 
 <p float="left">
-    <img src="/art/add-trim-marks.gif" width="270" />
-    <img src="/art/relink-same-file.gif" width="270" />
-    <img src="/art/impose-saddle-stitch.gif" width="270" />
+    <img src="/art/add-trim-marks.png" width="270" />
+    <img src="/art/relink-same-file.png" width="270" />
+    <img src="/art/impose-saddle-stitch.png" width="270" />
+    <img src="/art/transform-all.png" width="270" />
+    <img src="/art/select-by-types.png" width="270" />
+    <img src="/art/add-bleed.png" width="270" />
 </p>
 
 Usage
 -----
 These scripts are **not standalone**, all of them requires hidden directories to be in pre-determined location. This is why it is recommended to put them in Adobe installation paths.
 
-#### Automatic Installation
+### Automatic Installation
 Run `scripts-patcher.bat` as admin (Windows) or `scripts-patcher.sh` with sudo (Mac).
 
 ![scripts-patcher](/art/scripts-patcher.png)
 
-#### Manual Installation
-Manually copy & paste all files and folders within `Scripts` directory to `{App installation path}/Presets/{your locale}/Scripts`.
+### Manual Installation
+Manually copy all files & folders within `Scripts` directory to `Presets` directory in local Adobe installation paths, the location may differ between app:
+* Illustrator - `{Illustrator path}/Presets/{your locale}/Scripts`.
+* Photoshop - `{Photoshop path}/Presets/Scripts`.
 
 The scripts can then be accessible from `Menu Bar > File > Scripts`.
 
