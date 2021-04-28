@@ -51,3 +51,11 @@ String.prototype.substringAfter = function(s) {
 String.prototype.substringAfterLast = function(s) {
     return this.substring(this.lastIndexOf(s) + 1)
 }
+
+/**
+ * Returns true if string is integer or decimal.
+ * @return {Boolean}
+ */
+String.prototype.isNumeric = function() {
+     return /^-{0,1}\d*\.{0,1}\d+$/.test(this)
+}

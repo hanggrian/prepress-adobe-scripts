@@ -58,7 +58,8 @@ if (files !== null && files.isNotEmpty()) {
             var document = documentPanel.open('Untitled-2-Up',
                 pages / 2,
                 (rotatedWidth + bleed * 2) * 2,
-                (rotatedHeight + bleed * 2))
+                (rotatedHeight + bleed * 2),
+                0)
             var pager = duplexCheck.value ? new TwoUpDuplexPager(document) : new TwoUpSimplexPager(document)
             pager.forEachArtboard(function(artboard, leftIndex, rightIndex) {                
                 var item1 = document.placedItems.add()

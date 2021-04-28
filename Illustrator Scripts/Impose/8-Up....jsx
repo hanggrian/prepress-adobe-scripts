@@ -58,7 +58,8 @@ if (files !== null && files.isNotEmpty()) {
             var document = documentPanel.open('Untitled-8-Up',
                 pages / 8,
                 (rotatedWidth + bleed * 2) * 4,
-                (rotatedHeight + bleed * 2) * 2)
+                (rotatedHeight + bleed * 2) * 2,
+                0)
             var pager = duplexCheck.value ? new EightUpDuplexPager(document) : new EightUpSimplexPager(document)
             pager.forEachArtboard(function(artboard,
                 top1Index, top2Index, top3Index, top4Index,

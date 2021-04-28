@@ -6,7 +6,7 @@ var isMacOs; (isMacOs = function() {
 })()
 
 var isNumeric; (isNumeric = function() {
-    assertTrue(isNumeric(123))
-    assertTrue(isNumeric(123.02))
-    assertFalse(isNumeric('Hello World'))
+    assertTrue('123'.isNumeric())
+    assertTrue('123.02'.isNumeric())
+    assertFalse('Hello World'.isNumeric())
 })()

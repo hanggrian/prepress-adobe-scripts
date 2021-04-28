@@ -33,7 +33,7 @@ function parseUnits(units) {
     if (units.isEmpty()) {
         return 0
     }
-    return isNumeric(units)
+    return units.isNumeric()
         ? parseFloat(units)
         : UnitValue(units).as('pt')
 }

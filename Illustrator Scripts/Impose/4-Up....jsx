@@ -58,7 +58,8 @@ if (files !== null && files.isNotEmpty()) {
             var document = documentPanel.open('Untitled-4-Up',
                 pages / 4,
                 (rotatedWidth + bleed * 2) * 2,
-                (rotatedHeight + bleed * 2) * 2)
+                (rotatedHeight + bleed * 2) * 2,
+                0)
             var pager = duplexCheck.value ? new FourUpDuplexPager(document) : new FourUpSimplexPager(document)
             pager.forEachArtboard(function(artboard,
                 topLeftIndex, topRightIndex,

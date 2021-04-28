@@ -180,7 +180,7 @@ function OpenDocumentPanel(parent) {
             }
             preset.artboardRowsOrCols = parseInt(self.rowsOrColsEdit.text)
             preset.units = parseRulerUnits(self.unitsList.selection.text)
-            preset.spacing = parseUnits(self.spacingEdit.text)
+            preset.artboardSpacing = parseUnits(self.spacingEdit.text)
             if (self.previewDefaultRadio.value) {
                 preset.previewMode = DocumentPreviewMode.DefaultPreview
             } else if (self.previewPixelRadio.value) {
