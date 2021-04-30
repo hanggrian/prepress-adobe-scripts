@@ -15,7 +15,7 @@ COLOR_BLACK.black = 100
 /**
  * Converts text to color.
  * @param {String} text text to convert.
- * @return {CMYKColor}
+ * @returns {CMYKColor}
  */
 function parseColor(text) {
     switch (text) {
@@ -38,7 +38,7 @@ function parseColor(text) {
 
 /**
  * Refer to current swatch to obtain registration color.
- * @return {SpotColor}
+ * @returns {SpotColor}
  */
 function getRegistrationColor() {
     return document.swatches['[registration]'].color
@@ -49,7 +49,7 @@ function getRegistrationColor() {
  * Avoid prototype function since `Color` may be `CMYKColor` or `SpotColor` (Registration).
  * @this {CMYKColor} color A.
  * @param {CMYKColor} other color B.
- * @return {Boolean}
+ * @returns {Boolean}
  */
 function isColorEqual(colorA, colorB) {
     return colorA.cyan === colorB.cyan &&

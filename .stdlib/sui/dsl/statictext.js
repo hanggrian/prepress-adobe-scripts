@@ -8,7 +8,7 @@ var JUSTIFY_RIGHT = function(staticText) { staticText.justify = 'right' }
  * @param {String} text text to display.
  * @param {Function} configuration optional setup after creation.
  * @param {String} properties optional setup before creation.
- * @return {StaticText}
+ * @returns {StaticText}
  */
 Dialog.prototype.staticText = function(bounds, text, configuration, properties) {
     return _staticText(this.main, bounds, text, configuration, properties)
@@ -20,7 +20,7 @@ Dialog.prototype.staticText = function(bounds, text, configuration, properties) 
  * @param {String} text text to display.
  * @param {Function} configuration optional setup after creation.
  * @param {String} properties optional setup before creation.
- * @return {StaticText}
+ * @returns {StaticText}
  */
 Group.prototype.staticText = function(bounds, text, configuration, properties) {
     return _staticText(this, bounds, text, configuration, properties)
@@ -32,7 +32,7 @@ Group.prototype.staticText = function(bounds, text, configuration, properties) {
  * @param {String} text text to display.
  * @param {Function} configuration optional setup after creation.
  * @param {String} properties optional setup before creation.
- * @return {StaticText}
+ * @returns {StaticText}
  */
 Panel.prototype.staticText = function(bounds, text, configuration, properties) {
     return _staticText(this, bounds, text, configuration, properties)

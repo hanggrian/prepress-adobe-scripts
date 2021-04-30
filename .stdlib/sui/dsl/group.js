@@ -1,7 +1,7 @@
 /**
  * Add horizontal group to dialog.
  * @param {Function} configuration may be null.
- * @return {Group}
+ * @returns {Group}
  */
 Dialog.prototype.hgroup = function(configuration) {
     return _group(this.main, 'row', configuration)
@@ -10,7 +10,7 @@ Dialog.prototype.hgroup = function(configuration) {
 /**
  * Add horizontal group to group.
  * @param {Function} configuration may be null.
- * @return {Group}
+ * @returns {Group}
  */
 Group.prototype.hgroup = function(configuration) {
     return _group(this, 'row', configuration)
@@ -19,7 +19,7 @@ Group.prototype.hgroup = function(configuration) {
 /**
  * Add horizontal group to panel.
  * @param {Function} configuration may be null.
- * @return {Group}
+ * @returns {Group}
  */
 Panel.prototype.hgroup = function(configuration) {
     return _group(this, 'row', configuration)
@@ -28,7 +28,7 @@ Panel.prototype.hgroup = function(configuration) {
 /**
  * Add vertical group to dialog.
  * @param {Function} configuration may be null.
- * @return {Group}
+ * @returns {Group}
  */
 Dialog.prototype.vgroup = function(configuration) {
     return _group(this.main, 'column', configuration)
@@ -37,7 +37,7 @@ Dialog.prototype.vgroup = function(configuration) {
 /**
  * Add vertical group to group.
  * @param {Function} configuration may be null.
- * @return {Group}
+ * @returns {Group}
  */
 Group.prototype.vgroup = function(configuration) {
     return _group(this, 'column', configuration)
@@ -46,7 +46,7 @@ Group.prototype.vgroup = function(configuration) {
 /**
  * Add vertical group to panel.
  * @param {Function} configuration may be null.
- * @return {Group}
+ * @returns {Group}
  */
 Panel.prototype.vgroup = function(configuration) {
     return _group(this, 'column', configuration)

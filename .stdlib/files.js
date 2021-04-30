@@ -1,6 +1,6 @@
 /**
  * Returns true if both files point to the same location.
- * @return {Boolean}
+ * @returns {Boolean}
  */
 File.prototype.equalTo = function(other) {
     return this.absoluteURI === other.absoluteURI
@@ -8,7 +8,7 @@ File.prototype.equalTo = function(other) {
 
 /**
  * Returns file name without extension.
- * @return {String}
+ * @returns {String}
  */
 File.prototype.getNameWithoutExtension = function() {
     return unescape(this.name).substringBeforeLast('.')
@@ -16,7 +16,7 @@ File.prototype.getNameWithoutExtension = function() {
 
 /**
  * Returns file extension in lower-case without `.`.
- * @return {String}
+ * @returns {String}
  */
 File.prototype.getExtension = function() {
     return unescape(this.name).substringAfterLast('.').toLowerCase()
@@ -25,7 +25,7 @@ File.prototype.getExtension = function() {
 /**
  * Returns true if this file is PDF type, and should be opened with `PDFFileOptions`.
  * Non-template Illustrator files are PDF-compatible.
- * @return {Boolean}
+ * @returns {Boolean}
  */
 File.prototype.isPDF = function() {
     return this.getExtension().let(function(it) {
@@ -35,8 +35,8 @@ File.prototype.isPDF = function() {
 
 /**
  * Pick a folder.
- * @param {String} prompt title of the picker
- * @return {Folder}
+ * @param {String} prompt title of the picker.
+ * @returns {Folder}
  */
 function openFolder(prompt) {
     return Folder.selectDialog(prompt)
@@ -44,10 +44,10 @@ function openFolder(prompt) {
 
 /**
  * Pick single/multiple file.
- * @param {String} prompt title of the picker
- * @param {Array} filters e.g.: [['Illustrator', 'ai'], ['Photoshop', 'psd', 'psb', 'pdd']]
+ * @param {String} prompt title of the picker.
+ * @param {Array} filters e.g.: [['Illustrator', 'ai'], ['Photoshop', 'psd', 'psb', 'pdd']].
  * @param {Array} multiSelect set to true to pick multiple items, default is false.
- * @return {File}
+ * @returns {File}
  */
 function openFile(prompt, filters, multiSelect) {
     var nativeFilters

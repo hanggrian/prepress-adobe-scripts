@@ -5,13 +5,17 @@
 #include 'pager/two-up.js'
 #include 'core-collections.js'
 #include 'core-colors.js'
+#include 'core-preferences.js'
 #include 'core-resources.js'
 #include 'core-units.js'
+
+/** Global access to preferences, see `core-preferences`. */
+var preferences = app.preferences
 
 /**
  * Returns layer name, or type if it is unnamed.
  * @this {PageItem}
- * @return {String}
+ * @returns {String}
  */
 Object.prototype.getLayerName = function() {
     return this.name != null & this.name.length > 0 ? this.name : this.typename
@@ -20,7 +24,7 @@ Object.prototype.getLayerName = function() {
 /**
  * Returns the clipping path of this clip group, or the item itself if this is not a clip group.
  * @this {PageItem}
- * @return {PathItem}
+ * @returns {PathItem}
  */
 Object.prototype.getClippingPathItem = function() {
     if (this.typename === 'GroupItem' && this.clipped) {

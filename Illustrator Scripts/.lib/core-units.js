@@ -11,7 +11,7 @@ var UNITS = ['Pixels', 'Points', 'Inches', 'Millimeters', 'Centimeters']
  * @param {Number} unitValue unit value in pt.
  * @param {Number} unitName expected conversion, e.g: cm, mm, etc.
  * @param {Number} fraction max decimal place, may be undefined.
- * @return {String}
+ * @returns {String}
  */
 function formatUnits(unitValue, unitName, fraction) {
     checkNotNull(unitValue)
@@ -26,7 +26,7 @@ function formatUnits(unitValue, unitName, fraction) {
 /**
  * Converts units to unit value in points.
  * @param {String} units units to convert.
- * @return {Number}
+ * @returns {Number}
  */
 function parseUnits(units) {
     checkNotNull(units)
@@ -41,7 +41,7 @@ function parseUnits(units) {
 /**
  * Converts text to ruler unit.
  * @param {String} unitFullName as listed in `UNITS`.
- * @return {RulerUnits}
+ * @returns {RulerUnits}
  */
 function parseRulerUnits(unitFullName) {
     switch (unitFullName) {

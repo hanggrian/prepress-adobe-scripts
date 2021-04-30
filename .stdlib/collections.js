@@ -5,7 +5,7 @@
 /**
  * Last index of this collection.
  * @param {Object} element value within this collection.
- * @return {Boolean}
+ * @returns {Boolean}
  */
 Object.prototype.indexOf = function(element) {
     for (var i = 0; i < this.length; i++) {
@@ -18,14 +18,14 @@ Object.prototype.indexOf = function(element) {
 
  /**
   * Last index of this collection.
-  * @return {Boolean}
+  * @returns {Boolean}
   */
 Object.prototype.lastIndex = function() { return this.length - 1 }
 
 /**
  * First item of this collection.
  * @param {Function} predicate if defined, will search first item given the predicate.
- * @return {Object}
+ * @returns {Object}
  */
 Object.prototype.first = function(predicate) {
     if (predicate === undefined) {
@@ -42,7 +42,7 @@ Object.prototype.first = function(predicate) {
 /**
  * Last item of this collection.
  * @param {Function} predicate if defined, will search first item given the predicate.
- * @return {Object}
+ * @returns {Object}
  */
 Object.prototype.last = function(predicate) {
     if (predicate === undefined) {
@@ -58,19 +58,19 @@ Object.prototype.last = function(predicate) {
 
 /**
  * Returns true if this collection is empty.
- * @return {Boolean}
+ * @returns {Boolean}
  */
 Object.prototype.isEmpty = function() { return this.length === 0 }
 
 /** 
  * Returns true if this collection is not empty.
- * @return {Boolean}
+ * @returns {Boolean}
  */
 Object.prototype.isNotEmpty = function() { return this.length > 0 }
 
 /** 
  * Returns true if element belongs in this collection.
- * @return {Boolean}
+ * @returns {Boolean}
  */
 Object.prototype.contains = function(element) {
     var i = this.length
@@ -84,7 +84,7 @@ Object.prototype.contains = function(element) {
 
 /**
  * Returns an array containing only distinct elements from the given collection.
- * @return {Array}
+ * @returns {Array}
  */
 Object.prototype.distinct = function() {
     var distinct = []
@@ -119,7 +119,7 @@ Object.prototype.forEachReversed = function(action) {
 /**
  * Returns an array containing the results of applying the given transform function.
  * @param {Function} transform runnable with return value.
- * @return {Array}
+ * @returns {Array}
  */
 Object.prototype.map = function(transform) {
     var result = []
@@ -132,7 +132,7 @@ Object.prototype.map = function(transform) {
 /**
  * Returns a single sequence of all elements from results of transform function being invoked on each element of original sequence.
  * @param {Function} transform runnable with return value.
- * @return {Array}
+ * @returns {Array}
  */
 Object.prototype.flatMap = function(transform) {
     var result = []
@@ -147,7 +147,7 @@ Object.prototype.flatMap = function(transform) {
 /**
  * Returns a list containing only elements matching the given predicate.
  * @param {Function} predicate runnable with return value.
- * @return {Array}
+ * @returns {Array}
  */
 Object.prototype.filter = function(predicate) {
     var result = []

@@ -4,7 +4,7 @@
  * @param {String} text text to display.
  * @param {Function} configuration optional setup after creation.
  * @param {String} properties optional setup before creation.
- * @return {Button}
+ * @returns {Button}
  */
 Dialog.prototype.button = function(bounds, text, configuration, properties) {
     return _button(this.main, bounds, text, configuration, properties)
@@ -16,7 +16,7 @@ Dialog.prototype.button = function(bounds, text, configuration, properties) {
  * @param {String} text text to display.
  * @param {Function} configuration optional setup after creation.
  * @param {String} properties optional setup before creation.
- * @return {Button}
+ * @returns {Button}
  */
 Group.prototype.button = function(bounds, text, configuration, properties) {
     return _button(this, bounds, text, configuration, properties)
@@ -28,7 +28,7 @@ Group.prototype.button = function(bounds, text, configuration, properties) {
  * @param {String} text text to display.
  * @param {Function} configuration optional setup after creation.
  * @param {String} properties optional setup before creation.
- * @return {Button}
+ * @returns {Button}
  */
 Panel.prototype.button = function(bounds, text, configuration, properties) {
     return _button(this, bounds, text, configuration, properties)

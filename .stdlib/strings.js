@@ -1,7 +1,7 @@
 /**
  * Returns true if text starts with word.
  * @param {String} s expected prefix.
- * @return {Boolean}
+ * @returns {Boolean}
  */
 String.prototype.startsWith = function(s) {
     return this.lastIndexOf(s, 0) === 0
@@ -10,7 +10,7 @@ String.prototype.startsWith = function(s) {
 /**
  * Returns true if text ends with word.
  * @param {String} s expected suffix.
- * @return {Boolean}
+ * @returns {Boolean}
  */
 String.prototype.endsWith = function(s) {
     return this.indexOf(s, this.length - s.length) !== -1
@@ -19,7 +19,7 @@ String.prototype.endsWith = function(s) {
 /**
  * Returns prefix that ends with target.
  * @param {String} s target.
- * @return {Boolean}
+ * @returns {Boolean}
  */
 String.prototype.substringBefore = function(s) {
     return this.substring(0, this.indexOf(s))
@@ -28,7 +28,7 @@ String.prototype.substringBefore = function(s) {
 /**
  * Returns prefix that ends with last target.
  * @param {String} s target.
- * @return {Boolean}
+ * @returns {Boolean}
  */
 String.prototype.substringBeforeLast = function(s) {
     return this.substring(0, this.lastIndexOf(s))
@@ -37,7 +37,7 @@ String.prototype.substringBeforeLast = function(s) {
 /**
  * Returns suffix that starts with target.
  * @param {String} s target.
- * @return {Boolean}
+ * @returns {Boolean}
  */
 String.prototype.substringAfter = function(s) {
     return this.substring(this.indexOf(s) + 1)
@@ -46,7 +46,7 @@ String.prototype.substringAfter = function(s) {
 /**
  * Returns suffix that starts with last target.
  * @param {String} s target.
- * @return {Boolean}
+ * @returns {Boolean}
  */
 String.prototype.substringAfterLast = function(s) {
     return this.substring(this.lastIndexOf(s) + 1)
@@ -54,7 +54,7 @@ String.prototype.substringAfterLast = function(s) {
 
 /**
  * Returns true if string is integer or decimal.
- * @return {Boolean}
+ * @returns {Boolean}
  */
 String.prototype.isNumeric = function() {
      return /^-{0,1}\d*\.{0,1}\d+$/.test(this)

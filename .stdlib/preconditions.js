@@ -2,7 +2,7 @@
  * Assert that a condition is satisfied, throw an error otherwise.
  * @param {Boolean} requirement expect value to be `true`.
  * @param {String} errorMessage helpful alert, may be null.
- * @return {void}
+ * @returns {void}
  */
 function check(requirement, errorMessage) {
     if (!requirement) {
@@ -16,7 +16,7 @@ function check(requirement, errorMessage) {
 /** 
  * Assert that a value is null.
  * @param {String} errorMessage helpful alert, may be null.
- * @return {Object}
+ * @returns {Object}
  */
 function checkNull(value, errorMessage) { 
     check(value === undefined || value === null, errorMessage !== undefined
@@ -28,7 +28,7 @@ function checkNull(value, errorMessage) {
 /** 
  * Assert that a value is not null.
  * @param {String} errorMessage helpful alert, may be null.
- * @return {Object}
+ * @returns {Object}
  */
 function checkNotNull(value, errorMessage) {
     check(value !== undefined && value !== null, errorMessage !== undefined

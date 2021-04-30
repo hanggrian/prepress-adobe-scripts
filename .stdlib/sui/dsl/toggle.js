@@ -6,7 +6,7 @@ var SELECTED = function(toggle) { toggle.value = true }
  * @param {String} text text to display.
  * @param {Function} configuration optional setup after creation.
  * @param {String} properties optional setup before creation.
- * @return {CheckBox}
+ * @returns {CheckBox}
  */
 Dialog.prototype.checkBox = function(bounds, text, configuration, properties) {
     return _checkBox(this.main, bounds, text, configuration, properties)
@@ -18,7 +18,7 @@ Dialog.prototype.checkBox = function(bounds, text, configuration, properties) {
  * @param {String} text text to display.
  * @param {Function} configuration optional setup after creation.
  * @param {String} properties optional setup before creation.
- * @return {CheckBox}
+ * @returns {CheckBox}
  */
 Group.prototype.checkBox = function(bounds, text, configuration, properties) {
     return _checkBox(this, bounds, text, configuration, properties)
@@ -30,7 +30,7 @@ Group.prototype.checkBox = function(bounds, text, configuration, properties) {
  * @param {String} text text to display.
  * @param {Function} configuration optional setup after creation.
  * @param {String} properties optional setup before creation.
- * @return {CheckBox}
+ * @returns {CheckBox}
  */
 Panel.prototype.checkBox = function(bounds, text, configuration, properties) {
     return _checkBox(this, bounds, text, configuration, properties)
@@ -53,7 +53,7 @@ function _checkBox(parent, bounds, text, configuration, properties) {
  * @param {String} text text to display.
  * @param {Function} configuration optional setup after creation.
  * @param {String} properties optional setup before creation.
- * @return {RadioButton}
+ * @returns {RadioButton}
  */
  Dialog.prototype.radioButton = function(bounds, text, configuration, properties) {
     return _radioButton(this.main, bounds, text, configuration, properties)
@@ -65,7 +65,7 @@ function _checkBox(parent, bounds, text, configuration, properties) {
  * @param {String} text text to display.
  * @param {Function} configuration optional setup after creation.
  * @param {String} properties optional setup before creation.
- * @return {RadioButton}
+ * @returns {RadioButton}
  */
 Group.prototype.radioButton = function(bounds, text, configuration, properties) {
     return _radioButton(this, bounds, text, configuration, properties)
@@ -77,7 +77,7 @@ Group.prototype.radioButton = function(bounds, text, configuration, properties) 
  * @param {String} text text to display.
  * @param {Function} configuration optional setup after creation.
  * @param {String} properties optional setup before creation.
- * @return {RadioButton}
+ * @returns {RadioButton}
  */
 Panel.prototype.radioButton = function(bounds, text, configuration, properties) {
     return _radioButton(this, bounds, text, configuration, properties)

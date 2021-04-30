@@ -4,7 +4,7 @@
  * @param {Array} items drop down collection.
  * @param {Function} configuration optional setup after creation.
  * @param {String} properties optional setup before creation.
- * @return {DropDownList}
+ * @returns {DropDownList}
  */
 Dialog.prototype.dropDownList = function(bounds, items, configuration, properties) {
     return _dropDownList(this.main, bounds, items, configuration, properties)
@@ -16,7 +16,7 @@ Dialog.prototype.dropDownList = function(bounds, items, configuration, propertie
  * @param {Array} items drop down collection.
  * @param {Function} configuration optional setup after creation.
  * @param {String} properties optional setup before creation.
- * @return {DropDownList}
+ * @returns {DropDownList}
  */
 Group.prototype.dropDownList = function(bounds, items, configuration, properties) {
     return _dropDownList(this, bounds, items, configuration, properties)
@@ -28,7 +28,7 @@ Group.prototype.dropDownList = function(bounds, items, configuration, properties
  * @param {Array} items drop down collection.
  * @param {Function} configuration optional setup after creation.
  * @param {String} properties optional setup before creation.
- * @return {DropDownList}
+ * @returns {DropDownList}
  */
 Panel.prototype.dropDownList = function(bounds, items, configuration, properties) {
     return _dropDownList(this, bounds, items, configuration, properties)

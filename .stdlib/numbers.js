@@ -1,6 +1,6 @@
 /**
  * Returns true if this number is odd.
- * @return {Boolean}
+ * @returns {Boolean}
  */
 Number.prototype.isOdd = function() {
     return this & 1
@@ -8,7 +8,7 @@ Number.prototype.isOdd = function() {
 
 /**
  * Returns true if this number is even.
- * @return {Boolean}
+ * @returns {Boolean}
  */
 Number.prototype.isEven = function() {
     return !(this & 1)

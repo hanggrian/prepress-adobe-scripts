@@ -44,7 +44,7 @@ function TrimMarksPanel(parent, textBounds, editBounds) {
      * The marks are created with clockwise ordering.
      * @param {PageItem} item art where trim marks will be applied to.
      * @param {Array} locations combination of 8 possible mark locations as defined in constants.
-     * @return {Array} created trim marks.
+     * @returns {Array} created trim marks.
      */
     this.addToItem = function(item, locations) {
         var clippingItem = item.getClippingPathItem()
@@ -62,7 +62,7 @@ function TrimMarksPanel(parent, textBounds, editBounds) {
      * The marks are created with clockwise ordering.
      * @param {Number} startX starting point of .
      * @param {Array} locations combination of 8 possible mark locations as defined in constants.
-     * @return {Array} created trim marks.
+     * @returns {Array} created trim marks.
      */
     this.addToBounds = function(startX, startY, endX, endY, locations) {
         var offset = parseUnits(self.offsetEdit.text)

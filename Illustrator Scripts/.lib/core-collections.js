@@ -39,7 +39,7 @@ function _forEachItemReversed(items, action) {
 /**
  * Returns an array containing the results of applying the given transform function.
  * @param {Function} transform runnable with return value.
- * @return {Array}
+ * @returns {Array}
  */
 Object.prototype.mapItem = function(transform) { 
     var result = []
@@ -60,7 +60,7 @@ function _mapItem(items, transform, result) {
 /**
  * Returns a list containing only elements matching the given predicate.
  * @param {Function} predicate runnable with return value.
- * @return {Array}
+ * @returns {Array}
  */
 Object.prototype.filterItem = function(predicate) {
     var result = []

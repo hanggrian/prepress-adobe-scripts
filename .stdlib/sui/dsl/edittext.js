@@ -8,7 +8,7 @@ var VALIDATE_UNITS = function(editText) { editText.validateUnits() }
  * @param {String} text text to display.
  * @param {Function} configuration optional setup after creation.
  * @param {String} properties optional setup before creation.
- * @return {EditText}
+ * @returns {EditText}
  */
 Dialog.prototype.editText = function(bounds, text, configuration, properties) {
     return _editText(this.main, bounds, text, configuration, properties)
@@ -20,7 +20,7 @@ Dialog.prototype.editText = function(bounds, text, configuration, properties) {
  * @param {String} text text to display.
  * @param {Function} configuration optional setup after creation.
  * @param {String} properties optional setup before creation.
- * @return {EditText}
+ * @returns {EditText}
  */
 Group.prototype.editText = function(bounds, text, configuration, properties) {
     return _editText(this, bounds, text, configuration, properties)
@@ -32,7 +32,7 @@ Group.prototype.editText = function(bounds, text, configuration, properties) {
  * @param {String} text text to display.
  * @param {Function} configuration optional setup after creation.
  * @param {String} properties optional setup before creation.
- * @return {EditText}
+ * @returns {EditText}
  */
 Panel.prototype.editText = function(bounds, text, configuration, properties) {
     return _editText(this, bounds, text, configuration, properties)

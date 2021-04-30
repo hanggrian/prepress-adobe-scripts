@@ -9,7 +9,7 @@ var UNITS = ['Pixels', 'Points', 'Inches', 'Millimeters', 'Centimeters']
 /**
  * Converts units to unit value in points.
  * @param {String} units units to convert.
- * @return {Number}
+ * @returns {Number}
  */
 function parseUnits(units) {
     checkNotNull(units)
