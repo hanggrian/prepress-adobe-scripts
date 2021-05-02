@@ -24,10 +24,10 @@ Object.prototype.setBoolean = function(dialog, key, value) {
     this.setBooleanPreference(_getPreferenceKey(dialog, key), value)
 }
 
-/** Alias of `setNumberPreference`. */
+/** Alias of `setRealPreference`. */
 Object.prototype.setNumber = function(dialog, key, value) {
     checkTypename(this, 'Preferences')
-    this.setNumberPreference(_getPreferenceKey(dialog, key), value)
+    this.setRealPreference(_getPreferenceKey(dialog, key), value)
 }
 
 /** Alias of `setStringPreference`. */
