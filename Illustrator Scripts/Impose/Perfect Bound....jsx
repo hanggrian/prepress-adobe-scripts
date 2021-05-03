@@ -32,8 +32,7 @@ if (files !== null && files.isNotEmpty()) {
             if (files.first().isPDF()) {
                 pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
             }
-            pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
-            pagesPanel.pagesEdit.text = '2'
+            pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT, '2')
         })
         documentPanel = new OpenDocumentPanel(mainGroup)
     })
@@ -58,10 +57,13 @@ if (files !== null && files.isNotEmpty()) {
                 rotatedHeight,
                 bleed)
             var pager = new PerfectBoundPager(document)
+            
+            preferences.setPDFCrop(pdfPanel.getBoxType())
             pager.forEachArtboard(function(artboard, index) {
                 var item = document.placedItems.add()
                 if (files.first().isPDF()) {
-                    item.setPDFFile(files.first(), index, pdfPanel.getBoxType())
+                    preferences.setPDFPage(index)
+                    item.file = files.first()
                 } else {
                     item.file = files[pager.getIndex()]
                 }

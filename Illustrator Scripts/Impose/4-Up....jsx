@@ -32,8 +32,7 @@ if (files !== null && files.isNotEmpty()) {
             if (files.first().isPDF()) {
                 pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
             }
-            pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
-            pagesPanel.pagesEdit.text = '8'
+            pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT, '8')
         })
         documentPanel = new OpenDocumentPanel(mainGroup)
     })
@@ -61,6 +60,8 @@ if (files !== null && files.isNotEmpty()) {
                 (rotatedHeight + bleed * 2) * 2,
                 0)
             var pager = duplexCheck.value ? new FourUpDuplexPager(document) : new FourUpSimplexPager(document)
+            
+            preferences.setPDFCrop(pdfPanel.getBoxType())
             pager.forEachArtboard(function(artboard,
                 topLeftIndex, topRightIndex,
                 bottomLeftIndex, bottomRightIndex) {
@@ -69,10 +70,14 @@ if (files !== null && files.isNotEmpty()) {
                 var bottomItem1 = document.placedItems.add()
                 var bottomItem2 = document.placedItems.add()
                 if (files.first().isPDF()) {
-                    topItem1.setPDFFile(files.first(), topLeftIndex, pdfPanel.getBoxType())
-                    topItem2.setPDFFile(files.first(), topRightIndex, pdfPanel.getBoxType())
-                    bottomItem1.setPDFFile(files.first(), bottomLeftIndex, pdfPanel.getBoxType())
-                    bottomItem2.setPDFFile(files.first(), bottomRightIndex, pdfPanel.getBoxType())
+                    preferences.setPDFPage(topLeftIndex)
+                    topItem1.file = files.first()
+                    preferences.setPDFPage(topRightIndex)
+                    topItem2.file = files.first()
+                    preferences.setPDFPage(bottomLeftIndex)
+                    bottomItem1.file = files.first()
+                    preferences.setPDFPage(bottomRightIndex)
+                    bottomItem2.file = files.first()
                 } else {
                     topItem1.file = files[topLeftIndex]
                     topItem2.file = files[topRightIndex]

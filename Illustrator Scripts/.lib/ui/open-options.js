@@ -7,7 +7,7 @@ var OPEN_DOCUMENTPREVIEWMODES = ['Default', 'Pixel', 'Overprint']
 var BOUNDS_DOCUMENT_TEXT = [85, 21]
 var BOUNDS_DOCUMENT_EDIT = [125, 21]
 var BOUNDS_DOCUMENT_EDIT2 = [75, 21]
-var BOUNDS_DOCUMENT_EDITMAX = [125 + 75 +10, 21]
+var BOUNDS_DOCUMENT_EDITMAX = [125 + 75 + 10, 21]
 
 function OpenPDFPanel(parent, textBounds, editBounds) {
     var self = this
@@ -42,7 +42,7 @@ function OpenPDFPanel(parent, textBounds, editBounds) {
     }
 }
 
-function OpenPagesPanel(parent, textBounds, editBounds) {
+function OpenPagesPanel(parent, textBounds, editBounds, prefillPages) {
     var self = this
     this.pagesEdit, this.widthEdit, this.heightEdit, this.bleedEdit
 
@@ -50,7 +50,7 @@ function OpenPagesPanel(parent, textBounds, editBounds) {
         panel.alignChildren = 'fill'
         panel.hgroup(function(group) {
             group.staticText(textBounds, 'Total:', JUSTIFY_RIGHT)
-            self.pagesEdit = group.editText(editBounds, undefined, function(it) {
+            self.pagesEdit = group.editText(editBounds, prefillPages, function(it) {
                 it.validateDigits()
                 it.activate()
             })

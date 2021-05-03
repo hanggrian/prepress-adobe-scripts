@@ -28,14 +28,14 @@ dialog.hgroup(function(mainGroup) {
     mainGroup.vpanel('Dimension', function(panel) {
         panel.hgroup(function(group) {
             group.staticText(BOUNDS_DIMENSION_TEXT, 'Width:', JUSTIFY_RIGHT)
-            widthEdit = group.editText(BOUNDS_DIMENSION_EDIT, function(it) {
+            widthEdit = group.editText(BOUNDS_DIMENSION_EDIT, undefined, function(it) {
                 it.validateUnits()
                 it.activate()
             })
         })
         panel.hgroup(function(group) {
             group.staticText(BOUNDS_DIMENSION_TEXT, 'Height:', JUSTIFY_RIGHT)
-            heightEdit = group.editText(BOUNDS_DIMENSION_EDIT, VALIDATE_UNITS)
+            heightEdit = group.editText(BOUNDS_DIMENSION_EDIT, undefined, VALIDATE_UNITS)
         })
     })
     mainGroup.vpanel('File Types', function(panel) {

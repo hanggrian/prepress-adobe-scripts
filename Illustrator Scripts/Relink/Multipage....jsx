@@ -59,6 +59,9 @@ if (files !== null && files.isNotEmpty()) {
         var resetPage = function() { currentPage = parseInt(startPageEdit.text) - 1 }
         var endPage = parseInt(endPageEdit.text) - 1
         resetPage()
+        if (files.first().isPDF()) {
+            preferences.setPDFCrop(pdfPanel.getBoxType())
+        }
         reverseGroup.forEachAware(items, function(item) {
             var width = item.width
             var height = item.height
@@ -72,7 +75,8 @@ if (files !== null && files.isNotEmpty()) {
                 } catch (e) {
                     $.writeln(e.message)
                 }
-                item.relinkPDF(files.first(), currentPage++, pdfPanel.getBoxType())
+                preferences.setPDFPage(currentPage++)
+                item.relink(files.first())
             } else {
                 item.relink(files[currentPage++])
             }

@@ -1,6 +1,6 @@
 // Built around https://community.adobe.com/t5/illustrator/change-folder-current-to-location-of-script-jsx-file/td-p/3869656?page=1.
 
-const RESOURCES_SOURCE = new File($.fileName)
+var _resourcesSource = new File($.fileName)
 
 /**
  * For some reason, relinking PlacedItem to the same PDF but different page won't work.
@@ -20,5 +20,5 @@ var R = {
  * @returns {File}
  */
 function getResource(path) {
-    return File(RESOURCES_SOURCE.path + '/../.res/' + path)
+    return File(_resourcesSource.path + '/../.res/' + path)
 }

@@ -9,9 +9,6 @@
 #include 'core-resources.js'
 #include 'core-units.js'
 
-/** Global access to preferences, see `core-preferences`. */
-var preferences = app.preferences
-
 /**
  * Returns layer name, or type if it is unnamed.
  * @this {PageItem}
@@ -37,35 +34,4 @@ Object.prototype.getClippingPathItem = function() {
         }
     }
     return this
-}
-
-/**
- * Set PDF file while specifying its page.
- * @param {File} file source PDF file.
- * @param {Number} page PDF page, first page is 0.
- * @param {PDFBoxType} boxType optional cropping style.
- * @this {PlacedItem}
- */
-Object.prototype.setPDFFile = function(file, page, boxType) {
-    _updatePDFPref(page, boxType)
-    this.file = file
-}
-
-/**
- * Relink PDF file while specifying its page.
- * @param {File} file source PDF file.
- * @param {Number} page PDF page, first page is 0.
- * @param {PDFBoxType} boxType optional cropping style.
- * @this {PlacedItem}
- */
-Object.prototype.relinkPDF = function(file, page, boxType) {
-    _updatePDFPref(page, boxType)
-    this.relink(file)
-}
-
-function _updatePDFPref(page, boxType) {
-    app.preferences.PDFFileOptions.let(function(it) {
-        it.pageToOpen = page + 1
-        it.pDFCropToBox = boxType !== undefined ? boxType : PDFBoxType.PDFBOUNDINGBOX 
-    })
 }

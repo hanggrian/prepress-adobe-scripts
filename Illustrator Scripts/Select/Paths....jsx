@@ -26,7 +26,7 @@ dialog.hgroup(function(mainGroup) {
         })
         panel.hgroup(function(group) {
             group.staticText(BOUNDS_LINE_TEXT, 'Height:', JUSTIFY_RIGHT)
-            heightEdit = group.editText(BOUNDS_LINE_EDIT, VALIDATE_UNITS)
+            heightEdit = group.editText(BOUNDS_LINE_EDIT, undefined, VALIDATE_UNITS)
         })
     })
     mainGroup.vpanel('Color', function(panel) {

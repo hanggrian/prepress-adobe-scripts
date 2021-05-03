@@ -32,8 +32,7 @@ if (files !== null && files.isNotEmpty()) {
             if (files.first().isPDF()) {
                 pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
             }
-            pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
-            pagesPanel.pagesEdit.text = '16'
+            pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT, '16')
         })
         documentPanel = new OpenDocumentPanel(mainGroup)
     })
@@ -53,7 +52,7 @@ if (files !== null && files.isNotEmpty()) {
         var rotatedWidth = !rotateCheck.value ? width : height
         var rotatedHeight = !rotateCheck.value ? height : width
         if (pages < 1 || pages % 16 !== 0) {
-            alert('Pages must be higher than 0 and can be divided by 8.')
+            alert('Pages must be higher than 0 and can be divided by 16.')
         } else {
             var document = documentPanel.open('Untitled-8-Up',
                 pages / 8,
@@ -61,6 +60,8 @@ if (files !== null && files.isNotEmpty()) {
                 (rotatedHeight + bleed * 2) * 2,
                 0)
             var pager = duplexCheck.value ? new EightUpDuplexPager(document) : new EightUpSimplexPager(document)
+            
+            preferences.setPDFCrop(pdfPanel.getBoxType())
             pager.forEachArtboard(function(artboard,
                 top1Index, top2Index, top3Index, top4Index,
                 bottom1Index, bottom2Index, bottom3Index, bottom4Index) {
@@ -73,14 +74,22 @@ if (files !== null && files.isNotEmpty()) {
                 var bottomItem3 = document.placedItems.add()
                 var bottomItem4 = document.placedItems.add()
                 if (files.first().isPDF()) {
-                    topItem1.setPDFFile(files.first(), top1Index, pdfPanel.getBoxType())
-                    topItem2.setPDFFile(files.first(), top2Index, pdfPanel.getBoxType())
-                    topItem3.setPDFFile(files.first(), top3Index, pdfPanel.getBoxType())
-                    topItem4.setPDFFile(files.first(), top4Index, pdfPanel.getBoxType())
-                    bottomItem1.setPDFFile(files.first(), bottom1Index, pdfPanel.getBoxType())
-                    bottomItem2.setPDFFile(files.first(), bottom2Index, pdfPanel.getBoxType())
-                    bottomItem3.setPDFFile(files.first(), bottom3Index, pdfPanel.getBoxType())
-                    bottomItem4.setPDFFile(files.first(), bottom4Index, pdfPanel.getBoxType())
+                    preferences.setPDFPage(top1Index)
+                    topItem1.file = files.first()
+                    preferences.setPDFPage(top2Index)
+                    topItem2.file = files.first()
+                    preferences.setPDFPage(top3Index)
+                    topItem3.file = files.first()
+                    preferences.setPDFPage(top4Index)
+                    topItem4.file = files.first()
+                    preferences.setPDFPage(bottom1Index)
+                    bottomItem1.file = files.first()
+                    preferences.setPDFPage(bottom2Index)
+                    bottomItem2.file = files.first()
+                    preferences.setPDFPage(bottom3Index)
+                    bottomItem3.file = files.first()
+                    preferences.setPDFPage(bottom4Index)
+                    bottomItem4.file = files.first()
                 } else {
                     topItem1.file = files[top1]
                     topItem2.file = files[top2]

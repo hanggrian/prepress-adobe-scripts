@@ -59,11 +59,17 @@ dialog.vpanel('Types', function(panel) {
 dialog.vpanel('Others', function(panel) {
     panel.alignChildren = 'fill'
     panel.hgroup(function(group) {
-        symbolCheck = group.checkBox(BOUNDS_TYPE, 'Symbol')
-        meshCheck = group.checkBox(BOUNDS_TYPE, 'Mesh')
+        symbolCheck = group.checkBox(BOUNDS_TYPE, 'Symbol', function(it) {
+            it.value = preferences.getBoolean(dialog, 'Symbol')
+        })
+        meshCheck = group.checkBox(BOUNDS_TYPE, 'Mesh', function(it) {
+            it.value = preferences.getBoolean(dialog, 'Mesh')
+        })
     })
     panel.hgroup(function(group) {
-        graphCheck = group.checkBox(BOUNDS_TYPE, 'Graph')
+        graphCheck = group.checkBox(BOUNDS_TYPE, 'Graph', function(it) {
+            it.value = preferences.getBoolean(dialog, 'Graph')
+        })
     })
 })
 
@@ -96,3 +102,5 @@ dialog.setPositiveButton(function() {
     selectAll(types)
 })
 dialog.show()
+
+var a = 10

@@ -32,8 +32,7 @@ if (files !== null && files.isNotEmpty()) {
             if (files.first().isPDF()) {
                 pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
             }
-            pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
-            pagesPanel.pagesEdit.text = '4'
+            pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT, '4')
         })
         documentPanel = new OpenDocumentPanel(mainGroup)
     })
@@ -58,12 +57,16 @@ if (files !== null && files.isNotEmpty()) {
                 height,
                 bleed)
             var pager = new SaddleStitchPager(document, pages, rtlCheck.value)
+            
+            preferences.setPDFCrop(pdfPanel.getBoxType())
             pager.forEachArtboard(function(artboard, leftIndex, rightIndex) {
                 var item1 = document.placedItems.add()
                 var item2 = document.placedItems.add()
                 if (files.first().isPDF()) {
-                    item1.setPDFFile(files.first(), leftIndex, pdfPanel.getBoxType())
-                    item2.setPDFFile(files.first(), rightIndex, pdfPanel.getBoxType())
+                    preferences.setPDFPage(leftIndex)
+                    item1.file = files.first()
+                    preferences.setPDFPage(rightIndex)
+                    item2.file = files.first()
                 } else {
                     item1.file = files[leftIndex]
                     item2.file = files[rightIndex]
