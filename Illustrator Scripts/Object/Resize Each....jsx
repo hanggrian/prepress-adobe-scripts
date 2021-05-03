@@ -1,11 +1,10 @@
-// Transform each items to target size regardless of their XY positions.
-// Same like `Context Menu > Transform > Transform Each...` but use units instead of percentage.
+// The problem with native `Context Menu > Transform > Transform Each...` is that they scale by percentage.
 
 #target Illustrator
 #include '../.lib/commons.js'
 #include '../.lib/ui/item-transform.js'
 
-var BOUNDS_TEXT = [45, 21]
+var BOUNDS_TEXT = [60, 21]
 var BOUNDS_EDIT = [150, 21]
 
 checkHasSelection()
@@ -15,18 +14,16 @@ var prefill = selection.first()
 var widthEdit, heightEdit
 var changePanel, anchorPanel
 
-dialog.vpanel('Resize', function(panel) {
-    panel.hgroup(function(group) {
-        group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
-        widthEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.width, unitName, 2), function(it) {
-            it.validateUnits()
-            it.activate()
-        })
+dialog.hgroup(function(group) {
+    group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
+    widthEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.width, unitName, 2), function(it) {
+        it.validateUnits()
+        it.activate()
     })
-    panel.hgroup(function(group) {
-        group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
-        heightEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.height, unitName, 2), VALIDATE_UNITS)
-    })
+})
+dialog.hgroup(function(group) {
+    group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
+    heightEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.height, unitName, 2), VALIDATE_UNITS)
 })
 dialog.hgroup(function(group) {
     group.alignChildren = 'fill'    

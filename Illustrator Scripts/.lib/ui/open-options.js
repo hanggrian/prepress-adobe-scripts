@@ -19,27 +19,39 @@ function OpenPDFPanel(parent, textBounds, editBounds) {
             group.setHelpTips('Which box should be used when placing a pdf document.')
             group.staticText(textBounds, 'Crop to:', JUSTIFY_RIGHT)
             self.boxTypeList = group.dropDownList(editBounds, OPEN_PDFBOXTYPES, function(it) {
-                it.selection = OPEN_PDFBOXTYPES.indexOf('Bounding')
+                var prefill
+                if (preferences.getPDFCrop() === PDFBoxType.PDFARTBOX) {
+                    prefill = 'Art'
+                } else if (preferences.getPDFCrop() === PDFBoxType.PDFCROPBOX) {
+                    prefill = 'Crop'
+                } else if (preferences.getPDFCrop() === PDFBoxType.PDFTRIMBOX) {
+                    prefill = 'Trim'
+                } else if (preferences.getPDFCrop() === PDFBoxType.PDFBLEEDBOX) {
+                    prefill = 'Bleed'
+                } else if (preferences.getPDFCrop() === PDFBoxType.PDFMEDIABOX) {
+                    prefill = 'Media'
+                } else {
+                    prefill = 'Bounding'
+                }
+                it.selection = OPEN_PDFBOXTYPES.indexOf(prefill)
+                it.onChange = function() {
+                    if (self.boxTypeList.selection.text === 'Art') {
+                        preferences.setPDFCrop(PDFBoxType.PDFARTBOX)
+                    } else if (self.boxTypeList.selection.text === 'Crop') {
+                        preferences.setPDFCrop(PDFBoxType.PDFCROPBOX)
+                    } else if (self.boxTypeList.selection.text === 'Trim') {
+                        preferences.setPDFCrop(PDFBoxType.PDFTRIMBOX)
+                    } else if (self.boxTypeList.selection.text === 'Bleed') {
+                        preferences.setPDFCrop(PDFBoxType.PDFBLEEDBOX)
+                    } else if (self.boxTypeList.selection.text === 'Media') {
+                        preferences.setPDFCrop(PDFBoxType.PDFMEDIABOX)
+                    } else {
+                        preferences.setPDFCrop(PDFBoxType.PDFBOUNDINGBOX)
+                    }
+                }
             })
         })
     })
-
-    this.getBoxType = function() {
-        switch (self.boxTypeList.selection.text) {
-            case 'Art':
-                return PDFBoxType.PDFARTBOX
-            case 'Crop':
-                return PDFBoxType.PDFCROPBOX
-            case 'Trim':
-                return PDFBoxType.PDFTRIMBOX
-            case 'Bleed':
-                return PDFBoxType.PDFBLEEDBOX
-            case 'Media':
-                return PDFBoxType.PDFMEDIABOX
-            default:
-                return PDFBoxType.PDFBOUNDINGBOX
-        }
-    }
 }
 
 function OpenPagesPanel(parent, textBounds, editBounds, prefillPages) {

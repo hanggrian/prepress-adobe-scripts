@@ -60,8 +60,6 @@ if (files !== null && files.isNotEmpty()) {
                 (rotatedHeight + bleed * 2),
                 0)
             var pager = duplexCheck.value ? new TwoUpDuplexPager(document) : new TwoUpSimplexPager(document)
-            
-            preferences.setPDFCrop(pdfPanel.getBoxType())
             pager.forEachArtboard(function(artboard, leftIndex, rightIndex) {                
                 var item1 = document.placedItems.add()
                 var item2 = document.placedItems.add()

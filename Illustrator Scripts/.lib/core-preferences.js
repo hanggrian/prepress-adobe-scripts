@@ -3,40 +3,21 @@ var PREFERENCES_ROOT = 'Prepress Adobe Scripts/'
 /** Global access to preferences. */
 var preferences = app.preferences
 
-/** Alias of `PDFFileOptions.pageToOpen`. */
-Preferences.prototype.setPDFPage = function(page) {
-    this.PDFFileOptions.pageToOpen = page + 1
-}
+Preferences.prototype.setPDFPage = function(page) { this.PDFFileOptions.pageToOpen = page + 1 }
+Preferences.prototype.getPDFPage = function() { return this.PDFFileOptions.pageToOpen - 1 }
+Preferences.prototype.setPDFCrop = function(boxType) { this.PDFFileOptions.pDFCropToBox = boxType  }
+Preferences.prototype.getPDFCrop = function() { return this.PDFFileOptions.pDFCropToBox }
 
-/** Alias of `pDFCropToBox.pageToOpen`. */
-Preferences.prototype.setPDFCrop = function(boxType) {
-    this.PDFFileOptions.pDFCropToBox = boxType 
-}
-
-/** Alias of `photoshopFileOptions.layerComp`. */
-Preferences.prototype.setPhotoshopLayerComp = function(layerComp) {
-    this.photoshopFileOptions.layerComp = layerComp
-}
-
-/** Alias of `photoshopFileOptions.preserveHiddenLayers`. */
-Preferences.prototype.setPhotoshopPreserveHiddenLayers = function(preserveHiddenLayers) {
-    this.photoshopFileOptions.preserveHiddenLayers = preserveHiddenLayers
-}
-
-/** Alias of `photoshopFileOptions.preserveImageMaps`. */
-Preferences.prototype.setPhotoshopPreserveImageMaps = function(preserveImageMaps) {
-    this.photoshopFileOptions.preserveImageMaps = preserveImageMaps
-}
-
-/** Alias of `photoshopFileOptions.preserveLayers`. */
-Preferences.prototype.setPhotoshopPreserveLayers = function(preserveLayers) {
-    this.photoshopFileOptions.preserveLayers = preserveLayers
-}
-
-/** Alias of `photoshopFileOptions.preserveSlices`. */
-Preferences.prototype.setPhotoshopPreserveSlices = function(preserveSlices) {
-    this.photoshopFileOptions.preserveSlices = preserveSlices
-}
+Preferences.prototype.setPSDLayerComp = function(layerComp) { this.photoshopFileOptions.layerComp = layerComp }
+Preferences.prototype.getPSDLayerComp = function() { return this.photoshopFileOptions.layerComp }
+Preferences.prototype.setPSDPreserveHiddenLayers = function(preserveHiddenLayers) { this.photoshopFileOptions.preserveHiddenLayers = preserveHiddenLayers }
+Preferences.prototype.getPSDPreserveHiddenLayers = function() { return this.photoshopFileOptions.preserveHiddenLayers }
+Preferences.prototype.setPSDPreserveImageMaps = function(preserveImageMaps) { this.photoshopFileOptions.preserveImageMaps = preserveImageMaps }
+Preferences.prototype.getPSDPreserveImageMaps = function() { return this.photoshopFileOptions.preserveImageMaps }
+Preferences.prototype.setPSDPreserveLayers = function(preserveLayers) { this.photoshopFileOptions.preserveLayers = preserveLayers }
+Preferences.prototype.getPSDPreserveLayers = function() { return this.photoshopFileOptions.preserveLayers }
+Preferences.prototype.setPSDPreserveSlices = function(preserveSlices) { this.photoshopFileOptions.preserveSlices = preserveSlices }
+Preferences.prototype.getPSDPreserveSlices = function() { return this.photoshopFileOptions.preserveSlices }
 
 /** Alias of `getBooleanPreference`. */
 Preferences.prototype.getBoolean = function(dialog, key) {

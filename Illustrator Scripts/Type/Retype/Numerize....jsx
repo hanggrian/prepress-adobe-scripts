@@ -1,6 +1,6 @@
 #target Illustrator
 #include '../../.lib/commons.js'
-#include '../../.lib/ui/reverse-order.js'
+#include '../../.lib/ui/checks.js'
 #include '../../.lib/ui/type-affix.js'
 
 var BOUNDS_TEXT = [55, 21]

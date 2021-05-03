@@ -57,8 +57,6 @@ if (files !== null && files.isNotEmpty()) {
                 height,
                 bleed)
             var pager = new SaddleStitchPager(document, pages, rtlCheck.value)
-            
-            preferences.setPDFCrop(pdfPanel.getBoxType())
             pager.forEachArtboard(function(artboard, leftIndex, rightIndex) {
                 var item1 = document.placedItems.add()
                 var item2 = document.placedItems.add()

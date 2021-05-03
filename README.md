@@ -1,7 +1,8 @@
 Prepress Adobe Scripts
 ======================
 Adobe Illustrator and Photoshop scripts tailored for printing purposes.
-Tested only on latest Adobe suite.
+* Highly customized standard library for consistent look and API across apps.
+* Tested only on latest Adobe suite.
 
 <p float="left">
     <img src="/art/add-trim-marks.png" width="270" />

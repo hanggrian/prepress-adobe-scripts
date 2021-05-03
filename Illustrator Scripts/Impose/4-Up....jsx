@@ -60,8 +60,6 @@ if (files !== null && files.isNotEmpty()) {
                 (rotatedHeight + bleed * 2) * 2,
                 0)
             var pager = duplexCheck.value ? new FourUpDuplexPager(document) : new FourUpSimplexPager(document)
-            
-            preferences.setPDFCrop(pdfPanel.getBoxType())
             pager.forEachArtboard(function(artboard,
                 topLeftIndex, topRightIndex,
                 bottomLeftIndex, bottomRightIndex) {

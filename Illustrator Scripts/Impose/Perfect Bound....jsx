@@ -57,8 +57,6 @@ if (files !== null && files.isNotEmpty()) {
                 rotatedHeight,
                 bleed)
             var pager = new PerfectBoundPager(document)
-            
-            preferences.setPDFCrop(pdfPanel.getBoxType())
             pager.forEachArtboard(function(artboard, index) {
                 var item = document.placedItems.add()
                 if (files.first().isPDF()) {

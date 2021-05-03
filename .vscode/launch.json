@@ -8,7 +8,7 @@
             "type": "extendscript-debug",
             "request": "launch",
             "name": "prepress-adobe-scripts",
-            "program": "${workspaceFolder}/Illustrator Scripts/Select/All....jsx",
+            "program": "${workspaceFolder}/Illustrator Scripts/Artboards/Reorder by/Position....jsx",
             "stopOnEntry": false
         }
     ]
