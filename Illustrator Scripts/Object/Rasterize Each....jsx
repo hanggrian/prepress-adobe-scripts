@@ -39,11 +39,13 @@ dialog.hgroup(function(mainGroup) {
         innerGroup.alignChildren = 'fill'
         innerGroup.vpanel('Background', function(panel) {
             panel.alignChildren = 'fill'
+            panel.setHelpTips('Should the resulting image use transparency.')
             backgroundWhiteRadio = panel.radioButton(undefined, 'White', SELECTED)
             backgroundTransparentRadio = panel.radioButton(undefined, 'Transparent')
         })
         innerGroup.vpanel('Anti-Aliasing', function(panel) {
             panel.alignChildren = 'fill'
+            panel.setHelpTips('The type of antialiasing method.')
             antiAliasingNoneRadio = panel.radioButton(undefined, 'None')
             antiAliasingArtRadio = panel.radioButton(undefined, 'Art Optimized')
             antiAliasingTypeRadio = panel.radioButton(undefined, 'Type Optimized')
@@ -73,7 +75,7 @@ dialog.hgroup(function(mainGroup) {
         })
         panel.hgroup(function(group) {
             group.staticText(undefined, 'Add')
-            paddingEdit = group.editText(BOUNDS_EDIT_SMALL, unitsOf('0 mm'), VALIDATE_DIGITS)
+            paddingEdit = group.editText(BOUNDS_EDIT_SMALL, unitsOf('0 mm'), VALIDATE_UNITS)
             group.staticText(undefined, 'Around Object')
         })
     })
@@ -111,9 +113,9 @@ dialog.setPositiveButton(function() {
         var position = item.position
         var newItem = document.rasterize(item, item.controlBounds, options)
         if (maintainGroup.isMaintain()) {
-            newItem.width = width
-            newItem.height = height
-            newItem.position = position
+            newItem.width = width + options.padding * 2
+            newItem.height = height + options.padding * 2
+            newItem.position = [position.x, positions.y]
         }
     })
 })
