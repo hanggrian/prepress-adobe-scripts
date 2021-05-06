@@ -54,19 +54,13 @@ function OpenPDFPanel(parent, textBounds, editBounds) {
     })
 }
 
-function OpenPagesPanel(parent, textBounds, editBounds, prefillPages) {
+function OpenPagesPanel(parent, textBounds, editBounds) {
     var self = this
-    this.pagesEdit, this.widthEdit, this.heightEdit, this.bleedEdit
+    this.rangeGroup, this.widthEdit, this.heightEdit, this.bleedEdit
 
     this.main = parent.vpanel('Pages', function(panel) {
         panel.alignChildren = 'fill'
-        panel.hgroup(function(group) {
-            group.staticText(textBounds, 'Total:', JUSTIFY_RIGHT)
-            self.pagesEdit = group.editText(editBounds, prefillPages, function(it) {
-                it.validateDigits()
-                it.activate()
-            })
-        })
+        self.rangeGroup = new RangeGroup(panel, textBounds, editBounds)
         panel.hgroup(function(group) {
             group.staticText(textBounds, 'Width:', JUSTIFY_RIGHT)
             self.widthEdit = group.editText(editBounds, '210 mm', VALIDATE_UNITS)

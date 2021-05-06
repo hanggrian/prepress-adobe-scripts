@@ -1,6 +1,7 @@
 #target Illustrator
 #include '../.lib/core.js'
 #include '../.lib/ui/open-options.js'
+#include '../.lib/ui/range.js'
 
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
@@ -32,7 +33,7 @@ if (files !== null && files.isNotEmpty()) {
             if (files.first().isPDF()) {
                 pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
             }
-            pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT, '4')
+            pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
         })
         documentPanel = new OpenDocumentPanel(mainGroup)
     })
@@ -45,64 +46,66 @@ if (files !== null && files.isNotEmpty()) {
 
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
-        var pages = pagesPanel.getPages()
+        var start = pagesPanel.rangeGroup.getStart()
+        var pages = pagesPanel.rangeGroup.getLength()
         var width = pagesPanel.getWidth()
         var height = pagesPanel.getHeight()
         var bleed = pagesPanel.getBleed()
         var rotatedWidth = !rotateCheck.value ? width : height
         var rotatedHeight = !rotateCheck.value ? height : width
-        if (pages < 1 || pages % 4 !== 0) {
-            alert('Pages must be higher than 0 and can be divided by 4.')
-        } else {
-            var document = documentPanel.open('Untitled-2-Up',
-                pages / 2,
-                (rotatedWidth + bleed * 2) * 2,
-                (rotatedHeight + bleed * 2),
-                0)
-            var pager = duplexCheck.value ? new TwoUpDuplexPager(document) : new TwoUpSimplexPager(document)
-            pager.forEachArtboard(function(artboard, leftIndex, rightIndex) {                
-                var item1 = document.placedItems.add()
-                var item2 = document.placedItems.add()
-                if (files.first().isPDF()) {
-                    preferences.setPDFPage(leftIndex)
-                    item1.file = files.first()
-                    preferences.setPDFPage(rightIndex)
-                    item2.file = files.first()
-                } else {
-                    item1.file = files[leftIndex]
-                    item2.file = files[rightIndex]
-                }
-                var rect = artboard.artboardRect
-                var x1 = rect[0]
-                var x2 = x1 + rotatedWidth + bleed * 2
-                var y = rect[1]
-                Array(item1, item2).forEach(function(it) {
-                    it.width = width + bleed * 2
-                    it.height = height + bleed * 2
-                    if (rotateCheck.value) {
-                        it.rotate(duplexCheck.value && document.artboards.indexOf(artboard).isOdd() ? 270 : 90)
-                    }
-                })
-                item1.position = [x1, y]
-                item2.position = [x2, y]
-                if (bleed > 0) {
-                    var guide1 = document.pathItems.rectangle(
-                        y - bleed,
-                        x1 + bleed,
-                        rotatedWidth,
-                        rotatedHeight)
-                    guide1.filled = false
-                    guide1.guides = true
-                    var guide2 = document.pathItems.rectangle(
-                        y - bleed,
-                        x2 + bleed,
-                        rotatedWidth,
-                        rotatedHeight)
-                    guide2.filled = false
-                    guide2.guides = true
+        if (pages % 4 !== 0) {
+            errorWithAlert('Pages must be divisible by 4.')
+        }
+        var document = documentPanel.open('Untitled-2-Up',
+            pages / 2,
+            (rotatedWidth + bleed * 2) * 2,
+            (rotatedHeight + bleed * 2),
+            0)
+        var pager = duplexCheck.value
+            ? new TwoUpDuplexPager(document, start)
+            : new TwoUpSimplexPager(document, start)
+        pager.forEachArtboard(function(artboard, leftIndex, rightIndex) {                
+            var item1 = document.placedItems.add()
+            var item2 = document.placedItems.add()
+            if (files.first().isPDF()) {
+                preferences.setPDFPage(leftIndex)
+                item1.file = files.first()
+                preferences.setPDFPage(rightIndex)
+                item2.file = files.first()
+            } else {
+                item1.file = files[leftIndex]
+                item2.file = files[rightIndex]
+            }
+            var rect = artboard.artboardRect
+            var x1 = rect[0]
+            var x2 = x1 + rotatedWidth + bleed * 2
+            var y = rect[1]
+            Array(item1, item2).forEach(function(it) {
+                it.width = width + bleed * 2
+                it.height = height + bleed * 2
+                if (rotateCheck.value) {
+                    it.rotate(duplexCheck.value && document.artboards.indexOf(artboard).isOdd() ? 270 : 90)
                 }
             })
-        }
+            item1.position = [x1, y]
+            item2.position = [x2, y]
+            if (bleed > 0) {
+                var guide1 = document.pathItems.rectangle(
+                    y - bleed,
+                    x1 + bleed,
+                    rotatedWidth,
+                    rotatedHeight)
+                guide1.filled = false
+                guide1.guides = true
+                var guide2 = document.pathItems.rectangle(
+                    y - bleed,
+                    x2 + bleed,
+                    rotatedWidth,
+                    rotatedHeight)
+                guide2.filled = false
+                guide2.guides = true
+            }
+        })
     })
     dialog.show()
 }

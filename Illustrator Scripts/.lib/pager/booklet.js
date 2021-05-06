@@ -1,8 +1,9 @@
 /** 
  * @param {Document} document to attach to, use `document` for active document.
+ * @param {Number} start first page to open, the first and default is 0.
  */
-function PerfectBoundPager(document) {
-    var _current = 0
+function PerfectBoundPager(document, start) {
+    var _current = start !== undefined ? start : 0
 
     this.forEachArtboard = function(action) {
         document.artboards.forEach(function(artboard) {
@@ -14,12 +15,13 @@ function PerfectBoundPager(document) {
 
 /** 
  * @param {Document} document to attach to, use `document` for active document.
+ * @param {Number} start first page to open, the first and default is 0.
  * @param {Number} end final page number, default is artboards' length times 2.
  * @param {Boolean} isRtl useful for arabic layout, default is false.
  */
-function SaddleStitchPager(document, end, isRtl) {
-    var _start = 0
-    var _end = end === undefined ? document.artboards.length * 2 - 1 : end - 1
+function SaddleStitchPager(document, start, end, isRtl) {
+    var _start = start !== undefined ? start : 0
+    var _end = end === undefined ? document.artboards.length * 2 - 1 : end
     var _isRtl = isRtl === undefined ? false : isRtl
     var _isFront = true
 

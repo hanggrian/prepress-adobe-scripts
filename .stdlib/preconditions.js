@@ -6,10 +6,7 @@
  */
 function check(requirement, errorMessage) {
     if (!requirement) {
-        var message = errorMessage !== undefined
-            ? errorMessage
-            : 'Failed requirement'
-        throw new Error(message)
+        error(errorMessage)
     }
 }
 
@@ -19,9 +16,7 @@ function check(requirement, errorMessage) {
  * @returns {Object}
  */
 function checkNull(value, errorMessage) { 
-    check(value === undefined || value === null, errorMessage !== undefined
-        ? errorMessage
-        : 'Expected value to be null')
+    check(value === undefined || value === null, errorMessage)
     return value
 }
 
@@ -31,13 +26,31 @@ function checkNull(value, errorMessage) {
  * @returns {Object}
  */
 function checkNotNull(value, errorMessage) {
-    check(value !== undefined && value !== null, errorMessage !== undefined
-        ? errorMessage
-        : 'Expected value to be not null')
+    check(value !== undefined && value !== null, errorMessage)
     return value
 }
 
 /** Assert an item's typename. */
 function checkTypename(item, typename) {
     check(item.typename === typename, 'Selected item is not a ' + typename)
+}
+
+/** 
+ * Throw an error.
+ * @param {Object} errorMessage helpful alert, may be null.
+ */
+function error(errorMessage) {
+    throw new Error(errorMessage !== undefined
+        ? errorMessage.toString()
+        : 'Failed requirement')
+}
+
+/** 
+ * In dialog on click listener, throwing an error stops a script but does not show an alert.
+ * This function shows an alert with error icon before the script stops.
+ * @param {Object} errorMessage helpful alert, may be null.
+ */
+function errorWithAlert(errorMessage) {
+    alert(errorMessage, undefined, true)
+    error(errorMessage)
 }

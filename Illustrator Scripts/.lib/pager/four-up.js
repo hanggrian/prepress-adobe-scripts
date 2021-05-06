@@ -1,8 +1,9 @@
 /** 
  * @param {Document} document to attach to, use `document` for active document.
+ * @param {Number} start first page to open, the first and default is 0.
  */
-function FourUpSimplexPager(document) {
-    var _current = 0
+function FourUpSimplexPager(document, start) {
+    var _current = start !== undefined ? start : 0
 
     this.forEachArtboard = function(action) {
         document.artboards.forEach(function(artboard) {
@@ -19,8 +20,12 @@ function FourUpSimplexPager(document) {
     }
 }
 
-function FourUpDuplexPager(document) {
-   var _current = 0
+/** 
+ * @param {Document} document to attach to, use `document` for active document.
+ * @param {Number} start first page to open, the first and default is 0.
+ */
+function FourUpDuplexPager(document, start) {
+    var _current = start !== undefined ? start : 0
    var _isFront = true
 
    this.forEachArtboard = function(action) {

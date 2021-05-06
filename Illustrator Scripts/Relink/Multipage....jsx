@@ -2,6 +2,7 @@
 #include '../.lib/commons.js'
 #include '../.lib/ui/checks.js'
 #include '../.lib/ui/open-options.js'
+#include '../.lib/ui/range.js'
 
 var BOUNDS_TEXT = [70, 21]
 var BOUNDS_EDIT = [100, 21]
@@ -12,8 +13,7 @@ var items = selection.filterItem(function(it) { return it.typename === 'PlacedIt
 check(items.isNotEmpty(), 'No links found in selection')
 
 var dialog = new Dialog('Relink Multipage', 'fill')
-var pdfPanel, maintainGroup, reverseGroup
-var startPageEdit, endPageEdit
+var pdfPanel, rangeGroup, maintainGroup, reverseGroup
 
 var files = openFile(dialog.title, [
     ['Adobe Illustrator', 'AI'],
@@ -36,19 +36,7 @@ if (files !== null && files.isNotEmpty()) {
 
     if (files.first().isPDF()) {
         pdfPanel = new OpenPDFPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
-        pdfPanel.main.hgroup(function(group) {
-            group.setHelpTips('Beginning page of PDF file.')
-            group.staticText(BOUNDS_TEXT, 'Start page:', JUSTIFY_RIGHT)
-            startPageEdit = group.editText(BOUNDS_EDIT, '1', VALIDATE_DIGITS)
-        })
-        pdfPanel.main.hgroup(function(group) {
-            group.setHelpTips('Final page of PDF file.')
-            group.staticText(BOUNDS_TEXT, 'End page:', JUSTIFY_RIGHT)
-            endPageEdit = group.editText(BOUNDS_EDIT, undefined, function(it) {
-                it.validateDigits()
-                it.activate()  
-            })
-        })
+        rangeGroup = new RangeGroup(pdfPanel.main, BOUNDS_TEXT, BOUNDS_EDIT)
     }
     maintainGroup = new MaintainDimensionGroup(dialog.main)
     reverseGroup = new ReverseOrderGroup(dialog.main)
@@ -56,8 +44,8 @@ if (files !== null && files.isNotEmpty()) {
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
         var currentPage
-        var resetPage = function() { currentPage = parseInt(startPageEdit.text) - 1 }
-        var endPage = parseInt(endPageEdit.text) - 1
+        var resetPage = function() { currentPage = parseInt(rangeGroup.getStart()) }
+        var endPage = parseInt(rangeGroup.getEnd().text)
         resetPage()
         reverseGroup.forEachAware(items, function(item) {
             var width = item.width
