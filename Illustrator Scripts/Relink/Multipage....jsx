@@ -61,9 +61,9 @@ if (files !== null && files.isNotEmpty()) {
                     $.writeln(e.message)
                 }
                 preferences.setPDFPage(currentPage++)
-                item.relink(files.first())
+                item.file = files.first()
             } else {
-                item.relink(files[currentPage++])
+                item.file = files[currentPage++]
             }
             if (maintainGroup.isMaintain()) {
                 item.width = width

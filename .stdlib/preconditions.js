@@ -40,9 +40,10 @@ function checkTypename(item, typename) {
  * @param {Object} errorMessage helpful alert, may be null.
  */
 function error(errorMessage) {
-    throw new Error(errorMessage !== undefined
+    var message = errorMessage !== undefined
         ? errorMessage.toString()
-        : 'Failed requirement')
+        : 'Failed requirement'
+    throw new Error(message)
 }
 
 /** 
@@ -51,6 +52,6 @@ function error(errorMessage) {
  * @param {Object} errorMessage helpful alert, may be null.
  */
 function errorWithAlert(errorMessage) {
-    alert(errorMessage, undefined, true)
+    alert(errorMessage, 'Uncaught JavaScript exception', true)
     error(errorMessage)
 }

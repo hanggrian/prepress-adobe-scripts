@@ -16,6 +16,7 @@ var closedAnyCheck, closedEnabledCheck, closedDisabledCheck
 var guidesAnyCheck, guidesEnabledCheck, guidesDisabledCheck
 
 dialog.hgroup(function(mainGroup) {
+    mainGroup.alignChildren = 'fill'
     mainGroup.vpanel('Dimension', function(panel) {
         panel.hgroup(function(group) {
             group.staticText(BOUNDS_LINE_TEXT, 'Width:', JUSTIFY_RIGHT)

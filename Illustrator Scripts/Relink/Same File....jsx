@@ -51,14 +51,14 @@ if (file != null) {
             var height = item.height
             var position = item.position
             try {
-                // code below will throw error if PlacedItem file is missing
-                if (item.file.exists && item.file.equalTo(file) && file.isPDF()) {
+                // code below will throw error if PlacedItem file is missing, ignore for now
+                if (item.file !== undefined && item.file.equalTo(file) && file.isPDF()) {
                     item.file = getResource(R.png.blank)
                 }
             } catch (e) {
                 $.writeln(e.message)
             }
-            item.relink(file)
+            item.file = file
             if (maintainGroup.isMaintain()) {
                 item.width = width
                 item.height = height

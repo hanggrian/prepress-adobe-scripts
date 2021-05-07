@@ -12,7 +12,7 @@ var characterFontEdit, characterItalicCheck, characterUnderlineCheck
 var colorFillList, colorStrokeList
 
 dialog.hgroup(function(mainGroup) {
-    mainGroup.alignChildren = 'top'
+    mainGroup.alignChildren = 'fill'
     mainGroup.vpanel('Character', function(panel) {
         panel.alignChildren = 'left'
         panel.hgroup(function(group) {
