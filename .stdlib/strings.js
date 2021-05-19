@@ -1,4 +1,13 @@
 /**
+ * Returns true if text contains word.
+ * @param {String} s expected prefix.
+ * @returns {Boolean}
+ */
+String.prototype.includes = function(s) {
+    return this.indexOf(s) !== -1
+}
+
+/**
  * Returns true if text starts with word.
  * @param {String} s expected prefix.
  * @returns {Boolean}

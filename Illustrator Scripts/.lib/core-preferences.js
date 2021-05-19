@@ -21,44 +21,68 @@ Preferences.prototype.getPSDPreserveSlices = function() { return this.photoshopF
 
 /** Alias of `getBooleanPreference`. */
 Preferences.prototype.getBoolean = function(dialog, key) {
-    return this.getBooleanPreference(_getPreferenceKey(dialog, key))
+    var actualKey = _getPreferenceKey(dialog, key)
+    var value = this.getBooleanPreference(actualKey)
+    $.writeln('Preference `' + key + '=' + value + '` obtained')
+    return value
 }
 
 /** Alias of `getRealPreference`. */
 Preferences.prototype.getNumber = function(dialog, key) {
-    return this.getRealPreference(_getPreferenceKey(dialog, key))
+    var actualKey = _getPreferenceKey(dialog, key)
+    var value = this.getRealPreference(actualKey)
+    $.writeln('Preference `' + key + '=' + value + '` obtained')
+    return value
 }
 
 /** Alias of `getStringPreference`. */
 Preferences.prototype.getString = function(dialog, key) {
-    return this.getStringPreference(_getPreferenceKey(dialog, key))
+    var actualKey = _getPreferenceKey(dialog, key)
+    var value = this.getStringPreference(actualKey)
+    $.writeln('Preference `' + key + '=' + value + '` obtained')
+    return value
 }
 
 /** Alias of `setBooleanPreference`. */
 Preferences.prototype.setBoolean = function(dialog, key, value) {
-    this.setBooleanPreference(_getPreferenceKey(dialog, key), value)
+    var actualKey = _getPreferenceKey(dialog, key)
+    var actualValue = _getPreferenceValue(value)
+    this.setBooleanPreference(actualKey, actualValue)
+    $.writeln('Preference `' + key + '=' + actualValue + '` stored')
 }
 
 /** Alias of `setRealPreference`. */
 Preferences.prototype.setNumber = function(dialog, key, value) {
-    this.setRealPreference(_getPreferenceKey(dialog, key), value)
+    var actualKey = _getPreferenceKey(dialog, key)
+    var actualValue = _getPreferenceValue(value)
+    this.setRealPreference(actualKey, actualValue)
+    $.writeln('Preference `' + key + '=' + actualValue + '` stored')
 }
 
 /** Alias of `setStringPreference`. */
 Preferences.prototype.setString = function(dialog, key, value) {
-    this.setStringPreference(_getPreferenceKey(dialog, key), value)
+    var actualKey = _getPreferenceKey(dialog, key)
+    var actualValue = _getPreferenceValue(value)
+    this.setStringPreference(actualKey, actualValue)
+    $.writeln('Preference `' + key + '=' + actualValue + '` stored')
 }
 
 /** Alias of `removePreference`. */
 Preferences.prototype.remove = function(dialog, key) {
-    this.removePreference(_getPreferenceKey(dialog, key))
+    var actualKey = _getPreferenceKey(dialog, key)
+    this.removePreference(actualKey)
+    $.writeln('Preference `' + key + '` removed')
 }
 
 function _getPreferenceKey(dialog, key) {
-    var actualKey = PREFERENCES_ROOT
+    var s = PREFERENCES_ROOT
     if (dialog !== undefined) {
-        actualKey += dialog.title + '/'
+        s += dialog.title + '/'
     }
-    actualKey += key
-    return actualKey
+    s += key
+    return s
+}
+
+function _getPreferenceValue(value) {
+    return value instanceof Function ? value() : value
 }

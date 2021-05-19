@@ -1,9 +1,10 @@
 Illustrator Scripts
 ===================
 
-Known Bug
----------
+Known Issue
+-----------
 * Relink Same File & Multipage - when item's current file is missing and trying to relink a pdf file, the page is always set to 2. In this case, relink again.
+* Impose - when artboards exceed canvas size, links will appear 10 times bigger.
 
 Resources
 ---------

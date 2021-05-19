@@ -1,3 +1,8 @@
+var CONTROL_UNAVAILABLE = function(control) {
+    control.enabled = false
+    control.helpTip = 'This feature is not yet available.'
+}
+
 // Focus on this edit text.
 EditText.prototype.activate = function() { if (!this.active) this.active = true }
 
