@@ -3,8 +3,8 @@ Illustrator Scripts
 
 Known Issue
 -----------
-* Relink Same File & Multipage - when item's current file is missing and trying to relink a pdf file, the page is always set to 2. In this case, relink again.
-* Impose - when artboards exceed canvas size, links will appear 10 times bigger.
+* Relink - sometimes retrying the script with the same input does the trick.
+* Impose - when artboards exceed canvas size, units will break causing oversized `PlacedItem`.
 
 Resources
 ---------

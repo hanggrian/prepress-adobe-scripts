@@ -3,10 +3,32 @@ var PREFERENCES_ROOT = 'Prepress Adobe Scripts/'
 /** Global access to preferences. */
 var preferences = app.preferences
 
-Preferences.prototype.setPDFPage = function(page) { this.PDFFileOptions.pageToOpen = page + 1 }
-Preferences.prototype.getPDFPage = function() { return this.PDFFileOptions.pageToOpen - 1 }
-Preferences.prototype.setPDFCrop = function(boxType) { this.PDFFileOptions.pDFCropToBox = boxType  }
-Preferences.prototype.getPDFCrop = function() { return this.PDFFileOptions.pDFCropToBox }
+/** Quick access to pdf page. */
+Preferences.prototype.setPDFPage = function(page) {
+    var actualPage = page + 1
+    $.writeln('Preference PDF page `' + actualPage + '` stored')
+    this.PDFFileOptions.pageToOpen = actualPage
+}
+
+/** Quick access to pdf page. */
+Preferences.prototype.getPDFPage = function() {
+    var actualPage = this.PDFFileOptions.pageToOpen - 1
+    $.writeln('Preference PDF page `' + actualPage + '` obtained')
+    return actualPage
+}
+
+/** Quick access to pdf box type. */
+Preferences.prototype.setPDFCrop = function(boxType) {
+    $.writeln('Preference PDF box type `' + boxType + '` stored')
+    this.PDFFileOptions.pDFCropToBox = boxType
+}
+
+/** Quick access to pdf box type. */
+Preferences.prototype.getPDFCrop = function() {
+    var boxType = this.PDFFileOptions.pDFCropToBox
+    $.writeln('Preference PDF box type `' + boxType + '` obtained')
+    return boxType
+}
 
 Preferences.prototype.setPSDLayerComp = function(layerComp) { this.photoshopFileOptions.layerComp = layerComp }
 Preferences.prototype.getPSDLayerComp = function() { return this.photoshopFileOptions.layerComp }

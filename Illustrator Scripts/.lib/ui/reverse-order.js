@@ -1,18 +1,3 @@
-function MaintainDimensionGroup(parent) {
-    var self = this
-    this.maintainCheck
-
-    this.main = parent.vgroup(function(group) {
-        group.alignment = 'right'
-        group.setHelpTips('Keep current size & position after relinking.')
-        self.maintainCheck = group.checkBox(undefined, 'Maintain Dimension', SELECTED)
-    })
-
-    this.isMaintain = function() {
-        return self.maintainCheck.value
-    }
-}
-
 function ReverseOrderGroup(parent) {
     var self = this
     this.reverseCheck

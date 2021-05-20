@@ -33,7 +33,7 @@ if (input !== null) {
             var newFile = parent.getFiles()
                 .filter(function(it) { return unescape(it.name) === newFileName })
                 .first()
-            items.forEach(function(item) { item.file = newFile })
+            items.forEach(function(item) { item.relink(newFile) })
         }
     }
 }

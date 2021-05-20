@@ -8,7 +8,7 @@
             "type": "extendscript-debug",
             "request": "launch",
             "name": "prepress-adobe-scripts",
-            "program": "${workspaceFolder}/Illustrator Scripts/Object/Add Trim Marks....jsx",
+            "program": "${workspaceFolder}/Illustrator Scripts/Relink/Each....jsx",
             "stopOnEntry": false
         }
     ]

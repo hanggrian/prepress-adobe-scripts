@@ -24,9 +24,9 @@ if (folder != null) {
             var width = item.width 
             var height = item.height
             var position = item.position
-            item.file = folder.getFiles()
+            item.relink(folder.getFiles()
                 .filter(function(file) { return file.name === item.file.name })
-                .first()
+                .first())
             if (maintainGroup.isMaintain()) {
                 item.width = width
                 item.height = height

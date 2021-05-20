@@ -35,3 +35,18 @@ Object.prototype.getClippingPathItem = function() {
     }
     return this
 }
+
+/**
+ * Returns true if the file associated with this PlacedItem is not missing.
+ * @this {PlacedItem}
+ * @returns {Boolean}
+ */
+Object.prototype.isFileExists = function() {
+    check(this.typename === 'PlacedItem')
+    try {
+        this.file
+        return true
+    } catch (e) {
+        return false
+    }
+}
