@@ -1,4 +1,4 @@
 #target Illustrator
-#include '../../../.lib/commons.js'
+#include '../../.lib/commons.js'
 
 new EightUpSimplexPager(document).forEachArtboard(function() { })

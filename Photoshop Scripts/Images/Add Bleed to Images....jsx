@@ -13,7 +13,7 @@
 var BOUNDS_TEXT = [100, 21]
 var BOUNDS_EDIT = [100, 21]
 
-var dialog = new Dialog('Add Bleed')
+var dialog = new Dialog('Add Bleed to Images')
 var bleedEdit, guideLayoutCheck, flattenCheck
 var selectionCheck, horizontalExtraGroup, horizontalExtraEdit, verticalExtraGroup, verticalExtraEdit
 

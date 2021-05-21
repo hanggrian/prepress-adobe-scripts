@@ -12,7 +12,7 @@ checkHasSelection()
 var items = selection.filterItem(function(it) { return it.typename === 'PlacedItem' })
 check(items.isNotEmpty(), 'No links found in selection')
 
-var dialog = new Dialog('Relink Each', 'fill')
+var dialog = new Dialog('Relink Multipage', 'fill')
 var pdfPanel, rangeGroup, reverseGroup
 
 var files = openFile(dialog.title, [

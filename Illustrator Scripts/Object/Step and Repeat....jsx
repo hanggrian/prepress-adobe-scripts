@@ -4,15 +4,15 @@
 #include '../.lib/commons.js'
 #include '../.lib/ui/trim-marks.js'
 
-var BOUNDS_TEXT = [95, 21]
+var BOUNDS_TEXT = [100, 21]
 var BOUNDS_EDIT = [100, 21]
 var BOUNDS_EDIT2 = [35, 21]
 
 checkSingleSelection()
 
-var dialog = new Dialog('Spread', 'fill')
+var dialog = new Dialog('Step and Repeat', 'fill')
 var artworkCheck, trimMarksCheck, bothCheck
-var horizontalEdit, verticalEdit, gapHorizontalEdit, gapVerticalEdit
+var horizontalEdit, verticalEdit, moveHorizontalEdit, moveVerticalEdit
 var trimMarksPanel
 var enableTrimMarks = function() { trimMarksPanel.main.enabled = true }
 var disableTrimMarks = function() { trimMarksPanel.main.enabled = false }
@@ -32,7 +32,7 @@ dialog.hgroup(function(group) {
     })
 })
 
-dialog.vpanel(dialog.title, function(panel) {
+dialog.vpanel('Options', function(panel) {
     panel.alignChildren = 'fill'
     panel.hgroup(function(group) {
         group.setHelpTips('2 dimension target.')
@@ -41,15 +41,16 @@ dialog.vpanel(dialog.title, function(panel) {
         group.staticText(undefined, '×')
         verticalEdit = group.editText(BOUNDS_EDIT2, undefined, VALIDATE_DIGITS)
     })
+    var target = selection.first().getClippingPathItem()
     panel.hgroup(function(group) {
         group.setHelpTips('Distance between arts horizontally.')
-        group.staticText(BOUNDS_TEXT, 'Horizontal Gap:', JUSTIFY_RIGHT)
-        gapHorizontalEdit = group.editText(BOUNDS_EDIT, unitsOf('0 mm'), VALIDATE_UNITS)
+        group.staticText(BOUNDS_TEXT, 'Move Horizontal:', JUSTIFY_RIGHT)
+        moveHorizontalEdit = group.editText(BOUNDS_EDIT, formatUnits(target.width, unitName, 2), VALIDATE_UNITS)
     })
     panel.hgroup(function(group) {
         group.setHelpTips('Distance between arts vertically.')
-        group.staticText(BOUNDS_TEXT, 'Vertical Gap:', JUSTIFY_RIGHT)
-        gapVerticalEdit = group.editText(BOUNDS_EDIT, unitsOf('0 mm'), VALIDATE_UNITS)
+        group.staticText(BOUNDS_TEXT, 'Move Vertical:', JUSTIFY_RIGHT)
+        moveVerticalEdit = group.editText(BOUNDS_EDIT, formatUnits(target.height, unitName, 2), VALIDATE_UNITS)
     })
 })
 
@@ -64,8 +65,8 @@ dialog.setPositiveButton(function() {
 
     var horizontal = parseInt(horizontalEdit.text) || 0
     var vertical = parseInt(verticalEdit.text) || 0
-    var gapHorizontal = parseUnits(gapHorizontalEdit.text)
-    var gapVertical = parseUnits(gapVerticalEdit.text)
+    var moveHorizontal = parseUnits(moveHorizontalEdit.text)
+    var moveVertical = parseUnits(moveVerticalEdit.text)
 
     if (horizontal < 1 || vertical < 1) {
         alert('Minimal value is 1×1')
@@ -73,9 +74,6 @@ dialog.setPositiveButton(function() {
     }
 
     var target = selection.first()
-    var clippingTarget = target.getClippingPathItem()
-    var width = clippingTarget.width
-    var height = clippingTarget.height
     var x = target.position.first()
     var y = target.position[1]
 
@@ -88,7 +86,7 @@ dialog.setPositiveButton(function() {
     for (var v = 0; v < vertical; v++) {
         app.paste()
         var addedItem = selection.first()
-        addedItem.position = [x, y - v * (height + gapVertical)]
+        addedItem.position = [x, y - v * moveVertical]
         if (trimMarksPanel.main.enabled) {
             locations = [LOCATION_LEFT_BOTTOM, LOCATION_LEFT_TOP]
             if (v === 0) {
@@ -106,7 +104,7 @@ dialog.setPositiveButton(function() {
         for (var h = 1; h < horizontal; h++) {
             app.paste()
             addedItem = selection.first()
-            addedItem.position = [x + h * (width + gapHorizontal), y - v * (height + gapVertical)]
+            addedItem.position = [x + h * moveHorizontal, y - v * moveVertical]
             if (trimMarksPanel.main.enabled) {
                 locations = []
                 if (h === horizontal - 1) {

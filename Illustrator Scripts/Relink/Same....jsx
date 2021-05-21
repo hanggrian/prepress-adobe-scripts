@@ -10,7 +10,7 @@ checkHasSelection()
 var items = selection.filterItem(function(it) { return it.typename === 'PlacedItem' })
 check(items.isNotEmpty(), 'No links found in selection')
 
-var file = openFile('Relink All', [
+var file = openFile('Relink Same', [
     ['Adobe Illustrator', 'AI'],
     ['Adobe PDF', 'PDF'],
     ['BMP', 'BMP'],
@@ -40,15 +40,15 @@ if (file === null) {
             })
         })
         dialog.setNegativeButton('Cancel')
-        dialog.setPositiveButton(function() { relink() })
+        dialog.setPositiveButton(function() {
+            preferences.setPDFPage(parseInt(pageEdit.text) - 1)
+            relink()
+        })
         dialog.show()
     }
 }
 
 function relink() {
-    if (file.isPDF()) {
-        preferences.setPDFPage(parseInt(pageEdit.text) - 1)
-    }
     items.forEach(function(item) {
         var width = item.width
         var height = item.height
