@@ -1,8 +1,8 @@
 #target Illustrator
 #include '../.lib/commons.js'
+#include '../.lib/ui/checks.js'
 #include '../.lib/ui/open-options.js'
 #include '../.lib/ui/range.js'
-#include '../.lib/ui/reverse-order.js'
 
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
@@ -67,12 +67,13 @@ if (files === null) {
             } else {
                 item.relink(files[current++])
             }
-            item.width = width
-            item.height = height
-            item.position = position
             if (current > end) {
                 current--
             }
+            // maintain dimension
+            item.width = width
+            item.height = height
+            item.position = position
         })
         $.writeln('Relink success')
     })

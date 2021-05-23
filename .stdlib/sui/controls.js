@@ -3,8 +3,11 @@ var CONTROL_UNAVAILABLE = function(control) {
     control.helpTip = 'This feature is not yet available.'
 }
 
-// Focus on this edit text.
+/** Focus on this edit text. */
 EditText.prototype.activate = function() { if (!this.active) this.active = true }
+
+/** Returns true if this list has a selection. */
+DropDownList.prototype.hasSelection = function() { return this.selection !== null }
 
 /**
  * Apply help tip to all children of this group, before or after children creation.

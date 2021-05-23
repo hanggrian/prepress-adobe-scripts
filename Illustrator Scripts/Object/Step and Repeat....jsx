@@ -55,7 +55,7 @@ dialog.vpanel('Options', function(panel) {
 })
 
 trimMarksPanel = new TrimMarksPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
-trimMarksPanel.main.enabled = false
+disableTrimMarks()
 
 horizontalEdit.activate()
 

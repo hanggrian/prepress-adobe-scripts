@@ -7,7 +7,7 @@
 #include '../.lib/commons.js'
 
 var BOUNDS_DIMENSION_TEXT = [45, 21]
-var BOUNDS_DIMENSION_EDIT = [100, 21]
+var BOUNDS_DIMENSION_EDIT = [150, 21]
 
 var FILE_AI = ['ai']
 var FILE_PDF = ['pdf']
@@ -19,54 +19,52 @@ var FILE_PNG = ['png', 'pns']
 var FILE_PSD = ['psd', 'psb', 'pdd']
 var FILE_TIFF = ['tif', 'tiff']
 
-var dialog = new Dialog('Select Links')
+var dialog = new Dialog('Select Links', 'fill')
 var widthEdit, heightEdit
 var aiCheck, pdfCheck, bmpCheck, gifCheck, jpegCheck, jpeg2000Check, pngCheck, psdCheck, tiffCheck
 
-dialog.hgroup(function(mainGroup) {
-    mainGroup.alignChildren = 'top'
-    mainGroup.vpanel('Dimension', function(panel) {
-        panel.hgroup(function(group) {
-            group.staticText(BOUNDS_DIMENSION_TEXT, 'Width:', JUSTIFY_RIGHT)
-            widthEdit = group.editText(BOUNDS_DIMENSION_EDIT, undefined, function(it) {
-                it.validateUnits()
-                it.activate()
-            })
-        })
-        panel.hgroup(function(group) {
-            group.staticText(BOUNDS_DIMENSION_TEXT, 'Height:', JUSTIFY_RIGHT)
-            heightEdit = group.editText(BOUNDS_DIMENSION_EDIT, undefined, VALIDATE_UNITS)
+dialog.vpanel('Dimension', function(panel) {
+    panel.alignChildren = 'fill'
+    panel.hgroup(function(group) {
+        group.staticText(BOUNDS_DIMENSION_TEXT, 'Width:', JUSTIFY_RIGHT)
+        widthEdit = group.editText(BOUNDS_DIMENSION_EDIT, undefined, function(it) {
+            it.validateUnits()
+            it.activate()
         })
     })
-    mainGroup.vpanel('File Types', function(panel) {
-        panel.alignChildren = 'fill'
-        aiCheck = panel.checkBox(undefined, getTypeString('Adobe Illustrator', FILE_AI))
-        pdfCheck = panel.checkBox(undefined, getTypeString('Adobe PDF', FILE_PDF))
-        bmpCheck = panel.checkBox(undefined, getTypeString('BMP', FILE_BMP))
-        gifCheck = panel.checkBox(undefined, getTypeString('GIF89a', FILE_GIF))
-        jpegCheck = panel.checkBox(undefined, getTypeString('JPEG', FILE_JPEG))
-        jpeg2000Check = panel.checkBox(undefined, getTypeString('JPEG2000', FILE_JPEG2000))
-        pngCheck = panel.checkBox(undefined, getTypeString('PNG', FILE_PNG))
-        psdCheck = panel.checkBox(undefined, getTypeString('Photoshop', FILE_PSD))
-        tiffCheck = panel.checkBox(undefined, getTypeString('TIFF', FILE_TIFF))
+    panel.hgroup(function(group) {
+        group.staticText(BOUNDS_DIMENSION_TEXT, 'Height:', JUSTIFY_RIGHT)
+        heightEdit = group.editText(BOUNDS_DIMENSION_EDIT, undefined, VALIDATE_UNITS)
     })
+})
+dialog.vpanel('File Types', function(panel) {
+    panel.alignChildren = 'fill'
+    aiCheck = panel.checkBox(undefined, getTypeString('Adobe Illustrator', FILE_AI))
+    pdfCheck = panel.checkBox(undefined, getTypeString('Adobe PDF', FILE_PDF))
+    bmpCheck = panel.checkBox(undefined, getTypeString('BMP', FILE_BMP))
+    gifCheck = panel.checkBox(undefined, getTypeString('GIF89a', FILE_GIF))
+    jpegCheck = panel.checkBox(undefined, getTypeString('JPEG', FILE_JPEG))
+    jpeg2000Check = panel.checkBox(undefined, getTypeString('JPEG2000', FILE_JPEG2000))
+    pngCheck = panel.checkBox(undefined, getTypeString('PNG', FILE_PNG))
+    psdCheck = panel.checkBox(undefined, getTypeString('Photoshop', FILE_PSD))
+    tiffCheck = panel.checkBox(undefined, getTypeString('TIFF', FILE_TIFF))
 })
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
+    var width = parseUnits(widthEdit.text)
+    var height = parseUnits(heightEdit.text)
     selectAll(['PlacedItem'], function(item) {
         var condition = true
-        var width = parseUnits(widthEdit.text)
         if (width > 0) {
             condition = condition && parseInt(width) === parseInt(item.width)
         }
-        var height = parseUnits(heightEdit.text)
         if (height > 0) {
             condition = condition && parseInt(height) === parseInt(item.height)
         }
 
         var condition2 = false
-        var extension = item.file.name.split('.').pop()
+        var extension = item.isFileExists() && item.file.name.split('.').pop()
         if (aiCheck.value) condition2 = condition2 || contains(FILE_AI, extension)
         if (pdfCheck.value) condition2 = condition2 || contains(FILE_PDF, extension)
         if (bmpCheck.value) condition2 = condition2 || contains(FILE_BMP, extension)

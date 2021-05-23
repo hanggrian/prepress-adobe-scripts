@@ -2,6 +2,7 @@
 
 #target Illustrator
 #include '../.lib/commons.js'
+#include '../.lib/ui/checks.js'
 #include '../.lib/ui/item-transform.js'
 
 var BOUNDS_TEXT = [60, 21]
@@ -13,6 +14,7 @@ var dialog = new Dialog('Resize Each')
 var prefill = selection.first()
 var widthEdit, heightEdit
 var changePanel, anchorPanel
+var recursiveGroup
 
 dialog.hgroup(function(group) {
     group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
@@ -30,12 +32,13 @@ dialog.hgroup(function(group) {
     changePanel = new ItemChangePanel(group)
     anchorPanel = new ItemAnchorPanel(group)
 })
+recursiveGroup = new RecursiveGroup(dialog.main)
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     var width = parseUnits(widthEdit.text)
     var height = parseUnits(heightEdit.text)
-    selection.forEachItem(function(it) {
+    recursiveGroup.forEachAware(selection, function(it) {
         var scaleX = 100 * width / it.width
         var scaleY = 100 * height / it.height
         if (scaleX != 100 && scaleY != 100) {

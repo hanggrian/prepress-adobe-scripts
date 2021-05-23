@@ -18,7 +18,7 @@ var colorModelList, resolutionEdit
 var backgroundWhiteRadio, backgroundTransparentRadio
 var antiAliasingNoneRadio, antiAliasingArtRadio, antiAliasingTypeRadio
 var backgroundBlackCheck, clippingMaskCheck, convertSpotColorsCheck, convertTextToOutlinesCheck, includeLayersCheck, paddingEdit
-var maintainGroup
+var recursiveGroup
 
 dialog.hgroup(function(group) {
     group.staticText(BOUNDS_TEXT, 'Color Model:', JUSTIFY_RIGHT)
@@ -80,7 +80,7 @@ dialog.hgroup(function(mainGroup) {
         })
     })
 })
-maintainGroup = new MaintainDimensionGroup(dialog.main)
+recursiveGroup = new RecursiveGroup(dialog.main)
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
@@ -107,15 +107,16 @@ dialog.setPositiveButton(function() {
     options.convertTextToOutlines = convertTextToOutlinesCheck.value
     options.includeLayers = includeLayersCheck.value
     options.padding = parseUnits(paddingEdit.text)
-    selection.forEachItem(function(item) {
+    recursiveGroup.forEachAware(selection, function(item) {
         var width = item.width
         var height = item.height
         var position = item.position
         var newItem = document.rasterize(item, item.controlBounds, options)
-        if (maintainGroup.isMaintain()) {
+        // maintain dimension, ignore if text
+        if (item.typename !== 'TextFrame') {
             newItem.width = width + options.padding * 2
             newItem.height = height + options.padding * 2
-            newItem.position = [position.x, positions.y]
+            newItem.position = position
         }
     })
 })

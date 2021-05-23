@@ -57,6 +57,7 @@ function relink() {
             item.file = getResource(R.png.blank)
         }
         item.relink(file)
+        // maintain dimension
         item.width = width
         item.height = height
         item.position = position
