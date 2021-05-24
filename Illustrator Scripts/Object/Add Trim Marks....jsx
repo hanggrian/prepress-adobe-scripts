@@ -12,14 +12,13 @@
 
 checkHasSelection()
 
-var dialog = new Dialog('Add Trim Marks')
+var dialog = new Dialog('Add Trim Marks', 'fill')
 var trimMarksPanel, locationsPanel
 
-dialog.hgroup(function(group) {
-    trimMarksPanel = new TrimMarksPanel(group, [45, 21], [100, 21])
-    trimMarksPanel.offsetEdit.activate()
-    locationsPanel = new TrimMarkLocationsPanel(group)
-})
+dialog.main.orientation = 'row'
+trimMarksPanel = new TrimMarksPanel(dialog.main, [45, 21], [100, 21])
+trimMarksPanel.offsetEdit.activate()
+locationsPanel = new TrimMarkLocationsPanel(dialog.main)
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() { process(false) })

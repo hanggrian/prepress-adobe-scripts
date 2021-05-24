@@ -1,7 +1,7 @@
 #target Illustrator
-#include '../../.lib/commons.js'
-#include '../../.lib/ui/checks.js'
-#include '../../.lib/ui/type-affix.js'
+#include '../.lib/commons.js'
+#include '../.lib/ui/checks.js'
+#include '../.lib/ui/type-affix.js'
 
 var BOUNDS_TEXT = [70, 21]
 var BOUNDS_EDIT = [100, 21]
@@ -17,28 +17,20 @@ checkHasSelection()
 var items = selection.filterItem(function(it) { return it.typename === 'TextFrame' })
 check(items.isNotEmpty(), 'No types found in selection')
 
-var dialog = new Dialog('Retype Numerize (Alphabet Suffix)', 'fill')
-var stopsList, spaceCheck
-var affixPanel, reverseGroup
+var dialog = new Dialog('Numerize (Alphabet Suffix)', 'fill')
+var stopsList, affixPanel, reverseGroup
 
-dialog.vpanel('Retype', function(panel) {
+dialog.vpanel('Options', function(panel) {
     panel.alignChildren = 'fill'
     panel.hgroup(function(group) {
         group.setHelpTips('The iteration will stop at the selected alphabet and the number will reset back to 1.')
         group.staticText(BOUNDS_TEXT, 'Stops at:', JUSTIFY_RIGHT)
-        stopsList = group.dropDownList(undefined, ALPHABETS, function(it) {
+        stopsList = group.dropDownList(BOUNDS_EDIT, ALPHABETS, function(it) {
             it.selection = ALPHABETS.indexOf('B')
         })
     })
-    panel.hgroup(function(group) {
-        group.setHelpTips('Add single space between number and alphabet.')
-        group.staticText(BOUNDS_TEXT, 'Midspace:', JUSTIFY_RIGHT)
-        spaceCheck = group.checkBox(undefined, 'Enable')
-    })
 })
-
 affixPanel = new TypeAffixPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
-
 reverseGroup = new ReverseOrderGroup(dialog.main)
 
 var number = 1, count = 0, stopsAt, prefix, suffix

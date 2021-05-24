@@ -8,7 +8,7 @@
             "type": "extendscript-debug",
             "request": "launch",
             "name": "prepress-adobe-scripts",
-            "program": "${workspaceFolder}/Illustrator Scripts/Select/Types....jsx",
+            "program": "${workspaceFolder}/Illustrator Scripts/Object/Step and Repeat....jsx",
             "stopOnEntry": false
         }
     ]

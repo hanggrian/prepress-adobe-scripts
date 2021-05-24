@@ -4,18 +4,18 @@ Adobe Illustrator and Photoshop scripts tailored for printing purposes.
 * Highly customized standard library for consistent look and API across scripts.
 * Tested only on latest Adobe suite.
 
-![add-trim-marks](/art/add-trim-marks.png)
+![impose](art/impose.png)
 
 Usage
 -----
 These scripts are **not standalone**, all of them requires hidden directories to be in pre-determined location. This is why it is recommended to put them in Adobe installation paths, and access them from native menu bar.
 
-![scripts-menu](/art/scripts-menu.png)
+![scripts-menu](art/scripts-menu.png)
 
 ### Automatic Installation
 Run `scripts-patcher.bat` as admin (Windows) or `scripts-patcher.sh` with sudo (Mac).
 
-![scripts-patcher](/art/scripts-patcher.png)
+![scripts-patcher](art/scripts-patcher.png)
 
 ### Manual Installation
 Manually copy all files & folders within `Scripts` directory to `Presets` directory in local Adobe installation paths, the location may differ between app:

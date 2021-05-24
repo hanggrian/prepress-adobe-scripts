@@ -6,6 +6,12 @@ var CONTROL_UNAVAILABLE = function(control) {
 /** Focus on this edit text. */
 EditText.prototype.activate = function() { if (!this.active) this.active = true }
 
+/** Select this check box. */
+Checkbox.prototype.select = function() { if (!this.value) this.value = true }
+
+/** Select this radio button. */
+RadioButton.prototype.select = function() { if (!this.value) this.value = true }
+
 /** Returns true if this list has a selection. */
 DropDownList.prototype.hasSelection = function() { return this.selection !== null }
 

@@ -1,12 +1,12 @@
 #target Illustrator
-#include '../../.lib/commons.js'
+#include '../.lib/commons.js'
 
 checkHasSelection()
 
 var items = selection.filterItem(function(it) { return it.typename === 'TextFrame' })
 check(items.isNotEmpty(), 'No types found in selection')
 
-var dialog = new Dialog('Retype Same Text')
+var dialog = new Dialog('Retype Same')
 var inputEdit
 
 dialog.hgroup(function(group) {

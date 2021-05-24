@@ -69,7 +69,7 @@ dialog.setPositiveButton(function() {
     var moveVertical = parseUnits(moveVerticalEdit.text)
 
     if (horizontal < 1 || vertical < 1) {
-        alert('Minimal value is 1×1')
+        errorWithAlert('Minimal value is 1×1')
         return
     }
 

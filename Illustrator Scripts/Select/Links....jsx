@@ -6,8 +6,8 @@
 #target Illustrator
 #include '../.lib/commons.js'
 
-var BOUNDS_DIMENSION_TEXT = [45, 21]
-var BOUNDS_DIMENSION_EDIT = [150, 21]
+var BOUNDS_TEXT = [45, 21]
+var BOUNDS_EDIT = [150, 21]
 
 var FILE_AI = ['ai']
 var FILE_PDF = ['pdf']
@@ -26,15 +26,15 @@ var aiCheck, pdfCheck, bmpCheck, gifCheck, jpegCheck, jpeg2000Check, pngCheck, p
 dialog.vpanel('Dimension', function(panel) {
     panel.alignChildren = 'fill'
     panel.hgroup(function(group) {
-        group.staticText(BOUNDS_DIMENSION_TEXT, 'Width:', JUSTIFY_RIGHT)
-        widthEdit = group.editText(BOUNDS_DIMENSION_EDIT, undefined, function(it) {
+        group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
+        widthEdit = group.editText(BOUNDS_EDIT, undefined, function(it) {
             it.validateUnits()
             it.activate()
         })
     })
     panel.hgroup(function(group) {
-        group.staticText(BOUNDS_DIMENSION_TEXT, 'Height:', JUSTIFY_RIGHT)
-        heightEdit = group.editText(BOUNDS_DIMENSION_EDIT, undefined, VALIDATE_UNITS)
+        group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
+        heightEdit = group.editText(BOUNDS_EDIT, undefined, VALIDATE_UNITS)
     })
 })
 dialog.vpanel('File Types', function(panel) {

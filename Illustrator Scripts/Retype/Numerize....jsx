@@ -1,7 +1,7 @@
 #target Illustrator
-#include '../../.lib/commons.js'
-#include '../../.lib/ui/checks.js'
-#include '../../.lib/ui/type-affix.js'
+#include '../.lib/commons.js'
+#include '../.lib/ui/checks.js'
+#include '../.lib/ui/type-affix.js'
 
 var BOUNDS_TEXT = [55, 21]
 var BOUNDS_EDIT = [100, 21]
@@ -11,11 +11,10 @@ checkHasSelection()
 var items = selection.filterItem(function(it) { return it.typename === 'TextFrame' })
 check(items.isNotEmpty(), 'No types found in selection')
 
-var dialog = new Dialog('Retype Numerize')
-var startsAtEdit, digitsEdit
-var affixPanel, reverseGroup
+var dialog = new Dialog('Numerize')
+var startsAtEdit, digitsEdit, affixPanel, reverseGroup
 
-dialog.vpanel('Retype', function(panel) {
+dialog.vpanel('Options', function(panel) {
     panel.hgroup(function(group) {
         group.setHelpTips('Starting counter.')
         group.staticText(BOUNDS_TEXT, 'Starts at:', JUSTIFY_RIGHT)
@@ -30,9 +29,7 @@ dialog.vpanel('Retype', function(panel) {
         digitsEdit = group.editText(BOUNDS_EDIT, undefined, VALIDATE_DIGITS)
     })
 })
-
 affixPanel = new TypeAffixPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
-
 reverseGroup = new ReverseOrderGroup(dialog.main)
 
 var count, digits, prefix, suffix

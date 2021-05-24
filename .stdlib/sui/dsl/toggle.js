@@ -1,4 +1,4 @@
-var SELECTED = function(toggle) { toggle.value = true }
+var SELECTED = function(toggle) { toggle.select() }
 
 /** 
  * Add check box to dialog.

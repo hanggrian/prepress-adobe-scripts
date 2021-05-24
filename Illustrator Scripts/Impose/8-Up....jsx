@@ -54,7 +54,7 @@ if (files !== null && files.isNotEmpty()) {
         var rotatedWidth = !rotateCheck.value ? width : height
         var rotatedHeight = !rotateCheck.value ? height : width
         if (pages % 16 !== 0) {
-            alert('Pages must be divisible by 16.')
+            errorWithAlert('Pages must be divisible by 16.')
         }
         var document = documentPanel.open('Untitled-8-Up',
             pages / 8,
