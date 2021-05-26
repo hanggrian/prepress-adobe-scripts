@@ -1,7 +1,7 @@
 #target Illustrator
 #include '../.lib/commons.js'
 #include '../.lib/ui/checks.js'
-#include '../.lib/ui/type-affix.js'
+#include '../.lib/ui/retype-affix.js'
 
 var BOUNDS_TEXT = [70, 21]
 var BOUNDS_EDIT = [100, 21]
@@ -30,7 +30,7 @@ dialog.vpanel('Options', function(panel) {
         })
     })
 })
-affixPanel = new TypeAffixPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
+affixPanel = new RetypeAffixPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
 reverseGroup = new ReverseOrderGroup(dialog.main)
 
 var number = 1, count = 0, stopsAt, prefix, suffix

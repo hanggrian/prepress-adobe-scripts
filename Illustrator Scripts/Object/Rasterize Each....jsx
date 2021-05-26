@@ -21,12 +21,14 @@ var backgroundBlackCheck, clippingMaskCheck, convertSpotColorsCheck, convertText
 var recursiveGroup
 
 dialog.hgroup(function(group) {
+    group.setHelpTips('The color model for the rasterization.')
     group.staticText(BOUNDS_TEXT, 'Color Model:', JUSTIFY_RIGHT)
     colorModelList = group.dropDownList(BOUNDS_EDIT, COLOR_MODELS, function(it) {
         it.selection = COLOR_MODELS.indexOf('Default')
     })
 })
 dialog.hgroup(function(group) {
+    group.setHelpTips('The rasterization resolution in dots-per-inch (dpi).')
     group.staticText(BOUNDS_TEXT, 'Resolution:', JUSTIFY_RIGHT)
     resolutionEdit = group.editText(BOUNDS_EDIT, '300', function(it) {
         it.validateDigits()
@@ -74,6 +76,7 @@ dialog.hgroup(function(mainGroup) {
             check.helpTip = 'Should the resulting image incorporates the layer attributes (such as opacity and blend mode).'
         })
         panel.hgroup(function(group) {
+            group.setHelpTips('The amount of white space (in points) to be added around the object during rasterization.')
             group.staticText(undefined, 'Add')
             paddingEdit = group.editText(BOUNDS_EDIT_SMALL, unitsOf('0 mm'), VALIDATE_UNITS)
             group.staticText(undefined, 'Around Object')

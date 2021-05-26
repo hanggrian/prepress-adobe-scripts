@@ -1,7 +1,7 @@
 #target Illustrator
 #include '../.lib/commons.js'
 #include '../.lib/ui/checks.js'
-#include '../.lib/ui/type-affix.js'
+#include '../.lib/ui/retype-affix.js'
 
 var BOUNDS_TEXT = [55, 21]
 var BOUNDS_EDIT = [100, 21]
@@ -29,7 +29,7 @@ dialog.vpanel('Options', function(panel) {
         digitsEdit = group.editText(BOUNDS_EDIT, undefined, VALIDATE_DIGITS)
     })
 })
-affixPanel = new TypeAffixPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
+affixPanel = new RetypeAffixPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
 reverseGroup = new ReverseOrderGroup(dialog.main)
 
 var count, digits, prefix, suffix

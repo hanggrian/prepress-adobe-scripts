@@ -1,4 +1,4 @@
-function TypeAffixPanel(parent, textBounds, editBounds) {
+function RetypeAffixPanel(parent, textBounds, editBounds) {
     var self = this
     this.prefixEdit, this.suffixEdit
 

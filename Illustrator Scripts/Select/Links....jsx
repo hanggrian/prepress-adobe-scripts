@@ -5,6 +5,7 @@
 
 #target Illustrator
 #include '../.lib/commons.js'
+#include '../.lib/ui/select-dimension.js'
 
 var BOUNDS_TEXT = [45, 21]
 var BOUNDS_EDIT = [150, 21]
@@ -20,24 +21,12 @@ var FILE_PSD = ['psd', 'psb', 'pdd']
 var FILE_TIFF = ['tif', 'tiff']
 
 var dialog = new Dialog('Select Links', 'fill')
-var widthEdit, heightEdit
+var dimensionPanel
 var aiCheck, pdfCheck, bmpCheck, gifCheck, jpegCheck, jpeg2000Check, pngCheck, psdCheck, tiffCheck
 
-dialog.vpanel('Dimension', function(panel) {
-    panel.alignChildren = 'fill'
-    panel.hgroup(function(group) {
-        group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
-        widthEdit = group.editText(BOUNDS_EDIT, undefined, function(it) {
-            it.validateUnits()
-            it.activate()
-        })
-    })
-    panel.hgroup(function(group) {
-        group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
-        heightEdit = group.editText(BOUNDS_EDIT, undefined, VALIDATE_UNITS)
-    })
-})
+dimensionPanel = new SelectDimensionPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
 dialog.vpanel('File Types', function(panel) {
+    panel.setHelpTips('File extension of selected links.')
     panel.alignChildren = 'fill'
     aiCheck = panel.checkBox(undefined, getTypeString('Adobe Illustrator', FILE_AI))
     pdfCheck = panel.checkBox(undefined, getTypeString('Adobe PDF', FILE_PDF))
@@ -52,8 +41,8 @@ dialog.vpanel('File Types', function(panel) {
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    var width = parseUnits(widthEdit.text)
-    var height = parseUnits(heightEdit.text)
+    var width = dimensionPanel.getWidth()
+    var height = dimensionPanel.getHeight()
     selectAll(['PlacedItem'], function(item) {
         var condition = true
         if (width > 0) {

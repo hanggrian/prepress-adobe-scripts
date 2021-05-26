@@ -4,6 +4,7 @@ function RangeGroup(parent, textBounds, editBounds) {
 
     var actualEditBounds = [editBounds[0] / 2 - 13, editBounds[1]]
     this.main = parent.hgroup(function(group) {
+        group.setHelpTips('From starting point to ending point.')
         group.staticText(textBounds, 'Range:', JUSTIFY_RIGHT)
         self.startEdit = group.editText(actualEditBounds, '1', function(it) {
             it.validateDigits()

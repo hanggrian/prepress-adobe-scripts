@@ -1,14 +1,11 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.1",
     "configurations": [
         {
             "type": "extendscript-debug",
             "request": "launch",
             "name": "prepress-adobe-scripts",
-            "program": "${workspaceFolder}/Illustrator Scripts/Object/Step and Repeat....jsx",
+            "program": "${workspaceFolder}/Illustrator Scripts/Select/Links....jsx",
             "stopOnEntry": false
         }
     ]

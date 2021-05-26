@@ -62,14 +62,17 @@ function OpenPagesPanel(parent, textBounds, editBounds) {
         panel.alignChildren = 'fill'
         self.rangeGroup = new RangeGroup(panel, textBounds, editBounds)
         panel.hgroup(function(group) {
+            group.setHelpTips('Page width, not artboard.')
             group.staticText(textBounds, 'Width:', JUSTIFY_RIGHT)
             self.widthEdit = group.editText(editBounds, '210 mm', VALIDATE_UNITS)
         })
         panel.hgroup(function(group) {
+            group.setHelpTips('Page height, not artboard.')
             group.staticText(textBounds, 'Height:', JUSTIFY_RIGHT)
             self.heightEdit = group.editText(editBounds, '297 mm', VALIDATE_UNITS)
         })
         panel.hgroup(function(group) {
+            group.setHelpTips('Extra area that will be added to page dimension.')
             group.staticText(textBounds, 'Bleed:', JUSTIFY_RIGHT)
             self.bleedEdit = group.editText(editBounds, '0 mm', VALIDATE_UNITS)
         })

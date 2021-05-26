@@ -10,20 +10,20 @@ function ItemChangePanel(parent) {
     this.main = parent.vpanel('Change', function(panel) {
         panel.alignChildren = 'fill'
         self.changePositionsCheck = panel.checkBox(undefined, 'Positions', function(check) {
-            check.value = true
             check.helpTip = 'Are art object positions and orientations effected?'
+            check.value = true
         })
         self.changeFillPatternsCheck = panel.checkBox(undefined, 'Fill Patterns', function(check) {
-            check.value = true
             check.helpTip = 'Are the fill patterns assigned to paths to be transformed?'
+            check.value = true
         })
         self.changeFillGradientsCheck = panel.checkBox(undefined, 'Fill Gradients', function(check) {
-            check.value = true
             check.helpTip = 'Are the fill gradients assigned to paths to be transformed?'
+            check.value = true
         })
         self.changeStrokePatternsCheck = panel.checkBox(undefined, 'Stroke Patterns', function(check) {
-            check.value = true
             check.helpTip = 'Are the stroke patterns assigned to paths to be transformed?'
+            check.value = true
         })
     })
 

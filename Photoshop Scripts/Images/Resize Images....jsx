@@ -3,7 +3,7 @@
 
 /*
 <javascriptresource>
-<category>3</category>
+<category>1</category>
 </javascriptresource>
 */
 

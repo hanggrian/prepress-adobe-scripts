@@ -15,7 +15,7 @@ var BOUNDS_RIGHT_EDIT = [100, 21]
 
 var dialog = new Dialog('Select Types', 'fill')
 var findEdit, matchCaseCheck, matchWordCheck
-var fontFamilyEdit, fontStyleEdit, fontSizeEdit, italicList, underlineList
+var fontNameEdit, fontSizeEdit, italicList, underlineList
 var fillColorList, strokeColorList
 var kindList, orientationList
 
@@ -25,6 +25,7 @@ dialog.vgroup(function(mainGroup) {
     mainGroup.vpanel('Content', function(panel) {
         panel.alignChildren = 'fill'
         panel.hgroup(function(group) {
+            group.setHelpTips('Text to find in content.')
             group.staticText(undefined, 'Find:', JUSTIFY_RIGHT)
             findEdit = group.editText([150, 21], undefined, ACTIVATE)
         })
@@ -36,22 +37,22 @@ dialog.vgroup(function(mainGroup) {
     mainGroup.vpanel('Character', function(panel) {
         panel.alignChildren = 'fill'
         panel.hgroup(function(group) {
-            group.staticText(BOUNDS_LEFT_TEXT, 'Font Family:', JUSTIFY_RIGHT)
-            fontFamilyEdit = group.editText(BOUNDS_LEFT_EDIT)
+            group.setHelpTips("The font's full name.")
+            group.staticText(BOUNDS_LEFT_TEXT, 'Font name:', JUSTIFY_RIGHT)
+            fontNameEdit = group.editText(BOUNDS_LEFT_EDIT)
         })
         panel.hgroup(function(group) {
-            group.staticText(BOUNDS_LEFT_TEXT, 'Font Style:', JUSTIFY_RIGHT)
-            fontStyleEdit = group.editText(BOUNDS_LEFT_EDIT)
-        })
-        panel.hgroup(function(group) {
+            group.setHelpTips('Font size in points.')
             group.staticText(BOUNDS_LEFT_TEXT, 'Font size:', JUSTIFY_RIGHT)
             fontSizeEdit = group.editText(BOUNDS_LEFT_EDIT, undefined, VALIDATE_UNITS)
         })
         panel.hgroup(function(group) {
+            group.setHelpTips('Does the Japanese OpenType support italics?')
             group.staticText(BOUNDS_LEFT_TEXT, 'Italic:', JUSTIFY_RIGHT)
             italicList = group.dropDownList(BOUNDS_LEFT_EDIT, YES_OR_NO)
         })
         panel.hgroup(function(group) {
+            group.setHelpTips('Whether to underline the text.')
             group.staticText(BOUNDS_LEFT_TEXT, 'Underline:', JUSTIFY_RIGHT)
             underlineList = group.dropDownList(BOUNDS_LEFT_EDIT, YES_OR_NO)
         })
@@ -61,20 +62,24 @@ dialog.vgroup(function(mainGroup) {
     mainGroup.alignChildren = 'fill'
     mainGroup.vpanel('Color', function(panel) {
         panel.hgroup(function(group) {
+            group.setHelpTips('The color of the text fill.')
             group.staticText(BOUNDS_RIGHT_TEXT, 'Fill:', JUSTIFY_RIGHT)
             fillColorList = group.dropDownList(BOUNDS_RIGHT_EDIT, COLORS)
         })
         panel.hgroup(function(group) {
+            group.setHelpTips('The color of the text stroke.')
             group.staticText(BOUNDS_RIGHT_TEXT, 'Stroke:', JUSTIFY_RIGHT)
             strokeColorList = group.dropDownList(BOUNDS_RIGHT_EDIT, COLORS)
         })
     })
     mainGroup.vpanel('Others', function(panel) {
         panel.hgroup(function(group) {
+            group.setHelpTips('The type of a text frame item.')
             group.staticText(BOUNDS_RIGHT_TEXT, 'Kind:', JUSTIFY_RIGHT)
             kindList = group.dropDownList(BOUNDS_RIGHT_EDIT, KINDS)
         })
         panel.hgroup(function(group) {
+            group.setHelpTips('The orientation of the text in the frame.')
             group.staticText(BOUNDS_RIGHT_TEXT, 'Orientation:', JUSTIFY_RIGHT)
             orientationList = group.dropDownList(BOUNDS_RIGHT_EDIT, ORIENTATIONS)
         })
@@ -84,8 +89,7 @@ dialog.vgroup(function(mainGroup) {
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     var substring = findEdit.text
-    var fontFamily = fontFamilyEdit.text
-    var fontStyle = fontStyleEdit.text
+    var fontName = fontNameEdit.text
     var fontSize = fontSizeEdit.text
     var italic = italicList.hasSelection() ? italicList.selection.text === 'Yes' : undefined
     var underline = underlineList.hasSelection() ? underlineList.selection.text === 'Yes' : undefined
@@ -120,11 +124,8 @@ dialog.setPositiveButton(function() {
             }
             condition = condition && find(string, substring)
         }
-        if (fontFamily !== '') {
-            condition = condition && attr.textFont.family.toLowerCase().includes(fontFamily.toLowerCase())
-        }
-        if (fontStyle !== '') {
-            condition = condition && attr.textFont.fontStyle.toLowerCase().includes(fontStyle.toLowerCase())
+        if (fontName !== '') {
+            condition = condition && attr.textFont.name.toLowerCase().includes(fontName.toLowerCase())
         }
         if (fontSize > 0) {
             condition = condition && parseInt(fontSize) === parseInt(attr.size)

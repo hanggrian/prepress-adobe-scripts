@@ -38,7 +38,9 @@ if (files !== null && files.isNotEmpty()) {
         documentPanel = new OpenDocumentPanel(mainGroup)
     })
     dialog.main.hgroup(function(group) {
-        rotateCheck = group.checkBox(undefined, 'Rotate Page')
+        rotateCheck = group.checkBox(undefined, 'Rotate Page', function(it) {
+            it.helpTip = 'Should the page be rotated?'
+        })
         duplexCheck = group.checkBox(undefined, 'Duplex Printing', function(it) {
             it.helpTip = 'Is this layout double-sided?'
         })
