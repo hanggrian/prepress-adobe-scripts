@@ -24,7 +24,7 @@ dialog.hgroup(function(mainGroup) {
     mainGroup.vpanel('General', function(panel) {
         panel.alignChildren = 'fill'
         panel.hgroup(function(group) {
-            group.setHelpTips('Image color mode should be CMYK.')
+            group.setTooltips('Image color mode should be CMYK')
             group.staticText(BOUNDS_LEFT, 'Mode:', JUSTIFY_RIGHT)
             generalModeText = group.staticText(BOUNDS_RIGHT, document.mode.toString().substringAfter('.'), function(it) {
                 if (it.text === 'CMYK') {
@@ -38,7 +38,7 @@ dialog.hgroup(function(mainGroup) {
             })
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Resolution should be 300.')
+            group.setTooltips('Resolution should be 300')
             group.staticText(BOUNDS_LEFT, 'Resolution:', JUSTIFY_RIGHT)
             generalResolutionText = group.staticText(BOUNDS_RIGHT, Math.round(document.resolution), function(it) {
                 if (it.text === '300') {
@@ -52,7 +52,7 @@ dialog.hgroup(function(mainGroup) {
             })
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Bits depth should be 8.')
+            group.setTooltips('Bits depth should be 8')
             group.staticText(BOUNDS_LEFT, 'Bits:', JUSTIFY_RIGHT)
             generalBitsText = group.staticText(BOUNDS_RIGHT, getBits(), function(it) {
                 if (it.text === '8') {

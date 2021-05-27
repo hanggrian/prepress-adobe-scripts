@@ -39,10 +39,10 @@ if (files !== null && files.isNotEmpty()) {
     })
     dialog.main.hgroup(function(group) {
         rotateCheck = group.checkBox(undefined, 'Rotate Page', function(it) {
-            it.helpTip = 'Should the page be rotated?'
+            it.setTooltip('Should the page be rotated?')
         })
         duplexCheck = group.checkBox(undefined, 'Duplex Printing', function(it) {
-            it.helpTip = 'Is this layout double-sided?'
+            it.setTooltip('Is this layout double-sided?')
         })
     })
 
@@ -56,7 +56,7 @@ if (files !== null && files.isNotEmpty()) {
         var rotatedWidth = !rotateCheck.value ? width : height
         var rotatedHeight = !rotateCheck.value ? height : width
         if (pages % 16 !== 0) {
-            errorWithAlert('Pages must be divisible by 16.')
+            errorWithAlert('Pages must be divisible by 16')
         }
         var document = documentPanel.open('Untitled-8-Up',
             pages / 8,

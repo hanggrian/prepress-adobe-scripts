@@ -1,4 +1,4 @@
-/** 
+/**
  * @param {Document} document to attach to, use `document` for active document.
  * @param {Number} start first page to open, the first and default is 0.
  */
@@ -24,7 +24,7 @@ function EightUpSimplexPager(document, start) {
     }
 }
 
-/** 
+/**
  * @param {Document} document to attach to, use `document` for active document.
  * @param {Number} start first page to open, the first and default is 0.
  */

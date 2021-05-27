@@ -23,17 +23,17 @@ dialog.vgroup(function(mainGroup) {
     dimensionPanel = new SelectDimensionPanel(mainGroup, BOUNDS_LEFT_TEXT, BOUNDS_EDIT)
     mainGroup.vpanel('Image', function(panel) {
         panel.hgroup(function(group) {
-            group.setHelpTips('The color space of the raster image.')
+            group.setTooltips('The color space of the raster image')
             group.staticText(BOUNDS_LEFT_TEXT, 'Color Space:', JUSTIFY_RIGHT)
             colorSpaceList = group.dropDownList(BOUNDS_EDIT, COLOR_SPACES)
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('The number of bits per channel.')
+            group.setTooltips('The number of bits per channel')
             group.staticText(BOUNDS_LEFT_TEXT, 'Bits/Channel:', JUSTIFY_RIGHT)
             bitsEdit = group.editText(BOUNDS_EDIT, undefined, VALIDATE_DIGITS)
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Is the raster art transparent?')
+            group.setTooltips('Is the raster art transparent?')
             group.staticText(BOUNDS_LEFT_TEXT, 'Transparent:', JUSTIFY_RIGHT)
             transparentList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
         })
@@ -41,17 +41,17 @@ dialog.vgroup(function(mainGroup) {
 })
 dialog.vpanel('Others', function(panel) {
     panel.hgroup(function(group) {
-        group.setHelpTips('Is the raster art embedded within the illustration?')
+        group.setTooltips('Is the raster art embedded within the illustration?')
         group.staticText(BOUNDS_LEFT_TEXT, 'Embedded:', JUSTIFY_RIGHT)
         embeddedList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
     })
     panel.hgroup(function(group) {
-        group.setHelpTips('Is the raster art overprinting?')
+        group.setTooltips('Is the raster art overprinting?')
         group.staticText(BOUNDS_LEFT_TEXT, 'Overprint:', JUSTIFY_RIGHT)
         overprintList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
     })
     panel.hgroup(function(group) {
-        group.setHelpTips('Status of the linked image.')
+        group.setTooltips('Status of the linked image')
         group.staticText(BOUNDS_LEFT_TEXT, 'Status:', JUSTIFY_RIGHT)
         statusList = group.dropDownList(BOUNDS_EDIT, STATUSES)
     })

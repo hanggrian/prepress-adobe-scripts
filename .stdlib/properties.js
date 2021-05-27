@@ -1,6 +1,6 @@
 // https://community.adobe.com/t5/illustrator/script-to-sort-artboard-list-alphabetically/m-p/9558395
 
-function copyProperties(source) {  
+function copyProperties(source) {
     var props = {},
         key
     for (key in source) {
@@ -8,7 +8,7 @@ function copyProperties(source) {
             props[key] = source[key]
         } catch (e) {
         }
-    }  
+    }
     return props
 }
 

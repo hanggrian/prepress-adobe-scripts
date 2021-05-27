@@ -21,24 +21,24 @@ dialog.main.orientation = 'row'
 dialog.vgroup(function(mainGroup) {
     mainGroup.vpanel('Fill', function(panel) {
         panel.hgroup(function(group) {
-            group.setHelpTips('Fill color.')
+            group.setTooltips('Fill color')
             group.staticText(BOUNDS_RIGHT_TEXT, 'Color:', JUSTIFY_RIGHT)
             fillColorList = group.dropDownList(BOUNDS_EDIT, COLORS)
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Will art beneath a filled object be overprinted?')
+            group.setTooltips('Will art beneath a filled object be overprinted?')
             group.staticText(BOUNDS_RIGHT_TEXT, 'Overprint:', JUSTIFY_RIGHT)
             fillOverprintList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
         })
     })
     mainGroup.vpanel('Stroke', function(panel) {
         panel.hgroup(function(group) {
-            group.setHelpTips('Stroke color.')
+            group.setTooltips('Stroke color')
             group.staticText(BOUNDS_RIGHT_TEXT, 'Color:', JUSTIFY_RIGHT)
             strokeColorList = group.dropDownList(BOUNDS_EDIT, COLORS)
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Width of stroke.')
+            group.setTooltips('Width of stroke')
             group.staticText(BOUNDS_RIGHT_TEXT, 'Weight:', JUSTIFY_RIGHT)
             strokeWeightEdit = group.editText(BOUNDS_EDIT, undefined, function(it) {
                 it.validateUnits()
@@ -46,12 +46,12 @@ dialog.vgroup(function(mainGroup) {
             })
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Is the stroke dashed?')
+            group.setTooltips('Is the stroke dashed?')
             group.staticText(BOUNDS_RIGHT_TEXT, 'Dashed:', JUSTIFY_RIGHT)
             strokeDashedList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Will art beneath a stroked object be overprinted?')
+            group.setTooltips('Will art beneath a stroked object be overprinted?')
             group.staticText(BOUNDS_RIGHT_TEXT, 'Overprint:', JUSTIFY_RIGHT)
             strokeOverprintList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
         })
@@ -61,17 +61,17 @@ dialog.vgroup(function(mainGroup) {
     dimensionPanel = new SelectDimensionPanel(mainGroup, BOUNDS_LEFT_TEXT, BOUNDS_EDIT)
     mainGroup.vpanel('Others', function(panel) {
         panel.hgroup(function(group) {
-            group.setHelpTips('Should this be used as a clipping path?')
+            group.setTooltips('Should this be used as a clipping path?')
             group.staticText(BOUNDS_LEFT_TEXT, 'Clipping:', JUSTIFY_RIGHT)
             clippingList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Is this path closed?')
+            group.setTooltips('Is this path closed?')
             group.staticText(BOUNDS_LEFT_TEXT, 'Closed:', JUSTIFY_RIGHT)
             closedList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Is this path a guide object?')
+            group.setTooltips('Is this path a guide object?')
             group.staticText(BOUNDS_LEFT_TEXT, 'Guides:', JUSTIFY_RIGHT)
             guidesList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
         })

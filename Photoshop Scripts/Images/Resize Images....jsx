@@ -18,7 +18,7 @@ var dialog = new Dialog('Resize Images')
 var widthEdit, heightEdit, resolutionEdit, resampleList
 
 dialog.hgroup(function(group) {
-    group.setHelpTips("Images' new width.")
+    group.setTooltips("Images' new width")
     group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
     widthEdit = group.editText(BOUNDS_EDIT, document.width, function(it) {
         it.validateUnits()
@@ -26,17 +26,17 @@ dialog.hgroup(function(group) {
     })
 })
 dialog.hgroup(function(group) {
-    group.setHelpTips("Images' new height.")
+    group.setTooltips("Images' new height")
     group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
     heightEdit = group.editText(BOUNDS_EDIT, document.height, VALIDATE_UNITS)
 })
 dialog.hgroup(function(group) {
-    group.setHelpTips("Images' new resolution.")
+    group.setTooltips("Images' new resolution")
     group.staticText(BOUNDS_TEXT, 'Resolution:', JUSTIFY_RIGHT)
     resolutionEdit = group.editText(BOUNDS_EDIT, document.resolution, VALIDATE_UNITS)
 })
 dialog.hgroup(function(group) {
-    group.setHelpTips('Method to resample new images')
+    group.setTooltips('Method to resample new images')
     group.staticText(BOUNDS_TEXT, 'Resample:', JUSTIFY_RIGHT)
     resampleList = group.dropDownList(undefined, RESAMPLES, function(it) {
         it.selection = RESAMPLES.indexOf('Bicubic')

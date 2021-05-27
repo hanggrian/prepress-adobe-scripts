@@ -35,7 +35,7 @@ if (files !== null && files.isNotEmpty()) {
 
     /* dialog.main.vpanel('Split Options', function(panel) {
         panel.hgroup(function(group) {
-            group.setHelpTips('Divide image horizontally/vertically.')
+            group.setTooltips('Divide image horizontally/vertically')
             group.staticText(BOUNDS_TEXT, 'Direction:', JUSTIFY_RIGHT)
             group.vgroup(function(group2) {
                 group2.alignChildren = 'left'
@@ -44,7 +44,7 @@ if (files !== null && files.isNotEmpty()) {
             })
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Total number of divison.')
+            group.setTooltips('Total number of divison')
             group.staticText(BOUNDS_TEXT, 'Parts:', JUSTIFY_RIGHT)
             partsEdit = group.editText(BOUNDS_EDIT, '2', function(it) {
                 it.validateDigits()

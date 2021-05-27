@@ -1,4 +1,4 @@
-/** 
+/**
  * @param {Document} document to attach to, use `document` for active document.
  * @param {Number} start first page to open, the first and default is 0.
  */
@@ -13,7 +13,7 @@ function PerfectBoundPager(document, start) {
     }
 }
 
-/** 
+/**
  * @param {Document} document to attach to, use `document` for active document.
  * @param {Number} start first page to open, the first and default is 0.
  * @param {Number} end final page number, default is artboards' length times 2.

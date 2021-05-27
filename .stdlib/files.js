@@ -70,7 +70,7 @@ function openFile(prompt, filters, multiSelect) {
             var name = array.first()
             var extensions = array.slice(1)
             nativeFilters += name + ':*.' + extensions.join(';*.') + ','
-            
+
             allExtensions = allExtensions.concat(extensions)
         })
         nativeFilters = 'All Formats:*.' + allExtensions.join(';*.') + ',' + nativeFilters

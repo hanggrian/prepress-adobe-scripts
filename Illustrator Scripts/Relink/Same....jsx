@@ -32,7 +32,7 @@ if (file === null) {
         var dialog = new Dialog('Relink All', 'fill')
         pdfPanel = new OpenPDFPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
         pdfPanel.main.hgroup(function(panel) {
-            panel.setHelpTips('What page should be used when opening a multipage document.')
+            panel.setTooltips('What page should be used when opening a multipage document')
             panel.staticText(BOUNDS_TEXT, 'Page:', JUSTIFY_RIGHT)
             pageEdit = panel.editText(BOUNDS_EDIT, '1', function(it) {
                 it.validateDigits()

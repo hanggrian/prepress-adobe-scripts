@@ -8,7 +8,7 @@ function Dialog(title, alignChildren) {
 
     var window = new Window('dialog', title)
     window.orientation = 'column'
-    
+
     this.main = _group(window, 'column', function(group) {
         group.alignChildren = alignChildren !== undefined ? alignChildren : 'left'
     })
@@ -53,7 +53,7 @@ function Dialog(title, alignChildren) {
         neutralButtonAction = action
         neutralButtonEnabled = enabled
     }
-    
+
     /** Show the dialog, after populating buttons. */
     this.show = function() {
         if (neutralButtonText !== undefined) {

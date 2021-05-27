@@ -9,7 +9,7 @@ var REPLACE_LEADING_ZERO = /0+(?!$)/
 
 /** Digits are non-negative and non-decimal number. */
 EditText.prototype.validateDigits = function() {
-    this.registerValidator(MATCH_DIGITS, function(_, newValue) { 
+    this.registerValidator(MATCH_DIGITS, function(_, newValue) {
         return newValue.removeRegexes([REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
     })
 }
@@ -63,7 +63,7 @@ EditText.prototype.registerValidator = function(regex, valueProvider) {
     }
 }
 
-String.prototype.removeRegexes = function(regexes) { 
+String.prototype.removeRegexes = function(regexes) {
     var s = this
     for (var i = 0; i < regexes.length; i++) {
         s = s.replace(regexes[i], '')

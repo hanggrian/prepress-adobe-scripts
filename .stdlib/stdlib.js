@@ -12,6 +12,7 @@
 #include 'sui/dsl/toggle.js'
 #include 'sui/controls.js'
 #include 'sui/dialog.js'
+#include 'sui/tooltip.js'
 #include 'sui/validator.js'
 #include 'files.js'
 #include 'numbers.js'

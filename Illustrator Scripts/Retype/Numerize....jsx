@@ -16,7 +16,7 @@ var startsAtEdit, digitsEdit, affixPanel, reverseGroup
 
 dialog.vpanel('Options', function(panel) {
     panel.hgroup(function(group) {
-        group.setHelpTips('Starting counter.')
+        group.setTooltips('Starting counter')
         group.staticText(BOUNDS_TEXT, 'Starts at:', JUSTIFY_RIGHT)
         startsAtEdit = group.editText(BOUNDS_EDIT, '1', function(it) {
             it.validateDigits()
@@ -24,7 +24,7 @@ dialog.vpanel('Options', function(panel) {
         })
     })
     panel.hgroup(function(group) {
-        group.setHelpTips('Put n number of zeroes, can be left empty.')
+        group.setTooltips('Put n number of zeroes, can be left empty')
         group.staticText(BOUNDS_TEXT, 'Digits:', JUSTIFY_RIGHT)
         digitsEdit = group.editText(BOUNDS_EDIT, undefined, VALIDATE_DIGITS)
     })
@@ -42,7 +42,7 @@ dialog.setPositiveButton(function() {
     suffix = affixPanel.getSuffix()
     reverseGroup.forEachAware(items, function(item) {
         item.words.removeAll()
-        item.words.add(prefix + pad(count, digits) + suffix) 
+        item.words.add(prefix + pad(count, digits) + suffix)
         count++
     })
 })

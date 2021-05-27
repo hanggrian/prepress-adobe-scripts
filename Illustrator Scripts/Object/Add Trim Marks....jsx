@@ -1,7 +1,7 @@
 ﻿// Direct replacement of `Object > Create Trim Marks` with some fixes:
 // - If the selected art is a Path, trim marks will be created around **fill** as opposed to **stroke**.
 // - If the selected art is a Clip Group, trim marks will be created around **clip size** as opposed to **content size**.
-// 
+//
 // And also some enhancements:
 // - Customize marks' appearance and placement.
 // - Support for creating multiple marks by duplicating.

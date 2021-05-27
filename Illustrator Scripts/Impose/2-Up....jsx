@@ -26,7 +26,7 @@ if (files !== null && files.isNotEmpty()) {
     if (files.filter(function(it) { return it.isPDF() }).isNotEmpty()) {
         check(files.length === 1, 'Only supports single PDF file')
     }
-    
+
     dialog.main.hgroup(function(mainGroup) {
         mainGroup.alignChildren = 'fill'
         mainGroup.vgroup(function(group) {
@@ -39,10 +39,10 @@ if (files !== null && files.isNotEmpty()) {
     })
     dialog.main.hgroup(function(group) {
         rotateCheck = group.checkBox(undefined, 'Rotate Page', function(it) {
-            it.helpTip = 'Should the page be rotated?'
+            it.setTooltip('Should the page be rotated?')
         })
         duplexCheck = group.checkBox(undefined, 'Duplex Printing', function(it) {
-            it.helpTip = 'Is this layout double-sided?'
+            it.setTooltip('Is this layout double-sided?')
         })
     })
 
@@ -56,7 +56,7 @@ if (files !== null && files.isNotEmpty()) {
         var rotatedWidth = !rotateCheck.value ? width : height
         var rotatedHeight = !rotateCheck.value ? height : width
         if (pages % 4 !== 0) {
-            errorWithAlert('Pages must be divisible by 4.')
+            errorWithAlert('Pages must be divisible by 4')
         }
         var document = documentPanel.open('Untitled-2-Up',
             pages / 2,
@@ -66,7 +66,7 @@ if (files !== null && files.isNotEmpty()) {
         var pager = duplexCheck.value
             ? new TwoUpDuplexPager(document, start)
             : new TwoUpSimplexPager(document, start)
-        pager.forEachArtboard(function(artboard, leftIndex, rightIndex) {                
+        pager.forEachArtboard(function(artboard, leftIndex, rightIndex) {
             var item1 = document.placedItems.add()
             var item2 = document.placedItems.add()
             if (files.first().isPDF()) {

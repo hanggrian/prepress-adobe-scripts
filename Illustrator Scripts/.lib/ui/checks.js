@@ -4,8 +4,9 @@ function ReverseOrderGroup(parent) {
 
     this.main = parent.vgroup(function(group) {
         group.alignment = 'right'
-        group.setHelpTips('Iterate items at reverse order.')
-        self.reverseCheck = group.checkBox(undefined, 'Reverse Order')
+        self.reverseCheck = group.checkBox(undefined, 'Reverse Order', function(it) {
+            it.setTooltip('Iterate items at reverse order')
+        })
     })
 
     this.forEachAware = function(collection, action) {
@@ -23,8 +24,9 @@ function RecursiveGroup(parent) {
 
     this.main = parent.vgroup(function(group) {
         group.alignment = 'right'
-        group.setHelpTips('Iterate items through group and clipping masks.')
-        self.recursiveCheck = group.checkBox(undefined, 'Recursive')
+        self.recursiveCheck = group.checkBox(undefined, 'Recursive', function(it) {
+            it.setTooltip('Iterate items through group and clipping masks')
+        })
     })
 
     this.forEachAware = function(collection, action) {

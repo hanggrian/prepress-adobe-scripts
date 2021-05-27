@@ -21,14 +21,14 @@ var backgroundBlackCheck, clippingMaskCheck, convertSpotColorsCheck, convertText
 var recursiveGroup
 
 dialog.hgroup(function(group) {
-    group.setHelpTips('The color model for the rasterization.')
+    group.setTooltips('The color model for the rasterization')
     group.staticText(BOUNDS_TEXT, 'Color Model:', JUSTIFY_RIGHT)
     colorModelList = group.dropDownList(BOUNDS_EDIT, COLOR_MODELS, function(it) {
         it.selection = COLOR_MODELS.indexOf('Default')
     })
 })
 dialog.hgroup(function(group) {
-    group.setHelpTips('The rasterization resolution in dots-per-inch (dpi).')
+    group.setTooltips('The rasterization resolution in dots-per-inch (dpi)')
     group.staticText(BOUNDS_TEXT, 'Resolution:', JUSTIFY_RIGHT)
     resolutionEdit = group.editText(BOUNDS_EDIT, '300', function(it) {
         it.validateDigits()
@@ -41,13 +41,13 @@ dialog.hgroup(function(mainGroup) {
         innerGroup.alignChildren = 'fill'
         innerGroup.vpanel('Background', function(panel) {
             panel.alignChildren = 'fill'
-            panel.setHelpTips('Should the resulting image use transparency.')
+            panel.setTooltips('Should the resulting image use transparency')
             backgroundWhiteRadio = panel.radioButton(undefined, 'White', SELECTED)
             backgroundTransparentRadio = panel.radioButton(undefined, 'Transparent')
         })
         innerGroup.vpanel('Anti-Aliasing', function(panel) {
             panel.alignChildren = 'fill'
-            panel.setHelpTips('The type of antialiasing method.')
+            panel.setTooltips('The type of antialiasing method')
             antiAliasingNoneRadio = panel.radioButton(undefined, 'None')
             antiAliasingArtRadio = panel.radioButton(undefined, 'Art Optimized')
             antiAliasingTypeRadio = panel.radioButton(undefined, 'Type Optimized')
@@ -61,22 +61,22 @@ dialog.hgroup(function(mainGroup) {
     mainGroup.vpanel('Options', function(panel) {
         panel.alignChildren = 'fill'
         backgroundBlackCheck = panel.checkBox(undefined, 'Against Black Background', function(check) {
-            check.helpTip = 'Should rasterize against a black background instead of white.'
+            check.setTooltip('Should rasterize against a black background instead of white')
         })
         clippingMaskCheck = panel.checkBox(undefined, 'Create Clipping Mask', function(check) {
-            check.helpTip = 'Should a clipping mask be created for the resulting image.'
+            check.setTooltip('Should a clipping mask be created for the resulting image')
         })
         convertSpotColorsCheck = panel.checkBox(undefined, 'Convert Spot Colors', function(check) {
-            check.helpTip = 'Whether to convert all spot colors to process colors in the resulting image.'
+            check.setTooltip('Whether to convert all spot colors to process colors in the resulting image')
         })
         convertTextToOutlinesCheck = panel.checkBox(undefined, 'Convert Text to Outlines', function(check) {
-            check.helpTip = 'Should all text be converted to outlines before rasterization.'
+            check.setTooltip('Should all text be converted to outlines before rasterization')
         })
         includeLayersCheck = panel.checkBox(undefined, 'Include Layers', function(check) {
-            check.helpTip = 'Should the resulting image incorporates the layer attributes (such as opacity and blend mode).'
+            check.setTooltip('Should the resulting image incorporates the layer attributes (such as opacity and blend mode)')
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('The amount of white space (in points) to be added around the object during rasterization.')
+            group.setTooltips('The amount of white space (in points) to be added around the object during rasterization')
             group.staticText(undefined, 'Add')
             paddingEdit = group.editText(BOUNDS_EDIT_SMALL, unitsOf('0 mm'), VALIDATE_UNITS)
             group.staticText(undefined, 'Around Object')

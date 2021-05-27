@@ -28,13 +28,13 @@ Object.prototype.lastIndex = function() { return this.length - 1 }
  */
 Object.prototype.isEmpty = function() { return this.length === 0 }
 
-/** 
+/**
  * Returns true if this collection is not empty.
  * @returns {Boolean}
  */
 Object.prototype.isNotEmpty = function() { return this.length > 0 }
 
-/** 
+/**
  * Returns true if element belongs in this collection.
  * @returns {Boolean}
  */

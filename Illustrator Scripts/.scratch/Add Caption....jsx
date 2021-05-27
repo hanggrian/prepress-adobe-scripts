@@ -69,4 +69,4 @@ dialog.show()
 
 function createType() {
     var text = document.textFrames.add()
-} 
+}

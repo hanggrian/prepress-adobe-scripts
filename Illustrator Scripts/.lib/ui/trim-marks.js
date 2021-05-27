@@ -1,11 +1,11 @@
-var LOCATION_TOP_LEFT = 11
-var LOCATION_TOP_RIGHT = 1
-var LOCATION_RIGHT_TOP = 2
-var LOCATION_RIGHT_BOTTOM = 4
-var LOCATION_BOTTOM_RIGHT = 5
-var LOCATION_BOTTOM_LEFT = 7
-var LOCATION_LEFT_BOTTOM = 8
-var LOCATION_LEFT_TOP = 10
+var MARK_TOP_LEFT = 11
+var MARK_TOP_RIGHT = 1
+var MARK_RIGHT_TOP = 2
+var MARK_RIGHT_BOTTOM = 4
+var MARK_BOTTOM_RIGHT = 5
+var MARK_BOTTOM_LEFT = 7
+var MARK_LEFT_BOTTOM = 8
+var MARK_LEFT_TOP = 10
 
 var BOUNDS_CHECK = [15, 15]
 
@@ -16,29 +16,29 @@ function TrimMarksPanel(parent, textBounds, editBounds) {
     this.main = parent.vpanel('Trim Marks', function(panel) {
         panel.alignChildren = 'fill'
         panel.hgroup(function(group) {
-            group.setHelpTips('Distance between art and trim marks.')
+            group.setTooltips('Distance between art and trim marks')
             group.staticText(textBounds, 'Offset:', JUSTIFY_RIGHT)
             self.offsetEdit = group.editText(editBounds, unitsOf('2.5 mm'), VALIDATE_UNITS)
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Size of trim marks.')
+            group.setTooltips('Size of trim marks')
             group.staticText(textBounds, 'Length:', JUSTIFY_RIGHT)
             self.lengthEdit = group.editText(editBounds, unitsOf('2.5 mm'), VALIDATE_UNITS)
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Thickness of trim marks.')
+            group.setTooltips('Thickness of trim marks')
             group.staticText(textBounds, 'Weight:', JUSTIFY_RIGHT)
             self.weightEdit = group.editText(editBounds, '0.3', VALIDATE_UNITS) // the same value used in `Object > Create Trim Marks`
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Color of trim marks.')
+            group.setTooltips('Color of trim marks')
             group.staticText(textBounds, 'Color:', JUSTIFY_RIGHT)
             self.colorList = group.dropDownList(editBounds, COLORS, function(it) {
                 it.selection = COLORS.indexOf('Registration')
             })
         })
     })
-    
+
     /**
      * Create multiple trim marks around item.
      * The marks are created with clockwise ordering.
@@ -56,7 +56,7 @@ function TrimMarksPanel(parent, textBounds, editBounds) {
         var endY = startY - height
         return self.addToBounds(startX, startY, endX, endY, locations)
     }
-    
+
     /**
      * Create multiple trim marks with specific X/Y positions.
      * The marks are created with clockwise ordering.
@@ -71,7 +71,7 @@ function TrimMarksPanel(parent, textBounds, editBounds) {
         for (var i = 0; i < locations.length; i++) {
             var location = locations[i]
             switch (location) {
-                case LOCATION_TOP_LEFT:
+                case MARK_TOP_LEFT:
                     marks.push(createTrimMark(
                         'TOP_LEFT',
                         startX,
@@ -80,7 +80,7 @@ function TrimMarksPanel(parent, textBounds, editBounds) {
                         startY + offset + length
                     ))
                     break;
-                case LOCATION_TOP_RIGHT:
+                case MARK_TOP_RIGHT:
                     marks.push(createTrimMark(
                         'TOP_RIGHT',
                         endX,
@@ -89,7 +89,7 @@ function TrimMarksPanel(parent, textBounds, editBounds) {
                         startY + offset + length
                     ))
                     break;
-                case LOCATION_RIGHT_TOP: 
+                case MARK_RIGHT_TOP:
                     marks.push(createTrimMark(
                         'RIGHT_TOP',
                         endX + offset,
@@ -98,7 +98,7 @@ function TrimMarksPanel(parent, textBounds, editBounds) {
                         startY
                     ))
                     break;
-                case LOCATION_RIGHT_BOTTOM: 
+                case MARK_RIGHT_BOTTOM:
                     marks.push(createTrimMark(
                         'RIGHT_BOTTOM',
                         endX + offset,
@@ -107,7 +107,7 @@ function TrimMarksPanel(parent, textBounds, editBounds) {
                         endY
                     ))
                     break;
-                case LOCATION_BOTTOM_RIGHT: 
+                case MARK_BOTTOM_RIGHT:
                     marks.push(createTrimMark(
                         'BOTTOM_RIGHT',
                         endX,
@@ -116,16 +116,16 @@ function TrimMarksPanel(parent, textBounds, editBounds) {
                         endY - offset - length
                     ))
                     break;
-                case LOCATION_BOTTOM_LEFT: 
+                case MARK_BOTTOM_LEFT:
                     marks.push(createTrimMark(
                         'BOTTOM_LEFT',
                         startX,
                         endY - offset,
                         startX,
                         endY - offset - length
-                    ))       
+                    ))
                     break;
-                case LOCATION_LEFT_BOTTOM: 
+                case MARK_LEFT_BOTTOM:
                     marks.push(createTrimMark(
                         'LEFT_BOTTOM',
                         startX - offset,
@@ -134,7 +134,7 @@ function TrimMarksPanel(parent, textBounds, editBounds) {
                         endY
                     ))
                     break;
-                case LOCATION_LEFT_TOP: 
+                case MARK_LEFT_TOP:
                     marks.push(createTrimMark(
                         'LEFT_TOP',
                         startX - offset,
@@ -155,7 +155,7 @@ function createTrimMark(suffixName, fromX, fromY, toX, toY) {
         var color = parseColor(self.colorList.selection.text)
 
         var mark = document.pathItems.add()
-        mark.name = 'Trim ' + suffixName
+        mark.name = 'Trim' + suffixName
         mark.fillColor = COLOR_NONE
         mark.strokeColor = color
         mark.strokeWidth = weight // important to set weight before color
@@ -185,23 +185,32 @@ function TrimMarkLocationsPanel(parent) {
 
     this.main = parent.vpanel('Locations', function(panel) {
         panel.hgroup(function(group) {
-            group.setHelpTips('Select which trim marks will be added.')
             group.staticText(BOUNDS_CHECK)
-            self.topLeftCheck = group.checkBox(BOUNDS_CHECK, undefined, SELECTED)
+            self.topLeftCheck = group.checkBox(BOUNDS_CHECK, undefined, function(it) {
+                it.select()
+                it.setTooltip('Top left.')
+            })
             group.staticText(BOUNDS_CHECK)
-            self.topRightCheck = group.checkBox(BOUNDS_CHECK, undefined, SELECTED)
+            self.topRightCheck = group.checkBox(BOUNDS_CHECK, undefined, function(it) {
+                it.select()
+                it.setTooltip('Top right.')
+            })
             group.staticText(BOUNDS_CHECK)
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Select which trim marks will be added.')
-            self.leftTopCheck = group.checkBox(BOUNDS_CHECK, undefined, SELECTED)
+            self.leftTopCheck = group.checkBox(BOUNDS_CHECK, undefined, function(it) {
+                it.select()
+                it.setTooltip('Left top.')
+            })
             group.staticText(BOUNDS_CHECK, '\u2196', JUSTIFY_CENTER)
             group.staticText(BOUNDS_CHECK, '\u2191', JUSTIFY_CENTER)
             group.staticText(BOUNDS_CHECK, '\u2197', JUSTIFY_CENTER)
-            self.rightTopCheck = group.checkBox(BOUNDS_CHECK, undefined, SELECTED)
+            self.rightTopCheck = group.checkBox(BOUNDS_CHECK, undefined, function(it) {
+                it.select()
+                it.setTooltip('Right top.')
+            })
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Select which trim marks will be added.')
             group.staticText(BOUNDS_CHECK)
             group.staticText(BOUNDS_CHECK, '\u2190', JUSTIFY_CENTER)
             group.staticText(BOUNDS_CHECK, '\u25CF', JUSTIFY_CENTER)
@@ -209,33 +218,43 @@ function TrimMarkLocationsPanel(parent) {
             group.staticText(BOUNDS_CHECK)
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Select which trim marks will be added.')
-            self.leftBottomCheck = group.checkBox(BOUNDS_CHECK, undefined, SELECTED)
+            self.leftBottomCheck = group.checkBox(BOUNDS_CHECK, undefined, function(it) {
+                it.select()
+                it.setTooltip('Left bottom.')
+            })
             group.staticText(BOUNDS_CHECK, '\u2199', JUSTIFY_CENTER)
             group.staticText(BOUNDS_CHECK, '\u2193', JUSTIFY_CENTER)
             group.staticText(BOUNDS_CHECK, '\u2198', JUSTIFY_CENTER)
-            self.rightBottomCheck = group.checkBox(BOUNDS_CHECK, undefined, SELECTED)
+            self.rightBottomCheck = group.checkBox(BOUNDS_CHECK, undefined, function(it) {
+                it.select()
+                it.setTooltip('Right bottom.')
+            })
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Select which trim marks will be added.')
             group.staticText(BOUNDS_CHECK)
-            self.bottomLeftCheck = group.checkBox(BOUNDS_CHECK, undefined, SELECTED)
+            self.bottomLeftCheck = group.checkBox(BOUNDS_CHECK, undefined, function(it) {
+                it.select()
+                it.setTooltip('Bottom left.')
+            })
             group.staticText(BOUNDS_CHECK)
-            self.bottomRightCheck = group.checkBox(BOUNDS_CHECK, undefined, SELECTED)
+            self.bottomRightCheck = group.checkBox(BOUNDS_CHECK, undefined, function(it) {
+                it.select()
+                it.setTooltip('Bottom right.')
+            })
             group.staticText(BOUNDS_CHECK)
         })
     })
 
     this.getLocations = function() {
         var locations = []
-        if (self.topLeftCheck.value) locations.push(LOCATION_TOP_LEFT)
-        if (self.topRightCheck.value) locations.push(LOCATION_TOP_RIGHT)
-        if (self.rightTopCheck.value) locations.push(LOCATION_RIGHT_TOP)
-        if (self.rightBottomCheck.value) locations.push(LOCATION_RIGHT_BOTTOM)
-        if (self.bottomRightCheck.value) locations.push(LOCATION_BOTTOM_RIGHT)
-        if (self.bottomLeftCheck.value) locations.push(LOCATION_BOTTOM_LEFT)
-        if (self.leftBottomCheck.value) locations.push(LOCATION_LEFT_BOTTOM)
-        if (self.leftTopCheck.value) locations.push(LOCATION_LEFT_TOP)
+        if (self.topLeftCheck.value) locations.push(MARK_TOP_LEFT)
+        if (self.topRightCheck.value) locations.push(MARK_TOP_RIGHT)
+        if (self.rightTopCheck.value) locations.push(MARK_RIGHT_TOP)
+        if (self.rightBottomCheck.value) locations.push(MARK_RIGHT_BOTTOM)
+        if (self.bottomRightCheck.value) locations.push(MARK_BOTTOM_RIGHT)
+        if (self.bottomLeftCheck.value) locations.push(MARK_BOTTOM_LEFT)
+        if (self.leftBottomCheck.value) locations.push(MARK_LEFT_BOTTOM)
+        if (self.leftTopCheck.value) locations.push(MARK_LEFT_TOP)
         return locations
     }
 }

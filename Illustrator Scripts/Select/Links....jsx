@@ -1,6 +1,6 @@
 // Select all PlacedItem with attributes matching user input.
 // When there are active selection, will only select items within those selection.
-// 
+//
 // The file type options are similar with Illustrator native `Relink...` dialog.
 
 #target Illustrator
@@ -26,7 +26,7 @@ var aiCheck, pdfCheck, bmpCheck, gifCheck, jpegCheck, jpeg2000Check, pngCheck, p
 
 dimensionPanel = new SelectDimensionPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
 dialog.vpanel('File Types', function(panel) {
-    panel.setHelpTips('File extension of selected links.')
+    panel.setTooltips('File extension of selected links')
     panel.alignChildren = 'fill'
     aiCheck = panel.checkBox(undefined, getTypeString('Adobe Illustrator', FILE_AI))
     pdfCheck = panel.checkBox(undefined, getTypeString('Adobe PDF', FILE_PDF))

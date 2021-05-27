@@ -10,17 +10,17 @@ function check(requirement, errorMessage) {
     }
 }
 
-/** 
+/**
  * Assert that a value is null.
  * @param {String} errorMessage helpful alert, may be null.
  * @returns {Object}
  */
-function checkNull(value, errorMessage) { 
+function checkNull(value, errorMessage) {
     check(value === undefined || value === null, errorMessage)
     return value
 }
 
-/** 
+/**
  * Assert that a value is not null.
  * @param {String} errorMessage helpful alert, may be null.
  * @returns {Object}
@@ -35,7 +35,7 @@ function checkTypename(item, typename) {
     check(item.typename === typename, 'Selected item is not a ' + typename)
 }
 
-/** 
+/**
  * Throw an error.
  * @param {Object} errorMessage helpful alert, may be null.
  */
@@ -46,7 +46,7 @@ function error(errorMessage) {
     throw new Error(message)
 }
 
-/** 
+/**
  * In dialog on click listener, throwing an error stops a script but does not show an alert.
  * This function shows an alert with error icon before the script stops.
  * @param {Object} errorMessage helpful alert, may be null.

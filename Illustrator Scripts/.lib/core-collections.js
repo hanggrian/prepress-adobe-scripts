@@ -41,7 +41,7 @@ function _forEachItemReversed(items, action) {
  * @param {Function} transform runnable with return value.
  * @returns {Array}
  */
-Object.prototype.mapItem = function(transform) { 
+Object.prototype.mapItem = function(transform) {
     var result = []
     _mapItem(this, transform, result)
     return result

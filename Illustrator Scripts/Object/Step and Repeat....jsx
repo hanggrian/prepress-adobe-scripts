@@ -18,7 +18,7 @@ var enableTrimMarks = function() { trimMarksPanel.main.enabled = true }
 var disableTrimMarks = function() { trimMarksPanel.main.enabled = false }
 
 dialog.hgroup(function(group) {
-    group.setHelpTips('Select which item to spread.')
+    group.setTooltips('Select which item to spread')
     group.staticText(undefined, 'Target:', JUSTIFY_RIGHT)
     artworkCheck = group.radioButton(undefined, 'Artwork', function(it) {
         it.value = true
@@ -35,7 +35,7 @@ dialog.hgroup(function(group) {
 dialog.vpanel('Options', function(panel) {
     panel.alignChildren = 'fill'
     panel.hgroup(function(group) {
-        group.setHelpTips('2 dimension target.')
+        group.setTooltips('2 dimension target')
         group.staticText(BOUNDS_TEXT, 'Copies:', JUSTIFY_RIGHT)
         horizontalEdit = group.editText(BOUNDS_EDIT2, undefined, VALIDATE_DIGITS)
         group.staticText(undefined, '×')
@@ -43,12 +43,12 @@ dialog.vpanel('Options', function(panel) {
     })
     var target = selection.first().getClippingPathItem()
     panel.hgroup(function(group) {
-        group.setHelpTips('Distance between arts horizontally.')
+        group.setTooltips('Distance between arts horizontally')
         group.staticText(BOUNDS_TEXT, 'Move Horizontal:', JUSTIFY_RIGHT)
         moveHorizontalEdit = group.editText(BOUNDS_EDIT, formatUnits(target.width, unitName, 2), VALIDATE_UNITS)
     })
     panel.hgroup(function(group) {
-        group.setHelpTips('Distance between arts vertically.')
+        group.setTooltips('Distance between arts vertically')
         group.staticText(BOUNDS_TEXT, 'Move Vertical:', JUSTIFY_RIGHT)
         moveVerticalEdit = group.editText(BOUNDS_EDIT, formatUnits(target.height, unitName, 2), VALIDATE_UNITS)
     })
@@ -88,19 +88,19 @@ dialog.setPositiveButton(function() {
         var addedItem = selection.first()
         addedItem.position = [x, y - v * moveVertical]
         if (trimMarksPanel.main.enabled) {
-            locations = [LOCATION_LEFT_BOTTOM, LOCATION_LEFT_TOP]
+            locations = [MARK_LEFT_BOTTOM, MARK_LEFT_TOP]
             if (v === 0) {
-                locations.push(LOCATION_TOP_LEFT, LOCATION_TOP_RIGHT)
+                locations.push(MARK_TOP_LEFT, MARK_TOP_RIGHT)
             }
             if (v === vertical - 1) {
-                locations.push(LOCATION_BOTTOM_LEFT, LOCATION_BOTTOM_RIGHT)
+                locations.push(MARK_BOTTOM_LEFT, MARK_BOTTOM_RIGHT)
             }
             trimMarksPanel.addToItem(addedItem, locations)
         }
         if (trimMarksCheck.value) {
             addedItem.remove()
         }
-        
+
         for (var h = 1; h < horizontal; h++) {
             app.paste()
             addedItem = selection.first()
@@ -108,13 +108,13 @@ dialog.setPositiveButton(function() {
             if (trimMarksPanel.main.enabled) {
                 locations = []
                 if (h === horizontal - 1) {
-                    locations.push(LOCATION_RIGHT_TOP, LOCATION_RIGHT_BOTTOM)
+                    locations.push(MARK_RIGHT_TOP, MARK_RIGHT_BOTTOM)
                 }
                 if (v === 0) {
-                    locations.push(LOCATION_TOP_LEFT, LOCATION_TOP_RIGHT)
+                    locations.push(MARK_TOP_LEFT, MARK_TOP_RIGHT)
                 }
                 if (v === vertical - 1) {
-                    locations.push(LOCATION_BOTTOM_LEFT, LOCATION_BOTTOM_RIGHT)
+                    locations.push(MARK_BOTTOM_LEFT, MARK_BOTTOM_RIGHT)
                 }
                 trimMarksPanel.addToItem(addedItem, locations)
             }

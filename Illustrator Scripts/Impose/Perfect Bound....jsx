@@ -26,7 +26,7 @@ if (files !== null && files.isNotEmpty()) {
     if (files.filter(function(it) { return it.isPDF() }).isNotEmpty()) {
         check(files.length === 1, 'Only supports single PDF file')
     }
-    
+
     dialog.main.hgroup(function(mainGroup) {
         mainGroup.alignChildren = 'fill'
         mainGroup.vgroup(function(group) {
@@ -39,7 +39,7 @@ if (files !== null && files.isNotEmpty()) {
     })
     dialog.main.hgroup(function(group) {
         rotateCheck = group.checkBox(undefined, 'Rotate Page', function(it) {
-            it.helpTip = 'Should the page be rotated?'
+            it.setTooltip('Should the page be rotated?')
         })
     })
 

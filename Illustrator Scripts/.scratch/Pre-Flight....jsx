@@ -25,7 +25,7 @@ dialog.hgroup(function(mainGroup) {
         panel.alignChildren = 'fill'
         // color space isn't really a part of raster effects settings
         panel.hgroup(function(group) {
-            group.setHelpTips('Image color space should be CMYK.')
+            group.setTooltips('Image color space should be CMYK')
             group.staticText(BOUNDS_LEFT, 'Color space:', JUSTIFY_RIGHT)
             generalColorSpaceText = group.staticText(BOUNDS_RIGHT, document.documentColorSpace.toString().substringAfter('.'), function(it) {
                 if (it.text === 'CMYK') {
@@ -42,21 +42,21 @@ dialog.hgroup(function(mainGroup) {
             })
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Image color model should be default.')
+            group.setTooltips('Image color model should be default')
             group.staticText(BOUNDS_LEFT, 'Color model:', JUSTIFY_RIGHT)
             generalColorModelText = group.staticText(BOUNDS_RIGHT, document.rasterEffectSettings.colorModel.toString().substringAfter('.'), function(it) {
                 if (it.text === 'DEFAULTCOLORMODEL') {
                     it.text += ' ✔'
                 } else {
                     it.text += ' ✘'
-                    fixButtons.push(addFixButton(group, it, 'DEFAULTCOLORMODEL ✔', function() { 
-                        document.rasterEffectSettings.colorModel = RasterizationColorModel.DEFAULTCOLORMODEL 
+                    fixButtons.push(addFixButton(group, it, 'DEFAULTCOLORMODEL ✔', function() {
+                        document.rasterEffectSettings.colorModel = RasterizationColorModel.DEFAULTCOLORMODEL
                     }))
                 }
             })
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Resolution should be 300.')
+            group.setTooltips('Resolution should be 300')
             group.staticText(BOUNDS_LEFT, 'Resolution:', JUSTIFY_RIGHT)
             generalResolutionText = group.staticText(BOUNDS_RIGHT, document.rasterEffectSettings.resolution, function(it) {
                 if (it.text === '300') {
@@ -70,7 +70,7 @@ dialog.hgroup(function(mainGroup) {
             })
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Background should be white.')
+            group.setTooltips('Background should be white')
             group.staticText(BOUNDS_LEFT, 'Background:', JUSTIFY_RIGHT)
             generalBackgroundText = group.staticText(BOUNDS_RIGHT, undefined, function(it) {
                 if (!document.rasterEffectSettings.transparency) {
@@ -86,7 +86,7 @@ dialog.hgroup(function(mainGroup) {
             })
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Anti-alias should be disabled.')
+            group.setTooltips('Anti-alias should be disabled')
             group.staticText(BOUNDS_LEFT, 'Anti-alias:', JUSTIFY_RIGHT)
             generalAntiAliasText = group.staticText(BOUNDS_RIGHT, undefined, function(it) {
                 if (!document.rasterEffectSettings.antiAliasing) {
@@ -102,7 +102,7 @@ dialog.hgroup(function(mainGroup) {
             })
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Clipping mask should not be created.')
+            group.setTooltips('Clipping mask should not be created')
             group.staticText(BOUNDS_LEFT, 'Clipping mask:', JUSTIFY_RIGHT)
             generalClippingMaskText = group.staticText(BOUNDS_RIGHT, undefined, function(it) {
                 if (!document.rasterEffectSettings.clippingMask) {
@@ -118,7 +118,7 @@ dialog.hgroup(function(mainGroup) {
             })
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Spot colors should be preserved.')
+            group.setTooltips('Spot colors should be preserved')
             group.staticText(BOUNDS_LEFT, 'Spot colors:', JUSTIFY_RIGHT)
             generalSpotColorsText = group.staticText(BOUNDS_RIGHT, undefined, function(it) {
                 if (!document.rasterEffectSettings.convertSpotColors) {
@@ -134,14 +134,14 @@ dialog.hgroup(function(mainGroup) {
             })
         })
     })
-    
+
     // panels without fix buttons
     mainGroup.vgroup(function(group) {
         group.vpanel('Rasters Items', function(panel) {
-            panel.setHelpTips('Images below 300 resolution.')
+            panel.setTooltips('Images below 300 resolution')
             if (document.rasterItems.length === 0) {
                 panel.text += ' ✔'
-                panel.staticText(undefined, 'No raster items.')
+                panel.staticText(undefined, 'No raster items')
             } else {
                 var isEmpty = true
                 for (var i = 0; i < document.rasterItems.length; i++) {
@@ -153,7 +153,7 @@ dialog.hgroup(function(mainGroup) {
                 }
                 if (isEmpty) {
                     panel.text += ' ✔'
-                    panel.staticText(undefined, 'All images are CMYK.')
+                    panel.staticText(undefined, 'All images are CMYK')
                 } else {
                     panel.text += ' ✘'
                 }

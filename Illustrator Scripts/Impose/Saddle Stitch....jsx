@@ -26,7 +26,7 @@ if (files !== null && files.isNotEmpty()) {
     if (files.filter(function(it) { return it.isPDF() }).isNotEmpty()) {
         check(files.length === 1, 'Only supports single PDF file')
     }
-    
+
     dialog.main.hgroup(function(mainGroup) {
         mainGroup.alignChildren = 'fill'
         mainGroup.vgroup(function(group) {
@@ -39,7 +39,7 @@ if (files !== null && files.isNotEmpty()) {
     })
     dialog.main.hgroup(function(group) {
         rtlCheck = group.checkBox(undefined, 'Right-to-Left', function(it) {
-            it.helpTip = 'Useful for Arabic layout.'
+            it.setTooltip('Useful for Arabic layout')
         })
     })
 
@@ -52,7 +52,7 @@ if (files !== null && files.isNotEmpty()) {
         var height = pagesPanel.getHeight()
         var bleed = pagesPanel.getBleed()
         if (pages % 4 !== 0) {
-            errorWithAlert('Pages must be divisible by 4.')
+            errorWithAlert('Pages must be divisible by 4')
         }
         var document = documentPanel.open('Untitled-Saddle Stitch',
             pages / 2,

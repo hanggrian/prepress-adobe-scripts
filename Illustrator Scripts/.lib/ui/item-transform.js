@@ -10,19 +10,19 @@ function ItemChangePanel(parent) {
     this.main = parent.vpanel('Change', function(panel) {
         panel.alignChildren = 'fill'
         self.changePositionsCheck = panel.checkBox(undefined, 'Positions', function(check) {
-            check.helpTip = 'Are art object positions and orientations effected?'
+            check.setTooltip('Are art object positions and orientations effected?')
             check.value = true
         })
         self.changeFillPatternsCheck = panel.checkBox(undefined, 'Fill Patterns', function(check) {
-            check.helpTip = 'Are the fill patterns assigned to paths to be transformed?'
+            check.setTooltip('Are the fill patterns assigned to paths to be transformed?')
             check.value = true
         })
         self.changeFillGradientsCheck = panel.checkBox(undefined, 'Fill Gradients', function(check) {
-            check.helpTip = 'Are the fill gradients assigned to paths to be transformed?'
+            check.setTooltip('Are the fill gradients assigned to paths to be transformed?')
             check.value = true
         })
         self.changeStrokePatternsCheck = panel.checkBox(undefined, 'Stroke Patterns', function(check) {
-            check.helpTip = 'Are the stroke patterns assigned to paths to be transformed?'
+            check.setTooltip('Are the stroke patterns assigned to paths to be transformed?')
             check.value = true
         })
     })
@@ -45,7 +45,7 @@ function ItemAnchorPanel(parent) {
         panel.alignChildren = 'fill'
 
         self.documentOrigin = panel.checkBox(undefined, 'Default', function(it) {
-            it.helpTip = 'Use current reference point preference.'
+            it.setTooltip('Use current reference point preference')
             it.onClick = function() {
                 self.row1.enabled = !self.documentOrigin.value
                 self.row2.enabled = !self.documentOrigin.value
@@ -54,13 +54,13 @@ function ItemAnchorPanel(parent) {
         })
 
         self.row1 = panel.hgroup(function(group) {
-            group.setHelpTips('Reference point.')
+            group.setTooltips('Reference point')
             self.topLeftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(radio) { registerRadioClick(radio) })
             self.topRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(radio) { registerRadioClick(radio) })
             self.topRightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(radio) { registerRadioClick(radio) })
         })
         self.row2 = panel.hgroup(function(group) {
-            group.setHelpTips('Reference point.')
+            group.setTooltips('Reference point')
             self.leftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(radio) { registerRadioClick(radio) })
             self.centerRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(radio) {
                 radio.value = true
@@ -69,7 +69,7 @@ function ItemAnchorPanel(parent) {
             self.rightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(radio) { registerRadioClick(radio) })
         })
         self.row3 = panel.hgroup(function(group) {
-            group.setHelpTips('Reference point.')
+            group.setTooltips('Reference point')
             self.bottomLeftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(radio) { registerRadioClick(radio) })
             self.bottomRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(radio) { registerRadioClick(radio) })
             self.bottomRightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(radio) { registerRadioClick(radio) })

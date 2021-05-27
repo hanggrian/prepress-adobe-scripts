@@ -17,11 +17,11 @@ var folder = openFolder(dialog.title)
 
 if (folder != null) {
     maintainGroup = new MaintainDimensionGroup(dialog.main)
-    
+
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
         items.forEach(function(item) {
-            var width = item.width 
+            var width = item.width
             var height = item.height
             var position = item.position
             item.relink(folder.getFiles()

@@ -23,7 +23,7 @@ var stopsList, affixPanel, reverseGroup
 dialog.vpanel('Options', function(panel) {
     panel.alignChildren = 'fill'
     panel.hgroup(function(group) {
-        group.setHelpTips('The iteration will stop at the selected alphabet and the number will reset back to 1.')
+        group.setTooltips('The iteration will stop at the selected alphabet and the number will reset back to 1')
         group.staticText(BOUNDS_TEXT, 'Stops at:', JUSTIFY_RIGHT)
         stopsList = group.dropDownList(BOUNDS_EDIT, ALPHABETS, function(it) {
             it.selection = ALPHABETS.indexOf('B')
@@ -50,10 +50,10 @@ dialog.setPositiveButton(function() {
             s += ' '
         }
         s += ALPHABETS[count]
-    
+
         item.words.removeAll()
         item.words.add(prefix + s + suffix)
-    
+
         count++
         if (count === stopsAt) {
             number++

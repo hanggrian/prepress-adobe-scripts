@@ -5,7 +5,7 @@ var _resourcesSource = new File($.fileName)
 /**
  * For some reason, relinking PlacedItem to the same PDF but different page won't work.
  * In such case, set `item.file = BLANK` before `item.relink()`.
- */ 
+ */
 var R = {
     png: {
         // For some reason, relinking PlacedItem to the same PDF but different page won't work.

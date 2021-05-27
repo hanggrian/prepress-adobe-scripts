@@ -17,7 +17,7 @@ function OpenDocumentPanel(parent) {
     this.main = parent.vpanel('Document Preset', function(panel) {
         panel.alignChildren = 'fill'
         panel.hgroup(function(group) {
-            group.setHelpTips('The color mode and resolution for the new document.')
+            group.setTooltips('The color mode and resolution for the new document')
             group.staticText(BOUNDS_DOCUMENT_TEXT, 'Color Mode:', JUSTIFY_RIGHT)
             self.modeList = group.dropDownList(BOUNDS_DOCUMENT_EDIT, OPEN_DOCUMENTMODES, function(it) {
                 it.selection = OPEN_DOCUMENTMODES.indexOf('CMYK')
@@ -27,25 +27,25 @@ function OpenDocumentPanel(parent) {
             })
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('The resolution for the new document.')
+            group.setTooltips('The resolution for the new document')
             group.staticText(BOUNDS_DOCUMENT_TEXT, 'Resolution:', JUSTIFY_RIGHT)
             self.resolutionEdit = group.editText(BOUNDS_DOCUMENT_EDITMAX, '300')
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('The units for the new document.')
+            group.setTooltips('The units for the new document')
             group.staticText(BOUNDS_DOCUMENT_TEXT, 'Units:', JUSTIFY_RIGHT)
             self.unitsList = group.dropDownList(BOUNDS_DOCUMENT_EDITMAX, UNITS, function(it) {
                 it.selection = UNITS.indexOf('Millimeters')
             })
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('The initial fill of the document.')
+            group.setTooltips('The initial fill of the document')
             group.staticText(BOUNDS_DOCUMENT_TEXT, 'Background:', JUSTIFY_RIGHT)
             self.backgrounTransparentRadio = group.radioButton(undefined, 'Transparent', SELECTED)
             self.backgrounWhiteRadio = group.radioButton(undefined, 'White')
         })
     })
-    
+
     this.open = function(title, width, height) {
         var mode, background, bits
         switch(self.modeList.selection.text) {

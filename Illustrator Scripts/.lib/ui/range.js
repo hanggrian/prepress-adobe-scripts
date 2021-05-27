@@ -4,7 +4,7 @@ function RangeGroup(parent, textBounds, editBounds) {
 
     var actualEditBounds = [editBounds[0] / 2 - 13, editBounds[1]]
     this.main = parent.hgroup(function(group) {
-        group.setHelpTips('From starting point to ending point.')
+        group.setTooltips('From starting point to ending point')
         group.staticText(textBounds, 'Range:', JUSTIFY_RIGHT)
         self.startEdit = group.editText(actualEditBounds, '1', function(it) {
             it.validateDigits()
@@ -25,7 +25,7 @@ function RangeGroup(parent, textBounds, editBounds) {
     this.getLength = function() {
         var length = self.getEnd() - self.getStart() + 1
         if (length <= 0) {
-            errorWithAlert('End range cannot be less than start.')
+            errorWithAlert('End range cannot be less than start')
         }
         return length
     }

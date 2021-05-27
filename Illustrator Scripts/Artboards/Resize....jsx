@@ -8,7 +8,7 @@ var dialog = new Dialog('Resize Artboards')
 var widthEdit, heightEdit
 
 dialog.hgroup(function(group) {
-    group.setHelpTips("Artboards' new width.")
+    group.setTooltips("Artboards' new width")
     group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
     widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2), function(it) {
         it.validateUnits()
@@ -16,7 +16,7 @@ dialog.hgroup(function(group) {
     })
 })
 dialog.hgroup(function(group) {
-    group.setHelpTips("Artboards' new height.")
+    group.setTooltips("Artboards' new height")
     group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
     heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2), VALIDATE_UNITS)
 })

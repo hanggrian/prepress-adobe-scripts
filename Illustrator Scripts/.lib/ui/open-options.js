@@ -16,7 +16,7 @@ function OpenPDFPanel(parent, textBounds, editBounds) {
     this.main = parent.vpanel('Place PDF', function(panel) {
         panel.alignChildren = 'fill'
         panel.hgroup(function(group) {
-            group.setHelpTips('Which box should be used when placing a pdf document.')
+            group.setTooltips('Which box should be used when placing a pdf document')
             group.staticText(textBounds, 'Crop to:', JUSTIFY_RIGHT)
             self.boxTypeList = group.dropDownList(editBounds, OPEN_PDFBOXTYPES, function(it) {
                 var prefill
@@ -62,22 +62,22 @@ function OpenPagesPanel(parent, textBounds, editBounds) {
         panel.alignChildren = 'fill'
         self.rangeGroup = new RangeGroup(panel, textBounds, editBounds)
         panel.hgroup(function(group) {
-            group.setHelpTips('Page width, not artboard.')
+            group.setTooltips('Page width, not artboard')
             group.staticText(textBounds, 'Width:', JUSTIFY_RIGHT)
             self.widthEdit = group.editText(editBounds, '210 mm', VALIDATE_UNITS)
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Page height, not artboard.')
+            group.setTooltips('Page height, not artboard')
             group.staticText(textBounds, 'Height:', JUSTIFY_RIGHT)
             self.heightEdit = group.editText(editBounds, '297 mm', VALIDATE_UNITS)
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Extra area that will be added to page dimension.')
+            group.setTooltips('Extra area that will be added to page dimension')
             group.staticText(textBounds, 'Bleed:', JUSTIFY_RIGHT)
             self.bleedEdit = group.editText(editBounds, '0 mm', VALIDATE_UNITS)
         })
     })
-    
+
     this.getPages = function() { return parseInt(self.pagesEdit.text) }
     this.getWidth = function() { return parseUnits(self.widthEdit.text) }
     this.getHeight = function() { return parseUnits(self.heightEdit.text) }
@@ -95,7 +95,7 @@ function OpenDocumentPanel(parent) {
     this.main = parent.vpanel('Document Preset', function(panel) {
         panel.alignChildren = 'fill'
         panel.hgroup(function(group) {
-            group.setHelpTips('The color mode and resolution for the new document.')
+            group.setTooltips('The color mode and resolution for the new document')
             group.staticText(BOUNDS_DOCUMENT_TEXT, 'Color Mode:', JUSTIFY_RIGHT)
             self.modeList = group.dropDownList(BOUNDS_DOCUMENT_EDIT, OPEN_DOCUMENTMODES, function(it) {
                 it.selection = OPEN_DOCUMENTMODES.indexOf('CMYK')
@@ -105,7 +105,7 @@ function OpenDocumentPanel(parent) {
             })
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Layout for artboards.')
+            group.setTooltips('Layout for artboards')
             group.staticText(BOUNDS_DOCUMENT_TEXT, 'Layout:', JUSTIFY_RIGHT)
             self.layoutList = group.dropDownList(BOUNDS_DOCUMENT_EDIT, OPEN_DOCUMENTLAYOUTS, function(it) {
                 it.selection = OPEN_DOCUMENTLAYOUTS.indexOf('Grid by Row')
@@ -113,28 +113,28 @@ function OpenDocumentPanel(parent) {
             self.rowsOrColsEdit = group.editText(BOUNDS_DOCUMENT_EDIT2, '2', VALIDATE_DIGITS)
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('The units for the new document.')
+            group.setTooltips('The units for the new document')
             group.staticText(BOUNDS_DOCUMENT_TEXT, 'Units:', JUSTIFY_RIGHT)
             self.unitsList = group.dropDownList(BOUNDS_DOCUMENT_EDITMAX, UNITS, function(it) {
                 it.selection = UNITS.indexOf('Millimeters')
             })
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('Spacing between artboards.')
+            group.setTooltips('Spacing between artboards')
             group.staticText(BOUNDS_DOCUMENT_TEXT, 'Spacing:', JUSTIFY_RIGHT)
             self.spacingEdit = group.editText(BOUNDS_DOCUMENT_EDITMAX, '10 mm', function(it) {
                 it.validateUnits()
             })
         })
         panel.hgroup(function(group) {
-            group.setHelpTips('The preview mode for the new document.')
+            group.setTooltips('The preview mode for the new document')
             group.staticText(BOUNDS_DOCUMENT_TEXT, 'Preview Mode:', JUSTIFY_RIGHT)
             self.previewDefaultRadio = group.radioButton(undefined, 'Default', SELECTED)
             self.previewPixelRadio = group.radioButton(undefined, 'Pixel')
             self.previewOverprintRadio = group.radioButton(undefined, 'Overprint')
         })
     })
-    
+
     this.open = function(title, pages, width, height, bleed) {
         return app.documents.addDocument(DocumentPresetType.Print, new DocumentPreset().let(function(preset) {
             preset.title = title
