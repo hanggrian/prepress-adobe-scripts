@@ -68,3 +68,18 @@ String.prototype.substringAfterLast = function(s) {
 String.prototype.isNumeric = function() {
      return /^-{0,1}\d*\.{0,1}\d+$/.test(this)
 }
+
+/** Remove leading whitespaces. */
+String.prototype.trimStart = function() {
+    return this.replace(/^\s\s*/, '')
+}
+
+/** Remove trailing whitespaces. */
+String.prototype.trimEnd = function() {
+    return this.replace(/\s\s*$/, '')
+}
+
+/** Remove leading and trailing whitespaces. */
+String.prototype.trim = function() {
+    return this.trimStart().trimEnd()
+}

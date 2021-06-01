@@ -35,6 +35,7 @@ Checkbox.prototype.setTooltip = function(tooltip) { _setTooltip(this, tooltip) }
 RadioButton.prototype.setTooltip = function(tooltip) { _setTooltip(this, tooltip) }
 
 function _setTooltip(child, tooltip) {
+    tooltip = tooltip.trim()
     child.helpTip = tooltip.endsWith('.') || tooltip.endsWith('?') ? tooltip : tooltip + '.'
 }
 
