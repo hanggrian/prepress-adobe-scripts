@@ -1,3 +1,9 @@
+/*
+<javascriptresource>
+<menu>hide</menu>
+</javascriptresource>
+*/
+
 /**
  * Returns true if text contains word.
  * @param {String} s expected prefix.

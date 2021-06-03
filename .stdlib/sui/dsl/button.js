@@ -1,3 +1,9 @@
+/*
+<javascriptresource>
+<menu>hide</menu>
+</javascriptresource>
+*/
+
 /**
  * Add button to dialog.
  * @param {Bounds} bounds size of this object, may be null.

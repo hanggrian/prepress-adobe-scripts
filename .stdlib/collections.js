@@ -1,3 +1,9 @@
+/*
+<javascriptresource>
+<menu>hide</menu>
+</javascriptresource>
+*/
+
 // https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/
 // Functions declared in this script are `Object.prototype` and not `Array.prototype`.
 // This is due to Adobe's custom non-array collection objects like `Artboards`, `PageItems`, etc.

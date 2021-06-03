@@ -1,3 +1,9 @@
+/*
+<javascriptresource>
+<menu>hide</menu>
+</javascriptresource>
+*/
+
 /**
  * Add horizontal group to dialog.
  * @param {Function} configuration may be null.

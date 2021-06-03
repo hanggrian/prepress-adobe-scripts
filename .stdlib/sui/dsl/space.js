@@ -1,3 +1,9 @@
+/*
+<javascriptresource>
+<menu>hide</menu>
+</javascriptresource>
+*/
+
 /**
  * Add empty space to dialog.
  * @param {Bounds} bounds size of this object, may be null.

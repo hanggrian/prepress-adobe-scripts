@@ -1,11 +1,11 @@
-// Increase canvas size and create new guide layout separating content
-// and bleed area.
-
 /*
 <javascriptresource>
 <category>1</category>
 </javascriptresource>
 */
+
+// Increase canvas size and create new guide layout separating content
+// and bleed area.
 
 #target Photoshop
 #include '../../.stdlib/ui/anchor.js'
@@ -34,7 +34,7 @@ dialog.hgroup(function(group) {
     group.alignChildren = 'top'
     group.setTooltips('The anchor point to resize around')
     group.staticText(BOUNDS_TEXT, 'Anchor:', JUSTIFY_RIGHT)
-    anchorGroup = new AnchorGroup(group)
+    anchorGroup = new AnchorGroup(group, 10)
 })
 
 dialog.setNegativeButton('Cancel')

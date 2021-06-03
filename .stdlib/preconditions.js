@@ -35,6 +35,12 @@ function checkTypename(item, typename) {
     check(item.typename === typename, 'Selected item is not a ' + typename)
 }
 
+/*
+<javascriptresource>
+<menu>hide</menu>
+</javascriptresource>
+*/
+
 /**
  * Throw an error.
  * @param {Object} errorMessage helpful alert, may be null.

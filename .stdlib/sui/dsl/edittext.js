@@ -1,3 +1,9 @@
+/*
+<javascriptresource>
+<menu>hide</menu>
+</javascriptresource>
+*/
+
 var ACTIVATE = function(editText) { editText.activate() }
 var VALIDATE_DIGITS = function(editText) { editText.validateDigits() }
 var VALIDATE_UNITS = function(editText) { editText.validateUnits() }

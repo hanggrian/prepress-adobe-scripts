@@ -1,3 +1,9 @@
+/*
+<javascriptresource>
+<menu>hide</menu>
+</javascriptresource>
+*/
+
 var CONTROL_UNAVAILABLE = function(control) {
     control.enabled = false
     _setTooltip(control, 'This feature is not yet available')

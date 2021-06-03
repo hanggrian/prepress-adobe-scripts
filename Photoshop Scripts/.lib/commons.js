@@ -1,3 +1,9 @@
+/*
+<javascriptresource>
+<menu>hide</menu>
+</javascriptresource>
+*/
+
 #include 'core.js'
 
 check(app.documents.length > 0, 'No active document')

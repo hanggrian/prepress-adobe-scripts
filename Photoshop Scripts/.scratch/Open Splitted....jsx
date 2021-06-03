@@ -1,10 +1,10 @@
-// Increase canvas size and create new guide layout accordingly.
-
 /*
 <javascriptresource>
 <category>1</category>
 </javascriptresource>
 */
+
+// Increase canvas size and create new guide layout accordingly.
 
 #target Photoshop
 #include '../.lib/core.js'

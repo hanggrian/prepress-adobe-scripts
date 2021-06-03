@@ -1,3 +1,9 @@
+/*
+<javascriptresource>
+<menu>hide</menu>
+</javascriptresource>
+*/
+
 var JUSTIFY_LEFT = function(staticText) { staticText.justify = 'left' }
 var JUSTIFY_CENTER = function(staticText) { staticText.justify = 'center' }
 var JUSTIFY_RIGHT = function(staticText) { staticText.justify = 'right' }

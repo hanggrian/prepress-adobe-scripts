@@ -2,16 +2,16 @@ function RangeGroup(parent, textBounds, editBounds) {
     var self = this
     this.startEdit, this.endEdit
 
-    var actualEditBounds = [editBounds[0] / 2 - 13, editBounds[1]]
+    editBounds = [editBounds[0] / 2 - 13, editBounds[1]]
     this.main = parent.hgroup(function(group) {
         group.setTooltips('From starting point to ending point')
         group.staticText(textBounds, 'Range:', JUSTIFY_RIGHT)
-        self.startEdit = group.editText(actualEditBounds, '1', function(it) {
+        self.startEdit = group.editText(editBounds, '1', function(it) {
             it.validateDigits()
             it.activate()
         })
         group.staticText(undefined, '–', JUSTIFY_RIGHT) // use en dash
-        self.endEdit = group.editText(actualEditBounds, undefined, VALIDATE_DIGITS)
+        self.endEdit = group.editText(editBounds, undefined, VALIDATE_DIGITS)
     })
 
     this.getStart = function() {

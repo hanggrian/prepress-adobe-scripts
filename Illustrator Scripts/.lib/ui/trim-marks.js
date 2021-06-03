@@ -150,7 +150,7 @@ function TrimMarksPanel(parent, textBounds, editBounds) {
         return marks
     }
 
-function createTrimMark(suffixName, fromX, fromY, toX, toY) {
+    function createTrimMark(suffixName, fromX, fromY, toX, toY) {
         var weight = parseUnits(self.weightEdit.text)
         var color = parseColor(self.colorList.selection.text)
 
@@ -158,7 +158,7 @@ function createTrimMark(suffixName, fromX, fromY, toX, toY) {
         mark.name = 'Trim' + suffixName
         mark.fillColor = COLOR_NONE
         mark.strokeColor = color
-        mark.strokeWidth = weight // important to set weight before color
+        mark.strokeWidth = weight
 
         var fromPosition = [fromX, fromY]
         var fromPoint = mark.pathPoints.add()

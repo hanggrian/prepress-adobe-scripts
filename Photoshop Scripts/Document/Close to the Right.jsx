@@ -1,14 +1,14 @@
-// Close tabs to the right without saving.
-// This function is impossible to implement on Illustrator because:
-// * the first index is always active document.
-// * next index is document to the left of active document.
-// * no way to know actual position of active document.
-
 /*
 <javascriptresource>
 <category>3</category>
 </javascriptresource>
 */
+
+// Close tabs to the right without saving.
+// This function is impossible to implement on Illustrator because:
+// * the first index is always active document.
+// * next index is document to the left of active document.
+// * no way to know actual position of active document.
 
 #target Photoshop
 #include '../.lib/commons.js'

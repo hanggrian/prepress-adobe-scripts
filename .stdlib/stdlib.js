@@ -1,3 +1,9 @@
+/*
+<javascriptresource>
+<menu>hide</menu>
+</javascriptresource>
+*/
+
 #include 'sui/dsl/button.js'
 #include 'sui/dsl/dropdownlist.js'
 #include 'sui/dsl/edittext.js'

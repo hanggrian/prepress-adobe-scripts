@@ -1,13 +1,25 @@
+/*
+<javascriptresource>
+<menu>hide</menu>
+</javascriptresource>
+*/
+
 var BOUNDS_ANCHOR_RADIO = [15, 15]
 
-function AnchorGroup(parent) {
+function AnchorGroup(parent, radioSpacing) {
     var self = this
     this.topLeftRadio, this.topRadio, this.topRightRadio
     this.leftRadio, this.centerRadio, this.rightRadio
     this.bottomLeftRadio, this.bottomRadio, this.bottomRightRadio
 
-    this.main = parent.vgroup(function(panel) {
-        panel.hgroup(function(group) {
+    this.main = parent.vgroup(function(mainGroup) {
+        if (radioSpacing !== undefined) {
+            mainGroup.spacing = radioSpacing
+        }
+        mainGroup.hgroup(function(group) {
+            if (radioSpacing !== undefined) {
+                group.spacing = 0
+            }
             self.topLeftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(it) {
                 it.setTooltip('Top left')
                 registerRadioClick(it)
@@ -21,7 +33,10 @@ function AnchorGroup(parent) {
                 registerRadioClick(it)
             })
         })
-        panel.hgroup(function(group) {
+        mainGroup.hgroup(function(group) {
+            if (radioSpacing !== undefined) {
+                group.spacing = 0
+            }
             self.leftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(it) {
                 it.setTooltip('Left')
                 registerRadioClick(it)
@@ -36,7 +51,10 @@ function AnchorGroup(parent) {
                 registerRadioClick(it)
             })
         })
-        panel.hgroup(function(group) {
+        mainGroup.hgroup(function(group) {
+            if (radioSpacing !== undefined) {
+                group.spacing = 0
+            }
             self.bottomLeftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(it) {
                 it.setTooltip('Bottom left')
                 registerRadioClick(it)

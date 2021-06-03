@@ -1,10 +1,10 @@
-// Iterate through document to check for its quality.
-
 /*
 <javascriptresource>
 <category>2</category>
 </javascriptresource>
 */
+
+// Iterate through document to check for its quality.
 
 #target Illustrator
 #include '../.lib/commons.js'

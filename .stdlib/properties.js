@@ -1,3 +1,9 @@
+/*
+<javascriptresource>
+<menu>hide</menu>
+</javascriptresource>
+*/
+
 // https://community.adobe.com/t5/illustrator/script-to-sort-artboard-list-alphabetically/m-p/9558395
 
 function copyProperties(source) {

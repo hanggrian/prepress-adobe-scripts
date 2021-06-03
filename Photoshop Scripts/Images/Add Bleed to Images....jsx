@@ -1,11 +1,11 @@
-// Increase canvas size and create new guide layout separating content
-// and bleed area.
-
 /*
 <javascriptresource>
 <category>1</category>
 </javascriptresource>
 */
+
+// Increase canvas size and create new guide layout separating content
+// and bleed area.
 
 #target Photoshop
 #include '../.lib/commons.js'

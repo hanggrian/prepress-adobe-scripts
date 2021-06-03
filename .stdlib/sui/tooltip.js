@@ -1,3 +1,9 @@
+/*
+<javascriptresource>
+<menu>hide</menu>
+</javascriptresource>
+*/
+
 /**
  * Set tooltip to this button.
  * @param {String} tooltip help tip of this children.
