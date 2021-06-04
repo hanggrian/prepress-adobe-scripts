@@ -1,18 +1,20 @@
 /**
  * Assert that a condition is satisfied, throw an error otherwise.
  * @param {Boolean} requirement expect value to be `true`.
- * @param {String} errorMessage helpful alert, may be null.
+ * @param {Object} errorMessage helpful alert, may be null.
  * @returns {void}
  */
 function check(requirement, errorMessage) {
     if (!requirement) {
-        error(errorMessage)
+        error(errorMessage !== undefined
+            ? errorMessage
+            : 'Failed requirement')
     }
 }
 
 /**
  * Assert that a value is null.
- * @param {String} errorMessage helpful alert, may be null.
+ * @param {Object} errorMessage helpful alert, may be null.
  * @returns {Object}
  */
 function checkNull(value, errorMessage) {
@@ -22,7 +24,7 @@ function checkNull(value, errorMessage) {
 
 /**
  * Assert that a value is not null.
- * @param {String} errorMessage helpful alert, may be null.
+ * @param {Object} errorMessage helpful alert, may be null.
  * @returns {Object}
  */
 function checkNotNull(value, errorMessage) {
@@ -46,10 +48,7 @@ function checkTypename(item, typename) {
  * @param {Object} errorMessage helpful alert, may be null.
  */
 function error(errorMessage) {
-    var message = errorMessage !== undefined
-        ? errorMessage.toString()
-        : 'Failed requirement'
-    throw new Error(message)
+    throw new Error(errorMessage.toString())
 }
 
 /**
@@ -58,6 +57,8 @@ function error(errorMessage) {
  * @param {Object} errorMessage helpful alert, may be null.
  */
 function errorWithAlert(errorMessage) {
-    alert(errorMessage, 'Uncaught JavaScript exception', true)
-    error(errorMessage)
+    errorMessage.toString().let(function(it) {
+        alert(it, 'Uncaught JavaScript exception', true)
+        throw new Error(it)
+    })
 }

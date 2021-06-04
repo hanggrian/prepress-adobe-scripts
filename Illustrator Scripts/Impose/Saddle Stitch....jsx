@@ -51,9 +51,11 @@ if (files !== null && files.isNotEmpty()) {
         var width = pagesPanel.getWidth()
         var height = pagesPanel.getHeight()
         var bleed = pagesPanel.getBleed()
+
         if (pages % 4 !== 0) {
             errorWithAlert('Pages must be divisible by 4')
         }
+        
         var document = documentPanel.open('Untitled-Saddle Stitch',
             pages / 2,
             width * 2,

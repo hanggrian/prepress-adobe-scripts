@@ -52,6 +52,7 @@ if (files !== null && files.isNotEmpty()) {
         var bleed = pagesPanel.getBleed()
         var rotatedWidth = !rotateCheck.value ? width : height
         var rotatedHeight = !rotateCheck.value ? height : width
+
         var document = documentPanel.open('Untitled-Perfect Bound',
             pages,
             rotatedWidth,

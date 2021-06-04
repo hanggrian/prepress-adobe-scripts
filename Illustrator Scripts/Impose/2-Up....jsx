@@ -55,9 +55,12 @@ if (files !== null && files.isNotEmpty()) {
         var bleed = pagesPanel.getBleed()
         var rotatedWidth = !rotateCheck.value ? width : height
         var rotatedHeight = !rotateCheck.value ? height : width
-        if (pages % 4 !== 0) {
-            errorWithAlert('Pages must be divisible by 4')
+
+        var pagesDivisor = !duplexCheck.value ? 2 : 4
+        if (pages % pagesDivisor !== 0) {
+            errorWithAlert('Pages must be divisible by ' + pagesDivisor)
         }
+
         var document = documentPanel.open('Untitled-2-Up',
             pages / 2,
             (rotatedWidth + bleed * 2) * 2,
