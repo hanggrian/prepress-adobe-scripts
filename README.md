@@ -1,5 +1,6 @@
 Prepress Adobe Scripts
 ======================
+
 Adobe Illustrator and Photoshop scripts tailored for printing purposes.
 * Highly customized standard library for consistent look and API across scripts.
 * Tested only on latest Adobe suite.
@@ -8,6 +9,7 @@ Adobe Illustrator and Photoshop scripts tailored for printing purposes.
 
 Usage
 -----
+
 These scripts are **not standalone**, all of them requires hidden directories to be in pre-determined location. This is why it is recommended to put them in Adobe installation paths, and access them from native menu bar.
 
 ![scripts-menu-illustrator](art/scripts-menu-illustrator.png)
@@ -20,11 +22,12 @@ Run `scripts-patcher.bat` as admin (Windows) or `scripts-patcher.sh` with sudo (
 
 ### Manual Installation
 Manually copy all files & folders within `Scripts` directory to `Presets` directory in local Adobe installation paths, the location may differ between app:
-* Illustrator - `{Illustrator path}/Presets/{your locale}/Scripts`.
-* Photoshop - `{Photoshop path}/Presets/Scripts`.
+* Illustrator - `PATH_TO_ILLUSTRATOR/Presets/LOCALE_CODE/Scripts`.
+* Photoshop - `PATH_TO_PHOTOSHOP/Presets/Scripts`.
 
 Resources
 ---------
+
 Official:
 * [ExtendScript Wiki](https://github.com/ExtendScript/wiki/wiki)
 * [JavaScript Tools Guide](https://wwwimages2.adobe.com/content/dam/acom/en/devnet/scripting/pdfs/javascript_tools_guide.pdf)
