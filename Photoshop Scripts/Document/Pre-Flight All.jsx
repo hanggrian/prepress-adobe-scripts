@@ -4,7 +4,7 @@
 </javascriptresource>
 */
 
-// Iterate through document to check for its quality.
+// Quality check all tabs.
 
 #target Illustrator
 #include '../.lib/commons.js'
@@ -12,16 +12,18 @@
 var allOkay = true
 for (var i = 0; i < app.documents.length; i++) {
     var document = app.documents[i]
+
     var message = 'Issues found in ' + document.name + ':'
     if (document.mode !== DocumentMode.CMYK) {
-        message += '\nMode is ' + document.mode.toString().substringAfter('.') + '.'
+        message += '\n• Mode is ' + document.mode.toString().substringAfter('.') + '.'
     }
     if (document.resolution < 300) {
-        message += '\nResolution is ' + document.resolution + '.'
+        message += '\n• Resolution is ' + document.resolution + '.'
     }
     if (document.bitsPerChannel !== BitsPerChannelType.EIGHT) {
-        message += '\nBits per channel is ' + document.bitsPerChannel.toString().substringAfter('.') + '.'
+        message += '\n• Bits per channel is ' + document.bitsPerChannel.toString().substringAfter('.') + '.'
     }
+
     if (message.includes('\n')) {
         allOkay = false
         app.activeDocument = document

@@ -16,15 +16,15 @@ var dialog = new Dialog('Relink Multipage', 'fill')
 var pdfPanel, rangeGroup, reverseGroup
 
 var files = openFile(dialog.title, [
-    ['Adobe Illustrator', 'AI'],
-    ['Adobe PDF', 'PDF'],
-    ['BMP', 'BMP'],
-    ['GIF89a', 'GIF'],
-    ['JPEG', 'JPG', 'JPE', 'JPEG'],
-    ['JPEG2000', 'JPF', 'JPX', 'JP2', 'J2K', 'J2C', 'JPC'],
-    ['PNG', 'PNG', 'PNS'],
-    ['Photoshop', 'PSD', 'PSB', 'PDD'],
-    ['TIFF', 'TIF', 'TIFF']
+    ['Adobe Illustrator', 'ai'],
+    ['Adobe PDF', 'pdf'],
+    ['BMP', 'bmp'],
+    ['GIF89a', 'gif'],
+    ['JPEG', 'jpg', 'jpe', 'jpeg'],
+    ['JPEG2000', 'jpf', 'jpx', 'jp2', 'j2k', 'j2c', 'jpc'],
+    ['PNG', 'png', 'pns'],
+    ['Photoshop', 'psd', 'psb', 'pdd'],
+    ['TIFF', 'tif', 'tiff']
 ], true)
 
 if (files === null) {
@@ -33,7 +33,7 @@ if (files === null) {
     if (files.filter(function(it) { return it.isPDF() }).isNotEmpty()) {
         check(files.length === 1, 'Only supports single PDF file')
     } else {
-        check(files.length > 1, 'Only single image file selected, use Relink Same File instead')
+        check(files.length > 1, 'Only single image file selected, use Relink Same instead')
     }
 
     if (files.first().isPDF()) {
