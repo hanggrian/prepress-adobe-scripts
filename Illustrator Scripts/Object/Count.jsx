@@ -73,7 +73,7 @@ function append(count, suffix) {
     if (count === 0) {
         return
     }
-    message += '\n' + count + ' ' + suffix
+    message += '\n• ' + count + ' ' + suffix
     if (count > 1) {
         message += message.endsWith('sh') ? 'es' : 's'
     }

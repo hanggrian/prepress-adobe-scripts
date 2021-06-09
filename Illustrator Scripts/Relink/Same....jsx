@@ -10,7 +10,10 @@ checkHasSelection()
 var items = selection.filterItem(function(it) { return it.typename === 'PlacedItem' })
 check(items.isNotEmpty(), 'No links found in selection')
 
-var file = openFile('Relink Same', [
+var dialog = new Dialog('Relink Same', 'fill')
+var pdfPanel, pageEdit
+
+var file = openFile(dialog.title, [
     ['Adobe Illustrator', 'ai'],
     ['Adobe PDF', 'pdf'],
     ['BMP', 'bmp'],
@@ -28,8 +31,6 @@ if (file === null) {
     if (!file.isPDF()) {
         relink()
     } else {
-        var pdfPanel, pageEdit
-        var dialog = new Dialog('Relink All', 'fill')
         pdfPanel = new OpenPDFPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
         pdfPanel.main.hgroup(function(panel) {
             panel.setTooltips('What page should be used when opening a multipage document')

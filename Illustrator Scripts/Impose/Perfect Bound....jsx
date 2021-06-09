@@ -23,17 +23,16 @@ var files = openFile(dialog.title, [
 ], true)
 
 if (files !== null && files.isNotEmpty()) {
-    if (files.filter(function(it) { return it.isPDF() }).isNotEmpty()) {
-        check(files.length === 1, 'Only supports single PDF file')
-    }
+    var collection = new FileCollection(files)
 
     dialog.main.hgroup(function(mainGroup) {
         mainGroup.alignChildren = 'fill'
         mainGroup.vgroup(function(group) {
-            if (files.first().isPDF()) {
+            if (collection.hasPDF) {
                 pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
             }
             pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
+            pagesPanel.rangeGroup.endEdit.text = collection.length.toString()
         })
         documentPanel = new OpenDocumentPanel(mainGroup)
     })
@@ -61,12 +60,7 @@ if (files !== null && files.isNotEmpty()) {
         var pager = new PerfectBoundPager(document, start)
         pager.forEachArtboard(function(artboard, index) {
             var item = document.placedItems.add()
-            if (files.first().isPDF()) {
-                preferences.setPDFPage(index)
-                item.file = files.first()
-            } else {
-                item.file = files[pager.getIndex()]
-            }
+            item.file = collection.get(index)
             var rect = artboard.artboardRect
             var x = rect[0]
             var y = rect[1]

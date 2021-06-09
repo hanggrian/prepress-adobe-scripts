@@ -23,17 +23,16 @@ var files = openFile(dialog.title, [
 ], true)
 
 if (files !== null && files.isNotEmpty()) {
-    if (files.filter(function(it) { return it.isPDF() }).isNotEmpty()) {
-        check(files.length === 1, 'Only supports single PDF file')
-    }
+    var collection = new FileCollection(files)
 
     dialog.main.hgroup(function(mainGroup) {
         mainGroup.alignChildren = 'fill'
         mainGroup.vgroup(function(group) {
-            if (files.first().isPDF()) {
+            if (collection.hasPDF) {
                 pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
             }
             pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
+            pagesPanel.rangeGroup.endEdit.text = collection.length.toString()
         })
         documentPanel = new OpenDocumentPanel(mainGroup)
     })
@@ -80,33 +79,14 @@ if (files !== null && files.isNotEmpty()) {
             var bottomItem2 = document.placedItems.add()
             var bottomItem3 = document.placedItems.add()
             var bottomItem4 = document.placedItems.add()
-            if (files.first().isPDF()) {
-                preferences.setPDFPage(top1Index)
-                topItem1.file = files.first()
-                preferences.setPDFPage(top2Index)
-                topItem2.file = files.first()
-                preferences.setPDFPage(top3Index)
-                topItem3.file = files.first()
-                preferences.setPDFPage(top4Index)
-                topItem4.file = files.first()
-                preferences.setPDFPage(bottom1Index)
-                bottomItem1.file = files.first()
-                preferences.setPDFPage(bottom2Index)
-                bottomItem2.file = files.first()
-                preferences.setPDFPage(bottom3Index)
-                bottomItem3.file = files.first()
-                preferences.setPDFPage(bottom4Index)
-                bottomItem4.file = files.first()
-            } else {
-                topItem1.file = files[top1]
-                topItem2.file = files[top2]
-                topItem3.file = files[top3]
-                topItem4.file = files[top4]
-                bottomItem1.file = files[bottom1]
-                bottomItem2.file = files[bottom2]
-                bottomItem3.file = files[bottom3]
-                bottomItem4.file = files[bottom4]
-            }
+            topItem1.file = collection.get(top1Index)
+            topItem2.file = collection.get(top2Index)
+            topItem3.file = collection.get(top3Index)
+            topItem4.file = collection.get(top4Index)
+            bottomItem1.file = collection.get(bottom1Index)
+            bottomItem2.file = collection.get(bottom2Index)
+            bottomItem3.file = collection.get(bottom3Index)
+            bottomItem4.file = collection.get(bottom4Index)
             var rect = artboard.artboardRect
             var x1 = rect[0]
             var x2 = x1 + rotatedWidth + bleed * 2

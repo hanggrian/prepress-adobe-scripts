@@ -36,8 +36,8 @@ if (count + registrationCount + distance + registrationDistance === 0) {
     message = (count + registrationCount) + ' lines measuring at ' + formatUnits(distance + registrationDistance, unitName, 2)
     if (distance > 0 && registrationDistance > 0) {
         message += ', containing:' +
-            '\n' + count + ' lines at ' + formatUnits(distance, unitName, 2) +
-            '\n' + registrationCount + ' registration lines at ' + formatUnits(registrationDistance, unitName, 2)
+            '\n• ' + count + ' lines at ' + formatUnits(distance, unitName, 2) +
+            '\n• ' + registrationCount + ' registration lines at ' + formatUnits(registrationDistance, unitName, 2)
     } else {
         message += '.'
     }

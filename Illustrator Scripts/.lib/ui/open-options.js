@@ -13,7 +13,7 @@ function OpenPDFPanel(parent, textBounds, editBounds) {
     var self = this
     this.boxTypeList
 
-    this.main = parent.vpanel('Place PDF', function(panel) {
+    this.main = parent.vpanel('PDF Box', function(panel) {
         panel.alignChildren = 'fill'
         panel.hgroup(function(group) {
             group.setTooltips('Which box should be used when placing a pdf document')

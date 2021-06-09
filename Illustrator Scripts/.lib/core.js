@@ -5,6 +5,7 @@
 #include 'core-pager/two-up.js'
 #include 'core-collections.js'
 #include 'core-colors.js'
+#include 'core-files.js'
 #include 'core-preferences.js'
 #include 'core-resources.js'
 #include 'core-units.js'

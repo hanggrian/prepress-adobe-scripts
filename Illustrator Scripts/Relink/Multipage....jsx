@@ -27,46 +27,34 @@ var files = openFile(dialog.title, [
     ['TIFF', 'tif', 'tiff']
 ], true)
 
-if (files === null) {
-    $.writeln('Relink canceled')
-} else {
-    if (files.filter(function(it) { return it.isPDF() }).isNotEmpty()) {
-        check(files.length === 1, 'Only supports single PDF file')
-    } else {
-        check(files.length > 1, 'Only single image file selected, use Relink Same instead')
-    }
+if (files !== null && files.isNotEmpty()) {
+    var collection = new FileCollection(files)
 
-    if (files.first().isPDF()) {
+    if (collection.hasPDF) {
         pdfPanel = new OpenPDFPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
-        rangeGroup = new RangeGroup(pdfPanel.main, BOUNDS_TEXT, BOUNDS_EDIT)
     }
+    dialog.vpanel('PDF Pages', function(panel) {
+        rangeGroup = new RangeGroup(panel, BOUNDS_TEXT, BOUNDS_EDIT)
+        rangeGroup.endEdit.text = collection.length.toString()
+    })
     reverseGroup = new ReverseOrderGroup(dialog.main, 'left')
 
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
-        var current, end
-        if (files.first().isPDF()) {
-            current = rangeGroup.getStart()
-            end = rangeGroup.getEnd()
-        } else {
-            current = 0
-            end = files.lastIndex()
-        }
+        var current = rangeGroup.getStart()
+        var end = rangeGroup.getEnd()
         $.writeln('End index = ' + end)
         reverseGroup.forEachAware(items, function(item) {
             $.writeln('Current index = ' + current)
             var width = item.width
             var height = item.height
             var position = item.position
-            if (files.first().isPDF()) {
-                if (item.isFileExists() && item.file.equalTo(files.first())) {
-                    item.file = getResource(R.png.blank)
-                }
-                preferences.setPDFPage(current++)
-                item.relink(files.first())
-            } else {
-                item.relink(files[current++])
+            var file = collection.get(current)
+            if (file.isPDF() && item.isFileExists() && item.file.equalTo(file)) {
+                item.file = getResource(R.png.blank)
             }
+            item.relink(file)
+            current++
             if (current > end) {
                 current--
             }

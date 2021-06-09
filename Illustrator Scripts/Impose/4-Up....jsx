@@ -23,17 +23,16 @@ var files = openFile(dialog.title, [
 ], true)
 
 if (files !== null && files.isNotEmpty()) {
-    if (files.filter(function(it) { return it.isPDF() }).isNotEmpty()) {
-        check(files.length === 1, 'Only supports single PDF file')
-    }
+    var collection = new FileCollection(files)
 
     dialog.main.hgroup(function(mainGroup) {
         mainGroup.alignChildren = 'fill'
         mainGroup.vgroup(function(group) {
-            if (files.first().isPDF()) {
+            if (collection.hasPDF) {
                 pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
             }
             pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
+            pagesPanel.rangeGroup.endEdit.text = collection.length.toString()
         })
         documentPanel = new OpenDocumentPanel(mainGroup)
     })
@@ -76,21 +75,10 @@ if (files !== null && files.isNotEmpty()) {
             var topItem2 = document.placedItems.add()
             var bottomItem1 = document.placedItems.add()
             var bottomItem2 = document.placedItems.add()
-            if (files.first().isPDF()) {
-                preferences.setPDFPage(topLeftIndex)
-                topItem1.file = files.first()
-                preferences.setPDFPage(topRightIndex)
-                topItem2.file = files.first()
-                preferences.setPDFPage(bottomLeftIndex)
-                bottomItem1.file = files.first()
-                preferences.setPDFPage(bottomRightIndex)
-                bottomItem2.file = files.first()
-            } else {
-                topItem1.file = files[topLeftIndex]
-                topItem2.file = files[topRightIndex]
-                bottomItem1.file = files[bottomLeftIndex]
-                bottomItem2.file = files[bottomRightIndex]
-            }
+            topItem1.file = collection.get(topLeftIndex)
+            topItem2.file = collection.get(topRightIndex)
+            bottomItem1.file = collection.get(bottomLeftIndex)
+            bottomItem2.file = collection.get(bottomRightIndex)
             var rect = artboard.artboardRect
             var x1 = rect[0]
             var x2 = x1 + rotatedWidth + bleed * 2
