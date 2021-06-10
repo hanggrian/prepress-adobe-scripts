@@ -5,9 +5,8 @@
 setlocal EnableDelayedExpansion
 
 echo.
-echo.
 echo   ######################################################
-echo  #           Prepress Adobe Scripts Patcher           #
+echo  #               Prepress Adobe Scripts               #
 echo ######################################################
 echo.
 echo 1. Illustrator
@@ -16,21 +15,21 @@ echo A. All
 echo.
 echo Q. Quit
 echo.
-set /p input=[1mWhich scripts would you want to install: [0m
+set /p input=[93mWhich scripts would you want to install: [0m
 
-set sourceRoot=%~dp0
-set sourceStdLib=%sourceRoot%.stdlib
+set SOURCE_ROOT=%~dp0
+set SOURCE_STDLIB=%SOURCE_ROOT%.stdlib
 
 if "%input%" == "1" (
-    call :patchApp Illustrator
+    call :patch_app Illustrator
 ) else if "%input%" == "2" (
-    call :patchApp Photoshop
+    call :patch_app Photoshop
 ) else if "%input%" == "a" (
-    call :patchApp Illustrator
-    call :patchApp Photoshop
+    call :patch_app Illustrator
+    call :patch_app Photoshop
 ) else if "%input%" == "A" (
-    call :patchApp Illustrator
-    call :patchApp Photoshop
+    call :patch_app Illustrator
+    call :patch_app Photoshop
 ) else if "%input%" == "q" (
     echo.
 ) else if "%input%" == "Q" (
@@ -47,10 +46,10 @@ exit /b 0
 
 :: In Windows, we manually do this manually.
 :: check if `Presets` directly contain `Scripts` directory.
-:patchApp
+:patch_app
     setlocal
     set adobeApp=%~1
-    set sourceScripts=%sourceRoot%%adobeApp% Scripts
+    set sourceScripts=%SOURCE_ROOT%%adobeApp% Scripts
     set "isEmpty=y"
 
     echo.
@@ -64,15 +63,15 @@ exit /b 0
             set presets=%%a\Presets
             if not exist !presets!\Scripts (
                 for /d %%p in ("!presets!"\*) do (
-                    call :patchPreset "%%a" "!sourceScripts!" "%%p"
+                    call :patch_preset "%%a" "!sourceScripts!" "%%p"
                 )
             ) else (
-                call :patchPreset "%%a" "!sourceScripts!" "!presets!"
+                call :patch_preset "%%a" "!sourceScripts!" "!presets!"
             )
         )
     )
     if defined isEmpty (
-        echo [93mNot found.[0m
+        echo [91mNot found.[0m
     )
 
     if exist "%ProgramFiles(x86)%" (
@@ -86,20 +85,20 @@ exit /b 0
                 set presets=%%a\Presets
                 if not exist !presets!\Scripts (
                     for /d %%p in ("!presets!"\*) do (
-                        call :patchPreset "%%a" "!sourceScripts!" "%%p"
+                        call :patch_preset "%%a" "!sourceScripts!" "%%p"
                     )
                 ) else (
-                    call :patchPreset "%%a" "!sourceScripts!" "!presets!"
+                    call :patch_preset "%%a" "!sourceScripts!" "!presets!"
                 )
             )
         )
         if defined isEmpty (
-            echo [93mNot found.[0m
+            echo [91mNot found.[0m
         )
     )
 goto :eof
 
-:patchPreset
+:patch_preset
     setlocal
     set app=%~1
     set sourceScripts=%~2
@@ -110,24 +109,24 @@ goto :eof
     set targetScriptsLibTest=!targetScripts!\.lib-test
     set targetScriptsReadme=!targetScripts!\README.md
 
-    echo [92m!app![0m
+    echo [1m[92m!app![0m[0m
 
     if exist !targetStdLib! (
-        echo [32mDeleting existing shared libraries...[0m
+        echo [92mDeleting existing shared libraries...[0m
         rmdir /s /q "!targetStdLib!"
     )
     if exist !targetScripts! (
-        echo [32mDeleting existing scripts...[0m
+        echo [92mDeleting existing scripts...[0m
         rmdir /s /q "!targetScripts!"
     )
 
-    echo [32mCopying new shared libraries and scripts...[0m
+    echo [92mCopying new shared libraries and scripts...[0m
     md "!targetStdLib!"
-    robocopy /s "!sourceStdLib!" "!targetStdLib!" /njh /njs /ndl /nc /ns /nfl
+    robocopy /s "!SOURCE_STDLIB!" "!targetStdLib!" /njh /njs /ndl /nc /ns /nfl
     md "!targetScripts!"
     robocopy /s "!sourceScripts!" "!targetScripts!" /njh /njs /ndl /nc /ns /nfl
 
-    echo [32mCleaning up...[0m
+    echo [92mCleaning up...[0m
     if exist !targetScriptsScratch! (
         rmdir /s /q "!targetScriptsScratch!"
     )
@@ -138,6 +137,6 @@ goto :eof
         del /q "!targetScriptsReadme!" 1>nul
     )
 
-    echo [32mFinished.[0m
+    echo [92mFinished.[0m
     echo.
 goto :eof

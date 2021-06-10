@@ -10,18 +10,18 @@ Adobe Illustrator and Photoshop scripts tailored for printing purposes.
 Usage
 -----
 
-These scripts are **not standalone**, all of them requires hidden directories to be in pre-determined location. This is why it is recommended to put them in Adobe installation paths, and access them from native menu bar.
+These scripts are **not standalone**, all of them requires hidden directories to be in pre-determined location. This is why it is recommended to put them in Adobe installation paths, and access them from menu bar.
 
 ![scripts-menu-illustrator](art/scripts-menu-illustrator.png)
 ![scripts-menu-photoshop](art/scripts-menu-photoshop.png)
 
 ### Automatic Installation
-Run `scripts-patcher.bat` as admin (Windows) or `scripts-patcher.sh` with sudo (Mac).
+Run `patch-scripts.bat` as admin (Windows) or `patch-scripts.sh` with sudo (Mac).
 
-![scripts-patcher](art/scripts-patcher.png)
+![patch-scripts](art/patch-scripts.png)
 
 ### Manual Installation
-Manually copy all files & folders within `Scripts` directory to `Presets` directory in local Adobe installation paths, the location may differ between app:
+Manually copy all files & folders within `Scripts` directory to `Presets` directory in local Adobe installation paths:
 * Illustrator - `PATH_TO_ILLUSTRATOR/Presets/LOCALE_CODE/Scripts`.
 * Photoshop - `PATH_TO_PHOTOSHOP/Presets/Scripts`.
 
