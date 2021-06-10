@@ -7,8 +7,8 @@ setlocal EnableDelayedExpansion
 echo.
 echo.
 echo   ######################################################
-echo  #           Prepress Adobe Scripts Patcher           # 
-echo ######################################################  
+echo  #           Prepress Adobe Scripts Patcher           #
+echo ######################################################
 echo.
 echo 1. Illustrator
 echo 2. Photoshop
@@ -16,28 +16,28 @@ echo A. All
 echo.
 echo Q. Quit
 echo.
-set /p input=Which scripts would you want to install: 
+set /p input=[1mWhich scripts would you want to install: [0m
 
 set sourceRoot=%~dp0
 set sourceStdLib=%sourceRoot%.stdlib
 
-if %input% == 1 (
-    call :patchApp "Illustrator"
-) else if %input% == 2 (
-    call :patchApp "Photoshop"
-) else if %input% == a (
-    call :patchApp "Illustrator"
-    call :patchApp "Photoshop"
-) else if %input% == A (
-    call :patchApp "Illustrator"
-    call :patchApp "Photoshop"
-) else if %input% == q (
+if "%input%" == "1" (
+    call :patchApp Illustrator
+) else if "%input%" == "2" (
+    call :patchApp Photoshop
+) else if "%input%" == "a" (
+    call :patchApp Illustrator
+    call :patchApp Photoshop
+) else if "%input%" == "A" (
+    call :patchApp Illustrator
+    call :patchApp Photoshop
+) else if "%input%" == "q" (
     echo.
-) else if %input% == Q (
+) else if "%input%" == "Q" (
     echo.
 ) else (
     echo.
-    echo Unable to recognize input.
+    echo [91mUnable to recognize input.[0m
     exit /b 1
 )
 
@@ -72,7 +72,7 @@ exit /b 0
         )
     )
     if defined isEmpty (
-        echo Not found.
+        echo [93mNot found.[0m
     )
 
     if exist "%ProgramFiles(x86)%" (
@@ -94,7 +94,7 @@ exit /b 0
             )
         )
         if defined isEmpty (
-            echo Not found.
+            echo [93mNot found.[0m
         )
     )
 goto :eof
@@ -110,24 +110,24 @@ goto :eof
     set targetScriptsLibTest=!targetScripts!\.lib-test
     set targetScriptsReadme=!targetScripts!\README.md
 
-    echo Patching to '!app!'...
+    echo [92m!app![0m
 
     if exist !targetStdLib! (
-        echo Deleting existing shared libraries...
+        echo [32mDeleting existing shared libraries...[0m
         rmdir /s /q "!targetStdLib!"
     )
     if exist !targetScripts! (
-        echo Deleting existing scripts...
+        echo [32mDeleting existing scripts...[0m
         rmdir /s /q "!targetScripts!"
     )
 
-    echo Copying new shared libraries and scripts...
+    echo [32mCopying new shared libraries and scripts...[0m
     md "!targetStdLib!"
     robocopy /s "!sourceStdLib!" "!targetStdLib!" /njh /njs /ndl /nc /ns /nfl
     md "!targetScripts!"
     robocopy /s "!sourceScripts!" "!targetScripts!" /njh /njs /ndl /nc /ns /nfl
 
-    echo Cleaning up...
+    echo [32mCleaning up...[0m
     if exist !targetScriptsScratch! (
         rmdir /s /q "!targetScriptsScratch!"
     )
@@ -138,6 +138,6 @@ goto :eof
         del /q "!targetScriptsReadme!" 1>nul
     )
 
-    echo Finished.
+    echo [32mFinished.[0m
     echo.
 goto :eof
