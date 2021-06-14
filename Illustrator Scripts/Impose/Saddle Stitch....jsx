@@ -32,7 +32,10 @@ if (files !== null && files.isNotEmpty()) {
                 pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
             }
             pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
-            pagesPanel.rangeGroup.endEdit.text = collection.length.toString()
+            pagesPanel.rangeGroup.endEdit.text = collection.length
+            if (!collection.isSinglePDF) {
+                pagesPanel.rangeGroup.maxRange = collection.length
+            }
         })
         documentPanel = new OpenDocumentPanel(mainGroup)
     })

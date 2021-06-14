@@ -35,7 +35,8 @@ if (files !== null && files.isNotEmpty()) {
     }
     dialog.vpanel('PDF Pages', function(panel) {
         rangeGroup = new RangeGroup(panel, BOUNDS_TEXT, BOUNDS_EDIT)
-        rangeGroup.endEdit.text = collection.length.toString()
+        rangeGroup.startEdit.activate()
+        rangeGroup.endEdit.text = collection.length
     })
     reverseGroup = new ReverseOrderGroup(dialog.main, 'left')
 

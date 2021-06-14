@@ -56,7 +56,7 @@ dialog.hgroup(function(group) {
         documentOriginCheck = panel.checkBox(undefined, 'Default', function(it) {
             it.setTooltip('Use current reference point preference')
             it.onClick = function() {
-                anchorGroup.main.enabled = !documentOriginCheck.value
+                anchorGroup.main.enabled = !it.value
             }
         })
         anchorGroup = new AnchorGroup(panel)

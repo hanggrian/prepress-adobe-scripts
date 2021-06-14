@@ -61,6 +61,7 @@ function OpenPagesPanel(parent, textBounds, editBounds) {
     this.main = parent.vpanel('Pages', function(panel) {
         panel.alignChildren = 'fill'
         self.rangeGroup = new RangeGroup(panel, textBounds, editBounds)
+        self.rangeGroup.startEdit.activate()
         panel.hgroup(function(group) {
             group.setTooltips('Page width, not artboard')
             group.staticText(textBounds, 'Width:', JUSTIFY_RIGHT)
