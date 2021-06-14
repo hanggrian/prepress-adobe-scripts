@@ -48,51 +48,51 @@ exit /b 0
 :: check if `Presets` directly contain `Scripts` directory.
 :patch_app
     setlocal
-    set adobeApp=%~1
-    set sourceScripts=%SOURCE_ROOT%%adobeApp% Scripts
-    set "isEmpty=y"
+    set adobe_app=%~1
+    set source_scripts=%SOURCE_ROOT%%adobe_app% Scripts
+    set "is_empty=y"
 
     echo.
-    echo Searching for %adobeApp% installations...
+    echo Searching for %adobe_app% installations...
     echo.
 
     for /d %%a in ("%ProgramFiles%"\Adobe\*) do (
         set appName=%%~nxa
-        if NOT !appName!==!appName:%adobeApp%=! (
-            set "isEmpty="
+        if NOT !appName!==!appName:%adobe_app%=! (
+            set "is_empty="
             set presets=%%a\Presets
             if not exist !presets!\Scripts (
                 for /d %%p in ("!presets!"\*) do (
-                    call :patch_preset "%%a" "!sourceScripts!" "%%p"
+                    call :patch_preset "%%a" "!source_scripts!" "%%p"
                 )
             ) else (
-                call :patch_preset "%%a" "!sourceScripts!" "!presets!"
+                call :patch_preset "%%a" "!source_scripts!" "!presets!"
             )
         )
     )
-    if defined isEmpty (
+    if defined is_empty (
         echo [91mNot found.[0m
     )
 
     if exist "%ProgramFiles(x86)%" (
-        set "isEmpty=y"
-        echo Searching for 32-bit %adobeApp% installation paths...
+        set "is_empty=y"
+        echo Searching for 32-bit %adobe_app% installation paths...
         echo.
         for /d %%a in ("%ProgramFiles(x86)%"\Adobe\*) do (
             set appName=%%~nxa
-            if NOT !appName!==!appName:%adobeApp%=! (
-                set "isEmpty="
+            if NOT !appName!==!appName:%adobe_app%=! (
+                set "is_empty="
                 set presets=%%a\Presets
                 if not exist !presets!\Scripts (
                     for /d %%p in ("!presets!"\*) do (
-                        call :patch_preset "%%a" "!sourceScripts!" "%%p"
+                        call :patch_preset "%%a" "!source_scripts!" "%%p"
                     )
                 ) else (
-                    call :patch_preset "%%a" "!sourceScripts!" "!presets!"
+                    call :patch_preset "%%a" "!source_scripts!" "!presets!"
                 )
             )
         )
-        if defined isEmpty (
+        if defined is_empty (
             echo [91mNot found.[0m
         )
     )
@@ -101,40 +101,40 @@ goto :eof
 :patch_preset
     setlocal
     set app=%~1
-    set sourceScripts=%~2
-    set targetRoot=%~3
-    set targetStdLib=!targetRoot!\.stdlib
-    set targetScripts=!targetRoot!\Scripts
-    set targetScriptsScratch=!targetScripts!\.scratch
-    set targetScriptsLibTest=!targetScripts!\.lib-test
-    set targetScriptsReadme=!targetScripts!\README.md
+    set source_scripts=%~2
+    set target_root=%~3
+    set target_stdlib=!target_root!\.stdlib
+    set target_scripts=!target_root!\Scripts
+    set target_scripts_scratch=!target_scripts!\.scratch
+    set target_scripts_libtest=!target_scripts!\.lib-test
+    set target_scripts_readme=!target_scripts!\README.md
 
     echo [1m[92m!app![0m[0m
 
-    if exist !targetStdLib! (
+    if exist !target_stdlib! (
         echo [92mDeleting existing shared libraries...[0m
-        rmdir /s /q "!targetStdLib!"
+        rmdir /s /q "!target_stdlib!"
     )
-    if exist !targetScripts! (
+    if exist !target_scripts! (
         echo [92mDeleting existing scripts...[0m
-        rmdir /s /q "!targetScripts!"
+        rmdir /s /q "!target_scripts!"
     )
 
     echo [92mCopying new shared libraries and scripts...[0m
-    md "!targetStdLib!"
-    robocopy /s "!SOURCE_STDLIB!" "!targetStdLib!" /njh /njs /ndl /nc /ns /nfl
-    md "!targetScripts!"
-    robocopy /s "!sourceScripts!" "!targetScripts!" /njh /njs /ndl /nc /ns /nfl
+    md "!target_stdlib!"
+    robocopy /s "!SOURCE_STDLIB!" "!target_stdlib!" /njh /njs /ndl /nc /ns /nfl
+    md "!target_scripts!"
+    robocopy /s "!source_scripts!" "!target_scripts!" /njh /njs /ndl /nc /ns /nfl
 
     echo [92mCleaning up...[0m
-    if exist !targetScriptsScratch! (
-        rmdir /s /q "!targetScriptsScratch!"
+    if exist !target_scripts_scratch! (
+        rmdir /s /q "!target_scripts_scratch!"
     )
-    if exist !targetScriptsLibTest! (
-        rmdir /s /q "!targetScriptsLibTest!"
+    if exist !target_scripts_libtest! (
+        rmdir /s /q "!target_scripts_libtest!"
     )
-    if exist !targetScriptsReadme! (
-        del /q "!targetScriptsReadme!" 1>nul
+    if exist !target_scripts_readme! (
+        del /q "!target_scripts_readme!" 1>nul
     )
 
     echo [92mFinished.[0m

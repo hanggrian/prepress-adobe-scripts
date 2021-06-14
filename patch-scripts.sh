@@ -59,17 +59,17 @@ patch_preset() {
     local app=$1
     local source_scripts=$2
     local target_root=$3
-    local target_stdLib="$target_root/.stdlib"
+    local target_stdlib="$target_root/.stdlib"
     local target_scripts="$target_root/Scripts"
     local target_scripts_scratch="$target_scripts/.scratch"
-    local target_scripts_lib_test="$target_scripts/.lib-test"
+    local target_scripts_libtest="$target_scripts/.lib-test"
     local target_scripts_readme="$target_scripts/README.md"
 
     echo [1m[92m$app[0m[0m
 
-    if [ -d "$target_stdLib" ] ; then
+    if [ -d "$target_stdlib" ] ; then
         #echo [92mDeleting existing shared libraries...[0m
-        rm -rf "$target_stdLib"
+        rm -rf "$target_stdlib"
     fi
     if [ -d "$target_scripts" ] ; then
         #echo [92mDeleting existing scripts...[0m
@@ -79,15 +79,15 @@ patch_preset() {
     echo [92mCopying new shared libraries and scripts...[0m
     mkdir "$target_scripts"
     cp -r "$source_scripts"/. "$target_scripts"
-    mkdir "$target_stdLib"
-    cp -r "$SOURCE_STDLIB"/. "$target_stdLib"
+    mkdir "$target_stdlib"
+    cp -r "$SOURCE_STDLIB"/. "$target_stdlib"
 
     echo [92mCleaning up...[0m
     if [ -d "$target_scripts_scratch" ] ; then
         rm -rf "$target_scripts_scratch"
     fi
-    if [ -d "$target_scripts_lib_test" ] ; then
-        rm -rf "$target_scripts_lib_test"
+    if [ -d "$target_scripts_libtest" ] ; then
+        rm -rf "$target_scripts_libtest"
     fi
     if [ -f "$target_scripts_readme" ] ; then
         rm -rf "$target_scripts_readme"
