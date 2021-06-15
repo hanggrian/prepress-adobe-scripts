@@ -30,6 +30,10 @@ function RangeGroup(parent, textBounds, editBounds) {
         return end
     }
 
+    this.includes = function(i) {
+        return i >= self.getStart() && i <= self.getEnd()
+    }
+
     this.getLength = function() {
         var length = self.getEnd() - self.getStart() + 1
         if (length <= 0) {
@@ -39,9 +43,10 @@ function RangeGroup(parent, textBounds, editBounds) {
     }
 
     this.forEach = function(action) {
+        var length = self.getLength()
         var current = self.getStart()
         do {
             action(current++)
-        } while (current < self.getLength())
+        } while (current < length)
     }
 }

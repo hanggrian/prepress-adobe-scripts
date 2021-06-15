@@ -1,17 +1,26 @@
 #!/bin/bash
 # Mac executable to sync scripts to Adobe installation paths.
 
+END=[0m
+BOLD=[1m
+UNDERLINE=[4m
+RED=[91m
+GREEN=[92m
+YELLOW=[93m
+
 if [ $(uname) != Darwin ]; then
     echo
-    echo [91mUnsupported platform.[0m
+    echo ${RED}Unsupported platform.$END
     echo
     exit 1
 fi
 
 echo
-echo '  ######################################################'
-echo ' #               Prepress Adobe Scripts               #'
-echo '######################################################'
+echo ${BOLD}${UNDERLINE}Prepress Adobe Scripts$END
+echo
+echo ${BOLD}${YELLOW}WARNING$END
+echo ${YELLOW}This command will replace all existing scripts, even the default ones.
+echo Backup if necessary.$END
 echo
 echo 1. Illustrator
 echo 2. Photoshop
@@ -19,7 +28,7 @@ echo A. All
 echo
 echo Q. Quit
 echo
-echo [93mWhich scripts would you want to install:[0m
+echo ${BOLD}Which scripts would you want to install:$END
 read input
 
 SOURCE_ROOT="$(cd `dirname $0` && pwd)"
@@ -29,29 +38,29 @@ SOURCE_STDLIB="$SOURCE_ROOT/.stdlib"
 patch_app() {
     local adobe_app=$1
     local source_scripts="$SOURCE_ROOT/$adobe_app Scripts"
-    local is_empty=true
+    local success=false
 
     echo
-    echo Searching for $adobe_app installations...
-    echo
+    echo Patching $adobe_app:
 
     for app in /Applications/* ; do
         local appName=`basename $app`
         if [[ $appName == *Adobe* ]] && [[ $appName == *$adobe_app* ]] ; then
-            is_empty=false
             local presets="$app/Presets"
             local localizedPresets="$presets.localized"
             if [ -d "$localizedPresets" ] ; then
                 for preset in "$localizedPresets/"* ; do
+                    success=true
                     patch_preset "$app" "$source_scripts" "$preset"
                 done
             else
+                success=true
                 patch_preset "$app" "$source_scripts" "$presets"
             fi
         fi
     done
-    if [ $is_empty = true ] ; then
-        echo [91mNot found.[0m
+    if [ $success = false ] ; then
+        echo ${RED}Not found.$END
     fi
 }
 
@@ -65,24 +74,22 @@ patch_preset() {
     local target_scripts_libtest="$target_scripts/.lib-test"
     local target_scripts_readme="$target_scripts/README.md"
 
-    echo [1m[92m$app[0m[0m
+    echo - $GREEN$app$END
 
+    # Deleting existing shared libraries
     if [ -d "$target_stdlib" ] ; then
-        #echo [92mDeleting existing shared libraries...[0m
         rm -rf "$target_stdlib"
     fi
+    # Deleting existing scripts
     if [ -d "$target_scripts" ] ; then
-        #echo [92mDeleting existing scripts...[0m
         rm -rf "$target_scripts"
     fi
-
-    echo [92mCopying new shared libraries and scripts...[0m
+    # Copying new shared libraries and scripts
     mkdir "$target_scripts"
     cp -r "$source_scripts"/. "$target_scripts"
     mkdir "$target_stdlib"
     cp -r "$SOURCE_STDLIB"/. "$target_stdlib"
-
-    echo [92mCleaning up...[0m
+    # Cleaning up
     if [ -d "$target_scripts_scratch" ] ; then
         rm -rf "$target_scripts_scratch"
     fi
@@ -92,8 +99,6 @@ patch_preset() {
     if [ -f "$target_scripts_readme" ] ; then
         rm -rf "$target_scripts_readme"
     fi
-
-    echo [92mFinished.[0m
 }
 
 case $input in
@@ -111,13 +116,13 @@ case $input in
         ;;
     *)
         echo
-        echo [91mUnable to recognize input.[0m
+        echo ${RED}Unable to recognize input.$END
         echo
         exit 1
         ;;
 esac
 
 echo
-echo 'Goodbye!'
+echo Goodbye!
 echo
 exit 0

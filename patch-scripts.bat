@@ -4,10 +4,20 @@
 
 setlocal EnableDelayedExpansion
 
+set END=[0m
+set BOLD=[1m
+set ITALIC=[3m
+set UNDERLINE=[4m
+set RED=[91m
+set GREEN=[92m
+set YELLOW=[93m
+
 echo.
-echo   ######################################################
-echo  #               Prepress Adobe Scripts               #
-echo ######################################################
+echo !BOLD!!UNDERLINE!Prepress Adobe Scripts!END!
+echo.
+echo !BOLD!!YELLOW!WARNING!END!
+echo !YELLOW!This command will replace all existing scripts, even the default ones.
+echo Backup if necessary.!END!
 echo.
 echo 1. Illustrator
 echo 2. Photoshop
@@ -15,7 +25,7 @@ echo A. All
 echo.
 echo Q. Quit
 echo.
-set /p input=[93mWhich scripts would you want to install: [0m
+set /p input="!BOLD!Which scripts would you want to install: !END!"
 
 set SOURCE_ROOT=%~dp0
 set SOURCE_STDLIB=%SOURCE_ROOT%.stdlib
@@ -36,7 +46,7 @@ if "%input%" == "1" (
     echo.
 ) else (
     echo.
-    echo [91mUnable to recognize input.[0m
+    echo !RED!Unable to recognize input.!END!
     exit /b 1
 )
 
@@ -50,50 +60,52 @@ exit /b 0
     setlocal
     set adobe_app=%~1
     set source_scripts=%SOURCE_ROOT%%adobe_app% Scripts
-    set "is_empty=y"
+    set "success="
 
     echo.
-    echo Searching for %adobe_app% installations...
-    echo.
+    echo Patching %adobe_app%:
 
     for /d %%a in ("%ProgramFiles%"\Adobe\*) do (
         set appName=%%~nxa
         if NOT !appName!==!appName:%adobe_app%=! (
-            set "is_empty="
             set presets=%%a\Presets
             if not exist !presets!\Scripts (
                 for /d %%p in ("!presets!"\*) do (
+                    set "success=y"
                     call :patch_preset "%%a" "!source_scripts!" "%%p"
                 )
             ) else (
+                set "success=y"
                 call :patch_preset "%%a" "!source_scripts!" "!presets!"
             )
         )
     )
-    if defined is_empty (
-        echo [91mNot found.[0m
+    if not defined success (
+        echo !RED!Not found.!END!
     )
 
     if exist "%ProgramFiles(x86)%" (
-        set "is_empty=y"
-        echo Searching for 32-bit %adobe_app% installation paths...
+        set "success="
         echo.
+        echo Patching 32-bit %adobe_app%:
+
         for /d %%a in ("%ProgramFiles(x86)%"\Adobe\*) do (
             set appName=%%~nxa
             if NOT !appName!==!appName:%adobe_app%=! (
-                set "is_empty="
                 set presets=%%a\Presets
                 if not exist !presets!\Scripts (
                     for /d %%p in ("!presets!"\*) do (
+                        set "success=y"
                         call :patch_preset "%%a" "!source_scripts!" "%%p"
                     )
                 ) else (
+                    set "success=y"
                     call :patch_preset "%%a" "!source_scripts!" "!presets!"
                 )
             )
         )
-        if defined is_empty (
-            echo [91mNot found.[0m
+        if not defined success (
+            echo !RED!Not found.!END!
         )
     )
 goto :eof
@@ -109,24 +121,22 @@ goto :eof
     set target_scripts_libtest=!target_scripts!\.lib-test
     set target_scripts_readme=!target_scripts!\README.md
 
-    echo [1m[92m!app![0m[0m
+    echo - !GREEN!!app!!END!
 
+    :: Deleting existing shared libraries
     if exist !target_stdlib! (
-        echo [92mDeleting existing shared libraries...[0m
         rmdir /s /q "!target_stdlib!"
     )
+    :: Deleting existing scripts
     if exist !target_scripts! (
-        echo [92mDeleting existing scripts...[0m
         rmdir /s /q "!target_scripts!"
     )
-
-    echo [92mCopying new shared libraries and scripts...[0m
+    :: Copying new shared libraries and scripts
     md "!target_stdlib!"
     robocopy /s "!SOURCE_STDLIB!" "!target_stdlib!" /njh /njs /ndl /nc /ns /nfl
     md "!target_scripts!"
     robocopy /s "!source_scripts!" "!target_scripts!" /njh /njs /ndl /nc /ns /nfl
-
-    echo [92mCleaning up...[0m
+    :: Cleaning up
     if exist !target_scripts_scratch! (
         rmdir /s /q "!target_scripts_scratch!"
     )
@@ -136,7 +146,4 @@ goto :eof
     if exist !target_scripts_readme! (
         del /q "!target_scripts_readme!" 1>nul
     )
-
-    echo [92mFinished.[0m
-    echo.
 goto :eof
