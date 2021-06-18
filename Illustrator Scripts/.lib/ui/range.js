@@ -3,7 +3,7 @@ function RangeGroup(parent, textBounds, editBounds) {
     this.startEdit, this.endEdit
 
     this.minRange = 1
-    this.maxRange = 2^53 - 1 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER
+    this.maxRange = Number.MAX_VALUE
 
     editBounds = [editBounds[0] / 2 - 13, editBounds[1]]
     this.main = parent.hgroup(function(group) {

@@ -46,9 +46,6 @@ dialog.setPositiveButton(function() {
     }
     reverseGroup.forEachAware(items, function(item) {
         var s = number.toString()
-        if (spaceCheck.value) {
-            s += ' '
-        }
         s += ALPHABETS[count]
 
         item.words.removeAll()

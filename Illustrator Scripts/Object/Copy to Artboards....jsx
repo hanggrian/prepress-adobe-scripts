@@ -22,7 +22,7 @@ var relativePositions = selection.map(function(it) {
     return [relativeX, relativeY]
 })
 
-var dialog = new Dialog('Duplicate to Artboards')
+var dialog = new Dialog('Copy to Artboards')
 var rangeGroup
 
 rangeGroup = new RangeGroup(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)

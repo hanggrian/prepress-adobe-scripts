@@ -52,6 +52,7 @@ if (files !== null && files.isNotEmpty()) {
             var position = item.position
             var file = collection.get(current)
             if (file.isPDF() && item.isFileExists() && item.file.equalTo(file)) {
+                $.writeln('Same PDF file, appling fix')
                 item.file = getResource(R.png.blank)
             }
             item.relink(file)

@@ -6,8 +6,8 @@ Illustrator Scripts
 Known Issue
 -----------
 
-* Relink - sometimes retrying the script with the same input does the trick.
-* Impose - when artboards exceed canvas size, units will break causing oversized `PlacedItem`.
+* Relink - In document with large number of artboards scattered through multiple row positions, only first row of selection is detected.
+* Impose - When artboards exceed canvas size, units will break causing oversized `PlacedItem`.
 
 Resources
 ---------

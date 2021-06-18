@@ -5,7 +5,7 @@
             "type": "extendscript-debug",
             "request": "launch",
             "name": "prepress-adobe-scripts",
-            "program": "${workspaceFolder}/Illustrator Scripts/Object/Duplicate to Artboards....jsx",
+            "program": "${workspaceFolder}/Illustrator Scripts/Relink/Same....jsx",
             "stopOnEntry": false
         }
     ]

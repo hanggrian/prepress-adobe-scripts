@@ -50,11 +50,13 @@ if (file === null) {
 }
 
 function relink() {
-    items.forEach(function(item) {
+    items.forEach(function(item, i) {
+        $.writeln('Current index = ' + i)
         var width = item.width
         var height = item.height
         var position = item.position
         if (file.isPDF() && item.isFileExists() && item.file.equalTo(file)) {
+            $.writeln('Same PDF file, appling fix')
             item.file = getResource(R.png.blank)
         }
         item.relink(file)

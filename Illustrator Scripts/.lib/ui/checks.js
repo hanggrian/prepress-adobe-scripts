@@ -5,6 +5,7 @@ function ReverseOrderGroup(parent) {
     this.main = parent.vgroup(function(group) {
         group.alignment = 'right'
         self.reverseCheck = group.checkBox(undefined, 'Reverse Order', function(it) {
+            it.select()
             it.setTooltip('Iterate items at reverse order')
         })
     })
