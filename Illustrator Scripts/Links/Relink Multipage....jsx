@@ -38,12 +38,13 @@ if (files !== null && files.isNotEmpty()) {
         rangeGroup.startEdit.activate()
         rangeGroup.endEdit.text = collection.length
     })
-    reverseGroup = new ReverseOrderGroup(dialog.main, 'left')
+    reverseGroup = new ReverseOrderGroup(dialog.main)
 
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
         var current = rangeGroup.getStart()
         var end = rangeGroup.getEnd()
+        $.writeln('Items = ' + items.length)
         $.writeln('End index = ' + end)
         reverseGroup.forEachAware(items, function(item) {
             $.writeln('Current index = ' + current)
@@ -55,7 +56,7 @@ if (files !== null && files.isNotEmpty()) {
                 $.writeln('Same PDF file, appling fix')
                 item.file = getResource(R.png.blank)
             }
-            item.relink(file)
+            item.file = file
             current++
             if (current > end) {
                 current--

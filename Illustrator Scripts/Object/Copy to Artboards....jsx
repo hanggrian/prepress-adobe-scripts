@@ -7,6 +7,7 @@ var BOUNDS_EDIT = [100, 21]
 
 checkHasSelection()
 
+check(document.artboards.length > 1, 'No other artboards')
 var activeArtboardIndex = document.artboards.getActiveArtboardIndex()
 var activeArtboard = document.artboards[activeArtboardIndex]
 var activeArtboardRect = activeArtboard.artboardRect

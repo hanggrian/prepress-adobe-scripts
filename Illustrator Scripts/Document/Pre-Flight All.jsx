@@ -6,17 +6,22 @@
 var allOkay = true
 for (var i = 0; i < app.documents.length; i++) {
     var document = app.documents[i]
-    var rasterSettings = document.rasterEffectSettings
-
     var message = 'Issues found in ' + document.name + ':'
-    if (document.documentColorSpace !== DocumentColorSpace.CMYK) {
-        message += '\n• Color space is ' + document.documentColorSpace.toString().substringAfter('.') + '.'
+
+    var colorSpace = document.documentColorSpace
+    if (colorSpace !== DocumentColorSpace.CMYK) {
+        message += '\n• Color space is ' + colorSpace.toString().substringAfter('.') + '.'
     }
+    var rasterSettings = document.rasterEffectSettings
     if (rasterSettings.colorModel !== RasterizationColorModel.DEFAULTCOLORMODEL) {
-        message += '\n• Color model is ' + document.rasterEffectSettings.colorModel.toString().substringAfter('.') + '.'
+        message += '\n• Color model is ' + rasterSettings.colorModel.toString().substringAfter('.') + '.'
     }
     if (rasterSettings.resolution < 300) {
-        message += '\n• Resolution is ' + document.rasterEffectSettings.resolution + '.'
+        message += '\n• Resolution is ' + rasterSettings.resolution + '.'
+    }
+    var rulerUnits = document.rulerUnits
+    if (rulerUnits !== RulerUnits.Inches && rulerUnits !== RulerUnits.Centimeters && rulerUnits !== RulerUnits.Millimeters) {
+        message += '\n• Unusual ruler units ' + rulerUnits.toString().substringAfter('.') + '.'
     }
 
     if (message.includes('\n')) {

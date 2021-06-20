@@ -14,7 +14,7 @@ var dialog = new Dialog('Add Bleed to Images')
 var bleedEdit, guidesCheck, flattenCheck
 var selectionCheck, horizontalExtraGroup, horizontalExtraEdit, verticalExtraGroup, verticalExtraEdit
 
-dialog.main.hgroup(function(group) {
+dialog.hgroup(function(group) {
     group.setTooltips('Bleed are distributed around image')
     group.staticText(undefined, 'Bleed:', JUSTIFY_RIGHT)
     bleedEdit = group.editText([100, 21], unitsOf('2.5 mm'), function(it) {
@@ -22,14 +22,12 @@ dialog.main.hgroup(function(group) {
         it.activate()
     })
 })
-dialog.main.hgroup(function(group) {
-    guidesCheck = group.checkBox(undefined, 'Guides', function(it) {
-        it.setTooltip('Guides will mark where bleed are added')
-        it.select()
-    })
-    flattenCheck = group.checkBox(undefined, 'Flatten', function(it) {
-        it.setTooltip('Layers will be flattened')
-    })
+guidesCheck = dialog.checkBox(undefined, 'Guide Layout', function(it) {
+    it.setTooltip('Guides will mark where bleed are added')
+    it.select()
+})
+flattenCheck = dialog.checkBox(undefined, 'Flatten Image', function(it) {
+    it.setTooltip('Layers will be flattened')
 })
 
 dialog.setNegativeButton('Cancel')

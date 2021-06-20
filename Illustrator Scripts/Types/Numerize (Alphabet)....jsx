@@ -17,7 +17,7 @@ checkHasSelection()
 var items = selection.filterItem(function(it) { return it.typename === 'TextFrame' })
 check(items.isNotEmpty(), 'No types found in selection')
 
-var dialog = new Dialog('Numerize (Alphabet Suffix)', 'fill')
+var dialog = new Dialog('Numerize (Alphabet)', 'fill')
 var stopsList, affixPanel, reverseGroup
 
 dialog.vpanel('Options', function(panel) {

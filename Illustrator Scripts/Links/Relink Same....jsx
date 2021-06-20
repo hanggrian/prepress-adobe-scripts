@@ -25,9 +25,7 @@ var file = openFile(dialog.title, [
     ['TIFF', 'tif', 'tiff']
 ])
 
-if (file === null) {
-    $.writeln('Relink canceled')
-} else {
+if (file !== null) {
     if (!file.isPDF()) {
         relink()
     } else {
@@ -50,6 +48,7 @@ if (file === null) {
 }
 
 function relink() {
+    $.writeln('Items = ' + items.length)
     items.forEach(function(item, i) {
         $.writeln('Current index = ' + i)
         var width = item.width
@@ -59,7 +58,7 @@ function relink() {
             $.writeln('Same PDF file, appling fix')
             item.file = getResource(R.png.blank)
         }
-        item.relink(file)
+        item.file = file
         // maintain dimension
         item.width = width
         item.height = height

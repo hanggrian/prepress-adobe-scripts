@@ -11,7 +11,7 @@
 #include '../../.stdlib/ui/anchor.js'
 #include '../.lib/commons.js'
 
-var BOUNDS_TEXT = [70, 21]
+var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
 
 var dialog = new Dialog('Resize Canvases')

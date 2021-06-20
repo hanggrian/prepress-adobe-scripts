@@ -13,7 +13,7 @@
 #target Photoshop
 #include '../.lib/commons.js'
 
-check(app.documents.length != 1, 'No other documents')
+check(app.documents.length !== 1, 'No other documents')
 
 var documentIndex
 for (var i = 0; i < app.documents.length; i++) {
