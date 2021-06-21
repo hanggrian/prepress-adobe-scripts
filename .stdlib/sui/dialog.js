@@ -11,6 +11,7 @@
 function Dialog(title, alignChildren) {
     var self = this
     this.title = title
+    this.positiveButton, this.negativeButton, this.neutralButton
 
     var window = new Window('dialog', title)
     window.orientation = 'column'
@@ -21,25 +22,28 @@ function Dialog(title, alignChildren) {
     this.buttons = _group(window, 'row')
     this.buttons.alignment = 'right'
 
-    var positiveButtonText, positiveButtonAction, positveButtonEnabled
+    var positiveButtonText, positiveButtonAction
     var negativeButtonText, negativeButtonAction
-    var neutralButtonGap, neutralButtonText, neutralButtonAction, neutralButtonEnabled
+    var neutralButtonGap, neutralButtonText, neutralButtonAction
+
+    this.setTitle = function(title) {
+        self.title = title
+        window.text = title
+    }
 
     /**
      * Set positive dialog button, the text will always be `OK`.
-     * @param {Function} action button click listener, may be undefined.
-     * @param {Boolean} enabled default is true.
+     * @param {Function} action nullable button click listener, return true to keep dialog open.
      */
-    this.setPositiveButton = function(action, enabled) {
+    this.setPositiveButton = function(action) {
         positiveButtonText = 'OK' // automatically marked as positive button by Adobe
         positiveButtonAction = action
-        positveButtonEnabled = enabled
     }
 
     /**
      * Set negative dialog button.
      * @param {String} text button text.
-     * @param {Function} action button click listener, may be undefined.
+     * @param {Function} action nullable button click listener, return true to keep dialog open.
      */
     this.setNegativeButton = function(text, action) {
         negativeButtonText = checkNotNull(text)
@@ -50,20 +54,18 @@ function Dialog(title, alignChildren) {
      * Set neutral dialog button.
      * @param {Number} gap gap between neutral and positive/negative button.
      * @param {String} text button text.
-     * @param {Function} action button click listener, may be undefined.
-     * @param {Boolean} enabled default is true.
+     * @param {Function} action nullable button click listener, return true to keep dialog open.
      */
-    this.setNeutralButton = function(gap, text, action, enabled) {
+    this.setNeutralButton = function(gap, text, action) {
         neutralButtonGap = checkNotNull(gap)
         neutralButtonText = checkNotNull(text)
         neutralButtonAction = action
-        neutralButtonEnabled = enabled
     }
 
     /** Show the dialog, after populating buttons. */
     this.show = function() {
         if (neutralButtonText !== undefined) {
-            self.neutralButton = appendButton(neutralButtonText, neutralButtonAction, neutralButtonEnabled)
+            self.neutralButton = appendButton(neutralButtonText, neutralButtonAction)
             if (neutralButtonGap !== undefined) {
                 self.buttons.staticText([neutralButtonGap, 0])
             }
@@ -73,11 +75,11 @@ function Dialog(title, alignChildren) {
                 self.negativeButton = appendButton(negativeButtonText, negativeButtonAction)
             }
             if (positiveButtonText !== undefined) {
-                self.positiveButton = appendButton(positiveButtonText, positiveButtonAction, positveButtonEnabled)
+                self.positiveButton = appendButton(positiveButtonText, positiveButtonAction)
             }
         } else {
             if (positiveButtonText !== undefined) {
-                self.positiveButton = appendButton(positiveButtonText, positiveButtonAction, positveButtonEnabled)
+                self.positiveButton = appendButton(positiveButtonText, positiveButtonAction)
             }
             if (negativeButtonText !== undefined) {
                 self.negativeButton = appendButton(negativeButtonText, negativeButtonAction)
@@ -91,16 +93,17 @@ function Dialog(title, alignChildren) {
         window.close()
     }
 
-    function appendButton(text, action, enabled) {
-        var button = self.buttons.button(undefined, text, function(button) {
+    function appendButton(text, action) {
+        return self.buttons.button(undefined, text, function(button) {
             button.onClick = function() {
-                self.close()
+                var actionResult
                 if (action !== undefined) {
-                    action()
+                    actionResult = action()
+                }
+                if (actionResult === undefined || !actionResult) {
+                    self.close()
                 }
             }
         })
-        button.enabled = enabled !== undefined ? enabled : true
-        return button
     }
 }

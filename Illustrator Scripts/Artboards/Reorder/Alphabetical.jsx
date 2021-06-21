@@ -1,6 +1,8 @@
 #target Illustrator
 #include '../../.lib/commons.js'
 
+check(document.artboards.length > 1, 'No other artboards')
+
 var properties = []
 document.artboards.forEach(function(it) {
     properties.push(copyProperties(it))
