@@ -2,7 +2,9 @@
 #include '../.lib/commons.js'
 #include '../.lib/ui/range.js'
 
-var BOUNDS_TEXT = [45, 21]
+var ANCHORS = ['Top Left'/** , 'Top Right', 'Bottom Left', 'Bottom Right' */]
+
+var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
 
 checkHasSelection()
@@ -24,12 +26,19 @@ var relativePositions = selection.map(function(it) {
 })
 
 var dialog = new Dialog('Copy to Artboards')
-var rangeGroup
+var rangeGroup, anchorList
 
 rangeGroup = new RangeGroup(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
 rangeGroup.maxRange = document.artboards.length
 rangeGroup.endEdit.text = document.artboards.length
 rangeGroup.startEdit.activate()
+dialog.hgroup(function(group) {
+    group.setTooltips('Only relevant on artboard with different size than active artboard')
+    group.staticText(BOUNDS_TEXT, 'Anchor:', JUSTIFY_RIGHT)
+    anchorList = group.dropDownList(BOUNDS_EDIT, ANCHORS, function(it) {
+        it.selection = ANCHORS.indexOf('Top Left')
+    })
+})
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
