@@ -1,0 +1,7 @@
+language: generic
+
+script:
+  - node .stdlib-test/collections-predicate.js
+  - node .stdlib-test/collections-transform.js
+  - node .stdlib-test/collections.js
+  - node .stdlib-test/strings.js
