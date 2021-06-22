@@ -19,9 +19,9 @@ var colorSpaceList, bitsEdit, transparentList
 var embeddedList, overprintList, statusList
 
 dialog.main.orientation = 'row'
-dialog.vgroup(function(mainGroup) {
-    dimensionPanel = new SelectDimensionPanel(mainGroup, BOUNDS_LEFT_TEXT, BOUNDS_EDIT)
-    mainGroup.vpanel('Image', function(panel) {
+dialog.vgroup(function(topGroup) {
+    dimensionPanel = new SelectDimensionPanel(topGroup, BOUNDS_LEFT_TEXT, BOUNDS_EDIT)
+    topGroup.vpanel('Image', function(panel) {
         panel.hgroup(function(group) {
             group.setTooltips('The color space of the raster image')
             group.staticText(BOUNDS_LEFT_TEXT, 'Color Space:', JUSTIFY_RIGHT)

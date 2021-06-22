@@ -55,21 +55,21 @@ dialog.setPositiveButton(function() {
     app.copy()
     target.remove()
 
-    var allItems = []
+    var selectQueues = []
     // vertical starts with 0 because the starting point doesn't change
     for (var v = 0; v < vertical; v++) {
         app.paste()
         var addedItem = selection.first()
         addedItem.position = [x, y - v * moveVertical]
-        allItems.push(addedItem)
+        selectQueues.push(addedItem)
 
         for (var h = 1; h < horizontal; h++) {
             app.paste()
             addedItem = selection.first()
             addedItem.position = [x + h * moveHorizontal, y - v * moveVertical]
-            allItems.push(addedItem)
+            selectQueues.push(addedItem)
         }
     }
-    selection = allItems
+    selection = selectQueues
 })
 dialog.show()

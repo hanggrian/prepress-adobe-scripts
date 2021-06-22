@@ -17,24 +17,26 @@ var BOUNDS_EDIT = [100, 21]
 var dialog = new Dialog('Resize Canvases')
 var widthEdit, heightEdit, anchorGroup
 
-dialog.hgroup(function(group) {
-    group.setTooltips("Canvases' new width")
-    group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
-    widthEdit = group.editText(BOUNDS_EDIT, document.width, function(it) {
-        it.validateUnits()
-        it.activate()
+dialog.hgroup(function(topGroup) {
+    topGroup.alignChildren = 'fill'
+    topGroup.vpanel('Canvas', function(panel) {
+        panel.hgroup(function(group) {
+            group.setTooltips("Canvases' new width")
+            group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
+            widthEdit = group.editText(BOUNDS_EDIT, document.width, function(it) {
+                it.validateUnits()
+                it.activate()
+            })
+        })
+        panel.hgroup(function(group) {
+            group.setTooltips("Canvases' new height")
+            group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
+            heightEdit = group.editText(BOUNDS_EDIT, document.height, VALIDATE_UNITS)
+        })
     })
-})
-dialog.hgroup(function(group) {
-    group.setTooltips("Canvases' new height")
-    group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
-    heightEdit = group.editText(BOUNDS_EDIT, document.height, VALIDATE_UNITS)
-})
-dialog.hgroup(function(group) {
-    group.alignChildren = 'top'
-    group.setTooltips('The anchor point to resize around')
-    group.staticText(BOUNDS_TEXT, 'Anchor:', JUSTIFY_RIGHT)
-    anchorGroup = new AnchorGroup(group, 10)
+    topGroup.vpanel('Anchor', function(panel) {
+        anchorGroup = new AnchorGroup(panel, true)
+    })
 })
 
 dialog.setNegativeButton('Cancel')

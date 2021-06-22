@@ -3,7 +3,7 @@
 #include '../.lib/ui/checks.js'
 #include '../.lib/ui/retype-affix.js'
 
-var BOUNDS_TEXT = [55, 21]
+var BOUNDS_TEXT = [60, 21]
 var BOUNDS_EDIT = [100, 21]
 
 checkHasSelection()
@@ -45,6 +45,7 @@ dialog.setPositiveButton(function() {
         item.words.add(prefix + pad(count, digits) + suffix)
         count++
     })
+    selection = items
 })
 dialog.show()
 

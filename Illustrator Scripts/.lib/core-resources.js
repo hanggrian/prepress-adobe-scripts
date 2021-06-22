@@ -11,6 +11,9 @@ var R = {
         // For some reason, relinking PlacedItem to the same PDF but different page won't work.
         // In such case, set `item.file` to blank before `item.relink()`.
         blank: 'blank.png'
+    },
+    ai: {
+        registration_marks: 'registration-marks.ai'
     }
 }
 

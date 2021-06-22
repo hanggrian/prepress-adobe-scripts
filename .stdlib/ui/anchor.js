@@ -6,18 +6,16 @@
 
 var BOUNDS_ANCHOR_RADIO = [15, 15]
 
-function AnchorGroup(parent, radioSpacing) {
+function AnchorGroup(parent, isPsd) {
     var self = this
     this.topLeftRadio, this.topRadio, this.topRightRadio
     this.leftRadio, this.centerRadio, this.rightRadio
     this.bottomLeftRadio, this.bottomRadio, this.bottomRightRadio
 
-    this.main = parent.vgroup(function(mainGroup) {
-        if (radioSpacing !== undefined) {
-            mainGroup.spacing = radioSpacing
-        }
-        mainGroup.hgroup(function(group) {
-            if (radioSpacing !== undefined) {
+    isPsd = isPsd === undefined ? false : true
+    this.main = parent.vgroup(function(topGroup) {
+        topGroup.hgroup(function(group) {
+            if (isPsd) {
                 group.spacing = 0
             }
             self.topLeftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(it) {
@@ -33,8 +31,8 @@ function AnchorGroup(parent, radioSpacing) {
                 registerRadioClick(it)
             })
         })
-        mainGroup.hgroup(function(group) {
-            if (radioSpacing !== undefined) {
+        topGroup.hgroup(function(group) {
+            if (isPsd) {
                 group.spacing = 0
             }
             self.leftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(it) {
@@ -51,8 +49,8 @@ function AnchorGroup(parent, radioSpacing) {
                 registerRadioClick(it)
             })
         })
-        mainGroup.hgroup(function(group) {
-            if (radioSpacing !== undefined) {
+        topGroup.hgroup(function(group) {
+            if (isPsd) {
                 group.spacing = 0
             }
             self.bottomLeftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(it) {
@@ -70,6 +68,7 @@ function AnchorGroup(parent, radioSpacing) {
         })
     })
 
+    // Manual checks
     this.isTopLeft = function() { return self.topLeftRadio.value }
     this.isTop = function() { return self.topRadio.value }
     this.isTopRight = function() { return self.topRightRadio.value }
@@ -80,7 +79,7 @@ function AnchorGroup(parent, radioSpacing) {
     this.isBottom = function() { return self.bottomRadio.value }
     this.isBottomRight = function() { return self.bottomRightRadio.value }
 
-    // Artboard resizing
+    // Useful for building x & y
     this.isHorizontalTop = function() { return self.isTopLeft() || self.isTop() || self.isTopRight() }
     this.isHorizontalCenter = function() { return self.isLeft() || self.isCenter() || self.isRight() }
     this.isHorizontalBottom = function() { return self.isBottomLeft() || self.isBottom() || self.isBottomRight() }

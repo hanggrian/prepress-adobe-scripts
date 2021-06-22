@@ -8,7 +8,7 @@ var COLOR_MODELS = ['Default', 'Grayscale', 'Bitmap']
 
 var BOUNDS_TEXT = [100, 21]
 var BOUNDS_EDIT = [200, 21]
-var BOUNDS_EDIT_SMALL = [75, 21]
+var BOUNDS_EDIT_SMALL = [70, 21]
 
 checkHasSelection()
 
@@ -35,9 +35,9 @@ dialog.hgroup(function(group) {
         it.activate()
     })
 })
-dialog.hgroup(function(mainGroup) {
-    mainGroup.alignChildren = 'fill'
-    mainGroup.vgroup(function(innerGroup) {
+dialog.hgroup(function(topGroup) {
+    topGroup.alignChildren = 'fill'
+    topGroup.vgroup(function(innerGroup) {
         innerGroup.alignChildren = 'fill'
         innerGroup.vpanel('Background', function(panel) {
             panel.alignChildren = 'fill'
@@ -58,7 +58,7 @@ dialog.hgroup(function(mainGroup) {
             }
         })
     })
-    mainGroup.vpanel('Options', function(panel) {
+    topGroup.vpanel('Options', function(panel) {
         panel.alignChildren = 'fill'
         backgroundBlackCheck = panel.checkBox(undefined, 'Against Black Background', function(check) {
             check.setTooltip('Should rasterize against a black background instead of white')
@@ -110,11 +110,14 @@ dialog.setPositiveButton(function() {
     options.convertTextToOutlines = convertTextToOutlinesCheck.value
     options.includeLayers = includeLayersCheck.value
     options.padding = parseUnits(paddingEdit.text)
+
+    var selectQueues = []
     recursiveGroup.forEachAware(selection, function(item) {
         var width = item.width
         var height = item.height
         var position = item.position
         var newItem = document.rasterize(item, item.controlBounds, options)
+        selectQueues.push(newItem)
         // maintain dimension, ignore if text
         if (item.typename !== 'TextFrame') {
             newItem.width = width + options.padding * 2
@@ -122,5 +125,6 @@ dialog.setPositiveButton(function() {
             newItem.position = position
         }
     })
+    selection = selectQueues
 })
 dialog.show()

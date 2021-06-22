@@ -20,9 +20,9 @@ var fillColorList, strokeColorList
 var kindList, orientationList
 
 dialog.main.orientation = 'row'
-dialog.vgroup(function(mainGroup) {
-    mainGroup.alignChildren = 'fill'
-    mainGroup.vpanel('Content', function(panel) {
+dialog.vgroup(function(topGroup) {
+    topGroup.alignChildren = 'fill'
+    topGroup.vpanel('Content', function(panel) {
         panel.alignChildren = 'fill'
         panel.hgroup(function(group) {
             group.setTooltips('Text to find in content')
@@ -34,7 +34,7 @@ dialog.vgroup(function(mainGroup) {
             matchWordCheck = group.checkBox(undefined, 'Match Whole Word')
         })
     })
-    mainGroup.vpanel('Character', function(panel) {
+    topGroup.vpanel('Character', function(panel) {
         panel.alignChildren = 'fill'
         panel.hgroup(function(group) {
             group.setTooltips("The font's full name")
@@ -58,9 +58,9 @@ dialog.vgroup(function(mainGroup) {
         })
     })
 })
-dialog.vgroup(function(mainGroup) {
-    mainGroup.alignChildren = 'fill'
-    mainGroup.vpanel('Color', function(panel) {
+dialog.vgroup(function(topGroup) {
+    topGroup.alignChildren = 'fill'
+    topGroup.vpanel('Color', function(panel) {
         panel.hgroup(function(group) {
             group.setTooltips('The color of the text fill')
             group.staticText(BOUNDS_RIGHT_TEXT, 'Fill:', JUSTIFY_RIGHT)
@@ -72,7 +72,7 @@ dialog.vgroup(function(mainGroup) {
             strokeColorList = group.dropDownList(BOUNDS_RIGHT_EDIT, COLORS)
         })
     })
-    mainGroup.vpanel('Others', function(panel) {
+    topGroup.vpanel('Others', function(panel) {
         panel.hgroup(function(group) {
             group.setTooltips('The type of a text frame item')
             group.staticText(BOUNDS_RIGHT_TEXT, 'Kind:', JUSTIFY_RIGHT)

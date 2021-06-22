@@ -17,11 +17,11 @@ var generalClippingMaskText
 var generalSpotColorsText
 var fixButtons = []
 
-dialog.hgroup(function(mainGroup) {
-    mainGroup.alignChildren = 'top'
+dialog.hgroup(function(topGroup) {
+    topGroup.alignChildren = 'top'
 
     // panel with fix buttons
-    mainGroup.vpanel('General', function(panel) {
+    topGroup.vpanel('General', function(panel) {
         panel.alignChildren = 'fill'
         // color space isn't really a part of raster effects settings
         panel.hgroup(function(group) {
@@ -136,7 +136,7 @@ dialog.hgroup(function(mainGroup) {
     })
 
     // panels without fix buttons
-    mainGroup.vgroup(function(group) {
+    topGroup.vgroup(function(group) {
         group.vpanel('Rasters Items', function(panel) {
             panel.setTooltips('Images below 300 resolution')
             if (document.rasterItems.length === 0) {

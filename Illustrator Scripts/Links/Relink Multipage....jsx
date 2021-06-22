@@ -66,6 +66,7 @@ if (files !== null && files.isNotEmpty()) {
             item.height = height
             item.position = position
         })
+        selection = items
         $.writeln('Relink success')
     })
     dialog.show()

@@ -48,7 +48,8 @@ function checkTypename(item, typename) {
  * @param {Object} errorMessage helpful alert, may be null.
  */
 function error(errorMessage) {
-    throw new Error(errorMessage.toString())
+    var message = errorMessage.toString()
+    throw new Error(message)
 }
 
 /**
@@ -57,8 +58,7 @@ function error(errorMessage) {
  * @param {Object} errorMessage helpful alert, may be null.
  */
 function errorWithAlert(errorMessage) {
-    errorMessage.toString().let(function(it) {
-        alert(it, 'Uncaught JavaScript exception', true)
-        throw new Error(it)
-    })
+    var message = errorMessage.toString()
+    alert(message, 'Uncaught JavaScript exception', true)
+    throw new Error(message)
 }

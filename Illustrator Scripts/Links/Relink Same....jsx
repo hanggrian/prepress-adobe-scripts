@@ -64,5 +64,6 @@ function relink() {
         item.height = height
         item.position = position
     })
+    selection = items
     $.writeln('Relink success')
 }

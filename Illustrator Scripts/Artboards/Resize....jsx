@@ -9,27 +9,29 @@ var BOUNDS_EDIT = [100, 21]
 var dialog = new Dialog('Resize Artboards')
 var rangeGroup, widthEdit, heightEdit, anchorGroup, fitToArtCheck
 
-rangeGroup = new RangeGroup(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
-rangeGroup.maxRange = document.artboards.length
-rangeGroup.endEdit.text = document.artboards.length
-dialog.hgroup(function(group) {
-    group.setTooltips("Artboards' new width")
-    group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
-    widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2), function(it) {
-        it.validateUnits()
-        it.activate()
+dialog.hgroup(function(topGroup) {
+    topGroup.alignChildren = 'fill'
+    topGroup.vpanel('Artboard', function(panel) {
+        rangeGroup = new RangeGroup(panel, BOUNDS_TEXT, BOUNDS_EDIT)
+        rangeGroup.maxRange = document.artboards.length
+        rangeGroup.endEdit.text = document.artboards.length
+        panel.hgroup(function(group) {
+            group.setTooltips("Artboards' new width")
+            group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
+            widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2), function(it) {
+                it.validateUnits()
+                it.activate()
+            })
+        })
+        panel.hgroup(function(group) {
+            group.setTooltips("Artboards' new height")
+            group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
+            heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2), VALIDATE_UNITS)
+        })
     })
-})
-dialog.hgroup(function(group) {
-    group.setTooltips("Artboards' new height")
-    group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
-    heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2), VALIDATE_UNITS)
-})
-dialog.hgroup(function(group) {
-    group.alignChildren = 'top'
-    group.setTooltips('The anchor point to resize around')
-    group.staticText(BOUNDS_TEXT, 'Anchor:', JUSTIFY_RIGHT)
-    anchorGroup = new AnchorGroup(group)
+    topGroup.vpanel('Anchor', function(panel) {
+        anchorGroup = new AnchorGroup(panel)
+    })
 })
 dialog.hgroup(function(group) {
     group.alignment = 'right'

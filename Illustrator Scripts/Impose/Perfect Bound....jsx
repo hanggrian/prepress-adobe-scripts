@@ -25,9 +25,9 @@ var files = openFile(dialog.title, [
 if (files !== null && files.isNotEmpty()) {
     var collection = new FileCollection(files)
 
-    dialog.main.hgroup(function(mainGroup) {
-        mainGroup.alignChildren = 'fill'
-        mainGroup.vgroup(function(group) {
+    dialog.main.hgroup(function(topGroup) {
+        topGroup.alignChildren = 'fill'
+        topGroup.vgroup(function(group) {
             if (collection.hasPDF) {
                 pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
             }
@@ -37,7 +37,7 @@ if (files !== null && files.isNotEmpty()) {
                 pagesPanel.rangeGroup.maxRange = collection.length
             }
         })
-        documentPanel = new OpenDocumentPanel(mainGroup)
+        documentPanel = new OpenDocumentPanel(topGroup)
     })
     dialog.main.hgroup(function(group) {
         rotateCheck = group.checkBox(undefined, 'Rotate Page', function(it) {

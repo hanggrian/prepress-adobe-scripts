@@ -21,5 +21,6 @@ dialog.setPositiveButton(function() {
         it.words.removeAll()
         it.words.add(inputEdit.text)
     })
+    selection = items
 })
 dialog.show()

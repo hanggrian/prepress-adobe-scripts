@@ -43,11 +43,13 @@ dialog.hgroup(function(group) {
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     app.copy()
+    var selectQueues = selection
     document.artboards.forEach(function(artboard, artboardIndex) {
         if (artboardIndex !== activeArtboardIndex && rangeGroup.includes(artboardIndex)) {
             app.paste()
             var artboardRect = artboard.artboardRect
             selection.forEach(function(it, itemIndex) {
+                selectQueues.push(it)
                 var relativePosition = relativePositions[itemIndex]
                 it.position = [
                     artboardRect[0] + relativePosition[0],
@@ -56,6 +58,7 @@ dialog.setPositiveButton(function() {
             })
         }
     })
+    selection = selectQueues
 })
 dialog.show()
 

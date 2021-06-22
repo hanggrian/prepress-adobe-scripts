@@ -17,11 +17,11 @@ var generalResolutionText
 var generalBitsText
 var fixButtons = []
 
-dialog.hgroup(function(mainGroup) {
-    mainGroup.alignChildren = 'top'
+dialog.hgroup(function(topGroup) {
+    topGroup.alignChildren = 'top'
 
     // panel with fix buttons
-    mainGroup.vpanel('General', function(panel) {
+    topGroup.vpanel('General', function(panel) {
         panel.alignChildren = 'fill'
         panel.hgroup(function(group) {
             group.setTooltips('Image color mode should be CMYK')

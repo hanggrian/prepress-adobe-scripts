@@ -3,7 +3,7 @@
 #include '../.lib/ui/checks.js'
 #include '../.lib/ui/retype-affix.js'
 
-var BOUNDS_TEXT = [70, 21]
+var BOUNDS_TEXT = [60, 21]
 var BOUNDS_EDIT = [100, 21]
 
 var ALPHABETS = [
@@ -57,5 +57,6 @@ dialog.setPositiveButton(function() {
             count = 0
         }
     })
+    selection = items
 })
 dialog.show()

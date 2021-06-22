@@ -18,8 +18,8 @@ var dimensionPanel
 var clippingList, closedList, guidesList
 
 dialog.main.orientation = 'row'
-dialog.vgroup(function(mainGroup) {
-    mainGroup.vpanel('Fill', function(panel) {
+dialog.vgroup(function(topGroup) {
+    topGroup.vpanel('Fill', function(panel) {
         panel.hgroup(function(group) {
             group.setTooltips('Fill color')
             group.staticText(BOUNDS_RIGHT_TEXT, 'Color:', JUSTIFY_RIGHT)
@@ -31,7 +31,7 @@ dialog.vgroup(function(mainGroup) {
             fillOverprintList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
         })
     })
-    mainGroup.vpanel('Stroke', function(panel) {
+    topGroup.vpanel('Stroke', function(panel) {
         panel.hgroup(function(group) {
             group.setTooltips('Stroke color')
             group.staticText(BOUNDS_RIGHT_TEXT, 'Color:', JUSTIFY_RIGHT)
@@ -57,9 +57,9 @@ dialog.vgroup(function(mainGroup) {
         })
     })
 })
-dialog.vgroup(function(mainGroup) {
-    dimensionPanel = new SelectDimensionPanel(mainGroup, BOUNDS_LEFT_TEXT, BOUNDS_EDIT)
-    mainGroup.vpanel('Others', function(panel) {
+dialog.vgroup(function(topGroup) {
+    dimensionPanel = new SelectDimensionPanel(topGroup, BOUNDS_LEFT_TEXT, BOUNDS_EDIT)
+    topGroup.vpanel('Others', function(panel) {
         panel.hgroup(function(group) {
             group.setTooltips('Should this be used as a clipping path?')
             group.staticText(BOUNDS_LEFT_TEXT, 'Clipping:', JUSTIFY_RIGHT)
