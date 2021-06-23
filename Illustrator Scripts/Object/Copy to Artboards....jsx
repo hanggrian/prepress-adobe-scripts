@@ -15,13 +15,13 @@ var activeArtboard = document.artboards[activeArtboardIndex]
 var activeArtboardRect = activeArtboard.artboardRect
 
 selection.forEach(function(it) {
-    check(rectangleContains(activeArtboardRect, it.controlBounds), 'Selected item is out of active artboard')
+    check(it.geometricBounds.isWithin(activeArtboardRect), 'Selected item is out of active artboard')
 })
 
 var relativePositions = selection.map(function(it) {
-    var bounds = it.controlBounds
-    var relativeX = bounds[0] - activeArtboardRect[0]
-    var relativeY = bounds[1] - activeArtboardRect[1]
+    var bounds = it.geometricBounds
+    var relativeX = bounds.getLeft() - activeArtboardRect.getLeft()
+    var relativeY = bounds.getTop() - activeArtboardRect.getTop()
     return [relativeX, relativeY]
 })
 
@@ -52,8 +52,8 @@ dialog.setPositiveButton(function() {
                 selectQueues.push(it)
                 var relativePosition = relativePositions[itemIndex]
                 it.position = [
-                    artboardRect[0] + relativePosition[0],
-                    artboardRect[1] + relativePosition[1]
+                    artboardRect.getLeft() + relativePosition.getLeft(),
+                    artboardRect.getTop() + relativePosition.getTop()
                 ]
             })
         }
@@ -61,13 +61,3 @@ dialog.setPositiveButton(function() {
     selection = selectQueues
 })
 dialog.show()
-
-// see https://gist.github.com/Daniel-Hug/d7984d82b58d6d2679a087d896ca3d2b
-function rectangleContains(a, b) {
-	return !(
-		b[0] < a[0] ||
-		b[3] < a[3] ||
-		b[2] > a[2] ||
-		b[1] > a[1]
-	);
-}

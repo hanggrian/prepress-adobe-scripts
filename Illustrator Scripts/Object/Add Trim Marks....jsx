@@ -19,7 +19,7 @@ var dialog = new Dialog('Add Trim Marks (Single)', 'fill')
 var offsetEdit, lengthEdit, weightEdit, colorList
 var topLeftCheck, topRightCheck, leftTopCheck, rightTopCheck, leftBottomCheck, rightBottomCheck, bottomLeftCheck, bottomRightCheck // single checks
 var topCheck, rightCheck, bottomCheck, leftCheck // multiple checks
-var isMultiple
+var isMultipleMode = false
 
 dialog.main.orientation = 'row'
 dialog.vpanel('Trim Marks', function(panel) {
@@ -139,8 +139,8 @@ dialog.setPositiveButton(function() {
         var clippingItem = item.getClippingPathItem()
         var width = clippingItem.width
         var height = clippingItem.height
-        var itemStartX = clippingItem.position.first()
-        var itemStartY = clippingItem.position[1]
+        var itemStartX = clippingItem.position.getLeft()
+        var itemStartY = clippingItem.position.getTop()
         var itemEndX = itemStartX + width
         var itemEndY = itemStartY - height
         if (startX === undefined || itemStartX < startX) startX = itemStartX
@@ -148,27 +148,27 @@ dialog.setPositiveButton(function() {
         if (endX === undefined || itemEndX > endX) endX = itemEndX
         if (endY === undefined || itemEndY < endY) endY = itemEndY
     })
-    selection = isMultiple
+    selection = isMultipleMode
         ? processMultiple(offset, length, weight, color, startX, startY, endX, endY)
         : processSingle(offset, length, weight, color, startX, startY, endX, endY)
 })
 if (selection.length > 1) {
     dialog.setNeutralButton(50, 'Multiple Mode', function() {
-        isMultiple = !isMultiple
-        dialog.setTitle('Add Trim Marks (' + (isMultiple ? 'Multiple' : 'Single') + ')')
-        dialog.neutralButton.text = isMultiple ? 'Single Mode' : 'Multiple Mode'
-        topLeftCheck.visible = !isMultiple
-        topRightCheck.visible = !isMultiple
-        leftTopCheck.visible = !isMultiple
-        rightTopCheck.visible = !isMultiple
-        leftBottomCheck.visible = !isMultiple
-        rightBottomCheck.visible = !isMultiple
-        bottomLeftCheck.visible = !isMultiple
-        bottomRightCheck.visible = !isMultiple
-        leftCheck.visible = isMultiple
-        topCheck.visible = isMultiple
-        rightCheck.visible = isMultiple
-        bottomCheck.visible = isMultiple
+        isMultipleMode = !isMultipleMode
+        dialog.setTitle('Add Trim Marks (' + (isMultipleMode ? 'Multiple' : 'Single') + ')')
+        dialog.neutralButton.text = isMultipleMode ? 'Single Mode' : 'Multiple Mode'
+        topLeftCheck.visible = !isMultipleMode
+        topRightCheck.visible = !isMultipleMode
+        leftTopCheck.visible = !isMultipleMode
+        rightTopCheck.visible = !isMultipleMode
+        leftBottomCheck.visible = !isMultipleMode
+        rightBottomCheck.visible = !isMultipleMode
+        bottomLeftCheck.visible = !isMultipleMode
+        bottomRightCheck.visible = !isMultipleMode
+        leftCheck.visible = isMultipleMode
+        topCheck.visible = isMultipleMode
+        rightCheck.visible = isMultipleMode
+        bottomCheck.visible = isMultipleMode
         return true
     })
 }
@@ -257,8 +257,8 @@ function processMultiple(offset, length, weight, color, maxStartX, maxStartY, ma
         var clippingItem = item.getClippingPathItem()
         var width = clippingItem.width
         var height = clippingItem.height
-        var itemStartX = clippingItem.position.first()
-        var itemStartY = clippingItem.position[1]
+        var itemStartX = clippingItem.position.getLeft()
+        var itemStartY = clippingItem.position.getTop()
         var itemEndX = itemStartX + width
         var itemEndY = itemStartY - height
         if (topCheck.value) {
@@ -341,10 +341,10 @@ function containsPathBounds(collection, element) {
     var i = collection.length
     while (i--) {
         var _element = collection[i]
-        if (_element[0] === element[0] &&
-            _element[1] === element[1] &&
+        if (_element[1] === element[1] &&
             _element[2] === element[2] &&
-            _element[3] === element[3]) {
+            _element[3] === element[3] &&
+            _element[4] === element[4]) {
             return true
         }
     }

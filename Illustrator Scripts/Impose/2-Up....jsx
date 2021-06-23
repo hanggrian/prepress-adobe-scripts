@@ -76,10 +76,9 @@ if (files !== null && files.isNotEmpty()) {
             var item2 = document.placedItems.add()
             item1.file = collection.get(leftIndex)
             item2.file = collection.get(rightIndex)
-            var rect = artboard.artboardRect
-            var x1 = rect[0]
+            var x1 = artboard.artboardRect.getLeft()
             var x2 = x1 + rotatedWidth + bleed * 2
-            var y = rect[1]
+            var y = artboard.artboardRect.getTop()
             Array(item1, item2).forEach(function(it) {
                 it.width = width + bleed * 2
                 it.height = height + bleed * 2

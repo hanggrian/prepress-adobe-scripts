@@ -116,7 +116,7 @@ dialog.setPositiveButton(function() {
         var width = item.width
         var height = item.height
         var position = item.position
-        var newItem = document.rasterize(item, item.controlBounds, options)
+        var newItem = document.rasterize(item, item.geometricBounds, options)
         selectQueues.push(newItem)
         // maintain dimension, ignore if text
         if (item.typename !== 'TextFrame') {

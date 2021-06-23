@@ -64,9 +64,8 @@ if (files !== null && files.isNotEmpty()) {
         pager.forEachArtboard(function(artboard, index) {
             var item = document.placedItems.add()
             item.file = collection.get(index)
-            var rect = artboard.artboardRect
-            var x = rect[0]
-            var y = rect[1]
+            var x = artboard.artboardRect.getLeft()
+            var y = artboard.artboardRect.getTop()
             item.width = width + bleed * 2
             item.height = height + bleed * 2
             if (rotateCheck.value) {

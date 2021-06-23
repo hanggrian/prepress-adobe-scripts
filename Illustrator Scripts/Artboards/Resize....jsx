@@ -67,50 +67,42 @@ dialog.show()
 function resizeArtboard(artboard, w, h) {
     var bounds = artboard.artboardRect
 
-    var left = bounds.first()
-    var top = bounds[1]
-    var right = bounds[2]
-    var bottom = bounds[3]
-
-    var width = right - left
-    var height = top - bottom
-
     var ctrx, ctry
     if (anchorGroup.isVerticalLeft()) {
-        ctrx = left
+        ctrx = bounds.getLeft()
     } else if (anchorGroup.isVerticalCenter()) {
-        ctrx = width / 2 + left
+        ctrx = bounds.getWidth() / 2 + bounds.getLeft()
     } else {
-        ctrx = width + left
+        ctrx = bounds.getWidth() + bounds.getLeft()
     }
     if (anchorGroup.isHorizontalTop()) {
-        ctry = top
+        ctry = bounds.getTop()
     } else if (anchorGroup.isHorizontalCenter()) {
-        ctry = top - height / 2
+        ctry = bounds.getTop() - bounds.getHeight() / 2
     } else {
-        ctry = top - height
+        ctry = bounds.getTop() - bounds.getHeight()
     }
 
     var newLeft, newTop, newRight, newBottom
     if (anchorGroup.isVerticalLeft()) {
-        newLeft = left
-        newRight  = ctrx + w
+        newLeft = bounds.getLeft()
+        newRight = ctrx + w
     } else if (anchorGroup.isVerticalCenter()) {
         newLeft = ctrx - w / 2
         newRight  = ctrx + w / 2
     } else {
         newLeft = ctrx - w
-        newRight  = right
+        newRight = bounds.getRight()
     }
     if (anchorGroup.isHorizontalTop()) {
-        newTop = top
+        newTop = bounds.getTop()
         newBottom = ctry - h
     } else if (anchorGroup.isHorizontalCenter()) {
         newTop = ctry + h / 2
         newBottom = ctry - h / 2
     } else {
         newTop = ctry + h
-        newBottom = bottom
+        newBottom = bounds.getBottom()
     }
     artboard.artboardRect = [newLeft, newTop, newRight, newBottom]
 }

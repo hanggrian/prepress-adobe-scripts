@@ -23,6 +23,7 @@
 #include 'numbers.js'
 #include 'preconditions.js'
 #include 'properties.js'
+#include 'rectangles.js'
 #include 'standard.js'
 #include 'strings.js'
 

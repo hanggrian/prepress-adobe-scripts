@@ -5,6 +5,22 @@
 */
 
 /**
+ * Returns rounded number.
+ * @returns {Number}
+ */
+Number.prototype.round = function() {
+    return Math.round(this)
+}
+
+/**
+ * Returns floored number.
+ * @returns {Number}
+ */
+Number.prototype.floor = function() {
+    return Math.floor(this)
+}
+
+/**
  * Returns true if this number is odd.
  * @returns {Boolean}
  */

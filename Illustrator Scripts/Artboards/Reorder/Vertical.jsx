@@ -8,10 +8,10 @@ document.artboards.forEach(function(it) {
     properties.push(copyProperties(it))
 })
 properties.sort(function(a, b) {
-    var aX = Math.floor(a.artboardRect[0])
-    var aY = Math.floor(a.artboardRect[1])
-    var bX = Math.floor(b.artboardRect[0])
-    var bY = Math.floor(b.artboardRect[1])
+    var aX = a.artboardRect.getLeft().floor()
+    var aY = a.artboardRect.getTop().floor()
+    var bX = b.artboardRect.getLeft().floor()
+    var bY = b.artboardRect.getTop().floor()
     if (aX === bX) {
         if (aY < bY) {
             return 1

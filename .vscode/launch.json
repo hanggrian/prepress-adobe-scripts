@@ -5,7 +5,7 @@
             "type": "extendscript-debug",
             "request": "launch",
             "name": "prepress-adobe-scripts",
-            "program": "${workspaceFolder}/Illustrator Scripts/Object/Add Registration Marks....jsx",
+            "program": "${workspaceFolder}/Illustrator Scripts/Types/Numerize....jsx",
             "stopOnEntry": false
         }
     ]

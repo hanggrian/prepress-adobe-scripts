@@ -49,8 +49,8 @@ dialog.setPositiveButton(function() {
     }
 
     var target = selection.first()
-    var x = target.position.first()
-    var y = target.position[1]
+    var x = target.position.getLeft()
+    var y = target.position.getTop()
 
     app.copy()
     target.remove()

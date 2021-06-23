@@ -82,10 +82,9 @@ if (files !== null && files.isNotEmpty()) {
             topItem2.file = collection.get(topRightIndex)
             bottomItem1.file = collection.get(bottomLeftIndex)
             bottomItem2.file = collection.get(bottomRightIndex)
-            var rect = artboard.artboardRect
-            var x1 = rect[0]
+            var x1 = artboard.artboardRect.getLeft()
             var x2 = x1 + rotatedWidth + bleed * 2
-            var y1 = rect[1]
+            var y1 = artboard.artboardRect.getTop()
             var y2 = y1 - rotatedHeight - bleed * 2
             Array(topItem1, topItem2, bottomItem1, bottomItem2).forEach(function(it) {
                 it.width = width + bleed * 2
