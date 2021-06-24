@@ -32,22 +32,19 @@ Note that some directories like `.lib` and `.res` are hidden in macOS, they must
 Illustrator Scripts
 -------------------
 
-### Add Trim Marks
-
 ![ai-add-trim-marks](art/ai-add-trim-marks.png)
-
-### Relink
-
 ![ai-relink](art/ai-relink.png)
 
-### Impose
+![ai-step-and-repeat](art/ai-step-and-repeat.png)
+![ai-numerize](art/ai-numerize.png)
 
 ![ai-impose](art/ai-impose.png)
 
 Photoshop Scripts
 -----------------
 
-### Add Bleed
+![psd-resize-images](art/psd-resize-images.png)
+![psd-resize-canvases](art/psd-resize-canvases.png)
 
 ![psd-add-bleed](art/psd-add-bleed.png)
 

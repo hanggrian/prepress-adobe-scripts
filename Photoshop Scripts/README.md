@@ -1,6 +1,8 @@
 Photoshop Scripts
 =================
 
+A part of [prepress-adobe-scripts](https://github.com/hendraanggrian/prepress-adobe-scripts)
+
 Known Issue
 -----------
 
