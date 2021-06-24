@@ -1,9 +1,7 @@
 Photoshop Scripts
 =================
 
-![add-bleed](../art/add-bleed.png)
+Known Issue
+-----------
 
-Notable Scripts
----------------
-
-Coming soon.
+* EditText units validator is unstable, entering operator like `+` will crash the app.

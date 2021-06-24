@@ -1,13 +1,6 @@
 Illustrator Scripts
 ===================
 
-![add-trim-marks](../art/add-trim-marks.png)
-
-Notable Scripts
----------------
-
-Coming soon.
-
 Known Issue
 -----------
 

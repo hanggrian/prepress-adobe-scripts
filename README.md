@@ -6,8 +6,6 @@ Prepress Adobe Scripts
 
 Adobe Illustrator and Photoshop scripts tailored for printing purposes. Tested only on latest Adobe suite.
 
-![impose](art/impose.png)
-
 Install
 -------
 
@@ -31,10 +29,27 @@ Find `Scripts` directory in your local Adobe installation paths:
 Copy all directories within corresponding sub-directory of this repository.
 Note that some directories like `.lib` and `.res` are hidden in macOS, they must be included as well.
 
-Usage
------
+Illustrator Scripts
+-------------------
 
-See [Illustrator Scripts](Illustrator%20Scripts) & [Photoshop Scripts](Photoshop%20Scripts) for notable scripts.
+### Add Trim Marks
+
+![ai-add-trim-marks](art/ai-add-trim-marks.png)
+
+### Relink
+
+![ai-relink](art/ai-relink.png)
+
+### Impose
+
+![ai-impose](art/ai-impose.png)
+
+Photoshop Scripts
+-----------------
+
+### Add Bleed
+
+![psd-add-bleed](art/psd-add-bleed.png)
 
 Resources
 ---------
