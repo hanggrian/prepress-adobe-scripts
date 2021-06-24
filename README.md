@@ -34,10 +34,8 @@ Illustrator Scripts
 
 ![ai-add-trim-marks](art/ai-add-trim-marks.png)
 ![ai-step-and-repeat](art/ai-step-and-repeat.png)
-
 ![ai-relink](art/ai-relink.png)
 ![ai-numerize](art/ai-numerize.png)
-
 ![ai-impose](art/ai-impose.png)
 
 Photoshop Scripts
