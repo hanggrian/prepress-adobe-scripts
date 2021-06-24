@@ -7,7 +7,8 @@ var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
 
 var dialog = new Dialog('Resize Artboards')
-var rangeGroup, widthEdit, heightEdit, anchorGroup, fitToArtCheck
+var rangeGroup, widthEdit, heightEdit, anchorGroup
+var isFitArtsMode = false
 
 dialog.hgroup(function(topGroup) {
     topGroup.alignChildren = 'fill'
@@ -33,17 +34,6 @@ dialog.hgroup(function(topGroup) {
         anchorGroup = new AnchorGroup(panel)
     })
 })
-dialog.hgroup(function(group) {
-    group.alignment = 'right'
-    group.setTooltips('Wrap content to arts in current arboard')
-    fitToArtCheck = group.checkBox(undefined, 'Fit to arts', function(it) {
-        it.onClick = function() {
-            widthEdit.enabled = !it.value
-            heightEdit.enabled = !it.value
-            anchorGroup.main.enabled = !it.value
-        }
-    })
-})
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
@@ -51,7 +41,7 @@ dialog.setPositiveButton(function() {
     var h = parseUnits(heightEdit.text)
     if (w > 0 && h > 0) {
         rangeGroup.forEach(function(i) {
-            if (fitToArtCheck.value) {
+            if (isFitArtsMode) {
                 document.artboards.setActiveArtboardIndex(i)
                 document.selectObjectsOnActiveArtboard(i)
                 document.fitArtboardToSelectedArt(i)
@@ -60,6 +50,15 @@ dialog.setPositiveButton(function() {
             }
         })
     }
+})
+dialog.setNeutralButton(20, 'Fit Arts Mode', function() {
+    isFitArtsMode = !isFitArtsMode
+    dialog.setTitle(isFitArtsMode ? 'Resize Artboards (Fit Arts)' : 'Resize Artboards')
+    dialog.neutralButton.text = isFitArtsMode ? 'Default Mode' : 'Fit Arts Mode'
+    widthEdit.enabled = !isFitArtsMode
+    heightEdit.enabled = !isFitArtsMode
+    anchorGroup.main.enabled = !isFitArtsMode
+    return true
 })
 dialog.show()
 

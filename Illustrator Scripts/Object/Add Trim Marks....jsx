@@ -341,10 +341,10 @@ function containsPathBounds(collection, element) {
     var i = collection.length
     while (i--) {
         var _element = collection[i]
-        if (_element[1] === element[1] &&
-            _element[2] === element[2] &&
-            _element[3] === element[3] &&
-            _element[4] === element[4]) {
+        if (_element[1].round() === element[1].round() &&
+            _element[2].round() === element[2].round() &&
+            _element[3].round() === element[3].round() &&
+            _element[4].round() === element[4].round()) {
             return true
         }
     }

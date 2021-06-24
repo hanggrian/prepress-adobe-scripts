@@ -23,7 +23,7 @@ dialog.hgroup(function(topGroup) {
         panel.hgroup(function(group) {
             group.setTooltips("Canvases' new width")
             group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
-            widthEdit = group.editText(BOUNDS_EDIT, document.width, function(it) {
+            widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2), function(it) {
                 it.validateUnits()
                 it.activate()
             })
@@ -31,7 +31,7 @@ dialog.hgroup(function(topGroup) {
         panel.hgroup(function(group) {
             group.setTooltips("Canvases' new height")
             group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
-            heightEdit = group.editText(BOUNDS_EDIT, document.height, VALIDATE_UNITS)
+            heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2), VALIDATE_UNITS)
         })
     })
     topGroup.vpanel('Anchor', function(panel) {

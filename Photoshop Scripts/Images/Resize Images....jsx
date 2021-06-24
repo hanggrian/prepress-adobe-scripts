@@ -20,7 +20,7 @@ var widthEdit, heightEdit, resolutionEdit, resampleList
 dialog.hgroup(function(group) {
     group.setTooltips("Images' new width")
     group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
-    widthEdit = group.editText(BOUNDS_EDIT, document.width, function(it) {
+    widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2), function(it) {
         it.validateUnits()
         it.activate()
     })
@@ -28,7 +28,7 @@ dialog.hgroup(function(group) {
 dialog.hgroup(function(group) {
     group.setTooltips("Images' new height")
     group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
-    heightEdit = group.editText(BOUNDS_EDIT, document.height, VALIDATE_UNITS)
+    heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2), VALIDATE_UNITS)
 })
 dialog.hgroup(function(group) {
     group.setTooltips("Images' new resolution")

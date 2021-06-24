@@ -1,3 +1,9 @@
+/*
+<javascriptresource>
+<menu>hide</menu>
+</javascriptresource>
+*/
+
 Array.prototype.equalTo = function(other) {
     return this[0] === other[0] &&
         this[1] === other[1] &&
