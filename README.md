@@ -33,18 +33,15 @@ Illustrator Scripts
 -------------------
 
 ![ai-add-trim-marks](art/ai-add-trim-marks.png)
-![ai-relink](art/ai-relink.png)
-
 ![ai-step-and-repeat](art/ai-step-and-repeat.png)
+
+![ai-relink](art/ai-relink.png)
 ![ai-numerize](art/ai-numerize.png)
 
 ![ai-impose](art/ai-impose.png)
 
 Photoshop Scripts
 -----------------
-
-![psd-resize-images](art/psd-resize-images.png)
-![psd-resize-canvases](art/psd-resize-canvases.png)
 
 ![psd-add-bleed](art/psd-add-bleed.png)
 
