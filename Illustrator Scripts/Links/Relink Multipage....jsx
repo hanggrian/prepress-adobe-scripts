@@ -1,7 +1,7 @@
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/ui/checks.js'
 #include '../.lib/ui/open-options.js'
+#include '../.lib/ui/ordering.js'
 #include '../.lib/ui/range.js'
 
 var BOUNDS_TEXT = [50, 21]
@@ -13,7 +13,7 @@ var items = selection.filterItem(function(it) { return it.typename === 'PlacedIt
 check(items.isNotEmpty(), 'No links found in selection')
 
 var dialog = new Dialog('Relink Multipage', 'fill')
-var pdfPanel, rangeGroup, reverseGroup
+var pdfPanel, rangeGroup, orderingGroup
 
 var files = openFile(dialog.title, [
     ['Adobe Illustrator', 'ai'],
@@ -34,11 +34,15 @@ if (files !== null && files.isNotEmpty()) {
         pdfPanel = new OpenPDFPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
     }
     dialog.vpanel('PDF Pages', function(panel) {
-        rangeGroup = new RangeGroup(panel, BOUNDS_TEXT, BOUNDS_EDIT)
-        rangeGroup.startEdit.activate()
-        rangeGroup.endEdit.text = collection.length
+        rangeGroup = new RangeGroup(panel, BOUNDS_TEXT, BOUNDS_EDIT).also(function(group) {
+            group.startEdit.activate()
+            group.endEdit.text = collection.length
+        })
     })
-    reverseGroup = new ReverseOrderGroup(dialog.main)
+    orderingGroup = new OrderingGroup(dialog.main, [ORDERING_DEFAULTS, ORDERING_POSITIONS]).also(function(group) {
+        group.main.alignment = 'right'
+        group.orderingList.selectText('Reversed')
+    })
 
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
@@ -46,7 +50,7 @@ if (files !== null && files.isNotEmpty()) {
         var end = rangeGroup.getEnd()
         $.writeln('Items = ' + items.length)
         $.writeln('End index = ' + end)
-        reverseGroup.forEachAware(items, function(item) {
+        orderingGroup.forEach(items, function(item) {
             $.writeln('Current index = ' + current)
             var width = item.width
             var height = item.height

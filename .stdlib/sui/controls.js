@@ -21,6 +21,9 @@ RadioButton.prototype.select = function() { if (!this.value) this.value = true }
 /** Returns true if this list has a selection. */
 DropDownList.prototype.hasSelection = function() { return this.selection !== null }
 
+/** Change selection to ListItem with `text`. */
+DropDownList.prototype.selectText = function(text) { this.selection = this.items.map(function(it) { return it.text }).indexOf(text) }
+
 function _expandBounds(bounds) {
     return bounds !== undefined && bounds.length === 2
         ? [0, 0, bounds[0], bounds[1]]

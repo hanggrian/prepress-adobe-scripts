@@ -13,9 +13,10 @@ var isFitArtsMode = false
 dialog.hgroup(function(topGroup) {
     topGroup.alignChildren = 'fill'
     topGroup.vpanel('Artboard', function(panel) {
-        rangeGroup = new RangeGroup(panel, BOUNDS_TEXT, BOUNDS_EDIT)
-        rangeGroup.maxRange = document.artboards.length
-        rangeGroup.endEdit.text = document.artboards.length
+        rangeGroup = new RangeGroup(panel, BOUNDS_TEXT, BOUNDS_EDIT).also(function(group) {
+            group.maxRange = document.artboards.length
+            group.endEdit.text = document.artboards.length
+        })
         panel.hgroup(function(group) {
             group.setTooltips("Artboards' new width")
             group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)

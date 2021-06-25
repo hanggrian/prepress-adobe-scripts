@@ -3,7 +3,7 @@
 #target Illustrator
 #include '../../.stdlib/ui/anchor.js'
 #include '../.lib/commons.js'
-#include '../.lib/ui/checks.js'
+#include '../.lib/ui/recursive.js'
 
 var BOUNDS_TEXT = [60, 21]
 var BOUNDS_EDIT = [150, 21]
@@ -71,7 +71,7 @@ dialog.setPositiveButton(function() {
     var transformation = documentOriginCheck.value
         ? Transformation.DOCUMENTORIGIN
         : anchorGroup.getTransformation()
-    recursiveGroup.forEachAware(selection, function(it) {
+    recursiveGroup.forEach(selection, function(it) {
         var scaleX = 100 * width / it.width
         var scaleY = 100 * height / it.height
         if (scaleX !== 100 && scaleY !== 100) {

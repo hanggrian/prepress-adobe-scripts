@@ -1,6 +1,6 @@
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/ui/checks.js'
+#include '../.lib/ui/ordering.js'
 
 var ALPHABETS = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
@@ -17,7 +17,9 @@ var items = selection.filterItem(function(it) { return it.typename === 'TextFram
 check(items.isNotEmpty(), 'No types found in selection')
 
 var dialog = new Dialog('Numerize')
-var startsAtEdit, digitsEdit, stopsAtGroup, stopsAtList, prefixEdit, suffixEdit, reverseGroup
+var startsAtEdit, digitsEdit, stopsAtGroup
+var stopsAtList, prefixEdit, suffixEdit
+var orderingGroup
 var isAlphabetSuffixMode = false
 
 dialog.hgroup(function(topGroup) {
@@ -40,7 +42,7 @@ dialog.hgroup(function(topGroup) {
             group.setTooltips('The iteration will stop at the selected alphabet and the number will reset back to 1')
             group.staticText(BOUNDS_TEXT, 'Stops at:', JUSTIFY_RIGHT)
             stopsAtList = group.dropDownList(BOUNDS_EDIT, ALPHABETS, function(it) {
-                it.selection = ALPHABETS.indexOf('B')
+                it.selectText('B')
             })
             group.visible = false
         })
@@ -59,7 +61,10 @@ dialog.hgroup(function(topGroup) {
         })
     })
 })
-reverseGroup = new ReverseOrderGroup(dialog.main)
+orderingGroup = new OrderingGroup(dialog.main, [ORDERING_DEFAULTS, ORDERING_POSITIONS]).also(function(group) {
+    group.main.alignment = 'right'
+    group.orderingList.selectText('Reversed')
+})
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
@@ -72,7 +77,7 @@ dialog.setPositiveButton(function() {
     }
     var prefix = prefixEdit.text
     var suffix = suffixEdit.text
-    reverseGroup.forEachAware(items, function(item) {
+    orderingGroup.forEach(items, function(item) {
         var s = pad(startsAt, digits)
         if (isAlphabetSuffixMode) {
             s += ALPHABETS[stopsCount]

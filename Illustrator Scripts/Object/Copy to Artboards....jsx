@@ -28,15 +28,16 @@ var relativePositions = selection.map(function(it) {
 var dialog = new Dialog('Copy to Artboards')
 var rangeGroup, anchorList
 
-rangeGroup = new RangeGroup(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
-rangeGroup.maxRange = document.artboards.length
-rangeGroup.endEdit.text = document.artboards.length
-rangeGroup.startEdit.activate()
+rangeGroup = new RangeGroup(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT).also(function(group) {
+    group.maxRange = document.artboards.length
+    group.endEdit.text = document.artboards.length
+    group.startEdit.activate()
+})
 dialog.hgroup(function(group) {
     group.setTooltips('Only relevant on artboard with different size than active artboard')
     group.staticText(BOUNDS_TEXT, 'Anchor:', JUSTIFY_RIGHT)
     anchorList = group.dropDownList(BOUNDS_EDIT, ANCHORS, function(it) {
-        it.selection = ANCHORS.indexOf('Top Left')
+        it.selectText('Top Left')
     })
 })
 

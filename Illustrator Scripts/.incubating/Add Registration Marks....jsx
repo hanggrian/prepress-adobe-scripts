@@ -22,7 +22,7 @@ dialog.hgroup(function(topGroup) {
         panel.hgroup(function(group) {
             group.staticText(BOUNDS_TEXT, 'Types:', JUSTIFY_RIGHT)
             typesList = group.dropDownList(BOUNDS_EDIT, TYPES, function(it) {
-                it.selection = TYPES.indexOf('Composite')
+                it.selectText('Composite')
             })
         })
         panel.hgroup(function(group) {

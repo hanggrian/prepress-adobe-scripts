@@ -2,7 +2,7 @@
 
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/ui/checks.js'
+#include '../.lib/ui/recursive.js'
 
 var COLOR_MODELS = ['Default', 'Grayscale', 'Bitmap']
 
@@ -24,7 +24,7 @@ dialog.hgroup(function(group) {
     group.setTooltips('The color model for the rasterization')
     group.staticText(BOUNDS_TEXT, 'Color Model:', JUSTIFY_RIGHT)
     colorModelList = group.dropDownList(BOUNDS_EDIT, COLOR_MODELS, function(it) {
-        it.selection = COLOR_MODELS.indexOf('Default')
+        it.selectText('Default')
     })
 })
 dialog.hgroup(function(group) {
@@ -112,7 +112,7 @@ dialog.setPositiveButton(function() {
     options.padding = parseUnits(paddingEdit.text)
 
     var selectQueues = []
-    recursiveGroup.forEachAware(selection, function(item) {
+    recursiveGroup.forEach(selection, function(item) {
         var width = item.width
         var height = item.height
         var position = item.position

@@ -40,7 +40,7 @@ dialog.weightEdit.validateUnits()
 dialog.color = dialog.main.addHGroup()
 dialog.color.addText(BOUNDS_TEXT, 'Color:', 'right')
 dialog.colorList = dialog.color.addDropDown(undefined, COLORS)
-dialog.colorList.selection = COLORS.indexOf('Black')
+dialog.colorList.selectText('Black')
 
 dialog.scratches = dialog.main.addVPanel('Glue Scratches')
 dialog.scratches.dash = dialog.scratches.addHGroup()

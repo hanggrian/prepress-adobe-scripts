@@ -39,7 +39,7 @@ dialog.hgroup(function(group) {
     group.setTooltips('Method to resample new images')
     group.staticText(BOUNDS_TEXT, 'Resample:', JUSTIFY_RIGHT)
     resampleList = group.dropDownList(undefined, RESAMPLES, function(it) {
-        it.selection = RESAMPLES.indexOf('Bicubic')
+        it.selectText('Bicubic')
     })
 })
 

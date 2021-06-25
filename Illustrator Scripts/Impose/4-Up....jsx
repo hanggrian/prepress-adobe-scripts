@@ -31,11 +31,12 @@ if (files !== null && files.isNotEmpty()) {
             if (collection.hasPDF) {
                 pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
             }
-            pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
-            pagesPanel.rangeGroup.endEdit.text = collection.length
-            if (!collection.isSinglePDF) {
-                pagesPanel.rangeGroup.maxRange = collection.length
-            }
+            pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT).apply(function(panel) {
+                panel.rangeGroup.endEdit.text = collection.length
+                if (!collection.isSinglePDF) {
+                    panel.rangeGroup.maxRange = collection.length
+                }
+            })
         })
         documentPanel = new OpenDocumentPanel(topGroup)
     })

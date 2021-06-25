@@ -20,10 +20,10 @@ function OpenDocumentPanel(parent) {
             group.setTooltips('The color mode and resolution for the new document')
             group.staticText(BOUNDS_DOCUMENT_TEXT, 'Color Mode:', JUSTIFY_RIGHT)
             self.modeList = group.dropDownList(BOUNDS_DOCUMENT_EDIT, OPEN_DOCUMENTMODES, function(it) {
-                it.selection = OPEN_DOCUMENTMODES.indexOf('CMYK')
+                it.selectText('CMYK')
             })
             self.bitsList = group.dropDownList(BOUNDS_DOCUMENT_EDIT2, OPEN_DOCUMENTBITS, function(it) {
-                it.selection = OPEN_DOCUMENTBITS.indexOf('8 bit')
+                it.selectText('8 bit')
             })
         })
         panel.hgroup(function(group) {
@@ -35,7 +35,7 @@ function OpenDocumentPanel(parent) {
             group.setTooltips('The units for the new document')
             group.staticText(BOUNDS_DOCUMENT_TEXT, 'Units:', JUSTIFY_RIGHT)
             self.unitsList = group.dropDownList(BOUNDS_DOCUMENT_EDITMAX, UNITS, function(it) {
-                it.selection = UNITS.indexOf('Millimeters')
+                it.selectText('Millimeters')
             })
         })
         panel.hgroup(function(group) {

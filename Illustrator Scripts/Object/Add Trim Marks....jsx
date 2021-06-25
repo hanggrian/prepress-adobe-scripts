@@ -46,7 +46,7 @@ dialog.vpanel('Trim Marks', function(panel) {
         group.setTooltips('Color of trim marks')
         group.staticText(BOUNDS_TEXT, 'Color:', JUSTIFY_RIGHT)
         colorList = group.dropDownList(BOUNDS_EDIT, COLORS, function(it) {
-            it.selection = COLORS.indexOf('Registration')
+            it.selectText('Registration')
         })
     })
 })

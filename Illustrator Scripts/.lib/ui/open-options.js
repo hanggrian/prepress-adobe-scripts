@@ -60,8 +60,9 @@ function OpenPagesPanel(parent, textBounds, editBounds) {
 
     this.main = parent.vpanel('Pages', function(panel) {
         panel.alignChildren = 'fill'
-        self.rangeGroup = new RangeGroup(panel, textBounds, editBounds)
-        self.rangeGroup.startEdit.activate()
+        self.rangeGroup = new RangeGroup(panel, textBounds, editBounds).also(function(group) {
+            group.startEdit.activate()
+        })
         panel.hgroup(function(group) {
             group.setTooltips('Page width, not artboard')
             group.staticText(textBounds, 'Width:', JUSTIFY_RIGHT)
@@ -123,9 +124,7 @@ function OpenDocumentPanel(parent) {
         panel.hgroup(function(group) {
             group.setTooltips('Spacing between artboards')
             group.staticText(BOUNDS_DOCUMENT_TEXT, 'Spacing:', JUSTIFY_RIGHT)
-            self.spacingEdit = group.editText(BOUNDS_DOCUMENT_EDITMAX, '10 mm', function(it) {
-                it.validateUnits()
-            })
+            self.spacingEdit = group.editText(BOUNDS_DOCUMENT_EDITMAX, '10 mm', VALIDATE_UNITS)
         })
         panel.hgroup(function(group) {
             group.setTooltips('The preview mode for the new document')
