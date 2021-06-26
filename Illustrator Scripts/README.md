@@ -9,8 +9,7 @@ General Purpose
 Bulk resize all artboards.
 Reorder artboards based on their title/position.
 
-<img src="../art/ai-resize-artboards.gif" width="480" height="240"/>
-<img src="../art/ai-reorder-artboards.gif" width="480" height="240"/>
+<img src="../art/ai-resize-artboards.gif" width="480" height="240"/><img src="../art/ai-reorder-artboards.gif" width="480" height="240"/>
 
 ### Copy to Artboards
 
@@ -23,8 +22,7 @@ Duplicate selection to each artboards.
 `Context Menu > Transform > Transform Each...` can only modify size by scale while this script accepts target size.
 `Menu > Object > Rasterize...` will group selected items and rasterize it once while this script rasterize each item.
 
-<img src="../art/ai-resize-each.gif" width="480" height="240"/>
-<img src="../art/ai-rasterize-each.gif" width="480" height="240"/>
+<img src="../art/ai-resize-each.gif" width="480" height="240"/><img src="../art/ai-rasterize-each.gif" width="480" height="240"/>
 
 Prepress
 --------
