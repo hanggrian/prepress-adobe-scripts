@@ -15,19 +15,19 @@ Head over to [Illustrator Scripts](Illustrator%20Scripts) for more.
 
 A direct replacement to `Object > Create Trim Marks`, which works great but extremely limited in configuration. There is also multi-target support as seen below.
 
-![](../art/ai-add-trim-marks.gif)
+![](art/ai-add-trim-marks.gif)
 
 ### Relink Same/Multipage
 
 Relink multiple items at once, which somehow is not natively supported. Use `Relink Same` to set the same image/PDF page to all targets, or `Relink Multipage` to iterate images/PDF pages.
 
-![](../art/ai-relink-multipage.gif)
+![](art/ai-relink-multipage.gif)
 
 ### Impose/*
 
 Supports imposing `N-Up`, `Perfect Bound` and `Saddle Stitch`.
 
-![](../art/ai-impose.gif)
+![](art/ai-impose.gif)
 
 Photoshop Scripts
 -----------------
@@ -38,7 +38,7 @@ Head over to [Photoshop Scripts](Photoshop%20Scripts) for more.
 
 Create a layout guide around image and distribute bleed to all documents.
 
-![](../art/psd-add-bleed.gif)
+![](art/psd-add-bleed.gif)
 
 Install
 -------
