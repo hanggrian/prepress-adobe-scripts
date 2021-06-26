@@ -1,23 +1,23 @@
-var ORDERING_DEFAULTS = ['Default', 'Reversed']
-var ORDERING_NAMES = ['Ascending', 'Descending']
-var ORDERING_POSITIONS = ['Horizontal', 'Vertical']
+var ORDERS_DEFAULTS = ['Default', 'Reversed']
+var ORDERS_NAMES = ['Ascending', 'Descending']
+var ORDERS_POSITIONS = ['Horizontal', 'Vertical']
 
-function OrderByGroup(parent, orderings, textBounds, editBounds) {
+function OrderByGroup(parent, ordersCollection, textBounds, editBounds) {
     var self = this
     this.list
 
-    checkNotNull(orderings)
-    var actualOrderings = []
-    orderings.forEach(function(it, i) {
-        actualOrderings = actualOrderings.concat(it)
-        if (i !== orderings.lastIndex()) {
-            actualOrderings.push('-')
+    checkNotNull(ordersCollection)
+    var orders = []
+    ordersCollection.forEach(function(it, i) {
+        orders = orders.concat(it)
+        if (i !== ordersCollection.lastIndex()) {
+            orders.push('-')
         }
     })
 
     this.main = parent.hgroup(function(group) {
         group.staticText(textBounds, 'Order by', JUSTIFY_RIGHT)
-        self.list = group.dropDownList(editBounds, actualOrderings)
+        self.list = group.dropDownList(editBounds, orders)
     })
 
     this.forEach = function(collection, action) {

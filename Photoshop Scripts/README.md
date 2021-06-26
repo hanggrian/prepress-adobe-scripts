@@ -4,6 +4,13 @@ Photoshop Scripts
 General Purpose
 ---------------
 
+### Resize Images/Canvases
+
+Bulk resize all documents.
+
+<img src="../art/psd-resize-images.gif" width="480" height="240"/>
+<img src="../art/psd-resize-canvases.gif" width="480" height="240"/>
+
 Prepress
 --------
 

@@ -4,16 +4,34 @@ Illustrator Scripts
 General Purpose
 ---------------
 
-### Resize/Reoreder Artboards
+### Resize/Reorder Artboards
 
-<img src="../art/ai-resize-artboards.gif" width="480" height="240"/><img src="../art/ai-reorder-artboards.gif" width="480" height="240"/>
+Bulk resize all artboards.
+Reorder artboards based on their title/position.
+
+<img src="../art/ai-resize-artboards.gif" width="480" height="240"/>
+<img src="../art/ai-reorder-artboards.gif" width="480" height="240"/>
+
+### Copy to Artboards
+
+Duplicate selection to each artboards.
+
+![](../art/ai-copy-to-artboards.gif)
+
+### Resize/Rasterize Each
+
+`Context Menu > Transform > Transform Each...` can only modify size by scale while this script accepts target size.
+`Menu > Object > Rasterize...` will group selected items and rasterize it once while this script rasterize each item.
+
+<img src="../art/ai-resize-each.gif" width="480" height="240"/>
+<img src="../art/ai-rasterize-each.gif" width="480" height="240"/>
 
 Prepress
 --------
 
 ### Add Trim Marks
 
-A direct replacement to `Object > Create Trim Marks`, which works great but extremely limited in configuration. There is also multi-target support as seen below.
+A direct replacement to `Menu > Object > Create Trim Marks`, which works great but extremely limited in configuration. There is also multi-target support as seen below.
 
 ![](../art/ai-add-trim-marks.gif)
 
@@ -35,7 +53,7 @@ Iterate through selected texts and retype them to index. There is also alphabet 
 
 ![](../art/ai-numerize.gif)
 
-### Impose/*
+### Impose
 
 Supports imposing `N-Up`, `Perfect Bound` and `Saddle Stitch`.
 

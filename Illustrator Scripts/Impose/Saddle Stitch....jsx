@@ -11,15 +11,8 @@ var pdfPanel, pagesPanel, documentPanel
 var rtlCheck
 
 var files = openFile(dialog.title, [
-    ['Adobe Illustrator', 'ai'],
-    ['Adobe PDF', 'pdf'],
-    ['BMP', 'bmp'],
-    ['GIF89a', 'gif'],
-    ['JPEG', 'jpg', 'jpe', 'jpeg'],
-    ['JPEG2000', 'jpf', 'jpx', 'jp2', 'j2k', 'j2c', 'jpc'],
-    ['PNG', 'png', 'pns'],
-    ['Photoshop', 'psd', 'psb', 'pdd'],
-    ['TIFF', 'tif', 'tiff']
+    FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
+    FILTERS_BMP, FILTERS_GIF89a, FILTERS_JPEG, FILTERS_JPEG2000, FILTERS_PNG, FILTERS_PHOTOSHOP, FILTERS_TIFF
 ], true)
 
 if (files !== null && files.isNotEmpty()) {

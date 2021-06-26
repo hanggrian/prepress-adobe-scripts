@@ -57,7 +57,7 @@ dialog.hgroup(function(topGroup) {
         })
     })
 })
-orderByGroup = new OrderByGroup(dialog.main, [ORDERING_DEFAULTS, ORDERING_POSITIONS]).also(function(group) {
+orderByGroup = new OrderByGroup(dialog.main, [ORDERS_DEFAULTS, ORDERS_POSITIONS]).also(function(group) {
     group.list.selectText('Reversed')
 })
 

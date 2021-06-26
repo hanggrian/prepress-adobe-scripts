@@ -4,16 +4,17 @@
 Prepress Adobe Scripts
 ======================
 
-Essential Illustrator and Photoshop scripts for commercial printshop. While most of these scripts are general purpose, some are heavily prepress-focused like trim marks and imposition.
+Essential Illustrator and Photoshop scripts for commercial printshop. While most of these scripts are general purpose, some are heavily prepress-focused like trim marks and imposition. Tested only on latest Adobe suite.
 
-Illustrator Scripts
--------------------
+![](art/scripts-menu-ai.png)
+![](art/scripts-menu-psd.png)
 
-Head over to [Illustrator Scripts](Illustrator%20Scripts) for more.
+[Illustrator Scripts](Illustrator%20Scripts)
+---------------------
 
 ### Add Trim Marks
 
-A direct replacement to `Object > Create Trim Marks`, which works great but extremely limited in configuration. There is also multi-target support as seen below.
+A direct replacement to `Menu > Object > Create Trim Marks`, which works great but extremely limited in configuration. There is also multi-target support as seen below.
 
 ![](art/ai-add-trim-marks.gif)
 
@@ -23,16 +24,14 @@ Relink multiple items at once, which somehow is not natively supported. Use `Rel
 
 ![](art/ai-relink-multipage.gif)
 
-### Impose/*
+### Impose
 
 Supports imposing `N-Up`, `Perfect Bound` and `Saddle Stitch`.
 
 ![](art/ai-impose.gif)
 
-Photoshop Scripts
------------------
-
-Head over to [Photoshop Scripts](Photoshop%20Scripts) for more.
+[Photoshop Scripts](Photoshop%20Scripts)
+-------------------
 
 ### Add Bleed
 
@@ -44,9 +43,6 @@ Install
 -------
 
 These scripts are **not standalone**, all of them require hidden directories to be in pre-determined location. This is why it is recommended to put them in Adobe installation paths, and access them from menu bar.
-
-![](art/scripts-menu-illustrator.png)
-![](art/scripts-menu-photoshop.png)
 
 ### Automatic Installation
 
@@ -60,26 +56,26 @@ Find **Scripts** directory in your local Adobe installation paths:
 * Illustrator - `$PATH_TO_APP/Presets/$LOCALE_CODE/Scripts`.
 * Photoshop - `$PATH_TO_APP/Presets/Scripts`.
 
-> In macOS, make sure to show all hidden files in Finder.
-
 Now copy two things:
 * Content of `Illustrator/Photoshop Scripts` to **Scripts**.
 * `.stdlib` to parent directory of **Scripts**.
+
+> In macOS, make sure to show all hidden files in Finder.
 
 Resources
 ---------
 
 ExtendScript & SUI:
-* [**Official ExtendScript Wiki**](https://github.com/ExtendScript/wiki/wiki)
-* [**Official JavaScript Tools Guide**](https://wwwimages2.adobe.com/content/dam/acom/en/devnet/scripting/pdfs/javascript_tools_guide.pdf)
+* [*Official ExtendScript Wiki*](https://github.com/ExtendScript/wiki/wiki)
+* [*Official JavaScript Tools Guide*](https://wwwimages2.adobe.com/content/dam/acom/en/devnet/scripting/pdfs/javascript_tools_guide.pdf)
 * [ScriptUI for Dummies](https://adobeindd.com/view/publications/a0207571-ff5b-4bbf-a540-07079bd21d75/92ra/publication-web-resources/pdf/scriptui-2-16-j.pdf)
 * [ScriptUI JavaScript Reference](http://jongware.mit.edu/scriptuihtml/Sui/index_1.html)
 
 Illustrator:
-* [**Official Scripting**](https://www.adobe.com/devnet/illustrator/scripting.html)
+* [*Official Scripting*](https://www.adobe.com/devnet/illustrator/scripting.html)
 * [Scripting Guide](https://ai-scripting.docsforadobe.dev/)
 * [CS6 JavaScript Reference](http://jongware.mit.edu/iljscs6html/iljscs6/inxx.html)
 
 Photoshop:
-* [**Official Scripting**](https://www.adobe.com/devnet/photoshop/scripting.html)
+* [*Official Scripting*](https://www.adobe.com/devnet/photoshop/scripting.html)
 * [CS5 JavaScript Reference](http://jongware.mit.edu/pscs5js_html/psjscs5/inxx.html)

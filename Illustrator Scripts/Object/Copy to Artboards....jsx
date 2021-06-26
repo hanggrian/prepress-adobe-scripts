@@ -2,10 +2,11 @@
 #include '../.lib/commons.js'
 #include '../.lib/ui/range.js'
 
-var ANCHORS = ['Top Left'/** , 'Top Right', 'Bottom Left', 'Bottom Right' */]
+var ANCHORS = ['Top Left', 'Top Right', 'Bottom Left', 'Bottom Right']
 
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
+var BOUNDS_RADIO = [15, 15]
 
 checkHasSelection()
 
@@ -20,9 +21,11 @@ selection.forEach(function(it) {
 
 var relativePositions = selection.map(function(it) {
     var bounds = it.geometricBounds
-    var relativeX = bounds.getLeft() - activeArtboardRect.getLeft()
-    var relativeY = bounds.getTop() - activeArtboardRect.getTop()
-    return [relativeX, relativeY]
+    var relativeLeft = bounds.getLeft() - activeArtboardRect.getLeft()
+    var relativeRight = activeArtboardRect.getRight() - bounds.getRight() + bounds.getWidth()
+    var relativeTop = bounds.getTop() - activeArtboardRect.getTop()
+    var relativeBottom = activeArtboardRect.getBottom() - bounds.getBottom() - bounds.getHeight()
+    return [relativeLeft, relativeTop, relativeRight, relativeBottom]
 })
 
 var dialog = new Dialog('Copy to Artboards')
@@ -52,10 +55,18 @@ dialog.setPositiveButton(function() {
             selection.forEach(function(it, itemIndex) {
                 selectQueues.push(it)
                 var relativePosition = relativePositions[itemIndex]
-                it.position = [
-                    artboardRect.getLeft() + relativePosition.getLeft(),
-                    artboardRect.getTop() + relativePosition.getTop()
-                ]
+                var x, y
+                if (anchorList.selection.text.endsWith('Left')) {
+                    x = artboardRect.getLeft() + relativePosition.getLeft()
+                } else {
+                    x = artboardRect.getRight() - relativePosition.getRight()
+                }
+                if (anchorList.selection.text.startsWith('Top')) {
+                    y = artboardRect.getTop() + relativePosition.getTop()
+                } else {
+                    y = artboardRect.getBottom() - relativePosition.getBottom()
+                }
+                it.position = [x, y]
             })
         }
     })

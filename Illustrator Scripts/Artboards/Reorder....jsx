@@ -10,7 +10,7 @@ var BOUNDS_DOCUMENT_EDITMAX = [120 + 50 + 10, 21]
 check(document.artboards.length > 1, 'No other artboards')
 
 var dialog = new Dialog('Reorder Artboards')
-var orderByGroup = new OrderByGroup(dialog.main, [ORDERING_NAMES, ORDERING_POSITIONS]).also(function(group) {
+var orderByGroup = new OrderByGroup(dialog.main, [ORDERS_NAMES, ORDERS_POSITIONS]).also(function(group) {
     group.list.selectText('Horizontal')
 })
 

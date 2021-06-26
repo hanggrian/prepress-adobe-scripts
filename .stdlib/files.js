@@ -4,6 +4,16 @@
 </javascriptresource>
 */
 
+var FILTERS_ADOBE_ILLUSTRATOR = ['Adobe Illustrator', 'ai']
+var FILTERS_ADOBE_PDF = ['Adobe PDF', 'pdf']
+var FILTERS_BMP = ['BMP', 'bmp']
+var FILTERS_GIF89a = ['GIF89a', 'gif']
+var FILTERS_JPEG = ['JPEG', 'jpg', 'jpe', 'jpeg']
+var FILTERS_JPEG2000 = ['JPEG2000', 'jpf', 'jpx', 'jp2', 'j2k', 'j2c', 'jpc']
+var FILTERS_PNG = ['PNG', 'png', 'pns']
+var FILTERS_PHOTOSHOP = ['Photoshop', 'psd', 'psb', 'pdd']
+var FILTERS_TIFF = ['TIFF', 'tif', 'tiff']
+
 /**
  * Returns true if both files point to the same location.
  * @returns {Boolean}
