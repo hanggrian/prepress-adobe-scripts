@@ -71,6 +71,8 @@ patch_preset() {
     local target_stdlib="$target_root/.stdlib"
     local target_scripts="$target_root/Scripts"
     local target_scripts_incubating="$target_scripts/.incubating"
+    local target_scripts_readme="$target_scripts/README.md"
+    local url="$target_scripts/prepress-adobe-scripts.url"
 
     echo - $GREEN$app$END
 
@@ -88,9 +90,13 @@ patch_preset() {
     mkdir "$target_stdlib"
     cp -r "$SOURCE_STDLIB"/. "$target_stdlib"
     # Cleaning up
-    if [ -d "$target_scripts_incubating" ] ; then
-        rm -rf "$target_scripts_incubating"
-    fi
+    rm -rf "$target_scripts_incubating"
+    rm -rf "$target_scripts_readme"
+    # Adding url
+    > "$url"
+    echo [InternetShortcut] >> "$url"
+    echo URL=https://github.com/hendraanggrian/prepress-adobe-scripts >> "$url"
+    echo IconIndex=0 >> "$url"
 }
 
 case $input in

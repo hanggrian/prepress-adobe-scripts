@@ -130,6 +130,7 @@ dialog.hgroup(function(topGroup) {
 })
 multipleTargetCheck = dialog.checkBox(undefined, 'Multiple Target', function(it) {
     it.setTooltip('When activated, trim marks will be added to each item')
+    it.enabled = selection.length > 1
     it.onClick = function() {
         topLeftCheck.visible = !it.value
         topRightCheck.visible = !it.value

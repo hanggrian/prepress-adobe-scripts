@@ -118,6 +118,7 @@ goto :eof
     set target_stdlib=!target_root!\.stdlib
     set target_scripts=!target_root!\Scripts
     set target_scripts_incubating=!target_scripts!\.incubating
+    set target_scripts_readme=!target_scripts!\README.md
 
     echo - !GREEN!!app!!END!
 
@@ -135,7 +136,6 @@ goto :eof
     md "!target_scripts!"
     robocopy /s "!source_scripts!" "!target_scripts!" /njh /njs /ndl /nc /ns /nfl
     :: Cleaning up
-    if exist !target_scripts_incubating! (
-        rmdir /s /q "!target_scripts_incubating!"
-    )
+    rmdir /s /q "!target_scripts_incubating!"
+    rmdir /s /q "!target_scripts_readme!"
 goto :eof

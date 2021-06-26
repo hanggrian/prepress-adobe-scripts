@@ -1,7 +1,38 @@
 Illustrator Scripts
 ===================
 
-A part of [prepress-adobe-scripts](https://github.com/hendraanggrian/prepress-adobe-scripts)
+Notable Scripts
+---------------
+
+### Add Trim Marks
+
+A direct replacement to `Object > Create Trim Marks`, which works great but extremely limited in configuration. There is also multi-target support as seen below.
+
+![](../art/ai-add-trim-marks.gif)
+
+### Step and Repeat
+
+User of CorelDRAW would be familiar with this feature.
+
+![](../art/ai-step-and-repeat.gif)
+
+### Relink Same/Multipage
+
+Relink multiple items at once, which somehow is not natively supported. Use `Relink Same` to set the same image/PDF page to all targets, or `Relink Multipage` to iterate images/PDF pages.
+
+![](../art/ai-relink-multipage.gif)
+
+### Numerize
+
+Iterate through selected texts and retype them to index. There is also alphabet suffix support which can be useful for naming duplex impositions.
+
+![](../art/ai-numerize.gif)
+
+### Impose/*
+
+Supports imposing `N-Up`, `Perfect Bound` and `Saddle Stitch`.
+
+![](../art/ai-impose.gif)
 
 Known Issue
 -----------

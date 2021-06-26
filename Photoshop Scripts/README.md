@@ -1,7 +1,14 @@
 Photoshop Scripts
 =================
 
-A part of [prepress-adobe-scripts](https://github.com/hendraanggrian/prepress-adobe-scripts)
+Notable Scripts
+---------------
+
+### Add Bleed
+
+Create a layout guide around image and distribute bleed to all documents.
+
+![](../art/psd-add-bleed.gif)
 
 Known Issue
 -----------
