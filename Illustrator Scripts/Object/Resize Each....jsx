@@ -3,7 +3,6 @@
 #target Illustrator
 #include '../../.stdlib/ui/anchor.js'
 #include '../.lib/commons.js'
-#include '../.lib/ui/recursive.js'
 
 var BOUNDS_TEXT = [60, 21]
 var BOUNDS_EDIT = [150, 21]
@@ -15,7 +14,6 @@ var prefill = selection.first()
 var widthEdit, heightEdit
 var changePositionsCheck, changeFillPatternsCheck, changeFillGradientsCheck, changeStrokePatternsCheck
 var documentOriginCheck, anchorGroup
-var recursiveGroup
 
 dialog.hgroup(function(group) {
     group.setTooltips("Objects' new width")
@@ -62,20 +60,31 @@ dialog.hgroup(function(group) {
         anchorGroup = new AnchorGroup(panel)
     })
 })
-recursiveGroup = new RecursiveGroup(dialog.main)
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
+    process(function(item) {
+        selection.forEach(item)
+    })
+})
+dialog.setNeutralButton(undefined, 'Recursive', function() {
+    process(function(item) {
+        selection.forEachItem(item)
+    })
+})
+dialog.show()
+
+function process(forEach) {
     var width = parseUnits(widthEdit.text)
     var height = parseUnits(heightEdit.text)
     var transformation = documentOriginCheck.value
         ? Transformation.DOCUMENTORIGIN
         : anchorGroup.getTransformation()
-    recursiveGroup.forEach(selection, function(it) {
-        var scaleX = 100 * width / it.width
-        var scaleY = 100 * height / it.height
+    forEach(function(item) {
+        var scaleX = 100 * width / item.width
+        var scaleY = 100 * height / item.height
         if (scaleX !== 100 && scaleY !== 100) {
-            it.resize(scaleX, scaleY,
+            item.resize(scaleX, scaleY,
                 changePositionsCheck.value,
                 changeFillPatternsCheck.value,
                 changeFillGradientsCheck.value,
@@ -84,5 +93,4 @@ dialog.setPositiveButton(function() {
                 transformation)
         }
     })
-})
-dialog.show()
+}

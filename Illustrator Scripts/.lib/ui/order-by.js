@@ -2,9 +2,9 @@ var ORDERING_DEFAULTS = ['Default', 'Reversed']
 var ORDERING_NAMES = ['Ascending', 'Descending']
 var ORDERING_POSITIONS = ['Horizontal', 'Vertical']
 
-function OrderingGroup(parent, orderings, textBounds, editBounds) {
+function OrderByGroup(parent, orderings, textBounds, editBounds) {
     var self = this
-    this.orderingList
+    this.list
 
     checkNotNull(orderings)
     var actualOrderings = []
@@ -16,24 +16,24 @@ function OrderingGroup(parent, orderings, textBounds, editBounds) {
     })
 
     this.main = parent.hgroup(function(group) {
-        group.staticText(textBounds, 'Ordering:', JUSTIFY_RIGHT)
-        self.orderingList = group.dropDownList(editBounds, actualOrderings)
+        group.staticText(textBounds, 'Order by', JUSTIFY_RIGHT)
+        self.list = group.dropDownList(editBounds, actualOrderings)
     })
 
     this.forEach = function(collection, action) {
-        if (self.orderingList.selection.text === 'Default') {
+        if (self.list.selection.text === 'Default') {
             collection.forEach(action)
-        } else if (self.orderingList.selection.text === 'Reversed') {
+        } else if (self.list.selection.text === 'Reversed') {
             collection.forEachReversed(action)
         }
         var sortedCollection = collection.map(function(it) { return it })
-        if (self.orderingList.selection.text === 'Ascending') {
+        if (self.list.selection.text === 'Ascending') {
             sortedCollection.sort(sortAscending)
-        } else if (self.orderingList.selection.text === 'Descending') {
+        } else if (self.list.selection.text === 'Descending') {
             sortedCollection.sort(sortDescending)
-        } else if (self.orderingList.selection.text === 'Horizontal') {
+        } else if (self.list.selection.text === 'Horizontal') {
             sortedCollection.sort(sortHorizontal)
-        } else if (self.orderingList.selection.text === 'Vertical') {
+        } else if (self.list.selection.text === 'Vertical') {
             sortedCollection.sort(sortVertical)
         } else {
             error('Ordering error')

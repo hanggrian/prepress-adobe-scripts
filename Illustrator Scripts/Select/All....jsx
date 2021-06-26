@@ -4,61 +4,63 @@
 #target Illustrator
 #include '../.lib/commons.js'
 
-var dialog = new Dialog('Select All', 'fill')
+var dialog = new Dialog('Select All')
 var placedCheck, nonNativeCheck, rasterCheck, pluginCheck
 var pathCheck, compoundPathCheck
 var textFrameCheck, legacyTextCheck
 var symbolCheck, meshCheck, graphCheck
 
-dialog.main.orientation = 'row'
-dialog.vgroup(function(group) {
-    group.alignChildren = 'fill'
-    group.vpanel('Imports', function(panel) {
-        panel.alignChildren = 'fill'
-        placedCheck = panel.checkBox(undefined, 'Links', function(it) {
-            it.value = preferences.getBoolean(dialog, 'Links')
+dialog.hgroup(function(topGroup) {
+    topGroup.alignChildren = 'fill'
+    topGroup.vgroup(function(group) {
+        group.alignChildren = 'fill'
+        group.vpanel('Imports', function(panel) {
+            panel.alignChildren = 'fill'
+            placedCheck = panel.checkBox(undefined, 'Links', function(it) {
+                it.value = preferences.getBoolean(dialog, 'Links')
+            })
+            nonNativeCheck = panel.checkBox(undefined, 'Non-Native Arts', function(it) {
+                it.value = preferences.getBoolean(dialog, 'Non-Native Arts')
+            })
+            rasterCheck = panel.checkBox(undefined, 'Images', function(it) {
+                it.value = preferences.getBoolean(dialog, 'Images')
+            })
+            pluginCheck = panel.checkBox(undefined, 'Plugins', function(it) {
+                it.value = preferences.getBoolean(dialog, 'Plugins')
+            })
         })
-        nonNativeCheck = panel.checkBox(undefined, 'Non-Native Arts', function(it) {
-            it.value = preferences.getBoolean(dialog, 'Non-Native Arts')
-        })
-        rasterCheck = panel.checkBox(undefined, 'Images', function(it) {
-            it.value = preferences.getBoolean(dialog, 'Images')
-        })
-        pluginCheck = panel.checkBox(undefined, 'Plugins', function(it) {
-            it.value = preferences.getBoolean(dialog, 'Plugins')
-        })
-    })
-    group.vpanel('Types', function(panel) {
-        panel.alignChildren = 'fill'
-        textFrameCheck = panel.checkBox(undefined, 'Text Frames', function(it) {
-            it.value = preferences.getBoolean(dialog, 'Text Frames')
-        })
-        legacyTextCheck = panel.checkBox(undefined, 'Legacy Texts', function(it) {
-            it.value = preferences.getBoolean(dialog, 'Legacy Texts')
-        })
-    })
-})
-dialog.vgroup(function(group) {
-    group.alignChildren = 'fill'
-    group.vpanel('Paths', function(panel) {
-        panel.alignChildren = 'fill'
-        pathCheck = panel.checkBox(undefined, 'Paths', function(it) {
-            it.value = preferences.getBoolean(dialog, 'Paths')
-        })
-        compoundPathCheck = panel.checkBox(undefined, 'Compound Paths', function(it) {
-            it.value = preferences.getBoolean(dialog, 'Compound Paths')
+        group.vpanel('Types', function(panel) {
+            panel.alignChildren = 'fill'
+            textFrameCheck = panel.checkBox(undefined, 'Text Frames', function(it) {
+                it.value = preferences.getBoolean(dialog, 'Text Frames')
+            })
+            legacyTextCheck = panel.checkBox(undefined, 'Legacy Texts', function(it) {
+                it.value = preferences.getBoolean(dialog, 'Legacy Texts')
+            })
         })
     })
-    group.vpanel('Others', function(panel) {
-        panel.alignChildren = 'fill'
-        symbolCheck = panel.checkBox(undefined, 'Symbols', function(it) {
-            it.value = preferences.getBoolean(dialog, 'Symbols')
+    topGroup.vgroup(function(group) {
+        group.alignChildren = 'fill'
+        group.vpanel('Paths', function(panel) {
+            panel.alignChildren = 'fill'
+            pathCheck = panel.checkBox(undefined, 'Paths', function(it) {
+                it.value = preferences.getBoolean(dialog, 'Paths')
+            })
+            compoundPathCheck = panel.checkBox(undefined, 'Compound Paths', function(it) {
+                it.value = preferences.getBoolean(dialog, 'Compound Paths')
+            })
         })
-        meshCheck = panel.checkBox(undefined, 'Meshes', function(it) {
-            it.value = preferences.getBoolean(dialog, 'Meshes')
-        })
-        graphCheck = panel.checkBox(undefined, 'Graphs', function(it) {
-            it.value = preferences.getBoolean(dialog, 'Graphs')
+        group.vpanel('Others', function(panel) {
+            panel.alignChildren = 'fill'
+            symbolCheck = panel.checkBox(undefined, 'Symbols', function(it) {
+                it.value = preferences.getBoolean(dialog, 'Symbols')
+            })
+            meshCheck = panel.checkBox(undefined, 'Meshes', function(it) {
+                it.value = preferences.getBoolean(dialog, 'Meshes')
+            })
+            graphCheck = panel.checkBox(undefined, 'Graphs', function(it) {
+                it.value = preferences.getBoolean(dialog, 'Graphs')
+            })
         })
     })
 })

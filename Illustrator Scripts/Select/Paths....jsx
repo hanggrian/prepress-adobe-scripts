@@ -7,73 +7,75 @@
 
 var YES_OR_NO = ['Yes', 'No']
 
-var BOUNDS_LEFT_TEXT = [55, 21]
+var BOUNDS_LEFT_TEXT = [60, 21]
 var BOUNDS_RIGHT_TEXT = [60, 21]
 var BOUNDS_EDIT = [100, 21]
 
-var dialog = new Dialog('Select Paths', 'fill')
+var dialog = new Dialog('Select Paths')
 var fillColorList, fillOverprintList
 var strokeColorList, strokeWeightEdit, strokeDashedList, strokeOverprintList
 var dimensionPanel
 var clippingList, closedList, guidesList
 
-dialog.main.orientation = 'row'
-dialog.vgroup(function(topGroup) {
-    topGroup.vpanel('Fill', function(panel) {
-        panel.hgroup(function(group) {
-            group.setTooltips('Fill color')
-            group.staticText(BOUNDS_RIGHT_TEXT, 'Color:', JUSTIFY_RIGHT)
-            fillColorList = group.dropDownList(BOUNDS_EDIT, COLORS)
-        })
-        panel.hgroup(function(group) {
-            group.setTooltips('Will art beneath a filled object be overprinted?')
-            group.staticText(BOUNDS_RIGHT_TEXT, 'Overprint:', JUSTIFY_RIGHT)
-            fillOverprintList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
-        })
-    })
-    topGroup.vpanel('Stroke', function(panel) {
-        panel.hgroup(function(group) {
-            group.setTooltips('Stroke color')
-            group.staticText(BOUNDS_RIGHT_TEXT, 'Color:', JUSTIFY_RIGHT)
-            strokeColorList = group.dropDownList(BOUNDS_EDIT, COLORS)
-        })
-        panel.hgroup(function(group) {
-            group.setTooltips('Width of stroke')
-            group.staticText(BOUNDS_RIGHT_TEXT, 'Weight:', JUSTIFY_RIGHT)
-            strokeWeightEdit = group.editText(BOUNDS_EDIT, undefined, function(it) {
-                it.validateUnits()
-                it.activate()
+dialog.hgroup(function(topGroup) {
+    topGroup.alignChildren = 'fill'
+    topGroup.vgroup(function(midGroup) {
+        midGroup.vpanel('Fill', function(panel) {
+            panel.hgroup(function(group) {
+                group.setTooltips('Fill color')
+                group.staticText(BOUNDS_RIGHT_TEXT, 'Color:', JUSTIFY_RIGHT)
+                fillColorList = group.dropDownList(BOUNDS_EDIT, COLORS)
+            })
+            panel.hgroup(function(group) {
+                group.setTooltips('Will art beneath a filled object be overprinted?')
+                group.staticText(BOUNDS_RIGHT_TEXT, 'Overprint:', JUSTIFY_RIGHT)
+                fillOverprintList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
             })
         })
-        panel.hgroup(function(group) {
-            group.setTooltips('Is the stroke dashed?')
-            group.staticText(BOUNDS_RIGHT_TEXT, 'Dashed:', JUSTIFY_RIGHT)
-            strokeDashedList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
-        })
-        panel.hgroup(function(group) {
-            group.setTooltips('Will art beneath a stroked object be overprinted?')
-            group.staticText(BOUNDS_RIGHT_TEXT, 'Overprint:', JUSTIFY_RIGHT)
-            strokeOverprintList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
+        midGroup.vpanel('Stroke', function(panel) {
+            panel.hgroup(function(group) {
+                group.setTooltips('Stroke color')
+                group.staticText(BOUNDS_RIGHT_TEXT, 'Color:', JUSTIFY_RIGHT)
+                strokeColorList = group.dropDownList(BOUNDS_EDIT, COLORS)
+            })
+            panel.hgroup(function(group) {
+                group.setTooltips('Width of stroke')
+                group.staticText(BOUNDS_RIGHT_TEXT, 'Weight:', JUSTIFY_RIGHT)
+                strokeWeightEdit = group.editText(BOUNDS_EDIT, undefined, function(it) {
+                    it.validateUnits()
+                    it.activate()
+                })
+            })
+            panel.hgroup(function(group) {
+                group.setTooltips('Is the stroke dashed?')
+                group.staticText(BOUNDS_RIGHT_TEXT, 'Dashed:', JUSTIFY_RIGHT)
+                strokeDashedList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
+            })
+            panel.hgroup(function(group) {
+                group.setTooltips('Will art beneath a stroked object be overprinted?')
+                group.staticText(BOUNDS_RIGHT_TEXT, 'Overprint:', JUSTIFY_RIGHT)
+                strokeOverprintList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
+            })
         })
     })
-})
-dialog.vgroup(function(topGroup) {
-    dimensionPanel = new SelectDimensionPanel(topGroup, BOUNDS_LEFT_TEXT, BOUNDS_EDIT)
-    topGroup.vpanel('Others', function(panel) {
-        panel.hgroup(function(group) {
-            group.setTooltips('Should this be used as a clipping path?')
-            group.staticText(BOUNDS_LEFT_TEXT, 'Clipping:', JUSTIFY_RIGHT)
-            clippingList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
-        })
-        panel.hgroup(function(group) {
-            group.setTooltips('Is this path closed?')
-            group.staticText(BOUNDS_LEFT_TEXT, 'Closed:', JUSTIFY_RIGHT)
-            closedList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
-        })
-        panel.hgroup(function(group) {
-            group.setTooltips('Is this path a guide object?')
-            group.staticText(BOUNDS_LEFT_TEXT, 'Guides:', JUSTIFY_RIGHT)
-            guidesList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
+    topGroup.vgroup(function(midGroup) {
+        dimensionPanel = new SelectDimensionPanel(midGroup, BOUNDS_LEFT_TEXT, BOUNDS_EDIT)
+        midGroup.vpanel('Others', function(panel) {
+            panel.hgroup(function(group) {
+                group.setTooltips('Should this be used as a clipping path?')
+                group.staticText(BOUNDS_LEFT_TEXT, 'Clipping:', JUSTIFY_RIGHT)
+                clippingList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
+            })
+            panel.hgroup(function(group) {
+                group.setTooltips('Is this path closed?')
+                group.staticText(BOUNDS_LEFT_TEXT, 'Closed:', JUSTIFY_RIGHT)
+                closedList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
+            })
+            panel.hgroup(function(group) {
+                group.setTooltips('Is this path a guide object?')
+                group.staticText(BOUNDS_LEFT_TEXT, 'Guides:', JUSTIFY_RIGHT)
+                guidesList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
+            })
         })
     })
 })

@@ -2,10 +2,10 @@ var OPEN_PDFBOXTYPES = ['Bounding', '-', 'Art', 'Crop', 'Trim', 'Bleed', 'Media'
 var OPEN_DOCUMENTMODES = ['Bitmap', 'CMYK', 'Grayscale', 'Lab', 'RBG']
 var OPEN_DOCUMENTBITS = ['1 bit', '8 bit', '16 bit', '32 bit']
 
-var BOUNDS_DOCUMENT_TEXT = [80, 21]
-var BOUNDS_DOCUMENT_EDIT = [100, 21]
-var BOUNDS_DOCUMENT_EDIT2 = [75, 21]
-var BOUNDS_DOCUMENT_EDITMAX = [100 + 75 +10, 21]
+var BOUNDS_DOCUMENT_TEXT = [90, 21]
+var BOUNDS_DOCUMENT_EDIT = [120, 21]
+var BOUNDS_DOCUMENT_EDIT2 = [70, 21]
+var BOUNDS_DOCUMENT_EDITMAX = [120 + 70 + 10, 21]
 
 function OpenDocumentPanel(parent) {
     var self = this

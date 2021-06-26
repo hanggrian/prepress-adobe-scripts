@@ -10,7 +10,7 @@ checkHasSelection()
 var items = selection.filterItem(function(it) { return it.typename === 'PlacedItem' })
 check(items.isNotEmpty(), 'No links found in selection')
 
-var dialog = new Dialog('Relink Same', 'fill')
+var dialog = new Dialog('Relink Same')
 var pdfPanel, pageEdit
 
 var file = openFile(dialog.title, [

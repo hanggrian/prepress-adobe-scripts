@@ -57,7 +57,7 @@ function Dialog(title, alignChildren) {
      * @param {Function} action nullable button click listener, return true to keep dialog open.
      */
     this.setNeutralButton = function(gap, text, action) {
-        neutralButtonGap = checkNotNull(gap)
+        neutralButtonGap = gap
         neutralButtonText = checkNotNull(text)
         neutralButtonAction = action
     }
@@ -96,13 +96,8 @@ function Dialog(title, alignChildren) {
     function appendButton(text, action) {
         return self.buttons.button(undefined, text, function(button) {
             button.onClick = function() {
-                var actionResult
-                if (action !== undefined) {
-                    actionResult = action()
-                }
-                if (actionResult === undefined || !actionResult) {
-                    self.close()
-                }
+                self.close()
+                action()
             }
         })
     }

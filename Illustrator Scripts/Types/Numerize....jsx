@@ -1,6 +1,6 @@
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/ui/ordering.js'
+#include '../.lib/ui/order-by.js'
 
 var ALPHABETS = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
@@ -16,11 +16,10 @@ checkHasSelection()
 var items = selection.filterItem(function(it) { return it.typename === 'TextFrame' })
 check(items.isNotEmpty(), 'No types found in selection')
 
-var dialog = new Dialog('Numerize')
+var dialog = new Dialog('Numerize', 'right')
 var startsAtEdit, digitsEdit, stopsAtGroup
 var stopsAtList, prefixEdit, suffixEdit
-var orderingGroup
-var isAlphabetSuffixMode = false
+var orderByGroup
 
 dialog.hgroup(function(topGroup) {
     topGroup.alignChildren = 'fill'
@@ -39,12 +38,9 @@ dialog.hgroup(function(topGroup) {
             digitsEdit = group.editText(BOUNDS_EDIT, undefined, VALIDATE_DIGITS)
         })
         stopsAtGroup = panel.hgroup(function(group) {
-            group.setTooltips('The iteration will stop at the selected alphabet and the number will reset back to 1')
+            group.setTooltips('The iteration will stop at the selected alphabet and the number will reset back to 1, ignore if this behavior is not desired')
             group.staticText(BOUNDS_TEXT, 'Stops at:', JUSTIFY_RIGHT)
-            stopsAtList = group.dropDownList(BOUNDS_EDIT, ALPHABETS, function(it) {
-                it.selectText('B')
-            })
-            group.visible = false
+            stopsAtList = group.dropDownList(BOUNDS_EDIT, ALPHABETS)
         })
     })
     topGroup.vpanel('Affix', function(panel) {
@@ -61,9 +57,8 @@ dialog.hgroup(function(topGroup) {
         })
     })
 })
-orderingGroup = new OrderingGroup(dialog.main, [ORDERING_DEFAULTS, ORDERING_POSITIONS]).also(function(group) {
-    group.main.alignment = 'right'
-    group.orderingList.selectText('Reversed')
+orderByGroup = new OrderByGroup(dialog.main, [ORDERING_DEFAULTS, ORDERING_POSITIONS]).also(function(group) {
+    group.list.selectText('Reversed')
 })
 
 dialog.setNegativeButton('Cancel')
@@ -71,22 +66,22 @@ dialog.setPositiveButton(function() {
     var startsAt = parseInt(startsAtEdit.text) || 0
     var digits = parseInt(digitsEdit.text) || 0
     var stopsAt, stopsCount
-    if (isAlphabetSuffixMode) {
+    if (stopsAtList.selection !== null) {
         stopsAt = stopsAtList.selection.index + 1
         stopsCount = 0
     }
     var prefix = prefixEdit.text
     var suffix = suffixEdit.text
-    orderingGroup.forEach(items, function(item) {
+    orderByGroup.forEach(items, function(item) {
         var s = pad(startsAt, digits)
-        if (isAlphabetSuffixMode) {
+        if (stopsAtList.selection !== null) {
             s += ALPHABETS[stopsCount]
         }
 
         item.words.removeAll()
         item.words.add(prefix + s + suffix)
 
-        if (isAlphabetSuffixMode) {
+        if (stopsAtList.selection !== null) {
             stopsCount++
             if (stopsCount === stopsAt) {
                 startsAt++
@@ -97,13 +92,6 @@ dialog.setPositiveButton(function() {
         }
     })
     selection = items
-})
-dialog.setNeutralButton(80, 'Alphabet Suffix Mode', function() {
-    isAlphabetSuffixMode = !isAlphabetSuffixMode
-    dialog.setTitle(isAlphabetSuffixMode ? 'Numerize (Alphabet Suffix)' : 'Numerize')
-    dialog.neutralButton.text = isAlphabetSuffixMode ? 'Default Mode' : 'Alphabet Suffix Mode'
-    stopsAtGroup.visible = isAlphabetSuffixMode
-    return true
 })
 dialog.show()
 

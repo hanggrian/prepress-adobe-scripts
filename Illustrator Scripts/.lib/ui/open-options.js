@@ -4,10 +4,10 @@ var OPEN_DOCUMENTRESOLUTIONS = ['Screen', 'Medium', 'High']
 var OPEN_DOCUMENTLAYOUTS = ['Grid by Row', 'Grid by Column', 'Row', 'Column', 'RTL Grid by Row', 'RTL Grid by Column', 'RTL Row']
 var OPEN_DOCUMENTPREVIEWMODES = ['Default', 'Pixel', 'Overprint']
 
-var BOUNDS_DOCUMENT_TEXT = [85, 21]
-var BOUNDS_DOCUMENT_EDIT = [125, 21]
-var BOUNDS_DOCUMENT_EDIT2 = [75, 21]
-var BOUNDS_DOCUMENT_EDITMAX = [125 + 75 + 10, 21]
+var BOUNDS_DOCUMENT_TEXT = [90, 21]
+var BOUNDS_DOCUMENT_EDIT = [120, 21]
+var BOUNDS_DOCUMENT_EDIT2 = [70, 21]
+var BOUNDS_DOCUMENT_EDITMAX = [120 + 70 + 10, 21]
 
 function OpenPDFPanel(parent, textBounds, editBounds) {
     var self = this

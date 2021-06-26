@@ -2,7 +2,6 @@
 
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/ui/recursive.js'
 
 var COLOR_MODELS = ['Default', 'Grayscale', 'Bitmap']
 
@@ -18,7 +17,6 @@ var colorModelList, resolutionEdit
 var backgroundWhiteRadio, backgroundTransparentRadio
 var antiAliasingNoneRadio, antiAliasingArtRadio, antiAliasingTypeRadio
 var backgroundBlackCheck, clippingMaskCheck, convertSpotColorsCheck, convertTextToOutlinesCheck, includeLayersCheck, paddingEdit
-var recursiveGroup
 
 dialog.hgroup(function(group) {
     group.setTooltips('The color model for the rasterization')
@@ -83,10 +81,21 @@ dialog.hgroup(function(topGroup) {
         })
     })
 })
-recursiveGroup = new RecursiveGroup(dialog.main)
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
+    process(function(item) {
+        selection.forEach(item)
+    })
+})
+dialog.setNeutralButton(110, 'Recursive', function() {
+    process(function(item) {
+        selection.forEachItem(item)
+    })
+})
+dialog.show()
+
+function process(forEach) {
     var options = new RasterizeOptions()
     if (colorModelList.selection.text === 'Default') {
         options.colorModel = RasterizationColorModel.DEFAULTCOLORMODEL
@@ -112,7 +121,7 @@ dialog.setPositiveButton(function() {
     options.padding = parseUnits(paddingEdit.text)
 
     var selectQueues = []
-    recursiveGroup.forEach(selection, function(item) {
+    forEach(function(item) {
         var width = item.width
         var height = item.height
         var position = item.position
@@ -126,5 +135,4 @@ dialog.setPositiveButton(function() {
         }
     })
     selection = selectQueues
-})
-dialog.show()
+}

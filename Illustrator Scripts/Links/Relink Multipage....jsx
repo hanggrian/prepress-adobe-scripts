@@ -1,7 +1,7 @@
 #target Illustrator
 #include '../.lib/commons.js'
 #include '../.lib/ui/open-options.js'
-#include '../.lib/ui/ordering.js'
+#include '../.lib/ui/order-by.js'
 #include '../.lib/ui/range.js'
 
 var BOUNDS_TEXT = [50, 21]
@@ -12,8 +12,8 @@ checkHasSelection()
 var items = selection.filterItem(function(it) { return it.typename === 'PlacedItem' })
 check(items.isNotEmpty(), 'No links found in selection')
 
-var dialog = new Dialog('Relink Multipage', 'fill')
-var pdfPanel, rangeGroup, orderingGroup
+var dialog = new Dialog('Relink Multipage', 'right')
+var pdfPanel, rangeGroup, orderByGroup
 
 var files = openFile(dialog.title, [
     ['Adobe Illustrator', 'ai'],
@@ -39,9 +39,8 @@ if (files !== null && files.isNotEmpty()) {
             group.endEdit.text = collection.length
         })
     })
-    orderingGroup = new OrderingGroup(dialog.main, [ORDERING_DEFAULTS, ORDERING_POSITIONS]).also(function(group) {
-        group.main.alignment = 'right'
-        group.orderingList.selectText('Reversed')
+    orderByGroup = new OrderByGroup(dialog.main, [ORDERING_DEFAULTS, ORDERING_POSITIONS]).also(function(group) {
+        group.list.selectText('Reversed')
     })
 
     dialog.setNegativeButton('Cancel')
@@ -50,7 +49,7 @@ if (files !== null && files.isNotEmpty()) {
         var end = rangeGroup.getEnd()
         $.writeln('Items = ' + items.length)
         $.writeln('End index = ' + end)
-        orderingGroup.forEach(items, function(item) {
+        orderByGroup.forEach(items, function(item) {
             $.writeln('Current index = ' + current)
             var width = item.width
             var height = item.height
