@@ -1,8 +1,11 @@
 Photoshop Scripts
 =================
 
-Notable Scripts
+General Purpose
 ---------------
+
+Prepress
+--------
 
 ### Add Bleed
 

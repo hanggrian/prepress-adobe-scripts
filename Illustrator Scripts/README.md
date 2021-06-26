@@ -1,8 +1,15 @@
 Illustrator Scripts
 ===================
 
-Notable Scripts
+General Purpose
 ---------------
+
+### Resize/Reoreder Artboards
+
+<img src="../art/ai-resize-artboards.gif" width="480" height="240"/><img src="../art/ai-reorder-artboards.gif" width="480" height="240"/>
+
+Prepress
+--------
 
 ### Add Trim Marks
 

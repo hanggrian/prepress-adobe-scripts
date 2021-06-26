@@ -9,20 +9,36 @@ Essential Illustrator and Photoshop scripts for commercial printshop. While most
 Illustrator Scripts
 -------------------
 
-Head over to [Illustrator Scripts](Illustrator%20Scripts) for explanation.
+Head over to [Illustrator Scripts](Illustrator%20Scripts) for more.
 
-![](art/ai-add-trim-marks.png)
-![](art/ai-step-and-repeat.png)
-![](art/ai-relink-multipage.png)
-![](art/ai-numerize.png)
-![](art/ai-impose.png)
+### Add Trim Marks
+
+A direct replacement to `Object > Create Trim Marks`, which works great but extremely limited in configuration. There is also multi-target support as seen below.
+
+![](../art/ai-add-trim-marks.gif)
+
+### Relink Same/Multipage
+
+Relink multiple items at once, which somehow is not natively supported. Use `Relink Same` to set the same image/PDF page to all targets, or `Relink Multipage` to iterate images/PDF pages.
+
+![](../art/ai-relink-multipage.gif)
+
+### Impose/*
+
+Supports imposing `N-Up`, `Perfect Bound` and `Saddle Stitch`.
+
+![](../art/ai-impose.gif)
 
 Photoshop Scripts
 -----------------
 
-Head over to [Photoshop Scripts](Photoshop%20Scripts) for explanation.
+Head over to [Photoshop Scripts](Photoshop%20Scripts) for more.
 
-![](art/psd-add-bleed.png)
+### Add Bleed
+
+Create a layout guide around image and distribute bleed to all documents.
+
+![](../art/psd-add-bleed.gif)
 
 Install
 -------
@@ -40,12 +56,15 @@ Run `patch-scripts.bat` as admin (Windows) or `patch-scripts.sh` with sudo (macO
 
 ### Manual Installation
 
-Find `Scripts` directory in your local Adobe installation paths:
+Find **Scripts** directory in your local Adobe installation paths:
 * Illustrator - `$PATH_TO_APP/Presets/$LOCALE_CODE/Scripts`.
 * Photoshop - `$PATH_TO_APP/Presets/Scripts`.
 
-Copy all directories within corresponding sub-directory of this repository.
-Note that some directories like `.lib` and `.res` are hidden in macOS, they must be included as well.
+> In macOS, make sure to show all hidden files in Finder.
+
+Now copy two things:
+* Content of `Illustrator/Photoshop Scripts` to **Scripts**.
+* `.stdlib` to parent directory of **Scripts**.
 
 Resources
 ---------
