@@ -1,6 +1,9 @@
 Illustrator Scripts
 ===================
 
+Scripts menu are prefixed with [⒈](https://www.compart.com/en/unicode/search?q=full+stop) unicode instead of regular `1.`.
+This is mainly because `1. Object` directory will translate to `1.` submenu.
+
 General Purpose
 ---------------
 

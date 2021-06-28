@@ -7,7 +7,7 @@
 // Quality check all tabs.
 
 #target Photoshop
-#include '../.lib/commons.js'
+#include '.lib/commons.js'
 
 var allOkay = true
 for (var i = 0; i < app.documents.length; i++) {

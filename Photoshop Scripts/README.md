@@ -1,6 +1,8 @@
 Photoshop Scripts
 =================
 
+Scripts menu ordering are managed by `javascriptresource` tag.
+
 General Purpose
 ---------------
 

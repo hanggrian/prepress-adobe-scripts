@@ -119,6 +119,7 @@ goto :eof
     set target_scripts=!target_root!\Scripts
     set target_scripts_incubating=!target_scripts!\.incubating
     set target_scripts_readme=!target_scripts!\README.md
+    set url=!target_scripts!\prepress-adobe-scripts.url
 
     echo - !GREEN!!app!!END!
 
@@ -138,4 +139,8 @@ goto :eof
     :: Cleaning up
     rmdir /s /q "!target_scripts_incubating!"
     rmdir /s /q "!target_scripts_readme!"
+    :: Adding url
+    echo [InternetShortcut] >> "!url!"
+    echo URL=https://github.com/hendraanggrian/prepress-adobe-scripts >> "!url!"
+    echo IconIndex=0 >> "!url!"
 goto :eof

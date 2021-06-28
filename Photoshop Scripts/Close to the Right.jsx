@@ -11,7 +11,7 @@
 // * no way to know actual position of active document.
 
 #target Photoshop
-#include '../.lib/commons.js'
+#include '.lib/commons.js'
 
 check(app.documents.length !== 1, 'No other documents')
 
