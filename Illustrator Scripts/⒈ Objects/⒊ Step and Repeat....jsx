@@ -56,17 +56,20 @@ dialog.setPositiveButton(function() {
     var selectQueues = []
     // vertical starts with 0 because the starting point doesn't change
     for (var v = 0; v < vertical; v++) {
+        $.write(v + '. ')
         app.paste()
         var addedItem = selection.first()
         addedItem.position = [x, y - v * moveVertical]
         selectQueues.push(addedItem)
 
         for (var h = 1; h < horizontal; h++) {
+            $.write(h + ' ')
             app.paste()
             addedItem = selection.first()
             addedItem.position = [x + h * moveHorizontal, y - v * moveVertical]
             selectQueues.push(addedItem)
         }
+        $.writeln()
     }
     selection = selectQueues
 })

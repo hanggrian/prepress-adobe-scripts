@@ -141,26 +141,11 @@ multipleTargetCheck = dialog.checkBox(undefined, 'Multiple Target', function(it)
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    selection = process()
-})
-dialog.setNeutralButton(80, 'Group', function() {
-    var group = document.groupItems.add()
-    selection.forEach(function(it) {
-        it.moveToBeginning(group)
-    })
-    process().forEach(function(it) {
-        it.moveToBeginning(group)
-    })
-    selection = group
-})
-dialog.show()
-
-function process() {
     var offset = parseUnits(offsetEdit.text)
     var length = parseUnits(lengthEdit.text)
     var weight = parseUnits(weightEdit.text)
     var color = parseColor(colorList.selection.text)
-    var startX, startY, endX, endY
+    var maxStartX, maxStartY, maxEndX, maxEndY
     selection.forEach(function(item) {
         var clippingItem = item.getClippingPathItem()
         var width = clippingItem.width
@@ -169,88 +154,89 @@ function process() {
         var itemStartY = clippingItem.position.getTop()
         var itemEndX = itemStartX + width
         var itemEndY = itemStartY - height
-        if (startX === undefined || itemStartX < startX) startX = itemStartX
-        if (startY === undefined || itemStartY > startY) startY = itemStartY
-        if (endX === undefined || itemEndX > endX) endX = itemEndX
-        if (endY === undefined || itemEndY < endY) endY = itemEndY
+        if (maxStartX === undefined || itemStartX < maxStartX) maxStartX = itemStartX
+        if (maxStartY === undefined || itemStartY > maxStartY) maxStartY = itemStartY
+        if (maxEndX === undefined || itemEndX > maxEndX) maxEndX = itemEndX
+        if (maxEndY === undefined || itemEndY < maxEndY) maxEndY = itemEndY
     })
-    return multipleTargetCheck.value
-        ? processMultiple(offset, length, weight, color, startX, startY, endX, endY)
-        : processSingle(offset, length, weight, color, startX, startY, endX, endY)
-}
+    selection = multipleTargetCheck.value
+        ? processMultiple(offset, length, weight, color, maxStartX, maxStartY, maxEndX, maxEndY)
+        : processSingle(offset, length, weight, color, maxStartX, maxStartY, maxEndX, maxEndY)
+})
+dialog.show()
 
-function processSingle(offset, length, weight, color, startX, startY, endX, endY) {
+function processSingle(offset, length, weight, color, maxStartX, maxStartY, maxEndX, maxEndY) {
     var paths = []
     if (topLeftCheck.value) {
         paths.push(createTrimMark(
             weight, color, 'TOP',
-            startX,
-            startY + offset,
-            startX,
-            startY + offset + length
+            maxStartX,
+            maxStartY + offset,
+            maxStartX,
+            maxStartY + offset + length
         ))
     }
     if (topRightCheck.value) {
         paths.push(createTrimMark(
             weight, color, 'TOP',
-            endX,
-            startY + offset,
-            endX,
-            startY + offset + length
+            maxEndX,
+            maxStartY + offset,
+            maxEndX,
+            maxStartY + offset + length
         ))
     }
     if (rightTopCheck.value) {
         paths.push(createTrimMark(
             weight, color, 'RIGHT',
-            endX + offset,
-            startY,
-            endX + offset + length,
-            startY
+            maxEndX + offset,
+            maxStartY,
+            maxEndX + offset + length,
+            maxStartY
         ))
     }
     if (rightBottomCheck.value) {
         paths.push(createTrimMark(
             weight, color, 'RIGHT',
-            endX + offset,
-            endY,
-            endX + offset + length,
-            endY
+            maxEndX + offset,
+            maxEndY,
+            maxEndX + offset + length,
+            maxEndY
         ))
     }
     if (bottomRightCheck.value) {
         paths.push(createTrimMark(
             weight, color, 'BOTTOM',
-            endX,
-            endY - offset,
-            endX,
-            endY - offset - length
+            maxEndX,
+            maxEndY - offset,
+            maxEndX,
+            maxEndY - offset - length
         ))
     }
     if (bottomLeftCheck.value) {
         paths.push(createTrimMark(
             weight, color, 'BOTTOM',
-            startX,
-            endY - offset,
-            startX,
-            endY - offset - length
+            maxStartX,
+            maxEndY - offset,
+            maxStartX,
+            maxEndY - offset - length
         ))
     }
     if (leftBottomCheck.value) {
         paths.push(createTrimMark(
             weight, color, 'LEFT',
-            startX - offset,
-            endY,
-            startX - offset - length,
-            endY
+            maxStartX - offset,
+            maxEndY,
+            maxStartX - offset - length,
+            maxEndY
         ))
     }
     if (leftTopCheck.value) {
         paths.push(createTrimMark(
             weight, color, 'LEFT',
-            startX - offset,
-            startY,
-            startX - offset - length,
-            startY
+            maxStartX - offset,
+            maxStartY,
+            maxStartX - offset - length,
+            maxStartY
         ))
     }
     return paths
@@ -357,6 +343,8 @@ function containsPathBounds(collection, element) {
 }
 
 function createTrimMark(weight, color, suffixName, fromX, fromY, toX, toY) {
+    $.writeln(suffixName + '. From ' + '[' + fromX + ',' + fromY + '] to [' + toX + ',' + toY + ']')
+
     var path = document.pathItems.add()
     path.name = 'Trim' + suffixName
     path.fillColor = COLOR_NONE

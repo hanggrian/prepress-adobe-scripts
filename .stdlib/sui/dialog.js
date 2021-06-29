@@ -97,7 +97,9 @@ function Dialog(title, alignChildren) {
         return self.buttons.button(undefined, text, function(button) {
             button.onClick = function() {
                 self.close()
-                action()
+                if (action !== undefined) {
+                    action()
+                }
             }
         })
     }

@@ -1,5 +1,6 @@
 #target Illustrator
 #include '../.lib/commons.js'
+#include '../.lib/ui/maintain-size.js'
 
 var COLOR_MODELS = ['Default', 'Grayscale', 'Bitmap']
 
@@ -15,6 +16,7 @@ var colorModelList, resolutionEdit
 var backgroundWhiteRadio, backgroundTransparentRadio
 var antiAliasingNoneRadio, antiAliasingArtRadio, antiAliasingTypeRadio
 var backgroundBlackCheck, clippingMaskCheck, convertSpotColorsCheck, convertTextToOutlinesCheck, includeLayersCheck, paddingEdit
+var maintainSizeGroup
 
 dialog.hgroup(function(group) {
     group.setTooltips('The color model for the rasterization')
@@ -79,16 +81,17 @@ dialog.hgroup(function(topGroup) {
         })
     })
 })
+maintainSizeGroup = new MaintainSizeGroup(dialog.main)
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    process(function(item) {
-        selection.forEach(item)
+    process(function(action) {
+        selection.forEach(action)
     })
 })
 dialog.setNeutralButton(110, 'Recursive', function() {
-    process(function(item) {
-        selection.forEachItem(item)
+    process(function(action) {
+        selection.forEachItem(action)
     })
 })
 dialog.show()
@@ -119,18 +122,20 @@ function process(forEach) {
     options.padding = parseUnits(paddingEdit.text)
 
     var selectQueues = []
-    forEach(function(item) {
+    forEach(function(item, i) {
+        $.write(i + '. ')
         var width = item.width
         var height = item.height
         var position = item.position
         var newItem = document.rasterize(item, item.geometricBounds, options)
         selectQueues.push(newItem)
-        // maintain dimension, ignore if text
-        if (item.typename !== 'TextFrame') {
+        if (maintainSizeGroup.isSelected() && item.typename !== 'TextFrame') {
+            $.write('Keep size, ')
             newItem.width = width + options.padding * 2
             newItem.height = height + options.padding * 2
             newItem.position = position
         }
+        $.writeln('Done')
     })
     selection = selectQueues
 }

@@ -55,7 +55,7 @@ Create a layout guide around image and distribute bleed to all documents.
 Install
 -------
 
-These scripts are **not standalone**, all of them require hidden directories to be in pre-determined location. This is why it is recommended to put them in Adobe installation paths, and access them from menu bar.
+These scripts are **not standalone**, all of them require hidden directories to be in pre-determined locations. This is why it is recommended to put them in Adobe installation paths, and access them from menu bar.
 
 ### Automatic Installation
 

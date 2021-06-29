@@ -11,7 +11,7 @@ var MATCH_UNITS = /^[ ]*([0-9]*(\.[0-9]+)?|\.[0-9]+)[ ]*(?:in|mi|mm|cm|pt|px)?[ 
 // reduce that inclusivity for more readable text
 var REPLACE_LEADING_SPACE = /^\s+/
 var REPLACE_TRAILING_SPACE = /\s+$/
-var REPLACE_LEADING_ZERO = /^0+/
+var REPLACE_LEADING_ZERO = /^(?:0+(?=[1-9])|0+(?=0$))/mg // https://stackoverflow.com/questions/60509557/regex-remove-leading-zeros-but-keep-single-zero
 
 /** Digits are non-negative and non-decimal number. */
 EditText.prototype.validateDigits = function() {

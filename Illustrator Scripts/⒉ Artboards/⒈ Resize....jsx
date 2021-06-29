@@ -55,7 +55,7 @@ dialog.setPositiveButton(function() {
                 document.selectObjectsOnActiveArtboard(i)
                 document.fitArtboardToSelectedArt(i)
             } else {
-                resizeArtboard(document.artboards[i], w, h)
+                resizeArtboard(i, w, h)
             }
         })
     }
@@ -63,7 +63,8 @@ dialog.setPositiveButton(function() {
 dialog.show()
 
 // Customized from https://github.com/iconifyit/ai-scripts/blob/master/Resize%20All%20Artboards.jsx.
-function resizeArtboard(artboard, w, h) {
+function resizeArtboard(i, w, h) {
+    var artboard = document.artboards[i]
     var bounds = artboard.artboardRect
 
     var ctrx, ctry
@@ -103,5 +104,7 @@ function resizeArtboard(artboard, w, h) {
         newTop = ctry + h
         newBottom = bounds.getBottom()
     }
-    artboard.artboardRect = [newLeft, newTop, newRight, newBottom]
+    var rect = [newLeft, newTop, newRight, newBottom]
+    $.writeln(i + '. ' + 'ctry=' + ctrx + ' ctry=' + ctry + ' rect=[' + rect + ']')
+    artboard.artboardRect = rect
 }

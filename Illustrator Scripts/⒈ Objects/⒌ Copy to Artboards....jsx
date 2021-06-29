@@ -49,26 +49,29 @@ dialog.setPositiveButton(function() {
     app.copy()
     var selectQueues = selection
     document.artboards.forEach(function(artboard, artboardIndex) {
-        if (artboardIndex !== activeArtboardIndex && rangeGroup.includes(artboardIndex)) {
-            app.paste()
-            var artboardRect = artboard.artboardRect
-            selection.forEach(function(it, itemIndex) {
-                selectQueues.push(it)
-                var relativePosition = relativePositions[itemIndex]
-                var x, y
-                if (anchorList.selection.text.endsWith('Left')) {
-                    x = artboardRect.getLeft() + relativePosition.getLeft()
-                } else {
-                    x = artboardRect.getRight() - relativePosition.getRight()
-                }
-                if (anchorList.selection.text.startsWith('Top')) {
-                    y = artboardRect.getTop() + relativePosition.getTop()
-                } else {
-                    y = artboardRect.getBottom() - relativePosition.getBottom()
-                }
-                it.position = [x, y]
-            })
+        if (artboardIndex === activeArtboardIndex || !rangeGroup.includes(artboardIndex)) {
+            $.writeln(activeArtboardIndex + '. Ignore active artboard')
+            return
         }
+        app.paste()
+        var artboardRect = artboard.artboardRect
+        selection.forEach(function(it, itemIndex) {
+            selectQueues.push(it)
+            var relativePosition = relativePositions[itemIndex]
+            var x, y
+            if (anchorList.selection.text.endsWith('Left')) {
+                x = artboardRect.getLeft() + relativePosition.getLeft()
+            } else {
+                x = artboardRect.getRight() - relativePosition.getRight()
+            }
+            if (anchorList.selection.text.startsWith('Top')) {
+                y = artboardRect.getTop() + relativePosition.getTop()
+            } else {
+                y = artboardRect.getBottom() - relativePosition.getBottom()
+            }
+            $.writeln(artboardIndex + '. ' + 'Position X=' + x + ' Y=' + y)
+            it.position = [x, y]
+        })
     })
     selection = selectQueues
 })

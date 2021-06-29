@@ -1,5 +1,6 @@
 #target Illustrator
 #include '../.lib/commons.js'
+#include '../.lib/ui/maintain-size.js'
 #include '../.lib/ui/open-options.js'
 
 var BOUNDS_TEXT = [50, 21]
@@ -11,7 +12,7 @@ var items = selection.filterItem(function(it) { return it.typename === 'PlacedIt
 check(items.isNotEmpty(), 'No links found in selection')
 
 var dialog = new Dialog('Relink Same')
-var pdfPanel, pageEdit
+var pdfPanel, pageEdit, maintainSizeGroup
 
 var file = openFile(dialog.title, [
     FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
@@ -19,9 +20,7 @@ var file = openFile(dialog.title, [
 ])
 
 if (file !== null) {
-    if (!file.isPDF()) {
-        relink()
-    } else {
+    if (file.isPDF()) {
         pdfPanel = new OpenPDFPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
         pdfPanel.main.hgroup(function(panel) {
             panel.setTooltips('What page should be used when opening a multipage document')
@@ -31,32 +30,35 @@ if (file !== null) {
                 it.activate()
             })
         })
-        dialog.setNegativeButton('Cancel')
-        dialog.setPositiveButton(function() {
-            preferences.setPDFPage(parseInt(pageEdit.text) - 1)
-            relink()
-        })
-        dialog.show()
     }
-}
+    maintainSizeGroup = new MaintainSizeGroup(dialog.main)
 
-function relink() {
-    $.writeln('Items = ' + items.length)
-    items.forEach(function(item, i) {
-        $.writeln('Current index = ' + i)
-        var width = item.width
-        var height = item.height
-        var position = item.position
-        if (file.isPDF() && item.isFileExists() && item.file.equalTo(file)) {
-            $.writeln('Same PDF file, appling fix')
-            item.file = getResource(R.png.blank)
+    dialog.setNegativeButton('Cancel')
+    dialog.setPositiveButton(function() {
+        if (file.isPDF()) {
+            var page = parseInt(pageEdit.text) - 1
+            $.writeln('PDF page=' + page)
+            preferences.setPDFPage(page)
         }
-        item.file = file
-        // maintain dimension
-        item.width = width
-        item.height = height
-        item.position = position
+        items.forEach(function(item, i) {
+            $.write(i + '. ')
+            var width = item.width
+            var height = item.height
+            var position = item.position
+            if (file.isPDF() && item.isFileExists() && item.file.isPDF()) {
+                $.write('Appling PDF fix, ')
+                item.file = getResource(R.png.blank)
+            }
+            item.file = file
+            if (maintainSizeGroup.isSelected()) {
+                $.write('Keep size, ')
+                item.width = width
+                item.height = height
+                item.position = position
+            }
+            $.writeln('Done')
+        })
+        selection = items
     })
-    selection = items
-    $.writeln('Relink success')
+    dialog.show()
 }

@@ -9,7 +9,7 @@
             "type": "extendscript-debug",
             "request": "launch",
             "name": "prepress-adobe-scripts",
-            "program": "${workspaceFolder}/Illustrator Scripts/Object/Rasterize Each....jsx",
+            "program": "${workspaceFolder}/Illustrator Scripts/⒊ Links/⒊ Change Page....jsx",
             "stopOnEntry": false
         }
     ]

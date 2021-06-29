@@ -72,14 +72,16 @@ dialog.setPositiveButton(function() {
     }
     var prefix = prefixEdit.text
     var suffix = suffixEdit.text
-    orderByGroup.forEach(items, function(item) {
+    orderByGroup.forEach(items, function(item, i) {
         var s = pad(startsAt, digits)
         if (stopsAtList.selection !== null) {
             s += ALPHABETS[stopsCount]
         }
 
+        s = prefix + s + suffix
+        $.writeln(i + '. ' + s)
         item.words.removeAll()
-        item.words.add(prefix + s + suffix)
+        item.words.add(s)
 
         if (stopsAtList.selection !== null) {
             stopsCount++

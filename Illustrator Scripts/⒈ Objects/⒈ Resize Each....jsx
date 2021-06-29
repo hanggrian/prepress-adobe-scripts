@@ -9,22 +9,34 @@ checkHasSelection()
 
 var dialog = new Dialog('Resize Each')
 var prefill = selection.first()
-var widthEdit, heightEdit
+var widthEdit, widthCheck, heightEdit, heightCheck
 var changePositionsCheck, changeFillPatternsCheck, changeFillGradientsCheck, changeStrokePatternsCheck
 var documentOriginCheck, anchorGroup
 
 dialog.hgroup(function(group) {
-    group.setTooltips("Objects' new width")
+    group.setTooltips("Objects' new width, uncheck to ignore")
     group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
     widthEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.width, unitName, 2), function(it) {
         it.validateUnits()
         it.activate()
     })
+    widthCheck = group.checkBox(undefined, undefined, function(it) {
+        it.select()
+        it.onClick = function() {
+            widthEdit.enabled = it.value
+        }
+    })
 })
 dialog.hgroup(function(group) {
-    group.setTooltips("Objects' new height")
+    group.setTooltips("Objects' new height, uncheck to ignore")
     group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
     heightEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.height, unitName, 2), VALIDATE_UNITS)
+    heightCheck = group.checkBox(undefined, undefined, function(it) {
+        it.select()
+        it.onClick = function() {
+            heightEdit.enabled = it.value
+        }
+    })
 })
 dialog.hgroup(function(group) {
     group.alignChildren = 'fill'
@@ -61,13 +73,13 @@ dialog.hgroup(function(group) {
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    process(function(item) {
-        selection.forEach(item)
+    process(function(action) {
+        selection.forEach(action)
     })
 })
 dialog.setNeutralButton(undefined, 'Recursive', function() {
-    process(function(item) {
-        selection.forEachItem(item)
+    process(function(action) {
+        selection.forEachItem(action)
     })
 })
 dialog.show()
@@ -78,17 +90,23 @@ function process(forEach) {
     var transformation = documentOriginCheck.value
         ? Transformation.DOCUMENTORIGIN
         : anchorGroup.getTransformation()
-    forEach(function(item) {
-        var scaleX = 100 * width / item.width
-        var scaleY = 100 * height / item.height
-        if (scaleX !== 100 && scaleY !== 100) {
-            item.resize(scaleX, scaleY,
-                changePositionsCheck.value,
-                changeFillPatternsCheck.value,
-                changeFillGradientsCheck.value,
-                changeStrokePatternsCheck.value,
-                100,
-                transformation)
+    forEach(function(item, i) {
+        $.write(i + '. ')
+        var scaleX = !widthCheck.value ? 100 : 100 * width / item.width
+        var scaleY = !heightCheck.value ? 100 : 100 * height / item.height
+        if (!isFinite(scaleX)) {
+            scaleX = 100
         }
+        if (!isFinite(scaleY)) {
+            scaleY = 100
+        }
+        $.writeln('Scale X=' + scaleX + ' Y=' + scaleY)
+        item.resize(scaleX, scaleY,
+            changePositionsCheck.value,
+            changeFillPatternsCheck.value,
+            changeFillGradientsCheck.value,
+            changeStrokePatternsCheck.value,
+            100,
+            transformation)
     })
 }

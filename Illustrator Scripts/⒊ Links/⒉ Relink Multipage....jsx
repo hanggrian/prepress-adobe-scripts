@@ -1,5 +1,6 @@
 #target Illustrator
 #include '../.lib/commons.js'
+#include '../.lib/ui/maintain-size.js'
 #include '../.lib/ui/open-options.js'
 #include '../.lib/ui/order-by.js'
 #include '../.lib/ui/range.js'
@@ -13,7 +14,7 @@ var items = selection.filterItem(function(it) { return it.typename === 'PlacedIt
 check(items.isNotEmpty(), 'No links found in selection')
 
 var dialog = new Dialog('Relink Multipage', 'right')
-var pdfPanel, rangeGroup, orderByGroup
+var pdfPanel, rangeGroup, orderByGroup, maintainSizeGroup
 
 var files = openFile(dialog.title, [
     FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
@@ -26,7 +27,7 @@ if (files !== null && files.isNotEmpty()) {
     if (collection.hasPDF) {
         pdfPanel = new OpenPDFPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
     }
-    dialog.vpanel('PDF Pages', function(panel) {
+    dialog.vpanel('Pages', function(panel) {
         rangeGroup = new RangeGroup(panel, BOUNDS_TEXT, BOUNDS_EDIT).also(function(group) {
             group.startEdit.activate()
             group.endEdit.text = collection.length
@@ -35,21 +36,20 @@ if (files !== null && files.isNotEmpty()) {
     orderByGroup = new OrderByGroup(dialog.main, [ORDERS_DEFAULTS, ORDERS_POSITIONS]).also(function(group) {
         group.list.selectText('Reversed')
     })
+    maintainSizeGroup = new MaintainSizeGroup(dialog.main)
 
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
         var current = rangeGroup.getStart()
         var end = rangeGroup.getEnd()
-        $.writeln('Items = ' + items.length)
-        $.writeln('End index = ' + end)
-        orderByGroup.forEach(items, function(item) {
-            $.writeln('Current index = ' + current)
+        orderByGroup.forEach(items, function(item, i) {
+            $.write(i + '. ')
             var width = item.width
             var height = item.height
             var position = item.position
             var file = collection.get(current)
-            if (file.isPDF() && item.isFileExists() && item.file.equalTo(file)) {
-                $.writeln('Same PDF file, appling fix')
+            if (file.isPDF() && item.isFileExists() && item.file.isPDF()) {
+                $.write('Appling PDF fix, ')
                 item.file = getResource(R.png.blank)
             }
             item.file = file
@@ -57,13 +57,15 @@ if (files !== null && files.isNotEmpty()) {
             if (current > end) {
                 current--
             }
-            // maintain dimension
-            item.width = width
-            item.height = height
-            item.position = position
+            if (maintainSizeGroup.isSelected()) {
+                $.write('Keep size, ')
+                item.width = width
+                item.height = height
+                item.position = position
+            }
+            $.writeln('Done')
         })
         selection = items
-        $.writeln('Relink success')
     })
     dialog.show()
 }

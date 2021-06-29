@@ -23,8 +23,10 @@ function OrderByGroup(parent, ordersCollection, textBounds, editBounds) {
     this.forEach = function(collection, action) {
         if (self.list.selection.text === 'Default') {
             collection.forEach(action)
+            return
         } else if (self.list.selection.text === 'Reversed') {
             collection.forEachReversed(action)
+            return
         }
         var sortedCollection = collection.map(function(it) { return it })
         if (self.list.selection.text === 'Ascending') {
