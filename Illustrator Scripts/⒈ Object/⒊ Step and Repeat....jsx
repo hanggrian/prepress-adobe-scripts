@@ -1,5 +1,3 @@
-// Multiply arts in 2-D fashion.
-
 #target Illustrator
 #include '../.lib/commons.js'
 

@@ -34,5 +34,5 @@ for (var i = 0; i < app.documents.length; i++) {
     }
 }
 if (allOkay) {
-    alert('No issues found in all documents.', 'Pre-Flight')
+    alert('No issues found in all documents.', 'Pre-Flight All')
 }

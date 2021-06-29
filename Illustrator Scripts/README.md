@@ -9,56 +9,84 @@ General Purpose
 
 ### Resize/Reorder Artboards
 
+<img src="../art/ai-resize-artboards.gif" width="480" height="240"/><img src="../art/ai-reorder-artboards.gif" width="480" height="240"/>
+
 Bulk resize all artboards.
 Reorder artboards based on their title/position.
 
-<img src="../art/ai-resize-artboards.gif" width="480" height="240"/><img src="../art/ai-reorder-artboards.gif" width="480" height="240"/>
-
 ### Copy to Artboards
-
-Duplicate selection to each artboards.
 
 ![](../art/ai-copy-to-artboards.gif)
 
+Duplicate selection to each artboards.
+
 ### Resize/Rasterize Each
 
-`Context Menu > Transform > Transform Each...` can only modify size by scale while this script accepts target size.
-`Menu > Object > Rasterize...` will group selected items and rasterize it once while this script rasterize each item.
-
 <img src="../art/ai-resize-each.gif" width="480" height="240"/><img src="../art/ai-rasterize-each.gif" width="480" height="240"/>
+
+<table><tr><td>
+
+|   | Transform Each | *Resize Each* |
+| - | :------------: | :-----------: |
+| Target | Multiple | Multiple |
+| Method | By percentage | By actual value |
+| Recursive | &cross; | &check; |
+
+</td><td>
+
+|   | Rasterize | *Rasterize Each* |
+| - | :-------: | :--------------: |
+| Target | Single | Multiple |
+| Prioritize | Resolution | Bounds |
+| Recursive | &cross; | &check; |
+
+</td></tr></table>
 
 Prepress
 --------
 
-### Add Trim Marks
-
-A direct replacement to `Menu > Object > Create Trim Marks`, which works great but extremely limited in configuration. There is also multi-target support as seen below.
-
-![](../art/ai-add-trim-marks.gif)
-
-### Step and Repeat
-
-User of CorelDRAW would be familiar with this feature.
-
-![](../art/ai-step-and-repeat.gif)
-
 ### Relink Same/Multipage
-
-Relink multiple items at once, which somehow is not natively supported. Use `Relink Same` to set the same image/PDF page to all targets, or `Relink Multipage` to iterate images/PDF pages.
 
 ![](../art/ai-relink-multipage.gif)
 
-### Numerize
+Relinking multiple items has always been a pain in the ass in Illustrator.
 
-Iterate through selected texts and retype them to index. There is also alphabet suffix support which can be useful for naming duplex impositions.
+|   | Relink | *Relink Same* | *Relink Multipage* |
+| - | :----: | :-----------: | :----------------: |
+| Operation | One-by-one | At once | At once |
+| Input file | Single PDF<br/>Single image | Single PDF<br/>Single image | Single PDF<br/>Multiple images<br/>Multiple PDFs & images
+| Ordering | Layer index | &cross; | Layer index<br/>X/Y position
+
+### Step and Repeat
+
+![](../art/ai-step-and-repeat.gif)
+
+User of CorelDRAW would be familiar with this feature.
+
+### Add Trim Marks
+
+![](../art/ai-add-trim-marks.gif)
+
+Though natively supported with `Menubar > Object > Create Trim Marks`, they are extremely limited in configuration.
+
+|   | Create Trim Marks | *Add Trim Marks* |
+| - | :---------------: | :--------------: |
+| Trim marks around Clip Group | Content size | Clipping size |
+| Trim marks around Path | Stroke | Fill |
+| Customization | &cross; | &check; |
+| Multiple targets | &cross; | &check; |
+
+### Numerize
 
 ![](../art/ai-numerize.gif)
 
+Iterate through selected texts and retype them to index. There is also alphabet suffix support which can be useful for naming duplex impositions.
+
 ### Impose
 
-Supports imposing `N-Up`, `Perfect Bound` and `Saddle Stitch`.
-
 ![](../art/ai-impose.gif)
+
+Supports imposing `N-Up`, `Perfect Bound` and `Saddle Stitch`.
 
 Known Issue
 -----------

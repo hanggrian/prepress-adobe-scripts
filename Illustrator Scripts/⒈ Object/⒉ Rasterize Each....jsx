@@ -1,5 +1,3 @@
-// The problem with native `Object > Rasterize...` is that they always change size after rasterization.
-
 #target Illustrator
 #include '../.lib/commons.js'
 

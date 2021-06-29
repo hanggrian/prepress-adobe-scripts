@@ -12,32 +12,45 @@ Essential Illustrator and Photoshop scripts for commercial printshop. While most
 [Illustrator Scripts](Illustrator%20Scripts)
 ---------------------
 
-### Add Trim Marks
-
-A direct replacement to `Menu > Object > Create Trim Marks`, which works great but extremely limited in configuration. There is also multi-target support as seen below.
-
-![](art/ai-add-trim-marks.gif)
-
 ### Relink Same/Multipage
-
-Relink multiple items at once, which somehow is not natively supported. Use `Relink Same` to set the same image/PDF page to all targets, or `Relink Multipage` to iterate images/PDF pages.
 
 ![](art/ai-relink-multipage.gif)
 
+Relinking multiple items has always been a pain in the ass in Illustrator.
+
+|   | Relink | *Relink Same* | *Relink Multipage* |
+| - | :----: | :-----------: | :----------------: |
+| Operation | One-by-one | At once | At once |
+| Input file | Single PDF<br/>Single image | Single PDF<br/>Single image | Single PDF<br/>Multiple images<br/>Multiple PDFs & images
+| Ordering | Layer index | &cross; | Layer index<br/>X/Y position
+
+### Add Trim Marks
+
+![](art/ai-add-trim-marks.gif)
+
+Though natively supported with `Menubar > Object > Create Trim Marks`, they are extremely limited in configuration.
+
+|   | Create Trim Marks | *Add Trim Marks* |
+| - | :---------------: | :--------------: |
+| Trim marks around Clip Group | Content size | Clipping size |
+| Trim marks around Path | Stroke | Fill |
+| Customization | &cross; | &check; |
+| Multiple targets | &cross; | &check; |
+
 ### Impose
 
-Supports imposing `N-Up`, `Perfect Bound` and `Saddle Stitch`.
-
 ![](art/ai-impose.gif)
+
+Supports imposing `N-Up`, `Perfect Bound` and `Saddle Stitch`.
 
 [Photoshop Scripts](Photoshop%20Scripts)
 -------------------
 
 ### Add Bleed
 
-Create a layout guide around image and distribute bleed to all documents.
-
 ![](art/psd-add-bleed.gif)
+
+Create a layout guide around image and distribute bleed to all documents.
 
 Install
 -------
@@ -46,9 +59,9 @@ These scripts are **not standalone**, all of them require hidden directories to 
 
 ### Automatic Installation
 
-Run `patch-scripts.bat` as admin (Windows) or `patch-scripts.sh` with sudo (macOS).
-
 ![](art/patch-scripts.png)
+
+Run `patch-scripts.bat` as admin (Windows) or `patch-scripts.sh` with sudo (macOS).
 
 ### Manual Installation
 

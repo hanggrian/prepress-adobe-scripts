@@ -1,5 +1,3 @@
-// The problem with native `Context Menu > Transform > Transform Each...` is that they scale by percentage.
-
 #target Illustrator
 #include '../../.stdlib/ui/anchor.js'
 #include '../.lib/commons.js'

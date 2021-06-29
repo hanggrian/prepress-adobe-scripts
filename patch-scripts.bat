@@ -138,7 +138,7 @@ goto :eof
     robocopy /s "!source_scripts!" "!target_scripts!" /njh /njs /ndl /nc /ns /nfl
     :: Cleaning up
     rmdir /s /q "!target_scripts_incubating!"
-    rmdir /s /q "!target_scripts_readme!"
+    del /s "!target_scripts_readme!" >nul 2>&1
     :: Adding url
     echo [InternetShortcut] >> "!url!"
     echo URL=https://github.com/hendraanggrian/prepress-adobe-scripts >> "!url!"
