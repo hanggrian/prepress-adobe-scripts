@@ -5,4 +5,5 @@
 */
 
 #include '../../.stdlib/stdlib.js'
+#include 'core-resources.js'
 #include 'core-units.js'

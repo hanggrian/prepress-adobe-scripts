@@ -1,6 +1,6 @@
 /*
 <javascriptresource>
-<category>2</category>
+<category>3</category>
 </javascriptresource>
 */
 

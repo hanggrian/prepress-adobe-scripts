@@ -9,7 +9,7 @@
             "type": "extendscript-debug",
             "request": "launch",
             "name": "prepress-adobe-scripts",
-            "program": "${workspaceFolder}/Illustrator Scripts/⒊ Links/⒊ Change Page....jsx",
+            "program": "${workspaceFolder}/Illustrator Scripts/⒐ Help/About....jsx",
             "stopOnEntry": false
         }
     ]

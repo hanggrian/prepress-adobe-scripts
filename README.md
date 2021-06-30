@@ -6,8 +6,8 @@ Prepress Adobe Scripts
 
 Essential Illustrator and Photoshop scripts for commercial printshop. While most of these scripts are general purpose, some are heavily prepress-focused like trim marks and imposition. Tested only on latest Adobe suite.
 
-![](art/scripts-menu-ai.png)
-![](art/scripts-menu-psd.png)
+![](art/logo-ai.png)
+![](art/logo-psd.png)
 
 [Illustrator Scripts](Illustrator%20Scripts)
 ---------------------
@@ -54,6 +54,9 @@ Create a layout guide around image and distribute bleed to all documents.
 
 Install
 -------
+
+![](art/scripts-menu-ai.png)
+![](art/scripts-menu-psd.png)
 
 These scripts are **not standalone**, all of them require hidden directories to be in pre-determined locations. This is why it is recommended to put them in Adobe installation paths, and access them from menu bar.
 
