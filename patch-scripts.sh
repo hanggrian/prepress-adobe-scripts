@@ -28,7 +28,7 @@ echo A. All
 echo
 echo Q. Quit
 echo
-echo ${BOLD}Which scripts would you want to install:$END
+echo ${BOLD}Which scripts would you like to install:$END
 read input
 
 SOURCE_ROOT="$(cd `dirname $0` && pwd)"

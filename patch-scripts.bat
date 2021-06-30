@@ -25,7 +25,7 @@ echo A. All
 echo.
 echo Q. Quit
 echo.
-set /p input="!BOLD!Which scripts would you want to install: !END!"
+set /p input="!BOLD!Which scripts would you like to install: !END!"
 
 set SOURCE_ROOT=%~dp0
 set SOURCE_STDLIB=%SOURCE_ROOT%.stdlib
