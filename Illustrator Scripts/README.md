@@ -9,20 +9,20 @@ General Purpose
 
 ### Resize/Reorder Artboards
 
-<img src="../art/ai-resize-artboards.gif" width="480" height="240"/><img src="../art/ai-reorder-artboards.gif" width="480" height="240"/>
+<img src="../art/ai_resize_artboards.gif" width="480" height="240"/><img src="../art/ai_reorder_artboards.gif" width="480" height="240"/>
 
 Bulk resize all artboards.
 Reorder artboards based on their title/position.
 
 ### Copy to Artboards
 
-![](../art/ai-copy-to-artboards.gif)
+![](../art/ai_copy_to_artboards.gif)
 
 Duplicate selection to each artboards.
 
 ### Resize/Rasterize Each
 
-<img src="../art/ai-resize-each.gif" width="480" height="240"/><img src="../art/ai-rasterize-each.gif" width="480" height="240"/>
+<img src="../art/ai_resize_each.gif" width="480" height="240"/><img src="../art/ai_rasterize_each.gif" width="480" height="240"/>
 
 <table><tr><td>
 
@@ -47,7 +47,7 @@ Prepress
 
 ### Relink Same/Multipage
 
-![](../art/ai-relink-multipage.gif)
+![](../art/ai_relink_multipage.gif)
 
 Relinking multiple items has always been a pain in the ass in Illustrator.
 
@@ -59,13 +59,13 @@ Relinking multiple items has always been a pain in the ass in Illustrator.
 
 ### Step and Repeat
 
-![](../art/ai-step-and-repeat.gif)
+![](../art/ai_step_and_repeat.gif)
 
 User of CorelDRAW would be familiar with this feature.
 
 ### Add Trim Marks
 
-![](../art/ai-add-trim-marks.gif)
+![](../art/ai_add_trim_marks.gif)
 
 Though natively supported with `Menubar > Object > Create Trim Marks`, they are extremely limited in configuration.
 
@@ -78,13 +78,13 @@ Though natively supported with `Menubar > Object > Create Trim Marks`, they are 
 
 ### Numerize
 
-![](../art/ai-numerize.gif)
+![](../art/ai_numerize.gif)
 
 Iterate through selected texts and retype them to index. There is also alphabet suffix support which can be useful for naming duplex impositions.
 
 ### Impose
 
-![](../art/ai-impose.gif)
+![](../art/ai_impose.gif)
 
 Supports imposing `N-Up`, `Perfect Bound` and `Saddle Stitch`.
 

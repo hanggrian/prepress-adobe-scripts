@@ -8,7 +8,7 @@ General Purpose
 
 ### Resize Images/Canvases
 
-<img src="../art/psd-resize-images.gif" width="480" height="240"/><img src="../art/psd-resize-canvases.gif" width="480" height="240"/>
+<img src="../art/psd_resize_images.gif" width="480" height="240"/><img src="../art/psd_resize_canvases.gif" width="480" height="240"/>
 
 Bulk resize all documents.
 
@@ -17,7 +17,7 @@ Prepress
 
 ### Add Bleed
 
-![](../art/psd-add-bleed.gif)
+![](../art/psd_add_bleed.gif)
 
 Create a layout guide around image and distribute bleed to all documents.
 

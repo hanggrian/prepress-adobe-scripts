@@ -1,5 +1,5 @@
 #target Illustrator
-#include '../.lib/core.js'
+#include '.lib/core.js'
 
 var dialog = new Dialog('About', 'center')
 dialog.image(undefined, getResource(R.png.logo))

@@ -4,12 +4,12 @@
 </javascriptresource>
 */
 
-#target Illustrator
+#target Photoshop
 #include '.lib/core.js'
 
 var dialog = new Dialog('About', 'center')
 dialog.image(undefined, getResource(R.png.logo))
-dialog.staticText(undefined, 'Prepress Adobe Scripts for Illustrator')
+dialog.staticText(undefined, 'Prepress Adobe Scripts for Photoshop')
 
 dialog.setNegativeButton('Close')
 dialog.setNeutralButton(20, 'Visit GitHub', function() {
