@@ -4,17 +4,17 @@
 Prepress Adobe Scripts
 ======================
 
-![](art/logo_ai.png)
-![](art/logo_psd.png)
+![](images/logo_ai.png)
+![](images/logo_psd.png)
 
 Essential Illustrator and Photoshop scripts for commercial printshop. While most of these scripts are general purpose, some are heavily prepress-focused like trim marks and imposition. Tested only on latest Adobe suite.
 
-[Illustrator Scripts](Illustrator%20Scripts)
+[Illustrator Scripts](illustrator_scripts.md)
 ---------------------
 
 ### Relink Same/Multipage
 
-![](art/ai_relink_multipage.gif)
+![](images/ai_relink_multipage.gif)
 
 Relinking multiple items has always been a pain in the ass in Illustrator.
 
@@ -26,7 +26,7 @@ Relinking multiple items has always been a pain in the ass in Illustrator.
 
 ### Add Trim Marks
 
-![](art/ai_add_trim_marks.gif)
+![](images/ai_add_trim_marks.gif)
 
 Though natively supported with `Menubar > Object > Create Trim Marks`, they are extremely limited in configuration.
 
@@ -39,30 +39,30 @@ Though natively supported with `Menubar > Object > Create Trim Marks`, they are 
 
 ### Impose
 
-![](art/ai_impose.gif)
+![](images/ai_impose.gif)
 
 Supports imposing `N-Up`, `Perfect Bound` and `Saddle Stitch`.
 
-[Photoshop Scripts](Photoshop%20Scripts)
+[Photoshop Scripts](photoshop_scripts.md)
 -------------------
 
 ### Add Bleed
 
-![](art/psd_add_bleed.gif)
+![](images/psd_add_bleed.gif)
 
 Create a layout guide around image and distribute bleed to all documents.
 
 Install
 -------
 
-![](art/scripts_menu_ai.png)
-![](art/scripts_menu_psd.png)
+![](images/scripts_menu_ai.png)
+![](images/scripts_menu_psd.png)
 
 These scripts are **not standalone**, all of them require hidden directories to be in pre-determined locations. This is why it is recommended to put them in Adobe installation paths, and access them from menu bar.
 
 ### Automatic Installation
 
-![](art/install.png)
+![](images/install.png)
 
 Run `install.bat` as admin (Windows) or `install.sh` with sudo (macOS).
 
