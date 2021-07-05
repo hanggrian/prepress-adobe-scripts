@@ -16,9 +16,9 @@ if [ $(uname) != Darwin ]; then
 fi
 
 echo
-echo ${BOLD}${UNDERLINE}Prepress Adobe Scripts$END
+echo $BOLD${UNDERLINE}Prepress Adobe Scripts$END
 echo
-echo ${BOLD}${YELLOW}WARNING$END
+echo $YELLOW${BOLD}WARNING$END
 echo ${YELLOW}This command will replace all existing scripts, even the default ones.
 echo Backup if necessary.$END
 echo
@@ -71,7 +71,6 @@ patch_preset() {
     local target_stdlib="$target_root/.stdlib"
     local target_scripts="$target_root/Scripts"
     local target_scripts_incubating="$target_scripts/.incubating"
-    local target_scripts_readme="$target_scripts/README.md"
     local url="$target_scripts/prepress-adobe-scripts.url"
 
     echo - $GREEN$app$END
@@ -91,7 +90,6 @@ patch_preset() {
     cp -r "$SOURCE_STDLIB"/. "$target_stdlib"
     # Cleaning up
     rm -rf "$target_scripts_incubating"
-    rm -rf "$target_scripts_readme"
     # Adding url
     > "$url"
     echo [InternetShortcut] >> "$url"
