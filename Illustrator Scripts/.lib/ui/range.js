@@ -21,6 +21,7 @@ function RangeGroup(parent, textBounds, editBounds) {
     })
 
     this.getStart = function() {
+        checkValidity()
         var start = parseInt(self.startEdit.text) - 1
         if (start < self.minRange) {
             errorWithAlert('Start range cannot be less than ' + self.minRange)
@@ -29,6 +30,7 @@ function RangeGroup(parent, textBounds, editBounds) {
     }
 
     this.getEnd = function() {
+        checkValidity()
         var end = parseInt(self.endEdit.text) - 1
         if (end > self.maxRange) {
             errorWithAlert('End range cannot be more than ' + self.maxRange)
@@ -37,22 +39,27 @@ function RangeGroup(parent, textBounds, editBounds) {
     }
 
     this.getLength = function() {
-        var length = self.getEnd() - self.getStart() + 1
-        if (length < 1) {
-            errorWithAlert('Invalid range')
-        }
-        return length
+        checkValidity()
+        return self.getEnd() - self.getStart() + 1
     }
 
     this.includes = function(i) {
+        checkValidity()
         return i >= self.getStart() && i <= self.getEnd()
     }
 
     this.forEach = function(action) {
+        checkValidity()
         var start = self.getStart()
         var end = start + self.getLength() // necessary to call `getLength` instead of `getEnd` to check range
         for (var i = start; i < end; i++) {
             action(i)
+        }
+    }
+
+    function checkValidity() {
+        if (parseInt(self.startEdit.text) > parseInt(self.endEdit.text)) {
+            errorWithAlert('Invalid range')
         }
     }
 }

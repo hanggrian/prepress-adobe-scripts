@@ -17,5 +17,5 @@ var R = {
  * @returns {File}
  */
 function getResource(path) {
-    return File(_resourcesSource.path + '/../.res/' + path)
+    return new File(_resourcesSource.path + '/../.res/' + path)
 }

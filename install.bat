@@ -11,6 +11,7 @@ set RED=[91m
 set GREEN=[92m
 set YELLOW=[93m
 
+:: Check privilege
 net session >nul 2>&1
 if !errorLevel! neq 0 (
     echo.
@@ -63,8 +64,8 @@ echo Goodbye^^!
 echo.
 pause && exit /b 0
 
-:: In Windows, we manually do this manually.
-:: check if `Presets` directly contain `Scripts` directory.
+:: Find adobe apps and determine its scripts directory parent.
+:: In Windows, we manually do this manually. Check if `Presets` directly contain `Scripts` directory.
 :patch_app
     setlocal
     set adobe_app=%~1
@@ -120,6 +121,7 @@ pause && exit /b 0
     endlocal
 goto :eof
 
+:: Wipe out current scripts and shared libraries, then copy new ones.
 :patch_preset
     setlocal
     set app=%~1

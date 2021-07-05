@@ -41,6 +41,7 @@ dialog.hgroup(function(group) {
     group.staticText(BOUNDS_TEXT, 'Anchor:', JUSTIFY_RIGHT)
     anchorList = group.dropDownList(BOUNDS_EDIT, ANCHORS, function(it) {
         it.selectText('Top Left')
+        it.enabled = !areArtboardSizesEqual()
     })
 })
 
@@ -76,3 +77,21 @@ dialog.setPositiveButton(function() {
     selection = selectQueues
 })
 dialog.show()
+
+function areArtboardSizesEqual() {
+    var width, height
+    for (var i = 0; i < document.artboards.length; i++) {
+        var rect = document.artboards[i].artboardRect
+        if (width === undefined) {
+            width = rect.getWidth()
+        } else if (width !== rect.getWidth()) {
+            return false
+        }
+        if (height === undefined) {
+            height = rect.getHeight()
+        } else if (height !== rect.getHeight()) {
+            return false
+        }
+    }
+    return true
+}

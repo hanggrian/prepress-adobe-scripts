@@ -9,7 +9,8 @@
             "type": "extendscript-debug",
             "request": "launch",
             "name": "prepress-adobe-scripts",
-            "program": "${workspaceFolder}/Illustrator Scripts/⒐ Help/About....jsx",
+            "program": "${workspaceFolder}/Illustrator Scripts/⒈ Objects/⒌ Copy to Artboards....jsx",
+            //"program": "${workspaceFolder}/Photoshop Scripts/Images/Resize Images....jsx",
             "stopOnEntry": false
         }
     ]

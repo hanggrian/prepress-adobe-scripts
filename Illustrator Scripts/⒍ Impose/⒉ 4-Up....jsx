@@ -24,7 +24,7 @@ if (files !== null && files.isNotEmpty()) {
             if (collection.hasPDF) {
                 pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
             }
-            pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT).apply(function(panel) {
+            pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT).also(function(panel) {
                 panel.rangeGroup.endEdit.text = collection.length
                 if (!collection.isSinglePDF) {
                     panel.rangeGroup.maxRange = collection.length
