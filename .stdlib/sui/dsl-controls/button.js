@@ -6,10 +6,6 @@
 
 /**
  * Add button to dialog.
- * @param {Bounds} bounds size of this object, may be null.
- * @param {String} text text to display.
- * @param {Function} configuration optional setup after creation.
- * @param {String} properties optional setup before creation.
  * @returns {Button}
  */
 Dialog.prototype.button = function(bounds, text, configuration, properties) {
@@ -18,10 +14,6 @@ Dialog.prototype.button = function(bounds, text, configuration, properties) {
 
 /**
  * Add button to group.
- * @param {Bounds} bounds size of this object, may be null.
- * @param {String} text text to display.
- * @param {Function} configuration optional setup after creation.
- * @param {String} properties optional setup before creation.
  * @returns {Button}
  */
 Group.prototype.button = function(bounds, text, configuration, properties) {
@@ -30,10 +22,6 @@ Group.prototype.button = function(bounds, text, configuration, properties) {
 
 /**
  * Add button to panel.
- * @param {Bounds} bounds size of this object, may be null.
- * @param {String} text text to display.
- * @param {Function} configuration optional setup after creation.
- * @param {String} properties optional setup before creation.
  * @returns {Button}
  */
 Panel.prototype.button = function(bounds, text, configuration, properties) {

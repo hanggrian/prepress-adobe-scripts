@@ -109,17 +109,17 @@ patch_preset() {
 }
 
 case $input in
-    '1')
+    "1")
         patch_app Illustrator
         ;;
-    '2')
+    "2")
         patch_app Photoshop
         ;;
-    'a' | 'A')
+    "a" | "A")
         patch_app Illustrator
         patch_app Photoshop
         ;;
-    'q' | 'Q')
+    "q" | "Q")
         ;;
     *)
         echo

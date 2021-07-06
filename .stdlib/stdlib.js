@@ -4,19 +4,24 @@
 </javascriptresource>
 */
 
-#include 'sui/dsl/button.js'
-#include 'sui/dsl/dropdownlist.js'
-#include 'sui/dsl/edittext.js'
-#include 'sui/dsl/group.js'
-#include 'sui/dsl/image.js'
-#include 'sui/dsl/panel.js'
-#include 'sui/dsl/space.js'
-#include 'sui/dsl/statictext.js'
-#include 'sui/dsl/toggle.js'
+#include 'sui/dsl-parents/group.js'
+#include 'sui/dsl-parents/panel.js'
+#include 'sui/dsl-parents/tab.js'
+#include 'sui/dsl-parents/tabbedpanel.js'
+
+#include 'sui/dsl-controls/button.js'
+#include 'sui/dsl-controls/checkbox.js'
+#include 'sui/dsl-controls/dropdownlist.js'
+#include 'sui/dsl-controls/edittext.js'
+#include 'sui/dsl-controls/image.js'
+#include 'sui/dsl-controls/radiobutton.js'
+#include 'sui/dsl-controls/statictext.js'
+
 #include 'sui/controls.js'
 #include 'sui/dialog.js'
 #include 'sui/tooltip.js'
 #include 'sui/validator.js'
+
 #include 'collections.js'
 #include 'collections-predicate.js'
 #include 'collections-transform.js'

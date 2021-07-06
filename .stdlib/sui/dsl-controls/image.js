@@ -6,9 +6,6 @@
 
 /**
  * Add image to dialog.
- * @param {Bounds} bounds size of this object, may be null.
- * @param {File} file image source.
- * @param {Function} configuration optional setup after creation.
  * @returns {Image}
  */
 Dialog.prototype.image = function(bounds, file, configuration) {
@@ -17,9 +14,6 @@ Dialog.prototype.image = function(bounds, file, configuration) {
 
 /**
  * Add image to group.
- * @param {Bounds} bounds size of this object, may be null.
- * @param {File} file image source.
- * @param {Function} configuration optional setup after creation.
  * @returns {Image}
  */
 Group.prototype.image = function(bounds, file, configuration) {
@@ -28,9 +22,6 @@ Group.prototype.image = function(bounds, file, configuration) {
 
 /**
  * Add image to panel.
- * @param {Bounds} bounds size of this object, may be null.
- * @param {File} file image source.
- * @param {Function} configuration optional setup after creation.
  * @returns {Image}
  */
 Panel.prototype.image = function(bounds, file, configuration) {

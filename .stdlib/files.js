@@ -49,6 +49,14 @@ File.prototype.isPDF = function() {
     })
 }
 
+/** Reads the file content as a string. */
+File.prototype.readText = function() {
+    this.open('r')
+    var text = this.read()
+    this.close()
+    return text
+}
+
 /**
  * Pick a folder.
  * @param {String} prompt title of the picker.

@@ -6,10 +6,6 @@
 
 /**
  * Add drop down list to dialog.
- * @param {Bounds} bounds size of this object, may be null.
- * @param {Array} items drop down collection.
- * @param {Function} configuration optional setup after creation.
- * @param {String} properties optional setup before creation.
  * @returns {DropDownList}
  */
 Dialog.prototype.dropDownList = function(bounds, items, configuration, properties) {
@@ -18,10 +14,6 @@ Dialog.prototype.dropDownList = function(bounds, items, configuration, propertie
 
 /**
  * Add drop down list to group.
- * @param {Bounds} bounds size of this object, may be null.
- * @param {Array} items drop down collection.
- * @param {Function} configuration optional setup after creation.
- * @param {String} properties optional setup before creation.
  * @returns {DropDownList}
  */
 Group.prototype.dropDownList = function(bounds, items, configuration, properties) {
@@ -30,10 +22,6 @@ Group.prototype.dropDownList = function(bounds, items, configuration, properties
 
 /**
  * Add drop down list to panel.
- * @param {Bounds} bounds size of this object, may be null.
- * @param {Array} items drop down collection.
- * @param {Function} configuration optional setup after creation.
- * @param {String} properties optional setup before creation.
  * @returns {DropDownList}
  */
 Panel.prototype.dropDownList = function(bounds, items, configuration, properties) {

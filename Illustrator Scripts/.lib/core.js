@@ -1,8 +1,10 @@
 #include '../../.stdlib/stdlib.js'
+
 #include 'core-pager/booklet.js'
 #include 'core-pager/eight-up.js'
 #include 'core-pager/four-up.js'
 #include 'core-pager/two-up.js'
+
 #include 'core-collections.js'
 #include 'core-colors.js'
 #include 'core-files.js'

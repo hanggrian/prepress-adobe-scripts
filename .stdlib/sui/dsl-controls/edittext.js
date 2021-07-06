@@ -4,16 +4,8 @@
 </javascriptresource>
 */
 
-var ACTIVATE = function(editText) { editText.activate() }
-var VALIDATE_DIGITS = function(editText) { editText.validateDigits() }
-var VALIDATE_UNITS = function(editText) { editText.validateUnits() }
-
 /**
  * Add single-line edit text to dialog.
- * @param {Bounds} bounds size of this object, may be null.
- * @param {String} text text to display.
- * @param {Function} configuration optional setup after creation.
- * @param {String} properties optional setup before creation.
  * @returns {EditText}
  */
 Dialog.prototype.editText = function(bounds, text, configuration, properties) {
@@ -22,10 +14,6 @@ Dialog.prototype.editText = function(bounds, text, configuration, properties) {
 
 /**
  * Add single-line edit text to group.
- * @param {Bounds} bounds size of this object, may be null.
- * @param {String} text text to display.
- * @param {Function} configuration optional setup after creation.
- * @param {String} properties optional setup before creation.
  * @returns {EditText}
  */
 Group.prototype.editText = function(bounds, text, configuration, properties) {
@@ -34,10 +22,6 @@ Group.prototype.editText = function(bounds, text, configuration, properties) {
 
 /**
  * Add single-line edit text to panel.
- * @param {Bounds} bounds size of this object, may be null.
- * @param {String} text text to display.
- * @param {Function} configuration optional setup after creation.
- * @param {String} properties optional setup before creation.
  * @returns {EditText}
  */
 Panel.prototype.editText = function(bounds, text, configuration, properties) {

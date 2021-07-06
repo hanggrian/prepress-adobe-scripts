@@ -6,7 +6,6 @@
 
 /**
  * Add horizontal group to dialog.
- * @param {Function} configuration may be null.
  * @returns {Group}
  */
 Dialog.prototype.hgroup = function(configuration) {
@@ -15,7 +14,6 @@ Dialog.prototype.hgroup = function(configuration) {
 
 /**
  * Add horizontal group to group.
- * @param {Function} configuration may be null.
  * @returns {Group}
  */
 Group.prototype.hgroup = function(configuration) {
@@ -24,7 +22,6 @@ Group.prototype.hgroup = function(configuration) {
 
 /**
  * Add horizontal group to panel.
- * @param {Function} configuration may be null.
  * @returns {Group}
  */
 Panel.prototype.hgroup = function(configuration) {
@@ -32,8 +29,16 @@ Panel.prototype.hgroup = function(configuration) {
 }
 
 /**
+ * Add horizontal group to tab.
+ * @returns {Group}
+ */
+Object.prototype.hgroup = function(configuration) {
+    check(this.type === 'tab')
+    return _group(this, 'row', configuration)
+}
+
+/**
  * Add vertical group to dialog.
- * @param {Function} configuration may be null.
  * @returns {Group}
  */
 Dialog.prototype.vgroup = function(configuration) {
@@ -42,7 +47,6 @@ Dialog.prototype.vgroup = function(configuration) {
 
 /**
  * Add vertical group to group.
- * @param {Function} configuration may be null.
  * @returns {Group}
  */
 Group.prototype.vgroup = function(configuration) {
@@ -51,10 +55,18 @@ Group.prototype.vgroup = function(configuration) {
 
 /**
  * Add vertical group to panel.
- * @param {Function} configuration may be null.
  * @returns {Group}
  */
 Panel.prototype.vgroup = function(configuration) {
+    return _group(this, 'column', configuration)
+}
+
+/**
+ * Add vertical group to tab.
+ * @returns {Group}
+ */
+Object.prototype.vgroup = function(configuration) {
+    check(this.type === 'tab')
     return _group(this, 'column', configuration)
 }
 
