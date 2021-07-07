@@ -40,7 +40,7 @@ function isMacOS() {
 
 // https://community.adobe.com/t5/indesign/js-scriptui-url-links-in-dialogues/td-p/4572773?page=1
 function openURL(url) {
-    linkJumper = File(Folder.temp.absoluteURI + '/link.html')
+    linkJumper = new File(Folder.temp.absoluteURI + '/link.html')
     linkJumper.open('w')
     var linkBody = '<html><head><META HTTP-EQUIV=Refresh CONTENT="0; URL=' + url + '"></head><body> <p></body></html>'
     linkJumper.write(linkBody)

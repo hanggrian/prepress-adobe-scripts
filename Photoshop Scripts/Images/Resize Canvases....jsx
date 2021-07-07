@@ -41,12 +41,13 @@ dialog.hgroup(function(topGroup) {
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    var width = UnitValue(widthEdit.text)
-    var height = UnitValue(heightEdit.text)
+    var width = new UnitValue(widthEdit.text)
+    var height = new UnitValue(heightEdit.text)
     var anchor = anchorGroup.getAnchorPosition()
     for (var i = 0; i < app.documents.length; i++) {
-        app.activeDocument = app.documents[i]
-        app.activeDocument.resizeCanvas(width, height, anchor)
+        var document = app.documents[i]
+        app.activeDocument = document
+        document.resizeCanvas(width, height, anchor)
     }
 })
 dialog.show()

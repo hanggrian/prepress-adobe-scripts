@@ -16,7 +16,7 @@ var UNITS = ['Pixels', 'Points', 'Inches', 'Millimeters', 'Centimeters']
 function formatUnits(unitValue, unitName, fraction) {
     checkNotNull(unitValue)
     checkNotNull(unitName)
-    var value = UnitValue(unitValue, 'pt').as(unitName)
+    var value = new UnitValue(unitValue, 'pt').as(unitName)
     var s = fraction !== undefined
         ? value.toFixed(fraction)
         : value.toString()

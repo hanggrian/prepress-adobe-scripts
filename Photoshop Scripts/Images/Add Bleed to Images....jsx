@@ -32,21 +32,28 @@ flattenCheck = dialog.checkBox(undefined, 'Flatten Image', function(it) {
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    var bleed = UnitValue(bleedEdit.text)
+    var bleed = new UnitValue(bleedEdit.text)
     for (var i = 0; i < app.documents.length; i++) {
-        app.activeDocument = app.documents[i]
-        var originalWidth = app.activeDocument.width
-        var originalHeight = app.activeDocument.height
+        var document = app.documents[i]
+        app.activeDocument = document
+        var originalWidth = document.width
+        var originalHeight = document.height
         if (guidesCheck.value) {
-            app.activeDocument.guides.add(Direction.HORIZONTAL, 0)
-            app.activeDocument.guides.add(Direction.HORIZONTAL, app.activeDocument.height)
-            app.activeDocument.guides.add(Direction.VERTICAL, 0)
-            app.activeDocument.guides.add(Direction.VERTICAL, app.activeDocument.width)
+            document.guides.add(Direction.HORIZONTAL, 0)
+            document.guides.add(Direction.HORIZONTAL, document.height)
+            document.guides.add(Direction.VERTICAL, 0)
+            document.guides.add(Direction.VERTICAL, document.width)
         }
-        app.activeDocument.resizeCanvas(originalWidth + bleed * 2, originalHeight + bleed * 2)
+        document.resizeCanvas(originalWidth + bleed * 2, originalHeight + bleed * 2)
         if (flattenCheck.value) {
-            app.activeDocument.flatten()
+            document.flatten()
         }
+        /*document.selection.select([
+            [bleed, bleed],
+            [bleed, bleed + originalHeight],
+            [bleed + originalWidth, bleed + originalHeight],
+            [bleed + originalWidth, bleed]
+        ])*/
     }
 })
 dialog.show()

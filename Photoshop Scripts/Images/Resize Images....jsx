@@ -45,13 +45,14 @@ dialog.hgroup(function(group) {
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    var width = UnitValue(widthEdit.text)
-    var height = UnitValue(heightEdit.text)
+    var width = new UnitValue(widthEdit.text)
+    var height = new UnitValue(heightEdit.text)
     var resolution = parseInt(resolutionEdit.text)
     var resample = getResample()
     for (var i = 0; i < app.documents.length; i++) {
-        app.activeDocument = app.documents[i]
-        app.activeDocument.resizeImage(width, height, resolution, resample)
+        var document = app.documents[i]
+        app.activeDocument = document
+        document.resizeImage(width, height, resolution, resample)
     }
 })
 dialog.show()

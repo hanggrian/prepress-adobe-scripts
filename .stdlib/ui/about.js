@@ -4,20 +4,20 @@
 </javascriptresource>
 */
 
-var BOUNDS_TAB = [400, 100]
+var BOUNDS_TAB = [400, 75]
 
 function AboutTabbedPanel(parent) {
     var self = this
 
     this.main = parent.tabbedPanel(function(tpanel) {
-        tpanel.vtab('Version', function(tab) {
+        tpanel.vtab('Updates', function(tab) {
             tab.staticText(BOUNDS_TAB,
                 'Scripts version is not yet tracked.\n' +
                 '\nCheck update function is probably not going to be possible. This is mainly because there is no REST API in ExtendScript.',
                 undefined,
                 { multiline: true })
         })
-        tpanel.vtab('License', function(tab) {
+        tpanel.vtab('Licensing', function(tab) {
             tab.editText(BOUNDS_TAB,
                 'Copyright 2021 Hendra Anggrian' +
                 '\n' +
