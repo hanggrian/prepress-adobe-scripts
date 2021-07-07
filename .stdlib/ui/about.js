@@ -12,7 +12,7 @@ function AboutTabbedPanel(parent) {
     this.main = parent.tabbedPanel(function(tpanel) {
         tpanel.vtab('Updates', function(tab) {
             tab.staticText(BOUNDS_TAB,
-                'Scripts version is not yet tracked.\n' +
+                'Versions are not yet tracked.\n' +
                 '\nCheck update function is probably not going to be possible. This is mainly because there is no REST API in ExtendScript.',
                 undefined,
                 { multiline: true })
