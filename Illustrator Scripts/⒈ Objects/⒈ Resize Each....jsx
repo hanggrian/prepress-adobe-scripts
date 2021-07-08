@@ -14,6 +14,7 @@ var changePositionsCheck, changeFillPatternsCheck, changeFillGradientsCheck, cha
 var documentOriginCheck, anchorGroup
 
 dialog.hgroup(function(group) {
+    group.alignChildren = 'bottom'
     group.setTooltips("Objects' new width, uncheck to ignore")
     group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
     widthEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.width, unitName, 2), function(it) {
@@ -28,6 +29,7 @@ dialog.hgroup(function(group) {
     })
 })
 dialog.hgroup(function(group) {
+    group.alignChildren = 'bottom'
     group.setTooltips("Objects' new height, uncheck to ignore")
     group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
     heightEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.height, unitName, 2), VALIDATE_UNITS)

@@ -3,12 +3,10 @@
 #include '.lib/core.js'
 
 var dialog = new Dialog('About')
-dialog.hgroup(function(topGroup) {
-    topGroup.alignChildren = 'center'
-    topGroup.image(undefined, getResource(R.png.logo))
-    topGroup.staticText([300, 32], 'Prepress Adobe Scripts for Illustrator\nVersion 0.1b', function(it) {
-
-    }, { multiline: true })
+dialog.hgroup(function(group) {
+    group.alignChildren = 'center'
+    group.image(undefined, getResource(R.png.logo))
+    group.staticText([300, 32], 'Prepress Adobe Scripts for Illustrator\nVersion 0.0', undefined, { multiline: true })
 })
 new AboutTabbedPanel(dialog.main)
 

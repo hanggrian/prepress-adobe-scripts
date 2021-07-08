@@ -32,7 +32,7 @@ dialog.hgroup(function(topGroup) {
         panel.hgroup(function(group) {
             group.setTooltips('Thickness of trim marks')
             group.staticText(BOUNDS_TEXT, 'Weight:', JUSTIFY_RIGHT)
-            weightEdit = group.editText(BOUNDS_EDIT, '0.3', VALIDATE_UNITS) // the same value used in `Object > Create Trim Marks`
+            weightEdit = group.editText(BOUNDS_EDIT, '0.3 pt', VALIDATE_UNITS) // the same value used in `Object > Create Trim Marks`
         })
         panel.hgroup(function(group) {
             group.setTooltips('Color of trim marks')

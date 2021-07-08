@@ -9,8 +9,8 @@
             "type": "extendscript-debug",
             "request": "launch",
             "name": "prepress-adobe-scripts",
-            //"program": "${workspaceFolder}/Illustrator Scripts/⒎ About....jsx",
-            "program": "${workspaceFolder}/Photoshop Scripts/Images/Add Bleed to Images....jsx",
+            "program": "${workspaceFolder}/Illustrator Scripts/.incubating/Add Flap....jsx",
+            //"program": "${workspaceFolder}/Photoshop Scripts/Images/Add Bleed to Images....jsx",
             "stopOnEntry": false
         }
     ]

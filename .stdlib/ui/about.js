@@ -9,15 +9,15 @@ var BOUNDS_TAB = [400, 75]
 function AboutTabbedPanel(parent) {
     var self = this
 
-    this.main = parent.tabbedPanel(function(tpanel) {
-        tpanel.vtab('Updates', function(tab) {
+    this.main = parent.tabbedPanel(function(tabbedPanel) {
+        tabbedPanel.vtab('Updates', function(tab) {
             tab.staticText(BOUNDS_TAB,
                 'Versions are not yet tracked.\n' +
                 '\nCheck update function is probably not going to be possible. This is mainly because there is no REST API in ExtendScript.',
                 undefined,
                 { multiline: true })
         })
-        tpanel.vtab('Licensing', function(tab) {
+        tabbedPanel.vtab('Licensing', function(tab) {
             tab.editText(BOUNDS_TAB,
                 'Copyright 2021 Hendra Anggrian' +
                 '\n' +
@@ -35,6 +35,5 @@ function AboutTabbedPanel(parent) {
                 undefined,
                 { multiline: true, readonly: true, scrollable: true })
         })
-        tpanel.selection = 0
     })
 }
