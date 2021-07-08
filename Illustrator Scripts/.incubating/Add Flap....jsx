@@ -3,8 +3,8 @@
 
 checkSingleSelection()
 
-var BOUNDS_TEXT = [50, 21]
-var BOUNDS_TEXT2 = [140, 21]
+var BOUNDS_TEXT = [60, 21]
+var BOUNDS_TEXT2 = [70, 21]
 var BOUNDS_EDIT = [100, 21]
 var BOUNDS_RADIO = [15, 15]
 
@@ -20,7 +20,7 @@ dialog.hgroup(function(topGroup) {
     topGroup.alignChildren = 'fill'
     topGroup.vpanel('Flap', function(panel) {
         panel.hgroup(function(group) {
-            group.setTooltips('Flap length')
+            group.setTooltips('In horizontal direction, this is height. In vertical direction, this is width.')
             group.staticText(BOUNDS_TEXT, 'Length:', JUSTIFY_RIGHT)
             lengthEdit = group.editText(BOUNDS_EDIT, '20 mm', function(it) {
                 it.validateUnits()
@@ -28,12 +28,12 @@ dialog.hgroup(function(topGroup) {
             })
         })
         panel.hgroup(function(group) {
-            group.setTooltips('Flap weight')
+            group.setTooltips('Stroke width of dielines')
             group.staticText(BOUNDS_TEXT, 'Weight:', JUSTIFY_RIGHT)
             weightEdit = group.editText(BOUNDS_EDIT, '1 pt', VALIDATE_UNITS)
         })
         panel.hgroup(function(group) {
-            group.setTooltips('Flap color')
+            group.setTooltips('Stroke color of dielines')
             group.staticText(BOUNDS_TEXT, 'Color:', JUSTIFY_RIGHT)
             colorList = group.dropDownList(BOUNDS_EDIT, COLORS, function(it) {
                 it.selectText('Black')
@@ -73,58 +73,70 @@ dialog.hgroup(function(topGroup) {
 })
 tabbedPanel = dialog.tabbedPanel(function(tabbedPanel) {
     tabbedPanel.preferredSize = [300, 0]
-    tabbedPanel.vtab('Tuck Flap', function(tab) {
-        tab.alignment = 'left'
-        tab.hgroup(function(group) {
-            group.setTooltips('Length of arcing path within flap length, must not be larger than the flap length itself')
-            group.staticText(BOUNDS_TEXT2, 'Arc Length:', JUSTIFY_RIGHT)
-            tuckArcEdit = group.editText(BOUNDS_EDIT, '10 mm', VALIDATE_UNITS)
-        })
-        tab.hgroup(function(group) {
-            group.setTooltips('Lessen tuck flap length to avoid collision with closure panel')
-            group.staticText(BOUNDS_TEXT2, 'Length Offset:', JUSTIFY_RIGHT)
-            tuckOffsetEdit = group.editText(BOUNDS_EDIT, '0 mm', VALIDATE_UNITS)
+    tabbedPanel.vtab('Glue Flap', function(tab) {
+        tab.hgroup(function(topGroup) {
+            topGroup.alignChildren = 'top'
+            topGroup.vgroup(function(midGroup) {
+                midGroup.hgroup(function(group) {
+                    group.setTooltips('End line of glue flat must be lesser than starting line, shear value make sure of it')
+                    group.staticText(BOUNDS_TEXT2, 'Shear:', JUSTIFY_RIGHT)
+                    glueShearEdit = group.editText(BOUNDS_EDIT, '5 mm', VALIDATE_UNITS)
+                })
+                midGroup.hgroup(function(group) {
+                    group.setTooltips('Distance between scratches, leave blank for no scratches')
+                    group.staticText(BOUNDS_TEXT2, 'Scratches:', JUSTIFY_RIGHT)
+                    glueScratchEdit = group.editText(BOUNDS_EDIT, '0 mm', VALIDATE_UNITS)
+                })
+            })
+            topGroup.image(undefined, getResource('flap_glue.png'))
         })
     })
-    tabbedPanel.vtab('Glue Flap', function(tab) {
-        tab.alignment = 'left'
-        tab.hgroup(function(group) {
-            group.setTooltips('End line of a glue flap should be smaller than a flap length')
-            group.staticText(BOUNDS_TEXT2, 'Shear Offset:', JUSTIFY_RIGHT)
-            glueShearEdit = group.editText(BOUNDS_EDIT, '5 mm', VALIDATE_UNITS)
-        })
-        tab.hgroup(function(group) {
-            group.setTooltips('Scratches help adhesive materials in glue flap')
-            group.staticText(BOUNDS_TEXT2, 'Scratch Distance:', JUSTIFY_RIGHT)
-            glueScratchEdit = group.editText(BOUNDS_EDIT, '0 mm', VALIDATE_UNITS)
+    tabbedPanel.vtab('Tuck Flap', function(tab) {
+        tab.hgroup(function(topGroup) {
+            topGroup.alignChildren = 'top'
+            topGroup.vgroup(function(midGroup) {
+                midGroup.hgroup(function(group) {
+                    group.setTooltips('How big should the arc be relative to length, in percentage')
+                    group.staticText(BOUNDS_TEXT2, 'Arc:', JUSTIFY_RIGHT)
+                    tuckArcEdit = group.editText(BOUNDS_EDIT, '50', VALIDATE_DIGITS)
+                })
+                midGroup.hgroup(function(group) {
+                    group.setTooltips('Thicker material should have more distance')
+                    group.staticText(BOUNDS_TEXT2, 'Distance:', JUSTIFY_RIGHT)
+                    tuckOffsetEdit = group.editText(BOUNDS_EDIT, '0 mm', VALIDATE_UNITS)
+                })
+            })
+            topGroup.image(undefined, getResource('flap_tuck.png'))
         })
     })
     tabbedPanel.vtab('Dust Flap', function(tab) {
-        tab.alignment = 'left'
-        tab.hgroup(function(group) {
-            group.setTooltips('Shoulder of a dust flap will lock a tuck flap')
-            group.staticText(BOUNDS_TEXT2, 'Shoulder Length:', JUSTIFY_RIGHT)
-            dustShoulderEdit = group.editText(BOUNDS_EDIT, '5 mm', VALIDATE_UNITS)
-        })
-        tab.hgroup(function(group) {
-            group.setTooltips('First angle of shoulder')
-            group.staticText(BOUNDS_TEXT2, '1st Angle:', JUSTIFY_RIGHT)
-            dustAngle1Edit = group.editText(BOUNDS_EDIT, '45', VALIDATE_DIGITS)
-        })
-        tab.hgroup(function(group) {
-            group.setTooltips('Second angle of shoulder')
-            group.staticText(BOUNDS_TEXT2, '2nd Angle:', JUSTIFY_RIGHT)
-            dustAngle2Edit = group.editText(BOUNDS_EDIT, '15', VALIDATE_DIGITS)
-        })
-        tab.hgroup(function(group) {
-            group.setTooltips('Distance between closure panel and dust flat')
-            group.staticText(BOUNDS_TEXT2, 'Closure Panel Distance:', JUSTIFY_RIGHT)
-            dustDistanceEdit = group.editText(BOUNDS_EDIT, '0 mm', VALIDATE_UNITS)
+        tab.hgroup(function(topGroup) {
+            topGroup.alignChildren = 'top'
+            topGroup.vgroup(function(midGroup) {
+                midGroup.hgroup(function(group) {
+                    group.setTooltips('Necessary for locking a tuck flap')
+                    group.staticText(BOUNDS_TEXT2, 'Shoulder:', JUSTIFY_RIGHT)
+                    dustShoulderEdit = group.editText(BOUNDS_EDIT, '5 mm', VALIDATE_UNITS)
+                })
+                midGroup.hgroup(function(group) {
+                    group.setTooltips('First angle of shoulder, usually 45 or lower')
+                    group.staticText(BOUNDS_TEXT2, '1st Angle:', JUSTIFY_RIGHT)
+                    dustAngle1Edit = group.editText(BOUNDS_EDIT, '45', VALIDATE_DIGITS)
+                })
+                midGroup.hgroup(function(group) {
+                    group.setTooltips('Second angle of shoulder, usually lower than first')
+                    group.staticText(BOUNDS_TEXT2, '2nd Angle:', JUSTIFY_RIGHT)
+                    dustAngle2Edit = group.editText(BOUNDS_EDIT, '15', VALIDATE_DIGITS)
+                })
+                midGroup.hgroup(function(group) {
+                    group.setTooltips('Thicker material should have more distance')
+                    group.staticText(BOUNDS_TEXT2, 'Distance:', JUSTIFY_RIGHT)
+                    dustDistanceEdit = group.editText(BOUNDS_EDIT, '0 mm', VALIDATE_UNITS)
+                })
+            })
+            topGroup.image(undefined, getResource('flap_dust.png'))
         })
     })
-    tabbedPanel.onChange = function() {
-        dialog.setTitle('Add ' + tabbedPanel.selection.text)
-    }
 })
 
 dialog.setNegativeButton('Close')

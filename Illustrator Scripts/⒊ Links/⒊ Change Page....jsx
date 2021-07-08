@@ -39,7 +39,7 @@ dialog.setPositiveButton(function() {
         var height = item.height
         var position = item.position
         var file = item.file
-        item.file = getResource(R.png.blank) // Apply PDF fix
+        item.file = getResource('relink_fix.png') // Apply PDF fix
         preferences.setPDFPage(current)
         item.file = file
         current++

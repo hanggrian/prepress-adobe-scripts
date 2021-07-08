@@ -53,7 +53,7 @@ dialog.setPositiveButton(function() {
     var offset = parseUnits(offsetEdit.text)
 
     var placed = document.placedItems.add()
-    placed.file = getResource(R.ai.registration_marks)
+    placed.file = getResource('registration_marks.ai')
 
     var bounds = document.artboards[document.artboards.getActiveArtboardIndex()].artboardRect
 
