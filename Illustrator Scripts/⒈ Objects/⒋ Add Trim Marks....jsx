@@ -344,24 +344,11 @@ function containsPathBounds(collection, element) {
 
 function createTrimMark(weight, color, suffixName, fromX, fromY, toX, toY) {
     $.writeln(suffixName + '. From ' + '[' + fromX + ',' + fromY + '] to [' + toX + ',' + toY + ']')
-
     var path = document.pathItems.add()
     path.name = 'Trim' + suffixName
     path.fillColor = COLOR_NONE
     path.strokeColor = color
     path.strokeWidth = weight
-
-    var fromPosition = [fromX, fromY]
-    var fromPoint = path.pathPoints.add()
-    fromPoint.anchor = fromPosition
-    fromPoint.leftDirection = fromPosition
-    fromPoint.rightDirection = fromPosition
-
-    var toPosition = [toX, toY]
-    var toPoint = path.pathPoints.add()
-    toPoint.anchor = toPosition
-    toPoint.leftDirection = toPosition
-    toPoint.rightDirection = toPosition
-
+    path.setEntirePath([[fromX, fromY], [toX, toY]])
     return path
 }

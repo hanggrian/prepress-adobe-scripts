@@ -6,7 +6,7 @@
 
 /**
  * Add horizontal tab to tabbed panel.
- * @returns {Panel}
+ * @returns {Group}
  */
 Object.prototype.htab = function(title, configuration) {
     check(this.type === 'tabbedpanel')
@@ -15,7 +15,7 @@ Object.prototype.htab = function(title, configuration) {
 
 /**
  * Add vertical tab to tabbed panel.
- * @returns {Panel}
+ * @returns {Group}
  */
 Object.prototype.vtab = function(title, configuration) {
     check(this.type === 'tabbedpanel')

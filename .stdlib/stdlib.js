@@ -15,6 +15,7 @@
 #include 'sui/dsl-controls/edittext.js'
 #include 'sui/dsl-controls/image.js'
 #include 'sui/dsl-controls/radiobutton.js'
+#include 'sui/dsl-controls/slider.js'
 #include 'sui/dsl-controls/statictext.js'
 
 #include 'sui/controls.js'
@@ -30,6 +31,7 @@
 #include 'preconditions.js'
 #include 'properties.js'
 #include 'rectangles.js'
+#include 'resources.js'
 #include 'standard.js'
 #include 'strings.js'
 

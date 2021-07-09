@@ -8,10 +8,10 @@ var BOUNDS_TEXT2 = [70, 21]
 var BOUNDS_EDIT = [100, 21]
 var BOUNDS_RADIO = [15, 15]
 
-var dialog = new Dialog('Add Tuck Flap')
+var dialog = new Dialog('Add Flap')
 var lengthEdit, weightEdit, colorList
 var tabbedPanel
-var tuckArcEdit, tuckOffsetEdit
+var tuckCurveSlider, tuckCurveEdit, tuckDistanceEdit
 var glueShearEdit, glueScratchEdit
 var dustShoulderEdit, dustAngle1Edit, dustAngle2Edit, dustDistanceEdit
 var leftRadio, topRadio, rightRadio, bottomRadio
@@ -22,7 +22,7 @@ dialog.hgroup(function(topGroup) {
         panel.hgroup(function(group) {
             group.setTooltips('In horizontal direction, this is height. In vertical direction, this is width.')
             group.staticText(BOUNDS_TEXT, 'Length:', JUSTIFY_RIGHT)
-            lengthEdit = group.editText(BOUNDS_EDIT, '20 mm', function(it) {
+            lengthEdit = group.editText(BOUNDS_EDIT, '15 mm', function(it) {
                 it.validateUnits()
                 it.activate()
             })
@@ -85,25 +85,39 @@ tabbedPanel = dialog.tabbedPanel(function(tabbedPanel) {
                 midGroup.hgroup(function(group) {
                     group.setTooltips('Distance between scratches, leave blank for no scratches')
                     group.staticText(BOUNDS_TEXT2, 'Scratches:', JUSTIFY_RIGHT)
-                    glueScratchEdit = group.editText(BOUNDS_EDIT, '0 mm', VALIDATE_UNITS)
+                    glueScratchEdit = group.editText(BOUNDS_EDIT, '0 mm', function(it) {
+                        it.validateUnits()
+                        it.enabled = false
+                    })
                 })
             })
             topGroup.image(undefined, getResource('flap_glue.png'))
         })
     })
-    tabbedPanel.vtab('Tuck Flap', function(tab) {
+    /*tabbedPanel.vtab('Tuck Flap', function(tab) {
         tab.hgroup(function(topGroup) {
             topGroup.alignChildren = 'top'
             topGroup.vgroup(function(midGroup) {
                 midGroup.hgroup(function(group) {
-                    group.setTooltips('How big should the arc be relative to length, in percentage')
-                    group.staticText(BOUNDS_TEXT2, 'Arc:', JUSTIFY_RIGHT)
-                    tuckArcEdit = group.editText(BOUNDS_EDIT, '50', VALIDATE_DIGITS)
+                    group.setTooltips('How big should the curve be relative to length, in percentage')
+                    group.staticText(BOUNDS_TEXT2, 'Curve:', JUSTIFY_RIGHT)
+                    tuckCurveSlider = group.slider(BOUNDS_EDIT, 50, 0, 100, function(it) {
+                        it.onChanging = function() { tuckCurveEdit.text = parseInt(it.value) }
+                    })
+                })
+                midGroup.hgroup(function(group) {
+                    midGroup.alignChildren = 'left'
+                    group.staticText(BOUNDS_TEXT2)
+                    tuckCurveEdit = group.editText([35, 21], '50', function(it) {
+                        it.validateDigits()
+                        it.onChanging = function() { tuckCurveSlider.value = new Number(it.text) }
+                    })
+                    group.staticText(undefined, '%')
                 })
                 midGroup.hgroup(function(group) {
                     group.setTooltips('Thicker material should have more distance')
                     group.staticText(BOUNDS_TEXT2, 'Distance:', JUSTIFY_RIGHT)
-                    tuckOffsetEdit = group.editText(BOUNDS_EDIT, '0 mm', VALIDATE_UNITS)
+                    tuckDistanceEdit = group.editText(BOUNDS_EDIT, '0 mm', VALIDATE_UNITS)
                 })
             })
             topGroup.image(undefined, getResource('flap_tuck.png'))
@@ -136,7 +150,7 @@ tabbedPanel = dialog.tabbedPanel(function(tabbedPanel) {
             })
             topGroup.image(undefined, getResource('flap_dust.png'))
         })
-    })
+    })*/
 })
 
 dialog.setNegativeButton('Close')
@@ -144,56 +158,93 @@ dialog.setPositiveButton(function() {
     var length = parseUnits(lengthEdit.text)
     var weight = parseUnits(weightEdit.text)
     var color = parseColor(colorList.selection.text)
-    var tuckArc = parseUnits(tuckArcEdit.text)
-    var tuckOffset = parseUnits(tuckOffsetEdit.text)
-    var glueShear = parseUnits(glueShearEdit.text)
-    var glueScratch = parseUnits(glueScratchEdit.text)
-    var dustShoulder = parseUnits(dustShoulderEdit.text)
-    var dustAngle1 = parseInt(dustAngle1Edit.text)
-    var dustAngle2 = parseInt(dustAngle2Edit.text)
-    var dustDistance = parseUnits(dustDistanceEdit.text)
-    var fromPosition, toPosition
-
-    selection.first().geometricBounds.let(function(it) {
-        if (leftRadio.value) {
-            fromPosition = [it.getLeft(), it.getTop()]
-            toPosition = [it.getLeft(), it.getBottom()]
-        } else if (topRadio.value) {
-            fromPosition = [it.getLeft(), it.getTop()]
-            toPosition = [it.getRight(), it.getTop()]
-        } else if (rightRadio.value) {
-            fromPosition = [it.getRight(), it.getTop()]
-            toPosition = [it.getRight(), it.getBottom()]
-        } else {
-            fromPosition = [it.getLeft(), it.getBottom()]
-            toPosition = [it.getRight(), it.getBottom()]
-        }
-    })
 
     var path = document.pathItems.add()
     path.fillColor = COLOR_NONE
     path.strokeColor = color
     path.strokeWidth = weight
 
-    if (tabbedPanel.selection.text === 'Tuck Flap') {
-        var fromPoint = path.pathPoints.add()
-        fromPoint.anchor = fromPosition
-        fromPoint.leftDirection = fromPosition
-        fromPoint.rightDirection = fromPosition
-
-        var toPoint = path.pathPoints.add()
-        toPoint.anchor = toPosition
-        toPoint.leftDirection = toPosition
-        toPoint.rightDirection = toPosition
-    } else if (tabbedPanel.selection.text === 'Glue Flap') {
-
+    if (tabbedPanel.selection.text === 'Glue Flap') {
+        processGlue(length, path)
+    } else if (tabbedPanel.selection.text === 'Tuck Flap') {
+        processTuck(length, path)
+    } else if (tabbedPanel.selection.text === 'Dust Flap') {
+        processDust(length, path)
     } else {
-
+        errorWithAlert('Unknown flap type')
     }
-
     selection = [path]
 })
 dialog.show()
+
+function processGlue(length, path) {
+    var glueShear = parseUnits(glueShearEdit.text)
+    var glueScratch = parseUnits(glueScratchEdit.text)
+    var positions = []
+    selection.first().geometricBounds.let(function(it) {
+        if (leftRadio.value) {
+            positions.push([it.getLeft(), it.getTop()])
+            positions.push([it.getLeft() - length, it.getTop() - glueShear])
+            positions.push([it.getLeft() - length, it.getBottom() + glueShear])
+            positions.push([it.getLeft(), it.getBottom()])
+        } else if (topRadio.value) {
+            positions.push([it.getLeft(), it.getTop()])
+            positions.push([it.getLeft() + glueShear, it.getTop() + length])
+            positions.push([it.getRight() - glueShear, it.getTop() + length])
+            positions.push([it.getRight(), it.getTop()])
+        } else if (rightRadio.value) {
+            positions.push([it.getRight(), it.getTop()])
+            positions.push([it.getRight() + length, it.getTop() - glueShear])
+            positions.push([it.getRight() + length, it.getBottom() + glueShear])
+            positions.push([it.getRight(), it.getBottom()])
+        } else {
+            positions.push([it.getLeft(), it.getBottom()])
+            positions.push([it.getLeft() + glueShear, it.getBottom() - length])
+            positions.push([it.getRight() - glueShear, it.getBottom() - length])
+            positions.push([it.getRight(), it.getBottom()])
+        }
+    })
+    path.setEntirePath(positions)
+}
+
+function processTuck(length, path) {
+    var tuckCurve = parseInt(tuckCurveEdit.text) * length / 100
+    var tuckStart = length - tuckCurve
+    var tuckDistance = parseUnits(tuckDistanceEdit.text)
+    var positions = []
+    selection.first().geometricBounds.let(function(it) {
+        if (leftRadio.value) {
+            positions.push([it.getLeft(),
+                            it.getTop() - tuckDistance])
+            positions.push([it.getLeft() - tuckStart,
+                            it.getTop() - tuckDistance])
+            positions.push([it.getLeft() - length,
+                            it.getTop() - tuckCurve - tuckDistance])
+            positions.push([it.getLeft() - length,
+                            it.getBottom() + tuckCurve + tuckDistance])
+            positions.push([it.getLeft() - tuckStart,
+                            it.getBottom() + tuckDistance])
+            positions.push([it.getLeft(),
+                            it.getBottom() + tuckDistance])
+        } else if (topRadio.value) {
+        } else if (rightRadio.value) {
+        } else {
+        }
+    })
+    positions.forEach(function(it) {
+        var point = path.pathPoints.add()
+        point.anchor = [it.getLeft(), it.getTop()]
+        point.leftDirection = [it.getLeft(), it.getTop()]
+        point.rightDirection = it.length === 2 ? it : [it[2], it[3]]
+    })
+}
+
+function processDust(length, path) {
+    var dustShoulder = parseUnits(dustShoulderEdit.text)
+    var dustAngle1 = parseInt(dustAngle1Edit.text)
+    var dustAngle2 = parseInt(dustAngle2Edit.text)
+    var dustDistance = parseUnits(dustDistanceEdit.text)
+}
 
 function registerRadioClick(radio) {
     radio.onClick = function() {

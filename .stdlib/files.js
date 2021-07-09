@@ -44,9 +44,8 @@ File.prototype.getExtension = function() {
  * @returns {Boolean}
  */
 File.prototype.isPDF = function() {
-    return this.getExtension().let(function(it) {
-        return it === 'ai' || it === 'pdf'
-    })
+    var extension = this.getExtension()
+    return extension === 'ai' || extension === 'pdf'
 }
 
 /** Reads the file content as a string. */
