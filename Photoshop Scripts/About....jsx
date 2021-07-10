@@ -12,7 +12,7 @@ var dialog = new Dialog('About')
 dialog.hgroup(function(group) {
     group.alignChildren = 'center'
     group.image(undefined, getResource('logo.png'))
-    group.staticText([300, 32], 'Prepress Adobe Scripts for Illustrator\nVersion 0.0', undefined, { multiline: true })
+    group.staticText([300, 32], 'Prepress Adobe Scripts for Photoshop\nVersion 0.0', undefined, { multiline: true })
 })
 new AboutTabbedPanel(dialog.main)
 

@@ -11,9 +11,9 @@ var BOUNDS_RADIO = [15, 15]
 var dialog = new Dialog('Add Flap')
 var lengthEdit, weightEdit, colorList
 var tabbedPanel
-var tuckCurveSlider, tuckCurveEdit, tuckDistanceEdit
 var glueShearEdit, glueScratchEdit
-var dustShoulderEdit, dustAngle1Edit, dustAngle2Edit, dustDistanceEdit
+var tuckCurveSlider, tuckCurveEdit, tuckDistanceEdit
+var dustShoulderEdit, dustDistanceEdit
 var leftRadio, topRadio, rightRadio, bottomRadio
 
 dialog.hgroup(function(topGroup) {
@@ -101,8 +101,8 @@ tabbedPanel = dialog.tabbedPanel(function(tabbedPanel) {
                 midGroup.hgroup(function(group) {
                     group.setTooltips('How big should the curve be relative to length, in percentage')
                     group.staticText(BOUNDS_TEXT2, 'Curve:', JUSTIFY_RIGHT)
-                    tuckCurveSlider = group.slider(BOUNDS_EDIT, 50, 0, 100, function(it) {
-                        it.onChanging = function() { tuckCurveEdit.text = parseInt(it.value) }
+                    tuckCurveSlider = group.slider(BOUNDS_EDIT, 2, 0, 4, function(it) {
+                        it.onChanging = function() { tuckCurveEdit.text = parseInt(it.value) * 25 }
                     })
                 })
                 midGroup.hgroup(function(group) {
@@ -110,7 +110,7 @@ tabbedPanel = dialog.tabbedPanel(function(tabbedPanel) {
                     group.staticText(BOUNDS_TEXT2)
                     tuckCurveEdit = group.editText([35, 21], '50', function(it) {
                         it.validateDigits()
-                        it.onChanging = function() { tuckCurveSlider.value = new Number(it.text) }
+                        it.onChanging = function() { tuckCurveSlider.value = new Number(it.text) / 25 }
                     })
                     group.staticText(undefined, '%')
                 })
@@ -131,16 +131,6 @@ tabbedPanel = dialog.tabbedPanel(function(tabbedPanel) {
                     group.setTooltips('Necessary for locking a tuck flap')
                     group.staticText(BOUNDS_TEXT2, 'Shoulder:', JUSTIFY_RIGHT)
                     dustShoulderEdit = group.editText(BOUNDS_EDIT, '5 mm', VALIDATE_UNITS)
-                })
-                midGroup.hgroup(function(group) {
-                    group.setTooltips('First angle of shoulder, usually 45 or lower')
-                    group.staticText(BOUNDS_TEXT2, '1st Angle:', JUSTIFY_RIGHT)
-                    dustAngle1Edit = group.editText(BOUNDS_EDIT, '45', VALIDATE_DIGITS)
-                })
-                midGroup.hgroup(function(group) {
-                    group.setTooltips('Second angle of shoulder, usually lower than first')
-                    group.staticText(BOUNDS_TEXT2, '2nd Angle:', JUSTIFY_RIGHT)
-                    dustAngle2Edit = group.editText(BOUNDS_EDIT, '15', VALIDATE_DIGITS)
                 })
                 midGroup.hgroup(function(group) {
                     group.setTooltips('Thicker material should have more distance')
@@ -214,18 +204,12 @@ function processTuck(length, path) {
     var positions = []
     selection.first().geometricBounds.let(function(it) {
         if (leftRadio.value) {
-            positions.push([it.getLeft(),
-                            it.getTop() - tuckDistance])
-            positions.push([it.getLeft() - tuckStart,
-                            it.getTop() - tuckDistance])
-            positions.push([it.getLeft() - length,
-                            it.getTop() - tuckCurve - tuckDistance])
-            positions.push([it.getLeft() - length,
-                            it.getBottom() + tuckCurve + tuckDistance])
-            positions.push([it.getLeft() - tuckStart,
-                            it.getBottom() + tuckDistance])
-            positions.push([it.getLeft(),
-                            it.getBottom() + tuckDistance])
+            positions.push([it.getLeft(), it.getTop() - tuckDistance])
+            positions.push([it.getLeft() - tuckStart, it.getTop() - tuckDistance])
+            positions.push([it.getLeft() - length, it.getTop() - tuckCurve - tuckDistance])
+            positions.push([it.getLeft() - length, it.getBottom() + tuckCurve + tuckDistance])
+            positions.push([it.getLeft() - tuckStart, it.getBottom() + tuckDistance])
+            positions.push([it.getLeft(), it.getBottom() + tuckDistance])
         } else if (topRadio.value) {
         } else if (rightRadio.value) {
         } else {
@@ -233,17 +217,28 @@ function processTuck(length, path) {
     })
     positions.forEach(function(it) {
         var point = path.pathPoints.add()
-        point.anchor = [it.getLeft(), it.getTop()]
-        point.leftDirection = [it.getLeft(), it.getTop()]
-        point.rightDirection = it.length === 2 ? it : [it[2], it[3]]
+        point.anchor = it
+        point.leftDirection = it
+        point.rightDirection = it
     })
 }
 
 function processDust(length, path) {
     var dustShoulder = parseUnits(dustShoulderEdit.text)
-    var dustAngle1 = parseInt(dustAngle1Edit.text)
-    var dustAngle2 = parseInt(dustAngle2Edit.text)
     var dustDistance = parseUnits(dustDistanceEdit.text)
+    var positions = []
+    selection.first().geometricBounds.let(function(it) {
+        if (leftRadio.value) {
+        } else if (topRadio.value) {
+            positions.push([it.getLeft(), it.getTop()])
+            positions.push([it.getLeft() + dustDistance, it.getTop() + dustDistance])
+            positions.push([it.getLeft() + dustDistance, it.getTop() + length])
+
+        } else if (rightRadio.value) {
+        } else {
+        }
+    })
+    path.setEntirePath(positions)
 }
 
 function registerRadioClick(radio) {

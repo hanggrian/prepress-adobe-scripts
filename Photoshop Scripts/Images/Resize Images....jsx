@@ -1,11 +1,10 @@
 /*
 <javascriptresource>
+<name>Resize Images</name>
 <category>1</category>
+<enableinfo>true</enableinfo>
 </javascriptresource>
 */
-
-// Increase canvas size and create new guide layout separating content
-// and bleed area.
 
 #target Photoshop
 #include '../.lib/commons.js'

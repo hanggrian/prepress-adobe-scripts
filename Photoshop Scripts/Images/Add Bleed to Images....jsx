@@ -1,11 +1,11 @@
 /*
 <javascriptresource>
+<name>Add Bleed to Images</name>
 <category>1</category>
+<enableinfo>true</enableinfo>
+<about>Increase canvas size and create new guide layout separating content and bleed area.</about>
 </javascriptresource>
 */
-
-// Increase canvas size and create new guide layout separating content
-// and bleed area.
 
 #target Photoshop
 #include '../.lib/commons.js'

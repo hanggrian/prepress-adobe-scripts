@@ -1,6 +1,7 @@
 /*
 <javascriptresource>
 <category>2</category>
+<enableinfo>true</enableinfo>
 </javascriptresource>
 */
 
