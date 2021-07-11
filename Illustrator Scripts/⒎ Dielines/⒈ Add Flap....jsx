@@ -1,4 +1,5 @@
 #target Illustrator
+#include '../.lib/ui/slider.js'
 #include '../.lib/commons.js'
 
 checkSingleSelection()
@@ -12,7 +13,7 @@ var dialog = new Dialog('Add Flap')
 var lengthEdit, weightEdit, colorList
 var tabbedPanel
 var glueShearEdit, glueScratchEdit
-var tuckCurveSlider, tuckCurveEdit, tuckDistanceEdit
+var tuckSliderGroup, tuckDistanceEdit
 var dustShoulderEdit, dustDistanceEdit
 var leftRadio, topRadio, rightRadio, bottomRadio
 
@@ -22,7 +23,7 @@ dialog.hgroup(function(topGroup) {
         panel.hgroup(function(group) {
             group.setTooltips('In horizontal direction, this is height. In vertical direction, this is width.')
             group.staticText(BOUNDS_TEXT, 'Length:', JUSTIFY_RIGHT)
-            lengthEdit = group.editText(BOUNDS_EDIT, '15 mm', function(it) {
+            lengthEdit = group.editText(BOUNDS_EDIT, '20 mm', function(it) {
                 it.validateUnits()
                 it.activate()
             })
@@ -91,28 +92,17 @@ tabbedPanel = dialog.tabbedPanel(function(tabbedPanel) {
                     })
                 })
             })
-            topGroup.image(undefined, getResource('flap_glue.png'))
+            topGroup.image(undefined, getResource('dieline_glueflap.png'))
         })
     })
-    /*tabbedPanel.vtab('Tuck Flap', function(tab) {
+    /* tabbedPanel.vtab('Tuck Flap', function(tab) {
         tab.hgroup(function(topGroup) {
             topGroup.alignChildren = 'top'
             topGroup.vgroup(function(midGroup) {
                 midGroup.hgroup(function(group) {
                     group.setTooltips('How big should the curve be relative to length, in percentage')
                     group.staticText(BOUNDS_TEXT2, 'Curve:', JUSTIFY_RIGHT)
-                    tuckCurveSlider = group.slider(BOUNDS_EDIT, 2, 0, 4, function(it) {
-                        it.onChanging = function() { tuckCurveEdit.text = parseInt(it.value) * 25 }
-                    })
-                })
-                midGroup.hgroup(function(group) {
-                    midGroup.alignChildren = 'left'
-                    group.staticText(BOUNDS_TEXT2)
-                    tuckCurveEdit = group.editText([35, 21], '50', function(it) {
-                        it.validateDigits()
-                        it.onChanging = function() { tuckCurveSlider.value = new Number(it.text) / 25 }
-                    })
-                    group.staticText(undefined, '%')
+                    tuckSliderGroup = new SliderGroup(group, BOUNDS_EDIT, 2, 0, 4, 25)
                 })
                 midGroup.hgroup(function(group) {
                     group.setTooltips('Thicker material should have more distance')
@@ -120,9 +110,9 @@ tabbedPanel = dialog.tabbedPanel(function(tabbedPanel) {
                     tuckDistanceEdit = group.editText(BOUNDS_EDIT, '0 mm', VALIDATE_UNITS)
                 })
             })
-            topGroup.image(undefined, getResource('flap_tuck.png'))
+            topGroup.image(undefined, getResource('dieline_tuckflap.png'))
         })
-    })
+    }) */
     tabbedPanel.vtab('Dust Flap', function(tab) {
         tab.hgroup(function(topGroup) {
             topGroup.alignChildren = 'top'
@@ -138,9 +128,18 @@ tabbedPanel = dialog.tabbedPanel(function(tabbedPanel) {
                     dustDistanceEdit = group.editText(BOUNDS_EDIT, '0 mm', VALIDATE_UNITS)
                 })
             })
-            topGroup.image(undefined, getResource('flap_dust.png'))
+            topGroup.image(undefined, getResource('dieline_dustflap.png'))
         })
-    })*/
+    })
+    tabbedPanel.onChange = function() {
+        if (tabbedPanel.selection.text === 'Glue Flap') {
+            glueShearEdit.activate()
+        } else if (tabbedPanel.selection.text === 'Tuck Flap') {
+            tuckCurveEdit.activate()
+        } else {
+            dustShoulderEdit.activate()
+        }
+    }
 })
 
 dialog.setNegativeButton('Close')
@@ -158,10 +157,8 @@ dialog.setPositiveButton(function() {
         processGlue(length, path)
     } else if (tabbedPanel.selection.text === 'Tuck Flap') {
         processTuck(length, path)
-    } else if (tabbedPanel.selection.text === 'Dust Flap') {
-        processDust(length, path)
     } else {
-        errorWithAlert('Unknown flap type')
+        processDust(length, path)
     }
     selection = [path]
 })
@@ -194,6 +191,7 @@ function processGlue(length, path) {
             positions.push([it.getRight(), it.getBottom()])
         }
     })
+    path.name = 'FlapGLUE'
     path.setEntirePath(positions)
 }
 
@@ -215,6 +213,7 @@ function processTuck(length, path) {
         } else {
         }
     })
+    path.name = 'FlapTUCK'
     positions.forEach(function(it) {
         var point = path.pathPoints.add()
         point.anchor = it
@@ -229,15 +228,40 @@ function processDust(length, path) {
     var positions = []
     selection.first().geometricBounds.let(function(it) {
         if (leftRadio.value) {
+            positions.push([it.getLeft(), it.getTop()])
+            positions.push([it.getLeft() - dustDistance, it.getTop() - dustDistance])
+            positions.push([it.getLeft() - length, it.getTop() - dustDistance])
+            positions.push([it.getLeft() - length, it.getBottom() + dustShoulder * 1.5])
+            positions.push([it.getLeft() - dustShoulder * 1.5, it.getBottom() + dustShoulder / 2])
+            positions.push([it.getLeft() - dustShoulder, it.getBottom()])
+            positions.push([it.getLeft(), it.getBottom()])
         } else if (topRadio.value) {
             positions.push([it.getLeft(), it.getTop()])
             positions.push([it.getLeft() + dustDistance, it.getTop() + dustDistance])
             positions.push([it.getLeft() + dustDistance, it.getTop() + length])
-
+            positions.push([it.getRight() - dustShoulder * 1.5, it.getTop() + length])
+            positions.push([it.getRight() - dustShoulder / 2, it.getTop() + dustShoulder * 1.5])
+            positions.push([it.getRight(), it.getTop() + dustShoulder])
+            positions.push([it.getRight(), it.getTop()])
         } else if (rightRadio.value) {
+            positions.push([it.getRight(), it.getTop()])
+            positions.push([it.getRight() + dustDistance, it.getTop() - dustDistance])
+            positions.push([it.getRight() + length, it.getTop() - dustDistance])
+            positions.push([it.getRight() + length, it.getBottom() + dustShoulder * 1.5])
+            positions.push([it.getRight() + dustShoulder * 1.5, it.getBottom() + dustShoulder / 2])
+            positions.push([it.getRight() + dustShoulder, it.getBottom()])
+            positions.push([it.getRight(), it.getBottom()])
         } else {
+            positions.push([it.getLeft(), it.getBottom()])
+            positions.push([it.getLeft() + dustDistance, it.getBottom() - dustDistance])
+            positions.push([it.getLeft() + dustDistance, it.getBottom() - length])
+            positions.push([it.getRight() - dustShoulder * 1.5, it.getBottom() - length])
+            positions.push([it.getRight() - dustShoulder / 2, it.getBottom() - dustShoulder * 1.5])
+            positions.push([it.getRight(), it.getBottom() - dustShoulder])
+            positions.push([it.getRight(), it.getBottom()])
         }
     })
+    path.name = 'FlapDUST'
     path.setEntirePath(positions)
 }
 

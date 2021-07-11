@@ -19,7 +19,7 @@ dialog.hgroup(function(topGroup) {
         panel.hgroup(function(group) {
             group.setTooltips('Distance between art and trim marks')
             group.staticText(BOUNDS_TEXT, 'Offset:', JUSTIFY_RIGHT)
-            offsetEdit = group.editText(BOUNDS_EDIT, unitsOf('2.5 mm'), function(it) {
+            offsetEdit = group.editText(BOUNDS_EDIT, '2.5 mm', function(it) {
                 it.validateUnits()
                 it.activate()
             })
@@ -27,7 +27,7 @@ dialog.hgroup(function(topGroup) {
         panel.hgroup(function(group) {
             group.setTooltips('Size of trim marks')
             group.staticText(BOUNDS_TEXT, 'Length:', JUSTIFY_RIGHT)
-            lengthEdit = group.editText(BOUNDS_EDIT, unitsOf('2.5 mm'), VALIDATE_UNITS)
+            lengthEdit = group.editText(BOUNDS_EDIT, '2.5 mm', VALIDATE_UNITS)
         })
         panel.hgroup(function(group) {
             group.setTooltips('Thickness of trim marks')
