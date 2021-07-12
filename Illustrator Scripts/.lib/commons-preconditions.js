@@ -1,3 +1,8 @@
+/** Assert that document is currently saved. */
+function checkSaved() {
+    check(document.saved, 'Save the document before proceeding')
+}
+
 /** Assert that document currently has any selection. */
 function checkHasSelection() {
     check(selection != null && selection.length > 0, 'No selection')

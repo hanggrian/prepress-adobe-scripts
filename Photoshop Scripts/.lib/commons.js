@@ -6,6 +6,8 @@
 
 #include 'core.js'
 
+#include 'commons-preconditions.js'
+
 check(app.documents.length > 0, 'No active document')
 
 var document = app.activeDocument
