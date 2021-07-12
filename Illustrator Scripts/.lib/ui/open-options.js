@@ -136,7 +136,7 @@ function OpenDocumentPanel(parent) {
     })
 
     this.open = function(title, pages, width, height, bleed) {
-        return app.documents.addDocument(DocumentPresetType.Print, new DocumentPreset().let(function(preset) {
+        return app.documents.addDocument(DocumentPresetType.Print, new DocumentPreset().also(function(preset) {
             preset.title = title
             preset.numArtboards = pages
             preset.width = width
@@ -197,7 +197,6 @@ function OpenDocumentPanel(parent) {
             } else {
                 preset.previewMode = DocumentPreviewMode.OverprintPreview
             }
-            return preset
         }))
     }
 }

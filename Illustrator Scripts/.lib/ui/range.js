@@ -20,9 +20,18 @@ function RangeGroup(parent, textBounds, editBounds) {
         self.endEdit = group.editText(editBounds, undefined, VALIDATE_DIGITS)
     })
 
+    this.getStartText = function() {
+        checkValidity
+        return self.startEdit.text
+    }
+
+    this.getEndText = function() {
+        checkValidity
+        return self.endEdit.text
+    }
+
     this.getStart = function() {
-        checkValidity()
-        var start = parseInt(self.startEdit.text) - 1
+        var start = parseInt(self.getStartText()) - 1
         if (start < self.minRange) {
             errorWithAlert('Start range cannot be less than ' + self.minRange)
         }
@@ -30,8 +39,7 @@ function RangeGroup(parent, textBounds, editBounds) {
     }
 
     this.getEnd = function() {
-        checkValidity()
-        var end = parseInt(self.endEdit.text) - 1
+        var end = parseInt(self.getEndText()) - 1
         if (end > self.maxRange) {
             errorWithAlert('End range cannot be more than ' + self.maxRange)
         }

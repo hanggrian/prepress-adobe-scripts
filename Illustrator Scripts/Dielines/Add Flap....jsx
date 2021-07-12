@@ -168,7 +168,7 @@ function processGlue(length, path) {
     var glueShear = parseUnits(glueShearEdit.text)
     var glueScratch = parseUnits(glueScratchEdit.text)
     var positions = []
-    selection.first().geometricBounds.let(function(it) {
+    selection.first().geometricBounds.run(function(it) {
         if (leftRadio.value) {
             positions.push([it.getLeft(), it.getTop()])
             positions.push([it.getLeft() - length, it.getTop() - glueShear])
@@ -200,7 +200,7 @@ function processTuck(length, path) {
     var tuckStart = length - tuckCurve
     var tuckDistance = parseUnits(tuckDistanceEdit.text)
     var positions = []
-    selection.first().geometricBounds.let(function(it) {
+    selection.first().geometricBounds.run(function(it) {
         if (leftRadio.value) {
             positions.push([it.getLeft(), it.getTop() - tuckDistance])
             positions.push([it.getLeft() - tuckStart, it.getTop() - tuckDistance])
@@ -226,7 +226,7 @@ function processDust(length, path) {
     var dustShoulder = parseUnits(dustShoulderEdit.text)
     var dustDistance = parseUnits(dustDistanceEdit.text)
     var positions = []
-    selection.first().geometricBounds.let(function(it) {
+    selection.first().geometricBounds.run(function(it) {
         if (leftRadio.value) {
             positions.push([it.getLeft(), it.getTop()])
             positions.push([it.getLeft() - dustDistance, it.getTop() - dustDistance])

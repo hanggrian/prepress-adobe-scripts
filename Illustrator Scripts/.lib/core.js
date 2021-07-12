@@ -11,6 +11,17 @@
 #include 'core-preferences.js'
 #include 'core-units.js'
 
+var _resourcesPrefix = new File($.fileName).path + '/../.res/'
+
+/**
+ * Refer to a file from `.res` directory.
+ * @param {String} path file name with extension.
+ * @returns {File}
+ */
+function getResource(path) {
+    return new File(_resourcesPrefix + path)
+}
+
 /**
  * Returns layer name, or type if it is unnamed.
  * @this {PageItem}
