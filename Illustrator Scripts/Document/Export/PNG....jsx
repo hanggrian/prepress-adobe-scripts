@@ -3,34 +3,28 @@
 #include '../../.lib/ui/range.js'
 #include '../../.lib/ui/save-options.js'
 
-var BOUNDS_TEXT = [40, 21]
+var BOUNDS_TEXT = [70, 21]
 
 var dialog = new Dialog('Export PNG')
-var rangeGroup, prefixEdit, suffixArtboardRadio, suffixIndexRadio, extensionCheck
+var saveFilePanel, separatorEdit, suffixArtboardRadio, suffixIndexRadio
 var antiAliasingCheck, matteCheck, transparencyCheck
 var saveDirectoryGroup
 
 dialog.hgroup(function(topGroup) {
     topGroup.alignChildren = 'fill'
-    topGroup.vpanel('File', function(panel) {
+    saveFilePanel = new SaveFilePanel(topGroup, BOUNDS_TEXT, 'png').also(function(panel) {
         panel.alignChildren = 'fill'
-        rangeGroup = new RangeGroup(panel, BOUNDS_TEXT, [100, 21]).also(function(it) {
-            it.startEdit.activate()
-            it.maxRange = document.artboards.length
-            it.endEdit.text = document.artboards.length
+        panel.main.hgroup(function(group) {
+            group.setTooltips('Characters to divide')
+            group.staticText(BOUNDS_TEXT, 'Separator:', JUSTIFY_RIGHT)
+            separatorEdit = group.editText([100, 21], '-')
         })
-        panel.hgroup(function(group) {
-            group.setTooltips('Starting file name')
-            group.staticText(BOUNDS_TEXT, 'Prefix:', JUSTIFY_RIGHT)
-            prefixEdit = group.editText([200, 21], document.name.substringBeforeLast('.') + '-')
-        })
-        panel.hgroup(function(group) {
+        panel.main.hgroup(function(group) {
             group.setTooltips('Ending file name')
             group.staticText(BOUNDS_TEXT, 'Suffix:', JUSTIFY_RIGHT)
-            suffixArtboardRadio = group.radioButton(undefined, 'Artboard', SELECTED)
+            suffixArtboardRadio = group.radioButton(undefined, 'Artboard Name', SELECTED)
             suffixIndexRadio = group.radioButton(undefined, 'Index')
         })
-        extensionCheck = panel.checkBox(undefined, 'Use Extension', SELECTED)
     })
     topGroup.vpanel('Export', function(panel) {
         panel.alignChildren = 'fill'
@@ -48,28 +42,42 @@ dialog.hgroup(function(topGroup) {
         })
     })
 })
-saveDirectoryGroup = new SaveDirectoryGroup(dialog, [350, 21])
+saveDirectoryGroup = new SaveDirectoryGroup(dialog, [390, 21])
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    var prefix = prefixEdit.text
-    var isSuffixArtboard = suffixArtboardRadio.value
-    var extension = extensionCheck.value ? '.png' : ''
-    var directoryName = saveDirectoryGroup.getDirectoryName()
+    process(document)
+    saveDirectoryGroup.browse()
+})
+dialog.setNeutralButton(170, 'All Documents', function() {
+    for (var i = 0; i < app.documents.length; i++) {
+        app.activeDocument = app.documents[i]
+        process(app.activeDocument)
+    }
+    saveDirectoryGroup.browse()
+})
+dialog.show()
 
+function process(document) {
+    var prefix = document.name.substringBeforeLast('.')
+    var separator = separatorEdit.text
     var options = new ExportOptionsPNG24().also(function(it) {
         it.artBoardClipping = true
         it.antiAliasing = antiAliasingCheck.value
         it.matte = matteCheck.value
         it.transparency = transparencyCheck.value
     })
-    rangeGroup.forEach(function(i) {
-        var fileName = directoryName + '/' + prefix
-        fileName += isSuffixArtboard ? document.artboards[i].name : (i + 1).toString()
-        fileName += extension
+    var action = function(i) {
+        var suffix = suffixArtboardRadio.value ? document.artboards[i].name : (i + 1).toString()
+        var newFile = new File(saveDirectoryGroup.getDirectoryName() + '/' + saveFilePanel.getFileName(prefix + separator + suffix))
         document.artboards.setActiveArtboardIndex(i)
-        document.exportFile(new File(fileName), ExportType.PNG24, options)
-    })
-    saveDirectoryGroup.browse()
-})
-dialog.show()
+        document.exportFile(newFile, ExportType.PNG24, options)
+    }
+    if (saveFilePanel.isAllArtboards()) {
+        for (var i = 0; i < document.artboards.length; i++) {
+            action(i)
+        }
+    } else {
+        rangeGroup.forEach(action)
+    }
+}

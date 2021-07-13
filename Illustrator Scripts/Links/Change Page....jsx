@@ -10,18 +10,18 @@ var BOUNDS_EDIT = [100, 21]
 
 checkHasSelection()
 
-var items = selection.filterItem(function(it) {
-    return it.typename === 'PlacedItem' && it.isFileExists() && it.file.isPDF()
-})
+var items = selection.filterItem(function(it) { return it.typename === 'PlacedItem' && it.isFileExists() && it.file.isPDF() })
 check(items.isNotEmpty(), 'No PDF links found in selection')
 
 var dialog = new Dialog('Change Page', 'right')
 var pdfPanel, rangeGroup, orderByGroup, maintainSizeGroup
 
 pdfPanel = new OpenPDFPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT).also(function(panel) {
-    rangeGroup = new RangeGroup(panel.main, BOUNDS_TEXT, BOUNDS_EDIT).also(function(group) {
-        group.startEdit.activate()
-        group.endEdit.text = '1'
+    panel.main.hgroup(function(group) {
+        group.staticText(BOUNDS_TEXT, 'Pages:', JUSTIFY_RIGHT)
+        rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
+            it.startEdit.activate()
+        })
     })
 })
 orderByGroup = new OrderByGroup(dialog.main, [ORDERS_DEFAULTS, ORDERS_POSITIONS]).also(function(group) {

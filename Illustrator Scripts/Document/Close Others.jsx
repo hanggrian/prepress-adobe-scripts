@@ -1,7 +1,7 @@
 // Close other tabs without saving.
 
 #target Illustrator
-#include '.lib/commons.js'
+#include '../.lib/commons.js'
 
 check(app.documents.length !== 1, 'No other documents')
 

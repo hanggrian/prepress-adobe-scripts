@@ -28,9 +28,12 @@ if (files !== null && files.isNotEmpty()) {
         pdfPanel = new OpenPDFPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
     }
     dialog.vpanel('Pages', function(panel) {
-        rangeGroup = new RangeGroup(panel, BOUNDS_TEXT, BOUNDS_EDIT).also(function(group) {
-            group.startEdit.activate()
-            group.endEdit.text = collection.length
+        panel.hgroup(function(group) {
+            group.staticText(BOUNDS_TEXT, 'Pages:', JUSTIFY_RIGHT)
+            rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
+                it.startEdit.activate()
+                it.endEdit.text = collection.length
+            })
         })
     })
     orderByGroup = new OrderByGroup(dialog.main, [ORDERS_DEFAULTS, ORDERS_POSITIONS]).also(function(group) {

@@ -3,7 +3,7 @@
 #include '../.lib/commons.js'
 #include '../.lib/ui/range.js'
 
-var BOUNDS_TEXT = [50, 21]
+var BOUNDS_TEXT = [60, 21]
 var BOUNDS_EDIT = [100, 21]
 
 var dialog = new Dialog('Resize Artboards', 'right')
@@ -13,9 +13,12 @@ var fitToArtsCheck
 dialog.hgroup(function(topGroup) {
     topGroup.alignChildren = 'fill'
     topGroup.vpanel('Artboard', function(panel) {
-        rangeGroup = new RangeGroup(panel, BOUNDS_TEXT, BOUNDS_EDIT).also(function(it) {
-            it.maxRange = document.artboards.length
-            it.endEdit.text = document.artboards.length
+        panel.hgroup(function(group) {
+            group.staticText(BOUNDS_TEXT, 'Artboards:', JUSTIFY_RIGHT)
+            rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
+                it.maxRange = document.artboards.length
+                it.endEdit.text = document.artboards.length
+            })
         })
         panel.hgroup(function(group) {
             group.setTooltips("Artboards' new width")

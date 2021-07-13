@@ -29,6 +29,7 @@ if (files !== null && files.isNotEmpty()) {
                 if (!collection.isSinglePDF) {
                     panel.rangeGroup.maxRange = collection.length
                 }
+                panel.rangeGroup.startEdit.activate()
             })
         })
         documentPanel = new OpenDocumentPanel(topGroup)

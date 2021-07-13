@@ -45,7 +45,7 @@ File.prototype.getExtension = function() {
  */
 File.prototype.isPDF = function() {
     return this.getExtension().let(function(it) {
-        return it === 'ai' || it === 'pdf'
+        return it == 'ai' || it == 'pdf' // don't use ===
     })
 }
 

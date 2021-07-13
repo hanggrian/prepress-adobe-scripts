@@ -1,27 +1,49 @@
-var BOUNDS_SAVE_FILE = [40, 21]
-
-function SaveFilePanel(parent, extension) {
+function SaveFilePanel(parent, textBounds, extension) {
     var self = this
-    this.rangeGroup, this.fileEdit, this.extensionCheck
+    this.artboardsAllRadio, this.artboardsRangeRadio, this.rangeGroup
+    this.fileTimestampCheck, this.fileExtensionCheck
 
-    parent.vpanel('File', function(panel) {
+    this.main = parent.vpanel('File', function(panel) {
         panel.alignChildren = 'fill'
-        self.rangeGroup = new RangeGroup(panel, BOUNDS_SAVE_FILE, [100, 21]).also(function(it) {
-            it.startEdit.activate()
-            it.maxRange = document.artboards.length
-            it.endEdit.text = document.artboards.length
+        panel.hgroup(function(group) {
+            group.staticText(textBounds, 'Artboards:', JUSTIFY_RIGHT)
+            self.artboardsAllRadio = group.radioButton(undefined, 'All', function(it) {
+                it.select()
+                it.onClick = function() {
+                    self.rangeGroup.main.enabled = false
+                }
+            })
+            self.artboardsRangeRadio = group.radioButton(undefined, 'Range', function(it) {
+                it.onClick = function() {
+                    self.rangeGroup.main.enabled = true
+                    self.rangeGroup.startEdit.activate()
+                }
+            })
+            self.rangeGroup = new RangeGroup(group, [100, 21]).also(function(it) {
+                it.main.enabled = false
+                it.maxRange = document.artboards.length
+                it.endEdit.text = document.artboards.length
+            })
         })
         panel.hgroup(function(group) {
-            group.setTooltips('File name')
-            group.staticText(BOUNDS_SAVE_FILE, 'Name:', JUSTIFY_RIGHT)
-            self.fileEdit = group.editText([200, 21], document.name.substringBeforeLast('.'))
+            group.setTooltips('Optional properties that will determine output file name')
+            group.staticText(textBounds, 'File Name:', JUSTIFY_RIGHT)
+            self.fileTimestampCheck = group.checkBox(undefined, 'Timestamp')
+            self.fileExtensionCheck = group.checkBox(undefined, 'Extension', SELECTED)
         })
-        self.extensionCheck = panel.checkBox(undefined, 'Use extension', SELECTED)
     })
 
-    this.getFileName = function() {
-        var fileName = self.fileEdit.text
-        if (self.extensionCheck.value) {
+    this.isAllArtboards = function() {
+        return self.artboardsAllRadio.value
+    }
+
+    this.getFileName = function(name) {
+        var fileName = ''
+        if (self.fileTimestampCheck.value) {
+            fileName += '000000 '
+        }
+        fileName += name
+        if (self.fileExtensionCheck.value) {
             fileName += '.' + extension
         }
         return fileName

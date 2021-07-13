@@ -4,7 +4,7 @@
 </javascriptresource>
 */
 
-function RangeGroup(parent, textBounds, editBounds) {
+function RangeGroup(parent, editBounds) {
     var self = this
     this.startEdit, this.endEdit
 
@@ -13,20 +13,24 @@ function RangeGroup(parent, textBounds, editBounds) {
 
     editBounds = [editBounds[0] / 2 - 13, editBounds[1]]
     this.main = parent.hgroup(function(group) {
-        group.setTooltips('From starting point to ending point')
-        group.staticText(textBounds, 'Range:', JUSTIFY_RIGHT)
-        self.startEdit = group.editText(editBounds, '1', VALIDATE_DIGITS)
+        self.startEdit = group.editText(editBounds, '1', function(it) {
+            it.setTooltip('Starting point')
+            it.validateDigits()
+        })
         group.staticText(undefined, '–', JUSTIFY_RIGHT) // use en dash
-        self.endEdit = group.editText(editBounds, undefined, VALIDATE_DIGITS)
+        self.endEdit = group.editText(editBounds, '1', function(it) {
+            it.setTooltip('Ending point')
+            it.validateDigits()
+        })
     })
 
     this.getStartText = function() {
-        checkValidity
+        checkValidity()
         return self.startEdit.text
     }
 
     this.getEndText = function() {
-        checkValidity
+        checkValidity()
         return self.endEdit.text
     }
 

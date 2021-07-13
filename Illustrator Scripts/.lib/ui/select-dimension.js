@@ -6,10 +6,7 @@ function SelectDimensionPanel(parent, textBounds, editBounds) {
         panel.hgroup(function(group) {
             group.setTooltips("Selected object's width")
             group.staticText(textBounds, 'Width:', JUSTIFY_RIGHT)
-            self.widthEdit = group.editText(editBounds, undefined, function(it) {
-                it.validateUnits()
-                it.activate()
-            })
+            self.widthEdit = group.editText(editBounds, undefined, VALIDATE_UNITS)
         })
         panel.hgroup(function(group) {
             group.setTooltips("Selected object's height")

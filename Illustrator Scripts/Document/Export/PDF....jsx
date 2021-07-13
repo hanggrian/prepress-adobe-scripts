@@ -3,7 +3,11 @@
 #include '../../.lib/ui/range.js'
 #include '../../.lib/ui/save-options.js'
 
-checkSaved()
+var BOUNDS_TEXT = [70, 21]
+
+for (var i = 0; i < app.documents.length; i++) {
+    check(app.documents[i].saved, 'Save all documents before proceeding')
+}
 
 var dialog = new Dialog('Export PDF')
 var saveFilePanel
@@ -12,7 +16,7 @@ var saveDirectoryGroup
 
 dialog.hgroup(function(topGroup) {
     topGroup.alignChildren = 'fill'
-    saveFilePanel = new SaveFilePanel(topGroup, 'pdf')
+    saveFilePanel = new SaveFilePanel(topGroup, BOUNDS_TEXT, 'pdf')
     topGroup.vpanel('Export', function(panel) {
         panel.alignChildren = 'fill'
         useBleedCheck = panel.checkBox(undefined, 'Use Bleed', function(it) {
@@ -25,19 +29,32 @@ dialog.hgroup(function(topGroup) {
         })
     })
 })
-saveDirectoryGroup = new SaveDirectoryGroup(dialog, [350, 21])
+saveDirectoryGroup = new SaveDirectoryGroup(dialog, [390, 21])
 
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
-    var newFile = new File(saveDirectoryGroup.getDirectoryName() + '/' + saveFilePanel.getFileName())
+    process(document)
+    saveDirectoryGroup.browse()
+})
+dialog.setNeutralButton(170, 'All Documents', function() {
+    for (var i = 0; i < app.documents.length; i++) {
+        app.activeDocument = app.documents[i]
+        process(app.activeDocument)
+    }
+    saveDirectoryGroup.browse()
+})
+dialog.show()
+
+function process(document) {
+    var newFile = new File(saveDirectoryGroup.getDirectoryName() + '/' + saveFilePanel.getFileName(document.name.substringBeforeLast('.')))
     var oldFile = document.fullName
     document.saveAs(newFile, new PDFSaveOptions().also(function(it) {
-        it.artboardRange = saveFilePanel.rangeGroup.getStartText() + '-' + saveFilePanel.rangeGroup.getEndText()
+        if (!saveFilePanel.isAllArtboards) {
+            it.artboardRange = saveFilePanel.rangeGroup.getStartText() + '-' + saveFilePanel.rangeGroup.getEndText()
+        }
         it.bleedLink = useBleedCheck.value
         it.compressArt = compressArtCheck.value
     }))
-    saveDirectoryGroup.browse()
     document.close()
     app.open(oldFile)
-})
-dialog.show()
+}

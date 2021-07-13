@@ -31,6 +31,7 @@
 #include 'preconditions.js'
 #include 'properties.js'
 #include 'rectangles.js'
+#include 'resources.js'
 #include 'standard.js'
 #include 'strings.js'
 
