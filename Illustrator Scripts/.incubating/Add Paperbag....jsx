@@ -1,5 +1,4 @@
 #target Illustrator
-#include '../.lib/ui/slider.js'
 #include '../.lib/core.js'
 
 var BOUNDS_TEXT = [50, 21]
@@ -13,35 +12,35 @@ dialog.vgroup(function(main) {
         topGroup.vgroup(function(midGroup) {
             midGroup.hgroup(function(group) {
                 group.setTooltips('Width of paperbag')
-                group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
-                widthEdit = group.editText(BOUNDS_EDIT, '210 mm', function(it) {
+                group.staticText(BOUNDS_TEXT, 'Width:').also(JUSTIFY_RIGHT)
+                widthEdit = group.editText(BOUNDS_EDIT, '210 mm').also(function(it) {
                     it.validateUnits()
                     it.activate()
                 })
             })
             midGroup.hgroup(function(group) {
                 group.setTooltips('Height of paperbag')
-                group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
-                heightEdit = group.editText(BOUNDS_EDIT, '297 mm', VALIDATE_UNITS)
+                group.staticText(BOUNDS_TEXT, 'Height:').also(JUSTIFY_RIGHT)
+                heightEdit = group.editText(BOUNDS_EDIT, '297 mm').also(VALIDATE_UNITS)
             })
             midGroup.hgroup(function(group) {
                 group.setTooltips('Depth of paperbag')
-                group.staticText(BOUNDS_TEXT, 'Depth:', JUSTIFY_RIGHT)
-                depthEdit = group.editText(BOUNDS_EDIT, '100 mm', VALIDATE_UNITS)
+                group.staticText(BOUNDS_TEXT, 'Depth:').also(JUSTIFY_RIGHT)
+                depthEdit = group.editText(BOUNDS_EDIT, '100 mm').also(VALIDATE_UNITS)
             })
             midGroup.hgroup(function(group) {
                 group.setTooltips('Length of lid area')
-                group.staticText(BOUNDS_TEXT, 'Lid:', JUSTIFY_RIGHT)
-                lidEdit = group.editText(BOUNDS_EDIT, '30 mm', VALIDATE_UNITS)
+                group.staticText(BOUNDS_TEXT, 'Lid:').also(JUSTIFY_RIGHT)
+                lidEdit = group.editText(BOUNDS_EDIT, '30 mm').also(VALIDATE_UNITS)
             })
             midGroup.hgroup(function(group) {
                 group.setTooltips('Length of glue area')
-                group.staticText(BOUNDS_TEXT, 'Glue:', JUSTIFY_RIGHT)
-                lidEdit = group.editText(BOUNDS_EDIT, '20 mm', VALIDATE_UNITS)
+                group.staticText(BOUNDS_TEXT, 'Glue:').also(JUSTIFY_RIGHT)
+                lidEdit = group.editText(BOUNDS_EDIT, '20 mm').also(VALIDATE_UNITS)
             })
             midGroup.hgroup(function(group) {
                 group.setTooltips('How big should the bottom side be relative to depth, in percentage')
-                group.staticText(BOUNDS_TEXT, 'Bottom:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_TEXT, 'Bottom:').also(JUSTIFY_RIGHT)
                 new SliderGroup(group, BOUNDS_EDIT, 6, 0, 10, 10)
             })
         })

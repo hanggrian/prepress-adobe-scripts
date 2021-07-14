@@ -1,6 +1,5 @@
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/ui/range.js'
 
 var ANCHORS = ['Top Left', 'Top Right', 'Bottom Left', 'Bottom Right']
 
@@ -33,7 +32,7 @@ var rangeGroup, anchorList
 
 dialog.vgroup(function(main) {
     main.hgroup(function(group) {
-        group.staticText(BOUNDS_TEXT, 'Artboards:', JUSTIFY_RIGHT)
+        group.staticText(BOUNDS_TEXT, 'Artboards:').also(JUSTIFY_RIGHT)
         rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
             it.maxRange = document.artboards.length
             it.endEdit.text = document.artboards.length
@@ -42,8 +41,8 @@ dialog.vgroup(function(main) {
     })
     main.hgroup(function(group) {
         group.setTooltips('Only relevant on artboard with different size than active artboard')
-        group.staticText(BOUNDS_TEXT, 'Anchor:', JUSTIFY_RIGHT)
-        anchorList = group.dropDownList(BOUNDS_EDIT, ANCHORS, function(it) {
+        group.staticText(BOUNDS_TEXT, 'Anchor:').also(JUSTIFY_RIGHT)
+        anchorList = group.dropDownList(BOUNDS_EDIT, ANCHORS).also(function(it) {
             it.selectText('Top Left')
             it.enabled = !areArtboardSizesEqual()
         })

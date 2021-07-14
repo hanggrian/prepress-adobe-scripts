@@ -5,7 +5,7 @@
             "type": "extendscript-debug",
             "request": "launch",
             "name": "prepress-adobe-scripts",
-            "program": "${workspaceFolder}/Illustrator Scripts/Document/Export/PNG....jsx",
+            "program": "${workspaceFolder}/Illustrator Scripts/Objects/Step and Repeat....jsx",
             //"program": "${workspaceFolder}/Photoshop Scripts/Images/Add Bleed to Images....jsx",
             "stopOnEntry": false
         }

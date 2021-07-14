@@ -1,7 +1,5 @@
 #target Illustrator
 #include '../../.lib/commons.js'
-#include '../../.lib/ui/range.js'
-#include '../../.lib/ui/save-options.js'
 
 var BOUNDS_TEXT = [70, 21]
 
@@ -17,27 +15,27 @@ dialog.vgroup(function(main) {
             panel.alignChildren = 'fill'
             panel.main.hgroup(function(group) {
                 group.setTooltips('Characters to divide')
-                group.staticText(BOUNDS_TEXT, 'Separator:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_TEXT, 'Separator:').also(JUSTIFY_RIGHT)
                 separatorEdit = group.editText([100, 21], '-')
             })
             panel.main.hgroup(function(group) {
                 group.setTooltips('Ending file name')
-                group.staticText(BOUNDS_TEXT, 'Suffix:', JUSTIFY_RIGHT)
-                suffixArtboardRadio = group.radioButton(undefined, 'Artboard Name', SELECTED)
+                group.staticText(BOUNDS_TEXT, 'Suffix:').also(JUSTIFY_RIGHT)
+                suffixArtboardRadio = group.radioButton(undefined, 'Artboard Name').also(SELECTED)
                 suffixIndexRadio = group.radioButton(undefined, 'Index')
             })
         })
         topGroup.vpanel('Export', function(panel) {
             panel.alignChildren = 'fill'
-            antiAliasingCheck = panel.checkBox(undefined, 'Anti-Aliasing', function(it) {
+            antiAliasingCheck = panel.checkBox(undefined, 'Anti-Aliasing').also(function(it) {
                 it.setTooltip('Should the resulting image be antialiased')
                 it.select()
             })
-            matteCheck = panel.checkBox(undefined, 'Matte', function(it) {
+            matteCheck = panel.checkBox(undefined, 'Matte').also(function(it) {
                 it.setTooltip('Should the artboard be matted with a color')
                 it.select()
             })
-            transparencyCheck = panel.checkBox(undefined, 'Transparency', function(it) {
+            transparencyCheck = panel.checkBox(undefined, 'Transparency').also(function(it) {
                 it.setTooltip('	Should the resulting image use transparency')
                 it.select()
             })

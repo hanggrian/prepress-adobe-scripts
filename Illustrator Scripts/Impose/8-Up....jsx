@@ -1,7 +1,5 @@
 #target Illustrator
 #include '../.lib/core.js'
-#include '../.lib/ui/open-options.js'
-#include '../.lib/ui/range.js'
 
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
@@ -37,10 +35,10 @@ if (files !== null && files.isNotEmpty()) {
             documentPanel = new OpenDocumentPanel(topGroup)
         })
         main.hgroup(function(group) {
-            rotateCheck = group.checkBox(undefined, 'Rotate Page', function(it) {
+            rotateCheck = group.checkBox(undefined, 'Rotate Page').also(function(it) {
                 it.setTooltip('Should the page be rotated?')
             })
-            duplexCheck = group.checkBox(undefined, 'Duplex Printing', function(it) {
+            duplexCheck = group.checkBox(undefined, 'Duplex Printing').also(function(it) {
                 it.setTooltip('Is this layout double-sided?')
             })
         })

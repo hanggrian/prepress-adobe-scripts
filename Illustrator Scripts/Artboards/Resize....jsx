@@ -1,7 +1,5 @@
 #target Illustrator
-#include '../../.stdlib/ui/anchor.js'
 #include '../.lib/commons.js'
-#include '../.lib/ui/range.js'
 
 var BOUNDS_TEXT = [70, 21]
 var BOUNDS_EDIT = [100, 21]
@@ -16,7 +14,7 @@ dialog.vgroup(function(main) {
         topGroup.alignChildren = 'fill'
         topGroup.vpanel('Artboard', function(panel) {
             panel.hgroup(function(group) {
-                group.staticText(BOUNDS_TEXT, 'Artboards:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_TEXT, 'Artboards:').also(JUSTIFY_RIGHT)
                 rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
                     it.maxRange = document.artboards.length
                     it.endEdit.text = document.artboards.length
@@ -24,23 +22,23 @@ dialog.vgroup(function(main) {
             })
             panel.hgroup(function(group) {
                 group.setTooltips("Artboards' new width")
-                group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
-                widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2), function(it) {
+                group.staticText(BOUNDS_TEXT, 'Width:').also(JUSTIFY_RIGHT)
+                widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2)).also(function(it) {
                     it.validateUnits()
                     it.activate()
                 })
             })
             panel.hgroup(function(group) {
                 group.setTooltips("Artboards' new height")
-                group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
-                heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2), VALIDATE_UNITS)
+                group.staticText(BOUNDS_TEXT, 'Height:').also(JUSTIFY_RIGHT)
+                heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2)).also(VALIDATE_UNITS)
             })
         })
         topGroup.vpanel('Anchor', function(panel) {
             anchorGroup = new AnchorGroup(panel)
         })
     })
-    fitToArtsCheck = main.checkBox(undefined, 'Fit to Arts', function(it) {
+    fitToArtsCheck = main.checkBox(undefined, 'Fit to Arts').also(function(it) {
         it.setTooltip("Wrap artboards' sizes to each arts")
         it.onClick = function() {
             widthEdit.enabled = !it.value

@@ -20,19 +20,19 @@ dialog.vgroup(function(main) {
     main.alignChildren = 'fill'
     main.hgroup(function(group) {
         group.setTooltips('Bleed are distributed around image')
-        group.staticText(undefined, 'Bleed:', JUSTIFY_RIGHT)
-        bleedEdit = group.editText([150, 21], unitsOf('2.5 mm'), function(it) {
+        group.staticText(undefined, 'Bleed:').also(JUSTIFY_RIGHT)
+        bleedEdit = group.editText([150, 21], unitsOf('2.5 mm')).also(function(it) {
             it.validateUnits()
             it.activate()
         })
     })
-    flattenImageCheck = main.checkBox(undefined, 'Flatten Image', function(it) {
+    flattenImageCheck = main.checkBox(undefined, 'Flatten Image').also(function(it) {
         it.setTooltip('Layers will be flattened')
         it.select()
     })
     main.hgroup(function(group) {
         group.setTooltips('Guides will mark where bleed are added')
-        useGuidesCheck = group.checkBox(undefined, 'Use Guides', function(it) {
+        useGuidesCheck = group.checkBox(undefined, 'Use Guides').also(function(it) {
             it.select()
             it.onClick = function() {
                 clearGuidesCheck.enabled = it.value
@@ -42,7 +42,7 @@ dialog.vgroup(function(main) {
     })
     main.hgroup(function(group) {
         group.setTooltips('Select bleed with x correction')
-        selectBleedCheck = group.checkBox(undefined, 'Select Bleed with', function(it) {
+        selectBleedCheck = group.checkBox(undefined, 'Select Bleed with').also(function(it) {
             it.onClick = function() {
                 correctionEdit.enabled = it.value
                 if (it.value) {
@@ -52,7 +52,7 @@ dialog.vgroup(function(main) {
                 }
             }
         })
-        correctionEdit = group.editText([50, 21], '0 px', function(it) {
+        correctionEdit = group.editText([50, 21], '0 px').also(function(it) {
             it.validateUnits()
             it.enabled = false
         })

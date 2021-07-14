@@ -20,26 +20,26 @@ dialog.vgroup(function(main) {
     main.alignChildren = 'fill'
     main.hgroup(function(group) {
         group.setTooltips("Images' new width")
-        group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
-        widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2), function(it) {
+        group.staticText(BOUNDS_TEXT, 'Width:').also(JUSTIFY_RIGHT)
+        widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2)).also(function(it) {
             it.validateUnits()
             it.activate()
         })
     })
     main.hgroup(function(group) {
         group.setTooltips("Images' new height")
-        group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
-        heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2), VALIDATE_UNITS)
+        group.staticText(BOUNDS_TEXT, 'Height:').also(JUSTIFY_RIGHT)
+        heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2)).also(VALIDATE_UNITS)
     })
     main.hgroup(function(group) {
         group.setTooltips("Images' new resolution")
-        group.staticText(BOUNDS_TEXT, 'Resolution:', JUSTIFY_RIGHT)
-        resolutionEdit = group.editText(BOUNDS_EDIT, document.resolution, VALIDATE_UNITS)
+        group.staticText(BOUNDS_TEXT, 'Resolution:').also(JUSTIFY_RIGHT)
+        resolutionEdit = group.editText(BOUNDS_EDIT, document.resolution).also(VALIDATE_UNITS)
     })
     main.hgroup(function(group) {
         group.setTooltips('Method to resample new images')
-        group.staticText(BOUNDS_TEXT, 'Resample:', JUSTIFY_RIGHT)
-        resampleList = group.dropDownList(undefined, RESAMPLES, function(it) {
+        group.staticText(BOUNDS_TEXT, 'Resample:').also(JUSTIFY_RIGHT)
+        resampleList = group.dropDownList(undefined, RESAMPLES).also(function(it) {
             it.selectText('Bicubic')
         })
     })

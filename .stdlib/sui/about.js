@@ -14,7 +14,6 @@ function AboutTabbedPanel(parent) {
             tab.staticText(BOUNDS_TAB,
                 'Versions are not yet tracked.\n' +
                 '\nCheck update function is probably not going to be possible. This is mainly because there is no REST API in ExtendScript.',
-                undefined,
                 { multiline: true })
         })
         tabbedPanel.vtab('Licensing', function(tab) {
@@ -32,7 +31,6 @@ function AboutTabbedPanel(parent) {
                 '\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.' +
                 '\nSee the License for the specific language governing permissions and'+
                 '\nlimitations under the License.',
-                undefined,
                 { multiline: true, readonly: true, scrollable: true })
         })
     })

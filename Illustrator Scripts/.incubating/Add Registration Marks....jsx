@@ -1,5 +1,4 @@
 #target Illustrator
-#include '../../.stdlib/ui/anchor.js'
 #include '../.lib/commons.js'
 
 var TYPES = ['Composite', 'Separations']
@@ -15,20 +14,20 @@ dialog.vgroup(function(main) {
         topGroup.alignChildren = 'fill'
         topGroup.vpanel('Registration Marks', function(panel) {
             panel.hgroup(function(group) {
-                group.staticText(BOUNDS_TEXT, 'Size:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_TEXT, 'Size:').also(JUSTIFY_RIGHT)
                 sizeSRadio = group.radioButton(undefined, 'S')
-                sizeMRadio = group.radioButton(undefined, 'M', SELECTED)
+                sizeMRadio = group.radioButton(undefined, 'M').also(SELECTED)
                 sizeLRadio = group.radioButton(undefined, 'L')
             })
             panel.hgroup(function(group) {
-                group.staticText(BOUNDS_TEXT, 'Types:', JUSTIFY_RIGHT)
-                typesList = group.dropDownList(BOUNDS_EDIT, TYPES, function(it) {
+                group.staticText(BOUNDS_TEXT, 'Types:').also(JUSTIFY_RIGHT)
+                typesList = group.dropDownList(BOUNDS_EDIT, TYPES).also(function(it) {
                     it.selectText('Composite')
                 })
             })
             panel.hgroup(function(group) {
-                group.staticText(BOUNDS_TEXT, 'Offset:', JUSTIFY_RIGHT)
-                offsetEdit = group.editText(BOUNDS_EDIT, '2.5 mm', VALIDATE_UNITS)
+                group.staticText(BOUNDS_TEXT, 'Offset:').also(JUSTIFY_RIGHT)
+                offsetEdit = group.editText(BOUNDS_EDIT, '2.5 mm').also(VALIDATE_UNITS)
             })
         })
         topGroup.vpanel('Anchor', function(panel) {

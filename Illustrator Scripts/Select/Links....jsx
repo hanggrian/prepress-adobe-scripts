@@ -5,7 +5,6 @@
 
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/ui/select-dimension.js'
 
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [150, 21]

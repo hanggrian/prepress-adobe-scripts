@@ -1,7 +1,5 @@
 #target Illustrator
 #include '../../.lib/commons.js'
-#include '../../.lib/ui/range.js'
-#include '../../.lib/ui/save-options.js'
 
 var BOUNDS_TEXT = [70, 21]
 
@@ -20,11 +18,11 @@ dialog.vgroup(function(main) {
         saveFilePanel = new SaveFilePanel(topGroup, BOUNDS_TEXT, 'pdf')
         topGroup.vpanel('Export', function(panel) {
             panel.alignChildren = 'fill'
-            useBleedCheck = panel.checkBox(undefined, 'Use Bleed', function(it) {
+            useBleedCheck = panel.checkBox(undefined, 'Use Bleed').also(function(it) {
                 it.setTooltip('Link 4 bleed values')
                 it.select()
             })
-            compressArtCheck = panel.checkBox(undefined, 'Compress Art', function(it) {
+            compressArtCheck = panel.checkBox(undefined, 'Compress Art').also(function(it) {
                 it.setTooltip('	Should line art and text be compressed?')
                 it.select()
             })

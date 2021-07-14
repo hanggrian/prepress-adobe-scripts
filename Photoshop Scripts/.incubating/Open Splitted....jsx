@@ -8,7 +8,6 @@
 
 #target Photoshop
 #include '../.lib/core.js'
-#include '../.lib/ui/open-options.js'
 
 var BOUNDS_TEXT = [60, 21]
 var BOUNDS_EDIT = [100, 21]
@@ -36,17 +35,17 @@ if (files !== null && files.isNotEmpty()) {
     /* dialog.main.vpanel('Split Options', function(panel) {
         panel.hgroup(function(group) {
             group.setTooltips('Divide image horizontally/vertically')
-            group.staticText(BOUNDS_TEXT, 'Direction:', JUSTIFY_RIGHT)
+            group.staticText(BOUNDS_TEXT, 'Direction:').also(JUSTIFY_RIGHT)
             group.vgroup(function(group2) {
                 group2.alignChildren = 'left'
-                horizontalRadio = group2.radioButton(undefined, 'Horizontal', SELECTED)
+                horizontalRadio = group2.radioButton(undefined, 'Horizontal').also(SELECTED)
                 verticalRadio = group2.radioButton(undefined, 'Vertical')
             })
         })
         panel.hgroup(function(group) {
             group.setTooltips('Total number of divison')
-            group.staticText(BOUNDS_TEXT, 'Parts:', JUSTIFY_RIGHT)
-            partsEdit = group.editText(BOUNDS_EDIT, '2', function(it) {
+            group.staticText(BOUNDS_TEXT, 'Parts:').also(JUSTIFY_RIGHT)
+            partsEdit = group.editText(BOUNDS_EDIT, '2').also(function(it) {
                 it.validateDigits()
                 it.activate()
             })

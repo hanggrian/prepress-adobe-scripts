@@ -6,14 +6,14 @@ function SaveFilePanel(parent, textBounds, extension) {
     this.main = parent.vpanel('File', function(panel) {
         panel.alignChildren = 'fill'
         panel.hgroup(function(group) {
-            group.staticText(textBounds, 'Artboards:', JUSTIFY_RIGHT)
-            self.artboardsAllRadio = group.radioButton(undefined, 'All', function(it) {
+            group.staticText(textBounds, 'Artboards:').also(JUSTIFY_RIGHT)
+            self.artboardsAllRadio = group.radioButton(undefined, 'All').also(function(it) {
                 it.select()
                 it.onClick = function() {
                     self.rangeGroup.main.enabled = false
                 }
             })
-            self.artboardsRangeRadio = group.radioButton(undefined, 'Range', function(it) {
+            self.artboardsRangeRadio = group.radioButton(undefined, 'Range').also(function(it) {
                 it.onClick = function() {
                     self.rangeGroup.main.enabled = true
                     self.rangeGroup.startEdit.activate()
@@ -27,9 +27,9 @@ function SaveFilePanel(parent, textBounds, extension) {
         })
         panel.hgroup(function(group) {
             group.setTooltips('Optional properties that will determine output file name')
-            group.staticText(textBounds, 'File Name:', JUSTIFY_RIGHT)
+            group.staticText(textBounds, 'File Name:').also(JUSTIFY_RIGHT)
             self.fileTimestampCheck = group.checkBox(undefined, 'Timestamp')
-            self.fileExtensionCheck = group.checkBox(undefined, 'Extension', SELECTED)
+            self.fileExtensionCheck = group.checkBox(undefined, 'Extension').also(SELECTED)
         })
     })
 
@@ -58,7 +58,7 @@ function SaveDirectoryGroup(parent, editBounds) {
         group.setTooltips('Where to save files?')
         group.image([21, 21], getResource('round_folder_white_18dp.png'))
         self.directoryEdit = group.editText(editBounds, '~/Desktop')
-        self.directoryButton = group.button([30, 21], '...', function(it) {
+        self.directoryButton = group.button([30, 21], '...').also(function(it) {
             it.onClick = function() {
                 self.directoryEdit.text = openFolder().fullName
             }

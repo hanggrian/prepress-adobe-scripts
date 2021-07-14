@@ -1,6 +1,5 @@
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/ui/order-by.js'
 
 check(document.artboards.length > 1, 'No other artboards')
 

@@ -18,15 +18,15 @@ function AnchorGroup(parent, isPsd) {
             if (isPsd) {
                 group.spacing = 0
             }
-            self.topLeftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(it) {
+            self.topLeftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
                 it.setTooltip('Top left')
                 registerRadioClick(it)
             })
-            self.topRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(it) {
+            self.topRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
                 it.setTooltip('Top')
                 registerRadioClick(it)
             })
-            self.topRightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(it) {
+            self.topRightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
                 it.setTooltip('Top right')
                 registerRadioClick(it)
             })
@@ -35,16 +35,16 @@ function AnchorGroup(parent, isPsd) {
             if (isPsd) {
                 group.spacing = 0
             }
-            self.leftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(it) {
+            self.leftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
                 it.setTooltip('Left')
                 registerRadioClick(it)
             })
-            self.centerRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(it) {
+            self.centerRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
                 it.setTooltip('Center')
                 it.select()
                 registerRadioClick(it)
             })
-            self.rightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(it) {
+            self.rightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
                 it.setTooltip('Right')
                 registerRadioClick(it)
             })
@@ -53,15 +53,15 @@ function AnchorGroup(parent, isPsd) {
             if (isPsd) {
                 group.spacing = 0
             }
-            self.bottomLeftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(it) {
+            self.bottomLeftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
                 it.setTooltip('Bottom left')
                 registerRadioClick(it)
             })
-            self.bottomRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(it) {
+            self.bottomRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
                 it.setTooltip('Bottom')
                 registerRadioClick(it)
             })
-            self.bottomRightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO, undefined, function(it) {
+            self.bottomRightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
                 it.setTooltip('Bottom right')
                 registerRadioClick(it)
             })

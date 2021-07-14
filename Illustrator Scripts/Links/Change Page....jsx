@@ -1,9 +1,5 @@
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/ui/maintain-size.js'
-#include '../.lib/ui/open-options.js'
-#include '../.lib/ui/order-by.js'
-#include '../.lib/ui/range.js'
 
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
@@ -20,7 +16,7 @@ dialog.vgroup(function(main) {
     main.alignChildren = 'right'
     pdfPanel = new OpenPDFPanel(main, BOUNDS_TEXT, BOUNDS_EDIT).also(function(panel) {
         panel.main.hgroup(function(group) {
-            group.staticText(BOUNDS_TEXT, 'Pages:', JUSTIFY_RIGHT)
+            group.staticText(BOUNDS_TEXT, 'Pages:').also(JUSTIFY_RIGHT)
             rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
                 it.startEdit.activate()
             })

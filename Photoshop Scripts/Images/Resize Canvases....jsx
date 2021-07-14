@@ -7,7 +7,6 @@
 */
 
 #target Photoshop
-#include '../../.stdlib/ui/anchor.js'
 #include '../.lib/commons.js'
 
 var BOUNDS_TEXT = [50, 21]
@@ -21,16 +20,16 @@ dialog.hgroup(function(main) {
     main.vpanel('Canvas', function(panel) {
         panel.hgroup(function(group) {
             group.setTooltips("Canvases' new width")
-            group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
-            widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2), function(it) {
+            group.staticText(BOUNDS_TEXT, 'Width:').also(JUSTIFY_RIGHT)
+            widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2)).also(function(it) {
                 it.validateUnits()
                 it.activate()
             })
         })
         panel.hgroup(function(group) {
             group.setTooltips("Canvases' new height")
-            group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
-            heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2), VALIDATE_UNITS)
+            group.staticText(BOUNDS_TEXT, 'Height:').also(JUSTIFY_RIGHT)
+            heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2)).also(VALIDATE_UNITS)
         })
     })
     main.vpanel('Anchor', function(panel) {

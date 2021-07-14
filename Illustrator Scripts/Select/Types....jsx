@@ -27,8 +27,8 @@ dialog.hgroup(function(main) {
             panel.alignChildren = 'fill'
             panel.hgroup(function(group) {
                 group.setTooltips('Text to find in content')
-                group.staticText(undefined, 'Find:', JUSTIFY_RIGHT)
-                findEdit = group.editText([150, 21], undefined, ACTIVATE)
+                group.staticText(undefined, 'Find:').also(JUSTIFY_RIGHT)
+                findEdit = group.editText([150, 21]).also(ACTIVATE)
             })
             panel.hgroup(function(group) {
                 matchCaseCheck = group.checkBox(undefined, 'Match Case')
@@ -39,22 +39,22 @@ dialog.hgroup(function(main) {
             panel.alignChildren = 'fill'
             panel.hgroup(function(group) {
                 group.setTooltips("The font's full name")
-                group.staticText(BOUNDS_LEFT_TEXT, 'Font name:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_LEFT_TEXT, 'Font name:').also(JUSTIFY_RIGHT)
                 fontNameEdit = group.editText(BOUNDS_LEFT_EDIT)
             })
             panel.hgroup(function(group) {
                 group.setTooltips('Font size in points')
-                group.staticText(BOUNDS_LEFT_TEXT, 'Font size:', JUSTIFY_RIGHT)
-                fontSizeEdit = group.editText(BOUNDS_LEFT_EDIT, undefined, VALIDATE_UNITS)
+                group.staticText(BOUNDS_LEFT_TEXT, 'Font size:').also(JUSTIFY_RIGHT)
+                fontSizeEdit = group.editText(BOUNDS_LEFT_EDIT).also(VALIDATE_UNITS)
             })
             panel.hgroup(function(group) {
                 group.setTooltips('Does the Japanese OpenType support italics?')
-                group.staticText(BOUNDS_LEFT_TEXT, 'Italic:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_LEFT_TEXT, 'Italic:').also(JUSTIFY_RIGHT)
                 italicList = group.dropDownList(BOUNDS_LEFT_EDIT, YES_OR_NO)
             })
             panel.hgroup(function(group) {
                 group.setTooltips('Whether to underline the text')
-                group.staticText(BOUNDS_LEFT_TEXT, 'Underline:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_LEFT_TEXT, 'Underline:').also(JUSTIFY_RIGHT)
                 underlineList = group.dropDownList(BOUNDS_LEFT_EDIT, YES_OR_NO)
             })
         })
@@ -64,24 +64,24 @@ dialog.hgroup(function(main) {
         midGroup.vpanel('Color', function(panel) {
             panel.hgroup(function(group) {
                 group.setTooltips('The color of the text fill')
-                group.staticText(BOUNDS_RIGHT_TEXT, 'Fill:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_RIGHT_TEXT, 'Fill:').also(JUSTIFY_RIGHT)
                 fillColorList = group.dropDownList(BOUNDS_RIGHT_EDIT, COLORS)
             })
             panel.hgroup(function(group) {
                 group.setTooltips('The color of the text stroke')
-                group.staticText(BOUNDS_RIGHT_TEXT, 'Stroke:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_RIGHT_TEXT, 'Stroke:').also(JUSTIFY_RIGHT)
                 strokeColorList = group.dropDownList(BOUNDS_RIGHT_EDIT, COLORS)
             })
         })
         midGroup.vpanel('Others', function(panel) {
             panel.hgroup(function(group) {
                 group.setTooltips('The type of a text frame item')
-                group.staticText(BOUNDS_RIGHT_TEXT, 'Kind:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_RIGHT_TEXT, 'Kind:').also(JUSTIFY_RIGHT)
                 kindList = group.dropDownList(BOUNDS_RIGHT_EDIT, KINDS)
             })
             panel.hgroup(function(group) {
                 group.setTooltips('The orientation of the text in the frame')
-                group.staticText(BOUNDS_RIGHT_TEXT, 'Orientation:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_RIGHT_TEXT, 'Orientation:').also(JUSTIFY_RIGHT)
                 orientationList = group.dropDownList(BOUNDS_RIGHT_EDIT, ORIENTATIONS)
             })
         })

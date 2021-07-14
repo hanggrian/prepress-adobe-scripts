@@ -16,7 +16,7 @@ function OrderByGroup(parent, ordersCollection, textBounds, editBounds) {
     })
 
     this.main = parent.hgroup(function(group) {
-        group.staticText(textBounds, 'Order by', JUSTIFY_RIGHT)
+        group.staticText(textBounds, 'Order by').also(JUSTIFY_RIGHT)
         self.list = group.dropDownList(editBounds, orders)
     })
 

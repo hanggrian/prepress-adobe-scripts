@@ -12,7 +12,7 @@ var inputEdit
 dialog.hgroup(function(main) {
     main.alignChildren = 'top'
     main.staticText(undefined, 'Content:')
-    inputEdit = main.editText([400, 100], undefined, ACTIVATE, { multiline: true })
+    inputEdit = main.editText([400, 100], undefined, { multiline: true }).also(ACTIVATE)
 })
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {

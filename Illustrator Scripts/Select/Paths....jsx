@@ -3,7 +3,6 @@
 
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/ui/select-dimension.js'
 
 var YES_OR_NO = ['Yes', 'No']
 
@@ -23,37 +22,37 @@ dialog.hgroup(function(main) {
         midGroup.vpanel('Fill', function(panel) {
             panel.hgroup(function(group) {
                 group.setTooltips('Fill color')
-                group.staticText(BOUNDS_RIGHT_TEXT, 'Color:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_RIGHT_TEXT, 'Color:').also(JUSTIFY_RIGHT)
                 fillColorList = group.dropDownList(BOUNDS_EDIT, COLORS)
             })
             panel.hgroup(function(group) {
                 group.setTooltips('Will art beneath a filled object be overprinted?')
-                group.staticText(BOUNDS_RIGHT_TEXT, 'Overprint:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_RIGHT_TEXT, 'Overprint:').also(JUSTIFY_RIGHT)
                 fillOverprintList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
             })
         })
         midGroup.vpanel('Stroke', function(panel) {
             panel.hgroup(function(group) {
                 group.setTooltips('Stroke color')
-                group.staticText(BOUNDS_RIGHT_TEXT, 'Color:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_RIGHT_TEXT, 'Color:').also(JUSTIFY_RIGHT)
                 strokeColorList = group.dropDownList(BOUNDS_EDIT, COLORS)
             })
             panel.hgroup(function(group) {
                 group.setTooltips('Width of stroke')
-                group.staticText(BOUNDS_RIGHT_TEXT, 'Weight:', JUSTIFY_RIGHT)
-                strokeWeightEdit = group.editText(BOUNDS_EDIT, undefined, function(it) {
+                group.staticText(BOUNDS_RIGHT_TEXT, 'Weight:').also(JUSTIFY_RIGHT)
+                strokeWeightEdit = group.editText(BOUNDS_EDIT).also(function(it) {
                     it.validateUnits()
                     it.activate()
                 })
             })
             panel.hgroup(function(group) {
                 group.setTooltips('Is the stroke dashed?')
-                group.staticText(BOUNDS_RIGHT_TEXT, 'Dashed:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_RIGHT_TEXT, 'Dashed:').also(JUSTIFY_RIGHT)
                 strokeDashedList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
             })
             panel.hgroup(function(group) {
                 group.setTooltips('Will art beneath a stroked object be overprinted?')
-                group.staticText(BOUNDS_RIGHT_TEXT, 'Overprint:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_RIGHT_TEXT, 'Overprint:').also(JUSTIFY_RIGHT)
                 strokeOverprintList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
             })
         })
@@ -63,17 +62,17 @@ dialog.hgroup(function(main) {
         midGroup.vpanel('Others', function(panel) {
             panel.hgroup(function(group) {
                 group.setTooltips('Should this be used as a clipping path?')
-                group.staticText(BOUNDS_LEFT_TEXT, 'Clipping:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_LEFT_TEXT, 'Clipping:').also(JUSTIFY_RIGHT)
                 clippingList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
             })
             panel.hgroup(function(group) {
                 group.setTooltips('Is this path closed?')
-                group.staticText(BOUNDS_LEFT_TEXT, 'Closed:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_LEFT_TEXT, 'Closed:').also(JUSTIFY_RIGHT)
                 closedList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
             })
             panel.hgroup(function(group) {
                 group.setTooltips('Is this path a guide object?')
-                group.staticText(BOUNDS_LEFT_TEXT, 'Guides:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_LEFT_TEXT, 'Guides:').also(JUSTIFY_RIGHT)
                 guidesList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
             })
         })

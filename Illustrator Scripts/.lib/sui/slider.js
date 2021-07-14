@@ -13,13 +13,13 @@ function SliderGroup(parent, editBounds, a, b, c, scale) {
     }
 
     this.main = parent.hgroup(function(group) {
-        self.edit = group.editText([40, editBounds[1]], a * scale, function(it) {
+        self.edit = group.editText([40, editBounds[1]], a * scale).also(function(it) {
             it.validateDigits()
             it.onChanging = function() {
                 self.slider.value = new Number(it.text) / scale
             }
         })
-        self.slider = group.slider([editBounds[0] - 40 - 10, editBounds[1]], a, b, c, function(it) {
+        self.slider = group.slider([editBounds[0] - 40 - 10, editBounds[1]], a, b, c).also(function(it) {
             it.onChanging = function() {
                 self.edit.text = parseInt(it.value) * scale
             }

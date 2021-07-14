@@ -1,6 +1,5 @@
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/ui/maintain-size.js'
 
 var COLOR_MODELS = ['Default', 'Grayscale', 'Bitmap']
 
@@ -21,15 +20,15 @@ var maintainSizeGroup
 dialog.vgroup(function(main) {
     main.hgroup(function(group) {
         group.setTooltips('The color model for the rasterization')
-        group.staticText(BOUNDS_TEXT, 'Color Model:', JUSTIFY_RIGHT)
-        colorModelList = group.dropDownList(BOUNDS_EDIT, COLOR_MODELS, function(it) {
+        group.staticText(BOUNDS_TEXT, 'Color Model:').also(JUSTIFY_RIGHT)
+        colorModelList = group.dropDownList(BOUNDS_EDIT, COLOR_MODELS).also(function(it) {
             it.selectText('Default')
         })
     })
     main.hgroup(function(group) {
         group.setTooltips('The rasterization resolution in dots-per-inch (dpi)')
-        group.staticText(BOUNDS_TEXT, 'Resolution:', JUSTIFY_RIGHT)
-        resolutionEdit = group.editText(BOUNDS_EDIT, '300', function(it) {
+        group.staticText(BOUNDS_TEXT, 'Resolution:').also(JUSTIFY_RIGHT)
+        resolutionEdit = group.editText(BOUNDS_EDIT, '300').also(function(it) {
             it.validateDigits()
             it.activate()
         })
@@ -41,7 +40,7 @@ dialog.vgroup(function(main) {
             innerGroup.vpanel('Background', function(panel) {
                 panel.alignChildren = 'fill'
                 panel.setTooltips('Should the resulting image use transparency')
-                backgroundWhiteRadio = panel.radioButton(undefined, 'White', SELECTED)
+                backgroundWhiteRadio = panel.radioButton(undefined, 'White').also(SELECTED)
                 backgroundTransparentRadio = panel.radioButton(undefined, 'Transparent')
             })
             innerGroup.vpanel('Anti-Aliasing', function(panel) {
@@ -59,25 +58,25 @@ dialog.vgroup(function(main) {
         })
         topGroup.vpanel('Options', function(panel) {
             panel.alignChildren = 'fill'
-            backgroundBlackCheck = panel.checkBox(undefined, 'Against Black Background', function(check) {
+            backgroundBlackCheck = panel.checkBox(undefined, 'Against Black Background').also(function(check) {
                 check.setTooltip('Should rasterize against a black background instead of white')
             })
-            clippingMaskCheck = panel.checkBox(undefined, 'Create Clipping Mask', function(check) {
+            clippingMaskCheck = panel.checkBox(undefined, 'Create Clipping Mask').also(function(check) {
                 check.setTooltip('Should a clipping mask be created for the resulting image')
             })
-            convertSpotColorsCheck = panel.checkBox(undefined, 'Convert Spot Colors', function(check) {
+            convertSpotColorsCheck = panel.checkBox(undefined, 'Convert Spot Colors').also(function(check) {
                 check.setTooltip('Whether to convert all spot colors to process colors in the resulting image')
             })
-            convertTextToOutlinesCheck = panel.checkBox(undefined, 'Convert Text to Outlines', function(check) {
+            convertTextToOutlinesCheck = panel.checkBox(undefined, 'Convert Text to Outlines').also(function(check) {
                 check.setTooltip('Should all text be converted to outlines before rasterization')
             })
-            includeLayersCheck = panel.checkBox(undefined, 'Include Layers', function(check) {
+            includeLayersCheck = panel.checkBox(undefined, 'Include Layers').also(function(check) {
                 check.setTooltip('Should the resulting image incorporates the layer attributes (such as opacity and blend mode)')
             })
             panel.hgroup(function(group) {
                 group.setTooltips('The amount of white space (in points) to be added around the object during rasterization')
                 group.staticText(undefined, 'Add')
-                paddingEdit = group.editText(BOUNDS_EDIT_SMALL, unitsOf('0 mm'), VALIDATE_UNITS)
+                paddingEdit = group.editText(BOUNDS_EDIT_SMALL, unitsOf('0 mm')).also(VALIDATE_UNITS)
                 group.staticText(undefined, 'Around Object')
             })
         })

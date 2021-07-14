@@ -1,7 +1,5 @@
 #target Illustrator
 #include '../.lib/core.js'
-#include '../.lib/ui/open-options.js'
-#include '../.lib/ui/range.js'
 
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
@@ -37,7 +35,7 @@ if (files !== null && files.isNotEmpty()) {
             documentPanel = new OpenDocumentPanel(topGroup)
         })
         main.hgroup(function(group) {
-            rtlCheck = group.checkBox(undefined, 'Right-to-Left', function(it) {
+            rtlCheck = group.checkBox(undefined, 'Right-to-Left').also(function(it) {
                 it.setTooltip('Useful for Arabic layout')
             })
         })

@@ -3,7 +3,6 @@
 
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/ui/select-dimension.js'
 
 var YES_OR_NO = ['Yes', 'No']
 var COLOR_SPACES = ['Grayscale', 'RGB', 'CMYK', 'LAB', 'Separations', 'DeviceN', 'Indexed']
@@ -25,17 +24,17 @@ dialog.hgroup(function(main) {
         topGroup.vpanel('Image', function(panel) {
             panel.hgroup(function(group) {
                 group.setTooltips('The color space of the raster image')
-                group.staticText(BOUNDS_LEFT_TEXT, 'Color Space:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_LEFT_TEXT, 'Color Space:').also(JUSTIFY_RIGHT)
                 colorSpaceList = group.dropDownList(BOUNDS_EDIT, COLOR_SPACES)
             })
             panel.hgroup(function(group) {
                 group.setTooltips('The number of bits per channel')
-                group.staticText(BOUNDS_LEFT_TEXT, 'Bits/Channel:', JUSTIFY_RIGHT)
-                bitsEdit = group.editText(BOUNDS_EDIT, undefined, VALIDATE_DIGITS)
+                group.staticText(BOUNDS_LEFT_TEXT, 'Bits/Channel:').also(JUSTIFY_RIGHT)
+                bitsEdit = group.editText(BOUNDS_EDIT).also(VALIDATE_DIGITS)
             })
             panel.hgroup(function(group) {
                 group.setTooltips('Is the raster art transparent?')
-                group.staticText(BOUNDS_LEFT_TEXT, 'Transparent:', JUSTIFY_RIGHT)
+                group.staticText(BOUNDS_LEFT_TEXT, 'Transparent:').also(JUSTIFY_RIGHT)
                 transparentList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
             })
         })
@@ -43,17 +42,17 @@ dialog.hgroup(function(main) {
     main.vpanel('Others', function(panel) {
         panel.hgroup(function(group) {
             group.setTooltips('Is the raster art embedded within the illustration?')
-            group.staticText(BOUNDS_LEFT_TEXT, 'Embedded:', JUSTIFY_RIGHT)
+            group.staticText(BOUNDS_LEFT_TEXT, 'Embedded:').also(JUSTIFY_RIGHT)
             embeddedList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
         })
         panel.hgroup(function(group) {
             group.setTooltips('Is the raster art overprinting?')
-            group.staticText(BOUNDS_LEFT_TEXT, 'Overprint:', JUSTIFY_RIGHT)
+            group.staticText(BOUNDS_LEFT_TEXT, 'Overprint:').also(JUSTIFY_RIGHT)
             overprintList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
         })
         panel.hgroup(function(group) {
             group.setTooltips('Status of the linked image')
-            group.staticText(BOUNDS_LEFT_TEXT, 'Status:', JUSTIFY_RIGHT)
+            group.staticText(BOUNDS_LEFT_TEXT, 'Status:').also(JUSTIFY_RIGHT)
             statusList = group.dropDownList(BOUNDS_EDIT, STATUSES)
         })
     })

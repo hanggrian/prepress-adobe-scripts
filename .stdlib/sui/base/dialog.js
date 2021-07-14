@@ -108,7 +108,7 @@ function Dialog(title) {
     }
 
     function appendButton(text, action) {
-        return self.buttons.button(undefined, text, function(it) {
+        return self.buttons.button(undefined, text).also(function(it) {
             it.onClick = function() {
                 self.close()
                 if (action !== undefined) {

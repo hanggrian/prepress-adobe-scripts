@@ -1,7 +1,5 @@
 #target Illustrator
 #include '../.lib/commons.js'
-#include '../.lib/ui/maintain-size.js'
-#include '../.lib/ui/open-options.js'
 
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
@@ -25,8 +23,8 @@ if (file !== null) {
             pdfPanel = new OpenPDFPanel(main, BOUNDS_TEXT, BOUNDS_EDIT).also(function(panel) {
                 panel.main.hgroup(function(group) {
                     group.setTooltips('What page should be used when opening a multipage document')
-                    group.staticText(BOUNDS_TEXT, 'Page:', JUSTIFY_RIGHT)
-                    pageEdit = group.editText(BOUNDS_EDIT, '1', function(it) {
+                    group.staticText(BOUNDS_TEXT, 'Page:').also(JUSTIFY_RIGHT)
+                    pageEdit = group.editText(BOUNDS_EDIT, '1').also(function(it) {
                         it.validateDigits()
                         it.activate()
                     })
