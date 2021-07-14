@@ -10,9 +10,9 @@ var pathCheck, compoundPathCheck
 var textFrameCheck, legacyTextCheck
 var symbolCheck, meshCheck, graphCheck
 
-dialog.hgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    topGroup.vgroup(function(group) {
+dialog.hgroup(function(main) {
+    main.alignChildren = 'fill'
+    main.vgroup(function(group) {
         group.alignChildren = 'fill'
         group.vpanel('Imports', function(panel) {
             panel.alignChildren = 'fill'
@@ -39,7 +39,7 @@ dialog.hgroup(function(topGroup) {
             })
         })
     })
-    topGroup.vgroup(function(group) {
+    main.vgroup(function(group) {
         group.alignChildren = 'fill'
         group.vpanel('Paths', function(panel) {
             panel.alignChildren = 'fill'
@@ -64,7 +64,6 @@ dialog.hgroup(function(topGroup) {
         })
     })
 })
-
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     preferences.setBoolean(dialog, 'Links', placedCheck.value)

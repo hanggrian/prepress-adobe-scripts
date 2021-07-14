@@ -1,9 +1,12 @@
 language: generic
 
 script:
-  - node .stdlib-test/collections-predicate.js
-  - node .stdlib-test/collections-transform.js
-  - node .stdlib-test/collections.js
+  - node .stdlib-test/collections/base.js
+  - node .stdlib-test/collections/predicate.js
+  - node .stdlib-test/collections/transform.js
+
+  - node .stdlib-test/text/string-builder.js
+  - node .stdlib-test/text/strings.js
+
   - node .stdlib-test/numbers.js
   - node .stdlib-test/rectangles.js
-  - node .stdlib-test/strings.js

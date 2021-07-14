@@ -10,40 +10,41 @@ var saveFilePanel, separatorEdit, suffixArtboardRadio, suffixIndexRadio
 var antiAliasingCheck, matteCheck, transparencyCheck
 var saveDirectoryGroup
 
-dialog.hgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    saveFilePanel = new SaveFilePanel(topGroup, BOUNDS_TEXT, 'png').also(function(panel) {
-        panel.alignChildren = 'fill'
-        panel.main.hgroup(function(group) {
-            group.setTooltips('Characters to divide')
-            group.staticText(BOUNDS_TEXT, 'Separator:', JUSTIFY_RIGHT)
-            separatorEdit = group.editText([100, 21], '-')
+dialog.vgroup(function(main) {
+    main.hgroup(function(topGroup) {
+        topGroup.alignChildren = 'fill'
+        saveFilePanel = new SaveFilePanel(topGroup, BOUNDS_TEXT, 'png').also(function(panel) {
+            panel.alignChildren = 'fill'
+            panel.main.hgroup(function(group) {
+                group.setTooltips('Characters to divide')
+                group.staticText(BOUNDS_TEXT, 'Separator:', JUSTIFY_RIGHT)
+                separatorEdit = group.editText([100, 21], '-')
+            })
+            panel.main.hgroup(function(group) {
+                group.setTooltips('Ending file name')
+                group.staticText(BOUNDS_TEXT, 'Suffix:', JUSTIFY_RIGHT)
+                suffixArtboardRadio = group.radioButton(undefined, 'Artboard Name', SELECTED)
+                suffixIndexRadio = group.radioButton(undefined, 'Index')
+            })
         })
-        panel.main.hgroup(function(group) {
-            group.setTooltips('Ending file name')
-            group.staticText(BOUNDS_TEXT, 'Suffix:', JUSTIFY_RIGHT)
-            suffixArtboardRadio = group.radioButton(undefined, 'Artboard Name', SELECTED)
-            suffixIndexRadio = group.radioButton(undefined, 'Index')
+        topGroup.vpanel('Export', function(panel) {
+            panel.alignChildren = 'fill'
+            antiAliasingCheck = panel.checkBox(undefined, 'Anti-Aliasing', function(it) {
+                it.setTooltip('Should the resulting image be antialiased')
+                it.select()
+            })
+            matteCheck = panel.checkBox(undefined, 'Matte', function(it) {
+                it.setTooltip('Should the artboard be matted with a color')
+                it.select()
+            })
+            transparencyCheck = panel.checkBox(undefined, 'Transparency', function(it) {
+                it.setTooltip('	Should the resulting image use transparency')
+                it.select()
+            })
         })
     })
-    topGroup.vpanel('Export', function(panel) {
-        panel.alignChildren = 'fill'
-        antiAliasingCheck = panel.checkBox(undefined, 'Anti-Aliasing', function(it) {
-            it.setTooltip('Should the resulting image be antialiased')
-            it.select()
-        })
-        matteCheck = panel.checkBox(undefined, 'Matte', function(it) {
-            it.setTooltip('Should the artboard be matted with a color')
-            it.select()
-        })
-        transparencyCheck = panel.checkBox(undefined, 'Transparency', function(it) {
-            it.setTooltip('	Should the resulting image use transparency')
-            it.select()
-        })
-    })
+    saveDirectoryGroup = new SaveDirectoryGroup(main, [390, 21])
 })
-saveDirectoryGroup = new SaveDirectoryGroup(dialog, [390, 21])
-
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     process(document)

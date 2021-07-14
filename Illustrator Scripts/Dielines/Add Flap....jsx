@@ -17,131 +17,132 @@ var tuckSliderGroup, tuckDistanceEdit
 var dustShoulderEdit, dustDistanceEdit
 var leftRadio, topRadio, rightRadio, bottomRadio
 
-dialog.hgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    topGroup.vpanel('Flap', function(panel) {
-        panel.hgroup(function(group) {
-            group.setTooltips('In horizontal direction, this is height. In vertical direction, this is width.')
-            group.staticText(BOUNDS_TEXT, 'Length:', JUSTIFY_RIGHT)
-            lengthEdit = group.editText(BOUNDS_EDIT, '20 mm', function(it) {
-                it.validateUnits()
-                it.activate()
-            })
-        })
-        panel.hgroup(function(group) {
-            group.setTooltips('Stroke width of dielines')
-            group.staticText(BOUNDS_TEXT, 'Weight:', JUSTIFY_RIGHT)
-            weightEdit = group.editText(BOUNDS_EDIT, '1 pt', VALIDATE_UNITS)
-        })
-        panel.hgroup(function(group) {
-            group.setTooltips('Stroke color of dielines')
-            group.staticText(BOUNDS_TEXT, 'Color:', JUSTIFY_RIGHT)
-            colorList = group.dropDownList(BOUNDS_EDIT, COLORS, function(it) {
-                it.selectText('Black')
-            })
-        })
-    })
-    topGroup.vpanel('Direction', function(panel) {
-        panel.hgroup(function(group) {
-            group.staticText(BOUNDS_RADIO)
-            topRadio = group.radioButton(BOUNDS_RADIO, undefined, function(it) {
-                it.setTooltip('Top')
-                registerRadioClick(it)
-            })
-            group.staticText(BOUNDS_RADIO)
-        })
-        panel.hgroup(function(group) {
-            leftRadio = group.radioButton(BOUNDS_RADIO, undefined, function(it) {
-                it.setTooltip('Left')
-                registerRadioClick(it)
-                it.select()
-            })
-            group.staticText(BOUNDS_RADIO, '\u25CF', JUSTIFY_CENTER)
-            rightRadio = group.radioButton(BOUNDS_RADIO, undefined, function(it) {
-                it.setTooltip('Right')
-                registerRadioClick(it)
-            })
-        })
-        panel.hgroup(function(group) {
-            group.staticText(BOUNDS_RADIO)
-            bottomRadio = group.radioButton(BOUNDS_RADIO, undefined, function(it) {
-                it.setTooltip('Bottom')
-                registerRadioClick(it)
-            })
-            group.staticText(BOUNDS_RADIO)
-        })
-    })
-})
-tabbedPanel = dialog.tabbedPanel(function(tabbedPanel) {
-    tabbedPanel.preferredSize = [300, 0]
-    tabbedPanel.vtab('Glue Flap', function(tab) {
-        tab.hgroup(function(topGroup) {
-            topGroup.alignChildren = 'top'
-            topGroup.vgroup(function(midGroup) {
-                midGroup.hgroup(function(group) {
-                    group.setTooltips('End line of glue flat must be lesser than starting line, shear value make sure of it')
-                    group.staticText(BOUNDS_TEXT2, 'Shear:', JUSTIFY_RIGHT)
-                    glueShearEdit = group.editText(BOUNDS_EDIT, '5 mm', VALIDATE_UNITS)
+dialog.vgroup(function(main) {
+    main.hgroup(function(topGroup) {
+        topGroup.alignChildren = 'fill'
+        topGroup.vpanel('Flap', function(panel) {
+            panel.hgroup(function(group) {
+                group.setTooltips('In horizontal direction, this is height. In vertical direction, this is width.')
+                group.staticText(BOUNDS_TEXT, 'Length:', JUSTIFY_RIGHT)
+                lengthEdit = group.editText(BOUNDS_EDIT, '20 mm', function(it) {
+                    it.validateUnits()
+                    it.activate()
                 })
-                midGroup.hgroup(function(group) {
-                    group.setTooltips('Distance between scratches, leave blank for no scratches')
-                    group.staticText(BOUNDS_TEXT2, 'Scratches:', JUSTIFY_RIGHT)
-                    glueScratchEdit = group.editText(BOUNDS_EDIT, '0 mm', function(it) {
-                        it.validateUnits()
-                        it.enabled = false
+            })
+            panel.hgroup(function(group) {
+                group.setTooltips('Stroke width of dielines')
+                group.staticText(BOUNDS_TEXT, 'Weight:', JUSTIFY_RIGHT)
+                weightEdit = group.editText(BOUNDS_EDIT, '1 pt', VALIDATE_UNITS)
+            })
+            panel.hgroup(function(group) {
+                group.setTooltips('Stroke color of dielines')
+                group.staticText(BOUNDS_TEXT, 'Color:', JUSTIFY_RIGHT)
+                colorList = group.dropDownList(BOUNDS_EDIT, COLORS, function(it) {
+                    it.selectText('Black')
+                })
+            })
+        })
+        topGroup.vpanel('Direction', function(panel) {
+            panel.hgroup(function(group) {
+                group.staticText(BOUNDS_RADIO)
+                topRadio = group.radioButton(BOUNDS_RADIO, undefined, function(it) {
+                    it.setTooltip('Top')
+                    registerRadioClick(it)
+                })
+                group.staticText(BOUNDS_RADIO)
+            })
+            panel.hgroup(function(group) {
+                leftRadio = group.radioButton(BOUNDS_RADIO, undefined, function(it) {
+                    it.setTooltip('Left')
+                    registerRadioClick(it)
+                    it.select()
+                })
+                group.staticText(BOUNDS_RADIO, '\u25CF', JUSTIFY_CENTER)
+                rightRadio = group.radioButton(BOUNDS_RADIO, undefined, function(it) {
+                    it.setTooltip('Right')
+                    registerRadioClick(it)
+                })
+            })
+            panel.hgroup(function(group) {
+                group.staticText(BOUNDS_RADIO)
+                bottomRadio = group.radioButton(BOUNDS_RADIO, undefined, function(it) {
+                    it.setTooltip('Bottom')
+                    registerRadioClick(it)
+                })
+                group.staticText(BOUNDS_RADIO)
+            })
+        })
+    })
+    tabbedPanel = main.tabbedPanel(function(tabbedPanel) {
+        tabbedPanel.preferredSize = [300, 0]
+        tabbedPanel.vtab('Glue Flap', function(tab) {
+            tab.hgroup(function(topGroup) {
+                topGroup.alignChildren = 'top'
+                topGroup.vgroup(function(midGroup) {
+                    midGroup.hgroup(function(group) {
+                        group.setTooltips('End line of glue flat must be lesser than starting line, shear value make sure of it')
+                        group.staticText(BOUNDS_TEXT2, 'Shear:', JUSTIFY_RIGHT)
+                        glueShearEdit = group.editText(BOUNDS_EDIT, '5 mm', VALIDATE_UNITS)
+                    })
+                    midGroup.hgroup(function(group) {
+                        group.setTooltips('Distance between scratches, leave blank for no scratches')
+                        group.staticText(BOUNDS_TEXT2, 'Scratches:', JUSTIFY_RIGHT)
+                        glueScratchEdit = group.editText(BOUNDS_EDIT, '0 mm', function(it) {
+                            it.validateUnits()
+                            it.enabled = false
+                        })
                     })
                 })
+                topGroup.image(undefined, getResource('dieline_glueflap.png'))
             })
-            topGroup.image(undefined, getResource('dieline_glueflap.png'))
         })
-    })
-    /* tabbedPanel.vtab('Tuck Flap', function(tab) {
-        tab.hgroup(function(topGroup) {
-            topGroup.alignChildren = 'top'
-            topGroup.vgroup(function(midGroup) {
-                midGroup.hgroup(function(group) {
-                    group.setTooltips('How big should the curve be relative to length, in percentage')
-                    group.staticText(BOUNDS_TEXT2, 'Curve:', JUSTIFY_RIGHT)
-                    tuckSliderGroup = new SliderGroup(group, BOUNDS_EDIT, 2, 0, 4, 25)
+        /* tabbedPanel.vtab('Tuck Flap', function(tab) {
+            tab.hgroup(function(topGroup) {
+                topGroup.alignChildren = 'top'
+                topGroup.vgroup(function(midGroup) {
+                    midGroup.hgroup(function(group) {
+                        group.setTooltips('How big should the curve be relative to length, in percentage')
+                        group.staticText(BOUNDS_TEXT2, 'Curve:', JUSTIFY_RIGHT)
+                        tuckSliderGroup = new SliderGroup(group, BOUNDS_EDIT, 2, 0, 4, 25)
+                    })
+                    midGroup.hgroup(function(group) {
+                        group.setTooltips('Thicker material should have more distance')
+                        group.staticText(BOUNDS_TEXT2, 'Distance:', JUSTIFY_RIGHT)
+                        tuckDistanceEdit = group.editText(BOUNDS_EDIT, '0 mm', VALIDATE_UNITS)
+                    })
                 })
-                midGroup.hgroup(function(group) {
-                    group.setTooltips('Thicker material should have more distance')
-                    group.staticText(BOUNDS_TEXT2, 'Distance:', JUSTIFY_RIGHT)
-                    tuckDistanceEdit = group.editText(BOUNDS_EDIT, '0 mm', VALIDATE_UNITS)
-                })
+                topGroup.image(undefined, getResource('dieline_tuckflap.png'))
             })
-            topGroup.image(undefined, getResource('dieline_tuckflap.png'))
-        })
-    }) */
-    tabbedPanel.vtab('Dust Flap', function(tab) {
-        tab.hgroup(function(topGroup) {
-            topGroup.alignChildren = 'top'
-            topGroup.vgroup(function(midGroup) {
-                midGroup.hgroup(function(group) {
-                    group.setTooltips('Necessary for locking a tuck flap')
-                    group.staticText(BOUNDS_TEXT2, 'Shoulder:', JUSTIFY_RIGHT)
-                    dustShoulderEdit = group.editText(BOUNDS_EDIT, '5 mm', VALIDATE_UNITS)
+        }) */
+        tabbedPanel.vtab('Dust Flap', function(tab) {
+            tab.hgroup(function(topGroup) {
+                topGroup.alignChildren = 'top'
+                topGroup.vgroup(function(midGroup) {
+                    midGroup.hgroup(function(group) {
+                        group.setTooltips('Necessary for locking a tuck flap')
+                        group.staticText(BOUNDS_TEXT2, 'Shoulder:', JUSTIFY_RIGHT)
+                        dustShoulderEdit = group.editText(BOUNDS_EDIT, '5 mm', VALIDATE_UNITS)
+                    })
+                    midGroup.hgroup(function(group) {
+                        group.setTooltips('Thicker material should have more distance')
+                        group.staticText(BOUNDS_TEXT2, 'Distance:', JUSTIFY_RIGHT)
+                        dustDistanceEdit = group.editText(BOUNDS_EDIT, '0 mm', VALIDATE_UNITS)
+                    })
                 })
-                midGroup.hgroup(function(group) {
-                    group.setTooltips('Thicker material should have more distance')
-                    group.staticText(BOUNDS_TEXT2, 'Distance:', JUSTIFY_RIGHT)
-                    dustDistanceEdit = group.editText(BOUNDS_EDIT, '0 mm', VALIDATE_UNITS)
-                })
+                topGroup.image(undefined, getResource('dieline_dustflap.png'))
             })
-            topGroup.image(undefined, getResource('dieline_dustflap.png'))
         })
-    })
-    tabbedPanel.onChange = function() {
-        if (tabbedPanel.selection.text === 'Glue Flap') {
-            glueShearEdit.activate()
-        } else if (tabbedPanel.selection.text === 'Tuck Flap') {
-            tuckCurveEdit.activate()
-        } else {
-            dustShoulderEdit.activate()
+        tabbedPanel.onChange = function() {
+            if (tabbedPanel.selection.text === 'Glue Flap') {
+                glueShearEdit.activate()
+            } else if (tabbedPanel.selection.text === 'Tuck Flap') {
+                tuckCurveEdit.activate()
+            } else {
+                dustShoulderEdit.activate()
+            }
         }
-    }
+    })
 })
-
 dialog.setNegativeButton('Close')
 dialog.setPositiveButton(function() {
     var length = parseUnits(lengthEdit.text)

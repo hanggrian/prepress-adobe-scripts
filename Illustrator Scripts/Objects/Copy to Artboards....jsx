@@ -4,7 +4,7 @@
 
 var ANCHORS = ['Top Left', 'Top Right', 'Bottom Left', 'Bottom Right']
 
-var BOUNDS_TEXT = [60, 21]
+var BOUNDS_TEXT = [70, 21]
 var BOUNDS_EDIT = [100, 21]
 var BOUNDS_RADIO = [15, 15]
 
@@ -31,23 +31,24 @@ var relativePositions = selection.map(function(it) {
 var dialog = new Dialog('Copy to Artboards')
 var rangeGroup, anchorList
 
-dialog.hgroup(function(group) {
-    group.staticText(BOUNDS_TEXT, 'Artboards:', JUSTIFY_RIGHT)
-    rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
-        it.maxRange = document.artboards.length
-        it.endEdit.text = document.artboards.length
-        it.startEdit.activate()
+dialog.vgroup(function(main) {
+    main.hgroup(function(group) {
+        group.staticText(BOUNDS_TEXT, 'Artboards:', JUSTIFY_RIGHT)
+        rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
+            it.maxRange = document.artboards.length
+            it.endEdit.text = document.artboards.length
+            it.startEdit.activate()
+        })
+    })
+    main.hgroup(function(group) {
+        group.setTooltips('Only relevant on artboard with different size than active artboard')
+        group.staticText(BOUNDS_TEXT, 'Anchor:', JUSTIFY_RIGHT)
+        anchorList = group.dropDownList(BOUNDS_EDIT, ANCHORS, function(it) {
+            it.selectText('Top Left')
+            it.enabled = !areArtboardSizesEqual()
+        })
     })
 })
-dialog.hgroup(function(group) {
-    group.setTooltips('Only relevant on artboard with different size than active artboard')
-    group.staticText(BOUNDS_TEXT, 'Anchor:', JUSTIFY_RIGHT)
-    anchorList = group.dropDownList(BOUNDS_EDIT, ANCHORS, function(it) {
-        it.selectText('Top Left')
-        it.enabled = !areArtboardSizesEqual()
-    })
-})
-
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     app.copy()

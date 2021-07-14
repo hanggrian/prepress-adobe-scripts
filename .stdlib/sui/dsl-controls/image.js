@@ -5,14 +5,6 @@
 */
 
 /**
- * Add image to dialog.
- * @returns {Image}
- */
-Dialog.prototype.image = function(bounds, file, configuration) {
-    return _image(this.main, bounds, file, configuration)
-}
-
-/**
  * Add image to group.
  * @returns {Image}
  */

@@ -38,15 +38,15 @@ function SaveFilePanel(parent, textBounds, extension) {
     }
 
     this.getFileName = function(name) {
-        var fileName = ''
-        if (self.fileTimestampCheck.value) {
-            fileName += '000000 '
-        }
-        fileName += name
-        if (self.fileExtensionCheck.value) {
-            fileName += '.' + extension
-        }
-        return fileName
+        return buildString(function(it) {
+            if (self.fileTimestampCheck.value) {
+                it.append('000000 ')
+            }
+            it.append(name)
+            if (self.fileExtensionCheck.value) {
+                it.append('.' + extension)
+            }
+        })
     }
 }
 

@@ -5,14 +5,6 @@
 */
 
 /**
- * Add horizontal panel to dialog.
- * @returns {Panel}
- */
-Dialog.prototype.hpanel = function(title, configuration) {
-    return _panel(this.main, 'row', title, configuration)
-}
-
-/**
  * Add horizontal panel to group.
  * @returns {Panel}
  */
@@ -32,16 +24,8 @@ Panel.prototype.hpanel = function(title, configuration) {
  * Add horizontal panel to tab.
  * @returns {Panel}
  */
- Object.prototype.hpanel = function(title, configuration) {
+Object.prototype.hpanel = function(title, configuration) {
     return _panel(this, 'row', title, configuration)
-}
-
-/**
- * Add vertical panel to dialog.
- * @returns {Panel}
- */
-Dialog.prototype.vpanel = function(title, configuration) {
-    return _panel(this.main, 'column', title, configuration)
 }
 
 /**
@@ -64,7 +48,7 @@ Panel.prototype.vpanel = function(title, configuration) {
  * Add vertical panel to tab.
  * @returns {Panel}
  */
- Object.prototype.vpanel = function(title, configuration) {
+Object.prototype.vpanel = function(title, configuration) {
     return _panel(this, 'column', title, configuration)
 }
 

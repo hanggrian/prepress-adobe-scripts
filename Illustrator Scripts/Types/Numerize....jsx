@@ -16,51 +16,53 @@ checkHasSelection()
 var items = selection.filterItem(function(it) { return it.typename === 'TextFrame' })
 check(items.isNotEmpty(), 'No types found in selection')
 
-var dialog = new Dialog('Numerize', 'right')
+var dialog = new Dialog('Numerize')
 var startsAtEdit, digitsEdit, stopsAtGroup
 var stopsAtList, prefixEdit, suffixEdit
 var orderByGroup
 
-dialog.hgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    topGroup.vpanel('Options', function(panel) {
-        panel.hgroup(function(group) {
-            group.setTooltips('Starting counter')
-            group.staticText(BOUNDS_TEXT, 'Starts at:', JUSTIFY_RIGHT)
-            startsAtEdit = group.editText(BOUNDS_EDIT, '1', function(it) {
-                it.validateDigits()
-                it.activate()
+dialog.vgroup(function(main) {
+    main.alignChildren = 'right'
+    main.hgroup(function(topGroup) {
+        topGroup.alignChildren = 'fill'
+        topGroup.vpanel('Options', function(panel) {
+            panel.hgroup(function(group) {
+                group.setTooltips('Starting counter')
+                group.staticText(BOUNDS_TEXT, 'Starts at:', JUSTIFY_RIGHT)
+                startsAtEdit = group.editText(BOUNDS_EDIT, '1', function(it) {
+                    it.validateDigits()
+                    it.activate()
+                })
+            })
+            panel.hgroup(function(group) {
+                group.setTooltips('Put n number of zeroes, can be left empty')
+                group.staticText(BOUNDS_TEXT, 'Digits:', JUSTIFY_RIGHT)
+                digitsEdit = group.editText(BOUNDS_EDIT, undefined, VALIDATE_DIGITS)
+            })
+            stopsAtGroup = panel.hgroup(function(group) {
+                group.setTooltips('The iteration will stop at the selected alphabet and the number will reset back to 1, ignore if this behavior is not desired')
+                group.staticText(BOUNDS_TEXT, 'Stops at:', JUSTIFY_RIGHT)
+                stopsAtList = group.dropDownList(BOUNDS_EDIT, ALPHABETS)
             })
         })
-        panel.hgroup(function(group) {
-            group.setTooltips('Put n number of zeroes, can be left empty')
-            group.staticText(BOUNDS_TEXT, 'Digits:', JUSTIFY_RIGHT)
-            digitsEdit = group.editText(BOUNDS_EDIT, undefined, VALIDATE_DIGITS)
-        })
-        stopsAtGroup = panel.hgroup(function(group) {
-            group.setTooltips('The iteration will stop at the selected alphabet and the number will reset back to 1, ignore if this behavior is not desired')
-            group.staticText(BOUNDS_TEXT, 'Stops at:', JUSTIFY_RIGHT)
-            stopsAtList = group.dropDownList(BOUNDS_EDIT, ALPHABETS)
+        topGroup.vpanel('Affix', function(panel) {
+            panel.hgroup(function(group) {
+                group.setTooltips('Extra text before content, can be left empty')
+                group.staticText(BOUNDS_TEXT, 'Prefix:', JUSTIFY_RIGHT)
+                prefixEdit = group.editText(BOUNDS_EDIT)
+
+            })
+            panel.hgroup(function(group) {
+                group.setTooltips('Extra text after content, can be left empty')
+                group.staticText(BOUNDS_TEXT, 'Suffix:', JUSTIFY_RIGHT)
+                suffixEdit = group.editText(BOUNDS_EDIT)
+            })
         })
     })
-    topGroup.vpanel('Affix', function(panel) {
-        panel.hgroup(function(group) {
-            group.setTooltips('Extra text before content, can be left empty')
-            group.staticText(BOUNDS_TEXT, 'Prefix:', JUSTIFY_RIGHT)
-            prefixEdit = group.editText(BOUNDS_EDIT)
-
-        })
-        panel.hgroup(function(group) {
-            group.setTooltips('Extra text after content, can be left empty')
-            group.staticText(BOUNDS_TEXT, 'Suffix:', JUSTIFY_RIGHT)
-            suffixEdit = group.editText(BOUNDS_EDIT)
-        })
+    orderByGroup = new OrderByGroup(main, [ORDERS_DEFAULTS, ORDERS_POSITIONS]).also(function(group) {
+        group.list.selectText('Reversed')
     })
 })
-orderByGroup = new OrderByGroup(dialog.main, [ORDERS_DEFAULTS, ORDERS_POSITIONS]).also(function(group) {
-    group.list.selectText('Reversed')
-})
-
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     var startsAt = parseInt(startsAtEdit.text) || 0

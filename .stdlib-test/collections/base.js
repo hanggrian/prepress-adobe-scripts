@@ -1,5 +1,5 @@
-require('../.stdlib/collections.js')
-var assert = require('./assert.js')
+require('../../.stdlib/collections/base.js')
+var assert = require('../assert.js')
 
 var indexOf = function() {
     var a = [1, 2, 3]

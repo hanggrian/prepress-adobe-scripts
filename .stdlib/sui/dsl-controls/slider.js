@@ -5,14 +5,6 @@
 */
 
 /**
- * Add slider to dialog.
- * @returns {Slider}
- */
-Dialog.prototype.slider = function(bounds, current, start, end, configuration) {
-    return _slider(this.main, bounds, current, start, end, configuration)
-}
-
-/**
  * Add slider to group.
  * @returns {Slider}
  */

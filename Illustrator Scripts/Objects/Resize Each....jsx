@@ -13,66 +13,67 @@ var widthEdit, widthCheck, heightEdit, heightCheck
 var changePositionsCheck, changeFillPatternsCheck, changeFillGradientsCheck, changeStrokePatternsCheck
 var documentOriginCheck, anchorGroup
 
-dialog.hgroup(function(group) {
-    group.alignChildren = 'bottom'
-    group.setTooltips("Objects' new width, uncheck to ignore")
-    group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
-    widthEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.width, unitName, 2), function(it) {
-        it.validateUnits()
-        it.activate()
-    })
-    widthCheck = group.checkBox(undefined, undefined, function(it) {
-        it.select()
-        it.onClick = function() {
-            widthEdit.enabled = it.value
-        }
-    })
-})
-dialog.hgroup(function(group) {
-    group.alignChildren = 'bottom'
-    group.setTooltips("Objects' new height, uncheck to ignore")
-    group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
-    heightEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.height, unitName, 2), VALIDATE_UNITS)
-    heightCheck = group.checkBox(undefined, undefined, function(it) {
-        it.select()
-        it.onClick = function() {
-            heightEdit.enabled = it.value
-        }
-    })
-})
-dialog.hgroup(function(group) {
-    group.alignChildren = 'fill'
-    group.vpanel('Change', function(panel) {
-        panel.alignChildren = 'fill'
-        changePositionsCheck = panel.checkBox(undefined, 'Positions', function(it) {
-            it.setTooltip('Are art object positions and orientations effected?')
-            it.select()
+dialog.vgroup(function(main) {
+    main.hgroup(function(group) {
+        group.alignChildren = 'bottom'
+        group.setTooltips("Objects' new width, uncheck to ignore")
+        group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
+        widthEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.width, unitName, 2), function(it) {
+            it.validateUnits()
+            it.activate()
         })
-        changeFillPatternsCheck = panel.checkBox(undefined, 'Fill Patterns', function(it) {
-            it.setTooltip('Are the fill patterns assigned to paths to be transformed?')
+        widthCheck = group.checkBox(undefined, undefined, function(it) {
             it.select()
-        })
-        changeFillGradientsCheck = panel.checkBox(undefined, 'Fill Gradients', function(it) {
-            it.setTooltip('Are the fill gradients assigned to paths to be transformed?')
-            it.select()
-        })
-        changeStrokePatternsCheck = panel.checkBox(undefined, 'Stroke Patterns', function(it) {
-            it.setTooltip('Are the stroke patterns assigned to paths to be transformed?')
-            it.select()
-        })
-    })
-    group.vpanel('Anchor', function(panel) {
-        panel.alignChildren = 'fill'
-        documentOriginCheck = panel.checkBox(undefined, 'Default', function(it) {
-            it.setTooltip('Use current reference point preference')
             it.onClick = function() {
-                anchorGroup.main.enabled = !it.value
+                widthEdit.enabled = it.value
             }
         })
-        anchorGroup = new AnchorGroup(panel)
+    })
+    main.hgroup(function(group) {
+        group.alignChildren = 'bottom'
+        group.setTooltips("Objects' new height, uncheck to ignore")
+        group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
+        heightEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.height, unitName, 2), VALIDATE_UNITS)
+        heightCheck = group.checkBox(undefined, undefined, function(it) {
+            it.select()
+            it.onClick = function() {
+                heightEdit.enabled = it.value
+            }
+        })
+    })
+    main.hgroup(function(group) {
+        group.alignChildren = 'fill'
+        group.vpanel('Change', function(panel) {
+            panel.alignChildren = 'fill'
+            changePositionsCheck = panel.checkBox(undefined, 'Positions', function(it) {
+                it.setTooltip('Are art object positions and orientations effected?')
+                it.select()
+            })
+            changeFillPatternsCheck = panel.checkBox(undefined, 'Fill Patterns', function(it) {
+                it.setTooltip('Are the fill patterns assigned to paths to be transformed?')
+                it.select()
+            })
+            changeFillGradientsCheck = panel.checkBox(undefined, 'Fill Gradients', function(it) {
+                it.setTooltip('Are the fill gradients assigned to paths to be transformed?')
+                it.select()
+            })
+            changeStrokePatternsCheck = panel.checkBox(undefined, 'Stroke Patterns', function(it) {
+                it.setTooltip('Are the stroke patterns assigned to paths to be transformed?')
+                it.select()
+            })
+        })
+        group.vpanel('Anchor', function(panel) {
+            panel.alignChildren = 'fill'
+            documentOriginCheck = panel.checkBox(undefined, 'Default', function(it) {
+                it.setTooltip('Use current reference point preference')
+                it.onClick = function() {
+                    anchorGroup.main.enabled = !it.value
+                }
+            })
+            anchorGroup = new AnchorGroup(panel)
+        })
     })
 })
-
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     process(function(action) {

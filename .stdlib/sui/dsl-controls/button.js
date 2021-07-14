@@ -5,14 +5,6 @@
 */
 
 /**
- * Add button to dialog.
- * @returns {Button}
- */
-Dialog.prototype.button = function(bounds, text, configuration, properties) {
-    return _button(this.main, bounds, text, configuration, properties)
-}
-
-/**
  * Add button to group.
  * @returns {Button}
  */

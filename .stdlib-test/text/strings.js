@@ -1,5 +1,5 @@
-require('../.stdlib/strings.js')
-var assert = require('./assert.js')
+require('../../.stdlib/text/strings.js')
+var assert = require('../assert.js')
 
 var includes = function() {
     var s = 'Hello World'

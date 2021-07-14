@@ -13,22 +13,24 @@ checkHasSelection()
 var items = selection.filterItem(function(it) { return it.typename === 'PlacedItem' && it.isFileExists() && it.file.isPDF() })
 check(items.isNotEmpty(), 'No PDF links found in selection')
 
-var dialog = new Dialog('Change Page', 'right')
+var dialog = new Dialog('Change Page')
 var pdfPanel, rangeGroup, orderByGroup, maintainSizeGroup
 
-pdfPanel = new OpenPDFPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT).also(function(panel) {
-    panel.main.hgroup(function(group) {
-        group.staticText(BOUNDS_TEXT, 'Pages:', JUSTIFY_RIGHT)
-        rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
-            it.startEdit.activate()
+dialog.vgroup(function(main) {
+    main.alignChildren = 'right'
+    pdfPanel = new OpenPDFPanel(main, BOUNDS_TEXT, BOUNDS_EDIT).also(function(panel) {
+        panel.main.hgroup(function(group) {
+            group.staticText(BOUNDS_TEXT, 'Pages:', JUSTIFY_RIGHT)
+            rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
+                it.startEdit.activate()
+            })
         })
     })
+    orderByGroup = new OrderByGroup(main, [ORDERS_DEFAULTS, ORDERS_POSITIONS]).also(function(group) {
+        group.list.selectText('Reversed')
+    })
+    maintainSizeGroup = new MaintainSizeGroup(main)
 })
-orderByGroup = new OrderByGroup(dialog.main, [ORDERS_DEFAULTS, ORDERS_POSITIONS]).also(function(group) {
-    group.list.selectText('Reversed')
-})
-maintainSizeGroup = new MaintainSizeGroup(dialog.main)
-
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     var current = rangeGroup.getStart()

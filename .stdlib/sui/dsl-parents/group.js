@@ -5,14 +5,6 @@
 */
 
 /**
- * Add horizontal group to dialog.
- * @returns {Group}
- */
-Dialog.prototype.hgroup = function(configuration) {
-    return _group(this.main, 'row', configuration)
-}
-
-/**
  * Add horizontal group to group.
  * @returns {Group}
  */
@@ -35,14 +27,6 @@ Panel.prototype.hgroup = function(configuration) {
 Object.prototype.hgroup = function(configuration) {
     check(this.type === 'tab')
     return _group(this, 'row', configuration)
-}
-
-/**
- * Add vertical group to dialog.
- * @returns {Group}
- */
-Dialog.prototype.vgroup = function(configuration) {
-    return _group(this.main, 'column', configuration)
 }
 
 /**

@@ -20,25 +20,27 @@ var FILE_PNG = ['png', 'pns']
 var FILE_PSD = ['psd', 'psb', 'pdd']
 var FILE_TIFF = ['tif', 'tiff']
 
-var dialog = new Dialog('Select Links', 'fill')
+var dialog = new Dialog('Select Links')
 var dimensionPanel
 var aiCheck, pdfCheck, bmpCheck, gifCheck, jpegCheck, jpeg2000Check, pngCheck, psdCheck, tiffCheck
 
-dimensionPanel = new SelectDimensionPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
-dialog.vpanel('File Types', function(panel) {
-    panel.setTooltips('File extension of selected links')
-    panel.alignChildren = 'fill'
-    aiCheck = panel.checkBox(undefined, getTypeString('Adobe Illustrator', FILE_AI))
-    pdfCheck = panel.checkBox(undefined, getTypeString('Adobe PDF', FILE_PDF))
-    bmpCheck = panel.checkBox(undefined, getTypeString('BMP', FILE_BMP))
-    gifCheck = panel.checkBox(undefined, getTypeString('GIF89a', FILE_GIF))
-    jpegCheck = panel.checkBox(undefined, getTypeString('JPEG', FILE_JPEG))
-    jpeg2000Check = panel.checkBox(undefined, getTypeString('JPEG2000', FILE_JPEG2000))
-    pngCheck = panel.checkBox(undefined, getTypeString('PNG', FILE_PNG))
-    psdCheck = panel.checkBox(undefined, getTypeString('Photoshop', FILE_PSD))
-    tiffCheck = panel.checkBox(undefined, getTypeString('TIFF', FILE_TIFF))
+dialog.vgroup(function(main) {
+    main.alignChildren = 'fill'
+    dimensionPanel = new SelectDimensionPanel(main, BOUNDS_TEXT, BOUNDS_EDIT)
+    main.vpanel('File Types', function(panel) {
+        panel.setTooltips('File extension of selected links')
+        panel.alignChildren = 'fill'
+        aiCheck = panel.checkBox(undefined, getTypeString('Adobe Illustrator', FILE_AI))
+        pdfCheck = panel.checkBox(undefined, getTypeString('Adobe PDF', FILE_PDF))
+        bmpCheck = panel.checkBox(undefined, getTypeString('BMP', FILE_BMP))
+        gifCheck = panel.checkBox(undefined, getTypeString('GIF89a', FILE_GIF))
+        jpegCheck = panel.checkBox(undefined, getTypeString('JPEG', FILE_JPEG))
+        jpeg2000Check = panel.checkBox(undefined, getTypeString('JPEG2000', FILE_JPEG2000))
+        pngCheck = panel.checkBox(undefined, getTypeString('PNG', FILE_PNG))
+        psdCheck = panel.checkBox(undefined, getTypeString('Photoshop', FILE_PSD))
+        tiffCheck = panel.checkBox(undefined, getTypeString('TIFF', FILE_TIFF))
+    })
 })
-
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     var width = dimensionPanel.getWidth()
@@ -70,14 +72,14 @@ dialog.setPositiveButton(function() {
 dialog.show()
 
 function getTypeString(prefix, suffix) {
-    var s = ''
-    suffix.forEach(function(it, i) {
-        s += it
-        if (i != suffix.lastIndex()) {
-            s += ', '
-        }
-    })
-    return prefix + ' (' + s + ')'
+    return prefix + ' (' + buildString(function(sb) {
+        suffix.forEach(function(it, i) {
+            sb.append(it)
+            if (i != suffix.lastIndex()) {
+                sb.append(', ')
+            }
+        })
+    }) + ')'
 }
 
 function contains(elements, element) {

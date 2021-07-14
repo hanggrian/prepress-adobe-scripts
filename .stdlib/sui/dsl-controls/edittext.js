@@ -5,14 +5,6 @@
 */
 
 /**
- * Add single-line edit text to dialog.
- * @returns {EditText}
- */
-Dialog.prototype.editText = function(bounds, text, configuration, properties) {
-    return _editText(this.main, bounds, text, configuration, properties)
-}
-
-/**
  * Add single-line edit text to group.
  * @returns {EditText}
  */

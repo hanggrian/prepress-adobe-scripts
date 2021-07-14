@@ -6,7 +6,7 @@
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
 
-var dialog = new Dialog('Impose Saddle Stitch', 'right')
+var dialog = new Dialog('Impose Saddle Stitch')
 var pdfPanel, pagesPanel, documentPanel
 var rtlCheck
 
@@ -18,28 +18,30 @@ var files = openFile(dialog.title, [
 if (files !== null && files.isNotEmpty()) {
     var collection = new FileCollection(files)
 
-    dialog.main.hgroup(function(topGroup) {
-        topGroup.alignChildren = 'fill'
-        topGroup.vgroup(function(group) {
-            if (collection.hasPDF) {
-                pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
-            }
-            pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT).also(function(panel) {
-                panel.rangeGroup.endEdit.text = collection.length
-                if (!collection.isSinglePDF) {
-                    panel.rangeGroup.maxRange = collection.length
+    dialog.vgroup(function(main) {
+        main.alignChildren = 'right'
+        main.hgroup(function(topGroup) {
+            topGroup.alignChildren = 'fill'
+            topGroup.vgroup(function(group) {
+                if (collection.hasPDF) {
+                    pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
                 }
-                panel.rangeGroup.startEdit.activate()
+                pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT).also(function(panel) {
+                    panel.rangeGroup.endEdit.text = collection.length
+                    if (!collection.isSinglePDF) {
+                        panel.rangeGroup.maxRange = collection.length
+                    }
+                    panel.rangeGroup.startEdit.activate()
+                })
+            })
+            documentPanel = new OpenDocumentPanel(topGroup)
+        })
+        main.hgroup(function(group) {
+            rtlCheck = group.checkBox(undefined, 'Right-to-Left', function(it) {
+                it.setTooltip('Useful for Arabic layout')
             })
         })
-        documentPanel = new OpenDocumentPanel(topGroup)
     })
-    dialog.main.hgroup(function(group) {
-        rtlCheck = group.checkBox(undefined, 'Right-to-Left', function(it) {
-            it.setTooltip('Useful for Arabic layout')
-        })
-    })
-
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
         var start = pagesPanel.rangeGroup.getStart()

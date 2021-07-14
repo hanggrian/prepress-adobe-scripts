@@ -14,23 +14,24 @@ var saveFilePanel
 var useBleedCheck, compressArtCheck
 var saveDirectoryGroup
 
-dialog.hgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    saveFilePanel = new SaveFilePanel(topGroup, BOUNDS_TEXT, 'pdf')
-    topGroup.vpanel('Export', function(panel) {
-        panel.alignChildren = 'fill'
-        useBleedCheck = panel.checkBox(undefined, 'Use Bleed', function(it) {
-            it.setTooltip('Link 4 bleed values')
-            it.select()
-        })
-        compressArtCheck = panel.checkBox(undefined, 'Compress Art', function(it) {
-            it.setTooltip('	Should line art and text be compressed?')
-            it.select()
+dialog.vgroup(function(main) {
+    main.hgroup(function(topGroup) {
+        topGroup.alignChildren = 'fill'
+        saveFilePanel = new SaveFilePanel(topGroup, BOUNDS_TEXT, 'pdf')
+        topGroup.vpanel('Export', function(panel) {
+            panel.alignChildren = 'fill'
+            useBleedCheck = panel.checkBox(undefined, 'Use Bleed', function(it) {
+                it.setTooltip('Link 4 bleed values')
+                it.select()
+            })
+            compressArtCheck = panel.checkBox(undefined, 'Compress Art', function(it) {
+                it.setTooltip('	Should line art and text be compressed?')
+                it.select()
+            })
         })
     })
+    saveDirectoryGroup = new SaveDirectoryGroup(main, [390, 21])
 })
-saveDirectoryGroup = new SaveDirectoryGroup(dialog, [390, 21])
-
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     process(document)

@@ -1,6 +1,6 @@
 /*
 <javascriptresource>
-<category>2</category>
+<category>3</category>
 <enableinfo>true</enableinfo>
 </javascriptresource>
 */
@@ -12,7 +12,7 @@
 // * no way to know actual position of active document.
 
 #target Photoshop
-#include '.lib/commons.js'
+#include '../.lib/commons.js'
 
 check(app.documents.length !== 1, 'No other documents')
 

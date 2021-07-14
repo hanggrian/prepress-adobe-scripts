@@ -19,9 +19,9 @@ var fontNameEdit, fontSizeEdit, italicList, underlineList
 var fillColorList, strokeColorList
 var kindList, orientationList
 
-dialog.hgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    topGroup.vgroup(function(midGroup) {
+dialog.hgroup(function(main) {
+    main.alignChildren = 'fill'
+    main.vgroup(function(midGroup) {
         midGroup.alignChildren = 'fill'
         midGroup.vpanel('Content', function(panel) {
             panel.alignChildren = 'fill'
@@ -59,7 +59,7 @@ dialog.hgroup(function(topGroup) {
             })
         })
     })
-    topGroup.vgroup(function(midGroup) {
+    main.vgroup(function(midGroup) {
         midGroup.alignChildren = 'fill'
         midGroup.vpanel('Color', function(panel) {
             panel.hgroup(function(group) {
@@ -87,7 +87,6 @@ dialog.hgroup(function(topGroup) {
         })
     })
 })
-
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     var substring = findEdit.text

@@ -5,14 +5,6 @@
 */
 
 /**
- * Add check box to dialog.
- * @returns {CheckBox}
- */
-Dialog.prototype.checkBox = function(bounds, text, configuration, properties) {
-    return _checkBox(this.main, bounds, text, configuration, properties)
-}
-
-/**
  * Add check box to group.
  * @returns {CheckBox}
  */

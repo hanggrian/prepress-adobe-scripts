@@ -8,7 +8,7 @@
  * Construct a new dialog.
  * @param {String} title window title.
  */
-function Dialog(title, alignChildren) {
+function Dialog(title) {
     var self = this
     this.title = title
     this.positiveButton, this.negativeButton, this.neutralButton
@@ -16,11 +16,11 @@ function Dialog(title, alignChildren) {
     var window = new Window('dialog', title)
     window.orientation = 'column'
 
-    this.main = _group(window, 'column', function(group) {
-        group.alignChildren = alignChildren !== undefined ? alignChildren : 'left'
+    this.main = window.add('group')
+    this.buttons = window.add('group').also(function(it) {
+        it.orientation = 'row'
+        it.alignment = 'right'
     })
-    this.buttons = _group(window, 'row')
-    this.buttons.alignment = 'right'
 
     var positiveButtonText, positiveButtonAction
     var negativeButtonText, negativeButtonAction
@@ -29,6 +29,20 @@ function Dialog(title, alignChildren) {
     this.setTitle = function(title) {
         self.title = title
         window.text = title
+    }
+
+    this.hgroup = function(configuration) {
+        self.main.orientation = 'row'
+        if (configuration !== null) {
+            configuration(self.main)
+        }
+    }
+
+    this.vgroup = function(configuration) {
+        self.main.orientation = 'column'
+        if (configuration !== null) {
+            configuration(self.main)
+        }
     }
 
     /**
@@ -94,8 +108,8 @@ function Dialog(title, alignChildren) {
     }
 
     function appendButton(text, action) {
-        return self.buttons.button(undefined, text, function(button) {
-            button.onClick = function() {
+        return self.buttons.button(undefined, text, function(it) {
+            it.onClick = function() {
                 self.close()
                 if (action !== undefined) {
                     action()

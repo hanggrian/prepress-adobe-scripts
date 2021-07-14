@@ -10,31 +10,32 @@ var BOUNDS_EDIT = [100, 21]
 var dialog = new Dialog('Add Registration Marks')
 var sizeSRadio, sizeMRadio, sizeLRadio, typesList, offsetEdit, anchorGroup
 
-dialog.hgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    topGroup.vpanel('Registration Marks', function(panel) {
-        panel.hgroup(function(group) {
-            group.staticText(BOUNDS_TEXT, 'Size:', JUSTIFY_RIGHT)
-            sizeSRadio = group.radioButton(undefined, 'S')
-            sizeMRadio = group.radioButton(undefined, 'M', SELECTED)
-            sizeLRadio = group.radioButton(undefined, 'L')
-        })
-        panel.hgroup(function(group) {
-            group.staticText(BOUNDS_TEXT, 'Types:', JUSTIFY_RIGHT)
-            typesList = group.dropDownList(BOUNDS_EDIT, TYPES, function(it) {
-                it.selectText('Composite')
+dialog.vgroup(function(main) {
+    main.hgroup(function(topGroup) {
+        topGroup.alignChildren = 'fill'
+        topGroup.vpanel('Registration Marks', function(panel) {
+            panel.hgroup(function(group) {
+                group.staticText(BOUNDS_TEXT, 'Size:', JUSTIFY_RIGHT)
+                sizeSRadio = group.radioButton(undefined, 'S')
+                sizeMRadio = group.radioButton(undefined, 'M', SELECTED)
+                sizeLRadio = group.radioButton(undefined, 'L')
+            })
+            panel.hgroup(function(group) {
+                group.staticText(BOUNDS_TEXT, 'Types:', JUSTIFY_RIGHT)
+                typesList = group.dropDownList(BOUNDS_EDIT, TYPES, function(it) {
+                    it.selectText('Composite')
+                })
+            })
+            panel.hgroup(function(group) {
+                group.staticText(BOUNDS_TEXT, 'Offset:', JUSTIFY_RIGHT)
+                offsetEdit = group.editText(BOUNDS_EDIT, '2.5 mm', VALIDATE_UNITS)
             })
         })
-        panel.hgroup(function(group) {
-            group.staticText(BOUNDS_TEXT, 'Offset:', JUSTIFY_RIGHT)
-            offsetEdit = group.editText(BOUNDS_EDIT, '2.5 mm', VALIDATE_UNITS)
+        topGroup.vpanel('Anchor', function(panel) {
+            anchorGroup = new AnchorGroup(panel)
         })
     })
-    topGroup.vpanel('Anchor', function(panel) {
-        anchorGroup = new AnchorGroup(panel)
-    })
 })
-
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     if (sizeSRadio.value && typesList.selection.text === 'Composite') {

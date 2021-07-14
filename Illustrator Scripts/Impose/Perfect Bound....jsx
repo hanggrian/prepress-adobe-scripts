@@ -6,7 +6,7 @@
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
 
-var dialog = new Dialog('Impose Perfect Bound', 'right')
+var dialog = new Dialog('Impose Perfect Bound')
 var pdfPanel, pagesPanel, documentPanel
 var rotateCheck
 
@@ -18,28 +18,30 @@ var files = openFile(dialog.title, [
 if (files !== null && files.isNotEmpty()) {
     var collection = new FileCollection(files)
 
-    dialog.main.hgroup(function(topGroup) {
-        topGroup.alignChildren = 'fill'
-        topGroup.vgroup(function(group) {
-            if (collection.hasPDF) {
-                pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
-            }
-            pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT).also(function(panel) {
-                panel.rangeGroup.endEdit.text = collection.length
-                if (!collection.isSinglePDF) {
-                    panel.rangeGroup.maxRange = collection.length
+    dialog.vgroup(function(main) {
+        main.alignChildren = 'right'
+        main.hgroup(function(topGroup) {
+            topGroup.alignChildren = 'fill'
+            topGroup.vgroup(function(group) {
+                if (collection.hasPDF) {
+                    pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
                 }
-                panel.rangeGroup.startEdit.activate()
+                pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT).also(function(panel) {
+                    panel.rangeGroup.endEdit.text = collection.length
+                    if (!collection.isSinglePDF) {
+                        panel.rangeGroup.maxRange = collection.length
+                    }
+                    panel.rangeGroup.startEdit.activate()
+                })
+            })
+            documentPanel = new OpenDocumentPanel(topGroup)
+        })
+        main.hgroup(function(group) {
+            rotateCheck = group.checkBox(undefined, 'Rotate Page', function(it) {
+                it.setTooltip('Should the page be rotated?')
             })
         })
-        documentPanel = new OpenDocumentPanel(topGroup)
     })
-    dialog.main.hgroup(function(group) {
-        rotateCheck = group.checkBox(undefined, 'Rotate Page', function(it) {
-            it.setTooltip('Should the page be rotated?')
-        })
-    })
-
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
         var start = pagesPanel.rangeGroup.getStart()

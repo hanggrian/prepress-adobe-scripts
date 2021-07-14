@@ -6,28 +6,33 @@
 var allOkay = true
 for (var i = 0; i < app.documents.length; i++) {
     var document = app.documents[i]
-    var message = 'Issues found in ' + document.name + ':'
+    var errorCount = 0
+    var sb = new StringBuilder().appendLine('Issues found in ' + document.name + ':')
 
     var colorSpace = document.documentColorSpace
     if (colorSpace !== DocumentColorSpace.CMYK) {
-        message += '\n• Color space is ' + colorSpace.toString().substringAfter('.') + '.'
+        errorCount++
+        sb.appendLine('• Color space is ' + colorSpace.toString().substringAfter('.') + '.')
     }
     var rasterSettings = document.rasterEffectSettings
     if (rasterSettings.colorModel !== RasterizationColorModel.DEFAULTCOLORMODEL) {
-        message += '\n• Color model is ' + rasterSettings.colorModel.toString().substringAfter('.') + '.'
+        errorCount++
+        sb.appendLine('• Color model is ' + rasterSettings.colorModel.toString().substringAfter('.') + '.')
     }
     if (rasterSettings.resolution < 300) {
-        message += '\n• Resolution is ' + rasterSettings.resolution + '.'
+        errorCount++
+        sb.appendLine('• Resolution is ' + rasterSettings.resolution + '.')
     }
     var rulerUnits = document.rulerUnits
     if (rulerUnits !== RulerUnits.Inches && rulerUnits !== RulerUnits.Centimeters && rulerUnits !== RulerUnits.Millimeters) {
-        message += '\n• Unusual ruler units ' + rulerUnits.toString().substringAfter('.') + '.'
+        errorCount++
+        sb.appendLine('• Unusual ruler units ' + rulerUnits.toString().substringAfter('.') + '.')
     }
 
-    if (message.includes('\n')) {
+    if (errorCount > 0) {
         allOkay = false
         document.activate()
-        alert(message, 'Pre-Flight', true)
+        alert(sb.toString().trim(), 'Pre-Flight', true)
     }
 }
 if (allOkay) {

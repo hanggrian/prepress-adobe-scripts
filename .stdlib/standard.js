@@ -12,7 +12,7 @@
 
 /** Calls the specified function [block] and returns its result. */
 Object.prototype.run = function(block) {
-    return block()
+    block(this)
 }
 
 /** Calls the specified function [block] with `this` value as its argument and returns `this` value. */

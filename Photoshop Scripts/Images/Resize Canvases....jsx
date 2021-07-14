@@ -1,7 +1,7 @@
 /*
 <javascriptresource>
 <name>Resize Canvases</name>
-<category>1</category>
+<category>2</category>
 <enableinfo>true</enableinfo>
 </javascriptresource>
 */
@@ -16,9 +16,9 @@ var BOUNDS_EDIT = [100, 21]
 var dialog = new Dialog('Resize Canvases')
 var widthEdit, heightEdit, anchorGroup
 
-dialog.hgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    topGroup.vpanel('Canvas', function(panel) {
+dialog.hgroup(function(main) {
+    main.alignChildren = 'fill'
+    main.vpanel('Canvas', function(panel) {
         panel.hgroup(function(group) {
             group.setTooltips("Canvases' new width")
             group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
@@ -33,11 +33,10 @@ dialog.hgroup(function(topGroup) {
             heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2), VALIDATE_UNITS)
         })
     })
-    topGroup.vpanel('Anchor', function(panel) {
+    main.vpanel('Anchor', function(panel) {
         anchorGroup = new AnchorGroup(panel, true)
     })
 })
-
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     var width = new UnitValue(widthEdit.text)

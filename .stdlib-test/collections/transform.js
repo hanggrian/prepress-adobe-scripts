@@ -1,6 +1,6 @@
-require('../.stdlib/collections-transform.js')
-require('../.stdlib/collections.js')
-var assert = require('./assert.js')
+require('../../.stdlib/collections/base.js')
+require('../../.stdlib/collections/transform.js')
+var assert = require('../assert.js')
 
 var map = function() {
     var a = [1, 2, 3]

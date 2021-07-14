@@ -13,7 +13,7 @@ checkHasSelection()
 var items = selection.filterItem(function(it) { return it.typename === 'PlacedItem' })
 check(items.isNotEmpty(), 'No links found in selection')
 
-var dialog = new Dialog('Relink Multipage', 'right')
+var dialog = new Dialog('Relink Multipage')
 var pdfPanel, rangeGroup, orderByGroup, maintainSizeGroup
 
 var files = openFile(dialog.title, [
@@ -24,23 +24,25 @@ var files = openFile(dialog.title, [
 if (files !== null && files.isNotEmpty()) {
     var collection = new FileCollection(files)
 
-    if (collection.hasPDF) {
-        pdfPanel = new OpenPDFPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
-    }
-    dialog.vpanel('Pages', function(panel) {
-        panel.hgroup(function(group) {
-            group.staticText(BOUNDS_TEXT, 'Pages:', JUSTIFY_RIGHT)
-            rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
-                it.startEdit.activate()
-                it.endEdit.text = collection.length
+    dialog.vgroup(function(main) {
+        main.alignChildren = 'right'
+        if (collection.hasPDF) {
+            pdfPanel = new OpenPDFPanel(main, BOUNDS_TEXT, BOUNDS_EDIT)
+        }
+        main.vpanel('Pages', function(panel) {
+            panel.hgroup(function(group) {
+                group.staticText(BOUNDS_TEXT, 'Pages:', JUSTIFY_RIGHT)
+                rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
+                    it.startEdit.activate()
+                    it.endEdit.text = collection.length
+                })
             })
         })
+        orderByGroup = new OrderByGroup(main, [ORDERS_DEFAULTS, ORDERS_POSITIONS]).also(function(group) {
+            group.list.selectText('Reversed')
+        })
+        maintainSizeGroup = new MaintainSizeGroup(main)
     })
-    orderByGroup = new OrderByGroup(dialog.main, [ORDERS_DEFAULTS, ORDERS_POSITIONS]).also(function(group) {
-        group.list.selectText('Reversed')
-    })
-    maintainSizeGroup = new MaintainSizeGroup(dialog.main)
-
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
         var current = rangeGroup.getStart()

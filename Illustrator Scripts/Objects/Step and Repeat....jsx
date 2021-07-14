@@ -10,30 +10,31 @@ checkSingleSelection()
 var dialog = new Dialog('Step and Repeat')
 var horizontalEdit, verticalEdit, moveHorizontalEdit, moveVerticalEdit
 
-dialog.hgroup(function(group) {
-    group.setTooltips('2 dimension target')
-    group.staticText(BOUNDS_TEXT, 'Copies:', JUSTIFY_RIGHT)
-    horizontalEdit = group.editText(BOUNDS_EDIT2, undefined, function(it) {
-        it.validateDigits()
-        it.activate()
+dialog.vgroup(function(main) {
+    main.hgroup(function(group) {
+        group.setTooltips('2 dimension target')
+        group.staticText(BOUNDS_TEXT, 'Copies:', JUSTIFY_RIGHT)
+        horizontalEdit = group.editText(BOUNDS_EDIT2, undefined, function(it) {
+            it.validateDigits()
+            it.activate()
+        })
+        group.staticText(undefined, '×')
+        verticalEdit = group.editText(BOUNDS_EDIT2, undefined, VALIDATE_DIGITS)
     })
-    group.staticText(undefined, '×')
-    verticalEdit = group.editText(BOUNDS_EDIT2, undefined, VALIDATE_DIGITS)
+    main.vpanel('Move', function(panel) {
+        var target = selection.first().getClippingPathItem()
+        panel.hgroup(function(group) {
+            group.setTooltips('Distance between arts horizontally')
+            group.staticText(BOUNDS_TEXT, 'Horizontal:', JUSTIFY_RIGHT)
+            moveHorizontalEdit = group.editText(BOUNDS_EDIT, formatUnits(target.width, unitName, 2), VALIDATE_UNITS)
+        })
+        panel.hgroup(function(group) {
+            group.setTooltips('Distance between arts vertically')
+            group.staticText(BOUNDS_TEXT, 'Vertical:', JUSTIFY_RIGHT)
+            moveVerticalEdit = group.editText(BOUNDS_EDIT, formatUnits(target.height, unitName, 2), VALIDATE_UNITS)
+        })
+    })
 })
-dialog.vpanel('Move', function(panel) {
-    var target = selection.first().getClippingPathItem()
-    panel.hgroup(function(group) {
-        group.setTooltips('Distance between arts horizontally')
-        group.staticText(BOUNDS_TEXT, 'Horizontal:', JUSTIFY_RIGHT)
-        moveHorizontalEdit = group.editText(BOUNDS_EDIT, formatUnits(target.width, unitName, 2), VALIDATE_UNITS)
-    })
-    panel.hgroup(function(group) {
-        group.setTooltips('Distance between arts vertically')
-        group.staticText(BOUNDS_TEXT, 'Vertical:', JUSTIFY_RIGHT)
-        moveVerticalEdit = group.editText(BOUNDS_EDIT, formatUnits(target.height, unitName, 2), VALIDATE_UNITS)
-    })
-})
-
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     var horizontal = parseInt(horizontalEdit.text) || 0

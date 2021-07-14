@@ -5,14 +5,6 @@
 */
 
 /**
- * Add static text to dialog.
- * @returns {StaticText}
- */
-Dialog.prototype.staticText = function(bounds, text, configuration, properties) {
-    return _staticText(this.main, bounds, text, configuration, properties)
-}
-
-/**
  * Add static text to group.
  * @returns {StaticText}
  */

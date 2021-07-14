@@ -3,50 +3,52 @@
 #include '../.lib/commons.js'
 #include '../.lib/ui/range.js'
 
-var BOUNDS_TEXT = [60, 21]
+var BOUNDS_TEXT = [70, 21]
 var BOUNDS_EDIT = [100, 21]
 
-var dialog = new Dialog('Resize Artboards', 'right')
+var dialog = new Dialog('Resize Artboards')
 var rangeGroup, widthEdit, heightEdit, anchorGroup
 var fitToArtsCheck
 
-dialog.hgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    topGroup.vpanel('Artboard', function(panel) {
-        panel.hgroup(function(group) {
-            group.staticText(BOUNDS_TEXT, 'Artboards:', JUSTIFY_RIGHT)
-            rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
-                it.maxRange = document.artboards.length
-                it.endEdit.text = document.artboards.length
+dialog.vgroup(function(main) {
+    main.alignChildren = 'right'
+    main.hgroup(function(topGroup) {
+        topGroup.alignChildren = 'fill'
+        topGroup.vpanel('Artboard', function(panel) {
+            panel.hgroup(function(group) {
+                group.staticText(BOUNDS_TEXT, 'Artboards:', JUSTIFY_RIGHT)
+                rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
+                    it.maxRange = document.artboards.length
+                    it.endEdit.text = document.artboards.length
+                })
+            })
+            panel.hgroup(function(group) {
+                group.setTooltips("Artboards' new width")
+                group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
+                widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2), function(it) {
+                    it.validateUnits()
+                    it.activate()
+                })
+            })
+            panel.hgroup(function(group) {
+                group.setTooltips("Artboards' new height")
+                group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
+                heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2), VALIDATE_UNITS)
             })
         })
-        panel.hgroup(function(group) {
-            group.setTooltips("Artboards' new width")
-            group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
-            widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2), function(it) {
-                it.validateUnits()
-                it.activate()
-            })
-        })
-        panel.hgroup(function(group) {
-            group.setTooltips("Artboards' new height")
-            group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
-            heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2), VALIDATE_UNITS)
+        topGroup.vpanel('Anchor', function(panel) {
+            anchorGroup = new AnchorGroup(panel)
         })
     })
-    topGroup.vpanel('Anchor', function(panel) {
-        anchorGroup = new AnchorGroup(panel)
+    fitToArtsCheck = main.checkBox(undefined, 'Fit to Arts', function(it) {
+        it.setTooltip("Wrap artboards' sizes to each arts")
+        it.onClick = function() {
+            widthEdit.enabled = !it.value
+            heightEdit.enabled = !it.value
+            anchorGroup.main.enabled = !it.value
+        }
     })
 })
-fitToArtsCheck = dialog.checkBox(undefined, 'Fit to Arts', function(it) {
-    it.setTooltip("Wrap artboards' sizes to each arts")
-    it.onClick = function() {
-        widthEdit.enabled = !it.value
-        heightEdit.enabled = !it.value
-        anchorGroup.main.enabled = !it.value
-    }
-})
-
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     var w = parseUnits(widthEdit.text)

@@ -4,10 +4,9 @@
 </javascriptresource>
 */
 
-#include 'sui/dsl-parents/group.js'
-#include 'sui/dsl-parents/panel.js'
-#include 'sui/dsl-parents/tab.js'
-#include 'sui/dsl-parents/tabbedpanel.js'
+#include 'collections/base.js'
+#include 'collections/predicate.js'
+#include 'collections/transform.js'
 
 #include 'sui/dsl-controls/button.js'
 #include 'sui/dsl-controls/checkbox.js'
@@ -17,15 +16,18 @@
 #include 'sui/dsl-controls/radiobutton.js'
 #include 'sui/dsl-controls/slider.js'
 #include 'sui/dsl-controls/statictext.js'
-
+#include 'sui/dsl-parents/group.js'
+#include 'sui/dsl-parents/panel.js'
+#include 'sui/dsl-parents/tab.js'
+#include 'sui/dsl-parents/tabbedpanel.js'
 #include 'sui/controls.js'
 #include 'sui/dialog.js'
 #include 'sui/tooltip.js'
-#include 'sui/validator.js'
+#include 'sui/validators.js'
 
-#include 'collections.js'
-#include 'collections-predicate.js'
-#include 'collections-transform.js'
+#include 'text/string-builder.js'
+#include 'text/strings.js'
+
 #include 'files.js'
 #include 'numbers.js'
 #include 'preconditions.js'
@@ -33,7 +35,6 @@
 #include 'rectangles.js'
 #include 'resources.js'
 #include 'standard.js'
-#include 'strings.js'
 
 /** Returns true if this script is running on macOS. */
 function isMacOS() {

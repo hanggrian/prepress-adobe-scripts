@@ -26,23 +26,23 @@ items.forEachItem(function(it) {
     }
 })
 
-var message
-if (count + registrationCount + distance + registrationDistance === 0) {
-    message = 'No dielines found in selection.'
-    if (hasFilledLine) {
-        message += '\nLines with color fill are ignored.'
-    }
-} else {
-    message = (count + registrationCount) + ' lines measuring at ' + formatUnits(distance + registrationDistance, unitName, 2)
-    if (distance > 0 && registrationDistance > 0) {
-        message += ', containing:' +
-            '\n• ' + count + ' lines at ' + formatUnits(distance, unitName, 2) +
-            '\n• ' + registrationCount + ' registration lines at ' + formatUnits(registrationDistance, unitName, 2)
+alert(buildString(function(it) {
+    if (count + registrationCount + distance + registrationDistance === 0) {
+        it.appendLine('No dielines found in selection.')
+        if (hasFilledLine) {
+            it.appendLine('Lines with color fill are ignored.')
+        }
     } else {
-        message += '.'
+        it.append((count + registrationCount) + ' lines measuring at ' + formatUnits(distance + registrationDistance, unitName, 2))
+        if (distance > 0 && registrationDistance > 0) {
+            it.appendLine(', containing:')
+            it.appendLine('• ' + count + ' lines at ' + formatUnits(distance, unitName, 2))
+            it.appendLine('• ' + registrationCount + ' registration lines at ' + formatUnits(registrationDistance, unitName, 2))
+        } else {
+            it.appendLine('.')
+        }
     }
-}
-alert(message, 'Measure Dielines')
+}).trim(), 'Measure Dielines')
 
 function increment(item) {
     if (item.filled) {

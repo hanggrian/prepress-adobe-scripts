@@ -20,20 +20,21 @@ var file = openFile(dialog.title, [
 ])
 
 if (file !== null) {
-    if (file.isPDF()) {
-        pdfPanel = new OpenPDFPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT).also(function(panel) {
-            panel.main.hgroup(function(group) {
-                group.setTooltips('What page should be used when opening a multipage document')
-                group.staticText(BOUNDS_TEXT, 'Page:', JUSTIFY_RIGHT)
-                pageEdit = group.editText(BOUNDS_EDIT, '1', function(it) {
-                    it.validateDigits()
-                    it.activate()
+    dialog.vgroup(function(main) {
+        if (file.isPDF()) {
+            pdfPanel = new OpenPDFPanel(main, BOUNDS_TEXT, BOUNDS_EDIT).also(function(panel) {
+                panel.main.hgroup(function(group) {
+                    group.setTooltips('What page should be used when opening a multipage document')
+                    group.staticText(BOUNDS_TEXT, 'Page:', JUSTIFY_RIGHT)
+                    pageEdit = group.editText(BOUNDS_EDIT, '1', function(it) {
+                        it.validateDigits()
+                        it.activate()
+                    })
                 })
             })
-        })
-    }
-    maintainSizeGroup = new MaintainSizeGroup(dialog.main)
-
+        }
+        maintainSizeGroup = new MaintainSizeGroup(main)
+    })
     dialog.setNegativeButton('Cancel')
     dialog.setPositiveButton(function() {
         if (file.isPDF()) {

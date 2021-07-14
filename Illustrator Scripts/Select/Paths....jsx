@@ -17,9 +17,9 @@ var strokeColorList, strokeWeightEdit, strokeDashedList, strokeOverprintList
 var dimensionPanel
 var clippingList, closedList, guidesList
 
-dialog.hgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    topGroup.vgroup(function(midGroup) {
+dialog.hgroup(function(main) {
+    main.alignChildren = 'fill'
+    main.vgroup(function(midGroup) {
         midGroup.vpanel('Fill', function(panel) {
             panel.hgroup(function(group) {
                 group.setTooltips('Fill color')
@@ -58,7 +58,7 @@ dialog.hgroup(function(topGroup) {
             })
         })
     })
-    topGroup.vgroup(function(midGroup) {
+    main.vgroup(function(midGroup) {
         dimensionPanel = new SelectDimensionPanel(midGroup, BOUNDS_LEFT_TEXT, BOUNDS_EDIT)
         midGroup.vpanel('Others', function(panel) {
             panel.hgroup(function(group) {
@@ -79,7 +79,6 @@ dialog.hgroup(function(topGroup) {
         })
     })
 })
-
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     var fillColor = fillColorList.hasSelection() ? parseColor(fillColorList.selection.text) : undefined

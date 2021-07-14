@@ -5,14 +5,6 @@
 */
 
 /**
- * Add tabbed panel to dialog.
- * @returns {TabbedPanel}
- */
-Dialog.prototype.tabbedPanel = function(configuration) {
-    return _tabbedPanel(this.main, configuration)
-}
-
-/**
  * Add tabbed panel to group.
  * @returns {TabbedPanel}
  */
@@ -32,7 +24,7 @@ Panel.prototype.tabbedPanel = function(configuration) {
  * Add tabbed panel to panel.
  * @returns {TabbedPanel}
  */
- Object.prototype.tabbedPanel = function(configuration) {
+Object.prototype.tabbedPanel = function(configuration) {
     return _tabbedPanel(this, configuration)
 }
 

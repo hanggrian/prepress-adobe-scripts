@@ -7,10 +7,11 @@ check(document.artboards.length > 1, 'No other artboards')
 var dialog = new Dialog('Reorder Artboards')
 var orderByGroup
 
-orderByGroup = new OrderByGroup(dialog.main, [ORDERS_NAMES, ORDERS_POSITIONS]).also(function(group) {
-    group.list.selectText('Horizontal')
+dialog.vgroup(function(main) {
+    orderByGroup = new OrderByGroup(main, [ORDERS_NAMES, ORDERS_POSITIONS]).also(function(it) {
+        it.list.selectText('Horizontal')
+    })
 })
-
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     var properties = []

@@ -1,6 +1,6 @@
 /*
 <javascriptresource>
-<category>2</category>
+<category>3</category>
 <enableinfo>true</enableinfo>
 </javascriptresource>
 */
@@ -8,7 +8,7 @@
 // Close other tabs without saving.
 
 #target Photoshop
-#include '.lib/commons.js'
+#include '../.lib/commons.js'
 
 check(app.documents.length !== 1, 'No other documents')
 

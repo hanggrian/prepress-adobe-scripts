@@ -5,14 +5,6 @@
 */
 
 /**
- * Add radio button to dialog.
- * @returns {RadioButton}
- */
- Dialog.prototype.radioButton = function(bounds, text, configuration, properties) {
-    return _radioButton(this.main, bounds, text, configuration, properties)
-}
-
-/**
  * Add radio button to group.
  * @returns {RadioButton}
  */

@@ -5,14 +5,6 @@
 */
 
 /**
- * Add drop down list to dialog.
- * @returns {DropDownList}
- */
-Dialog.prototype.dropDownList = function(bounds, items, configuration, properties) {
-    return _dropDownList(this.main, bounds, items, configuration, properties)
-}
-
-/**
  * Add drop down list to group.
  * @returns {DropDownList}
  */

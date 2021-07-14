@@ -1,7 +1,7 @@
 /*
 <javascriptresource>
 <name>Resize Images</name>
-<category>1</category>
+<category>2</category>
 <enableinfo>true</enableinfo>
 </javascriptresource>
 */
@@ -16,32 +16,34 @@ var RESAMPLES = ['Bicubic', 'Bicubic Sharper', 'Bicubic Smoother', 'Bilinear', '
 var dialog = new Dialog('Resize Images')
 var widthEdit, heightEdit, resolutionEdit, resampleList
 
-dialog.hgroup(function(group) {
-    group.setTooltips("Images' new width")
-    group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
-    widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2), function(it) {
-        it.validateUnits()
-        it.activate()
+dialog.vgroup(function(main) {
+    main.alignChildren = 'fill'
+    main.hgroup(function(group) {
+        group.setTooltips("Images' new width")
+        group.staticText(BOUNDS_TEXT, 'Width:', JUSTIFY_RIGHT)
+        widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2), function(it) {
+            it.validateUnits()
+            it.activate()
+        })
+    })
+    main.hgroup(function(group) {
+        group.setTooltips("Images' new height")
+        group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
+        heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2), VALIDATE_UNITS)
+    })
+    main.hgroup(function(group) {
+        group.setTooltips("Images' new resolution")
+        group.staticText(BOUNDS_TEXT, 'Resolution:', JUSTIFY_RIGHT)
+        resolutionEdit = group.editText(BOUNDS_EDIT, document.resolution, VALIDATE_UNITS)
+    })
+    main.hgroup(function(group) {
+        group.setTooltips('Method to resample new images')
+        group.staticText(BOUNDS_TEXT, 'Resample:', JUSTIFY_RIGHT)
+        resampleList = group.dropDownList(undefined, RESAMPLES, function(it) {
+            it.selectText('Bicubic')
+        })
     })
 })
-dialog.hgroup(function(group) {
-    group.setTooltips("Images' new height")
-    group.staticText(BOUNDS_TEXT, 'Height:', JUSTIFY_RIGHT)
-    heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2), VALIDATE_UNITS)
-})
-dialog.hgroup(function(group) {
-    group.setTooltips("Images' new resolution")
-    group.staticText(BOUNDS_TEXT, 'Resolution:', JUSTIFY_RIGHT)
-    resolutionEdit = group.editText(BOUNDS_EDIT, document.resolution, VALIDATE_UNITS)
-})
-dialog.hgroup(function(group) {
-    group.setTooltips('Method to resample new images')
-    group.staticText(BOUNDS_TEXT, 'Resample:', JUSTIFY_RIGHT)
-    resampleList = group.dropDownList(undefined, RESAMPLES, function(it) {
-        it.selectText('Bicubic')
-    })
-})
-
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     var width = new UnitValue(widthEdit.text)

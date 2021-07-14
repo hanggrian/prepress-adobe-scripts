@@ -18,9 +18,9 @@ var dimensionPanel
 var colorSpaceList, bitsEdit, transparentList
 var embeddedList, overprintList, statusList
 
-dialog.hgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    topGroup.vgroup(function(topGroup) {
+dialog.hgroup(function(main) {
+    main.alignChildren = 'fill'
+    main.vgroup(function(topGroup) {
         dimensionPanel = new SelectDimensionPanel(topGroup, BOUNDS_LEFT_TEXT, BOUNDS_EDIT)
         topGroup.vpanel('Image', function(panel) {
             panel.hgroup(function(group) {
@@ -40,7 +40,7 @@ dialog.hgroup(function(topGroup) {
             })
         })
     })
-    topGroup.vpanel('Others', function(panel) {
+    main.vpanel('Others', function(panel) {
         panel.hgroup(function(group) {
             group.setTooltips('Is the raster art embedded within the illustration?')
             group.staticText(BOUNDS_LEFT_TEXT, 'Embedded:', JUSTIFY_RIGHT)
@@ -58,7 +58,6 @@ dialog.hgroup(function(topGroup) {
         })
     })
 })
-
 dialog.setNegativeButton('Cancel')
 dialog.setPositiveButton(function() {
     var width = dimensionPanel.getWidth()
