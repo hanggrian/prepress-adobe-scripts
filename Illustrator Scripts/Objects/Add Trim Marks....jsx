@@ -348,7 +348,8 @@ function createTrimMark(weight, color, suffixName, fromX, fromY, toX, toY) {
     $.writeln(suffixName + '. From ' + '[' + fromX + ',' + fromY + '] to [' + toX + ',' + toY + ']')
     var path = document.pathItems.add()
     path.name = 'Trim' + suffixName
-    path.fillColor = COLOR_NONE
+    path.filled = false
+    path.strokeDashes = []
     path.strokeColor = color
     path.strokeWidth = weight
     path.setEntirePath([[fromX, fromY], [toX, toY]])

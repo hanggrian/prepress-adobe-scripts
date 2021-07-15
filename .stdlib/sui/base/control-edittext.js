@@ -16,7 +16,7 @@ var REPLACE_LEADING_ZERO = /^(?:0+(?=[1-9])|0+(?=0$))/mg // https://stackoverflo
 /** Digits are non-negative and non-decimal number. */
 EditText.prototype.validateDigits = function() {
     this.registerValidator(MATCH_DIGITS, function(_, newValue) {
-        return newValue.removeRegexes([REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
+        return _removeRegexes(newValue, [REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
     })
 }
 
@@ -27,7 +27,7 @@ EditText.prototype.validateUnits = function() {
         var exec
 
         // check for old unit type
-        var old = oldValue.removeRegexes([REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
+        var old = _removeRegexes(oldValue, [REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
         var oldUnitType
         exec = alphabetRegex.exec(old)
         if (exec !== null) {
@@ -35,11 +35,11 @@ EditText.prototype.validateUnits = function() {
         }
 
         // parse new unit value and type
-        var _new = newValue.removeRegexes([REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
+        var _new = _removeRegexes(newValue, [REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
         exec = alphabetRegex.exec(_new)
         if (exec !== null) {
             // new unit type found, use it
-            var newUnitValue = _new.substring(0, exec.index).removeRegexes([REPLACE_TRAILING_SPACE])
+            var newUnitValue = _removeRegexes(_new.substring(0, exec.index), [REPLACE_TRAILING_SPACE])
             var newUnitType = _new.substring(exec.index)
             return newUnitValue + ' ' + newUnitType
         } else {

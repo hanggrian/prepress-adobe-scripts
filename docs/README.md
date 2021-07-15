@@ -6,7 +6,7 @@ Prepress Adobe Scripts
 ![](images/logo_ai.png)
 ![](images/logo_psd.png)
 
-Essential Illustrator and Photoshop scripts for commercial printshop. While most of these scripts are general purpose, some are heavily prepress-focused like trim marks and imposition. Tested only on latest Adobe suite.
+Essential Illustrator and Photoshop scripts for commercial printshop. While most of these scripts are general purpose, some are heavily prepress-focused like trim marks, dielines and imposition. Tested only on latest Adobe suite.
 
 [Illustrator Scripts](illustrator_scripts.md)
 ---------------------

@@ -149,7 +149,8 @@ dialog.setPositiveButton(function() {
     var color = parseColor(colorList.selection.text)
 
     var path = document.pathItems.add()
-    path.fillColor = COLOR_NONE
+    path.filled = false
+    path.strokeDashes = []
     path.strokeColor = color
     path.strokeWidth = weight
 

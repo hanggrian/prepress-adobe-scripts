@@ -5,19 +5,19 @@
 */
 
 Array.prototype.equalTo = function(other) {
-    return this[0] === other[0] &&
-        this[1] === other[1] &&
-        this[2] === other[2] &&
-        this[3] === other[3]
+    return this.getLeft() === other.getLeft() &&
+        this.getTop() === other.getTop() &&
+        this.getRight() === other.getRight() &&
+        this.getBottom() === other.getBottom()
 }
 
 // see https://gist.github.com/Daniel-Hug/d7984d82b58d6d2679a087d896ca3d2b
 Array.prototype.isWithin = function(other) {
     return !(
-		this[0] < other[0] ||
-		this[3] < other[3] ||
-		this[2] > other[2] ||
-		this[1] > other[1]
+		this.getLeft() < other.getLeft() ||
+		thisother.getBottom() < other.getBottom() ||
+		this.getRight() > other.getRight() ||
+		this.getTop() > other.getTop()
 	)
 }
 

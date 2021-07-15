@@ -1,11 +1,11 @@
 exports.assertEquals = function(expected, actual) {
-    if (expected !== actual) {
+    if (expected != actual) {
         throwError('`' + actual + '` to be `' + expected + '`')
     }
 }
 
 exports.assertNotEquals = function(expected, actual) {
-    if (expected === actual) {
+    if (expected == actual) {
         throwError('`' + actual + '` to not be `' + expected + '`')
     }
 }

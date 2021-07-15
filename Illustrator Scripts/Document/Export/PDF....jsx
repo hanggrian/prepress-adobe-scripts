@@ -48,7 +48,7 @@ function process(document) {
     var newFile = new File(saveDirectoryGroup.getDirectoryName() + '/' + saveFilePanel.getFileName(document.name.substringBeforeLast('.')))
     var oldFile = document.fullName
     document.saveAs(newFile, new PDFSaveOptions().also(function(it) {
-        if (!saveFilePanel.isAllArtboards) {
+        if (!saveFilePanel.isAllArtboards()) {
             it.artboardRange = saveFilePanel.rangeGroup.getStartText() + '-' + saveFilePanel.rangeGroup.getEndText()
         }
         it.bleedLink = useBleedCheck.value

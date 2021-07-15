@@ -28,8 +28,8 @@ function _expandBounds(bounds) {
         : bounds
 }
 
-String.prototype.removeRegexes = function(regexes) {
-    var s = this
+function _removeRegexes(string, regexes) {
+    var s = string
     for (var i = 0; i < regexes.length; i++) {
         s = s.replace(regexes[i], '')
     }
