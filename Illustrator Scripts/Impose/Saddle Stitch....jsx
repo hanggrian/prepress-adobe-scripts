@@ -36,7 +36,7 @@ if (files !== null && files.isNotEmpty()) {
         })
         main.hgroup(function(group) {
             rtlCheck = group.checkBox(undefined, 'Right-to-Left').also(function(it) {
-                it.setTooltip('Useful for Arabic layout')
+                it.tip('Useful for Arabic layout')
             })
         })
     })

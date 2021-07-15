@@ -4,12 +4,12 @@ function SelectDimensionPanel(parent, textBounds, editBounds) {
 
     this.main = parent.vpanel('Dimension', function(panel) {
         panel.hgroup(function(group) {
-            group.setTooltips("Selected object's width")
+            group.tips("Selected object's width")
             group.staticText(textBounds, 'Width:').also(JUSTIFY_RIGHT)
             self.widthEdit = group.editText(editBounds).also(VALIDATE_UNITS)
         })
         panel.hgroup(function(group) {
-            group.setTooltips("Selected object's height")
+            group.tips("Selected object's height")
             group.staticText(textBounds, 'Height:').also(JUSTIFY_RIGHT)
             self.heightEdit = group.editText(editBounds).also(VALIDATE_UNITS)
         })

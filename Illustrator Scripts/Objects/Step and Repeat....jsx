@@ -12,7 +12,7 @@ var horizontalEdit, verticalEdit, moveHorizontalEdit, moveVerticalEdit
 
 dialog.vgroup(function(main) {
     main.hgroup(function(group) {
-        group.setTooltips('2 dimension target')
+        group.tips('2 dimension target')
         group.staticText(BOUNDS_TEXT, 'Copies:').also(JUSTIFY_RIGHT)
         horizontalEdit = group.editText(BOUNDS_EDIT2).also(function(it) {
             it.validateDigits()
@@ -24,12 +24,12 @@ dialog.vgroup(function(main) {
     main.vpanel('Move', function(panel) {
         var target = selection.first().getClippingPathItem()
         panel.hgroup(function(group) {
-            group.setTooltips('Distance between arts horizontally')
+            group.tips('Distance between arts horizontally')
             group.staticText(BOUNDS_TEXT, 'Horizontal:').also(JUSTIFY_RIGHT)
             moveHorizontalEdit = group.editText(BOUNDS_EDIT, formatUnits(target.width, unitName, 2)).also(VALIDATE_UNITS)
         })
         panel.hgroup(function(group) {
-            group.setTooltips('Distance between arts vertically')
+            group.tips('Distance between arts vertically')
             group.staticText(BOUNDS_TEXT, 'Vertical:').also(JUSTIFY_RIGHT)
             moveVerticalEdit = group.editText(BOUNDS_EDIT, formatUnits(target.height, unitName, 2)).also(VALIDATE_UNITS)
         })

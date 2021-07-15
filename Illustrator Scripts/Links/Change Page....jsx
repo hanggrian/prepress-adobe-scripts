@@ -16,6 +16,7 @@ dialog.vgroup(function(main) {
     main.alignChildren = 'right'
     pdfPanel = new OpenPDFPanel(main, BOUNDS_TEXT, BOUNDS_EDIT).also(function(panel) {
         panel.main.hgroup(function(group) {
+            group.tips('Which pages should be used when opening a multipage document')
             group.staticText(BOUNDS_TEXT, 'Pages:').also(JUSTIFY_RIGHT)
             rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
                 it.startEdit.activate()

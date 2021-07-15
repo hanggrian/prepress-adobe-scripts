@@ -2,7 +2,7 @@ var ORDERS_DEFAULTS = ['Default', 'Reversed']
 var ORDERS_NAMES = ['Ascending', 'Descending']
 var ORDERS_POSITIONS = ['Horizontal', 'Vertical']
 
-function OrderByGroup(parent, ordersCollection, textBounds, editBounds) {
+function OrderByGroup(parent, ordersCollection) {
     var self = this
     this.list
 
@@ -16,8 +16,9 @@ function OrderByGroup(parent, ordersCollection, textBounds, editBounds) {
     })
 
     this.main = parent.hgroup(function(group) {
-        group.staticText(textBounds, 'Order by').also(JUSTIFY_RIGHT)
-        self.list = group.dropDownList(editBounds, orders)
+        group.tips('Modify how iteration should be operated')
+        group.staticText(undefined, 'Order by').also(JUSTIFY_RIGHT)
+        self.list = group.dropDownList(undefined, orders)
     })
 
     this.forEach = function(collection, action) {

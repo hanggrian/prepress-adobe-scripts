@@ -22,7 +22,7 @@ if (file !== null) {
         if (file.isPDF()) {
             pdfPanel = new OpenPDFPanel(main, BOUNDS_TEXT, BOUNDS_EDIT).also(function(panel) {
                 panel.main.hgroup(function(group) {
-                    group.setTooltips('What page should be used when opening a multipage document')
+                    group.tips('Which page should be used when opening a multipage document')
                     group.staticText(BOUNDS_TEXT, 'Page:').also(JUSTIFY_RIGHT)
                     pageEdit = group.editText(BOUNDS_EDIT, '1').also(function(it) {
                         it.validateDigits()

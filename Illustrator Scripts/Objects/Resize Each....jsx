@@ -15,7 +15,7 @@ var documentOriginCheck, anchorGroup
 dialog.vgroup(function(main) {
     main.hgroup(function(group) {
         group.alignChildren = 'bottom'
-        group.setTooltips("Objects' new width, uncheck to ignore")
+        group.tips("Objects' new width, uncheck to ignore")
         group.staticText(BOUNDS_TEXT, 'Width:').also(JUSTIFY_RIGHT)
         widthEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.width, unitName, 2)).also(function(it) {
             it.validateUnits()
@@ -30,7 +30,7 @@ dialog.vgroup(function(main) {
     })
     main.hgroup(function(group) {
         group.alignChildren = 'bottom'
-        group.setTooltips("Objects' new height, uncheck to ignore")
+        group.tips("Objects' new height, uncheck to ignore")
         group.staticText(BOUNDS_TEXT, 'Height:').also(JUSTIFY_RIGHT)
         heightEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.height, unitName, 2)).also(VALIDATE_UNITS)
         heightCheck = group.checkBox().also(function(it) {
@@ -45,26 +45,26 @@ dialog.vgroup(function(main) {
         group.vpanel('Change', function(panel) {
             panel.alignChildren = 'fill'
             changePositionsCheck = panel.checkBox(undefined, 'Positions').also(function(it) {
-                it.setTooltip('Are art object positions and orientations effected?')
+                it.tip('Are art object positions and orientations effected?')
                 it.select()
             })
             changeFillPatternsCheck = panel.checkBox(undefined, 'Fill Patterns').also(function(it) {
-                it.setTooltip('Are the fill patterns assigned to paths to be transformed?')
+                it.tip('Are the fill patterns assigned to paths to be transformed?')
                 it.select()
             })
             changeFillGradientsCheck = panel.checkBox(undefined, 'Fill Gradients').also(function(it) {
-                it.setTooltip('Are the fill gradients assigned to paths to be transformed?')
+                it.tip('Are the fill gradients assigned to paths to be transformed?')
                 it.select()
             })
             changeStrokePatternsCheck = panel.checkBox(undefined, 'Stroke Patterns').also(function(it) {
-                it.setTooltip('Are the stroke patterns assigned to paths to be transformed?')
+                it.tip('Are the stroke patterns assigned to paths to be transformed?')
                 it.select()
             })
         })
         group.vpanel('Anchor', function(panel) {
             panel.alignChildren = 'fill'
             documentOriginCheck = panel.checkBox(undefined, 'Default').also(function(it) {
-                it.setTooltip('Use current reference point preference')
+                it.tip('Use current reference point preference')
                 it.onClick = function() {
                     anchorGroup.main.enabled = !it.value
                 }

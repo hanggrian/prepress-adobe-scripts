@@ -16,7 +16,7 @@ dialog.vgroup(function(main) {
         saveFilePanel = new SaveFilePanel(topGroup, 'ps')
         topGroup.vpanel('Options', function(panel) {
             panel.hgroup(function(group) {
-                group.setTooltips('Output mode')
+                group.tips('Output mode')
                 group.staticText(BOUNDS_TEXT, 'Mode:').also(JUSTIFY_RIGHT)
                 group.radioButton(undefined, 'Composite')
                 group.radioButton(undefined, 'Separations').also(SELECTED)
@@ -25,19 +25,19 @@ dialog.vgroup(function(main) {
         topGroup.vpanel('Process', function(panel) {
             panel.alignChildren = 'fill'
             cyanCheck = panel.checkBox(undefined, 'Cyan').also(function(it) {
-                it.setTooltip('Should ps file include cyan layer')
+                it.tip('Should ps file include cyan layer')
                 it.select()
             })
             magentaCheck = panel.checkBox(undefined, 'Magenta').also(function(it) {
-                it.setTooltip('Should ps file include magenta layer')
+                it.tip('Should ps file include magenta layer')
                 it.select()
             })
             yellowCheck = panel.checkBox(undefined, 'Yellow').also(function(it) {
-                it.setTooltip('Should ps file include yellow layer')
+                it.tip('Should ps file include yellow layer')
                 it.select()
             })
             blackCheck = panel.checkBox(undefined, 'Black').also(function(it) {
-                it.setTooltip('Should ps file include black layer')
+                it.tip('Should ps file include black layer')
                 it.select()
             })
         })

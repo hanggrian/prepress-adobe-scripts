@@ -32,6 +32,7 @@ var rangeGroup, anchorList
 
 dialog.vgroup(function(main) {
     main.hgroup(function(group) {
+        group.tips('Which artboards to paste')
         group.staticText(BOUNDS_TEXT, 'Artboards:').also(JUSTIFY_RIGHT)
         rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
             it.maxRange = document.artboards.length
@@ -40,7 +41,7 @@ dialog.vgroup(function(main) {
         })
     })
     main.hgroup(function(group) {
-        group.setTooltips('Only relevant on artboard with different size than active artboard')
+        group.tips('Only relevant on artboard with different size than active artboard')
         group.staticText(BOUNDS_TEXT, 'Anchor:').also(JUSTIFY_RIGHT)
         anchorList = group.dropDownList(BOUNDS_EDIT, ANCHORS).also(function(it) {
             it.selectText('Top Left')

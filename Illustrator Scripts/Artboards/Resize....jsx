@@ -14,6 +14,7 @@ dialog.vgroup(function(main) {
         topGroup.alignChildren = 'fill'
         topGroup.vpanel('Artboard', function(panel) {
             panel.hgroup(function(group) {
+                group.tips('Which artboards to resize')
                 group.staticText(BOUNDS_TEXT, 'Artboards:').also(JUSTIFY_RIGHT)
                 rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
                     it.maxRange = document.artboards.length
@@ -21,7 +22,7 @@ dialog.vgroup(function(main) {
                 })
             })
             panel.hgroup(function(group) {
-                group.setTooltips("Artboards' new width")
+                group.tips("Artboards' new width")
                 group.staticText(BOUNDS_TEXT, 'Width:').also(JUSTIFY_RIGHT)
                 widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2)).also(function(it) {
                     it.validateUnits()
@@ -29,7 +30,7 @@ dialog.vgroup(function(main) {
                 })
             })
             panel.hgroup(function(group) {
-                group.setTooltips("Artboards' new height")
+                group.tips("Artboards' new height")
                 group.staticText(BOUNDS_TEXT, 'Height:').also(JUSTIFY_RIGHT)
                 heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2)).also(VALIDATE_UNITS)
             })
@@ -39,7 +40,7 @@ dialog.vgroup(function(main) {
         })
     })
     fitToArtsCheck = main.checkBox(undefined, 'Fit to Arts').also(function(it) {
-        it.setTooltip("Wrap artboards' sizes to each arts")
+        it.tip("Wrap artboards' sizes to each arts")
         it.onClick = function() {
             widthEdit.enabled = !it.value
             heightEdit.enabled = !it.value

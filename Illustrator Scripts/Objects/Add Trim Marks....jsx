@@ -19,7 +19,7 @@ dialog.vgroup(function(main) {
         topGroup.alignChildren = 'fill'
         topGroup.vpanel('Trim Marks', function(panel) {
             panel.hgroup(function(group) {
-                group.setTooltips('Distance between art and trim marks')
+                group.tips('Distance between art and trim marks')
                 group.staticText(BOUNDS_TEXT, 'Offset:').also(JUSTIFY_RIGHT)
                 offsetEdit = group.editText(BOUNDS_EDIT, '2.5 mm').also(function(it) {
                     it.validateUnits()
@@ -27,17 +27,17 @@ dialog.vgroup(function(main) {
                 })
             })
             panel.hgroup(function(group) {
-                group.setTooltips('Size of trim marks')
+                group.tips('Size of trim marks')
                 group.staticText(BOUNDS_TEXT, 'Length:').also(JUSTIFY_RIGHT)
                 lengthEdit = group.editText(BOUNDS_EDIT, '2.5 mm').also(VALIDATE_UNITS)
             })
             panel.hgroup(function(group) {
-                group.setTooltips('Thickness of trim marks')
+                group.tips('Thickness of trim marks')
                 group.staticText(BOUNDS_TEXT, 'Weight:').also(JUSTIFY_RIGHT)
                 weightEdit = group.editText(BOUNDS_EDIT, '0.3 pt').also(VALIDATE_UNITS) // the same value used in `Object > Create Trim Marks`
             })
             panel.hgroup(function(group) {
-                group.setTooltips('Color of trim marks')
+                group.tips('Color of trim marks')
                 group.staticText(BOUNDS_TEXT, 'Color:').also(JUSTIFY_RIGHT)
                 colorList = group.dropDownList(BOUNDS_EDIT, COLORS).also(function(it) {
                     it.selectText('Registration')
@@ -49,36 +49,36 @@ dialog.vgroup(function(main) {
                 group.staticText(BOUNDS_CHECK)
                 topLeftCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
                     it.select()
-                    it.setTooltip('Top left')
+                    it.tip('Top left')
                 })
                 topCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
                     it.select()
-                    it.setTooltip('Top')
+                    it.tip('Top')
                     it.visible = false
                 })
                 topRightCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
                     it.select()
-                    it.setTooltip('Top right')
+                    it.tip('Top right')
                 })
                 group.staticText(BOUNDS_CHECK)
             })
             panel.hgroup(function(group) {
                 leftTopCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
                     it.select()
-                    it.setTooltip('Left top')
+                    it.tip('Left top')
                 })
                 group.staticText(BOUNDS_CHECK, '\u2196').also(JUSTIFY_CENTER)
                 group.staticText(BOUNDS_CHECK, '\u2191').also(JUSTIFY_CENTER)
                 group.staticText(BOUNDS_CHECK, '\u2197').also(JUSTIFY_CENTER)
                 rightTopCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
                     it.select()
-                    it.setTooltip('Right top')
+                    it.tip('Right top')
                 })
             })
             panel.hgroup(function(group) {
                 leftCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
                     it.select()
-                    it.setTooltip('Left')
+                    it.tip('Left')
                     it.visible = false
                 })
                 group.staticText(BOUNDS_CHECK, '\u2190').also(JUSTIFY_CENTER)
@@ -86,44 +86,44 @@ dialog.vgroup(function(main) {
                 group.staticText(BOUNDS_CHECK, '\u2192').also(JUSTIFY_CENTER)
                 rightCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
                     it.select()
-                    it.setTooltip('Right')
+                    it.tip('Right')
                     it.visible = false
                 })
             })
             panel.hgroup(function(group) {
                 leftBottomCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
                     it.select()
-                    it.setTooltip('Left bottom')
+                    it.tip('Left bottom')
                 })
                 group.staticText(BOUNDS_CHECK, '\u2199').also(JUSTIFY_CENTER)
                 group.staticText(BOUNDS_CHECK, '\u2193').also(JUSTIFY_CENTER)
                 group.staticText(BOUNDS_CHECK, '\u2198').also(JUSTIFY_CENTER)
                 rightBottomCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
                     it.select()
-                    it.setTooltip('Right bottom')
+                    it.tip('Right bottom')
                 })
             })
             panel.hgroup(function(group) {
                 group.staticText(BOUNDS_CHECK)
                 bottomLeftCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
                     it.select()
-                    it.setTooltip('Bottom left')
+                    it.tip('Bottom left')
                 })
                 bottomCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
                     it.select()
-                    it.setTooltip('Bottom')
+                    it.tip('Bottom')
                     it.visible = false
                 })
                 bottomRightCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
                     it.select()
-                    it.setTooltip('Bottom right')
+                    it.tip('Bottom right')
                 })
                 group.staticText(BOUNDS_CHECK)
             })
         })
     })
     multipleTargetCheck = main.checkBox(undefined, 'Multiple Target').also(function(it) {
-        it.setTooltip('When activated, trim marks will be added to each item')
+        it.tip('When activated, trim marks will be added to each item')
         it.enabled = selection.length > 1
         it.onClick = function() {
             topLeftCheck.visible = !it.value

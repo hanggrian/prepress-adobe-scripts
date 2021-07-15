@@ -27,6 +27,7 @@ if (files !== null && files.isNotEmpty()) {
         }
         main.vpanel('Pages', function(panel) {
             panel.hgroup(function(group) {
+                group.tips('Which pages should be used when opening a multipage document')
                 group.staticText(BOUNDS_TEXT, 'Pages:').also(JUSTIFY_RIGHT)
                 rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
                     it.startEdit.activate()

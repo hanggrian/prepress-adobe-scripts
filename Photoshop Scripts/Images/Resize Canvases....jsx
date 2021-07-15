@@ -19,7 +19,7 @@ dialog.hgroup(function(main) {
     main.alignChildren = 'fill'
     main.vpanel('Canvas', function(panel) {
         panel.hgroup(function(group) {
-            group.setTooltips("Canvases' new width")
+            group.tips("Canvases' new width")
             group.staticText(BOUNDS_TEXT, 'Width:').also(JUSTIFY_RIGHT)
             widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2)).also(function(it) {
                 it.validateUnits()
@@ -27,7 +27,7 @@ dialog.hgroup(function(main) {
             })
         })
         panel.hgroup(function(group) {
-            group.setTooltips("Canvases' new height")
+            group.tips("Canvases' new height")
             group.staticText(BOUNDS_TEXT, 'Height:').also(JUSTIFY_RIGHT)
             heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2)).also(VALIDATE_UNITS)
         })

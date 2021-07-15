@@ -19,11 +19,11 @@ dialog.vgroup(function(main) {
         topGroup.vpanel('Export', function(panel) {
             panel.alignChildren = 'fill'
             useBleedCheck = panel.checkBox(undefined, 'Use Bleed').also(function(it) {
-                it.setTooltip('Link 4 bleed values')
+                it.tip('Link 4 bleed values')
                 it.select()
             })
             compressArtCheck = panel.checkBox(undefined, 'Compress Art').also(function(it) {
-                it.setTooltip('	Should line art and text be compressed?')
+                it.tip('	Should line art and text be compressed?')
                 it.select()
             })
         })

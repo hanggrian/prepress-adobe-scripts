@@ -69,10 +69,35 @@ EditText.prototype.registerValidator = function(regex, valueProvider) {
     }
 }
 
-String.prototype.removeRegexes = function(regexes) {
-    var s = this
-    for (var i = 0; i < regexes.length; i++) {
-        s = s.replace(regexes[i], '')
+var ACTIVATE = function(editText) { editText.activate() }
+var VALIDATE_DIGITS = function(editText) { editText.validateDigits() }
+var VALIDATE_UNITS = function(editText) { editText.validateUnits() }
+
+/** Focus on this edit text. */
+EditText.prototype.activate = function() { if (!this.active) this.active = true }
+
+/**
+ * Set tooltip to this children.
+ * @returns {EditText}
+ */
+EditText.prototype.tip = function(text) { return _tip(this, text) }
+
+/**
+ * Add children to group.
+ * @returns {EditText}
+ */
+Group.prototype.editText = function(bounds, text, properties) { return _editText(this, bounds, text, properties) }
+
+/**
+ * Add children to panel.
+ * @returns {EditText}
+ */
+Panel.prototype.editText = function(bounds, text, properties) { return _editText(this, bounds, text, properties) }
+
+function _editText(parent, bounds, text, properties) {
+    var result = parent.add('edittext', _expandBounds(bounds), text, properties)
+    if (parent.helpTips !== undefined) {
+        _tip(result, parent.helpTips)
     }
-    return s
+    return result
 }

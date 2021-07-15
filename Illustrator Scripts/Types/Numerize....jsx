@@ -26,7 +26,7 @@ dialog.vgroup(function(main) {
         topGroup.alignChildren = 'fill'
         topGroup.vpanel('Options', function(panel) {
             panel.hgroup(function(group) {
-                group.setTooltips('Starting counter')
+                group.tips('Starting counter')
                 group.staticText(BOUNDS_TEXT, 'Starts at:').also(JUSTIFY_RIGHT)
                 startsAtEdit = group.editText(BOUNDS_EDIT, '1').also(function(it) {
                     it.validateDigits()
@@ -34,25 +34,25 @@ dialog.vgroup(function(main) {
                 })
             })
             panel.hgroup(function(group) {
-                group.setTooltips('Put n number of zeroes, can be left empty')
+                group.tips('Put n number of zeroes, can be left empty')
                 group.staticText(BOUNDS_TEXT, 'Digits:').also(JUSTIFY_RIGHT)
                 digitsEdit = group.editText(BOUNDS_EDIT).also(VALIDATE_DIGITS)
             })
             stopsAtGroup = panel.hgroup(function(group) {
-                group.setTooltips('The iteration will stop at the selected alphabet and the number will reset back to 1, ignore if this behavior is not desired')
+                group.tips('The iteration will stop at the selected alphabet and the number will reset back to 1, ignore if this behavior is not desired')
                 group.staticText(BOUNDS_TEXT, 'Stops at:').also(JUSTIFY_RIGHT)
                 stopsAtList = group.dropDownList(BOUNDS_EDIT, ALPHABETS)
             })
         })
         topGroup.vpanel('Affix', function(panel) {
             panel.hgroup(function(group) {
-                group.setTooltips('Extra text before content, can be left empty')
+                group.tips('Extra text before content, can be left empty')
                 group.staticText(BOUNDS_TEXT, 'Prefix:').also(JUSTIFY_RIGHT)
                 prefixEdit = group.editText(BOUNDS_EDIT)
 
             })
             panel.hgroup(function(group) {
-                group.setTooltips('Extra text after content, can be left empty')
+                group.tips('Extra text after content, can be left empty')
                 group.staticText(BOUNDS_TEXT, 'Suffix:').also(JUSTIFY_RIGHT)
                 suffixEdit = group.editText(BOUNDS_EDIT)
             })

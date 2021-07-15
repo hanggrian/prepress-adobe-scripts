@@ -21,7 +21,7 @@ dialog.vgroup(function(main) {
         topGroup.alignChildren = 'fill'
         topGroup.vpanel('Flap', function(panel) {
             panel.hgroup(function(group) {
-                group.setTooltips('In horizontal direction, this is height. In vertical direction, this is width.')
+                group.tips('In horizontal direction, this is height. In vertical direction, this is width.')
                 group.staticText(BOUNDS_TEXT, 'Length:').also(JUSTIFY_RIGHT)
                 lengthEdit = group.editText(BOUNDS_EDIT, '20 mm').also(function(it) {
                     it.validateUnits()
@@ -29,12 +29,12 @@ dialog.vgroup(function(main) {
                 })
             })
             panel.hgroup(function(group) {
-                group.setTooltips('Stroke width of dielines')
+                group.tips('Stroke width of dielines')
                 group.staticText(BOUNDS_TEXT, 'Weight:').also(JUSTIFY_RIGHT)
                 weightEdit = group.editText(BOUNDS_EDIT, '1 pt').also(VALIDATE_UNITS)
             })
             panel.hgroup(function(group) {
-                group.setTooltips('Stroke color of dielines')
+                group.tips('Stroke color of dielines')
                 group.staticText(BOUNDS_TEXT, 'Color:').also(JUSTIFY_RIGHT)
                 colorList = group.dropDownList(BOUNDS_EDIT, COLORS).also(function(it) {
                     it.selectText('Black')
@@ -45,27 +45,27 @@ dialog.vgroup(function(main) {
             panel.hgroup(function(group) {
                 group.staticText(BOUNDS_RADIO)
                 topRadio = group.radioButton(BOUNDS_RADIO).also(function(it) {
-                    it.setTooltip('Top')
+                    it.tip('Top')
                     registerRadioClick(it)
                 })
                 group.staticText(BOUNDS_RADIO)
             })
             panel.hgroup(function(group) {
                 leftRadio = group.radioButton(BOUNDS_RADIO).also(function(it) {
-                    it.setTooltip('Left')
+                    it.tip('Left')
                     registerRadioClick(it)
                     it.select()
                 })
                 group.staticText(BOUNDS_RADIO, '\u25CF').also(JUSTIFY_CENTER)
                 rightRadio = group.radioButton(BOUNDS_RADIO).also(function(it) {
-                    it.setTooltip('Right')
+                    it.tip('Right')
                     registerRadioClick(it)
                 })
             })
             panel.hgroup(function(group) {
                 group.staticText(BOUNDS_RADIO)
                 bottomRadio = group.radioButton(BOUNDS_RADIO).also(function(it) {
-                    it.setTooltip('Bottom')
+                    it.tip('Bottom')
                     registerRadioClick(it)
                 })
                 group.staticText(BOUNDS_RADIO)
@@ -79,12 +79,12 @@ dialog.vgroup(function(main) {
                 topGroup.alignChildren = 'top'
                 topGroup.vgroup(function(midGroup) {
                     midGroup.hgroup(function(group) {
-                        group.setTooltips('End line of glue flat must be lesser than starting line, shear value make sure of it')
+                        group.tips('End line of glue flat must be lesser than starting line, shear value make sure of it')
                         group.staticText(BOUNDS_TEXT2, 'Shear:').also(JUSTIFY_RIGHT)
                         glueShearEdit = group.editText(BOUNDS_EDIT, '5 mm').also(VALIDATE_UNITS)
                     })
                     midGroup.hgroup(function(group) {
-                        group.setTooltips('Distance between scratches, leave blank for no scratches')
+                        group.tips('Distance between scratches, leave blank for no scratches')
                         group.staticText(BOUNDS_TEXT2, 'Scratches:').also(JUSTIFY_RIGHT)
                         glueScratchEdit = group.editText(BOUNDS_EDIT, '0 mm').also(function(it) {
                             it.validateUnits()
@@ -100,12 +100,12 @@ dialog.vgroup(function(main) {
                 topGroup.alignChildren = 'top'
                 topGroup.vgroup(function(midGroup) {
                     midGroup.hgroup(function(group) {
-                        group.setTooltips('How big should the curve be relative to length, in percentage')
+                        group.tips('How big should the curve be relative to length, in percentage')
                         group.staticText(BOUNDS_TEXT2, 'Curve:').also(JUSTIFY_RIGHT)
                         tuckSliderGroup = new SliderGroup(group, BOUNDS_EDIT, 2, 0, 4, 25)
                     })
                     midGroup.hgroup(function(group) {
-                        group.setTooltips('Thicker material should have more distance')
+                        group.tips('Thicker material should have more distance')
                         group.staticText(BOUNDS_TEXT2, 'Distance:').also(JUSTIFY_RIGHT)
                         tuckDistanceEdit = group.editText(BOUNDS_EDIT, '0 mm').also(VALIDATE_UNITS)
                     })
@@ -118,12 +118,12 @@ dialog.vgroup(function(main) {
                 topGroup.alignChildren = 'top'
                 topGroup.vgroup(function(midGroup) {
                     midGroup.hgroup(function(group) {
-                        group.setTooltips('Necessary for locking a tuck flap')
+                        group.tips('Necessary for locking a tuck flap')
                         group.staticText(BOUNDS_TEXT2, 'Shoulder:').also(JUSTIFY_RIGHT)
                         dustShoulderEdit = group.editText(BOUNDS_EDIT, '5 mm').also(VALIDATE_UNITS)
                     })
                     midGroup.hgroup(function(group) {
-                        group.setTooltips('Thicker material should have more distance')
+                        group.tips('Thicker material should have more distance')
                         group.staticText(BOUNDS_TEXT2, 'Distance:').also(JUSTIFY_RIGHT)
                         dustDistanceEdit = group.editText(BOUNDS_EDIT, '0 mm').also(VALIDATE_UNITS)
                     })

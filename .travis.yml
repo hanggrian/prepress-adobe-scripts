@@ -5,7 +5,6 @@ script:
   - node .stdlib-test/collections/predicate.js
   - node .stdlib-test/collections/transform.js
 
-  - node .stdlib-test/text/string-builder.js
   - node .stdlib-test/text/strings.js
 
   - node .stdlib-test/numbers.js

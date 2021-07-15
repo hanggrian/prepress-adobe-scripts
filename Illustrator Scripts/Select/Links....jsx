@@ -27,7 +27,7 @@ dialog.vgroup(function(main) {
     main.alignChildren = 'fill'
     dimensionPanel = new SelectDimensionPanel(main, BOUNDS_TEXT, BOUNDS_EDIT)
     main.vpanel('File Types', function(panel) {
-        panel.setTooltips('File extension of selected links')
+        panel.tips('File extension of selected links')
         panel.alignChildren = 'fill'
         aiCheck = panel.checkBox(undefined, getTypeString('Adobe Illustrator', FILE_AI))
         pdfCheck = panel.checkBox(undefined, getTypeString('Adobe PDF', FILE_PDF))

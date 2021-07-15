@@ -4,10 +4,8 @@ function MaintainSizeGroup(parent) {
 
     this.main = parent.hgroup(function(group) {
         group.alignment = 'right'
-        self.check = group.checkBox(undefined, 'Maintain Size').also(function(it) {
-            it.setTooltip('Keep curent dimension after action')
-            it.select()
-        })
+        group.tips('Keep curent dimension after action')
+        self.check = group.checkBox(undefined, 'Maintain Size').also(SELECTED)
     })
 
     this.isSelected = function() {

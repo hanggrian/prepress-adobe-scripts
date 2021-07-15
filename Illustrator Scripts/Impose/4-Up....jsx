@@ -36,10 +36,10 @@ if (files !== null && files.isNotEmpty()) {
         })
         main.hgroup(function(group) {
             rotateCheck = group.checkBox(undefined, 'Rotate Page').also(function(it) {
-                it.setTooltip('Should the page be rotated?')
+                it.tip('Should the page be rotated?')
             })
             duplexCheck = group.checkBox(undefined, 'Duplex Printing').also(function(it) {
-                it.setTooltip('Is this layout double-sided?')
+                it.tip('Is this layout double-sided?')
             })
         })
     })
