@@ -15,7 +15,7 @@ Array.prototype.equalTo = function(other) {
 Array.prototype.isWithin = function(other) {
     return !(
 		this.getLeft() < other.getLeft() ||
-		thisother.getBottom() < other.getBottom() ||
+		this.getBottom() < other.getBottom() ||
 		this.getRight() > other.getRight() ||
 		this.getTop() > other.getTop()
 	)

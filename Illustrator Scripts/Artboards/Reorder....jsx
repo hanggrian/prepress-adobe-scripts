@@ -8,7 +8,8 @@ var orderByGroup
 
 dialog.vgroup(function(main) {
     orderByGroup = new OrderByGroup(main, [ORDERS_NAMES, ORDERS_POSITIONS]).also(function(it) {
-        it.list.selectText('Horizontal')
+        //it.list.selectText('Horizontal')
+        //it.list.items[0].image = getResource('round_folder_white_18dp.png')
     })
 })
 dialog.setNegativeButton('Cancel')

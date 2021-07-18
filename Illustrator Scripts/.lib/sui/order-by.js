@@ -1,6 +1,6 @@
 var ORDERS_DEFAULTS = ['Default', 'Reversed']
-var ORDERS_NAMES = ['Ascending', 'Descending']
-var ORDERS_POSITIONS = ['Horizontal', 'Vertical']
+var ORDERS_NAMES = ['Name', 'Name']
+var ORDERS_POSITIONS = ['Position', 'Position']
 
 function OrderByGroup(parent, ordersCollection) {
     var self = this
@@ -17,8 +17,12 @@ function OrderByGroup(parent, ordersCollection) {
 
     this.main = parent.hgroup(function(group) {
         group.tips('Modify how iteration should be operated')
-        group.staticText(undefined, 'Order by').also(JUSTIFY_RIGHT)
-        self.list = group.dropDownList(undefined, orders)
+        self.list = group.dropDownList(undefined, orders).also(function(it) {
+            it.title = 'Order by'
+            it.items.forEach(function(it, i) {
+                it.image = getResource('round_folder_white_18dp.png')
+            })
+        })
     })
 
     this.forEach = function(collection, action) {
