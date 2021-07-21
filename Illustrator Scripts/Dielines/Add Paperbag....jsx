@@ -2,7 +2,7 @@
 #include '../.lib/commons.js'
 
 var BOUNDS_TEXT = [50, 21]
-var BOUNDS_EDIT = [100, 21]
+var BOUNDS_EDIT = [110, 21]
 
 var dialog = new Dialog('Add Paperbag')
 var widthEdit, heightEdit, depthEdit, upperEdit, lowerEdit, glueLengthEdit, glueShearEdit

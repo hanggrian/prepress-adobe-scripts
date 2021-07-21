@@ -11,7 +11,7 @@ var ORIENTATIONS = ['Horizontal', 'Vertical']
 var BOUNDS_LEFT_TEXT = [80, 21]
 var BOUNDS_LEFT_EDIT = [100, 21]
 var BOUNDS_RIGHT_TEXT = [70, 21]
-var BOUNDS_RIGHT_EDIT = [100, 21]
+var BOUNDS_RIGHT_EDIT = [110, 21]
 
 var dialog = new Dialog('Select Types')
 var findEdit, matchCaseCheck, matchWordCheck

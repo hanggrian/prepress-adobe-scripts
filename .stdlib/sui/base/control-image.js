@@ -23,7 +23,7 @@ Group.prototype.image = function(bounds, file, properties) { return _image(this,
 Panel.prototype.image = function(bounds, file, properties) { return _image(this, bounds, file, properties) }
 
 function _image(parent, bounds, file, properties) {
-    var result = parent.add('image', _expandBounds(bounds), file, properties)
+    var result = parent.add('image', _expandBounds(bounds), _asFile(file), properties)
     if (parent.helpTips !== undefined) {
         _tip(result, parent.helpTips)
     }

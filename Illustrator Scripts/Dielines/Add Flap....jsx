@@ -5,7 +5,7 @@ checkSingleSelection()
 
 var BOUNDS_TEXT = [60, 21]
 var BOUNDS_TEXT2 = [70, 21]
-var BOUNDS_EDIT = [100, 21]
+var BOUNDS_EDIT = [110, 21]
 var BOUNDS_RADIO = [15, 15]
 
 var dialog = new Dialog('Add Flap')
@@ -92,7 +92,7 @@ dialog.vgroup(function(main) {
                         })
                     })
                 })
-                topGroup.image(undefined, getResource('dieline_glueflap.png'))
+                topGroup.image(undefined, 'dieline_glueflap.png')
             })
         })
         /* tabbedPanel.vtab('Tuck Flap', function(tab) {
@@ -110,7 +110,7 @@ dialog.vgroup(function(main) {
                         tuckDistanceEdit = group.editText(BOUNDS_EDIT, '0 mm').also(VALIDATE_UNITS)
                     })
                 })
-                topGroup.image(undefined, getResource('dieline_tuckflap.png'))
+                topGroup.image(undefined, 'dieline_tuckflap.png')
             })
         }) */
         tabbedPanel.vtab('Dust Flap', function(tab) {
@@ -128,7 +128,7 @@ dialog.vgroup(function(main) {
                         dustDistanceEdit = group.editText(BOUNDS_EDIT, '0 mm').also(VALIDATE_UNITS)
                     })
                 })
-                topGroup.image(undefined, getResource('dieline_dustflap.png'))
+                topGroup.image(undefined, 'dieline_dustflap.png')
             })
         })
         tabbedPanel.onChange = function() {

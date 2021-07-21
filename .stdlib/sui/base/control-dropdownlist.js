@@ -29,7 +29,20 @@ Group.prototype.dropDownList = function(bounds, items, properties) { return _dro
 Panel.prototype.dropDownList = function(bounds, items, properties) { return _dropDownList(this, bounds, items, properties) }
 
 function _dropDownList(parent, bounds, items, properties) {
-    var result = parent.add('dropdownlist', _expandBounds(bounds), items, properties)
+    var itemTexts, itemFiles
+    _splitItems(items).run(function(it) {
+        itemTexts = it[0]
+        itemFiles = it[1]
+    })
+    var result = parent.add('dropdownlist', _expandBounds(bounds), itemTexts, properties)
+    if (itemFiles.isNotEmpty()) {
+        result.items.forEach(function(it, i) {
+            var itemFile = itemFiles[i]
+            if (itemFile !== undefined) {
+                it.image = itemFile
+            }
+        })
+    }
     if (parent.helpTips !== undefined) {
         _tip(result, parent.helpTips)
     }

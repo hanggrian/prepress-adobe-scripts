@@ -1,16 +1,19 @@
-var COLORS = ['Registration', 'White', '-', 'Cyan', 'Magenta', 'Yellow', 'Black']
+var COLORS = [
+    ['Registration', 'color_registration.png'],
+    ['White', 'color_white.png'],
+    '-',
+    ['Cyan', 'color_cyan.png'],
+    ['Magenta', 'color_magenta.png'],
+    ['Yellow', 'color_yellow.png'],
+    ['Black', 'color_black.png']
+]
 
 var COLOR_WHITE = new CMYKColor()
-var COLOR_CYAN = new CMYKColor()
-var COLOR_MAGENTA = new CMYKColor()
-var COLOR_YELLOW = new CMYKColor()
-var COLOR_BLACK = new CMYKColor()
+var COLOR_CYAN = new CMYKColor().also(function(it) { it.cyan = 100 })
+var COLOR_MAGENTA = new CMYKColor().also(function(it) { it.magenta = 100 })
+var COLOR_YELLOW = new CMYKColor().also(function(it) { it.yellow = 100 })
+var COLOR_BLACK = new CMYKColor().also(function(it) { it.black = 100 })
 var COLOR_NONE = new NoColor()
-
-COLOR_CYAN.cyan = 100
-COLOR_MAGENTA.magenta = 100
-COLOR_YELLOW.yellow = 100
-COLOR_BLACK.black = 100
 
 /**
  * Converts text to color.

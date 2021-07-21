@@ -8,7 +8,7 @@ var YES_OR_NO = ['Yes', 'No']
 
 var BOUNDS_LEFT_TEXT = [60, 21]
 var BOUNDS_RIGHT_TEXT = [60, 21]
-var BOUNDS_EDIT = [100, 21]
+var BOUNDS_EDIT = [110, 21]
 
 var dialog = new Dialog('Select Paths')
 var fillColorList, fillOverprintList

@@ -4,7 +4,7 @@
 checkHasSelection()
 
 var BOUNDS_TEXT = [50, 21]
-var BOUNDS_EDIT = [100, 21]
+var BOUNDS_EDIT = [110, 21]
 var BOUNDS_CHECK = [15, 15]
 
 var dialog = new Dialog('Add Trim Marks')

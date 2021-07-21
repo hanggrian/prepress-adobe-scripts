@@ -57,7 +57,7 @@ function SaveDirectoryGroup(parent, editBounds) {
 
     this.main = parent.hgroup(function(group) {
         group.tips('Where to save files?')
-        group.image([21, 21], getResource('round_folder_white_18dp.png'))
+        group.image([21, 21], 'ic_folder.png')
         self.directoryEdit = group.editText(editBounds, '~/Desktop')
         self.directoryButton = group.button([30, 21], '...').also(function(it) {
             it.onClick = function() {

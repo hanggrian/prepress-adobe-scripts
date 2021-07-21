@@ -1,6 +1,6 @@
-var ORDERS_DEFAULTS = ['Default', 'Reversed']
-var ORDERS_NAMES = ['Name', 'Name']
-var ORDERS_POSITIONS = ['Position', 'Position']
+var ORDERS_DEFAULTS = [['Default', 'order_layer.png'], ['Reversed', 'order_layer.png']]
+var ORDERS_NAMES = [['Ascending', 'order_title.png'], ['Descending', 'order_title.png']]
+var ORDERS_POSITIONS = [['Horizontal', 'order_grid.png'], ['Vertical', 'order_grid.png']]
 
 function OrderByGroup(parent, ordersCollection) {
     var self = this
@@ -19,9 +19,6 @@ function OrderByGroup(parent, ordersCollection) {
         group.tips('Modify how iteration should be operated')
         self.list = group.dropDownList(undefined, orders).also(function(it) {
             it.title = 'Order by'
-            it.items.forEach(function(it, i) {
-                it.image = getResource('round_folder_white_18dp.png')
-            })
         })
     })
 
