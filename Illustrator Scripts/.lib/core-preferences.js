@@ -1,4 +1,4 @@
-var PREFERENCES_ROOT = 'Prepress Adobe Scripts/'
+var _preferencesRoot = 'Prepress Adobe Scripts/'
 
 /** Global access to preferences. */
 var preferences = app.preferences
@@ -27,64 +27,70 @@ Preferences.prototype.setPSDPreserveSlices = function(preserveSlices) { this.pho
 Preferences.prototype.getPSDPreserveSlices = function() { return this.photoshopFileOptions.preserveSlices }
 
 /** Alias of `getBooleanPreference`. */
-Preferences.prototype.getBoolean = function(dialog, key) {
-    var actualKey = _getPreferenceKey(dialog, key)
+Preferences.prototype.getBoolean = function(key, prefix) {
+    var actualKey = _getPreferenceKey(key, prefix)
     var value = this.getBooleanPreference(actualKey)
     $.writeln('Preference `' + key + '=' + value + '` obtained')
     return value
 }
 
 /** Alias of `getRealPreference`. */
-Preferences.prototype.getNumber = function(dialog, key) {
-    var actualKey = _getPreferenceKey(dialog, key)
+Preferences.prototype.getNumber = function(key, prefix) {
+    var actualKey = _getPreferenceKey(key, prefix)
     var value = this.getRealPreference(actualKey)
     $.writeln('Preference `' + key + '=' + value + '` obtained')
     return value
 }
 
 /** Alias of `getStringPreference`. */
-Preferences.prototype.getString = function(dialog, key) {
-    var actualKey = _getPreferenceKey(dialog, key)
+Preferences.prototype.getString = function(key, prefix) {
+    var actualKey = _getPreferenceKey(key, prefix)
     var value = this.getStringPreference(actualKey)
     $.writeln('Preference `' + key + '=' + value + '` obtained')
     return value
 }
 
 /** Alias of `setBooleanPreference`. */
-Preferences.prototype.setBoolean = function(dialog, key, value) {
-    var actualKey = _getPreferenceKey(dialog, key)
+Preferences.prototype.setBoolean = function(key, value, prefix) {
+    var actualKey = _getPreferenceKey(key, prefix)
     var actualValue = _getPreferenceValue(value)
     this.setBooleanPreference(actualKey, actualValue)
     $.writeln('Preference `' + key + '=' + actualValue + '` stored')
 }
 
 /** Alias of `setRealPreference`. */
-Preferences.prototype.setNumber = function(dialog, key, value) {
-    var actualKey = _getPreferenceKey(dialog, key)
+Preferences.prototype.setNumber = function(key, value, prefix) {
+    var actualKey = _getPreferenceKey(key, prefix)
     var actualValue = _getPreferenceValue(value)
     this.setRealPreference(actualKey, actualValue)
     $.writeln('Preference `' + key + '=' + actualValue + '` stored')
 }
 
 /** Alias of `setStringPreference`. */
-Preferences.prototype.setString = function(dialog, key, value) {
-    var actualKey = _getPreferenceKey(dialog, key)
+Preferences.prototype.setString = function(key, value, prefix) {
+    var actualKey = _getPreferenceKey(key, prefix)
     var actualValue = _getPreferenceValue(value)
     this.setStringPreference(actualKey, actualValue)
     $.writeln('Preference `' + key + '=' + actualValue + '` stored')
 }
 
 /** Alias of `removePreference`. */
-Preferences.prototype.remove = function(dialog, key) {
-    var actualKey = _getPreferenceKey(dialog, key)
+Preferences.prototype.remove = function(key, prefix) {
+    var actualKey = _getPreferenceKey(key, prefix)
     this.removePreference(actualKey)
     $.writeln('Preference `' + key + '` removed')
 }
 
-function _getPreferenceKey(dialog, key) {
-    var s = PREFERENCES_ROOT
-    if (dialog !== undefined) {
-        s += dialog.title + '/'
+function _getPreferenceKey(key, prefix) {
+    var s = _preferencesRoot
+    if (prefix !== undefined) {
+        if (typeof prefix === 'string' || prefix instanceof String) {
+            s += prefix + '/'
+        } else if (prefix instanceof Dialog) {
+            s += prefix.title + '/'
+        } else {
+            error('Unknown prefix type')
+        }
     }
     s += key
     return s

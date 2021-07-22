@@ -17,25 +17,25 @@ dialog.hgroup(function(main) {
         group.vpanel('Imports', function(panel) {
             panel.alignChildren = 'fill'
             placedCheck = panel.checkBox(undefined, 'Links').also(function(it) {
-                it.value = preferences.getBoolean(dialog, 'Links')
+                it.value = preferences.getBoolean('Links', dialog)
             })
             nonNativeCheck = panel.checkBox(undefined, 'Non-Native Arts').also(function(it) {
-                it.value = preferences.getBoolean(dialog, 'Non-Native Arts')
+                it.value = preferences.getBoolean('Non-Native Arts', dialog)
             })
             rasterCheck = panel.checkBox(undefined, 'Images').also(function(it) {
-                it.value = preferences.getBoolean(dialog, 'Images')
+                it.value = preferences.getBoolean('Images', dialog)
             })
             pluginCheck = panel.checkBox(undefined, 'Plugins').also(function(it) {
-                it.value = preferences.getBoolean(dialog, 'Plugins')
+                it.value = preferences.getBoolean('Plugins', dialog)
             })
         })
         group.vpanel('Types', function(panel) {
             panel.alignChildren = 'fill'
             textFrameCheck = panel.checkBox(undefined, 'Text Frames').also(function(it) {
-                it.value = preferences.getBoolean(dialog, 'Text Frames')
+                it.value = preferences.getBoolean('Text Frames', dialog)
             })
             legacyTextCheck = panel.checkBox(undefined, 'Legacy Texts').also(function(it) {
-                it.value = preferences.getBoolean(dialog, 'Legacy Texts')
+                it.value = preferences.getBoolean('Legacy Texts', dialog)
             })
         })
     })
@@ -44,22 +44,22 @@ dialog.hgroup(function(main) {
         group.vpanel('Paths', function(panel) {
             panel.alignChildren = 'fill'
             pathCheck = panel.checkBox(undefined, 'Paths').also(function(it) {
-                it.value = preferences.getBoolean(dialog, 'Paths')
+                it.value = preferences.getBoolean('Paths', dialog)
             })
             compoundPathCheck = panel.checkBox(undefined, 'Compound Paths').also(function(it) {
-                it.value = preferences.getBoolean(dialog, 'Compound Paths')
+                it.value = preferences.getBoolean('Compound Paths', dialog)
             })
         })
         group.vpanel('Others', function(panel) {
             panel.alignChildren = 'fill'
             symbolCheck = panel.checkBox(undefined, 'Symbols').also(function(it) {
-                it.value = preferences.getBoolean(dialog, 'Symbols')
+                it.value = preferences.getBoolean('Symbols', dialog)
             })
             meshCheck = panel.checkBox(undefined, 'Meshes').also(function(it) {
-                it.value = preferences.getBoolean(dialog, 'Meshes')
+                it.value = preferences.getBoolean('Meshes', dialog)
             })
             graphCheck = panel.checkBox(undefined, 'Graphs').also(function(it) {
-                it.value = preferences.getBoolean(dialog, 'Graphs')
+                it.value = preferences.getBoolean('Graphs', dialog)
             })
         })
     })
