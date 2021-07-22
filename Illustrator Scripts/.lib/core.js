@@ -19,7 +19,7 @@
 #include 'sui/select-dimension.js'
 #include 'sui/slider.js'
 
-_resourcesPath = new File($.fileName).path + '/../.res/'
+_resourcesRoot = new File($.fileName).path
 
 /**
  * Returns layer name, or type if it is unnamed.

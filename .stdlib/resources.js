@@ -1,4 +1,5 @@
-var _resourcesPath // this value must be overriden
+var _resourcesRoot // this value must be overriden
+var _resourcesLight
 
 /**
  * Refer to a file from `.res` directory.
@@ -6,5 +7,12 @@ var _resourcesPath // this value must be overriden
  * @returns {File}
  */
 function getResource(name) {
-    return new File(_resourcesPath + name)
+    if (_resourcesLight === undefined) {
+        _resourcesLight = preferences.getString('scripts_theme') === 'Light'
+    }
+    var lightFile
+    if (_resourcesLight) {
+        lightFile = new File(_resourcesRoot + '/../.res-light/' + name)
+    }
+    return _resourcesLight && lightFile.exists ? lightFile : new File(_resourcesRoot + '/../.res/' + name)
 }

@@ -67,9 +67,9 @@ dialog.vgroup(function(main) {
                     it.select()
                     it.tip('Left top')
                 })
-                group.staticText(BOUNDS_CHECK, '\u2196').also(JUSTIFY_CENTER)
-                group.staticText(BOUNDS_CHECK, '\u2191').also(JUSTIFY_CENTER)
-                group.staticText(BOUNDS_CHECK, '\u2197').also(JUSTIFY_CENTER)
+                group.image(BOUNDS_CHECK, 'ic_arrow_topleft.png')
+                group.image(BOUNDS_CHECK, 'ic_arrow_top.png')
+                group.image(BOUNDS_CHECK, 'ic_arrow_topright.png')
                 rightTopCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
                     it.select()
                     it.tip('Right top')
@@ -81,9 +81,9 @@ dialog.vgroup(function(main) {
                     it.tip('Left')
                     it.visible = false
                 })
-                group.staticText(BOUNDS_CHECK, '\u2190').also(JUSTIFY_CENTER)
-                group.staticText(BOUNDS_CHECK, '\u25CF').also(JUSTIFY_CENTER)
-                group.staticText(BOUNDS_CHECK, '\u2192').also(JUSTIFY_CENTER)
+                group.image(BOUNDS_CHECK, 'ic_arrow_left.png')
+                group.image(BOUNDS_CHECK, 'ic_circle.png')
+                group.image(BOUNDS_CHECK, 'ic_arrow_right.png')
                 rightCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
                     it.select()
                     it.tip('Right')
@@ -95,9 +95,9 @@ dialog.vgroup(function(main) {
                     it.select()
                     it.tip('Left bottom')
                 })
-                group.staticText(BOUNDS_CHECK, '\u2199').also(JUSTIFY_CENTER)
-                group.staticText(BOUNDS_CHECK, '\u2193').also(JUSTIFY_CENTER)
-                group.staticText(BOUNDS_CHECK, '\u2198').also(JUSTIFY_CENTER)
+                group.image(BOUNDS_CHECK, 'ic_arrow_bottomleft.png')
+                group.image(BOUNDS_CHECK, 'ic_arrow_bottom.png')
+                group.image(BOUNDS_CHECK, 'ic_arrow_bottomright.png')
                 rightBottomCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
                     it.select()
                     it.tip('Right bottom')

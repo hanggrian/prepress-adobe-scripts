@@ -2,6 +2,7 @@
 #include '.lib/core.js'
 
 var dialog = new Dialog('About')
+
 dialog.vgroup(function(main) {
     main.hgroup(function(group) {
         group.alignChildren = 'center'

@@ -1,7 +1,12 @@
 #target Illustrator
 #include '../.lib/commons.js'
 
-var ANCHORS = ['Top Left', 'Top Right', 'Bottom Left', 'Bottom Right']
+var ANCHORS = [
+    ['Top Left', 'ic_arrow_topleft.png'],
+    ['Top Right', 'ic_arrow_topright.png'],
+    ['Bottom Left', 'ic_arrow_bottomleft.png'],
+    ['Bottom Right', 'ic_arrow_bottomright.png']
+]
 
 var BOUNDS_TEXT = [70, 21]
 var BOUNDS_EDIT = [100, 21]
@@ -45,7 +50,6 @@ dialog.vgroup(function(main) {
         group.staticText(BOUNDS_TEXT, 'Anchor:').also(JUSTIFY_RIGHT)
         anchorList = group.dropDownList(BOUNDS_EDIT, ANCHORS).also(function(it) {
             it.selectText('Top Left')
-            it.enabled = !areArtboardSizesEqual()
         })
     })
 })
@@ -81,21 +85,3 @@ dialog.setPositiveButton(function() {
     selection = selectQueues
 })
 dialog.show()
-
-function areArtboardSizesEqual() {
-    var width, height
-    for (var i = 0; i < document.artboards.length; i++) {
-        var rect = document.artboards[i].artboardRect
-        if (width === undefined) {
-            width = rect.getWidth()
-        } else if (width !== rect.getWidth()) {
-            return false
-        }
-        if (height === undefined) {
-            height = rect.getHeight()
-        } else if (height !== rect.getHeight()) {
-            return false
-        }
-    }
-    return true
-}

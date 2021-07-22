@@ -4,12 +4,31 @@
 </javascriptresource>
 */
 
+var ABOUT_THEMES = ['Dark', 'Light']
+
 var BOUNDS_TAB = [400, 75]
 
 function AboutTabbedPanel(parent) {
     var self = this
 
     this.main = parent.tabbedPanel(function(tabbedPanel) {
+        tabbedPanel.vtab('Preferences', function(tab) {
+            tab.alignChildren = 'left'
+            tab.staticText(undefined, 'Scripts-exclusive preferences that are not used anywhere in app.')
+            tab.hgroup(function(group) {
+                group.tips("The script is dumb and can't yet know UI brightness setting across apps.")
+                group.staticText(undefined, 'Theme:', 'right')
+                group.dropDownList(undefined, ABOUT_THEMES).also(function(it) {
+                    var theme = preferences.getString('scripts_theme')
+                    if (theme !== undefined && theme !== '') {
+                        it.selectText(theme)
+                    }
+                    it.onChange = function() {
+                        preferences.setString('scripts_theme', it.selection.text)
+                    }
+                })
+            })
+        })
         tabbedPanel.vtab('Updates', function(tab) {
             tab.staticText(BOUNDS_TAB,
                 'Versions are not yet tracked.\n' +
