@@ -32,7 +32,7 @@ function AboutTabbedPanel(parent) {
         tabbedPanel.vtab('Updates', function(tab) {
             tab.staticText(BOUNDS_TAB,
                 'Versions are not yet tracked.\n' +
-                '\nCheck update function is probably not going to be possible. This is mainly because there is no REST API in ExtendScript.',
+                '\nCheck update function is not possible at this time due to no REST API in ExtendScript.',
                 { multiline: true })
         })
         tabbedPanel.vtab('Licensing', function(tab) {
