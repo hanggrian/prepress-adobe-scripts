@@ -1,3 +1,9 @@
+/*
+<javascriptresource>
+<menu>hide</menu>
+</javascriptresource>
+*/
+
 var _resourcesRoot // this value must be overriden
 var _resourcesLight
 

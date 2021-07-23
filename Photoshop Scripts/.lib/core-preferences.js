@@ -1,3 +1,9 @@
+/*
+<javascriptresource>
+<menu>hide</menu>
+</javascriptresource>
+*/
+
 var _preferencesRoot = 'Prepress Adobe Scripts/'
 
 /** Global access to preferences. */
@@ -5,18 +11,28 @@ var preferences = new Preferences()
 
 /** Alias of `ActionDescriptor.getBoolean`. */
 Preferences.prototype.getBoolean = function(key) {
-    var descriptor = app.getCustomOptions(_preferencesRoot)
-    var actualKey = _getPreferenceKey(key)
-    var value = descriptor.hasKey(actualKey) ? descriptor.getBoolean(actualKey) : false
+    var value
+    try {
+        var descriptor = app.getCustomOptions(_preferencesRoot)
+        var actualKey = _getPreferenceKey(key)
+        value = descriptor.hasKey(actualKey) ? descriptor.getBoolean(actualKey) : false
+    } catch (e) {
+        value = false
+    }
     $.writeln('Preference `' + key + '=' + value + '` obtained')
     return value
 }
 
 /** Alias of `ActionDescriptor.getBoolean`. */
 Preferences.prototype.getString = function(key) {
-    var descriptor = app.getCustomOptions(_preferencesRoot)
-    var actualKey = _getPreferenceKey(key)
-    var value = descriptor.hasKey(actualKey) ? descriptor.getString(actualKey) : ''
+    var value
+    try {
+        var descriptor = app.getCustomOptions(_preferencesRoot)
+        var actualKey = _getPreferenceKey(key)
+        value = descriptor.hasKey(actualKey) ? descriptor.getString(actualKey) : ''
+    } catch (e) {
+        value = ''
+    }
     $.writeln('Preference `' + key + '=' + value + '` obtained')
     return value
 }
