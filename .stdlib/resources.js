@@ -4,7 +4,6 @@
 </javascriptresource>
 */
 
-var _resourcesRoot // this value must be overriden
 var _resourcesLight
 
 /**
@@ -18,7 +17,7 @@ function getResource(name) {
     }
     var lightFile
     if (_resourcesLight) {
-        lightFile = new File(_resourcesRoot + '/../.res-light/' + name)
+        lightFile = new File(libPath + '/../.res-light/' + name)
     }
-    return _resourcesLight && lightFile.exists ? lightFile : new File(_resourcesRoot + '/../.res/' + name)
+    return _resourcesLight && lightFile.exists ? lightFile : new File(libPath + '/../.res/' + name)
 }

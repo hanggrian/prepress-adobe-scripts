@@ -38,6 +38,9 @@
 #include 'resources.js'
 #include 'standard.js'
 
+stdlibPath = new File($.fileName).path
+supportPath = new File(stdlibPath + '/../.support-files')
+
 /** Returns true if this script is running on macOS. */
 function isMacOS() {
     return $.os.toLowerCase().indexOf('mac') >= 0

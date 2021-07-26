@@ -55,7 +55,7 @@ String.prototype.substringBeforeLast = function(s) {
  * @returns {Boolean}
  */
 String.prototype.substringAfter = function(s) {
-    return this.substring(this.indexOf(s) + 1)
+    return this.substring(this.indexOf(s) + s.length)
 }
 
 /**
@@ -64,7 +64,7 @@ String.prototype.substringAfter = function(s) {
  * @returns {Boolean}
  */
 String.prototype.substringAfterLast = function(s) {
-    return this.substring(this.lastIndexOf(s) + 1)
+    return this.substring(this.lastIndexOf(s) + s.length)
 }
 
 /**

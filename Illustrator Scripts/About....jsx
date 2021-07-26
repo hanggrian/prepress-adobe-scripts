@@ -2,14 +2,15 @@
 #include '.lib/core.js'
 
 var dialog = new Dialog('About')
+var clientDate = new File(supportPath + '/VERSION').readText()
 
 dialog.vgroup(function(main) {
     main.hgroup(function(group) {
         group.alignChildren = 'center'
         group.image(undefined, 'logo.png')
-        group.staticText([300, 32], 'Prepress Adobe Scripts for Illustrator\nVersion 0.0', { multiline: true })
+        group.staticText([300, 32], 'Prepress Adobe Scripts for Illustrator\nLast updated ' + clientDate, { multiline: true })
     })
-    new AboutTabbedPanel(main)
+    new AboutTabbedPanel(main, clientDate)
 })
 dialog.setNegativeButton('Close')
 dialog.setNeutralButton(230, 'Visit GitHub', function() {

@@ -5,8 +5,8 @@
             "type": "extendscript-debug",
             "request": "launch",
             "name": "prepress-adobe-scripts",
-            //"program": "${workspaceFolder}/Illustrator Scripts/Select/All....jsx",
-            "program": "${workspaceFolder}/Photoshop Scripts/About....jsx",
+            "program": "${workspaceFolder}/Illustrator Scripts/About....jsx",
+            //"program": "${workspaceFolder}/Photoshop Scripts/About....jsx",
             "stopOnEntry": false
         }
     ]

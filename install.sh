@@ -42,6 +42,7 @@ read input
 
 SOURCE_ROOT="$(cd `dirname $0` && pwd)"
 SOURCE_STDLIB="$SOURCE_ROOT/.stdlib"
+SOURCE_SUPPORT="$SOURCE_ROOT/.support-files"
 
 # Find adobe apps and determine its scripts directory parent.
 # In mac, localized directories always have `.localized` suffix.
@@ -80,28 +81,33 @@ patch_preset() {
     local source_scripts=$2
     local target_root=$3
     local target_stdlib="$target_root/.stdlib"
+    local target_support="$target_root/.support-files"
     local target_scripts="$target_root/Scripts"
     local target_scripts_incubating="$target_scripts/.incubating"
     local url="$target_scripts/prepress-adobe-scripts.url"
 
     echo - $GREEN$app$END
 
-    # Deleting existing shared libraries
+    # Delete existing
     if [ -d "$target_stdlib" ]; then
         rm -rf "$target_stdlib"
     fi
-    # Deleting existing scripts
+    if [ -d "$target_support" ]; then
+        rm -rf "$target_support"
+    fi
     if [ -d "$target_scripts" ]; then
         rm -rf "$target_scripts"
     fi
-    # Copying new shared libraries and scripts
-    mkdir "$target_scripts"
-    cp -r "$source_scripts"/. "$target_scripts"
+    # Copy new ones
     mkdir "$target_stdlib"
     cp -r "$SOURCE_STDLIB"/. "$target_stdlib"
-    # Cleaning up
+    mkdir "$target_support"
+    cp -r "$SOURCE_SUPPORT"/. "$target_support"
+    mkdir "$target_scripts"
+    cp -r "$source_scripts"/. "$target_scripts"
+    # Clean up
     rm -rf "$target_scripts_incubating"
-    # Adding url
+    # Add url
     > "$url"
     echo [InternetShortcut] >> "$url"
     echo URL=https://github.com/hendraanggrian/prepress-adobe-scripts >> "$url"

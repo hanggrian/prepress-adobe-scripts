@@ -9,7 +9,7 @@ var ANCHORS = [
 ]
 
 var BOUNDS_TEXT = [70, 21]
-var BOUNDS_EDIT = [100, 21]
+var BOUNDS_EDIT = [120, 21]
 var BOUNDS_RADIO = [15, 15]
 
 checkHasSelection()
@@ -19,9 +19,7 @@ var activeArtboardIndex = document.artboards.getActiveArtboardIndex()
 var activeArtboard = document.artboards[activeArtboardIndex]
 var activeArtboardRect = activeArtboard.artboardRect
 
-selection.forEach(function(it) {
-    check(it.geometricBounds.isWithin(activeArtboardRect), 'Selected item is out of active artboard')
-})
+check(selection.all(function(it) { return it.geometricBounds.isWithin(activeArtboardRect) }), 'Selected item is out of active artboard')
 
 var relativePositions = selection.map(function(it) {
     var bounds = it.geometricBounds

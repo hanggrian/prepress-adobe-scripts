@@ -8,11 +8,13 @@ var ABOUT_THEMES = ['Dark', 'Light']
 
 var BOUNDS_TAB = [400, 75]
 
-function AboutTabbedPanel(parent) {
+function AboutTabbedPanel(parent, clientDate) {
     var self = this
+    this.statusText, this.downloadButton
 
     this.main = parent.tabbedPanel(function(tabbedPanel) {
         tabbedPanel.vtab('Preferences', function(tab) {
+            tab.preferredSize = BOUNDS_TAB
             tab.alignChildren = 'left'
             tab.staticText(undefined, 'Scripts-exclusive preferences that are not used anywhere in app.')
             tab.hgroup(function(group) {
@@ -30,10 +32,41 @@ function AboutTabbedPanel(parent) {
             })
         })
         tabbedPanel.vtab('Updates', function(tab) {
-            tab.staticText(BOUNDS_TAB,
-                'Versions are not yet tracked.\n' +
-                '\nCheck update function is not possible at this time due to no REST API in ExtendScript.',
-                { multiline: true })
+            tab.preferredSize = BOUNDS_TAB
+            tab.alignChildren = 'left'
+            self.statusText = tab.staticText([400, 21], 'Click Check Updates to fetch data.')
+            tab.hgroup(function(group) {
+                group.button(undefined, 'Check Updates').also(function(checkButton) {
+                    checkButton.onClick = function() {
+                        var checkUpdateFile
+                        if (isMacOS()) {
+                            checkUpdateFile = new File(supportPath + '/check_updates.sh')
+                        } else {
+                            checkUpdateFile = new File(supportPath + '/check_updates.bat')
+                        }
+                        checkUpdateFile.execute()
+                        $.sleep(3000)
+                        var result = new File('~/Desktop/prepress-adobe-scripts')
+                        if (!result.exists) {
+                            self.statusText.text = 'Unable to fetch data.'
+                        } else {
+                            var serverDate = result.readText().substringAfter('"date": "').substringBefore('"').substring(0, 10)
+                            if (serverDate === clientDate) {
+                                self.statusText.text = 'You have the latest version.'
+                            } else {
+                                self.statusText.text = 'Latest version ' + serverDate + ' is available.'
+                                self.downloadButton.enabled = true
+                            }
+                        }
+                    }
+                })
+                self.downloadButton = group.button(undefined, 'Download').also(function(it) {
+                    it.enabled = false
+                    it.onClick = function() {
+                        openURL('https://github.com/hendraanggrian/prepress-adobe-scripts/archive/refs/heads/main.zip')
+                    }
+                })
+            })
         })
         tabbedPanel.vtab('Licensing', function(tab) {
             tab.editText(BOUNDS_TAB,

@@ -107,6 +107,10 @@ function Dialog(title) {
         window.close()
     }
 
+    this.update = function() {
+        window.update()
+    }
+
     function appendButton(text, action) {
         return self.buttons.button(undefined, text).also(function(it) {
             it.onClick = function() {

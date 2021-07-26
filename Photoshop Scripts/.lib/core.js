@@ -9,4 +9,4 @@
 #include 'core-preferences.js'
 #include 'core-units.js'
 
-_resourcesRoot = new File($.fileName).path
+libPath = new File($.fileName).path

@@ -37,6 +37,7 @@ set /p input=!BOLD!Which scripts would you like to install: !END!
 
 set SOURCE_ROOT=%~dp0
 set SOURCE_STDLIB=!SOURCE_ROOT!.stdlib
+set SOURCE_SUPPORT=!SOURCE_ROOT!.support-files
 
 if "!input!" equ "1" (
     call :patch_app Illustrator
@@ -128,28 +129,33 @@ goto :eof
     set source_scripts=%~2
     set target_root=%~3
     set target_stdlib=!target_root!\.stdlib
+    set target_support=!target_root!\.support-files
     set target_scripts=!target_root!\Scripts
     set target_scripts_incubating=!target_scripts!\.incubating
     set url=!target_scripts!\prepress-adobe-scripts.url
 
     echo - !GREEN!!app!!END!
 
-    :: Deleting existing shared libraries
+    :: Delete existing
     if exist "!target_stdlib!" (
         rmdir /s /q "!target_stdlib!"
     )
-    :: Deleting existing scripts
+    if exist "!target_support!" (
+        rmdir /s /q "!target_support!"
+    )
     if exist "!target_scripts!" (
         rmdir /s /q "!target_scripts!"
     )
-    :: Copying new shared libraries and scripts
+    :: Copy new ones
     md "!target_stdlib!"
     robocopy /s "!SOURCE_STDLIB!" "!target_stdlib!" /njh /njs /ndl /nc /ns /nfl
+    md "!target_support!"
+    robocopy /s "!SOURCE_SUPPORT!" "!target_support!" /njh /njs /ndl /nc /ns /nfl
     md "!target_scripts!"
     robocopy /s "!source_scripts!" "!target_scripts!" /njh /njs /ndl /nc /ns /nfl
-    :: Cleaning up
+    :: Clean up
     rmdir /s /q "!target_scripts_incubating!"
-    :: Adding url
+    :: Add url
     echo [InternetShortcut] >> "!url!"
     echo URL=https://github.com/hendraanggrian/prepress-adobe-scripts >> "!url!"
     echo IconIndex=0 >> "!url!"
