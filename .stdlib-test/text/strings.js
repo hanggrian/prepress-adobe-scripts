@@ -22,21 +22,25 @@ var endsWith = function() {
 var substringBefore = function() {
     var s = 'Hello World'
     assert.assertEquals('Hell', s.substringBefore('o'))
+    assert.assertEquals('Hello ', s.substringBefore('World'))
 }()
 
 var substringAfter = function() {
     var s = 'Hello World'
     assert.assertEquals(' World', s.substringAfter('o'))
+    assert.assertEquals('', s.substringAfter('World'))
 }()
 
 var substringBeforeLast = function() {
     var s = 'Hello World'
     assert.assertEquals('Hello W', s.substringBeforeLast('o'))
+    assert.assertEquals('Hello ', s.substringBeforeLast('World'))
 }()
 
 var substringAfterLast = function() {
     var s = 'Hello World'
     assert.assertEquals('rld', s.substringAfterLast('o'))
+    assert.assertEquals('', s.substringAfterLast('World'))
 }()
 
 var isNumeric = function() {

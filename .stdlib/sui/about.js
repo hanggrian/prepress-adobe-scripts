@@ -36,21 +36,20 @@ function AboutTabbedPanel(parent, clientDate) {
             tab.alignChildren = 'left'
             self.statusText = tab.staticText([400, 21], 'Click Check Updates to fetch data.')
             tab.hgroup(function(group) {
-                group.button(undefined, 'Check Updates').also(function(checkButton) {
-                    checkButton.onClick = function() {
-                        var checkUpdateFile
+                group.button(undefined, 'Check Updates').also(function(it) {
+                    it.onClick = function() {
                         if (isMacOS()) {
-                            checkUpdateFile = new File(supportPath + '/check_updates.sh')
+                            new File(supportPath + '/check_updates.command').execute()
                         } else {
-                            checkUpdateFile = new File(supportPath + '/check_updates.bat')
+                            new File(supportPath + '/check_updates.bat').execute()
                         }
-                        checkUpdateFile.execute()
                         $.sleep(3000)
                         var result = new File('~/Desktop/prepress-adobe-scripts')
                         if (!result.exists) {
                             self.statusText.text = 'Unable to fetch data.'
                         } else {
                             var serverDate = result.readText().substringAfter('"date": "').substringBefore('"').substring(0, 10)
+                            result.remove()
                             if (serverDate === clientDate) {
                                 self.statusText.text = 'You have the latest version.'
                             } else {

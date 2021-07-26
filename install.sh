@@ -102,7 +102,7 @@ patch_preset() {
     mkdir "$target_stdlib"
     cp -r "$SOURCE_STDLIB"/. "$target_stdlib"
     mkdir "$target_support"
-    cp -r "$SOURCE_SUPPORT"/. "$target_support"
+    cp -r "$SOURCE_SUPPORT"/. "$target_support" && chmod +x "$target_support/check_updates.command"
     mkdir "$target_scripts"
     cp -r "$source_scripts"/. "$target_scripts"
     # Clean up
