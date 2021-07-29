@@ -6,12 +6,12 @@
 
 /**
  * Construct a new dialog.
+ * Button ordering is defined from JavaFX ButtonBar.
  * @param {String} title window title.
  */
 function Dialog(title) {
     var self = this
-    this.title = title
-    this.positiveButton, this.negativeButton, this.neutralButton
+    this.okButton, this.yesButton, this.cancelButton, this.helpButton
 
     var window = new Window('dialog', title)
     window.orientation = 'column'
@@ -28,15 +28,22 @@ function Dialog(title) {
         })
     })
 
-    var positiveButtonText, positiveButtonAction
-    var negativeButtonText, negativeButtonAction
-    var neutralButtonText, neutralButtonAction
+    var okButtonText, okButtonAction
+    var yesButtonText, yesButtonAction
+    var cancelButtonText, cancelButtonAction
+    var helpButtonText, helpButtonAction
 
+    /** Manually set dialog's title. */
     this.setTitle = function(title) {
-        self.title = title
         window.text = title
     }
 
+    /** Retrieves dialog's title. */
+    this.getTitle = function() {
+        return window.text
+    }
+
+    /** Set main layout to horizontal. */
     this.hgroup = function(configuration) {
         self.main.orientation = 'row'
         if (configuration !== null) {
@@ -44,6 +51,7 @@ function Dialog(title) {
         }
     }
 
+    /** Set main layout to vertical. */
     this.vgroup = function(configuration) {
         self.main.orientation = 'column'
         if (configuration !== null) {
@@ -52,52 +60,68 @@ function Dialog(title) {
     }
 
     /**
-     * Set positive dialog button, the text will always be `OK`.
+     * Set ok dialog button, the text will always be `OK`.
      * @param {Function} action nullable button click listener, return true to keep dialog open.
      */
-    this.setPositiveButton = function(action) {
-        positiveButtonText = 'OK' // automatically marked as positive button by Adobe
-        positiveButtonAction = action
+    this.setOKButton = function(action) {
+        okButtonText = 'OK' // automatically marked as default button by SUI
+        okButtonAction = action
     }
 
     /**
-     * Set negative dialog button.
+     * Set yes dialog button.
      * @param {String} text button text.
      * @param {Function} action nullable button click listener, return true to keep dialog open.
      */
-    this.setNegativeButton = function(text, action) {
-        negativeButtonText = checkNotNull(text)
-        negativeButtonAction = action
+    this.setYesButton = function(text, action) {
+        yesButtonText = checkNotNull(text)
+        yesButtonAction = action
     }
 
     /**
-     * Set neutral dialog button.
+     * Set cancel dialog button.
      * @param {String} text button text.
      * @param {Function} action nullable button click listener, return true to keep dialog open.
      */
-    this.setNeutralButton = function(text, action) {
-        neutralButtonText = checkNotNull(text)
-        neutralButtonAction = action
+    this.setCancelButton = function(text, action) {
+        cancelButtonText = checkNotNull(text)
+        cancelButtonAction = action
+    }
+
+    /**
+     * Set help dialog button.
+     * @param {String} text button text.
+     * @param {Function} action nullable button click listener, return true to keep dialog open.
+     */
+    this.setHelpButton = function(text, action) {
+        helpButtonText = checkNotNull(text)
+        helpButtonAction = action
     }
 
     /** Show the dialog, after populating buttons. */
     this.show = function() {
-        if (neutralButtonText !== undefined) {
-            self.neutralButton = appendButton(self.leftButtons, neutralButtonText, neutralButtonAction)
+        if (helpButtonText !== undefined) {
+            self.helpButton = appendButton(self.leftButtons, helpButtonText, helpButtonAction)
         }
         if (isMacOS()) {
-            if (negativeButtonText !== undefined) {
-                self.negativeButton = appendButton(self.rightButtons, negativeButtonText, negativeButtonAction)
+            if (cancelButtonText !== undefined) {
+                self.cancelButton = appendButton(self.rightButtons, cancelButtonText, cancelButtonAction)
             }
-            if (positiveButtonText !== undefined) {
-                self.positiveButton = appendButton(self.rightButtons, positiveButtonText, positiveButtonAction)
+            if (yesButtonText !== undefined) {
+                self.yesButton = appendButton(self.rightButtons, yesButtonText, yesButtonAction)
+            }
+            if (okButtonText !== undefined) {
+                self.okButton = appendButton(self.rightButtons, okButtonText, okButtonAction)
             }
         } else {
-            if (positiveButtonText !== undefined) {
-                self.positiveButton = appendButton(self.rightButtons, positiveButtonText, positiveButtonAction)
+            if (yesButtonText !== undefined) {
+                self.yesButton = appendButton(self.rightButtons, yesButtonText, yesButtonAction)
             }
-            if (negativeButtonText !== undefined) {
-                self.negativeButton = appendButton(self.rightButtons, negativeButtonText, negativeButtonAction)
+            if (okButtonText !== undefined) {
+                self.okButton = appendButton(self.rightButtons, okButtonText, okButtonAction)
+            }
+            if (cancelButtonText !== undefined) {
+                self.cancelButton = appendButton(self.rightButtons, cancelButtonText, cancelButtonAction)
             }
         }
 		window.show()
@@ -108,6 +132,7 @@ function Dialog(title) {
         window.close()
     }
 
+    /** Update UI. */
     this.update = function() {
         window.update()
     }

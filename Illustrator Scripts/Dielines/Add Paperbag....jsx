@@ -77,8 +77,13 @@ dialog.hgroup(function(main) {
         })
     })
 })
-dialog.setNegativeButton('Close')
-dialog.setPositiveButton(function() {
+dialog.setCancelButton('Close')
+dialog.setOKButton(function() { process(true) })
+dialog.setYesButton('Half-Size', function() { process(false) })
+dialog.setHelpButton('Help', showHelp)
+dialog.show()
+
+function process(isFull) {
     var width = parseUnits(widthEdit.text)
     var height = parseUnits(heightEdit.text)
     var depth = parseUnits(depthEdit.text)
@@ -95,7 +100,11 @@ dialog.setPositiveButton(function() {
         leftMost = it.getLeft() + it.getWidth() / 10
         topMost = it.getTop() - it.getHeight() / 10
     })
-    rightMost = leftMost + glueLength + (width + depth) * 2
+    if (isFull) {
+        rightMost = leftMost + glueLength + (width + depth) * 2
+    } else {
+        rightMost = leftMost + glueLength + width + depth
+    }
     bottomMost = topMost - upper - height - lower
 
     // outer
@@ -119,21 +128,23 @@ dialog.setPositiveButton(function() {
         [leftMost + glueLength + width, bottomMost]
     ]))
     paths.push(createDash(weight, color, [
-        [leftMost + glueLength + width + depth, topMost],
-        [leftMost + glueLength + width + depth, bottomMost]
-    ]))
-    paths.push(createDash(weight, color, [
         [leftMost + glueLength + width + depth * 0.5, topMost],
         [leftMost + glueLength + width + depth * 0.5, bottomMost]
     ]))
-    paths.push(createDash(weight, color, [
-        [leftMost + glueLength + width * 2 + depth, topMost],
-        [leftMost + glueLength + width * 2 + depth, bottomMost]
-    ]))
-    paths.push(createDash(weight, color, [
-        [leftMost + glueLength + width * 2 + depth * 1.5, topMost],
-        [leftMost + glueLength + width * 2 + depth * 1.5, bottomMost]
-    ]))
+    if (isFull) {
+        paths.push(createDash(weight, color, [
+            [leftMost + glueLength + width + depth, topMost],
+            [leftMost + glueLength + width + depth, bottomMost]
+        ]))
+        paths.push(createDash(weight, color, [
+            [leftMost + glueLength + width * 2 + depth, topMost],
+            [leftMost + glueLength + width * 2 + depth, bottomMost]
+        ]))
+        paths.push(createDash(weight, color, [
+            [leftMost + glueLength + width * 2 + depth * 1.5, topMost],
+            [leftMost + glueLength + width * 2 + depth * 1.5, bottomMost]
+        ]))
+    }
 
     // inner horizontal
     paths.push(createDash(weight, color, [
@@ -155,21 +166,25 @@ dialog.setPositiveButton(function() {
         [leftMost, bottomMost + lower + glueLength],
         [leftMost + glueLength + lower, bottomMost]
     ]))
-    paths.push(createDash(weight, color, [
-        [leftMost + glueLength + width - lower, bottomMost],
-        [leftMost + glueLength + width + depth * 0.5, topDiagonal],
-        [leftMost + glueLength + width + depth + lower, bottomMost]
-    ]))
-    paths.push(createDash(weight, color, [
-        [leftMost + glueLength + width * 2 + depth - lower, bottomMost],
-        [leftMost + glueLength + width * 2 + depth * 1.5, topDiagonal],
-        [rightMost, bottomMost + lower]
-    ]))
+    var secondDiagonalPoints = []
+    secondDiagonalPoints.push([leftMost + glueLength + width - lower, bottomMost])
+    secondDiagonalPoints.push([leftMost + glueLength + width + depth * 0.5, topDiagonal])
+    if (isFull) {
+        secondDiagonalPoints.push([leftMost + glueLength + width + depth + lower, bottomMost])
+    } else {
+        secondDiagonalPoints.push([rightMost, bottomMost + lower])
+    }
+    paths.push(createDash(weight, color, secondDiagonalPoints))
+    if (isFull) {
+        paths.push(createDash(weight, color, [
+            [leftMost + glueLength + width * 2 + depth - lower, bottomMost],
+            [leftMost + glueLength + width * 2 + depth * 1.5, topDiagonal],
+            [rightMost, bottomMost + lower]
+        ]))
+    }
 
     selection = paths
-})
-dialog.setNeutralButton('Help', showHelp)
-dialog.show()
+}
 
 function createLine(weight, color, positions) {
     var path = document.pathItems.add()
@@ -197,7 +212,7 @@ function showHelp() {
     dialog.hgroup(function(main) {
         main.image(undefined, 'dieline_paperbag.png')
     })
-    dialog.setNegativeButton('Close')
+    dialog.setCancelButton('Close')
     dialog.show()
     return true
 }

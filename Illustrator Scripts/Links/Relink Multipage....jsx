@@ -40,8 +40,8 @@ if (files !== null && files.isNotEmpty()) {
         })
         maintainSizeGroup = new MaintainSizeGroup(main)
     })
-    dialog.setNegativeButton('Cancel')
-    dialog.setPositiveButton(function() {
+    dialog.setCancelButton('Cancel')
+    dialog.setOKButton(function() {
         var current = rangeGroup.getStart()
         var end = rangeGroup.getEnd()
         orderByGroup.forEach(items, function(item, i) {

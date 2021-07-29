@@ -43,12 +43,12 @@ dialog.vgroup(function(main) {
     })
     saveDirectoryGroup = new SaveDirectoryGroup(main, [360, 21])
 })
-dialog.setNegativeButton('Cancel')
-dialog.setPositiveButton(function() {
+dialog.setCancelButton('Cancel')
+dialog.setOKButton(function() {
     process(document)
     saveDirectoryGroup.browse()
 })
-dialog.setNeutralButton('All Documents', function() {
+dialog.setYesButton('All Documents', function() {
     for (var i = 0; i < app.documents.length; i++) {
         app.activeDocument = app.documents[i]
         process(app.activeDocument)

@@ -51,8 +51,8 @@ dialog.vgroup(function(main) {
         })
     })
 })
-dialog.setNegativeButton('Cancel')
-dialog.setPositiveButton(function() {
+dialog.setCancelButton('Cancel')
+dialog.setOKButton(function() {
     app.copy()
     var selectQueues = selection
     document.artboards.forEach(function(artboard, artboardIndex) {

@@ -35,8 +35,8 @@ dialog.vgroup(function(main) {
         })
     })
 })
-dialog.setNegativeButton('Cancel')
-dialog.setPositiveButton(function() {
+dialog.setCancelButton('Cancel')
+dialog.setOKButton(function() {
     if (sizeSRadio.value && typesList.selection.text === 'Composite') {
         preferences.setPDFPage(0)
     } else if (sizeMRadio.value && typesList.selection.text === 'Composite') {

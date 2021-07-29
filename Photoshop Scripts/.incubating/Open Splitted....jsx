@@ -53,8 +53,8 @@ if (files !== null && files.isNotEmpty()) {
     }) */
     documentPanel = new OpenDocumentPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
 
-    dialog.setNegativeButton('Cancel')
-    dialog.setPositiveButton(function() {
+    dialog.setCancelButton('Cancel')
+    dialog.setOKButton(function() {
         var parts = parseInt(partsEdit.text) || 2
         files.forEach(function(file) {
             repeat(parts, function(i) {

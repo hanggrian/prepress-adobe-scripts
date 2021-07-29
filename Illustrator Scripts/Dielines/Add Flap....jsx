@@ -124,8 +124,8 @@ dialog.hgroup(function(main) {
         }
     })
 })
-dialog.setNegativeButton('Close')
-dialog.setPositiveButton(function() {
+dialog.setCancelButton('Close')
+dialog.setOKButton(function() {
     var length = parseUnits(lengthEdit.text)
     var weight = parseUnits(weightEdit.text)
     var color = parseColor(colorList.selection.text)
@@ -145,7 +145,7 @@ dialog.setPositiveButton(function() {
     }
     selection = [path]
 })
-dialog.setNeutralButton('Help', showHelp)
+dialog.setHelpButton('Help', showHelp)
 dialog.show()
 
 function processGlue(length, path) {
@@ -264,7 +264,7 @@ function showHelp() {
         })
         main.image(undefined, 'dieline_dustflap.png')
     })
-    dialog.setNegativeButton('Close')
+    dialog.setCancelButton('Close')
     dialog.show()
     return true
 }

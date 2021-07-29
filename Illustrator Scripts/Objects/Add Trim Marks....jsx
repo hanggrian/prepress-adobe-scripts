@@ -141,8 +141,8 @@ dialog.vgroup(function(main) {
         }
     })
 })
-dialog.setNegativeButton('Cancel')
-dialog.setPositiveButton(function() {
+dialog.setCancelButton('Cancel')
+dialog.setOKButton(function() {
     var offset = parseUnits(offsetEdit.text)
     var length = parseUnits(lengthEdit.text)
     var weight = parseUnits(weightEdit.text)

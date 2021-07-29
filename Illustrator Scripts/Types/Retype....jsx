@@ -14,8 +14,8 @@ dialog.hgroup(function(main) {
     main.staticText(undefined, 'Content:')
     inputEdit = main.editText([400, 100], undefined, { multiline: true }).also(ACTIVATE)
 })
-dialog.setNegativeButton('Cancel')
-dialog.setPositiveButton(function() {
+dialog.setCancelButton('Cancel')
+dialog.setOKButton(function() {
     items.forEach(function(it) {
         it.words.removeAll()
         it.words.add(inputEdit.text)

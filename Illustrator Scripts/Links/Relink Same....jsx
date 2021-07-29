@@ -33,8 +33,8 @@ if (file !== null) {
         }
         maintainSizeGroup = new MaintainSizeGroup(main)
     })
-    dialog.setNegativeButton('Cancel')
-    dialog.setPositiveButton(function() {
+    dialog.setCancelButton('Cancel')
+    dialog.setOKButton(function() {
         if (file.isPDF()) {
             var page = parseInt(pageEdit.text) - 1
             $.writeln('PDF page=' + page)

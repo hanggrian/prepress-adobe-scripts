@@ -87,8 +87,8 @@ dialog.hgroup(function(main) {
         })
     })
 })
-dialog.setNegativeButton('Cancel')
-dialog.setPositiveButton(function() {
+dialog.setCancelButton('Cancel')
+dialog.setOKButton(function() {
     var substring = findEdit.text
     var fontName = fontNameEdit.text
     var fontSize = fontSizeEdit.text

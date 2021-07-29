@@ -48,8 +48,8 @@ dialog.vgroup(function(main) {
         }
     })
 })
-dialog.setNegativeButton('Cancel')
-dialog.setPositiveButton(function() {
+dialog.setCancelButton('Cancel')
+dialog.setOKButton(function() {
     var w = parseUnits(widthEdit.text)
     var h = parseUnits(heightEdit.text)
     if (w > 0 && h > 0) {

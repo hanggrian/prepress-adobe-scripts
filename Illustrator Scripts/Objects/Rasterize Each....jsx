@@ -83,13 +83,13 @@ dialog.vgroup(function(main) {
     })
     maintainSizeGroup = new MaintainSizeGroup(main)
 })
-dialog.setNegativeButton('Cancel')
-dialog.setPositiveButton(function() {
+dialog.setCancelButton('Cancel')
+dialog.setOKButton(function() {
     process(function(action) {
         selection.forEach(action)
     })
 })
-dialog.setNeutralButton('Recursive', function() {
+dialog.setYesButton('Recursive', function() {
     process(function(action) {
         selection.forEachItem(action)
     })

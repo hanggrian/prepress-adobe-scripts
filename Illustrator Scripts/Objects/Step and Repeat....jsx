@@ -35,8 +35,8 @@ dialog.vgroup(function(main) {
         })
     })
 })
-dialog.setNegativeButton('Cancel')
-dialog.setPositiveButton(function() {
+dialog.setCancelButton('Cancel')
+dialog.setOKButton(function() {
     var horizontal = parseInt(horizontalEdit.text) || 0
     var vertical = parseInt(verticalEdit.text) || 0
     var moveHorizontal = parseUnits(moveHorizontalEdit.text)
