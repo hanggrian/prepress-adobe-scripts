@@ -23,7 +23,7 @@ Group.prototype.iconButton = function(bounds, file, properties) { return _iconBu
 Panel.prototype.iconButton = function(bounds, file, properties) { return _iconButton(this, bounds, file, properties) }
 
 function _iconButton(parent, bounds, file, properties) {
-    var result = parent.add('iconbutton', _expandBounds(bounds), file, properties)
+    var result = parent.add('iconbutton', _expandBounds(bounds), _asFile(file), properties)
     if (parent.helpTips !== undefined) {
         _tip(result, parent.helpTips)
     }

@@ -17,14 +17,20 @@ function Dialog(title) {
     window.orientation = 'column'
 
     this.main = window.add('group')
-    this.buttons = window.add('group').also(function(it) {
-        it.orientation = 'row'
-        it.alignment = 'right'
+    this.buttons = window.add('group').also(function(topGroup) {
+        topGroup.orientation = 'stack'
+        topGroup.alignment = 'fill'
+        self.leftButtons = topGroup.hgroup(function(group) {
+            group.alignment = 'left'
+        })
+        self.rightButtons = topGroup.hgroup(function(group) {
+            group.alignment = 'right'
+        })
     })
 
     var positiveButtonText, positiveButtonAction
     var negativeButtonText, negativeButtonAction
-    var neutralButtonGap, neutralButtonText, neutralButtonAction
+    var neutralButtonText, neutralButtonAction
 
     this.setTitle = function(title) {
         self.title = title
@@ -66,12 +72,10 @@ function Dialog(title) {
 
     /**
      * Set neutral dialog button.
-     * @param {Number} gap gap between neutral and positive/negative button.
      * @param {String} text button text.
      * @param {Function} action nullable button click listener, return true to keep dialog open.
      */
-    this.setNeutralButton = function(gap, text, action) {
-        neutralButtonGap = gap
+    this.setNeutralButton = function(text, action) {
         neutralButtonText = checkNotNull(text)
         neutralButtonAction = action
     }
@@ -79,24 +83,21 @@ function Dialog(title) {
     /** Show the dialog, after populating buttons. */
     this.show = function() {
         if (neutralButtonText !== undefined) {
-            self.neutralButton = appendButton(neutralButtonText, neutralButtonAction)
-            if (neutralButtonGap !== undefined) {
-                self.buttons.staticText([neutralButtonGap, 0])
-            }
+            self.neutralButton = appendButton(self.leftButtons, neutralButtonText, neutralButtonAction)
         }
         if (isMacOS()) {
             if (negativeButtonText !== undefined) {
-                self.negativeButton = appendButton(negativeButtonText, negativeButtonAction)
+                self.negativeButton = appendButton(self.rightButtons, negativeButtonText, negativeButtonAction)
             }
             if (positiveButtonText !== undefined) {
-                self.positiveButton = appendButton(positiveButtonText, positiveButtonAction)
+                self.positiveButton = appendButton(self.rightButtons, positiveButtonText, positiveButtonAction)
             }
         } else {
             if (positiveButtonText !== undefined) {
-                self.positiveButton = appendButton(positiveButtonText, positiveButtonAction)
+                self.positiveButton = appendButton(self.rightButtons, positiveButtonText, positiveButtonAction)
             }
             if (negativeButtonText !== undefined) {
-                self.negativeButton = appendButton(negativeButtonText, negativeButtonAction)
+                self.negativeButton = appendButton(self.rightButtons, negativeButtonText, negativeButtonAction)
             }
         }
 		window.show()
@@ -111,12 +112,15 @@ function Dialog(title) {
         window.update()
     }
 
-    function appendButton(text, action) {
-        return self.buttons.button(undefined, text).also(function(it) {
+    function appendButton(group, text, action) {
+        return group.button(undefined, text).also(function(it) {
             it.onClick = function() {
-                self.close()
+                var keepDialog
                 if (action !== undefined) {
-                    action()
+                    keepDialog = action()
+                }
+                if (keepDialog === undefined || !keepDialog) {
+                    self.close()
                 }
             }
         })

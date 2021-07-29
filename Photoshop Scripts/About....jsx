@@ -19,7 +19,7 @@ dialog.vgroup(function(main) {
     new AboutTabbedPanel(main, clientDate)
 })
 dialog.setNegativeButton('Close')
-dialog.setNeutralButton(260, 'Visit GitHub', function() {
+dialog.setNeutralButton('Visit GitHub', function() {
     openURL('https://github.com/hendraanggrian/prepress-adobe-scripts')
 })
 dialog.show()

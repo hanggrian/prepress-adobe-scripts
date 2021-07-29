@@ -1,22 +1,30 @@
 #target Illustrator
 #include '../.lib/commons.js'
 
-checkSingleSelection()
+var DIRECTIONS = [
+    ['Top', 'ic_arrow_top.png'],
+    ['Right', 'ic_arrow_right.png'],
+    ['Bottom', 'ic_arrow_bottom.png'],
+    ['Left', 'ic_arrow_left.png']
+]
 
 var BOUNDS_TEXT = [60, 21]
 var BOUNDS_TEXT2 = [70, 21]
 var BOUNDS_EDIT = [110, 21]
 var BOUNDS_RADIO = [15, 15]
 
+checkSingleSelection()
+
 var dialog = new Dialog('Add Flap')
-var lengthEdit, weightEdit, colorList
+var lengthEdit, weightEdit, colorList, directionList
 var tabbedPanel
 var glueShearEdit, glueScratchEdit
 var tuckSliderGroup, tuckDistanceEdit
 var dustShoulderEdit, dustDistanceEdit
 var leftRadio, topRadio, rightRadio, bottomRadio
 
-dialog.vgroup(function(main) {
+dialog.hgroup(function(main) {
+    main.alignChildren = 'fill'
     main.hgroup(function(topGroup) {
         topGroup.alignChildren = 'fill'
         topGroup.vpanel('Flap', function(panel) {
@@ -40,40 +48,17 @@ dialog.vgroup(function(main) {
                     it.selectText('Black')
                 })
             })
-        })
-        topGroup.vpanel('Direction', function(panel) {
             panel.hgroup(function(group) {
-                group.staticText(BOUNDS_RADIO)
-                topRadio = group.radioButton(BOUNDS_RADIO).also(function(it) {
-                    it.tip('Top')
-                    registerRadioClick(it)
+                group.tips('Where should the flap be added relative to target')
+                group.staticText(BOUNDS_TEXT, 'Direction:').also(JUSTIFY_RIGHT)
+                directionList = group.dropDownList(BOUNDS_EDIT, DIRECTIONS).also(function(it) {
+                    it.selectText('Top')
                 })
-                group.staticText(BOUNDS_RADIO)
-            })
-            panel.hgroup(function(group) {
-                leftRadio = group.radioButton(BOUNDS_RADIO).also(function(it) {
-                    it.tip('Left')
-                    registerRadioClick(it)
-                    it.select()
-                })
-                group.staticText(BOUNDS_RADIO, '\u25CF').also(JUSTIFY_CENTER)
-                rightRadio = group.radioButton(BOUNDS_RADIO).also(function(it) {
-                    it.tip('Right')
-                    registerRadioClick(it)
-                })
-            })
-            panel.hgroup(function(group) {
-                group.staticText(BOUNDS_RADIO)
-                bottomRadio = group.radioButton(BOUNDS_RADIO).also(function(it) {
-                    it.tip('Bottom')
-                    registerRadioClick(it)
-                })
-                group.staticText(BOUNDS_RADIO)
             })
         })
     })
     tabbedPanel = main.tabbedPanel(function(tabbedPanel) {
-        tabbedPanel.preferredSize = [300, 0]
+        tabbedPanel.preferredSize = [200, 0]
         tabbedPanel.vtab('Glue Flap', function(tab) {
             tab.hgroup(function(topGroup) {
                 topGroup.alignChildren = 'top'
@@ -92,7 +77,6 @@ dialog.vgroup(function(main) {
                         })
                     })
                 })
-                topGroup.image(undefined, 'dieline_glueflap.png')
             })
         })
         /* tabbedPanel.vtab('Tuck Flap', function(tab) {
@@ -110,7 +94,6 @@ dialog.vgroup(function(main) {
                         tuckDistanceEdit = group.editText(BOUNDS_EDIT, '0 mm').also(VALIDATE_UNITS)
                     })
                 })
-                topGroup.image(undefined, 'dieline_tuckflap.png')
             })
         }) */
         tabbedPanel.vtab('Dust Flap', function(tab) {
@@ -128,7 +111,6 @@ dialog.vgroup(function(main) {
                         dustDistanceEdit = group.editText(BOUNDS_EDIT, '0 mm').also(VALIDATE_UNITS)
                     })
                 })
-                topGroup.image(undefined, 'dieline_dustflap.png')
             })
         })
         tabbedPanel.onChange = function() {
@@ -163,6 +145,7 @@ dialog.setPositiveButton(function() {
     }
     selection = [path]
 })
+dialog.setNeutralButton('Help', showHelp)
 dialog.show()
 
 function processGlue(length, path) {
@@ -170,17 +153,17 @@ function processGlue(length, path) {
     var glueScratch = parseUnits(glueScratchEdit.text)
     var positions = []
     selection.first().geometricBounds.run(function(it) {
-        if (leftRadio.value) {
+        if (directionList.selection.text === 'Left') {
             positions.push([it.getLeft(), it.getTop()])
             positions.push([it.getLeft() - length, it.getTop() - glueShear])
             positions.push([it.getLeft() - length, it.getBottom() + glueShear])
             positions.push([it.getLeft(), it.getBottom()])
-        } else if (topRadio.value) {
+        } else if (directionList.selection.text === 'Top') {
             positions.push([it.getLeft(), it.getTop()])
             positions.push([it.getLeft() + glueShear, it.getTop() + length])
             positions.push([it.getRight() - glueShear, it.getTop() + length])
             positions.push([it.getRight(), it.getTop()])
-        } else if (rightRadio.value) {
+        } else if (directionList.selection.text === 'Right') {
             positions.push([it.getRight(), it.getTop()])
             positions.push([it.getRight() + length, it.getTop() - glueShear])
             positions.push([it.getRight() + length, it.getBottom() + glueShear])
@@ -202,15 +185,15 @@ function processTuck(length, path) {
     var tuckDistance = parseUnits(tuckDistanceEdit.text)
     var positions = []
     selection.first().geometricBounds.run(function(it) {
-        if (leftRadio.value) {
+        if (directionList.selection.text === 'Left') {
             positions.push([it.getLeft(), it.getTop() - tuckDistance])
             positions.push([it.getLeft() - tuckStart, it.getTop() - tuckDistance])
             positions.push([it.getLeft() - length, it.getTop() - tuckCurve - tuckDistance])
             positions.push([it.getLeft() - length, it.getBottom() + tuckCurve + tuckDistance])
             positions.push([it.getLeft() - tuckStart, it.getBottom() + tuckDistance])
             positions.push([it.getLeft(), it.getBottom() + tuckDistance])
-        } else if (topRadio.value) {
-        } else if (rightRadio.value) {
+        } else if (directionList.selection.text === 'Top') {
+        } else if (directionList.selection.text === 'Right') {
         } else {
         }
     })
@@ -228,7 +211,7 @@ function processDust(length, path) {
     var dustDistance = parseUnits(dustDistanceEdit.text)
     var positions = []
     selection.first().geometricBounds.run(function(it) {
-        if (leftRadio.value) {
+        if (directionList.selection.text === 'Left') {
             positions.push([it.getLeft(), it.getTop()])
             positions.push([it.getLeft() - dustDistance, it.getTop() - dustDistance])
             positions.push([it.getLeft() - length, it.getTop() - dustDistance])
@@ -236,7 +219,7 @@ function processDust(length, path) {
             positions.push([it.getLeft() - dustShoulder * 1.5, it.getBottom() + dustShoulder / 2])
             positions.push([it.getLeft() - dustShoulder, it.getBottom()])
             positions.push([it.getLeft(), it.getBottom()])
-        } else if (topRadio.value) {
+        } else if (directionList.selection.text === 'Top') {
             positions.push([it.getLeft(), it.getTop()])
             positions.push([it.getLeft() + dustDistance, it.getTop() + dustDistance])
             positions.push([it.getLeft() + dustDistance, it.getTop() + length])
@@ -244,7 +227,7 @@ function processDust(length, path) {
             positions.push([it.getRight() - dustShoulder / 2, it.getTop() + dustShoulder * 1.5])
             positions.push([it.getRight(), it.getTop() + dustShoulder])
             positions.push([it.getRight(), it.getTop()])
-        } else if (rightRadio.value) {
+        } else if (directionList.selection.text === 'Right') {
             positions.push([it.getRight(), it.getTop()])
             positions.push([it.getRight() + dustDistance, it.getTop() - dustDistance])
             positions.push([it.getRight() + length, it.getTop() - dustDistance])
@@ -266,11 +249,22 @@ function processDust(length, path) {
     path.setEntirePath(positions)
 }
 
-function registerRadioClick(radio) {
-    radio.onClick = function() {
-        if (radio != topRadio) topRadio.value = false
-        if (radio != leftRadio) leftRadio.value = false
-        if (radio != rightRadio) rightRadio.value = false
-        if (radio != bottomRadio) bottomRadio.value = false
-    }
+function showHelp() {
+    var dialog = new Dialog('Help')
+    dialog.hgroup(function(main) {
+        main.image(undefined, 'dieline_glueflap.png')
+        main.vpanel(undefined, function(panel) {
+            panel.minimumSize.width = panel.maximumSize.width = 2
+            panel.minimumSize.height = panel.maximumSize.height = 100
+        })
+        main.image(undefined, 'dieline_tuckflap.png')
+        main.vpanel(undefined, function(panel) {
+            panel.minimumSize.width = panel.maximumSize.width = 2
+            panel.minimumSize.height = panel.maximumSize.height = 100
+        })
+        main.image(undefined, 'dieline_dustflap.png')
+    })
+    dialog.setNegativeButton('Close')
+    dialog.show()
+    return true
 }

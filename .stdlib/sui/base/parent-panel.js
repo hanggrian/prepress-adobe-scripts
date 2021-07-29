@@ -34,6 +34,18 @@ Group.prototype.vpanel = function(title, configuration) { return _panel(this, 'c
  */
 Panel.prototype.vpanel = function(title, configuration) { return _panel(this, 'column', title).also(configuration) }
 
+/**
+ * Add stack parent to group.
+ * @returns {Panel}
+ */
+Group.prototype.spanel = function(title, configuration) { return _panel(this, 'stack', title).also(configuration) }
+
+/**
+ * Add stack parent to panel.
+ * @returns {Panel}
+ */
+Panel.prototype.spanel = function(title, configuration) { return _panel(this, 'stack', title).also(configuration) }
+
 function _panel(parent, orientation, title) {
     var result = parent.add('panel', undefined, title)
     result.orientation = orientation

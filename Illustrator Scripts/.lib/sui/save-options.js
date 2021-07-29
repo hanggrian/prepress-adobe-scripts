@@ -57,9 +57,9 @@ function SaveDirectoryGroup(parent, editBounds) {
 
     this.main = parent.hgroup(function(group) {
         group.tips('Where to save files?')
-        group.image([21, 21], 'ic_folder.png')
+        group.staticText(undefined, 'Export to:')
         self.directoryEdit = group.editText(editBounds, '~/Desktop')
-        self.directoryButton = group.button([30, 21], '...').also(function(it) {
+        self.directoryButton = group.iconButton([21, 21], 'ic_folder.png', { style: 'toolbutton' }).also(function(it) {
             it.onClick = function() {
                 self.directoryEdit.text = openFolder().fullName
             }

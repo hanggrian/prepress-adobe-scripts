@@ -76,7 +76,6 @@ dialog.hgroup(function(main) {
             })
         })
     })
-    main.image(undefined, getResource('dieline_paperbag.png'))
 })
 dialog.setNegativeButton('Close')
 dialog.setPositiveButton(function() {
@@ -169,6 +168,7 @@ dialog.setPositiveButton(function() {
 
     selection = paths
 })
+dialog.setNeutralButton('Help', showHelp)
 dialog.show()
 
 function createLine(weight, color, positions) {
@@ -190,4 +190,14 @@ function createDash(weight, color, positions) {
     path.strokeWidth = weight
     path.setEntirePath(positions)
     return path
+}
+
+function showHelp() {
+    var dialog = new Dialog('Help')
+    dialog.hgroup(function(main) {
+        main.image(undefined, 'dieline_paperbag.png')
+    })
+    dialog.setNegativeButton('Close')
+    dialog.show()
+    return true
 }

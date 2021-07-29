@@ -34,6 +34,18 @@ Group.prototype.vgroup = function(configuration) { return _group(this, 'column')
  */
 Panel.prototype.vgroup = function(configuration) { return _group(this, 'column').also(configuration) }
 
+/**
+ * Add stack parent to group.
+ * @returns {Group}
+ */
+Group.prototype.sgroup = function(configuration) { return _group(this, 'stack').also(configuration) }
+
+/**
+ * Add stack parent to panel.
+ * @returns {Group}
+ */
+Panel.prototype.sgroup = function(configuration) { return _group(this, 'stack').also(configuration) }
+
 function _group(parent, orientation) {
     var result = parent.add('group')
     result.orientation = orientation

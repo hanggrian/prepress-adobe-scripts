@@ -18,7 +18,7 @@ function OrderByGroup(parent, ordersCollection) {
     this.main = parent.hgroup(function(group) {
         group.tips('Modify how iteration should be operated')
         self.list = group.dropDownList(undefined, orders).also(function(it) {
-            it.title = 'Order by'
+            it.title = 'Order by:'
         })
     })
 

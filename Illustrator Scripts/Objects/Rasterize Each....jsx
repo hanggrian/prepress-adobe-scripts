@@ -89,7 +89,7 @@ dialog.setPositiveButton(function() {
         selection.forEach(action)
     })
 })
-dialog.setNeutralButton(110, 'Recursive', function() {
+dialog.setNeutralButton('Recursive', function() {
     process(function(action) {
         selection.forEachItem(action)
     })
