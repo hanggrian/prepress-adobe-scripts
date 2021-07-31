@@ -30,6 +30,7 @@ function formatUnits(unitValue, unitName, fraction) {
  */
 function parseUnits(units) {
     checkNotNull(units)
+    units = units.trim()
     if (units.isEmpty()) {
         return 0
     }
@@ -44,7 +45,7 @@ function parseUnits(units) {
  * @returns {RulerUnits}
  */
 function parseRulerUnits(unitFullName) {
-    switch (unitFullName) {
+    switch (unitFullName.trim()) {
         case 'Pixels':
             return RulerUnits.Pixels
         case 'Points':

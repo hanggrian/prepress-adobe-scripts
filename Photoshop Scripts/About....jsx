@@ -8,13 +8,13 @@
 #include '.lib/core.js'
 
 var dialog = new Dialog('About')
-var clientDate = new File(supportPath + '/VERSION').readText()
+var clientDate = parseDate(new File(supportPath + '/VERSION').readText())
 
 dialog.vgroup(function(main) {
     main.hgroup(function(group) {
         group.alignChildren = 'center'
         group.image(undefined, 'logo.png')
-        group.staticText([300, 32], 'Prepress Adobe Scripts for Photoshop\nLast updated ' + clientDate, { multiline: true })
+        group.staticText([300, 32], 'Prepress Adobe Scripts for Photoshop\nLast updated ' + clientDate.toISOString(), { multiline: true })
     })
     new AboutTabbedPanel(main, clientDate)
 })

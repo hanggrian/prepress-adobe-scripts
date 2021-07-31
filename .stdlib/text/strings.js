@@ -5,6 +5,18 @@
 */
 
 /**
+ * Returns true if this string is empty.
+ * @returns {Boolean}
+ */
+String.prototype.isEmpty = function() { return this.length === 0 }
+
+/**
+ * Returns true if this string is not empty.
+ * @returns {Boolean}
+ */
+String.prototype.isNotEmpty = function() { return this.length > 0 }
+
+/**
  * Returns true if text contains word.
  * @param {String} s expected prefix.
  * @returns {Boolean}

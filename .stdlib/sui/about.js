@@ -48,13 +48,13 @@ function AboutTabbedPanel(parent, clientDate) {
                         if (!result.exists) {
                             self.statusText.text = 'Unable to fetch data.'
                         } else {
-                            var serverDate = result.readText().substringAfter('"date": "').substringBefore('"').substring(0, 10)
+                            var serverDate = parseDate(result.readText().substringAfter('"date": "').substringBefore('"').substring(0, 10))
                             result.remove()
-                            if (serverDate === clientDate) {
-                                self.statusText.text = 'You have the latest version.'
-                            } else {
-                                self.statusText.text = 'Latest version ' + serverDate + ' is available.'
+                            if (serverDate > clientDate) {
+                                self.statusText.text = 'Latest version ' + serverDate.toISOString() + ' is available.'
                                 self.downloadButton.enabled = true
+                            } else {
+                                self.statusText.text = 'You have the latest version.'
                             }
                         }
                     }

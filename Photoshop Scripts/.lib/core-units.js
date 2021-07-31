@@ -36,6 +36,7 @@ function formatUnits(unitValue, unitName, fraction) {
  */
 function parseUnits(units) {
     checkNotNull(units)
+    units = units.trim()
     if (units.isEmpty()) {
         return 0
     }

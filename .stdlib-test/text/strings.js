@@ -1,6 +1,16 @@
 require('../../.stdlib/text/strings.js')
 var assert = require('../assert.js')
 
+var isEmpty = function() {
+    assert.assertTrue(''.isEmpty())
+    assert.assertFalse('Hello World'.isEmpty())
+}()
+
+var isNotEmpty = function() {
+    assert.assertTrue('Hello World'.isNotEmpty())
+    assert.assertFalse(''.isNotEmpty())
+}()
+
 var includes = function() {
     var s = 'Hello World'
     assert.assertTrue(s.includes('Hello'))

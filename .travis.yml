@@ -7,5 +7,7 @@ script:
 
   - node .stdlib-test/text/strings.js
 
+  - node .stdlib-test/dates.js
   - node .stdlib-test/numbers.js
   - node .stdlib-test/rectangles.js
+  - node .stdlib-test/standard.js

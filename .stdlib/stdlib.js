@@ -30,6 +30,7 @@
 #include 'text/string-builder.js'
 #include 'text/strings.js'
 
+#include 'dates.js'
 #include 'files.js'
 #include 'numbers.js'
 #include 'preconditions.js'

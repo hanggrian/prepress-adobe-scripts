@@ -21,7 +21,7 @@ var COLOR_NONE = new NoColor()
  * @returns {CMYKColor}
  */
 function parseColor(text) {
-    switch (text) {
+    switch (text.trim()) {
         case 'Registration':
             return getRegistrationColor()
         case 'White':
