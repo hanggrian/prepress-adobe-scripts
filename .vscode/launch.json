@@ -5,8 +5,8 @@
             "type": "extendscript-debug",
             "request": "launch",
             "name": "prepress-adobe-scripts",
-            "program": "${workspaceFolder}/Illustrator Scripts/Dielines/Add Flap....jsx",
-            //"program": "${workspaceFolder}/Photoshop Scripts/About....jsx",
+            //"program": "${workspaceFolder}/Illustrator Scripts/Dielines/Add Flap....jsx",
+            "program": "${workspaceFolder}/Photoshop Scripts/Documents/Export/PNG....jsx",
             "stopOnEntry": false
         }
     ]

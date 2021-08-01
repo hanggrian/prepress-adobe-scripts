@@ -1,6 +1,7 @@
 /*
 <javascriptresource>
-<category>3</category>
+<name>Close to the Right</name>
+<category>4</category>
 <enableinfo>true</enableinfo>
 </javascriptresource>
 */

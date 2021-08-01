@@ -23,7 +23,7 @@ dialog.vgroup(function(main) {
                 it.select()
             })
             compressArtCheck = panel.checkBox(undefined, 'Compress Art').also(function(it) {
-                it.tip('	Should line art and text be compressed?')
+                it.tip('Should line art and text be compressed?')
                 it.select()
             })
         })

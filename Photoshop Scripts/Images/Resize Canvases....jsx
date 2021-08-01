@@ -1,6 +1,6 @@
 /*
 <javascriptresource>
-<name>Resize Canvases</name>
+<name>Resize Canvases...</name>
 <category>2</category>
 <enableinfo>true</enableinfo>
 </javascriptresource>

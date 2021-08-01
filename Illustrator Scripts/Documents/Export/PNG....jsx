@@ -36,7 +36,7 @@ dialog.vgroup(function(main) {
                 it.select()
             })
             transparencyCheck = panel.checkBox(undefined, 'Transparency').also(function(it) {
-                it.tip('	Should the resulting image use transparency')
+                it.tip('Should the resulting image use transparency')
                 it.select()
             })
         })

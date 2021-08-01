@@ -1,6 +1,6 @@
 /*
 <javascriptresource>
-<name>Resize Images</name>
+<name>Resize Images...</name>
 <category>2</category>
 <enableinfo>true</enableinfo>
 </javascriptresource>
