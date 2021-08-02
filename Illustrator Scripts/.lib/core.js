@@ -49,6 +49,28 @@ Object.prototype.getClippingPathItem = function() {
 }
 
 /**
+ * Returns bounds covering all items.
+ * @returns {Array}
+ */
+Array.prototype.getFarthestBounds = function() {
+    var maxStartX, maxStartY, maxEndX, maxEndY
+    this.forEach(function(item) {
+        var clippingItem = item.getClippingPathItem()
+        var width = clippingItem.width
+        var height = clippingItem.height
+        var itemStartX = clippingItem.position.getLeft()
+        var itemStartY = clippingItem.position.getTop()
+        var itemEndX = itemStartX + width
+        var itemEndY = itemStartY - height
+        if (maxStartX === undefined || itemStartX < maxStartX) maxStartX = itemStartX
+        if (maxStartY === undefined || itemStartY > maxStartY) maxStartY = itemStartY
+        if (maxEndX === undefined || itemEndX > maxEndX) maxEndX = itemEndX
+        if (maxEndY === undefined || itemEndY < maxEndY) maxEndY = itemEndY
+    })
+    return [maxStartX, maxStartY, maxEndX, maxEndY]
+}
+
+/**
  * Returns true if the file associated with this PlacedItem is not missing.
  * @this {PlacedItem}
  * @returns {Boolean}

@@ -53,17 +53,14 @@ dialog.vgroup(function(main) {
 })
 dialog.setCancelButton('Cancel')
 dialog.setOKButton(function() {
-    app.copy()
-    var selectQueues = selection
+    var readOnlySelection = selection
     document.artboards.forEach(function(artboard, artboardIndex) {
         if (artboardIndex === activeArtboardIndex || !rangeGroup.includes(artboardIndex)) {
             $.writeln(activeArtboardIndex + '. Ignore active artboard')
             return
         }
-        app.paste()
         var artboardRect = artboard.artboardRect
-        selection.forEach(function(it, itemIndex) {
-            selectQueues.push(it)
+        readOnlySelection.forEach(function(item, itemIndex) {
             var relativePosition = relativePositions[itemIndex]
             var x, y
             if (anchorList.selection.text.endsWith('Left')) {
@@ -76,10 +73,9 @@ dialog.setOKButton(function() {
             } else {
                 y = artboardRect.getBottom() - relativePosition.getBottom()
             }
+            item.duplicate(document, ElementPlacement.PLACEATEND).position = [x, y]
             $.writeln(artboardIndex + '. ' + 'Position X=' + x + ' Y=' + y)
-            it.position = [x, y]
         })
     })
-    selection = selectQueues
 })
 dialog.show()

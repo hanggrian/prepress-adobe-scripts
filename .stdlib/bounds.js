@@ -4,6 +4,7 @@
 </javascriptresource>
 */
 
+/** Check if two bounds are equal. */
 Array.prototype.equalTo = function(other) {
     return this.getLeft() === other.getLeft() &&
         this.getTop() === other.getTop() &&
@@ -11,7 +12,10 @@ Array.prototype.equalTo = function(other) {
         this.getBottom() === other.getBottom()
 }
 
-// see https://gist.github.com/Daniel-Hug/d7984d82b58d6d2679a087d896ca3d2b
+/**
+ * Returns true if the first bounds are inside the second bounds.
+ * @see https://gist.github.com/Daniel-Hug/d7984d82b58d6d2679a087d896ca3d2b
+ */
 Array.prototype.isWithin = function(other) {
     return !(
 		this.getLeft() < other.getLeft() ||

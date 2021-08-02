@@ -30,12 +30,12 @@
 #include 'text/string-builder.js'
 #include 'text/strings.js'
 
+#include 'bounds.js'
 #include 'dates.js'
 #include 'files.js'
 #include 'numbers.js'
 #include 'preconditions.js'
 #include 'properties.js'
-#include 'rectangles.js'
 #include 'resources.js'
 #include 'standard.js'
 

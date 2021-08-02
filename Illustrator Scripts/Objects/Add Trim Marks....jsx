@@ -147,104 +147,91 @@ dialog.setOKButton(function() {
     var length = parseUnits(lengthEdit.text)
     var weight = parseUnits(weightEdit.text)
     var color = parseColor(colorList.selection.text)
-    var maxStartX, maxStartY, maxEndX, maxEndY
-    selection.forEach(function(item) {
-        var clippingItem = item.getClippingPathItem()
-        var width = clippingItem.width
-        var height = clippingItem.height
-        var itemStartX = clippingItem.position.getLeft()
-        var itemStartY = clippingItem.position.getTop()
-        var itemEndX = itemStartX + width
-        var itemEndY = itemStartY - height
-        if (maxStartX === undefined || itemStartX < maxStartX) maxStartX = itemStartX
-        if (maxStartY === undefined || itemStartY > maxStartY) maxStartY = itemStartY
-        if (maxEndX === undefined || itemEndX > maxEndX) maxEndX = itemEndX
-        if (maxEndY === undefined || itemEndY < maxEndY) maxEndY = itemEndY
-    })
+    var maxBounds = selection.getFarthestBounds()
     selection = multipleTargetCheck.value
-        ? processMultiple(offset, length, weight, color, maxStartX, maxStartY, maxEndX, maxEndY)
-        : processSingle(offset, length, weight, color, maxStartX, maxStartY, maxEndX, maxEndY)
+        ? processMultiple(offset, length, weight, color, maxBounds)
+        : processSingle(offset, length, weight, color, maxBounds)
 })
 dialog.show()
 
-function processSingle(offset, length, weight, color, maxStartX, maxStartY, maxEndX, maxEndY) {
+function processSingle(offset, length, weight, color, maxBounds) {
     var paths = []
     if (topLeftCheck.value) {
         paths.push(createTrimMark(
             weight, color, 'TOP',
-            maxStartX,
-            maxStartY + offset,
-            maxStartX,
-            maxStartY + offset + length
+            maxBounds.getLeft(),
+            maxBounds.getTop() + offset,
+            maxBounds.getLeft(),
+            maxBounds.getTop() + offset + length
         ))
     }
     if (topRightCheck.value) {
         paths.push(createTrimMark(
             weight, color, 'TOP',
-            maxEndX,
-            maxStartY + offset,
-            maxEndX,
-            maxStartY + offset + length
+            maxBounds.getRight(),
+            maxBounds.getTop() + offset,
+            maxBounds.getRight(),
+            maxBounds.getTop() + offset + length
         ))
     }
     if (rightTopCheck.value) {
         paths.push(createTrimMark(
             weight, color, 'RIGHT',
-            maxEndX + offset,
-            maxStartY,
-            maxEndX + offset + length,
-            maxStartY
+            maxBounds.getRight() + offset,
+            maxBounds.getTop(),
+            maxBounds.getRight() + offset + length,
+            maxBounds.getTop()
         ))
     }
     if (rightBottomCheck.value) {
         paths.push(createTrimMark(
             weight, color, 'RIGHT',
-            maxEndX + offset,
-            maxEndY,
-            maxEndX + offset + length,
-            maxEndY
+            maxBounds.getRight() + offset,
+            maxBounds.getBottom(),
+            maxBounds.getRight() + offset + length,
+            maxBounds.getBottom()
         ))
     }
     if (bottomRightCheck.value) {
         paths.push(createTrimMark(
             weight, color, 'BOTTOM',
-            maxEndX,
-            maxEndY - offset,
-            maxEndX,
-            maxEndY - offset - length
+            maxBounds.getRight(),
+            maxBounds.getBottom() - offset,
+            maxBounds.getRight(),
+            maxBounds.getBottom() - offset - length
         ))
     }
     if (bottomLeftCheck.value) {
         paths.push(createTrimMark(
             weight, color, 'BOTTOM',
-            maxStartX,
-            maxEndY - offset,
-            maxStartX,
-            maxEndY - offset - length
+            maxBounds.getLeft(),
+            maxBounds.getBottom() - offset,
+            maxBounds.getLeft(),
+            maxBounds.getBottom() - offset - length
         ))
     }
     if (leftBottomCheck.value) {
         paths.push(createTrimMark(
             weight, color, 'LEFT',
-            maxStartX - offset,
-            maxEndY,
-            maxStartX - offset - length,
-            maxEndY
+            maxBounds.getLeft() - offset,
+            maxBounds.getBottom(),
+            maxBounds.getLeft() - offset - length,
+            maxBounds.getBottom()
         ))
     }
     if (leftTopCheck.value) {
         paths.push(createTrimMark(
             weight, color, 'LEFT',
-            maxStartX - offset,
-            maxStartY,
-            maxStartX - offset - length,
-            maxStartY
+            maxBounds.getLeft() - offset,
+            maxBounds.getTop(),
+            maxBounds.getLeft() - offset - length,
+            maxBounds.getTop()
         ))
     }
     return paths
 }
 
-function processMultiple(offset, length, weight, color, maxStartX, maxStartY, maxEndX, maxEndY) {
+function processMultiple(offset, length, weight, color, maxBounds) {
     var paths = []
     selection.forEach(function(item) {
         var clippingItem = item.getClippingPathItem()
@@ -258,31 +245,31 @@ function processMultiple(offset, length, weight, color, maxStartX, maxStartY, ma
             paths.push([
                 'TOP',
                 itemStartX,
-                maxStartY + offset,
+                maxBounds.getTop() + offset,
                 itemStartX,
-                maxStartY + offset + length
+                maxBounds.getTop() + offset + length
             ])
             paths.push([
                 'TOP',
                 itemEndX,
-                maxStartY + offset,
+                maxBounds.getTop() + offset,
                 itemEndX,
-                maxStartY + offset + length
+                maxBounds.getTop() + offset + length
             ])
         }
         if (rightCheck.value) {
             paths.push([
                 'RIGHT',
-                maxEndX + offset,
+                maxBounds.getRight() + offset,
                 itemStartY,
-                maxEndX + offset + length,
+                maxBounds.getRight() + offset + length,
                 itemStartY
             ])
             paths.push([
                 'RIGHT',
-                maxEndX + offset,
+                maxBounds.getRight() + offset,
                 itemEndY,
-                maxEndX + offset + length,
+                maxBounds.getRight() + offset + length,
                 itemEndY
             ])
         }
@@ -290,31 +277,31 @@ function processMultiple(offset, length, weight, color, maxStartX, maxStartY, ma
             paths.push([
                 'BOTTOM',
                 itemEndX,
-                maxEndY - offset,
+                maxBounds.getBottom() - offset,
                 itemEndX,
-                maxEndY - offset - length
+                maxBounds.getBottom() - offset - length
             ])
             paths.push([
                 'BOTTOM',
                 itemStartX,
-                maxEndY - offset,
+                maxBounds.getBottom() - offset,
                 itemStartX,
-                maxEndY - offset - length
+                maxBounds.getBottom() - offset - length
             ])
         }
         if (leftCheck.value) {
             paths.push([
                 'LEFT',
-                maxStartX - offset,
+                maxBounds.getLeft() - offset,
                 itemEndY,
-                maxStartX - offset - length,
+                maxBounds.getLeft() - offset - length,
                 itemEndY
             ])
             paths.push([
                 'LEFT',
-                maxStartX - offset,
+                maxBounds.getLeft() - offset,
                 itemStartY,
-                maxStartX - offset - length,
+                maxBounds.getLeft() - offset - length,
                 itemStartY
             ])
         }

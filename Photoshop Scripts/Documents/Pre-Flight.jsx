@@ -1,6 +1,6 @@
 /*
 <javascriptresource>
-<name>Pre-Flight All</name>
+<name>Pre-Flight</name>
 <category>4</category>
 <enableinfo>true</enableinfo>
 </javascriptresource>

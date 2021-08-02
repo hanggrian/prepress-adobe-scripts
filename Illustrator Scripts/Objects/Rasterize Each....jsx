@@ -3,7 +3,7 @@
 
 var COLOR_MODELS = ['Default', 'Grayscale', 'Bitmap']
 
-var BOUNDS_TEXT = [100, 21]
+var BOUNDS_TEXT = [80, 21]
 var BOUNDS_EDIT = [200, 21]
 var BOUNDS_EDIT_SMALL = [70, 21]
 
