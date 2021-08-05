@@ -1,4 +1,4 @@
-require('../.stdlib/rectangles.js')
+require('../.stdlib/bounds.js')
 var assert = require('./assert.js')
 
 var equalTo = function() {

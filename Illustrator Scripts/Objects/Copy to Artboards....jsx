@@ -19,63 +19,68 @@ var activeArtboardIndex = document.artboards.getActiveArtboardIndex()
 var activeArtboard = document.artboards[activeArtboardIndex]
 var activeArtboardRect = activeArtboard.artboardRect
 
-check(selection.all(function(it) { return it.geometricBounds.isWithin(activeArtboardRect) }), 'Selected item is out of active artboard')
+var proceed = true
+if (!selection.all(function(it) { return it.geometricBounds.isWithin(activeArtboardRect) })) {
+    proceed = confirm('Selected items are out of active artboard. Would you like to continue?')
+}
 
-var relativePositions = selection.map(function(it) {
-    var bounds = it.geometricBounds
-    var relativeLeft = bounds.getLeft() - activeArtboardRect.getLeft()
-    var relativeRight = activeArtboardRect.getRight() - bounds.getRight() + bounds.getWidth()
-    var relativeTop = bounds.getTop() - activeArtboardRect.getTop()
-    var relativeBottom = activeArtboardRect.getBottom() - bounds.getBottom() - bounds.getHeight()
-    return [relativeLeft, relativeTop, relativeRight, relativeBottom]
-})
+if (proceed) {
+    var relativePositions = selection.map(function(it) {
+        var bounds = it.geometricBounds
+        var relativeLeft = bounds.getLeft() - activeArtboardRect.getLeft()
+        var relativeRight = activeArtboardRect.getRight() - bounds.getRight() + bounds.getWidth()
+        var relativeTop = bounds.getTop() - activeArtboardRect.getTop()
+        var relativeBottom = activeArtboardRect.getBottom() - bounds.getBottom() - bounds.getHeight()
+        return [relativeLeft, relativeTop, relativeRight, relativeBottom]
+    })
 
-var dialog = new Dialog('Copy to Artboards')
-var rangeGroup, anchorList
+    var dialog = new Dialog('Copy to Artboards')
+    var rangeGroup, anchorList
 
-dialog.vgroup(function(main) {
-    main.hgroup(function(group) {
-        group.tips('Which artboards to paste')
-        group.staticText(BOUNDS_TEXT, 'Artboards:').also(JUSTIFY_RIGHT)
-        rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
-            it.maxRange = document.artboards.length
-            it.endEdit.text = document.artboards.length
-            it.startEdit.activate()
+    dialog.vgroup(function(main) {
+        main.hgroup(function(group) {
+            group.tips('Which artboards to paste')
+            group.staticText(BOUNDS_TEXT, 'Artboards:').also(JUSTIFY_RIGHT)
+            rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
+                it.maxRange = document.artboards.length
+                it.endEdit.text = document.artboards.length
+                it.startEdit.activate()
+            })
+        })
+        main.hgroup(function(group) {
+            group.tips('Only relevant on artboard with different size than active artboard')
+            group.staticText(BOUNDS_TEXT, 'Anchor:').also(JUSTIFY_RIGHT)
+            anchorList = group.dropDownList(BOUNDS_EDIT, ANCHORS).also(function(it) {
+                it.selectText('Top Left')
+            })
         })
     })
-    main.hgroup(function(group) {
-        group.tips('Only relevant on artboard with different size than active artboard')
-        group.staticText(BOUNDS_TEXT, 'Anchor:').also(JUSTIFY_RIGHT)
-        anchorList = group.dropDownList(BOUNDS_EDIT, ANCHORS).also(function(it) {
-            it.selectText('Top Left')
-        })
-    })
-})
-dialog.setCancelButton('Cancel')
-dialog.setOKButton(function() {
-    var readOnlySelection = selection
-    document.artboards.forEach(function(artboard, artboardIndex) {
-        if (artboardIndex === activeArtboardIndex || !rangeGroup.includes(artboardIndex)) {
-            $.writeln(activeArtboardIndex + '. Ignore active artboard')
-            return
-        }
-        var artboardRect = artboard.artboardRect
-        readOnlySelection.forEach(function(item, itemIndex) {
-            var relativePosition = relativePositions[itemIndex]
-            var x, y
-            if (anchorList.selection.text.endsWith('Left')) {
-                x = artboardRect.getLeft() + relativePosition.getLeft()
-            } else {
-                x = artboardRect.getRight() - relativePosition.getRight()
+    dialog.setCancelButton('Cancel')
+    dialog.setOKButton(function() {
+        var readOnlySelection = selection
+        document.artboards.forEach(function(artboard, artboardIndex) {
+            if (artboardIndex === activeArtboardIndex || !rangeGroup.includes(artboardIndex)) {
+                $.writeln(activeArtboardIndex + '. Ignore active artboard')
+                return
             }
-            if (anchorList.selection.text.startsWith('Top')) {
-                y = artboardRect.getTop() + relativePosition.getTop()
-            } else {
-                y = artboardRect.getBottom() - relativePosition.getBottom()
-            }
-            item.duplicate(document, ElementPlacement.PLACEATEND).position = [x, y]
-            $.writeln(artboardIndex + '. ' + 'Position X=' + x + ' Y=' + y)
+            var artboardRect = artboard.artboardRect
+            readOnlySelection.forEach(function(item, itemIndex) {
+                var relativePosition = relativePositions[itemIndex]
+                var x, y
+                if (anchorList.selection.text.endsWith('Left')) {
+                    x = artboardRect.getLeft() + relativePosition.getLeft()
+                } else {
+                    x = artboardRect.getRight() - relativePosition.getRight()
+                }
+                if (anchorList.selection.text.startsWith('Top')) {
+                    y = artboardRect.getTop() + relativePosition.getTop()
+                } else {
+                    y = artboardRect.getBottom() - relativePosition.getBottom()
+                }
+                item.duplicate(document, ElementPlacement.PLACEATEND).position = [x, y]
+                $.writeln(artboardIndex + '. ' + 'Position X=' + x + ' Y=' + y)
+            })
         })
     })
-})
-dialog.show()
+    dialog.show()
+}
