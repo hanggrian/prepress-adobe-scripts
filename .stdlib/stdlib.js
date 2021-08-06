@@ -24,8 +24,8 @@
 #include 'sui/base/parent-tabbedpanel.js'
 #include 'sui/about.js'
 #include 'sui/anchor.js'
-#include 'sui/dialog.js'
-#include 'sui/internal.js'
+#include 'sui/dialogs.js'
+#include 'sui/internals.js'
 
 #include 'text/string-builder.js'
 #include 'text/strings.js'

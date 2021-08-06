@@ -151,3 +151,60 @@ function Dialog(title) {
         })
     }
 }
+
+/**
+ * Construct a new progress dialog.
+ * @param {Number} stop final value of progress bar.
+ */
+function ProgressDialog(stop) {
+    var self = this
+    this.statusText, this.countText, this.progressBar
+
+    var window = new Window('palette', 'Please Wait')
+    window.orientation = 'column'
+
+    this.labels = window.add('group').also(function(group) {
+        group.orientation = 'row'
+        self.statusText = group.staticText([150, 21])
+        self.countText = group.staticText([50, 21], '0/' + stop)
+    })
+    this.progressBar = window.add('progressbar', [0, 0, 200, 21], 0, stop)
+
+    var count = 0
+
+    /** Manually set dialog's title. */
+    this.setTitle = function(title) {
+        window.text = title
+    }
+
+    /** Retrieves dialog's title. */
+    this.getTitle = function() {
+        return window.text
+    }
+
+    /** Add progression to dialog with optional status. */
+    this.increment = function(status) {
+        count++
+        if (status !== undefined) {
+            self.statusText.text = status
+        }
+        self.countText.text = count + '/' + stop
+        self.progressBar.value = count
+        window.update()
+    }
+
+    /** Show the dialog. */
+    this.show = function() {
+		window.show()
+    }
+
+    /** Manually close the dialog. */
+    this.close = function() {
+        window.close()
+    }
+
+    /** Update UI. */
+    this.update = function() {
+        window.update()
+    }
+}
