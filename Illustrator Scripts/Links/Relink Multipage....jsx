@@ -44,7 +44,10 @@ if (files !== null && files.isNotEmpty()) {
     dialog.setOKButton(function() {
         var current = rangeGroup.getStart()
         var end = rangeGroup.getEnd()
+
+        var progress = new ProgressDialog(items.length)
         orderByGroup.forEach(items, function(item, i) {
+            progress.increment()
             $.write(i + '. ')
             var width = item.width
             var height = item.height
@@ -67,6 +70,7 @@ if (files !== null && files.isNotEmpty()) {
             }
             $.writeln('Done')
         })
+        progress.setStatus('Linking files')
         selection = items
     })
     dialog.show()

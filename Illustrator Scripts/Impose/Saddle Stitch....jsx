@@ -45,6 +45,7 @@ if (files !== null && files.isNotEmpty()) {
         var start = pagesPanel.rangeGroup.getStart()
         var end = pagesPanel.rangeGroup.getEnd()
         var pages = pagesPanel.rangeGroup.getLength()
+        var artboards = pages / 2
         var width = pagesPanel.getWidth()
         var height = pagesPanel.getHeight()
         var bleed = pagesPanel.getBleed()
@@ -52,19 +53,20 @@ if (files !== null && files.isNotEmpty()) {
         if (pages % 4 !== 0) {
             errorWithAlert('Pages must be divisible by 4')
         }
-
         var document = documentPanel.open('Untitled-Saddle Stitch',
-            pages / 2,
+            artboards,
             width * 2,
             height,
             bleed)
         var pager = new SaddleStitchPager(document, start, end, rtlCheck.value)
+
+        var progress = new ProgressDialog(artboards, 'Creating artboards')
         pager.forEachArtboard(function(artboard, leftIndex, rightIndex) {
+            progress.increment()
             var item1 = document.placedItems.add()
             var item2 = document.placedItems.add()
             item1.file = collection.get(leftIndex)
             item2.file = collection.get(rightIndex)
-            var rect = artboard.artboardRect
             var x1 = artboard.artboardRect.getLeft()
             var x2 = x1 + width
             var y = artboard.artboardRect.getTop()
@@ -98,6 +100,7 @@ if (files !== null && files.isNotEmpty()) {
                 group2.clipped = true
             }
         })
+        progress.setStatus('Linking files')
     })
     dialog.show()
 }

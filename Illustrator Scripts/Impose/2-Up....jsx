@@ -47,6 +47,7 @@ if (files !== null && files.isNotEmpty()) {
     dialog.setOKButton(function() {
         var start = pagesPanel.rangeGroup.getStart()
         var pages = pagesPanel.rangeGroup.getLength()
+        var artboards = pages / 2
         var width = pagesPanel.getWidth()
         var height = pagesPanel.getHeight()
         var bleed = pagesPanel.getBleed()
@@ -57,16 +58,18 @@ if (files !== null && files.isNotEmpty()) {
         if (pages % pagesDivisor !== 0) {
             errorWithAlert('Pages must be divisible by ' + pagesDivisor)
         }
-
         var document = documentPanel.open('Untitled-2-Up',
-            pages / 2,
+            artboards,
             (rotatedWidth + bleed * 2) * 2,
             (rotatedHeight + bleed * 2),
             0)
         var pager = duplexCheck.value
             ? new TwoUpDuplexPager(document, start)
             : new TwoUpSimplexPager(document, start)
+
+        var progress = new ProgressDialog(artboards, 'Creating artboards')
         pager.forEachArtboard(function(artboard, leftIndex, rightIndex) {
+            progress.increment()
             var item1 = document.placedItems.add()
             var item2 = document.placedItems.add()
             item1.file = collection.get(leftIndex)
@@ -100,6 +103,7 @@ if (files !== null && files.isNotEmpty()) {
                 guide2.guides = true
             }
         })
+        progress.setStatus('Linking files')
     })
     dialog.show()
 }

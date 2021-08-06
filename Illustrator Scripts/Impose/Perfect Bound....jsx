@@ -44,6 +44,7 @@ if (files !== null && files.isNotEmpty()) {
     dialog.setOKButton(function() {
         var start = pagesPanel.rangeGroup.getStart()
         var pages = pagesPanel.rangeGroup.getLength()
+        var artboards = pages
         var width = pagesPanel.getWidth()
         var height = pagesPanel.getHeight()
         var bleed = pagesPanel.getBleed()
@@ -51,12 +52,15 @@ if (files !== null && files.isNotEmpty()) {
         var rotatedHeight = !rotateCheck.value ? height : width
 
         var document = documentPanel.open('Untitled-Perfect Bound',
-            pages,
+            artboards,
             rotatedWidth,
             rotatedHeight,
             bleed)
         var pager = new PerfectBoundPager(document, start)
+
+        var progress = new ProgressDialog(artboards, 'Creating artboards')
         pager.forEachArtboard(function(artboard, index) {
+            progress.increment()
             var item = document.placedItems.add()
             item.file = collection.get(index)
             var x = artboard.artboardRect.getLeft()
@@ -68,6 +72,7 @@ if (files !== null && files.isNotEmpty()) {
             }
             item.position = [x - bleed, y + bleed]
         })
+        progress.setStatus('Linking files')
     })
     dialog.show()
 }
