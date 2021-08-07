@@ -103,5 +103,5 @@ function openFile(prompt, filters, multiSelect) {
         }
         $.writeln('Native filters = ' + nativeFilters)
     }
-    return File.openDialog(prompt, nativeFilters, multiSelect === undefined ? false : multiSelect)
+    return File.openDialog(prompt, nativeFilters, multiSelect || false)
 }

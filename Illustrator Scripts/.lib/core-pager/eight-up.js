@@ -3,7 +3,7 @@
  * @param {Number} start first page to open, the first and default is 0.
  */
 function EightUpSimplexPager(document, start) {
-    var _current = start !== undefined ? start : 0
+    var _current = start || 0
 
     this.forEachArtboard = function(action) {
         document.artboards.forEach(function(artboard) {
@@ -29,7 +29,7 @@ function EightUpSimplexPager(document, start) {
  * @param {Number} start first page to open, the first and default is 0.
  */
 function EightUpDuplexPager(document, start) {
-    var _current = start !== undefined ? start : 0
+    var _current = start || 0
     var _isFront = true
 
     this.forEachArtboard = function(action) {

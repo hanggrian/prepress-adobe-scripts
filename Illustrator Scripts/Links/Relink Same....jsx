@@ -41,7 +41,9 @@ if (file !== null) {
             preferences.setPDFPage(page)
         }
 
-        var progress = new ProgressDialog(items.length)
+        var progress = new ProgressDialog(items.length, file.isPDF()
+            ? 'Linking page {0}'.format(page)
+            : 'Linking file {0}'.format(unescape(file.name)))
         items.forEach(function(item, i) {
             progress.increment()
             $.write(i + '. ')
@@ -61,7 +63,6 @@ if (file !== null) {
             }
             $.writeln('Done')
         })
-        progress.setStatus('Linking files')
         selection = items
     })
     dialog.show()

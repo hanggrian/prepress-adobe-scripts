@@ -1,3 +1,9 @@
+/*
+<javascriptresource>
+<menu>hide</menu>
+</javascriptresource>
+*/
+
 function SaveFilePanel(parent, textBounds, extension) {
     var self = this
     this.fileTimestampCheck, this.fileExtensionCheck

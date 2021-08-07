@@ -73,3 +73,13 @@ var trim = function() {
     var s = '  Hello World  '
     assert.assertEquals('Hello World', s.trim())
 }()
+
+var format = function() {
+    var s = "Hi, my name is {0}, I'm a {0}"
+    assertEquals("Hi, my name is Hendra, I'm a potato", s.format('Hendra', 'potato'))
+}()
+
+var formatArr = function() {
+    var s = "Hi, my name is {0}, I'm a {0}"
+    assertEquals("Hi, my name is Hendra, I'm a potato", s.formatArr(['Hendra', 'potato']))
+}()

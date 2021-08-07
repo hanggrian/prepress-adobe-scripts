@@ -45,17 +45,19 @@ if (files !== null && files.isNotEmpty()) {
         var current = rangeGroup.getStart()
         var end = rangeGroup.getEnd()
 
-        var progress = new ProgressDialog(items.length)
+        var progress = new ProgressDialog(items.length, 'Linking files')
         orderByGroup.forEach(items, function(item, i) {
-            progress.increment()
             $.write(i + '. ')
             var width = item.width
             var height = item.height
             var position = item.position
             var file = collection.get(current)
             if (file.isPDF() && item.isFileExists() && item.file.isPDF()) {
+                progress.increment('Linking page {0}', current)
                 $.write('Appling PDF fix, ')
                 item.file = getResource('relink_fix.png')
+            } else {
+                progress.increment('Linking file {0}', unescape(file.name))
             }
             item.file = file
             current++
@@ -70,7 +72,6 @@ if (files !== null && files.isNotEmpty()) {
             }
             $.writeln('Done')
         })
-        progress.setStatus('Linking files')
         selection = items
     })
     dialog.show()

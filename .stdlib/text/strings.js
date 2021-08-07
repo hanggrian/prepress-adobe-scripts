@@ -101,3 +101,17 @@ String.prototype.trimEnd = function() {
 String.prototype.trim = function() {
     return this.trimStart().trimEnd()
 }
+
+String.prototype.format = function() { return _formatString(this, arguments) }
+
+String.prototype.formatArr = function(arr) { return _formatString(this, arr) }
+
+// https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
+function _formatString(s, args) {
+    var formatted = s
+    for (var i = 0; i < args.length; i++) {
+        var regexp = new RegExp('\\{'+i+'\\}', 'gi')
+        formatted = formatted.replace(regexp, args[i])
+    }
+    return formatted
+}

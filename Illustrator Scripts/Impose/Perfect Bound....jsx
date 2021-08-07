@@ -60,7 +60,7 @@ if (files !== null && files.isNotEmpty()) {
 
         var progress = new ProgressDialog(artboards, 'Creating artboards')
         pager.forEachArtboard(function(artboard, index) {
-            progress.increment()
+            progress.increment('Imposing page {0}', index)
             var item = document.placedItems.add()
             item.file = collection.get(index)
             var x = artboard.artboardRect.getLeft()
@@ -72,7 +72,6 @@ if (files !== null && files.isNotEmpty()) {
             }
             item.position = [x - bleed, y + bleed]
         })
-        progress.setStatus('Linking files')
     })
     dialog.show()
 }

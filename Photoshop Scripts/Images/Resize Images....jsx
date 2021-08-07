@@ -50,7 +50,10 @@ dialog.setOKButton(function() {
     var height = new UnitValue(heightEdit.text)
     var resolution = parseInt(resolutionEdit.text)
     var resample = getResample()
+
+    var progress = new ProgressDialog(app.documents.length, 'Resizing')
     for (var i = 0; i < app.documents.length; i++) {
+        progress.increment()
         var document = app.documents[i]
         app.activeDocument = document
         document.resizeImage(width, height, resolution, resample)

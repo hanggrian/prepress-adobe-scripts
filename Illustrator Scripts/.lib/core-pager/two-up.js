@@ -3,7 +3,7 @@
  * @param {Number} start first page to open, the first and default is 0.
  */
 function TwoUpSimplexPager(document, start) {
-    var _current = start !== undefined ? start : 0
+    var _current = start || 0
 
     this.forEachArtboard = function(action) {
         document.artboards.forEach(function(artboard) {
@@ -21,7 +21,7 @@ function TwoUpSimplexPager(document, start) {
  * @param {Number} start first page to open, the first and default is 0.
  */
 function TwoUpDuplexPager(document, start) {
-    var _current = start !== undefined ? start : 0
+    var _current = start || 0
     var _isFront = true
 
     this.forEachArtboard = function(action) {

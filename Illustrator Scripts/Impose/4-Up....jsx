@@ -71,7 +71,7 @@ if (files !== null && files.isNotEmpty()) {
         pager.forEachArtboard(function(artboard,
             topLeftIndex, topRightIndex,
             bottomLeftIndex, bottomRightIndex) {
-            progress.increment()
+            progress.increment('Imposing page {0} to {1}', topLeftIndex, bottomRightIndex)
             var topItem1 = document.placedItems.add()
             var topItem2 = document.placedItems.add()
             var bottomItem1 = document.placedItems.add()
@@ -126,7 +126,6 @@ if (files !== null && files.isNotEmpty()) {
                 bottomGuide2.guides = true
             }
         })
-        progress.setStatus('Linking files')
     })
     dialog.show()
 }

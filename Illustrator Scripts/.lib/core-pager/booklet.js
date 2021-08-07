@@ -3,7 +3,7 @@
  * @param {Number} start first page to open, the first and default is 0.
  */
 function PerfectBoundPager(document, start) {
-    var _current = start !== undefined ? start : 0
+    var _current = start || 0
 
     this.forEachArtboard = function(action) {
         document.artboards.forEach(function(artboard) {
@@ -20,9 +20,9 @@ function PerfectBoundPager(document, start) {
  * @param {Boolean} isRtl useful for arabic layout, default is false.
  */
 function SaddleStitchPager(document, start, end, isRtl) {
-    var _start = start !== undefined ? start : 0
-    var _end = end === undefined ? document.artboards.length * 2 - 1 : end
-    var _isRtl = isRtl === undefined ? false : isRtl
+    var _start = start || 0
+    var _end = end || document.artboards.length * 2 - 1
+    var _isRtl = isRtl || false
     var _isFront = true
 
     this.forEachArtboard = function(action) {

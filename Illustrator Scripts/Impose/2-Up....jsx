@@ -67,9 +67,10 @@ if (files !== null && files.isNotEmpty()) {
             ? new TwoUpDuplexPager(document, start)
             : new TwoUpSimplexPager(document, start)
 
-        var progress = new ProgressDialog(artboards, 'Creating artboards')
-        pager.forEachArtboard(function(artboard, leftIndex, rightIndex) {
-            progress.increment()
+        var progress = new ProgressDialog(artboards)
+        pager.forEachArtboard(function(artboard,
+            leftIndex, rightIndex) {
+            progress.increment('Imposing page {0} to {1}', leftIndex, rightIndex)
             var item1 = document.placedItems.add()
             var item2 = document.placedItems.add()
             item1.file = collection.get(leftIndex)
@@ -103,7 +104,6 @@ if (files !== null && files.isNotEmpty()) {
                 guide2.guides = true
             }
         })
-        progress.setStatus('Linking files')
     })
     dialog.show()
 }

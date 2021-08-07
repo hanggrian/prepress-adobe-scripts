@@ -150,7 +150,7 @@ function Dialog(title) {
 /**
  * Construct a new progress dialog.
  * @param {Number} stop final value of progress bar.
- * @param {String} status message to display.
+ * @param {String} status message to display, may be null.
  */
 function ProgressDialog(stop, status) {
     var self = this
@@ -161,24 +161,23 @@ function ProgressDialog(stop, status) {
 
     this.texts = window.add('group').also(function(group) {
         group.orientation = 'row'
-        self.statusText = group.staticText([225, 21]).also(JUSTIFY_LEFT)
+        self.statusText = group.staticText([325, 21], (status || 'Please wait') + '...').also(JUSTIFY_LEFT)
         self.countText = group.staticText([75, 21], '0/' + stop).also(JUSTIFY_RIGHT)
     })
-    this.progressBar = window.add('slider', [0, 0, 300, 21], 0, 0, stop) // progressbar won't update in palette, use slider instead
-
-    /** Set status message, may be null. */
-    this.setStatus = function(status) {
-        if (status !== undefined) {
-            self.statusText.text = status + '...'
-        }
-    }
+    this.progressBar = window.add('slider', [0, 0, 400, 21], 0, 0, stop) // progressbar won't update in palette, use slider instead
 
     /** Add progression to dialog with optional status. */
-    this.increment = function(status) {
-        self.setStatus(status)
+    this.increment = function() {
+        if (arguments.isNotEmpty()) {
+            self.statusText.text = arguments.first().formatArr(Array.prototype.slice.call(arguments, 1)) + '...'
+        }
         self.progressBar.value++
         self.countText.text = self.progressBar.value + '/' + stop
-        window.update()
+        if (self.progressBar.value < stop) {
+            window.update()
+        } else {
+            window.close()
+        }
     }
 
     /** Show the dialog. */
@@ -207,7 +206,5 @@ function ProgressDialog(stop, status) {
         return [window.location[0], window.location[1]]
     }
 
-    // show dialog on creation
-    this.show()
-    this.setStatus(status || 'Please wait')
+    this.show() // show dialog on creation
 }

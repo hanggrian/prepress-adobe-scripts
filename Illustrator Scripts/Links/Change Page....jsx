@@ -35,7 +35,7 @@ dialog.setOKButton(function() {
 
     var progress = new ProgressDialog(items.length)
     orderByGroup.forEach(items, function(item, i) {
-        progress.increment()
+        progress.increment('Linking page {0}', current)
         $.write(i + '. ')
         var width = item.width
         var height = item.height
@@ -56,7 +56,6 @@ dialog.setOKButton(function() {
         }
         $.writeln('Done')
     })
-    progress.setStatus('Linking files')
     selection = items
 })
 dialog.show()

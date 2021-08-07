@@ -6,9 +6,7 @@
  */
 function check(requirement, errorMessage) {
     if (!requirement) {
-        error(errorMessage !== undefined
-            ? errorMessage
-            : 'Failed requirement')
+        error(errorMessage || 'Failed requirement')
     }
 }
 
