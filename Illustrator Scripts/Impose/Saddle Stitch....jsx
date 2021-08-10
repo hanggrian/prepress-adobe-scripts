@@ -40,8 +40,8 @@ if (files !== null && files.isNotEmpty()) {
             })
         })
     })
-    dialog.setCancelButton('Cancel')
-    dialog.setOKButton(function() {
+    dialog.setCancelButton()
+    dialog.setDefaultButton(undefined, function() {
         var start = pagesPanel.rangeGroup.getStart()
         var end = pagesPanel.rangeGroup.getEnd()
         var pages = pagesPanel.rangeGroup.getLength()

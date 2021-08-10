@@ -40,8 +40,8 @@ if (files !== null && files.isNotEmpty()) {
             })
         })
     })
-    dialog.setCancelButton('Cancel')
-    dialog.setOKButton(function() {
+    dialog.setCancelButton()
+    dialog.setDefaultButton(undefined, function() {
         var start = pagesPanel.rangeGroup.getStart()
         var pages = pagesPanel.rangeGroup.getLength()
         var artboards = pages

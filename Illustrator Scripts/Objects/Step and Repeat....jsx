@@ -50,8 +50,8 @@ dialog.vgroup(function(main) {
         })
     })
 })
-dialog.setCancelButton('Cancel')
-dialog.setOKButton(function() {
+dialog.setCancelButton()
+dialog.setDefaultButton(undefined, function() {
     var horizontal = parseInt(horizontalEdit.text) || 0
     var vertical = parseInt(verticalEdit.text) || 0
     var moveHorizontal = parseUnits(moveHorizontalEdit.text)

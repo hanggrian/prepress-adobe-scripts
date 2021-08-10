@@ -48,8 +48,8 @@ dialog.vgroup(function(main) {
         }
     })
 })
-dialog.setCancelButton('Cancel')
-dialog.setOKButton(function() {
+dialog.setCancelButton()
+dialog.setDefaultButton(undefined, function() {
     var w = parseUnits(widthEdit.text)
     var h = parseUnits(heightEdit.text)
     if (w > 0 && h > 0) {

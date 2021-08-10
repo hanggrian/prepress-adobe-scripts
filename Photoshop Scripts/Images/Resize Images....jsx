@@ -44,8 +44,8 @@ dialog.vgroup(function(main) {
         })
     })
 })
-dialog.setCancelButton('Cancel')
-dialog.setOKButton(function() {
+dialog.setCancelButton()
+dialog.setDefaultButton(undefined, function() {
     var width = new UnitValue(widthEdit.text)
     var height = new UnitValue(heightEdit.text)
     var resolution = parseInt(resolutionEdit.text)

@@ -78,8 +78,8 @@ dialog.hgroup(function(main) {
         })
     })
 })
-dialog.setCancelButton('Cancel')
-dialog.setOKButton(function() {
+dialog.setCancelButton()
+dialog.setDefaultButton(undefined, function() {
     var fillColor = fillColorList.hasSelection() ? parseColor(fillColorList.selection.text) : undefined
     var fillOverprint = fillOverprintList.hasSelection() ? fillOverprintList.selection.text === 'Yes' : undefined
     var strokeColor = strokeColorList.hasSelection() ? parseColor(strokeColorList.selection.text) : undefined

@@ -62,8 +62,8 @@ dialog.vgroup(function(main) {
         group.list.selectText('Reversed')
     })
 })
-dialog.setCancelButton('Cancel')
-dialog.setOKButton(function() {
+dialog.setCancelButton()
+dialog.setDefaultButton(undefined, function() {
     var startsAt = parseInt(startsAtEdit.text) || 0
     var digits = parseInt(digitsEdit.text) || 0
     var stopsAt, stopsCount

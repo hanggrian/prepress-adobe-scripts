@@ -77,10 +77,10 @@ dialog.hgroup(function(main) {
         })
     })
 })
-dialog.setCancelButton('Close')
-dialog.setOKButton(function() { process(true) })
+dialog.setCancelButton()
+dialog.setDefaultButton('Full-Size', function() { process(true) })
 dialog.setYesButton('Half-Size', function() { process(false) })
-dialog.setHelpButton('Help', showHelp)
+dialog.setHelpButton(undefined, showHelp)
 dialog.show()
 
 function process(isFull) {
@@ -212,7 +212,7 @@ function showHelp() {
     dialog.hgroup(function(main) {
         main.image(undefined, 'dieline_paperbag.png')
     })
-    dialog.setCancelButton('Close')
+    dialog.setCancelButton()
     dialog.show()
     return true
 }

@@ -40,8 +40,8 @@ dialog.vgroup(function(main) {
     })
     saveDirectoryGroup = new SaveDirectoryGroup(main, [320, 21])
 })
-dialog.setCancelButton('Cancel')
-dialog.setOKButton(function() {
+dialog.setCancelButton()
+dialog.setDefaultButton(undefined, function() {
     process(document)
     saveDirectoryGroup.browse()
 })

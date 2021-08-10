@@ -57,8 +57,8 @@ dialog.hgroup(function(main) {
         })
     })
 })
-dialog.setCancelButton('Cancel')
-dialog.setOKButton(function() {
+dialog.setCancelButton()
+dialog.setDefaultButton(undefined, function() {
     var width = dimensionPanel.getWidth()
     var height = dimensionPanel.getHeight()
     var colorSpace

@@ -44,8 +44,8 @@ dialog.vgroup(function(main) {
     })
     saveDirectoryGroup = new SaveDirectoryGroup(main, [600, 21])
 })
-dialog.setCancelButton('Cancel')
-dialog.setOKButton('OK', function() {
+dialog.setCancelButton()
+dialog.setDefaultButton(undefined, function() {
     var options = new PrintJobOptions()
 })
 dialog.show()

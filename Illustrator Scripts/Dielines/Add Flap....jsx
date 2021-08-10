@@ -124,8 +124,8 @@ dialog.hgroup(function(main) {
         }
     })
 })
-dialog.setCancelButton('Close')
-dialog.setOKButton(function() {
+dialog.setCancelButton()
+dialog.setDefaultButton(undefined, function() {
     var length = parseUnits(lengthEdit.text)
     var weight = parseUnits(weightEdit.text)
     var color = parseColor(colorList.selection.text)
@@ -145,7 +145,7 @@ dialog.setOKButton(function() {
     }
     selection = [path]
 })
-dialog.setHelpButton('Help', showHelp)
+dialog.setHelpButton(undefined, showHelp)
 dialog.show()
 
 function processGlue(length, path) {
@@ -264,7 +264,7 @@ function showHelp() {
         })
         main.image(undefined, 'dieline_dustflap.png')
     })
-    dialog.setCancelButton('Close')
+    dialog.setCancelButton()
     dialog.show()
     return true
 }

@@ -28,8 +28,8 @@ dialog.vgroup(function(main) {
     })
     maintainSizeGroup = new MaintainSizeGroup(main)
 })
-dialog.setCancelButton('Cancel')
-dialog.setOKButton(function() {
+dialog.setCancelButton()
+dialog.setDefaultButton(undefined, function() {
     var current = rangeGroup.getStart()
     var end = rangeGroup.getEnd()
 

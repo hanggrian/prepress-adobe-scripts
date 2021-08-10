@@ -64,8 +64,8 @@ dialog.hgroup(function(main) {
         })
     })
 })
-dialog.setCancelButton('Cancel')
-dialog.setOKButton(function() {
+dialog.setCancelButton()
+dialog.setDefaultButton(undefined, function() {
     preferences.setBoolean('Links', placedCheck.value, dialog)
     preferences.setBoolean('Non-Native Arts', nonNativeCheck.value, dialog)
     preferences.setBoolean('Images', rasterCheck.value, dialog)

@@ -12,7 +12,7 @@ dialog.vgroup(function(main) {
     })
     new AboutTabbedPanel(main, clientDate)
 })
-dialog.setCancelButton('Close')
+dialog.setCancelButton()
 dialog.setHelpButton('Visit GitHub', function() {
     openURL('https://github.com/hendraanggrian/prepress-adobe-scripts')
 })

@@ -36,8 +36,8 @@ dialog.hgroup(function(main) {
         anchorGroup = new AnchorGroup(panel, true)
     })
 })
-dialog.setCancelButton('Cancel')
-dialog.setOKButton(function() {
+dialog.setCancelButton()
+dialog.setDefaultButton(undefined, function() {
     var width = new UnitValue(widthEdit.text)
     var height = new UnitValue(heightEdit.text)
     var anchor = anchorGroup.getAnchorPosition()

@@ -40,8 +40,8 @@ dialog.vgroup(function(main) {
         tiffCheck = panel.checkBox(undefined, getTypeString('TIFF', FILE_TIFF))
     })
 })
-dialog.setCancelButton('Cancel')
-dialog.setOKButton(function() {
+dialog.setCancelButton()
+dialog.setDefaultButton(undefined, function() {
     var width = dimensionPanel.getWidth()
     var height = dimensionPanel.getHeight()
     selectAll(['PlacedItem'], function(item) {

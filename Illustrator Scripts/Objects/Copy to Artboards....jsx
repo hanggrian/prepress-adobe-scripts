@@ -55,8 +55,8 @@ if (proceed) {
             })
         })
     })
-    dialog.setCancelButton('Cancel')
-    dialog.setOKButton(function() {
+    dialog.setCancelButton()
+    dialog.setDefaultButton(undefined, function() {
         var readOnlySelection = selection
         document.artboards.forEach(function(artboard, artboardIndex) {
             if (artboardIndex === activeArtboardIndex || !rangeGroup.includes(artboardIndex)) {

@@ -11,8 +11,8 @@ dialog.vgroup(function(main) {
         it.list.selectText('Horizontal')
     })
 })
-dialog.setCancelButton('Cancel')
-dialog.setOKButton(function() {
+dialog.setCancelButton()
+dialog.setDefaultButton(undefined, function() {
     var properties = []
     orderByGroup.forEach(document.artboards, function(it) {
         properties.push(copyProperties(it))

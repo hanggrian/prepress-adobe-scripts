@@ -28,7 +28,7 @@ function Dialog(title) {
         })
     })
 
-    var okButtonText, okButtonAction
+    var defaultButtonText, defaultButtonAction
     var yesButtonText, yesButtonAction
     var cancelButtonText, cancelButtonAction
     var helpButtonText, helpButtonAction
@@ -50,41 +50,42 @@ function Dialog(title) {
     }
 
     /**
-     * Set ok dialog button, the text will always be `OK`.
+     * Default button responds to pressing the Enter key.
+     * @param {String} text nullable button text.
      * @param {Function} action nullable button click listener, return true to keep dialog open.
      */
-    this.setOKButton = function(action) {
-        okButtonText = 'OK' // automatically marked as default button by SUI
-        okButtonAction = action
+    this.setDefaultButton = function(text, action) {
+        defaultButtonText = text || 'OK'
+        defaultButtonAction = action
     }
 
     /**
-     * Set yes dialog button.
-     * @param {String} text button text.
+     * Yes button is a secondary default button that sits beside it.
+     * @param {String} text nullable button text.
      * @param {Function} action nullable button click listener, return true to keep dialog open.
      */
     this.setYesButton = function(text, action) {
-        yesButtonText = checkNotNull(text)
+        yesButtonText = text || 'Yes'
         yesButtonAction = action
     }
 
     /**
-     * Set cancel dialog button.
-     * @param {String} text button text.
+     * Cancel button responds to pressing the Escape key.
+     * @param {String} text nullable button text.
      * @param {Function} action nullable button click listener, return true to keep dialog open.
      */
     this.setCancelButton = function(text, action) {
-        cancelButtonText = checkNotNull(text)
+        cancelButtonText = text || 'Cancel'
         cancelButtonAction = action
     }
 
     /**
-     * Set help dialog button.
-     * @param {String} text button text.
+     * Help button sits on the left side of the dialog.
+     * @param {String} text nullable button text.
      * @param {Function} action nullable button click listener, return true to keep dialog open.
      */
     this.setHelpButton = function(text, action) {
-        helpButtonText = checkNotNull(text)
+        helpButtonText = text || 'Help'
         helpButtonAction = action
     }
 
@@ -95,23 +96,23 @@ function Dialog(title) {
         }
         if (isMacOS()) {
             if (cancelButtonText !== undefined) {
-                self.cancelButton = appendButton(self.rightButtons, cancelButtonText, cancelButtonAction)
+                self.cancelButton = appendButton(self.rightButtons, cancelButtonText, cancelButtonAction, { name: 'cancel' })
             }
             if (yesButtonText !== undefined) {
                 self.yesButton = appendButton(self.rightButtons, yesButtonText, yesButtonAction)
             }
-            if (okButtonText !== undefined) {
-                self.okButton = appendButton(self.rightButtons, okButtonText, okButtonAction)
+            if (defaultButtonText !== undefined) {
+                self.okButton = appendButton(self.rightButtons, defaultButtonText, defaultButtonAction, { name: 'ok' })
             }
         } else {
             if (yesButtonText !== undefined) {
                 self.yesButton = appendButton(self.rightButtons, yesButtonText, yesButtonAction)
             }
-            if (okButtonText !== undefined) {
-                self.okButton = appendButton(self.rightButtons, okButtonText, okButtonAction)
+            if (defaultButtonText !== undefined) {
+                self.okButton = appendButton(self.rightButtons, defaultButtonText, defaultButtonAction, { name: 'ok' })
             }
             if (cancelButtonText !== undefined) {
-                self.cancelButton = appendButton(self.rightButtons, cancelButtonText, cancelButtonAction)
+                self.cancelButton = appendButton(self.rightButtons, cancelButtonText, cancelButtonAction, { name: 'cancel' })
             }
         }
 		window.show()
@@ -132,8 +133,8 @@ function Dialog(title) {
         return [window.location[0], window.location[1]]
     }
 
-    function appendButton(group, text, action) {
-        return group.button(undefined, text).also(function(it) {
+    function appendButton(group, text, action, properties) {
+        return group.button(undefined, text, properties).also(function(it) {
             it.onClick = function() {
                 var keepDialog
                 if (action !== undefined) {

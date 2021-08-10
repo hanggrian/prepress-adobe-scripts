@@ -37,7 +37,7 @@ dialog.vgroup(function(main) {
         topGroup.image(undefined, 'dieline_bottomlock.png')
     })
 })
-dialog.setCancelButton('Close')
-dialog.setOKButton(function() {
+dialog.setCancelButton()
+dialog.setDefaultButton(undefined, function() {
 })
 dialog.show()

@@ -73,8 +73,8 @@ dialog.vgroup(function(main) {
         })
     })
 })
-dialog.setCancelButton('Cancel')
-dialog.setOKButton(function() {
+dialog.setCancelButton()
+dialog.setDefaultButton(undefined, function() {
     process(function(action) {
         selection.forEach(action)
     })

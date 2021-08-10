@@ -59,8 +59,8 @@ dialog.vgroup(function(main) {
         group.staticText(undefined, 'Correction')
     })
 })
-dialog.setCancelButton('Cancel')
-dialog.setOKButton(function() {
+dialog.setCancelButton()
+dialog.setDefaultButton(undefined, function() {
     var bleeds = new UnitValue(bleedEdit.text) * 2
     var correction = parseUnits(correctionEdit.text)
 
