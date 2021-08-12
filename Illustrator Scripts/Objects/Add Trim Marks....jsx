@@ -148,9 +148,9 @@ dialog.setDefaultButton(undefined, function() {
     var weight = parseUnits(weightEdit.text)
     var color = parseColor(colorList.selection.text)
     var maxBounds = selection.getFarthestBounds()
-    selection = multipleTargetCheck.value
+    selection = selection.concat(multipleTargetCheck.value
         ? processMultiple(offset, length, weight, color, maxBounds)
-        : processSingle(offset, length, weight, color, maxBounds)
+        : processSingle(offset, length, weight, color, maxBounds))
 })
 dialog.show()
 

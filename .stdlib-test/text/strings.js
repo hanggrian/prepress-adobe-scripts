@@ -76,10 +76,10 @@ var trim = function() {
 
 var format = function() {
     var s = "Hi, my name is {0}, I'm a {1}."
-    assertEquals("Hi, my name is Hendra, I'm a Potato.", s.format('Hendra', 'Potato'))
+    assert.assertEquals("Hi, my name is Hendra, I'm a Potato.", s.format('Hendra', 'Potato'))
 }()
 
 var formatArr = function() {
     var s = "Hi, my name is {0}, I'm a {1}."
-    assertEquals("Hi, my name is Hendra, I'm a Potato.", s.formatArr(['Hendra', 'Potato']))
+    assert.assertEquals("Hi, my name is Hendra, I'm a Potato.", s.formatArr(['Hendra', 'Potato']))
 }()

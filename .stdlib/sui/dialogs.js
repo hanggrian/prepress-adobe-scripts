@@ -28,10 +28,10 @@ function Dialog(title) {
         })
     })
 
-    var defaultButtonText, defaultButtonAction
-    var yesButtonText, yesButtonAction
-    var cancelButtonText, cancelButtonAction
-    var helpButtonText, helpButtonAction
+    var defaultButtonText, defaultButtonAction, defaultButtonDisabled
+    var yesButtonText, yesButtonAction, yesButtonDisabled
+    var cancelButtonText, cancelButtonAction, cancelButtonDisabled
+    var helpButtonText, helpButtonAction, helpButtonDisabled
 
     /** Set main layout to horizontal. */
     this.hgroup = function(configuration) {
@@ -53,66 +53,74 @@ function Dialog(title) {
      * Default button responds to pressing the Enter key.
      * @param {String} text nullable button text.
      * @param {Function} action nullable button click listener, return true to keep dialog open.
+     * @param {Boolean} disabled nullable first state, set true to disable upon creation.
      */
-    this.setDefaultButton = function(text, action) {
+    this.setDefaultButton = function(text, action, disabled) {
         defaultButtonText = text || 'OK'
         defaultButtonAction = action
+        defaultButtonDisabled = disabled
     }
 
     /**
      * Yes button is a secondary default button that sits beside it.
      * @param {String} text nullable button text.
      * @param {Function} action nullable button click listener, return true to keep dialog open.
+     * @param {Boolean} disabled nullable first state, set true to disable upon creation.
      */
-    this.setYesButton = function(text, action) {
+    this.setYesButton = function(text, action, disabled) {
         yesButtonText = text || 'Yes'
         yesButtonAction = action
+        yesButtonDisabled = disabled
     }
 
     /**
      * Cancel button responds to pressing the Escape key.
      * @param {String} text nullable button text.
      * @param {Function} action nullable button click listener, return true to keep dialog open.
+     * @param {Boolean} disabled nullable first state, set true to disable upon creation.
      */
-    this.setCancelButton = function(text, action) {
+    this.setCancelButton = function(text, action, disabled) {
         cancelButtonText = text || 'Cancel'
         cancelButtonAction = action
+        cancelButtonDisabled = disabled
     }
 
     /**
      * Help button sits on the left side of the dialog.
      * @param {String} text nullable button text.
      * @param {Function} action nullable button click listener, return true to keep dialog open.
+     * @param {Boolean} disabled nullable first state, set true to disable upon creation.
      */
-    this.setHelpButton = function(text, action) {
+    this.setHelpButton = function(text, action, disabled) {
         helpButtonText = text || 'Help'
         helpButtonAction = action
+        helpButtonDisabled = disabled
     }
 
     /** Show the dialog, after populating buttons. */
     this.show = function() {
         if (helpButtonText !== undefined) {
-            self.helpButton = appendButton(self.leftButtons, helpButtonText, helpButtonAction)
+            self.helpButton = appendButton(self.leftButtons, helpButtonText, helpButtonAction, helpButtonDisabled)
         }
         if (isMacOS()) {
             if (cancelButtonText !== undefined) {
-                self.cancelButton = appendButton(self.rightButtons, cancelButtonText, cancelButtonAction, { name: 'cancel' })
+                self.cancelButton = appendButton(self.rightButtons, cancelButtonText, cancelButtonAction, cancelButtonDisabled, { name: 'cancel' })
             }
             if (yesButtonText !== undefined) {
-                self.yesButton = appendButton(self.rightButtons, yesButtonText, yesButtonAction)
+                self.yesButton = appendButton(self.rightButtons, yesButtonText, yesButtonAction, yesButtonDisabled)
             }
             if (defaultButtonText !== undefined) {
-                self.okButton = appendButton(self.rightButtons, defaultButtonText, defaultButtonAction, { name: 'ok' })
+                self.okButton = appendButton(self.rightButtons, defaultButtonText, defaultButtonAction, defaultButtonDisabled, { name: 'ok' })
             }
         } else {
             if (yesButtonText !== undefined) {
-                self.yesButton = appendButton(self.rightButtons, yesButtonText, yesButtonAction)
+                self.yesButton = appendButton(self.rightButtons, yesButtonText, yesButtonAction, yesButtonDisabled)
             }
             if (defaultButtonText !== undefined) {
-                self.okButton = appendButton(self.rightButtons, defaultButtonText, defaultButtonAction, { name: 'ok' })
+                self.okButton = appendButton(self.rightButtons, defaultButtonText, defaultButtonAction, defaultButtonDisabled, { name: 'ok' })
             }
             if (cancelButtonText !== undefined) {
-                self.cancelButton = appendButton(self.rightButtons, cancelButtonText, cancelButtonAction, { name: 'cancel' })
+                self.cancelButton = appendButton(self.rightButtons, cancelButtonText, cancelButtonAction, cancelButtonDisabled, { name: 'cancel' })
             }
         }
 		window.show()
@@ -133,9 +141,12 @@ function Dialog(title) {
         return [window.location[0], window.location[1]]
     }
 
-    function appendButton(group, text, action, properties) {
-        return group.button(undefined, text, properties).also(function(it) {
-            it.onClick = function() {
+    function appendButton(group, text, action, disabled, properties) {
+        return group.button(undefined, text, properties).also(function(button) {
+            if (disabled !== undefined && disabled) {
+                button.enabled = false
+            }
+            button.onClick = function() {
                 var keepDialog
                 if (action !== undefined) {
                     keepDialog = action()

@@ -94,7 +94,6 @@ dialog.setDefaultButton(undefined, function() {
             startsAt++
         }
     })
-    selection = items
 })
 dialog.show()
 

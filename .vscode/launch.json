@@ -5,8 +5,8 @@
             "type": "extendscript-debug",
             "request": "launch",
             "name": "prepress-adobe-scripts",
-            //"program": "${workspaceFolder}/Illustrator Scripts/Impose/2-Up....jsx",
-            "program": "${workspaceFolder}/Photoshop Scripts/Images/Resize Images....jsx",
+            "program": "${workspaceFolder}/Illustrator Scripts/Documents/Close....jsx",
+            //"program": "${workspaceFolder}/Photoshop Scripts/Images/Resize Images....jsx",
             "stopOnEntry": false
         }
     ]
