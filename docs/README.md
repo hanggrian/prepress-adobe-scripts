@@ -8,49 +8,6 @@ Prepress Adobe Scripts
 
 Essential Illustrator and Photoshop scripts for commercial printshop. While most of these scripts are general purpose, some are heavily prepress-focused like trim marks, dielines and imposition. Tested only on latest Adobe suite.
 
-[Illustrator Scripts](illustrator_scripts.md)
----------------------
-
-### Relink Same/Multipage
-
-![](images/ai_relink_multipage.gif)
-
-Relinking multiple items has always been a pain in the ass in Illustrator.
-
-|   | Relink | *Relink Same* | *Relink Multipage* |
-| - | :----: | :-----------: | :----------------: |
-| Operation | One-by-one | At once | At once |
-| Input file | Single PDF<br/>Single image | Single PDF<br/>Single image | Single PDF<br/>Multiple images<br/>Multiple PDFs & images
-| Ordering | Layer index | &cross; | Layer index<br/>X/Y position
-
-### Add Trim Marks
-
-![](images/ai_add_trim_marks.gif)
-
-Though natively supported with `Menubar > Object > Create Trim Marks`, they are extremely limited in configuration.
-
-|   | Create Trim Marks | *Add Trim Marks* |
-| - | :---------------: | :--------------: |
-| Trim marks around Clip Group | Content size | Clipping size |
-| Trim marks around Path | Stroke | Fill |
-| Customization | &cross; | &check; |
-| Multiple targets | &cross; | &check; |
-
-### Impose
-
-![](images/ai_impose.gif)
-
-Supports imposing `N-Up`, `Perfect Bound` and `Saddle Stitch`.
-
-[Photoshop Scripts](photoshop_scripts.md)
--------------------
-
-### Add Bleed
-
-![](images/psd_add_bleed.gif)
-
-Create a layout guide around image and distribute bleed to all documents.
-
 Install
 -------
 
