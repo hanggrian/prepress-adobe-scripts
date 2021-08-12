@@ -11,8 +11,8 @@ Essential Illustrator and Photoshop scripts for commercial printshop. While most
 Install
 -------
 
-![](images/scripts_menu_ai.png)
-![](images/scripts_menu_psd.png)
+![](images/menu_ai.png)
+![](images/menu_psd.png)
 
 These scripts are **not standalone**, all of them require hidden directories to be in pre-determined locations. This is why it is recommended to put them in Adobe installation paths, and access them from menu bar.
 
