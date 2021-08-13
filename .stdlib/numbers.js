@@ -21,6 +21,14 @@ Number.prototype.floor = function() {
 }
 
 /**
+ * Returns ceiled number.
+ * @returns {Number}
+ */
+Number.prototype.ceil = function() {
+    return Math.ceil(this)
+}
+
+/**
  * Returns true if this number is odd.
  * @returns {Boolean}
  */
