@@ -67,7 +67,7 @@ if (files !== null && files.isNotEmpty()) {
             ? new EightUpDuplexPager(document, start)
             : new EightUpSimplexPager(document, start)
 
-        var progress = new ProgressDialog(artboards, 'Creating artboards')
+        var progress = new ProgressPalette(artboards, 'Creating artboards')
         pager.forEachArtboard(function(artboard,
             top1Index, top2Index, top3Index, top4Index,
             bottom1Index, bottom2Index, bottom3Index, bottom4Index) {

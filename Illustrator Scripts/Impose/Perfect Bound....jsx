@@ -58,7 +58,7 @@ if (files !== null && files.isNotEmpty()) {
             bleed)
         var pager = new PerfectBoundPager(document, start)
 
-        var progress = new ProgressDialog(artboards, 'Creating artboards')
+        var progress = new ProgressPalette(artboards, 'Creating artboards')
         pager.forEachArtboard(function(artboard, index) {
             progress.increment('Imposing page {0}', index)
             var item = document.placedItems.add()

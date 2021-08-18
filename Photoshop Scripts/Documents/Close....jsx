@@ -18,11 +18,8 @@ for (var i = 0; i < app.documents.length; i++) {
     }
 }
 
-var dialog = new Dialog('Close Documents')
-dialog.vgroup(function(main) {
-    main.staticText(undefined, 'There are {0} documents, {1} of them unsaved. Close them without saving?'
-        .format(app.documents.length, unsavedLength > 0 ? unsavedLength : 'none'))
-})
+var dialog = new AlertDialog('Close Documents', 'There are {0} documents, {1} of them unsaved. Close them without saving?'
+    .format(app.documents.length, unsavedLength > 0 ? unsavedLength : 'none'))
 dialog.setCancelButton()
 dialog.setDefaultButton('All', function() {
     for (var i = 0; i < app.documents.length; i++) {
@@ -30,7 +27,7 @@ dialog.setDefaultButton('All', function() {
         i--
     }
 })
-dialog.setYesButton('Other', function() {
+dialog.setYesButton('Others', function() {
     // in Photoshop, compare documents
     for (var i = 0; i < app.documents.length; i++) {
         if (app.documents[i] === document) {

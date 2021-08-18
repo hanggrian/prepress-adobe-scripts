@@ -51,7 +51,7 @@ dialog.setDefaultButton(undefined, function() {
     var resolution = parseInt(resolutionEdit.text)
     var resample = getResample()
 
-    var progress = new ProgressDialog(app.documents.length, 'Resizing')
+    var progress = new ProgressPalette(app.documents.length, 'Resizing')
     for (var i = 0; i < app.documents.length; i++) {
         progress.increment()
         var document = app.documents[i]

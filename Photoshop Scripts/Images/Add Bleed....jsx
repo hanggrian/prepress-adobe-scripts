@@ -64,7 +64,7 @@ dialog.setDefaultButton(undefined, function() {
     var bleeds = new UnitValue(bleedEdit.text) * 2
     var correction = parseUnits(correctionEdit.text)
 
-    var progress = new ProgressDialog(app.documents.length, 'Adding bleed')
+    var progress = new ProgressPalette(app.documents.length, 'Adding bleed')
     for (var i = 0; i < app.documents.length; i++) {
         progress.increment()
         var document = app.documents[i]

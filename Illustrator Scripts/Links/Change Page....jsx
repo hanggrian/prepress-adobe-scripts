@@ -33,7 +33,7 @@ dialog.setDefaultButton(undefined, function() {
     var current = rangeGroup.getStart()
     var end = rangeGroup.getEnd()
 
-    var progress = new ProgressDialog(items.length)
+    var progress = new ProgressPalette(items.length)
     orderByGroup.forEach(items, function(item, i) {
         progress.increment('Linking page {0}', current)
         $.write(i + '. ')

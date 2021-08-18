@@ -67,7 +67,7 @@ if (files !== null && files.isNotEmpty()) {
             ? new TwoUpDuplexPager(document, start)
             : new TwoUpSimplexPager(document, start)
 
-        var progress = new ProgressDialog(artboards)
+        var progress = new ProgressPalette(artboards)
         pager.forEachArtboard(function(artboard,
             leftIndex, rightIndex) {
             progress.increment('Imposing page {0} to {1}', leftIndex, rightIndex)

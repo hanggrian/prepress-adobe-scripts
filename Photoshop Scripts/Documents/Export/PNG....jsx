@@ -46,7 +46,9 @@ dialog.setDefaultButton(undefined, function() {
     saveDirectoryGroup.browse()
 })
 dialog.setYesButton('All Documents', function() {
+    var progress = new ProgressPalette(app.documents.length, 'Exporting')
     for (var i = 0; i < app.documents.length; i++) {
+        progress.increment()
         app.activeDocument = app.documents[i]
         process(app.activeDocument)
     }

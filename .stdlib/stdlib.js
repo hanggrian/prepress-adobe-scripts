@@ -22,9 +22,11 @@
 #include 'sui/base/parent-panel.js'
 #include 'sui/base/parent-tab.js'
 #include 'sui/base/parent-tabbedpanel.js'
+#include 'sui/window/dialog-alert.js'
+#include 'sui/window/dialog.js'
+#include 'sui/window/palette-progress.js'
 #include 'sui/about.js'
 #include 'sui/anchor.js'
-#include 'sui/dialogs.js'
 #include 'sui/internals.js'
 
 #include 'text/string-builder.js'

@@ -41,7 +41,7 @@ if (file !== null) {
             preferences.setPDFPage(page)
         }
 
-        var progress = new ProgressDialog(items.length, file.isPDF()
+        var progress = new ProgressPalette(items.length, file.isPDF()
             ? 'Linking page {0}'.format(page)
             : 'Linking file {0}'.format(unescape(file.name)))
         items.forEach(function(item, i) {

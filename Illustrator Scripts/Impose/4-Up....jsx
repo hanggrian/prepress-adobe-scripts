@@ -67,7 +67,7 @@ if (files !== null && files.isNotEmpty()) {
             ? new FourUpDuplexPager(document, start)
             : new FourUpSimplexPager(document, start)
 
-        var progress = new ProgressDialog(artboards, 'Creating artboards')
+        var progress = new ProgressPalette(artboards, 'Creating artboards')
         pager.forEachArtboard(function(artboard,
             topLeftIndex, topRightIndex,
             bottomLeftIndex, bottomRightIndex) {

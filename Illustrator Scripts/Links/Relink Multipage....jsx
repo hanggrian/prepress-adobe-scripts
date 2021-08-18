@@ -45,7 +45,7 @@ if (files !== null && files.isNotEmpty()) {
         var current = rangeGroup.getStart()
         var end = rangeGroup.getEnd()
 
-        var progress = new ProgressDialog(items.length, 'Linking files')
+        var progress = new ProgressPalette(items.length, 'Linking files')
         orderByGroup.forEach(items, function(item, i) {
             $.write(i + '. ')
             var width = item.width
