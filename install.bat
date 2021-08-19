@@ -37,6 +37,8 @@ set /p input=!BOLD!Which scripts would you like to install: !END!
 
 set SOURCE_ROOT=%~dp0
 set SOURCE_STDLIB=!SOURCE_ROOT!.stdlib
+set SOURCE_STDRES=!SOURCE_ROOT!.stdres
+set SOURCE_STDRESLIGHT=!SOURCE_ROOT!.stdres-light
 set SOURCE_SUPPORT=!SOURCE_ROOT!.support-files
 
 if "!input!" equ "1" (
@@ -129,6 +131,8 @@ goto :eof
     set source_scripts=%~2
     set target_root=%~3
     set target_stdlib=!target_root!\.stdlib
+    set target_stdres=!target_root!\.stdres
+    set target_stdreslight=!target_root!\.stdres-light
     set target_support=!target_root!\.support-files
     set target_scripts=!target_root!\Scripts
     set target_scripts_incubating=!target_scripts!\.incubating
@@ -140,6 +144,12 @@ goto :eof
     if exist "!target_stdlib!" (
         rmdir /s /q "!target_stdlib!"
     )
+    if exist "!target_stdres!" (
+        rmdir /s /q "!target_stdres!"
+    )
+    if exist "!target_stdreslight!" (
+        rmdir /s /q "!target_stdreslight!"
+    )
     if exist "!target_support!" (
         rmdir /s /q "!target_support!"
     )
@@ -149,12 +159,17 @@ goto :eof
     :: Copy new ones
     md "!target_stdlib!"
     robocopy /s "!SOURCE_STDLIB!" "!target_stdlib!" /njh /njs /ndl /nc /ns /nfl
+    md "!target_stdres!"
+    robocopy /s "!SOURCE_STDRES!" "!target_stdres!" /njh /njs /ndl /nc /ns /nfl
+    md "!target_stdreslight!"
+    robocopy /s "!SOURCE_STDRESLIGHT!" "!target_stdreslight!" /njh /njs /ndl /nc /ns /nfl
     md "!target_support!"
     robocopy /s "!SOURCE_SUPPORT!" "!target_support!" /njh /njs /ndl /nc /ns /nfl
     md "!target_scripts!"
     robocopy /s "!source_scripts!" "!target_scripts!" /njh /njs /ndl /nc /ns /nfl
     :: Clean up
     rmdir /s /q "!target_scripts_incubating!"
+    del "!target_support!\check_updates.command"
     :: Add url
     echo [InternetShortcut] >> "!url!"
     echo URL=https://github.com/hendraanggrian/prepress-adobe-scripts >> "!url!"

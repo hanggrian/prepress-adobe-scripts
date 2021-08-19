@@ -18,7 +18,7 @@ dialog.vgroup(function(main) {
     })
     new AboutTabbedPanel(main, clientDate)
 })
-dialog.setCancelButton()
+dialog.setCancelButton('Close') // because there is no default button
 dialog.setHelpButton('Visit GitHub', function() {
     openURL('https://github.com/hendraanggrian/prepress-adobe-scripts')
 })

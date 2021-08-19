@@ -37,6 +37,7 @@ function AboutTabbedPanel(parent, clientDate) {
             self.statusText = tab.staticText([400, 21], 'Click Check Updates to fetch data.')
             tab.hgroup(function(group) {
                 group.button(undefined, 'Check Updates').also(function(it) {
+                    it.maximumSize.height = 21
                     it.onClick = function() {
                         if (isMacOS()) {
                             new File(supportPath + '/check_updates.command').execute()
@@ -60,6 +61,7 @@ function AboutTabbedPanel(parent, clientDate) {
                     }
                 })
                 self.downloadButton = group.button(undefined, 'Download').also(function(it) {
+                    it.maximumSize.height = 21
                     it.enabled = false
                     it.onClick = function() {
                         openURL('https://github.com/hendraanggrian/prepress-adobe-scripts/archive/refs/heads/main.zip')

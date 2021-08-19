@@ -42,6 +42,8 @@ read input
 
 SOURCE_ROOT="$(cd `dirname $0` && pwd)"
 SOURCE_STDLIB="$SOURCE_ROOT/.stdlib"
+SOURCE_STDRES="$SOURCE_ROOT/.stdres"
+SOURCE_STDRESLIGHT="$SOURCE_ROOT/.stdres-light"
 SOURCE_SUPPORT="$SOURCE_ROOT/.support-files"
 
 # Find adobe apps and determine its scripts directory parent.
@@ -81,6 +83,8 @@ patch_preset() {
     local source_scripts=$2
     local target_root=$3
     local target_stdlib="$target_root/.stdlib"
+    local target_stdres="$target_root/.stdres"
+    local target_stdreslight="$target_root/.stdres-light"
     local target_support="$target_root/.support-files"
     local target_scripts="$target_root/Scripts"
     local target_scripts_incubating="$target_scripts/.incubating"
@@ -92,6 +96,12 @@ patch_preset() {
     if [ -d "$target_stdlib" ]; then
         rm -rf "$target_stdlib"
     fi
+    if [ -d "$target_stdres" ]; then
+        rm -rf "$target_stdres"
+    fi
+    if [ -d "$target_stdreslight" ]; then
+        rm -rf "$target_stdreslight"
+    fi
     if [ -d "$target_support" ]; then
         rm -rf "$target_support"
     fi
@@ -101,12 +111,17 @@ patch_preset() {
     # Copy new ones
     mkdir "$target_stdlib"
     cp -r "$SOURCE_STDLIB"/. "$target_stdlib"
+    mkdir "$target_stdres"
+    cp -r "$SOURCE_STDRES"/. "$target_stdres"
+    mkdir "$target_stdreslight"
+    cp -r "$SOURCE_STDRESLIGHT"/. "$target_stdreslight"
     mkdir "$target_support"
     cp -r "$SOURCE_SUPPORT"/. "$target_support" && chmod +x "$target_support/check_updates.command"
     mkdir "$target_scripts"
     cp -r "$source_scripts"/. "$target_scripts"
     # Clean up
     rm -rf "$target_scripts_incubating"
+    rm "$target_support/check_updates.bat"
     # Add url
     > "$url"
     echo [InternetShortcut] >> "$url"
