@@ -11,29 +11,11 @@ set RED=[91m
 set GREEN=[92m
 set YELLOW=[93m
 
-:: Check privilege
+:: Check permissions
 net session >nul 2>&1
 if !errorLevel! neq 0 (
-    echo.
-    echo !RED!Administrative permissions required.!END!
-    echo.
-    pause && exit /b 1
+    goto :fail_permissions
 )
-
-echo.
-echo !YELLOW!!BOLD!WARNING!END!
-echo !YELLOW!This command will replace all existing scripts, even the default ones.
-echo Backup if necessary.!END!
-echo.
-echo !BOLD!!UNDERLINE!Prepress Adobe Scripts!END!
-echo.
-echo 1. Illustrator
-echo 2. Photoshop
-echo A. All
-echo.
-echo Q. Quit
-echo.
-set /p input=!BOLD!Which scripts would you like to install: !END!
 
 set SOURCE_ROOT=%~dp0
 set SOURCE_STDLIB=!SOURCE_ROOT!.stdlib
@@ -41,31 +23,77 @@ set SOURCE_STDRES=!SOURCE_ROOT!.stdres
 set SOURCE_STDRESLIGHT=!SOURCE_ROOT!.stdres-light
 set SOURCE_SUPPORT=!SOURCE_ROOT!.support-files
 
-if "!input!" equ "1" (
-    call :patch_app Illustrator
-) else if "!input!" equ "2" (
-    call :patch_app Photoshop
-) else if "!input!" equ "a" (
-    call :patch_app Illustrator
-    call :patch_app Photoshop
-) else if "!input!" equ "A" (
-    call :patch_app Illustrator
-    call :patch_app Photoshop
-) else if "!input!" equ "q" (
-    rem
-) else if "!input!" equ "Q" (
-    rem
-) else (
+:: Check sources
+if exist "!SOURCE_STDLIB!" (
+    if exist "!SOURCE_STDRES!" (
+        if exist "!SOURCE_STDRESLIGHT!" (
+            if exist "!SOURCE_SUPPORT!" (
+                goto :main
+            ) else goto :fail_missing_sources
+        ) else goto :fail_missing_sources
+    ) else goto :fail_missing_sources
+) else goto :fail_missing_sources
+
+:main
+    echo.
+    echo !YELLOW!!BOLD!WARNING!END!
+    echo !YELLOW!This command will replace all existing scripts, even the default ones.
+    echo Backup if necessary.!END!
+    echo.
+    echo !BOLD!!UNDERLINE!Prepress Adobe Scripts!END!
+    echo.
+    echo 1. Illustrator
+    echo 2. Photoshop
+    echo A. All
+    echo.
+    echo Q. Quit
+    echo.
+    set /p input=!BOLD!Which scripts would you like to install: !END!
+
+    if "!input!" equ "1" (
+        call :patch_app "Illustrator"
+    ) else if "!input!" equ "2" (
+        call :patch_app "Photoshop"
+    ) else if "!input!" equ "a" (
+        call :patch_app "Illustrator"
+        call :patch_app "Photoshop"
+    ) else if "!input!" equ "A" (
+        call :patch_app "Illustrator"
+        call :patch_app "Photoshop"
+    ) else if "!input!" equ "q" (
+        rem
+    ) else if "!input!" equ "Q" (
+        rem
+    ) else (
+        goto :fail_invalid_input
+    )
+
+    echo.
+    echo Goodbye^^!
+    echo.
+    pause
+exit /b 0
+
+:fail_permissions
+    echo.
+    echo !RED!Administrative permissions required.!END!
+    echo.
+    pause
+exit /b 1
+
+:fail_missing_sources
+    echo.
+    echo !RED!Missing sources.!END!
+    echo.
+    pause
+exit /b 1
+
+:fail_invalid_input
     echo.
     echo !RED!Unable to recognize input.!END!
     echo.
-    pause && exit /b 1
-)
-
-echo.
-echo Goodbye^^!
-echo.
-pause && exit /b 0
+    pause
+exit /b 1
 
 :: Find adobe apps and determine its scripts directory parent.
 :: In Windows, we manually do this manually. Check if `Presets` directly contain `Scripts` directory.

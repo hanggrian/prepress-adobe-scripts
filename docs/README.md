@@ -6,7 +6,9 @@ Prepress Adobe Scripts
 ![](images/logo_ai.png)
 ![](images/logo_psd.png)
 
-Essential Illustrator and Photoshop scripts for commercial printshop. While most of these scripts are general purpose, some are heavily prepress-focused like trim marks, dielines and imposition. Tested only on latest Adobe suite.
+Essential Illustrator and Photoshop scripts for commercial printshop.
+While most of these scripts are general purpose, some are heavily prepress-focused like trim marks, dielines and imposition.
+Tested only on latest Adobe suite.
 
 Install
 -------
@@ -14,7 +16,8 @@ Install
 ![](images/menu_ai.png)
 ![](images/menu_psd.png)
 
-These scripts are **not standalone**, all of them require hidden directories to be in pre-determined locations. This is why it is recommended to put them in Adobe installation paths, and access them from menu bar.
+These scripts are **not standalone**, all of them require hidden directories to be in pre-determined locations.
+This is why it is recommended to put them in Adobe installation paths, and access them from menu bar.
 
 ### Automatic Installation
 
@@ -28,9 +31,13 @@ Find **Scripts** directory in your local Adobe installation paths:
 * Illustrator - `$PATH_TO_APP/Presets/$LOCALE_CODE/Scripts`.
 * Photoshop - `$PATH_TO_APP/Presets/Scripts`.
 
-Now copy two things:
+Now copy these:
 * Content of `Illustrator/Photoshop Scripts` to **Scripts**.
-* `.stdlib` to parent directory of **Scripts**.
+* Following directories to parent directory of **Scripts**:
+  * `.stdlib`
+  * `.stdres`
+  * `.stdres-light`
+  * `.support-files`
 
 > In macOS, make sure to show all hidden files in Finder.
 

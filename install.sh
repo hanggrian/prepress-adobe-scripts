@@ -1,50 +1,55 @@
 #!/bin/bash
 # Mac executable to sync scripts to Adobe installation paths.
 
-END=[0m
-BOLD=[1m
-UNDERLINE=[4m
-RED=[91m
-GREEN=[92m
-YELLOW=[93m
-
-# Check mac
-if [ $(uname) != Darwin ]; then
+main() {
     echo
-    echo ${RED}Unsupported platform.$END
+    echo $YELLOW${BOLD}WARNING$END
+    echo ${YELLOW}This command will replace all existing scripts, even the default ones.
+    echo Backup if necessary.$END
+    echo
+    echo $BOLD${UNDERLINE}Prepress Adobe Scripts$END
+    echo
+    echo 1. Illustrator
+    echo 2. Photoshop
+    echo A. All
+    echo
+    echo Q. Quit
+    echo
+    echo ${BOLD}Which scripts would you like to install:$END
+    read input
+
+    case $input in
+        "1")
+            patch_app Illustrator
+            ;;
+        "2")
+            patch_app Photoshop
+            ;;
+        "a" | "A")
+            patch_app Illustrator
+            patch_app Photoshop
+            ;;
+        "q" | "Q")
+            ;;
+        *)
+            fail "Unable to recognize input."
+            ;;
+    esac
+
+    echo
+    echo Goodbye!
+    echo
+    exit 0
+}
+
+fail() {
+    local message=$1
+
+    echo
+    echo $RED$message$END
     echo
     exit 1
-fi
-
-# Check privilege
-if [ "$EUID" -ne 0 ]; then
-    echo
-    echo ${RED}Please run as root.$END
-    echo
-    exit 1
-fi
-
-echo
-echo $YELLOW${BOLD}WARNING$END
-echo ${YELLOW}This command will replace all existing scripts, even the default ones.
-echo Backup if necessary.$END
-echo
-echo $BOLD${UNDERLINE}Prepress Adobe Scripts$END
-echo
-echo 1. Illustrator
-echo 2. Photoshop
-echo A. All
-echo
-echo Q. Quit
-echo
-echo ${BOLD}Which scripts would you like to install:$END
-read input
-
-SOURCE_ROOT="$(cd `dirname $0` && pwd)"
-SOURCE_STDLIB="$SOURCE_ROOT/.stdlib"
-SOURCE_STDRES="$SOURCE_ROOT/.stdres"
-SOURCE_STDRESLIGHT="$SOURCE_ROOT/.stdres-light"
-SOURCE_SUPPORT="$SOURCE_ROOT/.support-files"
+}
 
 # Find adobe apps and determine its scripts directory parent.
 # In mac, localized directories always have `.localized` suffix.
@@ -129,28 +134,31 @@ patch_preset() {
     echo IconIndex=0 >> "$url"
 }
 
-case $input in
-    "1")
-        patch_app Illustrator
-        ;;
-    "2")
-        patch_app Photoshop
-        ;;
-    "a" | "A")
-        patch_app Illustrator
-        patch_app Photoshop
-        ;;
-    "q" | "Q")
-        ;;
-    *)
-        echo
-        echo ${RED}Unable to recognize input.$END
-        echo
-        exit 1
-        ;;
-esac
+END=[0m
+BOLD=[1m
+UNDERLINE=[4m
+RED=[91m
+GREEN=[92m
+YELLOW=[93m
 
-echo
-echo Goodbye!
-echo
-exit 0
+# Check mac
+if [ $(uname) != Darwin ]; then
+    fail "Unsupported platform."
+fi
+# Check permissions
+if [ "$EUID" -ne 0 ]; then
+    fail "Root access required."
+fi
+
+SOURCE_ROOT="$(cd `dirname $0` && pwd)"
+SOURCE_STDLIB="$SOURCE_ROOT/.stdlib"
+SOURCE_STDRES="$SOURCE_ROOT/.stdres"
+SOURCE_STDRESLIGHT="$SOURCE_ROOT/.stdres-light"
+SOURCE_SUPPORT="$SOURCE_ROOT/.support-files"
+
+# Check sources
+if [ -d "$SOURCE_STDLIB" ] && [ -d "$SOURCE_STDRES" ] && [ -d "$SOURCE_STDRESLIGHT" ] && [ -d "$SOURCE_SUPPORT" ]; then
+    main
+else
+    fail "Missing sources."
+fi

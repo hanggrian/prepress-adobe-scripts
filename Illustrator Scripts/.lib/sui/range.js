@@ -13,7 +13,12 @@ function RangeGroup(parent, editBounds) {
 
     editBounds = [editBounds[0] / 2 - 13, editBounds[1]]
     this.main = parent.hgroup(function(group) {
-        self.startEdit = group.editText(editBounds, '1').also(VALIDATE_DIGITS)
+        self.startEdit = group.editText(editBounds, '1').also(function(it) {
+            it.validateDigits()
+            it.onChange = function() {
+                self.endEdit.text = self.startEdit.text
+            }
+        })
         group.staticText(undefined, '–') // use en dash
         self.endEdit = group.editText(editBounds, '1').also(VALIDATE_DIGITS)
     })

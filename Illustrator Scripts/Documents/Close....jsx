@@ -26,7 +26,7 @@ dialog.setYesButton('Others', function() {
         i--
     }
 })
-dialog.setHelpButton('Saved', function() {
+dialog.setHelpButton('Keep Unsaved', function() {
     for (var i = 0; i < app.documents.length; i++) {
         if (!app.documents[i].saved) {
             continue

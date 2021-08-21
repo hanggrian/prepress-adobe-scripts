@@ -1,12 +1,11 @@
 {
-    "version": "0.2.0",
+    "version": "1.0.0",
     "configurations": [
         {
             "type": "extendscript-debug",
             "request": "launch",
-            "name": "prepress-adobe-scripts",
+            "name": "Prepress Adobe Scripts",
             "program": "${workspaceFolder}/Illustrator Scripts/Documents/Close....jsx",
-            //"program": "${workspaceFolder}/Photoshop Scripts/Images/Resize Images....jsx",
             "stopOnEntry": false
         }
     ]
