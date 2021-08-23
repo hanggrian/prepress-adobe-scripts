@@ -11,7 +11,7 @@ items.forEach(function(it) {
     for (var i = 0; i < group.compoundPathItems.length; i++) {
         var compoundPathItem = group.compoundPathItems[i]
         for (var j = 0; j < compoundPathItem.pathItems.length; j++) {
-            compoundPathItem.pathItems[j].duplicate(document, ElementPlacement.PLACEATEND)
+            compoundPathItem.pathItems[j].duplicate(document, ElementPlacement.PLACEATBEGINNING)
         }
     }
     group.remove()

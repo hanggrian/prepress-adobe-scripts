@@ -77,7 +77,7 @@ if (proceed) {
                 } else {
                     y = artboardRect.getBottom() - relativePosition.getBottom()
                 }
-                item.duplicate(document, ElementPlacement.PLACEATEND).position = [x, y]
+                item.duplicate(document, ElementPlacement.PLACEATBEGINNING).position = [x, y]
                 $.writeln(artboardIndex + '. ' + 'Position X=' + x + ' Y=' + y)
             })
         })

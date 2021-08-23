@@ -75,7 +75,7 @@ dialog.setDefaultButton(undefined, function() {
             readOnlySelection.forEach(function(item) {
                 var x = bounds.getLeft() - (bounds.getLeft() - item.position.getLeft())
                 var y = bounds.getTop() - (bounds.getTop() - item.position.getTop())
-                item.duplicate(document, ElementPlacement.PLACEATEND).position = [x, y - v * finalMoveVertical]
+                item.duplicate(document, ElementPlacement.PLACEATBEGINNING).position = [x, y - v * finalMoveVertical]
             })
         }
         for (var h = 1; h < horizontal; h++) {
@@ -87,7 +87,7 @@ dialog.setDefaultButton(undefined, function() {
             readOnlySelection.forEach(function(item) {
                 var x = bounds.getLeft() - (bounds.getLeft() - item.position.getLeft())
                 var y = bounds.getTop() - (bounds.getTop() - item.position.getTop())
-                item.duplicate(document, ElementPlacement.PLACEATEND).position = [x + h * finalMoveHorizontal, y - v * finalMoveVertical]
+                item.duplicate(document, ElementPlacement.PLACEATBEGINNING).position = [x + h * finalMoveHorizontal, y - v * finalMoveVertical]
             })
         }
         $.writeln()

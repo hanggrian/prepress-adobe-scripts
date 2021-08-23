@@ -13,7 +13,7 @@
 var dialog = new Dialog('Add Bleed to Images')
 var bleedEdit
 var flattenImageCheck
-var useGuidesCheck, clearGuidesCheck
+var useGuidesCheck, appendGuidesRadio, replaceGuidesRadio
 var selectBleedCheck, correctionEdit
 
 dialog.vgroup(function(main) {
@@ -35,10 +35,12 @@ dialog.vgroup(function(main) {
         useGuidesCheck = group.checkBox(undefined, 'Use Guides').also(function(it) {
             it.select()
             it.onClick = function() {
-                clearGuidesCheck.enabled = it.value
+                appendGuidesRadio.enabled = it.value
+                replaceGuidesRadio.enabled = it.value
             }
         })
-        clearGuidesCheck = group.checkBox(undefined, 'Clear Current')
+        appendGuidesRadio = group.radioButton(undefined, 'Append').also(SELECTED)
+        replaceGuidesRadio = group.radioButton(undefined, 'Replace')
     })
     main.hgroup(function(group) {
         group.tips('Select bleed with x correction')
@@ -76,7 +78,7 @@ dialog.setDefaultButton(undefined, function() {
             document.flatten()
         }
         if (useGuidesCheck.value) {
-            if (clearGuidesCheck.value) {
+            if (replaceGuidesRadio.value) {
                 while (document.guides.length > 0) { // TODO: find out why forEach only clearing parts
                     document.guides.first().remove()
                 }
