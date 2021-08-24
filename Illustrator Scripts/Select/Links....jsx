@@ -46,10 +46,10 @@ dialog.setDefaultButton(undefined, function() {
     var height = dimensionPanel.getHeight()
     selectAll(['PlacedItem'], function(item) {
         var condition = true
-        if (width > 0) {
+        if (width !== undefined) {
             condition = condition && parseInt(width) === parseInt(item.width)
         }
-        if (height > 0) {
+        if (height !== undefined) {
             condition = condition && parseInt(height) === parseInt(item.height)
         }
 

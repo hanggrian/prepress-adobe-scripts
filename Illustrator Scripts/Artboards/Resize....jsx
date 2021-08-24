@@ -52,17 +52,15 @@ dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
     var w = parseUnits(widthEdit.text)
     var h = parseUnits(heightEdit.text)
-    if (w > 0 && h > 0) {
-        rangeGroup.forEach(function(i) {
-            if (fitToArtsCheck.value) {
-                document.artboards.setActiveArtboardIndex(i)
-                document.selectObjectsOnActiveArtboard(i)
-                document.fitArtboardToSelectedArt(i)
-            } else {
-                resizeArtboard(i, w, h)
-            }
-        })
-    }
+    rangeGroup.forEach(function(i) {
+        if (fitToArtsCheck.value) {
+            document.artboards.setActiveArtboardIndex(i)
+            document.selectObjectsOnActiveArtboard(i)
+            document.fitArtboardToSelectedArt(i)
+        } else {
+            resizeArtboard(i, w, h)
+        }
+    })
 })
 dialog.show()
 

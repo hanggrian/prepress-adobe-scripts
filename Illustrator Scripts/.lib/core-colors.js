@@ -35,7 +35,7 @@ function parseColor(text) {
         case 'Black':
             return COLOR_BLACK
         default:
-            return COLOR_NONE
+            return undefined
     }
 }
 

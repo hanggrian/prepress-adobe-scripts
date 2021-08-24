@@ -91,7 +91,7 @@ dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
     var substring = findEdit.text
     var fontName = fontNameEdit.text
-    var fontSize = fontSizeEdit.text
+    var fontSize = parseUnits(fontSizeEdit.text)
     var italic = italicList.hasSelection() ? italicList.selection.text === 'Yes' : undefined
     var underline = underlineList.hasSelection() ? underlineList.selection.text === 'Yes' : undefined
     var fillColor = fillColorList.hasSelection() ? parseColor(fillColorList.selection.text) : undefined
@@ -117,7 +117,7 @@ dialog.setDefaultButton(undefined, function() {
     selectAll(['TextFrame'], function(item) {
         var attr = item.textRange.characterAttributes
         var condition = true
-        if (substring !== '') {
+        if (substring.isNotEmpty()) {
             var string = item.contents
             if (!matchCaseCheck.value) {
                 string = string.toLowerCase()
@@ -125,10 +125,10 @@ dialog.setDefaultButton(undefined, function() {
             }
             condition = condition && find(string, substring)
         }
-        if (fontName !== '') {
+        if (fontName.isNotEmpty()) {
             condition = condition && attr.textFont.name.toLowerCase().includes(fontName.toLowerCase())
         }
-        if (fontSize > 0) {
+        if (fontSize !== undefined) {
             condition = condition && parseInt(fontSize) === parseInt(attr.size)
         }
         if (italic !== undefined) {

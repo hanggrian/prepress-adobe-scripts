@@ -79,7 +79,7 @@ dialog.setDefaultButton(undefined, function() {
             colorSpace = ImageColorSpace.Indexed
         }
     }
-    var bits = parseInt(bitsEdit.text) || 0
+    var bits = parseInt(bitsEdit.text)
     var transparent = transparentList.hasSelection() ? transparentList.selection.text === 'Yes' : undefined
     var embedded = embeddedList.hasSelection() ? embeddedList.selection.text === 'Yes' : undefined
     var overprint = overprintList.hasSelection() ? overprintList.selection.text === 'Yes' : undefined
@@ -95,16 +95,16 @@ dialog.setDefaultButton(undefined, function() {
     }
     selectAll(['RasterItem'], function(item) {
         var condition = true
-        if (width > 0) {
+        if (width !== undefined) {
             condition = condition && parseInt(width) === parseInt(item.width)
         }
-        if (height > 0) {
+        if (height !== undefined) {
             condition = condition && parseInt(height) === parseInt(item.height)
         }
         if (colorSpace !== undefined) {
             condition = condition && colorSpace === item.imageColorSpace
         }
-        if (bits > 0) {
+        if (bits !== undefined) {
             condition = condition && parseInt(bits) === parseInt(item.bitsPerChannel)
         }
         if (transparent !== undefined) {

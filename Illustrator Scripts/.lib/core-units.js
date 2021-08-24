@@ -32,7 +32,7 @@ function parseUnits(units) {
     checkNotNull(units)
     units = units.trim()
     if (units.isEmpty()) {
-        return 0
+        return undefined
     }
     return units.isNumeric()
         ? parseFloat(units)

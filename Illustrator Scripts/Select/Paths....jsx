@@ -93,10 +93,10 @@ dialog.setDefaultButton(undefined, function() {
     var guides = guidesList.hasSelection() ? guidesList.selection.text === 'Yes' : undefined
     selectAll(['PathItem'], function(item) {
         var condition = true
-        if (width > 0) {
+        if (width !== undefined) {
             condition = condition && parseInt(width) === parseInt(item.width)
         }
-        if (height > 0) {
+        if (height !== undefined) {
             condition = condition && parseInt(height) === parseInt(item.height)
         }
         if (clipping !== undefined) {
@@ -117,7 +117,7 @@ dialog.setDefaultButton(undefined, function() {
         if (strokeColor !== undefined) {
             condition = condition && isColorEqual(strokeColor, item.strokeColor)
         }
-        if (strokeWeight > 0) {
+        if (strokeWeight !== undefined) {
             condition = condition && parseInt(strokeWeight) === parseInt(item.strokeWidth)
         }
         if (strokeDashed !== undefined) {

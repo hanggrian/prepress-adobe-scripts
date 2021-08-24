@@ -37,13 +37,12 @@ EditText.prototype.validateUnits = function() {
         // parse new unit value and type
         var _new = _removeRegexes(newValue, [REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
         exec = alphabetRegex.exec(_new)
-        if (exec !== null) {
-            // new unit type found, use it
+        if (exec !== null) { // new unit type found, use it
             var newUnitValue = _removeRegexes(_new.substring(0, exec.index), [REPLACE_TRAILING_SPACE])
             var newUnitType = _new.substring(exec.index)
             return newUnitValue + ' ' + newUnitType
-        } else {
-            // new unit type not found, use old unit value if exist
+        } else { // new unit type not found, use old unit value if exist
+            if (_new.isEmpty()) _new = '0' // in event when all text is removed, use 0
             return oldUnitType !== undefined
                 ? _new + ' ' + oldUnitType
                 : _new
