@@ -53,7 +53,7 @@ if (files !== null && files.isNotEmpty()) {
             var position = item.position
             var file = collection.get(current)
             if (file.isPDF() && item.isFileExists() && item.file.isPDF()) {
-                progress.increment('Linking page {0}', current)
+                progress.increment('Linking page {0}', current + 1)
                 $.write('Appling PDF fix, ')
                 item.file = getResource('relink_fix.png')
             } else {

@@ -3,15 +3,16 @@
  * @param {Number} start first page to open, the first and default is 0.
  */
 function TwoUpSimplexPager(document, start) {
-    var _current = start || 0
+    var current = start || 0
 
     this.forEachArtboard = function(action) {
         document.artboards.forEach(function(artboard) {
-            var left = _current
-            var right = _current + 1
-            artboard.name = (left + 1) + '-' + (right + 1)
-            action(artboard, left, right)
-            _current += 2
+            var left = current
+            var right = current + 1
+            artboard.name = '{0}-{1}'.format(left + 1, right + 1)
+            action(artboard,
+                left, right)
+            current += 2
         })
     }
 }
@@ -21,23 +22,52 @@ function TwoUpSimplexPager(document, start) {
  * @param {Number} start first page to open, the first and default is 0.
  */
 function TwoUpDuplexPager(document, start) {
-    var _current = start || 0
-    var _isFront = true
+    var current = start || 0
+    var isFront = true
 
     this.forEachArtboard = function(action) {
         document.artboards.forEach(function(artboard) {
             var left, right
-            if (_isFront) {
-                left = _current
-                right = _current + 2
+            if (isFront) {
+                left = current
+                right = current + 2
             } else {
-                left = _current + 1
-                right = _current - 1
+                left = current + 1
+                right = current - 1
             }
-            artboard.name = (left + 1) + '-' + (right + 1)
-            action(artboard, left, right)
-            _current += 2
-            _isFront = !_isFront
+            artboard.name = '{0}-{1}'.format(left + 1, right + 1)
+            action(artboard,
+                left, right)
+            current += 2
+            isFront = !isFront
+        })
+    }
+}
+
+/**
+ * @param {Document} document to attach to, use `document` for active document.
+ * @param {Number} start first page to open, the first and default is 0.
+ */
+function TwoUpDuplexStackedPager(document, start) {
+    var current = start || 0
+    var isFront = true
+
+    this.forEachArtboard = function(action) {
+        var artboards = document.artboards.length
+        document.artboards.forEach(function(artboard) {
+            var left, right
+            if (isFront) {
+                left = current
+                right = current + artboards
+            } else {
+                left = current + artboards
+                right = current
+            }
+            artboard.name = '{0}-{1}'.format(left + 1, right + 1)
+            action(artboard,
+                left, right)
+            current++
+            isFront = !isFront
         })
     }
 }

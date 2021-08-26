@@ -12,6 +12,7 @@
 #include 'core-units.js'
 
 #include 'sui/maintain-size.js'
+#include 'sui/nup-modes.js'
 #include 'sui/open-options.js'
 #include 'sui/order-by.js'
 #include 'sui/range.js'

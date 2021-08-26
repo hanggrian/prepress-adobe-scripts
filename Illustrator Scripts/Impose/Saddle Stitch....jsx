@@ -60,10 +60,10 @@ if (files !== null && files.isNotEmpty()) {
             bleed)
         var pager = new SaddleStitchPager(document, start, end, rtlCheck.value)
 
-        var progress = new ProgressPalette(artboards, 'Creating artboards')
+        var progress = new ProgressPalette(artboards, 'Imposing')
         pager.forEachArtboard(function(artboard,
             leftIndex, rightIndex) {
-            progress.increment('Imposing page {0} & {1}', leftIndex, rightIndex)
+            progress.increment()
             var item1 = document.placedItems.add()
             var item2 = document.placedItems.add()
             item1.file = collection.get(leftIndex)
@@ -101,6 +101,7 @@ if (files !== null && files.isNotEmpty()) {
                 group2.clipped = true
             }
         })
+        selection = []
     })
     dialog.show()
 }

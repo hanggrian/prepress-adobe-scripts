@@ -6,7 +6,7 @@ var BOUNDS_EDIT = [100, 21]
 
 var dialog = new Dialog('Impose 4-Up')
 var pdfPanel, pagesPanel, documentPanel
-var rotateCheck, duplexCheck
+var nupModes, rotateCheck
 
 var files = openFile(dialog.title, [
     FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
@@ -35,11 +35,12 @@ if (files !== null && files.isNotEmpty()) {
             documentPanel = new OpenDocumentPanel(topGroup)
         })
         main.hgroup(function(group) {
+            group.alignChildren = 'bottom'
             rotateCheck = group.checkBox(undefined, 'Rotate Page').also(function(it) {
                 it.tip('Should the page be rotated?')
             })
-            duplexCheck = group.checkBox(undefined, 'Duplex Printing').also(function(it) {
-                it.tip('Is this layout double-sided?')
+            nupModes = new NUpModes(group, 4).also(function(it) {
+                it.list.selectText('Simplex')
             })
         })
     })
@@ -54,24 +55,26 @@ if (files !== null && files.isNotEmpty()) {
         var rotatedWidth = !rotateCheck.value ? width : height
         var rotatedHeight = !rotateCheck.value ? height : width
 
-        var pagesDivisor = !duplexCheck.value ? 4 : 8
-        if (pages % pagesDivisor !== 0) {
-            errorWithAlert('Pages must be divisible by ' + pagesDivisor)
-        }
+        nupModes.checkPages(pages)
         var document = documentPanel.open('Untitled-4-Up',
             artboards,
             (rotatedWidth + bleed * 2) * 2,
             (rotatedHeight + bleed * 2) * 2,
             0)
-        var pager = duplexCheck.value
-            ? new FourUpDuplexPager(document, start)
-            : new FourUpSimplexPager(document, start)
+        var pager
+        if (nupModes.isSimplex()) {
+            pager = new FourUpSimplexPager(document, start)
+        } else if (nupModes.isDuplex()) {
+            pager = new FourUpDuplexPager(document, start)
+        } else {
+            pager = new FourUpDuplexStackedPager(document, start)
+        }
 
-        var progress = new ProgressPalette(artboards, 'Creating artboards')
+        var progress = new ProgressPalette(artboards, 'Imposing')
         pager.forEachArtboard(function(artboard,
             topLeftIndex, topRightIndex,
             bottomLeftIndex, bottomRightIndex) {
-            progress.increment('Imposing page {0} to {1}', topLeftIndex, bottomRightIndex)
+            progress.increment()
             var topItem1 = document.placedItems.add()
             var topItem2 = document.placedItems.add()
             var bottomItem1 = document.placedItems.add()
@@ -88,7 +91,7 @@ if (files !== null && files.isNotEmpty()) {
                 it.width = width + bleed * 2
                 it.height = height + bleed * 2
                 if (rotateCheck.value) {
-                    it.rotate(duplexCheck.value && document.artboards.indexOf(artboard).isOdd() ? 270 : 90)
+                    it.rotate(!nupModes.isSimplex() && document.artboards.indexOf(artboard).isOdd() ? 270 : 90)
                 }
             })
             topItem1.position = [x1, y1]
@@ -126,6 +129,7 @@ if (files !== null && files.isNotEmpty()) {
                 bottomGuide2.guides = true
             }
         })
+        selection = []
     })
     dialog.show()
 }

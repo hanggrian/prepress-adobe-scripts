@@ -35,7 +35,7 @@ dialog.setDefaultButton(undefined, function() {
 
     var progress = new ProgressPalette(items.length)
     orderByGroup.forEach(items, function(item, i) {
-        progress.increment('Linking page {0}', current)
+        progress.increment('Linking page {0}', current + 1)
         $.write(i + '. ')
         var width = item.width
         var height = item.height
