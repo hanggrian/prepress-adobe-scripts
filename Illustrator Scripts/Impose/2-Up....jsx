@@ -6,7 +6,7 @@ var BOUNDS_EDIT = [100, 21]
 
 var dialog = new Dialog('Impose 2-Up')
 var pdfPanel, pagesPanel, documentPanel
-var nupModes, rotateCheck
+var nupGroup
 
 var files = openFile(dialog.title, [
     FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
@@ -34,15 +34,7 @@ if (files !== null && files.isNotEmpty()) {
             })
             documentPanel = new OpenDocumentPanel(topGroup)
         })
-        main.hgroup(function(group) {
-            group.alignChildren = 'bottom'
-            rotateCheck = group.checkBox(undefined, 'Rotate Page').also(function(it) {
-                it.tip('Should the page be rotated?')
-            })
-            nupModes = new NUpModes(group, 2).also(function(it) {
-                it.list.selectText('Simplex')
-            })
-        })
+        nupGroup = new NUpOptionsGroup(main, true, true, true)
     })
     dialog.setCancelButton()
     dialog.setDefaultButton(undefined, function() {
@@ -52,23 +44,25 @@ if (files !== null && files.isNotEmpty()) {
         var width = pagesPanel.getWidth()
         var height = pagesPanel.getHeight()
         var bleed = pagesPanel.getBleed()
-        var rotatedWidth = !rotateCheck.value ? width : height
-        var rotatedHeight = !rotateCheck.value ? height : width
+        var rotatedWidth = !nupGroup.isRotate() ? width : height
+        var rotatedHeight = !nupGroup.isRotate() ? height : width
 
-        nupModes.checkPages(pages)
+        var pagesDivisor = !nupGroup.isDuplex() ? 2 : 4
+        if (pages % pagesDivisor !== 0) {
+            errorWithAlert('Pages must be divisible by ' + pagesDivisor)
+        }
         var document = documentPanel.open('Untitled-2-Up',
             artboards,
             (rotatedWidth + bleed * 2) * 2,
             (rotatedHeight + bleed * 2),
             0)
-        var pager
-        if (nupModes.isSimplex()) {
-            pager = new TwoUpSimplexPager(document, start)
-        } else if (nupModes.isDuplex()) {
-            pager = new TwoUpDuplexPager(document, start)
-        } else {
-            pager = new TwoUpDuplexStackedPager(document, start)
-        }
+        var pager = !nupGroup.isPerfectBound()
+            ? (!nupGroup.isDuplex()
+                ? new TwoUpSimplexPager(document, start)
+                : new TwoUpDuplexPager(document, start))
+            : (!nupGroup.isDuplex()
+                ? new TwoUpSimplexPerfectBoundPager(document, start)
+                : new TwoUpDuplexPerfectBoundPager(document, start))
 
         var progress = new ProgressPalette(artboards, 'Imposing')
         pager.forEachArtboard(function(artboard,
@@ -84,8 +78,8 @@ if (files !== null && files.isNotEmpty()) {
             Array(item1, item2).forEach(function(it) {
                 it.width = width + bleed * 2
                 it.height = height + bleed * 2
-                if (rotateCheck.value) {
-                    it.rotate(!nupModes.isSimplex() && document.artboards.indexOf(artboard).isOdd() ? 270 : 90)
+                if (nupGroup.isRotate()) {
+                    it.rotate(nupGroup.isDuplex() && document.artboards.indexOf(artboard).isOdd() ? 270 : 90)
                 }
             })
             item1.position = [x1, y]
@@ -108,6 +102,9 @@ if (files !== null && files.isNotEmpty()) {
             }
         })
         selection = []
+    })
+    dialog.setHelpButton(undefined, function() {
+        return showNUpHelp(true, true, true)
     })
     dialog.show()
 }

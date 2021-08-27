@@ -34,9 +34,7 @@ function SaveFilePanel(parent, textBounds, extension) {
         })
     })
 
-    this.isAllArtboards = function() {
-        return self.artboardsAllRadio.value
-    }
+    this.isAllArtboards = function() { return self.artboardsAllRadio.value }
 
     this.getFileName = function(name) {
         return buildString(function(it) {
@@ -66,11 +64,7 @@ function SaveDirectoryGroup(parent, editBounds) {
         })
     })
 
-    this.getDirectoryName = function() {
-        return self.directoryEdit.text
-    }
+    this.getDirectoryName = function() { return self.directoryEdit.text }
 
-    this.browse = function() {
-        new File(self.getDirectoryName()).execute()
-    }
+    this.browse = function() { new File(self.getDirectoryName()).execute() }
 }

@@ -8,7 +8,5 @@ function MaintainSizeGroup(parent) {
         self.check = group.checkBox(undefined, 'Maintain Size').also(SELECTED)
     })
 
-    this.isSelected = function() {
-        return self.check.value
-    }
+    this.isSelected = function() { return self.check.value }
 }

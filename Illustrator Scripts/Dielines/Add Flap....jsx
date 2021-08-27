@@ -252,19 +252,17 @@ function processDust(length, path) {
 function showHelp() {
     var dialog = new Dialog('Help')
     dialog.hgroup(function(main) {
-        main.image(undefined, 'dieline_glueflap.png')
-        main.vpanel(undefined, function(panel) {
-            panel.minimumSize.width = panel.maximumSize.width = 2
-            panel.minimumSize.height = panel.maximumSize.height = 100
+        main.hpanel('Glue Flap', function(panel) {
+            panel.image(undefined, 'dieline_glueflap.png')
         })
-        main.image(undefined, 'dieline_tuckflap.png')
-        main.vpanel(undefined, function(panel) {
-            panel.minimumSize.width = panel.maximumSize.width = 2
-            panel.minimumSize.height = panel.maximumSize.height = 100
+        main.hpanel('Tuck Flap', function(panel) {
+            panel.image(undefined, 'dieline_tuckflap.png')
         })
-        main.image(undefined, 'dieline_dustflap.png')
+        main.hpanel('Dust Flap', function(panel) {
+            panel.image(undefined, 'dieline_dustflap.png')
+        })
     })
-    dialog.setCancelButton()
+    dialog.setCancelButton('Close')
     dialog.show()
     return true
 }

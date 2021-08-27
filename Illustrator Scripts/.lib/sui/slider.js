@@ -26,7 +26,5 @@ function SliderGroup(parent, editBounds, a, b, c, scale) {
         })
     })
 
-    this.getValue = function() {
-        return parseInt(self.edit.value) || b
-    }
+    this.getValue = function() { return parseInt(self.edit.value) || b }
 }

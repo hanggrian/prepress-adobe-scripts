@@ -212,7 +212,7 @@ function showHelp() {
     dialog.hgroup(function(main) {
         main.image(undefined, 'dieline_paperbag.png')
     })
-    dialog.setCancelButton()
+    dialog.setCancelButton('Close')
     dialog.show()
     return true
 }

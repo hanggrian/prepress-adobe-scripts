@@ -5,7 +5,7 @@
             "type": "extendscript-debug",
             "request": "launch",
             "name": "Prepress Adobe Scripts",
-            "program": "${workspaceFolder}/Illustrator Scripts/Impose/8-Up....jsx",
+            "program": "${workspaceFolder}/Illustrator Scripts/Impose/2-Up....jsx",
             "stopOnEntry": false
         }
     ]

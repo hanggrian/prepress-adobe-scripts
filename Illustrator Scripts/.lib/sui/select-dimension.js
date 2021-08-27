@@ -15,11 +15,7 @@ function SelectDimensionPanel(parent, textBounds, editBounds) {
         })
     })
 
-    this.getWidth = function() {
-        return parseUnits(self.widthEdit.text)
-    }
+    this.getWidth = function() { return parseUnits(self.widthEdit.text) }
 
-    this.getHeight = function() {
-        return parseUnits(self.heightEdit.text)
-    }
+    this.getHeight = function() { return parseUnits(self.heightEdit.text) }
 }

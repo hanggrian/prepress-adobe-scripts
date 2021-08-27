@@ -1,8 +1,9 @@
 #include '../../.stdlib/stdlib.js'
 
-#include 'core-pager/booklet.js'
 #include 'core-pager/eight-up.js'
 #include 'core-pager/four-up.js'
+#include 'core-pager/one-up.js'
+#include 'core-pager/saddle-stitch.js'
 #include 'core-pager/two-up.js'
 
 #include 'core-collections.js'
@@ -12,7 +13,7 @@
 #include 'core-units.js'
 
 #include 'sui/maintain-size.js'
-#include 'sui/nup-modes.js'
+#include 'sui/nup-options.js'
 #include 'sui/open-options.js'
 #include 'sui/order-by.js'
 #include 'sui/range.js'

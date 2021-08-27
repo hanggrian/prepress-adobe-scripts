@@ -48,7 +48,27 @@ function TwoUpDuplexPager(document, start) {
  * @param {Document} document to attach to, use `document` for active document.
  * @param {Number} start first page to open, the first and default is 0.
  */
-function TwoUpDuplexStackedPager(document, start) {
+function TwoUpSimplexPerfectBoundPager(document, start) {
+    var current = start || 0
+
+    this.forEachArtboard = function(action) {
+        var artboards = document.artboards.length
+        document.artboards.forEach(function(artboard) {
+            var left = current
+            var right = current + artboards
+            artboard.name = '{0}-{1}'.format(left + 1, right + 1)
+            action(artboard,
+                left, right)
+            current++
+        })
+    }
+}
+
+/**
+ * @param {Document} document to attach to, use `document` for active document.
+ * @param {Number} start first page to open, the first and default is 0.
+ */
+function TwoUpDuplexPerfectBoundPager(document, start) {
     var current = start || 0
     var isFront = true
 

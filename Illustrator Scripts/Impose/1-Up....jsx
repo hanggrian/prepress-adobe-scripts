@@ -4,9 +4,9 @@
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
 
-var dialog = new Dialog('Impose Perfect Bound')
+var dialog = new Dialog('Impose 1-Up')
 var pdfPanel, pagesPanel, documentPanel
-var rotateCheck
+var nupGroup
 
 var files = openFile(dialog.title, [
     FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
@@ -34,11 +34,7 @@ if (files !== null && files.isNotEmpty()) {
             })
             documentPanel = new OpenDocumentPanel(topGroup)
         })
-        main.hgroup(function(group) {
-            rotateCheck = group.checkBox(undefined, 'Rotate Page').also(function(it) {
-                it.tip('Should the page be rotated?')
-            })
-        })
+        nupGroup = new NUpOptionsGroup(main, true, false, false)
     })
     dialog.setCancelButton()
     dialog.setDefaultButton(undefined, function() {
@@ -48,15 +44,15 @@ if (files !== null && files.isNotEmpty()) {
         var width = pagesPanel.getWidth()
         var height = pagesPanel.getHeight()
         var bleed = pagesPanel.getBleed()
-        var rotatedWidth = !rotateCheck.value ? width : height
-        var rotatedHeight = !rotateCheck.value ? height : width
+        var rotatedWidth = !nupGroup.isRotate() ? width : height
+        var rotatedHeight = !nupGroup.isRotate() ? height : width
 
-        var document = documentPanel.open('Untitled-Perfect Bound',
+        var document = documentPanel.open('Untitled-1-Up',
             artboards,
             rotatedWidth,
             rotatedHeight,
             bleed)
-        var pager = new PerfectBoundPager(document, start)
+        var pager = new OneUpPager(document, start)
 
         var progress = new ProgressPalette(artboards, 'Imposing')
         pager.forEachArtboard(function(artboard, index) {
@@ -67,12 +63,15 @@ if (files !== null && files.isNotEmpty()) {
             var y = artboard.artboardRect.getTop()
             item.width = width + bleed * 2
             item.height = height + bleed * 2
-            if (rotateCheck.value) {
+            if (nupGroup.isRotate()) {
                 item.rotate(90)
             }
             item.position = [x - bleed, y + bleed]
         })
         selection = []
+    })
+    dialog.setHelpButton(undefined, function() {
+        return showNUpHelp(true, false, false)
     })
     dialog.show()
 }

@@ -68,7 +68,34 @@ function EightUpDuplexPager(document, start) {
  * @param {Document} document to attach to, use `document` for active document.
  * @param {Number} start first page to open, the first and default is 0.
  */
-function EightUpDuplexStackedPager(document, start) {
+function EightUpSimplexPerfectBoundPager(document, start) {
+    var current = start || 0
+
+    this.forEachArtboard = function(action) {
+        var artboards = document.artboards.length
+        document.artboards.forEach(function(artboard) {
+            var top1 = current
+            var top2 = current + artboards
+            var top3 = current + artboards * 2
+            var top4 = current + artboards * 3
+            var bottom1 = current + artboards * 4
+            var bottom2 = current + artboards * 5
+            var bottom3 = current + artboards * 6
+            var bottom4 = current + artboards * 7
+            artboard.name = '{0}-{1}-{2}-{3}-{4}-{5}-{6}-{7}'.format(top1 + 1, top2 + 1, top3 + 1, top4 + 1, bottom1 + 1, bottom2 + 1, bottom3 + 1, bottom4 + 1)
+            action(artboard,
+                top1, top2, top3, top4,
+                bottom1, bottom2, bottom3, bottom4)
+            current++
+        })
+    }
+}
+
+/**
+ * @param {Document} document to attach to, use `document` for active document.
+ * @param {Number} start first page to open, the first and default is 0.
+ */
+function EightUpDuplexPerfectBoundPager(document, start) {
     var current = start || 0
     var isFront = true
 

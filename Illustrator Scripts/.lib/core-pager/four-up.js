@@ -56,7 +56,30 @@ function FourUpDuplexPager(document, start) {
  * @param {Document} document to attach to, use `document` for active document.
  * @param {Number} start first page to open, the first and default is 0.
  */
-function FourUpDuplexStackedPager(document, start) {
+function FourUpSimplexPerfectBoundPager(document, start) {
+    var current = start || 0
+
+    this.forEachArtboard = function(action) {
+        var artboards = document.artboards.length
+        document.artboards.forEach(function(artboard) {
+            var topLeft = current
+            var topRight = current + artboards
+            var bottomLeft = current + artboards * 2
+            var bottomRight = current + artboards * 3
+            artboard.name = '{0}-{1}-{2}-{3}'.format(topLeft + 1, topRight + 1, bottomLeft + 1, bottomRight + 1)
+            action(artboard,
+                topLeft, topRight,
+                bottomLeft, bottomRight)
+            current++
+        })
+    }
+}
+
+/**
+ * @param {Document} document to attach to, use `document` for active document.
+ * @param {Number} start first page to open, the first and default is 0.
+ */
+function FourUpDuplexPerfectBoundPager(document, start) {
     var current = start || 0
     var isFront = true
 

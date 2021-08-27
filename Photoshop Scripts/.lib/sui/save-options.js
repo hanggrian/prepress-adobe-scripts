@@ -46,11 +46,7 @@ function SaveDirectoryGroup(parent, editBounds) {
         })
     })
 
-    this.getDirectoryName = function() {
-        return self.directoryEdit.text
-    }
+    this.getDirectoryName = function() { return self.directoryEdit.text }
 
-    this.browse = function() {
-        new File(self.getDirectoryName()).execute()
-    }
+    this.browse = function() { new File(self.getDirectoryName()).execute() }
 }
