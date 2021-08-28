@@ -92,4 +92,5 @@ dialog.setDefaultButton(undefined, function() {
     if (textFrameCheck.value) types.push('TextFrame')
     selectAll(types)
 })
+dialog.setHelpButton(undefined, showSelectHelp)
 dialog.show()

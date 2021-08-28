@@ -210,7 +210,7 @@ function createDash(weight, color, positions) {
 function showHelp() {
     var dialog = new Dialog('Help')
     dialog.hgroup(function(main) {
-        main.image(undefined, 'dieline_paperbag.png')
+        main.image(undefined, 'help_dieline_paperbag.png')
     })
     dialog.setCancelButton('Close')
     dialog.show()

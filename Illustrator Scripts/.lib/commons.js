@@ -38,7 +38,7 @@ function unitsOf(input) { return UnitValue(input).as(unitName) + ' ' + unitName 
 
 /**
  * Select all items that match selected configuration.
- * When nothing is selected, this library will select all items with requested types.
+ * When nothing is selected, this script will select all items with requested types.
  * When there are selection, it will instead filter the selection to only match requested types.
  * @param {Array} types array of `PageItem` typenames.
  * @param {Function} callable nullable custom item checker that should return true if the item parameter should be selected.

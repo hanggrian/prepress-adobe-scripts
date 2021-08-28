@@ -70,8 +70,6 @@ if (files !== null && files.isNotEmpty()) {
         })
         selection = []
     })
-    dialog.setHelpButton(undefined, function() {
-        return showNUpHelp(true, false, false)
-    })
+    dialog.setHelpButton(undefined, nupGroup.showHelp)
     dialog.show()
 }

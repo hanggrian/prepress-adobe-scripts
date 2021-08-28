@@ -152,6 +152,7 @@ dialog.setDefaultButton(undefined, function() {
         return condition
     })
 })
+dialog.setHelpButton(undefined, showSelectHelp)
 dialog.show()
 
 function find(string, substring) {

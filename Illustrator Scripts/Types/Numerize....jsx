@@ -81,8 +81,7 @@ dialog.setDefaultButton(undefined, function() {
 
         s = prefix + s + suffix
         $.writeln(i + '. ' + s)
-        item.words.removeAll()
-        item.words.add(s)
+        item.contents = s
 
         if (stopsAtList.selection !== null) {
             stopsCount++
@@ -95,6 +94,7 @@ dialog.setDefaultButton(undefined, function() {
         }
     })
 })
+dialog.setHelpButton(undefined, showHelp)
 dialog.show()
 
 // https://stackoverflow.com/questions/10073699/pad-a-number-with-leading-zeros-in-javascript
@@ -102,4 +102,29 @@ function pad(n, width, z) {
     z = z || '0';
     n = n + '';
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
+
+function showHelp() {
+    var dialog = new Dialog('Help')
+    dialog.vgroup(function(main) {
+        main.hpanel('Digits', function(panel) {
+            panel.spacing = 20
+            panel.image(undefined, 'help_numerize_digit.png')
+            panel.staticText([200, 70],
+                'Iterate all texts and retype each of them to current index.\n' +
+                "Here's an example of numerize result with 2 `Digits`",
+                { multiline: true })
+        })
+        main.hpanel('Alphabets', function(panel) {
+            panel.spacing = 20
+            panel.image(undefined, 'help_numerize_alphabet.png')
+            panel.staticText([200, 70],
+                'You can also numerize with alphabet suffix.\n' +
+                "Here's an example of numerize result with `Stops at` B",
+                { multiline: true })
+        })
+    })
+    dialog.setCancelButton('Close')
+    dialog.show()
+    return true
 }

@@ -129,4 +129,5 @@ dialog.setDefaultButton(undefined, function() {
         return condition
     })
 })
+dialog.setHelpButton(undefined, showSelectHelp)
 dialog.show()

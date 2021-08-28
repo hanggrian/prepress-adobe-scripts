@@ -18,7 +18,7 @@
 #include 'sui/order-by.js'
 #include 'sui/range.js'
 #include 'sui/save-options.js'
-#include 'sui/select-dimension.js'
+#include 'sui/select-options.js'
 #include 'sui/slider.js'
 
 libPath = new File($.fileName).path

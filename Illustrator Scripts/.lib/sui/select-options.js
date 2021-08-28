@@ -19,3 +19,16 @@ function SelectDimensionPanel(parent, textBounds, editBounds) {
 
     this.getHeight = function() { return parseUnits(self.heightEdit.text) }
 }
+
+function showSelectHelp() {
+    var dialog = new Dialog('Help')
+    dialog.vgroup(function(main) {
+        main.staticText(undefined,
+            'When nothing is selected, this script will select all items with requested types.\n\n' +
+            'When there are selection, it will instead filter the selection to only match requested types.',
+            { multiline: true })
+    })
+    dialog.setCancelButton('Close')
+    dialog.show()
+    return true
+}

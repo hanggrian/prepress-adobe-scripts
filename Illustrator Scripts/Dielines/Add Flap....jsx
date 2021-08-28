@@ -253,13 +253,13 @@ function showHelp() {
     var dialog = new Dialog('Help')
     dialog.hgroup(function(main) {
         main.hpanel('Glue Flap', function(panel) {
-            panel.image(undefined, 'dieline_glueflap.png')
+            panel.image(undefined, 'help_dieline_glueflap.png')
         })
         main.hpanel('Tuck Flap', function(panel) {
-            panel.image(undefined, 'dieline_tuckflap.png')
+            panel.image(undefined, 'help_dieline_tuckflap.png')
         })
         main.hpanel('Dust Flap', function(panel) {
-            panel.image(undefined, 'dieline_dustflap.png')
+            panel.image(undefined, 'help_dieline_dustflap.png')
         })
     })
     dialog.setCancelButton('Close')
