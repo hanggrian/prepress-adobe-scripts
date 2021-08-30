@@ -35,7 +35,7 @@ if (files !== null && files.isNotEmpty()) {
                 })
             })
         })
-        orderByGroup = new OrderByGroup(main, [ORDERS_DEFAULTS, ORDERS_POSITIONS]).also(function(group) {
+        orderByGroup = new OrderByGroup(main, [ORDER_LAYERS, ORDER_POSITIONS]).also(function(group) {
             group.list.selectText('Reversed')
         })
         maintainSizeGroup = new MaintainSizeGroup(main)

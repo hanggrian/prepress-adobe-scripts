@@ -7,7 +7,7 @@ var dialog = new Dialog('Reorder Artboards')
 var orderByGroup
 
 dialog.vgroup(function(main) {
-    orderByGroup = new OrderByGroup(main, [ORDERS_NAMES, ORDERS_POSITIONS]).also(function(it) {
+    orderByGroup = new OrderByGroup(main, [ORDER_NAMES, ORDER_POSITIONS]).also(function(it) {
         it.list.selectText('Horizontal')
     })
 })

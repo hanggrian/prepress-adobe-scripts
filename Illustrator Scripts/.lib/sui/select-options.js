@@ -23,10 +23,16 @@ function SelectDimensionPanel(parent, textBounds, editBounds) {
 function showSelectHelp() {
     var dialog = new Dialog('Help')
     dialog.vgroup(function(main) {
-        main.staticText(undefined,
-            'When nothing is selected, this script will select all items with requested types.\n\n' +
-            'When there are selection, it will instead filter the selection to only match requested types.',
-            { multiline: true })
+        main.vpanel('No Selection', function(panel) {
+            panel.staticText(undefined,
+                'When nothing is selected, this script will select all items with requested parameters.',
+                { multiline: true })
+        })
+        main.vpanel('Has Selection', function(panel) {
+            panel.staticText(undefined,
+                'When there are selection, it will instead filter the selection to only match requested parameters.',
+                { multiline: true })
+        })
     })
     dialog.setCancelButton('Close')
     dialog.show()

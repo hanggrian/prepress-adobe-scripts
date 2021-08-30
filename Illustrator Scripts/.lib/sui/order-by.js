@@ -1,14 +1,14 @@
-var ORDERS_DEFAULTS = [
+var ORDER_LAYERS = [
     ['Default', 'ic_order_layer.png'],
     ['Reversed', 'ic_order_layer.png']
 ]
-var ORDERS_NAMES = [
-    ['Ascending', 'ic_order_title.png'],
-    ['Descending', 'ic_order_title.png']
+var ORDER_NAMES = [
+    ['Ascending', 'ic_order_name.png'],
+    ['Descending', 'ic_order_name.png']
 ]
-var ORDERS_POSITIONS = [
-    ['Horizontal', 'ic_order_grid.png'],
-    ['Vertical', 'ic_order_grid.png']
+var ORDER_POSITIONS = [
+    ['Horizontal', 'ic_order_position.png'],
+    ['Vertical', 'ic_order_position.png']
 ]
 
 function OrderByGroup(parent, ordersCollection) {

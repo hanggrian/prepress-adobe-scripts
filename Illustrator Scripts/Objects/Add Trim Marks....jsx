@@ -82,7 +82,7 @@ dialog.vgroup(function(main) {
                     it.visible = false
                 })
                 group.image(BOUNDS_CHECK, 'ic_arrow_left.png')
-                group.image(BOUNDS_CHECK, 'ic_circle.png')
+                group.image(BOUNDS_CHECK, 'ic_arrow_center.png')
                 group.image(BOUNDS_CHECK, 'ic_arrow_right.png')
                 rightCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
                     it.select()
