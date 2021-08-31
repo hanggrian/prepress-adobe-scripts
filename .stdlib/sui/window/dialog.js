@@ -101,29 +101,15 @@ function Dialog(title) {
         if (prepared) {
             return
         }
-        if (helpButtonText !== undefined) {
-            self.helpButton = appendButton(self.leftButtons, helpButtonText, helpButtonAction, helpButtonDisabled)
-        }
+        self.helpButton = appendButton(self.leftButtons, helpButtonText, helpButtonAction, helpButtonDisabled)
         if (isMacOS()) {
-            if (cancelButtonText !== undefined) {
-                self.cancelButton = appendButton(self.rightButtons, cancelButtonText, cancelButtonAction, cancelButtonDisabled, { name: 'cancel' })
-            }
-            if (yesButtonText !== undefined) {
-                self.yesButton = appendButton(self.rightButtons, yesButtonText, yesButtonAction, yesButtonDisabled)
-            }
-            if (defaultButtonText !== undefined) {
-                self.defaultButton = appendButton(self.rightButtons, defaultButtonText, defaultButtonAction, defaultButtonDisabled, { name: 'ok' })
-            }
+            self.yesButton = appendButton(self.rightButtons, yesButtonText, yesButtonAction, yesButtonDisabled)
+            self.cancelButton = appendButton(self.rightButtons, cancelButtonText, cancelButtonAction, cancelButtonDisabled, { name: 'cancel' })
+            self.defaultButton = appendButton(self.rightButtons, defaultButtonText, defaultButtonAction, defaultButtonDisabled, { name: 'ok' })
         } else {
-            if (defaultButtonText !== undefined) {
-                self.defaultButton = appendButton(self.rightButtons, defaultButtonText, defaultButtonAction, defaultButtonDisabled, { name: 'ok' })
-            }
-            if (yesButtonText !== undefined) {
-                self.yesButton = appendButton(self.rightButtons, yesButtonText, yesButtonAction, yesButtonDisabled)
-            }
-            if (cancelButtonText !== undefined) {
-                self.cancelButton = appendButton(self.rightButtons, cancelButtonText, cancelButtonAction, cancelButtonDisabled, { name: 'cancel' })
-            }
+            self.yesButton = appendButton(self.rightButtons, yesButtonText, yesButtonAction, yesButtonDisabled)
+            self.defaultButton = appendButton(self.rightButtons, defaultButtonText, defaultButtonAction, defaultButtonDisabled, { name: 'ok' })
+            self.cancelButton = appendButton(self.rightButtons, cancelButtonText, cancelButtonAction, cancelButtonDisabled, { name: 'cancel' })
         }
         prepared = true
     }
@@ -150,11 +136,14 @@ function Dialog(title) {
     }
 
     function appendButton(group, text, action, disabled, properties) {
-        return group.button(undefined, text, properties).also(function(button) {
+        if (text === undefined) {
+            return undefined
+        }
+        return group.button(undefined, text, properties).also(function(it) {
             if (disabled !== undefined && disabled) {
-                button.enabled = false
+                it.enabled = false
             }
-            button.onClick = function() {
+            it.onClick = function() {
                 var keepDialog
                 if (action !== undefined) {
                     keepDialog = action()

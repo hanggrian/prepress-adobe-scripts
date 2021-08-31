@@ -5,7 +5,7 @@
 */
 
 /**
- * Construct a new progress dialog.
+ * Construct a new progress palette.
  * @param {Number} stop final value of progress bar.
  * @param {String} status starting message, may be null.
  */
