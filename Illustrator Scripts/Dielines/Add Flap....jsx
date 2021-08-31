@@ -15,7 +15,7 @@ var BOUNDS_RADIO = [15, 15]
 
 checkSingleSelection()
 
-var dialog = new Dialog('Add Flap')
+var dialog = new Dialog('Add Flap Dieline')
 var lengthEdit, weightEdit, colorList, directionList
 var tabbedPanel
 var glueShearEdit, glueScratchEdit

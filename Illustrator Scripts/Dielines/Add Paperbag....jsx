@@ -4,7 +4,7 @@
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [110, 21]
 
-var dialog = new Dialog('Add Paperbag')
+var dialog = new Dialog('Add Paperbag Dieline')
 var widthEdit, heightEdit, depthEdit, upperEdit, lowerEdit, glueLengthEdit, glueShearEdit
 var weightEdit, colorList
 

@@ -20,14 +20,14 @@ main() {
 
     case $input in
         "1")
-            patch_app Illustrator
+            patch_app "Illustrator" "aia"
             ;;
         "2")
-            patch_app Photoshop
+            patch_app "Photoshop" "atn"
             ;;
         "a" | "A")
-            patch_app Illustrator
-            patch_app Photoshop
+            patch_app "Illustrator" "aia"
+            patch_app "Photoshop" "atn"
             ;;
         "q" | "Q")
             ;;
@@ -54,26 +54,28 @@ fail() {
 # Find adobe apps and determine its scripts directory parent.
 # In mac, localized directories always have `.localized` suffix.
 patch_app() {
-    local adobe_app=$1
-    local source_scripts="$SOURCE_ROOT/$adobe_app Scripts"
+    local name=$1
+    local action_extension=$2
+    local source_scripts="$SOURCE_ROOT/$name Scripts"
+    local source_action="$SOURCE_ROOT/Actions/Prepress Adobe Scripts.$action_extension"
     local success=false
 
     echo
-    echo Patching $adobe_app...
+    echo Patching $name...
 
     for app in "/Applications/"*; do
-        local appName=`basename $app`
-        if [[ $appName == *Adobe* ]] && [[ $appName == *$adobe_app* ]]; then
+        local app_name=`basename "$app"`
+        if [[ $app_name == *Adobe* ]] && [[ $app_name == *$name* ]]; then
             local presets="$app/Presets"
             local localizedPresets="$presets.localized"
             if [ -d "$localizedPresets" ]; then
                 for preset in "$localizedPresets/"*; do
                     success=true
-                    patch_preset "$app" "$source_scripts" "$preset"
+                    patch_preset "$app" "$source_scripts" "$source_action" "$preset"
                 done
             else
                 success=true
-                patch_preset "$app" "$source_scripts" "$presets"
+                patch_preset "$app" "$source_scripts" "$source_action" "$presets"
             fi
         fi
     done
@@ -86,14 +88,15 @@ patch_app() {
 patch_preset() {
     local app=$1
     local source_scripts=$2
-    local target_root=$3
+    local source_action=$3
+    local target_root=$4
     local target_stdlib="$target_root/.stdlib"
     local target_stdres="$target_root/.stdres"
     local target_stdreslight="$target_root/.stdres-light"
     local target_support="$target_root/.support-files"
     local target_scripts="$target_root/Scripts"
     local target_scripts_incubating="$target_scripts/.incubating"
-    local url="$target_scripts/prepress-adobe-scripts.url"
+    local target_action="$target_root/Actions/`basename "$source_action"`"
 
     echo - $GREEN$app$END
 
@@ -113,6 +116,9 @@ patch_preset() {
     if [ -d "$target_scripts" ]; then
         rm -rf "$target_scripts"
     fi
+    if [ -f "$target_action" ]; then
+        rm -rf "$target_action"
+    fi
     # Copy new ones
     mkdir "$target_stdlib"
     cp -r "$SOURCE_STDLIB"/. "$target_stdlib"
@@ -124,14 +130,10 @@ patch_preset() {
     cp -r "$SOURCE_SUPPORT"/. "$target_support" && chmod +x "$target_support/check_updates.command"
     mkdir "$target_scripts"
     cp -r "$source_scripts"/. "$target_scripts"
+    cp "$source_action" "$target_action"
     # Clean up
     rm -rf "$target_scripts_incubating"
     rm "$target_support/check_updates.bat"
-    # Add url
-    > "$url"
-    echo [InternetShortcut] >> "$url"
-    echo URL=https://github.com/hendraanggrian/prepress-adobe-scripts >> "$url"
-    echo IconIndex=0 >> "$url"
 }
 
 END=[0m
@@ -142,7 +144,7 @@ GREEN=[92m
 YELLOW=[93m
 
 # Check mac
-if [ $(uname) != Darwin ]; then
+if [ `uname` != Darwin ]; then
     fail "Unsupported platform."
 fi
 # Check permissions
@@ -150,7 +152,7 @@ if [ "$EUID" -ne 0 ]; then
     fail "Root access required."
 fi
 
-SOURCE_ROOT="$(cd `dirname $0` && pwd)"
+SOURCE_ROOT="$(cd `dirname "$0"` && pwd)"
 SOURCE_STDLIB="$SOURCE_ROOT/.stdlib"
 SOURCE_STDRES="$SOURCE_ROOT/.stdres"
 SOURCE_STDRESLIGHT="$SOURCE_ROOT/.stdres-light"

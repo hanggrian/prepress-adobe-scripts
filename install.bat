@@ -99,16 +99,16 @@ exit /b 1
 :: In Windows, we manually do this manually. Check if `Presets` directly contain `Scripts` directory.
 :patch_app
     setlocal
-    set adobe_app=%~1
-    set source_scripts=!SOURCE_ROOT!!adobe_app! Scripts
+    set name=%~1
+    set source_scripts=!SOURCE_ROOT!!name! Scripts
     set "success="
 
     echo.
-    echo Patching !adobe_app!...
+    echo Patching !name!...
 
     for /d %%a in ("!ProgramFiles!\Adobe\*") do (
-        set appName=%%~nxa
-        if "!appName:%adobe_app%=!" neq "!appName!" (
+        set app_name=%%~nxa
+        if "!app_name:%name%=!" neq "!app_name!" (
             set presets=%%a\Presets
             if not exist "!presets!\Scripts" (
                 for /d %%p in ("!presets!\*") do (
@@ -128,11 +128,11 @@ exit /b 1
     if exist "!ProgramFiles(x86)!" (
         set "success="
         echo.
-        echo Patching 32-bit !adobe_app!...
+        echo Patching 32-bit !name!...
 
         for /d %%a in ("!ProgramFiles(x86)!\Adobe\*") do (
-            set appName=%%~nxa
-            if "!appName:%adobe_app%=!" neq "!appName!" (
+            set app_name=%%~nxa
+            if "!app_name:%name%=!" neq "!app_name!" (
                 set presets=%%a\Presets
                 if not exist "!presets!\Scripts" (
                     for /d %%p in ("!presets!\*") do (
