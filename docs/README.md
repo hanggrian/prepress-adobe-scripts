@@ -33,11 +33,7 @@ Find **Scripts** directory in your local Adobe installation paths:
 
 Now copy these:
 * Content of `Illustrator/Photoshop Scripts` to **Scripts**.
-* Following directories to parent directory of **Scripts**:
-  * `.stdlib`
-  * `.stdres`
-  * `.stdres-light`
-  * `.support-files`
+* `.stdlib` and `.stdres` to parent directory of **Scripts**:
 
 > In macOS, make sure to show all hidden files in Finder.
 

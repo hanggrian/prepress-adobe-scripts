@@ -40,9 +40,9 @@ function AboutTabbedPanel(parent, clientDate) {
                     it.maximumSize.height = 21
                     it.onClick = function() {
                         if (isMacOS()) {
-                            new File(supportPath + '/check_updates.command').execute()
+                            getResource('check_updates.command').execute()
                         } else {
-                            new File(supportPath + '/check_updates.bat').execute()
+                            getResource('check_updates.bat').execute()
                         }
                         $.sleep(3000)
                         var result = new File('~/Desktop/prepress-adobe-scripts')

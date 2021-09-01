@@ -7,8 +7,8 @@
 #target Photoshop
 #include '.lib/core.js'
 
-var dialog = new Dialog('About')
-var clientDate = parseDate(new File(supportPath + '/VERSION').readText())
+var dialog = new Dialog('About Scripts')
+var clientDate = parseDate(getResource('VERSION').readText())
 
 dialog.vgroup(function(main) {
     main.hgroup(function(group) {

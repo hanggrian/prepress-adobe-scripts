@@ -43,7 +43,7 @@ function _removeRegexes(string, regexes) {
 /** Returns resource file, or self if already a file. */
 function _asFile(image) {
     if (typeof image === 'string' || image instanceof String) {
-        return getResource(image)
+        return getImage(image)
     }
     return image
 }

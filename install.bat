@@ -17,7 +17,6 @@ set SOURCE_ROOT=%~dp0
 :: Check sources
 if not exist "!SOURCE_ROOT!.stdlib" goto :fail_sources
 if not exist "!SOURCE_ROOT!.stdres" goto :fail_sources
-if not exist "!SOURCE_ROOT!.support-files" goto :fail_sources
 if not exist "!SOURCE_ROOT!Illustrator Scripts" goto :fail_sources
 if not exist "!SOURCE_ROOT!Photoshop Scripts" goto :fail_sources
 if not exist "!SOURCE_ROOT!Actions" goto :fail_sources
@@ -143,10 +142,6 @@ goto :eof
         rmdir /s /q "!target_root!\.stdres"
         md "!target_root!\.stdres"
     )
-    if exist "!target_root!\.support-files" (
-        rmdir /s /q "!target_root!\.support-files"
-        md "!target_root!\.support-files"
-    )
     if exist "!target_root!\Scripts" (
         rmdir /s /q "!target_root!\Scripts"
         md "!target_root!\Scripts"
@@ -157,11 +152,10 @@ goto :eof
     :: Copy new ones
     robocopy /s "!SOURCE_ROOT!.stdlib" "!target_root!\.stdlib" /njh /njs /ndl /nc /ns /nfl
     robocopy /s "!SOURCE_ROOT!.stdres" "!target_root!\.stdres" /njh /njs /ndl /nc /ns /nfl
-    robocopy /s "!SOURCE_ROOT!.support-files" "!target_root!\.support-files" /njh /njs /ndl /nc /ns /nfl
     robocopy /s "!SOURCE_ROOT!!scripts_filename!" "!target_root!\Scripts" /njh /njs /ndl /nc /ns /nfl
     robocopy "!SOURCE_ROOT!Actions" "!target_root!\Actions" "!action_filename!" /njh /njs /ndl /nc /ns /nfl
     :: Clean up
-    del "!target_root!\.support-files\check_updates.command"
+    del "!target_root!\.stdres\check_updates.command"
     rmdir /s /q "!target_root!\Scripts\.incubating"
     endlocal
 goto :eof
