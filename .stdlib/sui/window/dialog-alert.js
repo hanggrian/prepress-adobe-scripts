@@ -21,6 +21,12 @@ function AlertDialog(title, message, error) {
         main.staticText(undefined, message)
     })
 
+    /** Returns native window title. */
+    this.getTitle = function() { return dialog.getTitle() }
+
+    /** Sets native window title. */
+    this.setTitle = function(title) { dialog.setTitle(title) }
+
     /**
      * Default button responds to pressing the Enter key.
      * @param {String} text nullable button text.

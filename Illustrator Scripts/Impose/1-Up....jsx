@@ -8,7 +8,7 @@ var dialog = new Dialog('Impose 1-Up')
 var pdfPanel, pagesPanel, documentPanel
 var nupGroup
 
-var files = openFile(dialog.title, [
+var files = openFile(dialog.getTitle(), [
     FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
     FILTERS_BMP, FILTERS_GIF89a, FILTERS_JPEG, FILTERS_JPEG2000, FILTERS_PNG, FILTERS_PHOTOSHOP, FILTERS_TIFF
 ], true)

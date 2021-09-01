@@ -4,8 +4,7 @@
 </javascriptresource>
 */
 
-var _stdresPath, _stdresLightPath, _resPath, _resLightPath
-var _resLight
+var _stdresDir, _resDir, _resLight
 
 /**
  * Refer to a file from `.res` directory.
@@ -14,30 +13,26 @@ var _resLight
  */
 function getResource(name) {
     if (_resLight === undefined) {
-        _stdresPath = new File(new File($.fileName).path + '/../.stdres')
-        _resPath = new File(libPath + '/../.res')
+        _stdresDir = new File(new File($.fileName) + '/../.stdres')
+        _resDir = new File(libPath + '/../.res')
         _resLight = preferences.getString('scripts_theme') === 'Light'
     }
     var file
     if (_resLight) {
-        if (_stdresLightPath === undefined && _resLightPath === undefined) {
-            _stdresLightPath = new File('/../.stdres-light')
-            _resLightPath = new File(libPath + '/../.res-light')
-        }
-        file = new File(_resLightPath + '/' + name)
+        file = new File(_resDir + '/light/' + name)
         if (file.exists) {
             return file
         }
-        file = new File(_stdresLightPath + '/' + name)
+        file = new File(_stdresDir + '/light/' + name)
         if (file.exists) {
             return file
         }
     }
-    file = new File(_resPath + '/' + name)
+    file = new File(_resDir + '/' + name)
     if (file.exists) {
         return file
     }
-    file = new File(_stdresPath + '/' + name)
+    file = new File(_stdresDir + '/' + name)
     if (file.exists) {
         return file
     }

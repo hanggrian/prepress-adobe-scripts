@@ -15,7 +15,7 @@ var BOUNDS_EDIT = [100, 21]
 var dialog = new Dialog('Open Splitted')
 var documentPanel
 
-var files = openFile(dialog.title, [
+var files = openFile(dialog.getTitle(), [
     ['Adobe Illustrator', 'AI'],
     ['Adobe PDF', 'PDF'],
     ['BMP', 'BMP'],

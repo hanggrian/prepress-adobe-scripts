@@ -11,96 +11,68 @@ set RED=[91m
 set GREEN=[92m
 set YELLOW=[93m
 
-:: Check permissions
-net session >nul 2>&1
-if !errorLevel! neq 0 (
-    goto :fail_permissions
-)
-
+:: SOURCE_ROOT ends with backslash
 set SOURCE_ROOT=%~dp0
-set SOURCE_STDLIB=!SOURCE_ROOT!.stdlib
-set SOURCE_STDRES=!SOURCE_ROOT!.stdres
-set SOURCE_STDRESLIGHT=!SOURCE_ROOT!.stdres-light
-set SOURCE_SUPPORT=!SOURCE_ROOT!.support-files
 
 :: Check sources
-if exist "!SOURCE_STDLIB!" (
-    if exist "!SOURCE_STDRES!" (
-        if exist "!SOURCE_STDRESLIGHT!" (
-            if exist "!SOURCE_SUPPORT!" (
-                goto :main
-            ) else goto :fail_missing_sources
-        ) else goto :fail_missing_sources
-    ) else goto :fail_missing_sources
-) else goto :fail_missing_sources
+if not exist "!SOURCE_ROOT!.stdlib" goto :fail_sources
+if not exist "!SOURCE_ROOT!.stdres" goto :fail_sources
+if not exist "!SOURCE_ROOT!.support-files" goto :fail_sources
+if not exist "!SOURCE_ROOT!Illustrator Scripts" goto :fail_sources
+if not exist "!SOURCE_ROOT!Photoshop Scripts" goto :fail_sources
+if not exist "!SOURCE_ROOT!Actions" goto :fail_sources
 
-:main
-    echo.
-    echo !YELLOW!!BOLD!WARNING!END!
-    echo !YELLOW!This command will replace all existing scripts, even the default ones.
-    echo Backup if necessary.!END!
-    echo.
-    echo !BOLD!!UNDERLINE!Prepress Adobe Scripts!END!
-    echo.
-    echo 1. Illustrator
-    echo 2. Photoshop
-    echo A. All
-    echo.
-    echo Q. Quit
-    echo.
-    set /p input=!BOLD!Which scripts would you like to install: !END!
+:: Check permissions
+net session >nul 2>&1
+if !errorLevel! neq 0 goto :fail_permissions
 
-    if "!input!" equ "1" (
-        call :patch_app "Illustrator"
-    ) else if "!input!" equ "2" (
-        call :patch_app "Photoshop"
-    ) else if "!input!" equ "a" (
-        call :patch_app "Illustrator"
-        call :patch_app "Photoshop"
-    ) else if "!input!" equ "A" (
-        call :patch_app "Illustrator"
-        call :patch_app "Photoshop"
-    ) else if "!input!" equ "q" (
-        rem
-    ) else if "!input!" equ "Q" (
-        rem
-    ) else (
-        goto :fail_invalid_input
-    )
+echo.
+echo !YELLOW!!BOLD!WARNING!END!
+echo !YELLOW!This command will replace all existing scripts, even the default ones.
+echo Backup if necessary.!END!
+echo.
+echo !BOLD!!UNDERLINE!Prepress Adobe Scripts!END!
+echo.
+echo 1. Illustrator
+echo 2. Photoshop
+echo A. All
+echo.
+echo Q. Quit
+echo.
+set /p input=!BOLD!Which scripts would you like to install: !END!
 
-    echo.
-    echo Goodbye^^!
-    echo.
-    pause
+if "!input!" equ "1" (
+    call :patch_app "Illustrator" "aia"
+) else if "!input!" equ "2" (
+    call :patch_app "Photoshop" "atn"
+) else if "!input!" equ "a" (
+    call :patch_app "Illustrator" "aia"
+    call :patch_app "Photoshop" "atn"
+) else if "!input!" equ "A" (
+    call :patch_app "Illustrator" "aia"
+    call :patch_app "Photoshop" "atn"
+) else if "!input!" equ "q" (
+    rem
+) else if "!input!" equ "Q" (
+    rem
+) else (
+    goto :fail_input
+)
+
+echo.
+echo Goodbye^^!
+echo.
+pause
 exit /b 0
-
-:fail_permissions
-    echo.
-    echo !RED!Administrative permissions required.!END!
-    echo.
-    pause
-exit /b 1
-
-:fail_missing_sources
-    echo.
-    echo !RED!Missing sources.!END!
-    echo.
-    pause
-exit /b 1
-
-:fail_invalid_input
-    echo.
-    echo !RED!Unable to recognize input.!END!
-    echo.
-    pause
-exit /b 1
 
 :: Find adobe apps and determine its scripts directory parent.
 :: In Windows, we manually do this manually. Check if `Presets` directly contain `Scripts` directory.
 :patch_app
     setlocal
     set name=%~1
-    set source_scripts=!SOURCE_ROOT!!name! Scripts
+    set action_extension=%~2
+    set scripts_filename=!name! Scripts
+    set action_filename=Prepress Adobe Scripts.!action_extension!
     set "success="
 
     echo.
@@ -113,11 +85,11 @@ exit /b 1
             if not exist "!presets!\Scripts" (
                 for /d %%p in ("!presets!\*") do (
                     set "success=y"
-                    call :patch_preset "%%a" "!source_scripts!" "%%p"
+                    call :patch_preset "%%a" "!scripts_filename!" "!action_filename!" "%%p"
                 )
             ) else (
                 set "success=y"
-                call :patch_preset "%%a" "!source_scripts!" "!presets!"
+                call :patch_preset "%%a" "!scripts_filename!" "!action_filename!" "!presets!"
             )
         )
     )
@@ -137,11 +109,11 @@ exit /b 1
                 if not exist "!presets!\Scripts" (
                     for /d %%p in ("!presets!\*") do (
                         set "success=y"
-                        call :patch_preset "%%a" "!source_scripts!" "%%p"
+                        call :patch_preset "%%a" "!scripts_filename!" "!action_filename!" "%%p"
                     )
                 ) else (
                     set "success=y"
-                    call :patch_preset "%%a" "!source_scripts!" "!presets!"
+                    call :patch_preset "%%a" "!scripts_filename!" "!action_filename!" "!presets!"
                 )
             )
         )
@@ -155,52 +127,62 @@ goto :eof
 :: Wipe out current scripts and shared libraries, then copy new ones.
 :patch_preset
     setlocal
-    set app=%~1
-    set source_scripts=%~2
-    set target_root=%~3
-    set target_stdlib=!target_root!\.stdlib
-    set target_stdres=!target_root!\.stdres
-    set target_stdreslight=!target_root!\.stdres-light
-    set target_support=!target_root!\.support-files
-    set target_scripts=!target_root!\Scripts
-    set target_scripts_incubating=!target_scripts!\.incubating
-    set url=!target_scripts!\prepress-adobe-scripts.url
+    set full_name=%~1
+    set scripts_filename=%~2
+    set action_filename=%~3
+    set target_root=%~4
 
-    echo - !GREEN!!app!!END!
+    echo - !GREEN!!full_name!!END!
 
     :: Delete existing
-    if exist "!target_stdlib!" (
-        rmdir /s /q "!target_stdlib!"
+    if exist "!target_root!\.stdlib" (
+        rmdir /s /q "!target_root!\.stdlib"
+        md "!target_root!\.stdlib"
     )
-    if exist "!target_stdres!" (
-        rmdir /s /q "!target_stdres!"
+    if exist "!target_root!\.stdres" (
+        rmdir /s /q "!target_root!\.stdres"
+        md "!target_root!\.stdres"
     )
-    if exist "!target_stdreslight!" (
-        rmdir /s /q "!target_stdreslight!"
+    if exist "!target_root!\.support-files" (
+        rmdir /s /q "!target_root!\.support-files"
+        md "!target_root!\.support-files"
     )
-    if exist "!target_support!" (
-        rmdir /s /q "!target_support!"
+    if exist "!target_root!\Scripts" (
+        rmdir /s /q "!target_root!\Scripts"
+        md "!target_root!\Scripts"
     )
-    if exist "!target_scripts!" (
-        rmdir /s /q "!target_scripts!"
+    if exist "!target_root!\Actions\!action_filename!" (
+        del "!target_root!\Actions\!action_filename!"
     )
     :: Copy new ones
-    md "!target_stdlib!"
-    robocopy /s "!SOURCE_STDLIB!" "!target_stdlib!" /njh /njs /ndl /nc /ns /nfl
-    md "!target_stdres!"
-    robocopy /s "!SOURCE_STDRES!" "!target_stdres!" /njh /njs /ndl /nc /ns /nfl
-    md "!target_stdreslight!"
-    robocopy /s "!SOURCE_STDRESLIGHT!" "!target_stdreslight!" /njh /njs /ndl /nc /ns /nfl
-    md "!target_support!"
-    robocopy /s "!SOURCE_SUPPORT!" "!target_support!" /njh /njs /ndl /nc /ns /nfl
-    md "!target_scripts!"
-    robocopy /s "!source_scripts!" "!target_scripts!" /njh /njs /ndl /nc /ns /nfl
+    robocopy /s "!SOURCE_ROOT!.stdlib" "!target_root!\.stdlib" /njh /njs /ndl /nc /ns /nfl
+    robocopy /s "!SOURCE_ROOT!.stdres" "!target_root!\.stdres" /njh /njs /ndl /nc /ns /nfl
+    robocopy /s "!SOURCE_ROOT!.support-files" "!target_root!\.support-files" /njh /njs /ndl /nc /ns /nfl
+    robocopy /s "!SOURCE_ROOT!!scripts_filename!" "!target_root!\Scripts" /njh /njs /ndl /nc /ns /nfl
+    robocopy "!SOURCE_ROOT!Actions" "!target_root!\Actions" "!action_filename!" /njh /njs /ndl /nc /ns /nfl
     :: Clean up
-    rmdir /s /q "!target_scripts_incubating!"
-    del "!target_support!\check_updates.command"
-    :: Add url
-    echo [InternetShortcut] >> "!url!"
-    echo URL=https://github.com/hendraanggrian/prepress-adobe-scripts >> "!url!"
-    echo IconIndex=0 >> "!url!"
+    del "!target_root!\.support-files\check_updates.command"
+    rmdir /s /q "!target_root!\Scripts\.incubating"
     endlocal
 goto :eof
+
+:fail_permissions
+    echo.
+    echo !RED!Administrative permissions required.!END!
+    echo.
+    pause
+exit /b 1
+
+:fail_sources
+    echo.
+    echo !RED!Missing sources.!END!
+    echo.
+    pause
+exit /b 1
+
+:fail_input
+    echo.
+    echo !RED!Unable to recognize input.!END!
+    echo.
+    pause
+exit /b 1

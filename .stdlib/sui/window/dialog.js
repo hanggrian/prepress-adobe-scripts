@@ -33,6 +33,12 @@ function Dialog(title) {
     var cancelButtonText, cancelButtonAction, cancelButtonDisabled
     var helpButtonText, helpButtonAction, helpButtonDisabled
 
+    /** Returns native window title. */
+    this.getTitle = function() { return window.text }
+
+    /** Sets native window title. */
+    this.setTitle = function(title) { window.text = title }
+
     /** Set main layout to horizontal. */
     this.hgroup = function(configuration) {
         self.main.orientation = 'row'

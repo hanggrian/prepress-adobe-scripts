@@ -12,7 +12,7 @@ check(items.isNotEmpty(), 'No links found in selection')
 var dialog = new Dialog('Relink Same')
 var pdfPanel, pageEdit, maintainSizeGroup
 
-var file = openFile(dialog.title, [
+var file = openFile(dialog.getTitle(), [
     FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
     FILTERS_BMP, FILTERS_GIF89a, FILTERS_JPEG, FILTERS_JPEG2000, FILTERS_PNG, FILTERS_PHOTOSHOP, FILTERS_TIFF
 ])
