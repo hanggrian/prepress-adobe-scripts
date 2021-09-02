@@ -7,17 +7,16 @@ Prepress Adobe Scripts
 ![](images/logo_psd.png)
 
 Essential Illustrator and Photoshop scripts for commercial printshop.
-While most of these scripts are general purpose, some are heavily prepress-focused like trim marks, dielines and imposition.
 Tested only on latest Adobe suite.
 
-Install
--------
+Head to [repository website](http://hendraanggrian.com/prepress-adobe-scripts) for screenshots of the scripts.
 
-![](images/menu_ai.png)
-![](images/menu_psd.png)
+Download
+--------
 
-These scripts are **not standalone**, all of them require hidden directories to be in pre-determined locations.
-This is why it is recommended to put them in Adobe installation paths, and access them from menu bar.
+There are several ways to use the scripts, a recommended method is to install them in Adobe installation paths so that they may appear in `Menubar > File > Scripts`.
+
+In any case, download the source code and pick one of the following solutions.
 
 ### Automatic Installation
 
@@ -36,6 +35,29 @@ Now copy these:
 * `.stdlib` and `.stdres` to parent directory of **Scripts**:
 
 > In macOS, make sure to show all hidden files in Finder.
+
+### No Installation
+
+It is possible to use the scripts by drag-and-dropping JSX files directly to Adobe apps.
+Just make sure to keep the entirety of root folder instead of `Illustrator/Photoshop Scripts` folders.
+
+This is because the scripts are **not standalone**, all of them require hidden directories to be in pre-determined locations.
+
+Usage
+-----
+
+![](images/menu_ai.png)
+![](images/menu_psd.png)
+
+If you decide to install the scripts, they can be accessed from menubar or keyboard shortcuts.
+
+### Keyboard Shortcuts
+
+This is made possible by using Actions feature which binds Fn keys to menu item.
+However, they need to be setup manually:
+1. In Actions panel, select `Load Actions...`.
+2. Navigate to local Adobe installation path, and find `Actions` directory under `Presets`.
+3. Open a file named `Prepress Adobe Script`.
 
 Resources
 ---------
