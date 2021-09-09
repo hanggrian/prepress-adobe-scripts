@@ -48,7 +48,7 @@ dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
     var currentFont = item.textRange.characterAttributes.size
     var currentDimension // text's dimension are not an accurate real-world size, use its outline instead
-    item.duplicate(document, ElementPlacement.PLACEATEND).createOutline().run(function(it) {
+    item.duplicate(layer, ElementPlacement.PLACEATEND).createOutline().run(function(it) {
         currentDimension = dimensionWidthRadio.value ? it.width : it.height
         it.remove()
     })

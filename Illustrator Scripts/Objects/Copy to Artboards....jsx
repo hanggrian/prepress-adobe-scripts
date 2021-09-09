@@ -64,7 +64,7 @@ if (proceed) {
                 return
             }
             var artboardRect = artboard.artboardRect
-            readOnlySelection.forEach(function(item, itemIndex) {
+            readOnlySelection.forEachReversed(function(item, itemIndex) {
                 var relativePosition = relativePositions[itemIndex]
                 var x, y
                 if (anchorList.selection.text.endsWith('Left')) {
@@ -77,7 +77,7 @@ if (proceed) {
                 } else {
                     y = artboardRect.getBottom() - relativePosition.getBottom()
                 }
-                item.duplicate(document, ElementPlacement.PLACEATBEGINNING).position = [x, y]
+                item.duplicate(layer, ElementPlacement.PLACEATBEGINNING).position = [x, y]
                 $.writeln(artboardIndex + '. ' + 'Position X=' + x + ' Y=' + y)
             })
         })

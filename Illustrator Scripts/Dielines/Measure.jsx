@@ -9,9 +9,9 @@ checkHasSelection()
 var items = selection.filterItem(function(it) { return it.typename === 'PathItem' || it.typename === 'CompoundPathItem' })
 check(items.isNotEmpty(), 'No paths found in selection')
 
-var hasFilledLine = false
-var count = 0, registrationCount = 0
-var distance = 0, registrationDistance = 0
+var count = 0
+var distance = 0
+var filledCount = 0, registrationCount = 0
 
 items.forEachItem(function(it) {
     switch (it.typename) {
@@ -27,33 +27,30 @@ items.forEachItem(function(it) {
 })
 
 alert(buildString(function(it) {
-    if (count + registrationCount + distance + registrationDistance === 0) {
-        it.appendLine('No dielines found in selection.')
-        if (hasFilledLine) {
-            it.appendLine('Lines with color fill are ignored.')
-        }
+    if (count + distance === 0) {
+        it.append('No dielines found in selection.')
     } else {
-        it.append((count + registrationCount) + ' lines measuring at ' + formatUnits(distance + registrationDistance, unitName, 2))
-        if (distance > 0 && registrationDistance > 0) {
-            it.appendLine(', containing:')
-            it.appendLine('• ' + count + ' lines at ' + formatUnits(distance, unitName, 2))
-            it.appendLine('• ' + registrationCount + ' registration lines at ' + formatUnits(registrationDistance, unitName, 2))
-        } else {
-            it.appendLine('.')
-        }
+        it.append('{0} lines measuring at {1}.'.format(count, formatUnits(distance, unitName, 2)))
+    }
+    if (filledCount > 0) {
+        it.appendLine()
+        it.append('{0} lines with colored fill are ignored.'.format(filledCount))
+    }
+    if (registrationCount > 0) {
+        it.appendLine()
+        it.append('{0} lines with registration stroke are ignored.'.format(registrationCount))
     }
 }).trim(), 'Measure Dielines')
 
 function increment(item) {
     if (item.filled) {
-        hasFilledLine = true
+        filledCount++
         return // dielines usually aren't filled
     }
     if (isColorEqual(item.strokeColor, getRegistrationColor())) {
         registrationCount++
-        registrationDistance += item.length
-    } else {
-        count++
-        distance += item.length
+        return // dielines' color usually aren't registration
     }
+    count++
+    distance += item.length
 }

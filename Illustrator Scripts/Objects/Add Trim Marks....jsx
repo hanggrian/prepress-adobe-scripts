@@ -333,7 +333,7 @@ function containsPathBounds(collection, element) {
 
 function createTrimMark(weight, color, suffixName, fromX, fromY, toX, toY) {
     $.writeln(suffixName + '. From ' + '[' + fromX + ',' + fromY + '] to [' + toX + ',' + toY + ']')
-    var path = document.pathItems.add()
+    var path = layer.pathItems.add()
     path.name = 'Trim' + suffixName
     path.filled = false
     path.strokeDashes = []

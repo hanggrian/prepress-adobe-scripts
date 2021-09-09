@@ -187,7 +187,7 @@ function process(isFull) {
 }
 
 function createLine(weight, color, positions) {
-    var path = document.pathItems.add()
+    var path = layer.pathItems.add()
     path.filled = false
     path.strokeDashes = []
     path.strokeColor = color
@@ -198,7 +198,7 @@ function createLine(weight, color, positions) {
 }
 
 function createDash(weight, color, positions) {
-    var path = document.pathItems.add()
+    var path = layer.pathItems.add()
     path.filled = false
     path.strokeDashes = [12]
     path.strokeColor = color

@@ -74,7 +74,7 @@ function appendCount(sb, count, suffix) {
     if (count === 0) {
         return
     }
-    sb.append('• ' + count + ' ' + suffix)
+    sb.append('• {0} {1}'.format(count, suffix))
     if (count > 1) {
         sb.append(suffix.endsWith('sh') ? 'es' : 's')
     }

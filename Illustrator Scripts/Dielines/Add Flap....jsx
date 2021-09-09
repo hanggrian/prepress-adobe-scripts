@@ -130,7 +130,7 @@ dialog.setDefaultButton(undefined, function() {
     var weight = parseUnits(weightEdit.text)
     var color = parseColor(colorList.selection.text)
 
-    var path = document.pathItems.add()
+    var path = layer.pathItems.add()
     path.filled = false
     path.strokeDashes = []
     path.strokeColor = color

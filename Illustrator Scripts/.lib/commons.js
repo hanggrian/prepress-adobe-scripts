@@ -5,6 +5,9 @@
 check(app.documents.length > 0, 'No active document')
 
 var document = app.activeDocument
+
+var layer = selection.isNotEmpty() ? selection.first().layer : document.layers[0]
+
 var unitName = ''
 switch (document.rulerUnits) {
     case RulerUnits.Inches:
