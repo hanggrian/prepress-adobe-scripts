@@ -6,10 +6,9 @@ Prepress Adobe Scripts
 ![](images/logo_ai.png)
 ![](images/logo_psd.png)
 
-Essential Illustrator and Photoshop scripts for commercial printshop.
-Tested only on latest Adobe suite.
+Collection of Illustrator and Photoshop scripts to automate repetitive tasks and procedures of preparing final print layout. Most of heavy-lifting workflow are expected to occur in Illustrator. Only tested on latest Adobe suite.
 
-Head to [repository website](http://hendraanggrian.com/prepress-adobe-scripts) for screenshots of the scripts.
+Head to [repository website](http://hendraanggrian.com/prepress-adobe-scripts) for description of the scripts.
 
 Download
 --------
@@ -27,12 +26,12 @@ Run `install.bat` as admin (Windows) or `install.sh` with sudo (macOS).
 ### Manual Installation
 
 Find **Scripts** directory in your local Adobe installation paths:
-* Illustrator - `$PATH_TO_APP/Presets/$LOCALE_CODE/Scripts`.
-* Photoshop - `$PATH_TO_APP/Presets/Scripts`.
+- Illustrator - `$PATH_TO_APP/Presets/$LOCALE_CODE/Scripts`.
+- Photoshop - `$PATH_TO_APP/Presets/Scripts`.
 
 Now copy these:
-* Content of `Illustrator/Photoshop Scripts` to **Scripts**.
-* `.stdlib` and `.stdres` to parent directory of **Scripts**:
+- Content of `Illustrator/Photoshop Scripts` to **Scripts**.
+- `.stdlib` and `.stdres` to parent directory of **Scripts**.
 
 > In macOS, make sure to show all hidden files in Finder.
 
