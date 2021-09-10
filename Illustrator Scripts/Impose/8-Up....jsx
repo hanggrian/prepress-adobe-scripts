@@ -56,13 +56,13 @@ if (files !== null && files.isNotEmpty()) {
             (rotatedWidth + bleed * 2) * 4,
             (rotatedHeight + bleed * 2) * 2,
             0)
-        var pager = !nupGroup.isPerfectBound()
+        var pager = !nupGroup.isCutStack()
             ? (!nupGroup.isDuplex()
                 ? new EightUpSimplexPager(document, start)
                 : new EightUpDuplexPager(document, start))
             : (!nupGroup.isDuplex()
-                ? new EightUpSimplexPerfectBoundPager(document, start)
-                : new EightUpDuplexPerfectBoundPager(document, start))
+                ? new EightUpSimplexCutStackPager(document, start)
+                : new EightUpDuplexCutStackPager(document, start))
 
         var progress = new ProgressPalette(artboards, 'Imposing')
         pager.forEachArtboard(function(artboard,
@@ -167,6 +167,6 @@ if (files !== null && files.isNotEmpty()) {
         })
         selection = []
     })
-    dialog.setHelpButton(undefined, nupGroup.showHelp)
+    dialog.setHelpLink('imposing-layout')
     dialog.show()
 }

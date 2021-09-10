@@ -103,5 +103,6 @@ if (files !== null && files.isNotEmpty()) {
         })
         selection = []
     })
+    dialog.setHelpLink('imposing-layout')
     dialog.show()
 }

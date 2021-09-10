@@ -49,3 +49,13 @@ function getImage(name) {
     }
     return undefined
 }
+
+/**
+ * Open an url file.
+ * Previous version of this function had to refer to url string instead of file.
+ * @param {String} name file name without extension.
+ * @see https://community.adobe.com/t5/indesign/js-scriptui-url-links-in-dialogues/td-p/4572773?page=1
+ */
+function openLink(name) {
+    getResource('link/' + name + '.url').execute()
+}

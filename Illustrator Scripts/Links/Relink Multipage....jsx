@@ -2,7 +2,7 @@
 #include '../.lib/commons.js'
 
 var BOUNDS_TEXT = [50, 21]
-var BOUNDS_EDIT = [100, 21]
+var BOUNDS_EDIT = [120, 21]
 
 checkHasSelection()
 
@@ -74,5 +74,6 @@ if (files !== null && files.isNotEmpty()) {
         })
         selection = items
     })
+    dialog.setHelpLink('relinking-files')
     dialog.show()
 }

@@ -152,6 +152,7 @@ dialog.setDefaultButton(undefined, function() {
         ? processMultiple(offset, length, weight, color, maxBounds)
         : processSingle(offset, length, weight, color, maxBounds))
 })
+dialog.setHelpLink('add-trim-marks')
 dialog.show()
 
 function processSingle(offset, length, weight, color, maxBounds) {

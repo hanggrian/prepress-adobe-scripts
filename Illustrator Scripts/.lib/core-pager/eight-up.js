@@ -68,7 +68,7 @@ function EightUpDuplexPager(document, start) {
  * @param {Document} document to attach to, use `document` for active document.
  * @param {Number} start first page to open, the first and default is 0.
  */
-function EightUpSimplexPerfectBoundPager(document, start) {
+function EightUpSimplexCutStackPager(document, start) {
     var current = start || 0
 
     this.forEachArtboard = function(action) {
@@ -95,7 +95,7 @@ function EightUpSimplexPerfectBoundPager(document, start) {
  * @param {Document} document to attach to, use `document` for active document.
  * @param {Number} start first page to open, the first and default is 0.
  */
-function EightUpDuplexPerfectBoundPager(document, start) {
+function EightUpDuplexCutStackPager(document, start) {
     var current = start || 0
     var isFront = true
 

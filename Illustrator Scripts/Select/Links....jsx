@@ -68,7 +68,7 @@ dialog.setDefaultButton(undefined, function() {
         return condition && condition2
     })
 })
-dialog.setHelpButton(undefined, showSelectHelp)
+dialog.setHelpLink('selecting-items')
 dialog.show()
 
 function getTypeString(prefix, suffix) {

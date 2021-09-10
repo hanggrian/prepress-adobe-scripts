@@ -11,7 +11,7 @@
 function Dialog(title) {
     var self = this
     var prepared = false
-    this.defaultButton, this.yesButton, this.cancelButton, this.helpButton
+    this.defaultButton, this.yesButton, this.cancelButton, this.helpButton, this.helpIconButton
 
     var window = new Window('dialog', title)
     window.orientation = 'column'
@@ -32,6 +32,7 @@ function Dialog(title) {
     var yesButtonText, yesButtonAction, yesButtonDisabled
     var cancelButtonText, cancelButtonAction, cancelButtonDisabled
     var helpButtonText, helpButtonAction, helpButtonDisabled
+    var helpURLFile
 
     /** Returns native window title. */
     this.getTitle = function() { return window.text }
@@ -58,7 +59,7 @@ function Dialog(title) {
     /**
      * Default button responds to pressing the Enter key.
      * @param {String} text nullable button text.
-     * @param {Function} action nullable button click listener, return true to keep dialog open.
+     * @param {Function} action nullable button click listener.
      * @param {Boolean} disabled nullable first state, set true to disable upon creation.
      */
     this.setDefaultButton = function(text, action, disabled) {
@@ -70,7 +71,7 @@ function Dialog(title) {
     /**
      * Yes button is a secondary default button that sits beside it.
      * @param {String} text nullable button text.
-     * @param {Function} action nullable button click listener, return true to keep dialog open.
+     * @param {Function} action nullable button click listener.
      * @param {Boolean} disabled nullable first state, set true to disable upon creation.
      */
     this.setYesButton = function(text, action, disabled) {
@@ -82,7 +83,7 @@ function Dialog(title) {
     /**
      * Cancel button responds to pressing the Escape key.
      * @param {String} text nullable button text.
-     * @param {Function} action nullable button click listener, return true to keep dialog open.
+     * @param {Function} action nullable button click listener.
      * @param {Boolean} disabled nullable first state, set true to disable upon creation.
      */
     this.setCancelButton = function(text, action, disabled) {
@@ -94,7 +95,7 @@ function Dialog(title) {
     /**
      * Help button sits on the left side of the dialog.
      * @param {String} text nullable button text.
-     * @param {Function} action nullable button click listener, return true to keep dialog open.
+     * @param {Function} action nullable button click listener.
      * @param {Boolean} disabled nullable first state, set true to disable upon creation.
      */
     this.setHelpButton = function(text, action, disabled) {
@@ -103,9 +104,23 @@ function Dialog(title) {
         helpButtonDisabled = disabled
     }
 
+    /**
+     * Help icon button sits on the leftmost side of the dialog.
+     * @param {String} urlFilename file name without extension.
+     */
+    this.setHelpLink = function(urlFile) {
+        helpURLFile = urlFile
+    }
+
     this.prepare = function() {
         if (prepared) {
             return
+        }
+        if (helpURLFile !== undefined) {
+            self.helpIconButton = self.leftButtons.iconButton(undefined, 'ic_help.png', { style: 'toolbutton' }).also(function(it) {
+                it.tip('Visit website for help')
+                it.onClick = function() { openLink(helpURLFile) }
+            })
         }
         self.helpButton = appendButton(self.leftButtons, helpButtonText, helpButtonAction, helpButtonDisabled)
         if (isMacOS()) {
@@ -150,13 +165,8 @@ function Dialog(title) {
                 it.enabled = false
             }
             it.onClick = function() {
-                var keepDialog
-                if (action !== undefined) {
-                    keepDialog = action()
-                }
-                if (keepDialog === undefined || !keepDialog) {
-                    self.close()
-                }
+                self.close()
+                action()
             }
         })
     }

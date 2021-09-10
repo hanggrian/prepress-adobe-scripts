@@ -70,6 +70,6 @@ if (files !== null && files.isNotEmpty()) {
         })
         selection = []
     })
-    dialog.setHelpButton(undefined, nupGroup.showHelp)
+    dialog.setHelpLink('imposing-layout')
     dialog.show()
 }

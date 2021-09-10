@@ -122,5 +122,5 @@ dialog.setDefaultButton(undefined, function() {
         return condition
     })
 })
-dialog.setHelpButton(undefined, showSelectHelp)
+dialog.setHelpLink('selecting-items')
 dialog.show()

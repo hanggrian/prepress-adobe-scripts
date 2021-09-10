@@ -104,4 +104,5 @@ dialog.setDefaultButton(undefined, function() {
         }
     }
 })
+dialog.setHelpLink('add-bleed-to-images')
 dialog.show()

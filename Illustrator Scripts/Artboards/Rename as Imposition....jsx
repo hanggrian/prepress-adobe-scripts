@@ -26,7 +26,7 @@ dialog.vgroup(function(main) {
             it.onChange = function() {
                 var checksEnabled = it.selection.text !== 'Saddle Stitch'
                 nupGroup.duplexCheck.enabled = checksEnabled
-                nupGroup.perfectBoundCheck.enabled = checksEnabled
+                nupGroup.cutStackCheck.enabled = checksEnabled
             }
         })
     })
@@ -40,7 +40,7 @@ dialog.setDefaultButton(undefined, function() {
     var start = parseInt(startEdit.text) - 1
 
     if (impositionList.selection.text === '2-Up') {
-        if (!nupGroup.isPerfectBound()) {
+        if (!nupGroup.isCutStack()) {
             if (!nupGroup.isDuplex()) {
                 new TwoUpSimplexPager(document, start).forEachArtboard(function() { })
             } else {
@@ -48,13 +48,13 @@ dialog.setDefaultButton(undefined, function() {
             }
         } else {
             if (!nupGroup.isDuplex()) {
-                new TwoUpSimplexPerfectBoundPager(document, start).forEachArtboard(function() { })
+                new TwoUpSimplexCutStackPager(document, start).forEachArtboard(function() { })
             } else {
-                new TwoUpDuplexPerfectBoundPager(document, start).forEachArtboard(function() { })
+                new TwoUpDuplexCutStackPager(document, start).forEachArtboard(function() { })
             }
         }
     } else if (impositionList.selection.text === '4-Up') {
-        if (!nupGroup.isPerfectBound()) {
+        if (!nupGroup.isCutStack()) {
             if (!nupGroup.isDuplex()) {
                 new FourUpSimplexPager(document, start).forEachArtboard(function() { })
             } else {
@@ -62,13 +62,13 @@ dialog.setDefaultButton(undefined, function() {
             }
         } else {
             if (!nupGroup.isDuplex()) {
-                new FourUpSimplexPerfectBoundPager(document, start).forEachArtboard(function() { })
+                new FourUpSimplexCutStackPager(document, start).forEachArtboard(function() { })
             } else {
-                new FourUpDuplexPerfectBoundPager(document, start).forEachArtboard(function() { })
+                new FourUpDuplexCutStackPager(document, start).forEachArtboard(function() { })
             }
         }
     } else if (impositionList.selection.text === '8-Up') {
-        if (!nupGroup.isPerfectBound()) {
+        if (!nupGroup.isCutStack()) {
             if (!nupGroup.isDuplex()) {
                 new EightUpSimplexPager(document, start).forEachArtboard(function() { })
             } else {
@@ -76,9 +76,9 @@ dialog.setDefaultButton(undefined, function() {
             }
         } else {
             if (!nupGroup.isDuplex()) {
-                new EightUpSimplexPerfectBoundPager(document, start).forEachArtboard(function() { })
+                new EightUpSimplexCutStackPager(document, start).forEachArtboard(function() { })
             } else {
-                new EightUpDuplexPerfectBoundPager(document, start).forEachArtboard(function() { })
+                new EightUpDuplexCutStackPager(document, start).forEachArtboard(function() { })
             }
         }
     } else if (impositionList.selection.text === 'Saddle Stitch') {

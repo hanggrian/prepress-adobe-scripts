@@ -56,7 +56,7 @@ function FourUpDuplexPager(document, start) {
  * @param {Document} document to attach to, use `document` for active document.
  * @param {Number} start first page to open, the first and default is 0.
  */
-function FourUpSimplexPerfectBoundPager(document, start) {
+function FourUpSimplexCutStackPager(document, start) {
     var current = start || 0
 
     this.forEachArtboard = function(action) {
@@ -79,7 +79,7 @@ function FourUpSimplexPerfectBoundPager(document, start) {
  * @param {Document} document to attach to, use `document` for active document.
  * @param {Number} start first page to open, the first and default is 0.
  */
-function FourUpDuplexPerfectBoundPager(document, start) {
+function FourUpDuplexCutStackPager(document, start) {
     var current = start || 0
     var isFront = true
 

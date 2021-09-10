@@ -145,7 +145,7 @@ dialog.setDefaultButton(undefined, function() {
     }
     selection = [path]
 })
-dialog.setHelpButton(undefined, showHelp)
+dialog.setHelpLink('adding-measuring-dielines')
 dialog.show()
 
 function processGlue(length, path) {
@@ -247,22 +247,4 @@ function processDust(length, path) {
     })
     path.name = 'FlapDUST'
     path.setEntirePath(positions)
-}
-
-function showHelp() {
-    var dialog = new Dialog('Help')
-    dialog.hgroup(function(main) {
-        main.hpanel('Glue Flap', function(panel) {
-            panel.image(undefined, 'help_dieline_glueflap.png')
-        })
-        main.hpanel('Tuck Flap', function(panel) {
-            panel.image(undefined, 'help_dieline_tuckflap.png')
-        })
-        main.hpanel('Dust Flap', function(panel) {
-            panel.image(undefined, 'help_dieline_dustflap.png')
-        })
-    })
-    dialog.setCancelButton('Close')
-    dialog.show()
-    return true
 }

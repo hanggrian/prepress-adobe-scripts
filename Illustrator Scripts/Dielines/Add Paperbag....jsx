@@ -4,7 +4,7 @@
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [110, 21]
 
-var dialog = new Dialog('Add Paperbag Dieline')
+var dialog = new Dialog('Add Paperbag Dielines')
 var widthEdit, heightEdit, depthEdit, upperEdit, lowerEdit, glueLengthEdit, glueShearEdit
 var weightEdit, colorList
 
@@ -80,7 +80,7 @@ dialog.hgroup(function(main) {
 dialog.setCancelButton()
 dialog.setDefaultButton('Full-Size', function() { process(true) })
 dialog.setYesButton('Half-Size', function() { process(false) })
-dialog.setHelpButton(undefined, showHelp)
+dialog.setHelpLink('adding-measuring-dielines')
 dialog.show()
 
 function process(isFull) {
@@ -205,14 +205,4 @@ function createDash(weight, color, positions) {
     path.strokeWidth = weight
     path.setEntirePath(positions)
     return path
-}
-
-function showHelp() {
-    var dialog = new Dialog('Help')
-    dialog.hgroup(function(main) {
-        main.image(undefined, 'help_dieline_paperbag.png')
-    })
-    dialog.setCancelButton('Close')
-    dialog.show()
-    return true
 }
