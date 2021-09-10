@@ -8,11 +8,11 @@ comments: false
 <!--div class="row justify-content-between">
 <div class="col-md-8 pr-5"-->
 
+<a target="_blank" href="https://github.com/hendraanggrian/prepress-adobe-scripts/archive/refs/heads/main.zip" class="btn follow">Download Source Code</a>
+
 <p>There are several ways to use the scripts, a recommended method is to install them in Adobe installation paths so that they may appear in <code class="highlighter-rouge">Menubar > File > Scripts</code>.</p>
 
 <p>In any case, download the source code and pick one of the following solutions.</p>
-
-<a target="_blank" href="https://github.com/hendraanggrian/prepress-adobe-scripts/archive/refs/heads/main.zip" class="btn follow">Download Source Code</a>
 
 <h5>Automatic Installation</h5>
 
