@@ -1,51 +1,44 @@
 ---
 layout: post
-title: "Imposing Layout"
+title: "Imposing Layout (... F9)"
 author: ai
 categories: [ Illustrator Scripts ]
 tags: [ prepress ]
 image: assets/images/ai_imposing_layout.png
 ---
 
-There are lots of powerful things you can do with the Markdown editor
+Imposition is one of the most repetitive tasks in digital prepression. Due to its complexity, such feature usually requires a proprietary software or plugin.
 
-If you've gotten pretty comfortable with writing in Markdown, then you may enjoy some more advanced tips about the types of things you can do with Markdown!
+Though not as sophisticated (like not having a preview), this open-source script eliminates the need to use anything other than Illustrator itself.
 
-As with the last post about the editor, you'll want to be actually editing this post as you read it so that you can see all the Markdown code we're using.
+N-Up (F9, ⇧ F9, ⌘ F9)
+---------------------
 
+![](../assets/images/ai_imposing_layout_nup.png)
 
-## Special formatting
+Supporting 1, 2, 4, or 8 pages per artboard. N-Up imposition supports `Duplex Printing` and `Cut Stack` layout.
 
-As well as bold and italics, you can also use some other special formatting in Markdown when the need arises, for example:
+### Duplex Printing
 
-+ ~~strike through~~
-+ ==highlight==
-+ \*escaped characters\*
+![](../assets/images/ai_imposing_layout_nup_duplex.png)
 
+When enabled, every odd-numbered page will be positioned at the back of the previous one and so on. Such layout is necessary for printing both sides of the paper.
 
-## Writing code blocks
+### Cut Stack
 
-There are two types of code elements which can be inserted in Markdown, the first is inline, and the other is block. Inline code is formatted by wrapping any word or words in back-ticks, `like this`. Larger snippets of code can be displayed across multiple lines using triple back ticks:
+![](../assets/images/ai_imposing_layout_nup_cut.png)
 
-```
-.my-link {
-    text-decoration: underline;
-}
-```
+In a simple N-Up imposition (simplex or duplex), the final result are individual pages that need to be stacked on top of each other in order to create a perfect bound booklet. It's problematic if we are working on, for eaxmple, a magazine with large number of pages.
 
-If you want to get really fancy, you can even add syntax highlighting using Rouge.
+By enabling cut stack layout, the pages will flow on the next one. So that the stacking process can be done with the whole layout as opposed to individual pages.
 
+Saddle Stitch (⇧ ⌘ F9)
+----------------------
 
-![walking]({{ site.baseurl }}/assets/images/8.jpg)
+![](../assets/images/ai_imposing_layout_saddlestitch.png)
 
-## Reference lists
+Saddle stitching is a very popular book binding process where papers are stapled together to the spine of the book.
 
-The quick brown jumped over the lazy.
+### Right-to-Left
 
-Another way to insert links in markdown is using reference lists. You might want to use this style of linking to cite reference material in a Wikipedia-style. All of the links are listed at the end of the document, so you can maintain full separation between content and its source or reference.
-
-## Full HTML
-
-Perhaps the best part of Markdown is that you're never limited to just Markdown. You can write HTML directly in the Markdown editor and it will just work as HTML usually does. No limits! Here's a standard YouTube embed code as an example:
-
-<p><iframe style="width:100%;" height="315" src="https://www.youtube.com/embed/Cniqsc9QfDo?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></p>
+RTL writing systems and layout are widely used in Arabic, Hebrew, Persian and Urdu.

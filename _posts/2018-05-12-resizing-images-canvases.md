@@ -1,18 +1,20 @@
 ---
 layout: post
-title: "Resizing Images and Canvases"
+title: "Resizing Images and Canvases (... F2)"
 author: psd
 categories: [ Photoshop Scripts ]
 tags: [ general ]
 image: assets/images/psd_resizing_images_canvases.png
 ---
 
-`gem install bundler` installs the bundler gem through RubyGems. You only need to install it once - not every time you create a new Jekyll project. Here are some additional details:
+Common images operation.
 
-`bundler` is a gem that manages other Ruby gems. It makes sure your gems and gem versions are compatible, and that you have all necessary dependencies each gem requires.
+Resize Images (F2)
+------------------
 
-The `Gemfile` and `Gemfile.lock` files inform `Bundler` about the gem requirements in your site. If your site doesn’t have these Gemfiles, you can omit `bundle exec` and just `run jekyll serve`.
+Works exactly like `Menubar > Images > Resize Image` but targets all documents.
 
-When you run `bundle exec jekyll serve`, `Bundler` uses the gems and versions as specified in `Gemfile.lock` to ensure your Jekyll site builds with no compatibility or dependency conflicts.
+Resize Canvases (⇧ F2)
+----------------------
 
-For more information about how to use `Bundler` in your Jekyll project, this tutorial should provide answers to the most common questions and explain how to get up and running quickly.
+Works exactly like `Menubar > Images > Resize Canvas` but targets all documents.

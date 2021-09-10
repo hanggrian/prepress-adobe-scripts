@@ -1,18 +1,32 @@
 ---
 layout: post
-title: "Relinking Files"
+title: "Relinking Files (... F7)"
 author: ai
 categories: [ Illustrator Scripts ]
 tags: [ general ]
 image: assets/images/ai_relinking_files.png
 ---
 
-The first mass-produced book to deviate from a rectilinear format, at least in the United States, is thought to be this 1863 edition of Red Riding Hood, cut into the shape of the protagonist herself with the troublesome wolf curled at her feet. Produced by the Boston-based publisher Louis Prang, this is the first in their “Doll Series”, a set of five “die-cut” books, known also as shape books — the other titles being Robinson Crusoe, Goody Two-Shoes (also written by Red Riding Hood author Lydia Very), Cinderella, and King Winter.
+Linking large number of files has always been a pain in the ass since Illustrator only lets you do it one-by-one. All the scripts in `Links` sub-directory provide solution to execute once.
 
-An 1868 Prang catalogue would later claim that such “books in the shape of a regular paper Doll... originated with us”.
+Change Page (F7)
+----------------
 
-> It would seem the claim could also extend to die cut books in general, as we can’t find anything sooner, but do let us know in the comments if you have further light to shed on this! Such books are, of course, still popular in children’s publishing today, though the die cutting is not now limited to mere outlines, as evidenced in a beautiful 2014 version of the same Little Red Riding Hood story.
+A faster script to change links' PDF page, because it doesn't open up a file picker.
 
-The die cut has also been employed in the non-juvenile sphere as well, a recent example being Jonathan Safran Foer’s ambitious Tree of Codes.
+Relink Same (⇧ F7)
+------------------
 
-As for this particular rendition of Charles Perrault’s classic tale, the text and design is by Lydia Very (1823-1901), sister of Transcendentalist poet Jones Very. The gruesome ending of the original - which sees Little Red Riding Hood being gobbled up as well as her grandmother - is avoided here, the gore giving way to the less bloody aims of the morality tale, and the lesson that one should not disobey one’s mother.
+![](../assets/images/ai_relinking_files_same.png)
+
+Opens up a file picker to select a single image or PDF file. In case of PDF file, an additional panel is shown to specify page and cropping type.
+
+Relink Multipage (⌘ F7)
+-----------------------
+
+![](../assets/images/ai_relinking_files_multipage.png)
+
+Opens up a file picker to select multiple image and/or PDF files. There are 3 scenarios here:
+1. Multiple images - iterate files.
+2. Single PDF - iterate pages.
+3. Combination of images and PDFs - iterate files, always use first page when PDF is found.
