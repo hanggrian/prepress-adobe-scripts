@@ -43,7 +43,5 @@
 
 stdlibPath = new File($.fileName).path
 
-/** Returns true if this script is running on macOS. */
-function isMacOS() {
-    return $.os.toLowerCase().indexOf('mac') >= 0
-}
+/** True if this script is running on macOS. */
+var OS_MAC = $.os.toLowerCase().indexOf('mac') >= 0

@@ -75,7 +75,7 @@ function openFolder(prompt) {
  */
 function openFile(prompt, filters, multiSelect) {
     var nativeFilters
-    if (isMacOS()) {
+    if (OS_MAC) {
         nativeFilters = function(file) {
             var condition = file instanceof Folder // required to go through directory
             filters.forEach(function(array) {

@@ -39,7 +39,7 @@ function AboutTabbedPanel(parent, clientDate) {
                 group.button(undefined, 'Check Updates').also(function(it) {
                     it.maximumSize.height = 21
                     it.onClick = function() {
-                        if (isMacOS()) {
+                        if (OS_MAC) {
                             getResource('check_updates.command').execute()
                         } else {
                             getResource('check_updates.bat').execute()

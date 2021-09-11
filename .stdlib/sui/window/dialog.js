@@ -123,7 +123,7 @@ function Dialog(title) {
             })
         }
         self.helpButton = appendButton(self.leftButtons, helpButtonText, helpButtonAction, helpButtonDisabled)
-        if (isMacOS()) {
+        if (OS_MAC) {
             self.yesButton = appendButton(self.rightButtons, yesButtonText, yesButtonAction, yesButtonDisabled)
             self.cancelButton = appendButton(self.rightButtons, cancelButtonText, cancelButtonAction, cancelButtonDisabled, { name: 'cancel' })
             self.defaultButton = appendButton(self.rightButtons, defaultButtonText, defaultButtonAction, defaultButtonDisabled, { name: 'ok' })
@@ -166,7 +166,9 @@ function Dialog(title) {
             }
             it.onClick = function() {
                 self.close()
-                action()
+                if (action !== undefined) {
+                    action()
+                }
             }
         })
     }
