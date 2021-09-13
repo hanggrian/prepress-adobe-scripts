@@ -10,7 +10,7 @@ var BOUNDS_LEFT_TEXT = [60, 21]
 var BOUNDS_RIGHT_TEXT = [60, 21]
 var BOUNDS_EDIT = [110, 21]
 
-var dialog = new Dialog('Select Paths')
+var dialog = new Dialog('Select Paths', 'selecting-items#select-paths--f2')
 var fillColorList, fillOverprintList
 var strokeColorList, strokeWeightEdit, strokeDashedList, strokeOverprintList
 var dimensionPanel
@@ -129,5 +129,4 @@ dialog.setDefaultButton(undefined, function() {
         return condition
     })
 })
-dialog.setHelpLink('selecting-items')
 dialog.show()

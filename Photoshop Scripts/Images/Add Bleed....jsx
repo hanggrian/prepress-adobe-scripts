@@ -3,14 +3,13 @@
 <name>Add Bleed to Images...</name>
 <category>2</category>
 <enableinfo>true</enableinfo>
-<about>Increase canvas size and create new guide layout separating content and bleed area.</about>
 </javascriptresource>
 */
 
 #target Photoshop
 #include '../.lib/commons.js'
 
-var dialog = new Dialog('Add Bleed to Images')
+var dialog = new Dialog('Add Bleed to Images', 'add-bleed-to-images')
 var bleedEdit
 var flattenImageCheck
 var useGuidesCheck, appendGuidesRadio, replaceGuidesRadio
@@ -104,5 +103,4 @@ dialog.setDefaultButton(undefined, function() {
         }
     }
 })
-dialog.setHelpLink('add-bleed-to-images')
 dialog.show()

@@ -19,5 +19,5 @@ dialog.vgroup(function(main) {
     new AboutTabbedPanel(main, clientDate)
 })
 dialog.setCancelButton('Close') // because there is no default button
-dialog.setHelpButton('Visit GitHub', function() { openLink('github') })
+dialog.setHelpButton('Visit GitHub', function() { openURL(URL_GITHUB) })
 dialog.show()

@@ -6,7 +6,7 @@ checkHasSelection()
 var items = selection.filterItem(function(it) { return it.typename === 'TextFrame' })
 check(items.isNotEmpty(), 'No types found in selection')
 
-var dialog = new Dialog('Retype')
+var dialog = new Dialog('Retype', 'retyping-texts#retype-f6')
 var inputEdit
 
 dialog.hgroup(function(main) {

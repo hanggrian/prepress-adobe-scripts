@@ -9,7 +9,7 @@ checkHasSelection()
 var items = selection.filterItem(function(it) { return it.typename === 'PlacedItem' && it.isFileExists() && it.file.isPDF() })
 check(items.isNotEmpty(), 'No PDF links found in selection')
 
-var dialog = new Dialog('Change Page')
+var dialog = new Dialog('Change Page', 'relinking-files#change-page-f7')
 var pdfPanel, rangeGroup, orderByGroup, maintainSizeGroup
 
 dialog.vgroup(function(main) {
@@ -58,5 +58,4 @@ dialog.setDefaultButton(undefined, function() {
     })
     selection = items
 })
-dialog.setHelpLink('relinking-files')
 dialog.show()

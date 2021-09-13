@@ -13,7 +13,7 @@ var BOUNDS_TEXT = [70, 21]
 var BOUNDS_EDIT = [100, 21]
 var RESAMPLES = ['Bicubic', 'Bicubic Sharper', 'Bicubic Smoother', 'Bilinear', 'Nearest Neighbor', 'None']
 
-var dialog = new Dialog('Resize Images')
+var dialog = new Dialog('Resize Images', 'resizing-images-canvases#resize-images-f2')
 var widthEdit, heightEdit, resolutionEdit, resampleList
 
 dialog.vgroup(function(main) {

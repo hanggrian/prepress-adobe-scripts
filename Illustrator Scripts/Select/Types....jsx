@@ -13,7 +13,7 @@ var BOUNDS_LEFT_EDIT = [100, 21]
 var BOUNDS_RIGHT_TEXT = [70, 21]
 var BOUNDS_RIGHT_EDIT = [110, 21]
 
-var dialog = new Dialog('Select Types')
+var dialog = new Dialog('Select Types', 'selecting-items#select-types--f2')
 var findEdit, matchCaseCheck, matchWordCheck
 var fontNameEdit, fontSizeEdit, italicList, underlineList
 var fillColorList, strokeColorList
@@ -152,7 +152,6 @@ dialog.setDefaultButton(undefined, function() {
         return condition
     })
 })
-dialog.setHelpLink('selecting-items')
 dialog.show()
 
 function find(string, substring) {

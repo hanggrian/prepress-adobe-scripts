@@ -12,7 +12,7 @@
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
 
-var dialog = new Dialog('Resize Canvases')
+var dialog = new Dialog('Resize Canvases', 'resizing-images-canvases#resize-canvases--f2')
 var widthEdit, heightEdit, anchorGroup
 
 dialog.hgroup(function(main) {

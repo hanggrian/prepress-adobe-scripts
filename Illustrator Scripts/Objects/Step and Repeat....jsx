@@ -1,13 +1,14 @@
 #target Illustrator
 #include '../.lib/commons.js'
 
-var BOUNDS_TEXT = [70, 21]
-var BOUNDS_EDIT = [100, 21]
-var BOUNDS_EDIT2 = [40, 21]
+var BOUNDS_TEXT = [50, 21]
+var BOUNDS_EDIT = [40, 21]
+var BOUNDS_TEXT_MOVE = [70, 21]
+var BOUNDS_EDIT_MOVE = [100, 21]
 
 checkHasSelection()
 
-var dialog = new Dialog('Step and Repeat')
+var dialog = new Dialog('Step and Repeat', 'step-and-repeat')
 var horizontalEdit, verticalEdit
 var moveHorizontalEdit, moveVerticalEdit, moveRelativeCheck
 
@@ -16,24 +17,24 @@ dialog.vgroup(function(main) {
     main.hgroup(function(group) {
         group.tips('2 dimension target')
         group.staticText(BOUNDS_TEXT, 'Copies:').also(JUSTIFY_RIGHT)
-        horizontalEdit = group.editText(BOUNDS_EDIT2).also(function(it) {
+        horizontalEdit = group.editText(BOUNDS_EDIT).also(function(it) {
             it.validateDigits()
             it.activate()
         })
         group.staticText(undefined, '×')
-        verticalEdit = group.editText(BOUNDS_EDIT2).also(VALIDATE_DIGITS)
+        verticalEdit = group.editText(BOUNDS_EDIT).also(VALIDATE_DIGITS)
     })
     main.vpanel('Move', function(panel) {
         panel.alignChildren = 'right'
         panel.hgroup(function(group) {
             group.tips('Distance between arts horizontally')
-            group.staticText(BOUNDS_TEXT, 'Horizontal:').also(JUSTIFY_RIGHT)
-            moveHorizontalEdit = group.editText(BOUNDS_EDIT, formatUnits(bounds.getWidth(), unitName, 2)).also(VALIDATE_UNITS)
+            group.staticText(BOUNDS_TEXT_MOVE, 'Horizontal:').also(JUSTIFY_RIGHT)
+            moveHorizontalEdit = group.editText(BOUNDS_EDIT_MOVE, formatUnits(bounds.getWidth(), unitName, 2)).also(VALIDATE_UNITS)
         })
         panel.hgroup(function(group) {
             group.tips('Distance between arts vertically')
-            group.staticText(BOUNDS_TEXT, 'Vertical:').also(JUSTIFY_RIGHT)
-            moveVerticalEdit = group.editText(BOUNDS_EDIT, formatUnits(bounds.getHeight(), unitName, 2)).also(VALIDATE_UNITS)
+            group.staticText(BOUNDS_TEXT_MOVE, 'Vertical:').also(JUSTIFY_RIGHT)
+            moveVerticalEdit = group.editText(BOUNDS_EDIT_MOVE, formatUnits(bounds.getHeight(), unitName, 2)).also(VALIDATE_UNITS)
         })
         moveRelativeCheck = panel.checkBox(undefined, 'Relative Position').also(function(it) {
             it.tip('Move the object relative to its current position')

@@ -8,7 +8,7 @@ var ANCHORS = [
     ['Bottom Right', 'ic_arrow_bottomright.png']
 ]
 
-var BOUNDS_TEXT = [70, 21]
+var BOUNDS_TEXT = [80, 21]
 var BOUNDS_EDIT = [120, 21]
 var BOUNDS_RADIO = [15, 15]
 
@@ -34,7 +34,7 @@ if (proceed) {
         return [relativeLeft, relativeTop, relativeRight, relativeBottom]
     })
 
-    var dialog = new Dialog('Copy to Artboards')
+    var dialog = new Dialog('Copy to Artboards', 'copy-to-artboards')
     var rangeGroup, anchorList
 
     dialog.vgroup(function(main) {

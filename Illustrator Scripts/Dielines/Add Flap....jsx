@@ -15,7 +15,7 @@ var BOUNDS_RADIO = [15, 15]
 
 checkSingleSelection()
 
-var dialog = new Dialog('Add Flap Dieline')
+var dialog = new Dialog('Add Flap Dieline', 'adding-measuring-dielines#add-flap-dieline--f8')
 var lengthEdit, weightEdit, colorList, directionList
 var tabbedPanel
 var glueShearEdit, glueScratchEdit
@@ -145,7 +145,6 @@ dialog.setDefaultButton(undefined, function() {
     }
     selection = [path]
 })
-dialog.setHelpLink('adding-measuring-dielines')
 dialog.show()
 
 function processGlue(length, path) {

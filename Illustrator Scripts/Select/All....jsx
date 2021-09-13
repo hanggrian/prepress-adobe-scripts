@@ -4,7 +4,7 @@
 #target Illustrator
 #include '../.lib/commons.js'
 
-var dialog = new Dialog('Select All')
+var dialog = new Dialog('Select All', 'selecting-items#select-all-f2')
 var placedCheck, nonNativeCheck, rasterCheck, pluginCheck
 var pathCheck, compoundPathCheck
 var textFrameCheck, legacyTextCheck
@@ -92,5 +92,4 @@ dialog.setDefaultButton(undefined, function() {
     if (textFrameCheck.value) types.push('TextFrame')
     selectAll(types)
 })
-dialog.setHelpLink('selecting-items')
 dialog.show()

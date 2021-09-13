@@ -39,11 +39,7 @@ function AboutTabbedPanel(parent, clientDate) {
                 group.button(undefined, 'Check Updates').also(function(it) {
                     it.maximumSize.height = 21
                     it.onClick = function() {
-                        if (OS_MAC) {
-                            getResource('check_updates.command').execute()
-                        } else {
-                            getResource('check_updates.bat').execute()
-                        }
+                        getResource('check_updates.' + (OS_MAC ? 'command' : 'bat')).execute()
                         $.sleep(3000)
                         var result = new File('~/Desktop/prepress-adobe-scripts')
                         if (!result.exists) {
@@ -64,7 +60,7 @@ function AboutTabbedPanel(parent, clientDate) {
                     it.maximumSize.height = 21
                     it.enabled = false
                     it.onClick = function() {
-                        openURL('https://github.com/hendraanggrian/prepress-adobe-scripts/archive/refs/heads/main.zip')
+                        openURL(URL_GITHUB + '/archive/refs/heads/main.zip')
                     }
                 })
             })

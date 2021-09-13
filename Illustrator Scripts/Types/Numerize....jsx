@@ -15,7 +15,7 @@ checkHasSelection()
 var items = selection.filterItem(function(it) { return it.typename === 'TextFrame' })
 check(items.isNotEmpty(), 'No types found in selection')
 
-var dialog = new Dialog('Numerize')
+var dialog = new Dialog('Numerize', 'retyping-texts#numerize--f6')
 var startsAtEdit, digitsEdit, stopsAtGroup
 var stopsAtList, prefixEdit, suffixEdit
 var orderByGroup
@@ -94,7 +94,6 @@ dialog.setDefaultButton(undefined, function() {
         }
     })
 })
-dialog.setHelpLink('retyping-texts')
 dialog.show()
 
 // https://stackoverflow.com/questions/10073699/pad-a-number-with-leading-zeros-in-javascript

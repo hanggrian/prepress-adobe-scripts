@@ -2,11 +2,11 @@
 #include '../.lib/commons.js'
 
 var BOUNDS_TEXT = [60, 21]
-var BOUNDS_EDIT = [150, 21]
+var BOUNDS_EDIT = [180, 21]
 
 checkHasSelection()
 
-var dialog = new Dialog('Resize Each')
+var dialog = new Dialog('Resize Each', 'resizing-rasterizing-each#resize-each---f5')
 var prefill = selection.first()
 var widthEdit, widthCheck, heightEdit, heightCheck
 var changePositionsCheck, changeFillPatternsCheck, changeFillGradientsCheck, changeStrokePatternsCheck
@@ -63,7 +63,7 @@ dialog.vgroup(function(main) {
         })
         group.vpanel('Anchor', function(panel) {
             panel.alignChildren = 'fill'
-            documentOriginCheck = panel.checkBox(undefined, 'Default').also(function(it) {
+            documentOriginCheck = panel.checkBox(undefined, 'Document Origin').also(function(it) {
                 it.tip('Use current reference point preference')
                 it.onClick = function() {
                     anchorGroup.main.enabled = !it.value

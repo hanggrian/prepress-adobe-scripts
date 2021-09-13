@@ -4,7 +4,7 @@
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
 
-var dialog = new Dialog('Impose 4-Up')
+var dialog = new Dialog('Impose 4-Up', 'imposing-layout#n-up-f9--f9--f9')
 var pdfPanel, pagesPanel, documentPanel
 var nupGroup
 
@@ -125,6 +125,5 @@ if (files !== null && files.isNotEmpty()) {
         })
         selection = []
     })
-    dialog.setHelpLink('imposing-layout')
     dialog.show()
 }

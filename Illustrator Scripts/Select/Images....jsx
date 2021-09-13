@@ -12,7 +12,7 @@ var BOUNDS_LEFT_TEXT = [80, 21]
 var BOUNDS_RIGHT_TEXT = [60, 21]
 var BOUNDS_EDIT = [100, 21]
 
-var dialog = new Dialog('Select Images')
+var dialog = new Dialog('Select Images', 'selecting-items#select-image')
 var dimensionPanel
 var colorSpaceList, bitsEdit, transparentList
 var embeddedList, overprintList, statusList
@@ -122,5 +122,4 @@ dialog.setDefaultButton(undefined, function() {
         return condition
     })
 })
-dialog.setHelpLink('selecting-items')
 dialog.show()

@@ -9,13 +9,14 @@
  * @param {String} title window title.
  * @param {String} message content of the alert.
  * @param {Boolean} error true to display error icon, default to false.
+ * @param {String} helpUrlSuffix enable bottom-left icon button to go to url for help, may be null.
  */
-function AlertDialog(title, message, error) {
+function AlertDialog(title, message, error, helpUrlSuffix) {
     if (error === undefined) {
         error = false
     }
 
-    var dialog = new Dialog(title)
+    var dialog = new Dialog(title, helpUrlSuffix)
     dialog.hgroup(function(main) {
         main.image(undefined, error ? 'alert_error.png' : 'alert_warning.png')
         main.staticText(undefined, message)

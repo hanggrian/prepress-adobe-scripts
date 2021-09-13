@@ -7,7 +7,7 @@ var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [110, 21]
 var BOUNDS_CHECK = [15, 15]
 
-var dialog = new Dialog('Add Trim Marks')
+var dialog = new Dialog('Add Trim Marks', 'add-trim-marks')
 var offsetEdit, lengthEdit, weightEdit, colorList
 var topLeftCheck, topRightCheck, leftTopCheck, rightTopCheck, leftBottomCheck, rightBottomCheck, bottomLeftCheck, bottomRightCheck // single checks
 var topCheck, rightCheck, bottomCheck, leftCheck // multiple checks
@@ -152,7 +152,6 @@ dialog.setDefaultButton(undefined, function() {
         ? processMultiple(offset, length, weight, color, maxBounds)
         : processSingle(offset, length, weight, color, maxBounds))
 })
-dialog.setHelpLink('add-trim-marks')
 dialog.show()
 
 function processSingle(offset, length, weight, color, maxBounds) {

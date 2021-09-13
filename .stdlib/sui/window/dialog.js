@@ -7,8 +7,9 @@
 /**
  * Construct a new dialog.
  * @param {String} title window title.
+ * @param {String} helpUrlSuffix enable bottom-left icon button to go to url for help, may be null.
  */
-function Dialog(title) {
+function Dialog(title, helpUrlSuffix) {
     var self = this
     var prepared = false
     this.defaultButton, this.yesButton, this.cancelButton, this.helpButton, this.helpIconButton
@@ -32,7 +33,6 @@ function Dialog(title) {
     var yesButtonText, yesButtonAction, yesButtonDisabled
     var cancelButtonText, cancelButtonAction, cancelButtonDisabled
     var helpButtonText, helpButtonAction, helpButtonDisabled
-    var helpURLFile
 
     /** Returns native window title. */
     this.getTitle = function() { return window.text }
@@ -104,22 +104,14 @@ function Dialog(title) {
         helpButtonDisabled = disabled
     }
 
-    /**
-     * Help icon button sits on the leftmost side of the dialog.
-     * @param {String} urlFilename file name without extension.
-     */
-    this.setHelpLink = function(urlFile) {
-        helpURLFile = urlFile
-    }
-
     this.prepare = function() {
         if (prepared) {
             return
         }
-        if (helpURLFile !== undefined) {
+        if (helpUrlSuffix !== undefined) {
             self.helpIconButton = self.leftButtons.iconButton(undefined, 'ic_help.png', { style: 'toolbutton' }).also(function(it) {
                 it.tip('Visit website for help')
-                it.onClick = function() { openLink(helpURLFile) }
+                it.onClick = function() { openURL(URL_WEBSITE + '/' + helpUrlSuffix) }
             })
         }
         self.helpButton = appendButton(self.leftButtons, helpButtonText, helpButtonAction, helpButtonDisabled)

@@ -4,7 +4,7 @@
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [110, 21]
 
-var dialog = new Dialog('Add Paperbag Dielines')
+var dialog = new Dialog('Add Paperbag Dielines', 'adding-measuring-dielines#add-paperbag-dielines--f8')
 var widthEdit, heightEdit, depthEdit, upperEdit, lowerEdit, glueLengthEdit, glueShearEdit
 var weightEdit, colorList
 
@@ -80,7 +80,6 @@ dialog.hgroup(function(main) {
 dialog.setCancelButton()
 dialog.setDefaultButton('Full-Size', function() { process(true) })
 dialog.setYesButton('Half-Size', function() { process(false) })
-dialog.setHelpLink('adding-measuring-dielines')
 dialog.show()
 
 function process(isFull) {

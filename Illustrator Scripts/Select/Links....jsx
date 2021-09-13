@@ -19,7 +19,7 @@ var FILE_PNG = ['png', 'pns']
 var FILE_PSD = ['psd', 'psb', 'pdd']
 var FILE_TIFF = ['tif', 'tiff']
 
-var dialog = new Dialog('Select Links')
+var dialog = new Dialog('Select Links', 'selecting-items#select-links---f2')
 var dimensionPanel
 var aiCheck, pdfCheck, bmpCheck, gifCheck, jpegCheck, jpeg2000Check, pngCheck, psdCheck, tiffCheck
 
@@ -68,7 +68,6 @@ dialog.setDefaultButton(undefined, function() {
         return condition && condition2
     })
 })
-dialog.setHelpLink('selecting-items')
 dialog.show()
 
 function getTypeString(prefix, suffix) {

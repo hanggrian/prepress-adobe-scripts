@@ -9,7 +9,7 @@ var BOUNDS_EDIT_SMALL = [70, 21]
 
 checkHasSelection()
 
-var dialog = new Dialog('Rasterize Each')
+var dialog = new Dialog('Rasterize Each', 'resizing-rasterizing-each#rasterize-each')
 var prefill = selection.first()
 var colorModelList, resolutionEdit
 var backgroundWhiteRadio, backgroundTransparentRadio

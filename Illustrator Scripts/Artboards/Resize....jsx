@@ -4,7 +4,7 @@
 var BOUNDS_TEXT = [70, 21]
 var BOUNDS_EDIT = [100, 21]
 
-var dialog = new Dialog('Resize Artboards')
+var dialog = new Dialog('Resize Artboards', 'reordering-resizing-artboards#resize-artboards--f3')
 var rangeGroup, widthEdit, heightEdit, anchorGroup
 var fitToArtsCheck
 
