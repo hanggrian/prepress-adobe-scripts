@@ -155,7 +155,7 @@ goto :eof
     robocopy /s "!SOURCE_ROOT!!scripts_filename!" "!target_root!\Scripts" /njh /njs /ndl /nc /ns /nfl
     robocopy "!SOURCE_ROOT!Actions" "!target_root!\Actions" "!action_filename!" /njh /njs /ndl /nc /ns /nfl
     :: Clean up
-    del "!target_root!\.stdres\check_updates.command"
+    del "!target_root!\.stdres\script\check_updates.command"
     rmdir /s /q "!target_root!\Scripts\.incubating"
     endlocal
 goto :eof

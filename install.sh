@@ -61,11 +61,11 @@ patch_preset() {
     fi
     # Copy new ones
     cp -r "$SOURCE_ROOT/.stdlib"/. "$target_root/.stdlib"
-    cp -r "$SOURCE_ROOT/.stdres"/. "$target_root/.stdres" && chmod +x "$target_root/.stdres/check_updates.command"
+    cp -r "$SOURCE_ROOT/.stdres"/. "$target_root/.stdres" && chmod +x "$target_root/.stdres/script/check_updates.command"
     cp -r "$SOURCE_ROOT/$scripts_filename"/. "$target_root/Scripts"
     cp "$SOURCE_ROOT/Actions/$action_filename" "$target_root/Actions/$action_filename"
     # Clean up
-    rm -f "$target_root/.stdres/check_updates.bat"
+    rm -f "$target_root/.stdres/script/check_updates.bat"
     rm -rf "$target_root/Scripts/.incubating"
 }
 
