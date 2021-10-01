@@ -2,10 +2,10 @@
 #include '../.lib/commons.js'
 
 var DIRECTIONS = [
-    ['Top', 'ic_arrow_top.png'],
-    ['Right', 'ic_arrow_right.png'],
-    ['Bottom', 'ic_arrow_bottom.png'],
-    ['Left', 'ic_arrow_left.png']
+    ['Top', 'ic_arrow_top'],
+    ['Right', 'ic_arrow_right'],
+    ['Bottom', 'ic_arrow_bottom'],
+    ['Left', 'ic_arrow_left']
 ]
 
 var BOUNDS_TEXT = [60, 21]

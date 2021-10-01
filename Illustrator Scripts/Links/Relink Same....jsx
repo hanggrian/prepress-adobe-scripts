@@ -52,7 +52,7 @@ if (file !== null) {
             var position = item.position
             if (file.isPDF() && item.isFileExists() && item.file.isPDF()) {
                 $.write('Appling PDF fix, ')
-                item.file = getImage('relink_fix.png')
+                item.file = getImage('relink_fix')
             }
             item.file = file
             if (maintainSizeGroup.isSelected()) {

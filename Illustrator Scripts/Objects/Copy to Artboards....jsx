@@ -2,10 +2,10 @@
 #include '../.lib/commons.js'
 
 var ANCHORS = [
-    ['Top Left', 'ic_arrow_topleft.png'],
-    ['Top Right', 'ic_arrow_topright.png'],
-    ['Bottom Left', 'ic_arrow_bottomleft.png'],
-    ['Bottom Right', 'ic_arrow_bottomright.png']
+    ['Top Left', 'ic_arrow_topleft'],
+    ['Top Right', 'ic_arrow_topright'],
+    ['Bottom Left', 'ic_arrow_bottomleft'],
+    ['Bottom Right', 'ic_arrow_bottomright']
 ]
 
 var BOUNDS_TEXT = [80, 21]

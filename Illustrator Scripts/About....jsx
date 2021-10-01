@@ -7,7 +7,7 @@ var clientDate = parseDate(getResource('VERSION').readText())
 dialog.vgroup(function(main) {
     main.hgroup(function(group) {
         group.alignChildren = 'center'
-        group.image(undefined, 'logo.png')
+        group.image(undefined, 'logo')
         group.staticText([300, 32], 'Prepress Adobe Scripts for Illustrator\nLast updated ' + clientDate.toISOString(), { multiline: true })
     })
     new AboutTabbedPanel(main, clientDate)

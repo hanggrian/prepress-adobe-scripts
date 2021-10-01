@@ -39,7 +39,7 @@ function AboutTabbedPanel(parent, clientDate) {
                 group.button(undefined, 'Check Updates').also(function(it) {
                     it.maximumSize.height = 21
                     it.onClick = function() {
-                        getResource('check_updates.' + (OS_MAC ? 'command' : 'bat')).execute()
+                        executeScript('check_updates')
                         $.sleep(3000)
                         var result = new File('~/Desktop/prepress-adobe-scripts')
                         if (!result.exists) {

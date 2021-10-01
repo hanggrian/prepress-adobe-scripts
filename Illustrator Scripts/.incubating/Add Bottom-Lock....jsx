@@ -34,7 +34,7 @@ dialog.vgroup(function(main) {
                 verticalLockEdit = group.editText(BOUNDS_EDIT, '20 mm').also(VALIDATE_UNITS)
             })
         })
-        topGroup.image(undefined, 'dieline_bottomlock.png')
+        topGroup.image(undefined, 'dieline_bottomlock')
     })
 })
 dialog.setCancelButton()

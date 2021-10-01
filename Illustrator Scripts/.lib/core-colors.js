@@ -1,11 +1,11 @@
 var COLORS = [
-    ['Registration', 'color_registration.png'],
-    ['White', 'color_white.png'],
+    ['Registration', 'color_registration'],
+    ['White', 'color_white'],
     '-',
-    ['Cyan', 'color_cyan.png'],
-    ['Magenta', 'color_magenta.png'],
-    ['Yellow', 'color_yellow.png'],
-    ['Black', 'color_black.png']
+    ['Cyan', 'color_cyan'],
+    ['Magenta', 'color_magenta'],
+    ['Yellow', 'color_yellow'],
+    ['Black', 'color_black']
 ]
 
 var COLOR_WHITE = new CMYKColor()

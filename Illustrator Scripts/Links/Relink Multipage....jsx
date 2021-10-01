@@ -55,7 +55,7 @@ if (files !== null && files.isNotEmpty()) {
             if (file.isPDF() && item.isFileExists() && item.file.isPDF()) {
                 progress.increment('Linking page {0}', current + 1)
                 $.write('Appling PDF fix, ')
-                item.file = getImage('relink_fix.png')
+                item.file = getImage('relink_fix')
             } else {
                 progress.increment('Linking file {0}', unescape(file.name))
             }

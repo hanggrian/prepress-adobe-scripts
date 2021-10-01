@@ -67,9 +67,9 @@ dialog.vgroup(function(main) {
                     it.select()
                     it.tip('Left top')
                 })
-                group.image(BOUNDS_CHECK, 'ic_arrow_topleft.png')
-                group.image(BOUNDS_CHECK, 'ic_arrow_top.png')
-                group.image(BOUNDS_CHECK, 'ic_arrow_topright.png')
+                group.image(BOUNDS_CHECK, 'ic_arrow_topleft')
+                group.image(BOUNDS_CHECK, 'ic_arrow_top')
+                group.image(BOUNDS_CHECK, 'ic_arrow_topright')
                 rightTopCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
                     it.select()
                     it.tip('Right top')
@@ -81,9 +81,9 @@ dialog.vgroup(function(main) {
                     it.tip('Left')
                     it.visible = false
                 })
-                group.image(BOUNDS_CHECK, 'ic_arrow_left.png')
-                group.image(BOUNDS_CHECK, 'ic_arrow_center.png')
-                group.image(BOUNDS_CHECK, 'ic_arrow_right.png')
+                group.image(BOUNDS_CHECK, 'ic_arrow_left')
+                group.image(BOUNDS_CHECK, 'ic_arrow_center')
+                group.image(BOUNDS_CHECK, 'ic_arrow_right')
                 rightCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
                     it.select()
                     it.tip('Right')
@@ -95,9 +95,9 @@ dialog.vgroup(function(main) {
                     it.select()
                     it.tip('Left bottom')
                 })
-                group.image(BOUNDS_CHECK, 'ic_arrow_bottomleft.png')
-                group.image(BOUNDS_CHECK, 'ic_arrow_bottom.png')
-                group.image(BOUNDS_CHECK, 'ic_arrow_bottomright.png')
+                group.image(BOUNDS_CHECK, 'ic_arrow_bottomleft')
+                group.image(BOUNDS_CHECK, 'ic_arrow_bottom')
+                group.image(BOUNDS_CHECK, 'ic_arrow_bottomright')
                 rightBottomCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
                     it.select()
                     it.tip('Right bottom')

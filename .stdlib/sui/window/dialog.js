@@ -109,8 +109,8 @@ function Dialog(title, helpUrlSuffix) {
             return
         }
         if (helpUrlSuffix !== undefined) {
-            self.helpIconButton = self.leftButtons.iconButton(undefined, 'ic_help.png', { style: 'toolbutton' }).also(function(it) {
-                it.tip('Visit website for help')
+            self.helpIconButton = self.leftButtons.iconButton(undefined, 'ic_help', { style: 'toolbutton' }).also(function(it) {
+                it.tip("What's this?")
                 it.onClick = function() { openURL(URL_WEBSITE + '/' + helpUrlSuffix) }
             })
         }
