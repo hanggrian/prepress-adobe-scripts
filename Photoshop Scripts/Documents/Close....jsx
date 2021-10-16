@@ -9,8 +9,6 @@
 #target Photoshop
 #include '../.lib/commons.js'
 
-check(app.documents.length !== 1, 'No other documents')
-
 var unsavedLength = 0
 for (var i = 0; i < app.documents.length; i++) {
     if (!app.documents[i].saved) {

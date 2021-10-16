@@ -73,6 +73,7 @@ function AlertDialog(title, message, error, helpUrlSuffix) {
         dialog.prepare()
         dialog.leftButtons.children.forEach(setMaxHeight)
         dialog.rightButtons.children.forEach(setMaxHeight)
+        dialog.defaultButton.active = true
         dialog.show()
     }
 

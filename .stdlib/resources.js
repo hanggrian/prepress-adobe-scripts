@@ -57,5 +57,5 @@ function getImage(name) {
  * @returns {File}
  */
 function executeScript(name) {
-    getResource('script/' + name + (OS_MAC ? '.command' : '.bat')).execute()
+    getResource('script/' + name + (OS_MAC ? '.command' : '.cmd')).execute()
 }

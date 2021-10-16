@@ -65,7 +65,7 @@ patch_preset() {
     cp -r "$SOURCE_ROOT/$scripts_filename"/. "$target_root/Scripts"
     cp "$SOURCE_ROOT/Actions/$action_filename" "$target_root/Actions/$action_filename"
     # Clean up
-    rm -f "$target_root/.stdres/script/check_updates.bat"
+    rm -f "$target_root/.stdres/script/check_updates.cmd"
     rm -rf "$target_root/Scripts/.incubating"
 }
 
