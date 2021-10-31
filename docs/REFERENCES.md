@@ -14,10 +14,11 @@ ExtendScript & SUI
 Illustrator
 -----------
 
-* [*Official Scripting*](https://www.adobe.com/devnet/illustrator/scripting.html)
+* [*Official JavaScript Reference*](https://adobe.com/content/dam/acom/en/devnet/illustrator/pdf/Illustrator_Scriptin_Reference_JavaScript_cc.pdf)
 * [Scripting Guide](https://ai-scripting.docsforadobe.dev)
 
 Photoshop
 ---------
 
-* [*Official Scripting*](https://www.adobe.com/devnet/photoshop/scripting.html)
+* [*Official Guide*](https://www.adobe.com/content/dam/acom/en/devnet/photoshop/scripting/photoshop-cc-scripting-guide.pdf)
+* [*Official JavaScript Reference*](https://www.adobe.com/content/dam/acom/en/devnet/photoshop/pdfs/photoshop-javascript-ref-2020.pdf)

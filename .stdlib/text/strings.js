@@ -18,65 +18,65 @@ String.prototype.isNotEmpty = function() { return this.length > 0 }
 
 /**
  * Returns true if text contains word.
- * @param {String} s expected prefix.
+ * @param {String} substring expected prefix.
  * @returns {Boolean}
  */
-String.prototype.includes = function(s) {
-    return this.indexOf(s) !== -1
+String.prototype.includes = function(substring) {
+    return this.indexOf(substring) !== -1
 }
 
 /**
  * Returns true if text starts with word.
- * @param {String} s expected prefix.
+ * @param {String} substring expected prefix.
  * @returns {Boolean}
  */
-String.prototype.startsWith = function(s) {
-    return this.lastIndexOf(s, 0) === 0
+String.prototype.startsWith = function(substring) {
+    return this.lastIndexOf(substring, 0) === 0
 }
 
 /**
  * Returns true if text ends with word.
- * @param {String} s expected suffix.
+ * @param {String} substring expected suffix.
  * @returns {Boolean}
  */
-String.prototype.endsWith = function(s) {
-    return this.indexOf(s, this.length - s.length) !== -1
+String.prototype.endsWith = function(substring) {
+    return this.indexOf(substring, this.length - substring.length) !== -1
 }
 
 /**
  * Returns prefix that ends with target.
- * @param {String} s target.
+ * @param {String} substring target.
  * @returns {Boolean}
  */
-String.prototype.substringBefore = function(s) {
-    return this.substring(0, this.indexOf(s))
+String.prototype.substringBefore = function(substring) {
+    return this.substring(0, this.indexOf(substring))
 }
 
 /**
  * Returns prefix that ends with last target.
- * @param {String} s target.
+ * @param {String} substring target.
  * @returns {Boolean}
  */
-String.prototype.substringBeforeLast = function(s) {
-    return this.substring(0, this.lastIndexOf(s))
+String.prototype.substringBeforeLast = function(substring) {
+    return this.substring(0, this.lastIndexOf(substring))
 }
 
 /**
  * Returns suffix that starts with target.
- * @param {String} s target.
+ * @param {String} substring target.
  * @returns {Boolean}
  */
-String.prototype.substringAfter = function(s) {
-    return this.substring(this.indexOf(s) + s.length)
+String.prototype.substringAfter = function(substring) {
+    return this.substring(this.indexOf(substring) + substring.length)
 }
 
 /**
  * Returns suffix that starts with last target.
- * @param {String} s target.
+ * @param {String} substring target.
  * @returns {Boolean}
  */
-String.prototype.substringAfterLast = function(s) {
-    return this.substring(this.lastIndexOf(s) + s.length)
+String.prototype.substringAfterLast = function(substring) {
+    return this.substring(this.lastIndexOf(substring) + substring.length)
 }
 
 /**

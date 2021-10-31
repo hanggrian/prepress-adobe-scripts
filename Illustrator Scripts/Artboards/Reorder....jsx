@@ -8,7 +8,7 @@ var orderByGroup
 
 dialog.vgroup(function(main) {
     orderByGroup = new OrderByGroup(main, [ORDER_NAMES, ORDER_POSITIONS]).also(function(it) {
-        it.list.minimumSize.width = 210
+        it.list.minimumSize.width = 230
         it.list.selectText('Horizontal')
     })
 })

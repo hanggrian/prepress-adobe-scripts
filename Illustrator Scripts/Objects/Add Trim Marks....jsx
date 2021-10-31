@@ -321,10 +321,10 @@ function containsPathBounds(collection, element) {
     var i = collection.length
     while (i--) {
         var _element = collection[i]
-        if (_element[1].round() === element[1].round() &&
-            _element[2].round() === element[2].round() &&
-            _element[3].round() === element[3].round() &&
-            _element[4].round() === element[4].round()) {
+        if (Math.round(_element[1]) === Math.round(element[1]) &&
+            Math.round(_element[2]) === Math.round(element[2]) &&
+            Math.round(_element[3]) === Math.round(element[3]) &&
+            Math.round(_element[4]) === Math.round(element[4])) {
             return true
         }
     }
@@ -332,7 +332,7 @@ function containsPathBounds(collection, element) {
 }
 
 function createTrimMark(weight, color, suffixName, fromX, fromY, toX, toY) {
-    $.writeln(suffixName + '. From ' + '[' + fromX + ',' + fromY + '] to [' + toX + ',' + toY + ']')
+    $.writeln('{0}. From [{1}, {2}] to [{3}, {4}]'.format(suffixName, fromX, fromY, toX, toY))
     var path = layer.pathItems.add()
     path.name = 'Trim' + suffixName
     path.filled = false

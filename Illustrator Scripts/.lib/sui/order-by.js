@@ -77,10 +77,10 @@ function OrderByGroup(parent, ordersCollection) {
     }
 
     function sortHorizontal(a, b) {
-        var aX = getBounds(a).getLeft().floor()
-        var aY = getBounds(a).getTop().floor()
-        var bX = getBounds(b).getLeft().floor()
-        var bY = getBounds(b).getTop().floor()
+        var aX = Math.floor(getBounds(a).getLeft())
+        var aY = Math.floor(getBounds(a).getTop())
+        var bX = Math.floor(getBounds(b).getLeft())
+        var bY = Math.floor(getBounds(b).getTop())
         if (aY === bY) {
             if (aX > bX) {
                 return 1
@@ -96,10 +96,10 @@ function OrderByGroup(parent, ordersCollection) {
     }
 
     function sortVertical(a, b) {
-        var aX = getBounds(a).getLeft().floor()
-        var aY = getBounds(a).getTop().floor()
-        var bX = getBounds(b).getLeft().floor()
-        var bY = getBounds(b).getTop().floor()
+        var aX = Math.floor(getBounds(a).getLeft())
+        var aY = Math.floor(getBounds(a).getTop())
+        var bX = Math.floor(getBounds(b).getLeft())
+        var bY = Math.floor(getBounds(b).getTop())
         if (aX === bX) {
             if (aY < bY) {
                 return 1

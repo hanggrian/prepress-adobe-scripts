@@ -55,11 +55,11 @@ dialog.setDefaultButton(undefined, function() {
     var targetDimension = parseUnits(dimensionSizeEdit.text)
     var targetFont = currentFont * targetDimension / currentDimension
     if (roundingList.selection.text === 'Round') {
-        targetFont = targetFont.round()
+        targetFont = Math.round(targetFont)
     } else if (roundingList.selection.text === 'Floor') {
-        targetFont = targetFont.floor()
+        targetFont = Math.floor(targetFont)
     } else if (roundingList.selection.text === 'Ceil') {
-        targetFont = targetFont.ceil()
+        targetFont = Math.ceil(targetFont)
     }
     item.textRange.characterAttributes.size = targetFont
 })
