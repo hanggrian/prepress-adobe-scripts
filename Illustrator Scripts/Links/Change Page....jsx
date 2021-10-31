@@ -36,7 +36,7 @@ dialog.setDefaultButton(undefined, function() {
     var progress = new ProgressPalette(items.length)
     orderByGroup.forEach(items, function(item, i) {
         progress.increment('Linking page {0}', current + 1)
-        $.write(i + '. ')
+        print(i + '. ')
         var width = item.width
         var height = item.height
         var position = item.position
@@ -49,12 +49,12 @@ dialog.setDefaultButton(undefined, function() {
             current--
         }
         if (maintainSizeGroup.isSelected()) {
-            $.write('Keep size, ')
+            print('Keep size, ')
             item.width = width
             item.height = height
             item.position = position
         }
-        $.writeln('Done')
+        println('Done')
     })
     selection = items
 })

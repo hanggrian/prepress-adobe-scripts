@@ -6,7 +6,8 @@
 
 var ABOUT_THEMES = ['Dark', 'Light']
 
-var BOUNDS_TAB = [400, 75]
+var BOUNDS_ABOUT_TAB = [400, 75]
+var MARGINS_ABOUT_TAB = [10, 0, 10, 0]
 
 function AboutTabbedPanel(parent, clientDate) {
     var self = this
@@ -14,11 +15,11 @@ function AboutTabbedPanel(parent, clientDate) {
 
     this.main = parent.tabbedPanel(function(tabbedPanel) {
         tabbedPanel.vtab('Preferences', function(tab) {
-            tab.preferredSize = BOUNDS_TAB
+            tab.preferredSize = BOUNDS_ABOUT_TAB
+            tab.margins = MARGINS_ABOUT_TAB
             tab.alignChildren = 'left'
-            tab.staticText(undefined, 'Scripts-exclusive preferences that are not used anywhere in app.')
             tab.hgroup(function(group) {
-                group.tips("The script is dumb and can't yet know UI brightness setting across apps.")
+                group.tips("Defines what icon color to be used.\nThe script is dumb and can't yet know UI brightness setting across apps.")
                 group.staticText(undefined, 'Theme:', 'right')
                 group.dropDownList(undefined, ABOUT_THEMES).also(function(it) {
                     var theme = preferences.getString('scripts_theme')
@@ -32,7 +33,8 @@ function AboutTabbedPanel(parent, clientDate) {
             })
         })
         tabbedPanel.vtab('Updates', function(tab) {
-            tab.preferredSize = BOUNDS_TAB
+            tab.preferredSize = BOUNDS_ABOUT_TAB
+            tab.margins = MARGINS_ABOUT_TAB
             tab.alignChildren = 'left'
             self.statusText = tab.staticText([400, 21], 'Click Check Updates to fetch data.')
             tab.hgroup(function(group) {
@@ -41,11 +43,11 @@ function AboutTabbedPanel(parent, clientDate) {
                     it.onClick = function() {
                         executeScript('check_updates')
                         $.sleep(3000)
-                        var result = new File('~/Desktop/prepress-adobe-scripts')
+                        var result = new File('~/prepress-adobe-scripts')
                         if (!result.exists) {
                             self.statusText.text = 'Unable to fetch data.'
                         } else {
-                            var serverDate = parseDate(result.readText().substringAfter('"date": "').substringBefore('"').substring(0, 10))
+                            var serverDate = parseDate(result.readLine().substringAfter('"date": "').substringBefore('"').substring(0, 10))
                             result.remove()
                             if (serverDate > clientDate) {
                                 self.statusText.text = 'Latest version ' + serverDate.toISOString() + ' is available.'
@@ -66,7 +68,7 @@ function AboutTabbedPanel(parent, clientDate) {
             })
         })
         tabbedPanel.vtab('Licensing', function(tab) {
-            tab.editText(BOUNDS_TAB,
+            tab.editText(BOUNDS_ABOUT_TAB,
                 'Copyright 2021 Hendra Anggrian' +
                 '\n' +
                 '\nLicensed under the Apache License, Version 2.0 (the "License");' +

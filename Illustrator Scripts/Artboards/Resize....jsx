@@ -107,6 +107,6 @@ function resizeArtboard(i, w, h) {
         newBottom = bounds.getBottom()
     }
     var rect = [newLeft, newTop, newRight, newBottom]
-    $.writeln(i + '. ' + 'ctry=' + ctrx + ' ctry=' + ctry + ' rect=[' + rect + ']')
+    println('{0}. ctrx={1} ctry={2} rect={3}', i, ctrx, ctry, rect)
     artboard.artboardRect = rect
 }

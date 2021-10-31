@@ -47,14 +47,14 @@ if (files !== null && files.isNotEmpty()) {
 
         var progress = new ProgressPalette(items.length, 'Linking files')
         orderByGroup.forEach(items, function(item, i) {
-            $.write(i + '. ')
+            print(i + '. ')
             var width = item.width
             var height = item.height
             var position = item.position
             var file = collection.get(current)
             if (file.isPDF() && item.isFileExists() && item.file.isPDF()) {
                 progress.increment('Linking page {0}', current + 1)
-                $.write('Appling PDF fix, ')
+                print('Appling PDF fix, ')
                 item.file = getImage('relink_fix')
             } else {
                 progress.increment('Linking file {0}', unescape(file.name))
@@ -65,12 +65,12 @@ if (files !== null && files.isNotEmpty()) {
                 current--
             }
             if (maintainSizeGroup.isSelected()) {
-                $.write('Keep size, ')
+                print('Keep size, ')
                 item.width = width
                 item.height = height
                 item.position = position
             }
-            $.writeln('Done')
+            println('Done')
         })
         selection = items
     })

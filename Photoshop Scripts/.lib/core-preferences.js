@@ -19,7 +19,7 @@ Preferences.prototype.getBoolean = function(key) {
     } catch (e) {
         value = false
     }
-    $.writeln('Preference `' + key + '=' + value + '` obtained')
+    println('Preference `{0}={1}` obtained', key, value)
     return value
 }
 
@@ -33,7 +33,7 @@ Preferences.prototype.getString = function(key) {
     } catch (e) {
         value = ''
     }
-    $.writeln('Preference `' + key + '=' + value + '` obtained')
+    println('Preference `{0}={1}` obtained', key, value)
     return value
 }
 
@@ -44,7 +44,7 @@ Preferences.prototype.setBoolean = function(key, value) {
     var actualValue = _getPreferenceValue(value)
     descriptor.putBoolean(actualKey, actualValue)
     app.putCustomOptions(_preferencesRoot, descriptor, true)
-    $.writeln('Preference `' + key + '=' + actualValue + '` stored')
+    println('Preference `{0}={1}` stored', key, actualValue)
 }
 
 /** Alias of `ActionDescriptor.putString`. */
@@ -54,7 +54,7 @@ Preferences.prototype.setString = function(key, value) {
     var actualValue = _getPreferenceValue(value)
     descriptor.putString(actualKey, actualValue)
     app.putCustomOptions(_preferencesRoot, descriptor, true)
-    $.writeln('Preference `' + key + '=' + actualValue + '` stored')
+    println('Preference `{0}={1}` stored', key, actualValue)
 }
 
 function _getPreferenceKey(key) {

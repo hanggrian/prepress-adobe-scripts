@@ -30,7 +30,7 @@ Preferences.prototype.getPSDPreserveSlices = function() { return this.photoshopF
 Preferences.prototype.getBoolean = function(key, prefix) {
     var actualKey = _getPreferenceKey(key, prefix)
     var value = this.getBooleanPreference(actualKey)
-    $.writeln('Preference `' + key + '=' + value + '` obtained')
+    println('Preference `{0}={1}` obtained', key, value)
     return value
 }
 
@@ -38,7 +38,7 @@ Preferences.prototype.getBoolean = function(key, prefix) {
 Preferences.prototype.getNumber = function(key, prefix) {
     var actualKey = _getPreferenceKey(key, prefix)
     var value = this.getRealPreference(actualKey)
-    $.writeln('Preference `' + key + '=' + value + '` obtained')
+    println('Preference `{0}={1}` obtained', key, value)
     return value
 }
 
@@ -46,7 +46,7 @@ Preferences.prototype.getNumber = function(key, prefix) {
 Preferences.prototype.getString = function(key, prefix) {
     var actualKey = _getPreferenceKey(key, prefix)
     var value = this.getStringPreference(actualKey)
-    $.writeln('Preference `' + key + '=' + value + '` obtained')
+    println('Preference `{0}={1}` obtained', key, value)
     return value
 }
 
@@ -55,7 +55,7 @@ Preferences.prototype.setBoolean = function(key, value, prefix) {
     var actualKey = _getPreferenceKey(key, prefix)
     var actualValue = _getPreferenceValue(value)
     this.setBooleanPreference(actualKey, actualValue)
-    $.writeln('Preference `' + key + '=' + actualValue + '` stored')
+    println('Preference `{0}={1}` stored', key, actualValue)
 }
 
 /** Alias of `Preferences.setRealPreference`. */
@@ -63,7 +63,7 @@ Preferences.prototype.setNumber = function(key, value, prefix) {
     var actualKey = _getPreferenceKey(key, prefix)
     var actualValue = _getPreferenceValue(value)
     this.setRealPreference(actualKey, actualValue)
-    $.writeln('Preference `' + key + '=' + actualValue + '` stored')
+    println('Preference `{0}={1}` stored', key, actualValue)
 }
 
 /** Alias of `Preferences.setStringPreference`. */
@@ -71,14 +71,14 @@ Preferences.prototype.setString = function(key, value, prefix) {
     var actualKey = _getPreferenceKey(key, prefix)
     var actualValue = _getPreferenceValue(value)
     this.setStringPreference(actualKey, actualValue)
-    $.writeln('Preference `' + key + '=' + actualValue + '` stored')
+    println('Preference `{0}={1}` stored', key, actualValue)
 }
 
 /** Alias of `Preferences.removePreference`. */
 Preferences.prototype.remove = function(key, prefix) {
     var actualKey = _getPreferenceKey(key, prefix)
     this.removePreference(actualKey)
-    $.writeln('Preference `' + key + '` removed')
+    println('Preference `{0}` removed', key)
 }
 
 function _getPreferenceKey(key, prefix) {

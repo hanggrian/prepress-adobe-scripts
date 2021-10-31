@@ -93,7 +93,7 @@ function process(forEach) {
         ? Transformation.DOCUMENTORIGIN
         : anchorGroup.getTransformation()
     forEach(function(item, i) {
-        $.write(i + '. ')
+        print(i + '. ')
         var scaleX = !widthCheck.value ? 100 : 100 * width / item.width
         var scaleY = !heightCheck.value ? 100 : 100 * height / item.height
         if (!isFinite(scaleX)) {
@@ -102,7 +102,7 @@ function process(forEach) {
         if (!isFinite(scaleY)) {
             scaleY = 100
         }
-        $.writeln('Scale X=' + scaleX + ' Y=' + scaleY)
+        println('Scale X={0} Y={1}', scaleX, scaleY)
         item.resize(scaleX, scaleY,
             changePositionsCheck.value,
             changeFillPatternsCheck.value,

@@ -8,7 +8,7 @@
 #include '.lib/core.js'
 
 var dialog = new Dialog('About Scripts')
-var clientDate = parseDate(getResource('VERSION').readText())
+var clientDate = parseDate(getResource('VERSION').readLine())
 
 dialog.vgroup(function(main) {
     main.hgroup(function(group) {

@@ -17,6 +17,11 @@ function parseDate(date) {
     return new Date(year, month, day)
 }
 
+/**
+ * Format this date to a string.
+ * E.g.: 2011-10-05
+ * @returns {String}
+ */
 Date.prototype.toISOString = function() {
     var year = this.getFullYear()
     var month = this.getMonth() + 1

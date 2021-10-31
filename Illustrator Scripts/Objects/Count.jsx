@@ -55,28 +55,27 @@ selection.forEachItem(function(it) {
     }
 })
 
-alert(buildString(function(it) {
-    it.appendLine('There are ' + selection.length + ' items, containing:')
-    appendCount(it, compoundPathCount, 'compound path')
-    appendCount(it, graphCount, 'graph')
-    appendCount(it, legacyTextCount, 'legacy text')
-    appendCount(it, meshCount, 'mesh')
-    appendCount(it, nonNativeCount, 'non-native')
-    appendCount(it, pathCount, 'path')
-    appendCount(it, placedCount, 'link')
-    appendCount(it, pluginCount, 'plugin')
-    appendCount(it, rasterCount, 'raster')
-    appendCount(it, symbolCount, 'symbol')
-    appendCount(it, textFrameCount, 'text frame')
-}).trim(), 'Count Objects')
+var message = 'There are {0} items, containing:'.format(selection.length)
+message += getItemLine(compoundPathCount, 'compound path')
+message += getItemLine(graphCount, 'graph')
+message += getItemLine(legacyTextCount, 'legacy text')
+message += getItemLine(meshCount, 'mesh')
+message += getItemLine(nonNativeCount, 'non-native')
+message += getItemLine(pathCount, 'path')
+message += getItemLine(placedCount, 'link')
+message += getItemLine(pluginCount, 'plugin')
+message += getItemLine(rasterCount, 'raster')
+message += getItemLine(symbolCount, 'symbol')
+message += getItemLine(textFrameCount, 'text frame')
+alert(message, 'Count Objects')
 
-function appendCount(sb, count, suffix) {
+function getItemLine(count, suffix) {
     if (count === 0) {
-        return
+        return ''
     }
-    sb.append('• {0} {1}'.format(count, suffix))
+    var line = '\n• ' + count + ' ' + suffix
     if (count > 1) {
-        sb.append(suffix.endsWith('sh') ? 'es' : 's')
+        line += suffix.endsWith('sh') ? 'es' : 's'
     }
-    sb.appendLine('.')
+    return line
 }

@@ -87,26 +87,44 @@ String.prototype.isNumeric = function() {
      return /^-{0,1}\d*\.{0,1}\d+$/.test(this)
 }
 
-/** Remove leading whitespaces. */
+/**
+ * Remove leading whitespaces.
+ * @returns {String}
+ */
 String.prototype.trimStart = function() {
     return this.replace(/^\s\s*/, '')
 }
 
-/** Remove trailing whitespaces. */
+/**
+ * Remove trailing whitespaces.
+ * @returns {String}
+ */
 String.prototype.trimEnd = function() {
     return this.replace(/\s\s*$/, '')
 }
 
-/** Remove leading and trailing whitespaces. */
+/**
+ * Remove leading and trailing whitespaces.
+ * @returns {String}
+ */
 String.prototype.trim = function() {
     return this.trimStart().trimEnd()
 }
 
+/**
+ * Returns a formatted string using varargs arguments.
+ * @returns {String}
+ * @see https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
+ */
 String.prototype.format = function() { return _formatString(this, arguments) }
 
+/**
+ * Returns a formatted string using array argument.
+ * @returns {String}
+ * @see https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
+ */
 String.prototype.formatArr = function(arr) { return _formatString(this, arr) }
 
-// https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
 function _formatString(s, args) {
     var formatted = s
     for (var i = 0; i < args.length; i++) {

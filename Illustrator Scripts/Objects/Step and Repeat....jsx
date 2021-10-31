@@ -67,7 +67,7 @@ dialog.setDefaultButton(undefined, function() {
 
     // vertical starts with 0 because the starting point doesn't change
     for (var v = 0; v < vertical; v++) {
-        $.write(v + '. ')
+        print(v + '. ')
         var finalMoveVertical = moveVertical
         if (moveRelativeCheck.value) {
             finalMoveVertical += bounds.getHeight()
@@ -80,7 +80,7 @@ dialog.setDefaultButton(undefined, function() {
             })
         }
         for (var h = 1; h < horizontal; h++) {
-            $.write(h + ' ')
+            print(h + ' ')
             var finalMoveHorizontal = moveHorizontal
             if (moveRelativeCheck.value) {
                 finalMoveHorizontal += bounds.getWidth()
@@ -91,7 +91,7 @@ dialog.setDefaultButton(undefined, function() {
                 item.duplicate(layer, ElementPlacement.PLACEATBEGINNING).position = [x + h * finalMoveHorizontal, y - v * finalMoveVertical]
             })
         }
-        $.writeln()
+        println()
     }
 })
 dialog.show()

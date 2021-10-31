@@ -71,14 +71,14 @@ dialog.setDefaultButton(undefined, function() {
 dialog.show()
 
 function getTypeString(prefix, suffix) {
-    return prefix + ' (' + buildString(function(sb) {
-        suffix.forEach(function(it, i) {
-            sb.append(it)
-            if (i != suffix.lastIndex()) {
-                sb.append(', ')
-            }
-        })
-    }) + ')'
+    var s = ''
+    suffix.forEach(function(it, i) {
+        s += it
+        if (i != suffix.lastIndex()) {
+            s += ', '
+        }
+    })
+    return '{0} ({1})'.format(prefix, s)
 }
 
 function contains(elements, element) {

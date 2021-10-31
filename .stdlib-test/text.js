@@ -1,5 +1,5 @@
-require('../../.stdlib/text/strings.js')
-var assert = require('../assert.js')
+require('../.stdlib/text.js')
+var assert = require('./assert.js')
 
 var isEmpty = function() {
     assert.assertTrue(''.isEmpty())

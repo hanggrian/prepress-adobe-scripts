@@ -4,6 +4,8 @@
 </javascriptresource>
 */
 
+var _alertButtonHeight = OS_MAC ? 20 : 21
+
 /**
  * Alert is a simpler dialog containing only text.
  * @param {String} title window title.
@@ -93,6 +95,6 @@ function AlertDialog(title, message, error, helpUrlSuffix) {
     }
 
     function setMaxHeight(button) {
-        button.maximumSize.height = 21
+        button.maximumSize.height = _alertButtonHeight
     }
 }

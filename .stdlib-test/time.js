@@ -1,4 +1,4 @@
-require('../.stdlib/dates.js')
+require('../.stdlib/time.js')
 var assert = require('./assert.js')
 
 var toISOString = function() {

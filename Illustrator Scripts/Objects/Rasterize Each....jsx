@@ -123,19 +123,19 @@ function process(forEach) {
 
     var selectQueues = []
     forEach(function(item, i) {
-        $.write(i + '. ')
+        print(i + '. ')
         var width = item.width
         var height = item.height
         var position = item.position
         var newItem = document.rasterize(item, item.geometricBounds, options)
         selectQueues.push(newItem)
         if (maintainSizeGroup.isSelected() && item.typename !== 'TextFrame') {
-            $.write('Keep size, ')
+            print('Keep size, ')
             newItem.width = width + options.padding * 2
             newItem.height = height + options.padding * 2
             newItem.position = position
         }
-        $.writeln('Done')
+        println('Done')
     })
     selection = selectQueues
 }

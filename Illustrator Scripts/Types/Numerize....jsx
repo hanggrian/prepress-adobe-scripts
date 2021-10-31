@@ -80,7 +80,7 @@ dialog.setDefaultButton(undefined, function() {
         }
 
         s = prefix + s + suffix
-        $.writeln(i + '. ' + s)
+        println(i + '. ' + s)
         item.contents = s
 
         if (stopsAtList.selection !== null) {

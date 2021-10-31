@@ -5,7 +5,7 @@
             "type": "extendscript-debug",
             "request": "launch",
             "name": "Prepress Adobe Scripts",
-            "program": "${workspaceFolder}/Illustrator Scripts/Objects/Rearrange....jsx",
+            "program": "${workspaceFolder}/Illustrator Scripts/Links/Relink Same....jsx",
             "stopOnEntry": false
         }
     ]

@@ -60,7 +60,7 @@ if (proceed) {
         var readOnlySelection = selection
         document.artboards.forEach(function(artboard, artboardIndex) {
             if (artboardIndex === activeArtboardIndex || !rangeGroup.includes(artboardIndex)) {
-                $.writeln(activeArtboardIndex + '. Ignore active artboard')
+                println(activeArtboardIndex + '. Ignore active artboard')
                 return
             }
             var artboardRect = artboard.artboardRect
@@ -78,7 +78,7 @@ if (proceed) {
                     y = artboardRect.getBottom() - relativePosition.getBottom()
                 }
                 item.duplicate(layer, ElementPlacement.PLACEATBEGINNING).position = [x, y]
-                $.writeln(artboardIndex + '. ' + 'Position X=' + x + ' Y=' + y)
+                println('{0}. Position X={1} Y={2}', artboardIndex, x, y)
             })
         })
     })

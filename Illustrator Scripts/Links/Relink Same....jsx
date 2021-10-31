@@ -37,7 +37,7 @@ if (file !== null) {
     dialog.setDefaultButton(undefined, function() {
         if (file.isPDF()) {
             var page = parseInt(pageEdit.text) - 1
-            $.writeln('PDF page=' + page)
+            println('PDF page=' + page)
             preferences.setPDFPage(page)
         }
 
@@ -46,22 +46,22 @@ if (file !== null) {
             : 'Linking file {0}'.format(unescape(file.name)))
         items.forEach(function(item, i) {
             progress.increment()
-            $.write(i + '. ')
+            print(i + '. ')
             var width = item.width
             var height = item.height
             var position = item.position
             if (file.isPDF() && item.isFileExists() && item.file.isPDF()) {
-                $.write('Appling PDF fix, ')
+                print('Appling PDF fix, ')
                 item.file = getImage('relink_fix')
             }
             item.file = file
             if (maintainSizeGroup.isSelected()) {
-                $.write('Keep size, ')
+                print('Keep size, ')
                 item.width = width
                 item.height = height
                 item.position = position
             }
-            $.writeln('Done')
+            println('Done')
         })
         selection = items
     })

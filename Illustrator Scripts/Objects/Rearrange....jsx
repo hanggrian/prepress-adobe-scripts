@@ -24,7 +24,7 @@ dialog.setDefaultButton(undefined, function() {
     // the idea is to keep pusing item to bottommost
     orderByGroup.forEach(selection, function(it) {
         var times = it.absoluteZOrderPosition - initialPositions.last()
-        $.writeln('Moving {0} {1} times'.format(it.getLayerName(), times))
+        println('Moving {0} {1} times', it.getLayerName(), times)
         repeat(times, function() {
             it.zOrder(ZOrderMethod.SENDBACKWARD)
         })
@@ -34,7 +34,7 @@ dialog.setHelpButton('Reverse', function() {
     // find reversed position and keep ordering until met
     selection.forEach(function(it, index) {
         var reversedPosition = initialPositions[initialPositions.lastIndex() - index]
-        $.writeln('Moving {0} from {1} to {2}'.format(it.getLayerName(), it.absoluteZOrderPosition, reversedPosition))
+        println('Moving {0} from {1} to {2}', it.getLayerName(), it.absoluteZOrderPosition, reversedPosition)
         while (it.absoluteZOrderPosition < reversedPosition) {
             it.zOrder(ZOrderMethod.BRINGFORWARD)
         }

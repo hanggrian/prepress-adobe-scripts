@@ -5,9 +5,8 @@ script:
   - node .stdlib-test/collections/predicate.js
   - node .stdlib-test/collections/transform.js
 
-  - node .stdlib-test/text/strings.js
-
-  - node .stdlib-test/bounds.js
-  - node .stdlib-test/dates.js
-  - node .stdlib-test/numbers.js
+  - node .stdlib-test/geometry.js
+  - node .stdlib-test/math.js
   - node .stdlib-test/standard.js
+  - node .stdlib-test/text.js
+  - node .stdlib-test/time.js

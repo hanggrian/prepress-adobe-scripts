@@ -4,11 +4,10 @@
 </javascriptresource>
 */
 
-// https://community.adobe.com/t5/illustrator/script-to-sort-artboard-list-alphabetically/m-p/9558395
+// See see https://community.adobe.com/t5/illustrator/script-to-sort-artboard-list-alphabetically/m-p/9558395.
 
 function copyProperties(source) {
-    var props = {},
-        key
+    var props = {}, key
     for (key in source) {
         try {
             props[key] = source[key]

@@ -15,49 +15,6 @@ var FILTERS_PHOTOSHOP = ['Photoshop', 'psd', 'psb', 'pdd']
 var FILTERS_TIFF = ['TIFF', 'tif', 'tiff']
 
 /**
- * Returns true if both files point to the same location.
- * @returns {Boolean}
- */
-File.prototype.equalTo = function(other) {
-    return this.absoluteURI === other.absoluteURI
-}
-
-/**
- * Returns file name without extension.
- * @returns {String}
- */
-File.prototype.getNameWithoutExtension = function() {
-    return unescape(this.name).substringBeforeLast('.')
-}
-
-/**
- * Returns file extension in lower-case without `.`.
- * @returns {String}
- */
-File.prototype.getExtension = function() {
-    return unescape(this.name).substringAfterLast('.').toLowerCase()
-}
-
-/**
- * Returns true if this file is PDF type, and should be opened with `PDFFileOptions`.
- * Non-template Illustrator files are PDF-compatible.
- * @returns {Boolean}
- */
-File.prototype.isPDF = function() {
-    return this.getExtension().let(function(it) {
-        return it == 'ai' || it == 'pdf' // don't use ===
-    })
-}
-
-/** Reads the file content as a string. */
-File.prototype.readText = function() {
-    this.open('r')
-    var text = this.read()
-    this.close()
-    return text
-}
-
-/**
  * Pick a folder.
  * @param {String} prompt title of the picker.
  * @returns {Folder}
@@ -101,7 +58,7 @@ function openFile(prompt, filters, multiSelect) {
         if (nativeFilters.endsWith(',')) {
             nativeFilters = nativeFilters.substringBeforeLast(',')
         }
-        $.writeln('Native filters = ' + nativeFilters)
+        println('Native filters = ' + nativeFilters)
     }
     return File.openDialog(prompt, nativeFilters, multiSelect || false)
 }

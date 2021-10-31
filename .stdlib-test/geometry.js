@@ -1,4 +1,4 @@
-require('../.stdlib/bounds.js')
+require('../.stdlib/geometry.js')
 var assert = require('./assert.js')
 
 var equalTo = function() {
