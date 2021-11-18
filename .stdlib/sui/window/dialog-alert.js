@@ -4,7 +4,7 @@
 </javascriptresource>
 */
 
-var _alertButtonHeight = OS_MAC ? 20 : 21
+var _alertButtonHeight = 20
 
 /**
  * Alert is a simpler dialog containing only text.
