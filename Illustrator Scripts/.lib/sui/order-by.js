@@ -1,14 +1,16 @@
 var ORDER_LAYERS = [
-    ['Default', 'ic_order_layer'],
-    ['Reversed', 'ic_order_layer']
+    ['Default', 'ic_order_layer_default'],
+    ['Reversed', 'ic_order_layer_reversed']
 ]
 var ORDER_NAMES = [
-    ['Ascending', 'ic_order_name'],
-    ['Descending', 'ic_order_name']
+    ['Ascending', 'ic_order_name_ascending'],
+    ['Descending', 'ic_order_name_descending']
 ]
 var ORDER_POSITIONS = [
-    ['Horizontal', 'ic_order_position'],
-    ['Vertical', 'ic_order_position']
+    ['Horizontal', 'ic_order_position_horizontal'],
+    ['Vertical', 'ic_order_position_vertical'],
+    ['Horizontal RTL', 'ic_order_position_horizontalrtl'],
+    ['Vertical RTL', 'ic_order_position_verticalrtl']
 ]
 
 function OrderByGroup(parent, ordersCollection) {
@@ -48,6 +50,10 @@ function OrderByGroup(parent, ordersCollection) {
             sortedCollection.sort(sortHorizontal)
         } else if (self.list.selection.text === 'Vertical') {
             sortedCollection.sort(sortVertical)
+        } else if (self.list.selection.text === 'Horizontal RTL') {
+            sortedCollection.sort(sortHorizontalRtl)
+        } else if (self.list.selection.text === 'Vertical RTL') {
+            sortedCollection.sort(sortVerticalRtl)
         } else {
             error('Ordering error')
         }
@@ -81,15 +87,14 @@ function OrderByGroup(parent, ordersCollection) {
         var aY = Math.floor(getBounds(a).getTop())
         var bX = Math.floor(getBounds(b).getLeft())
         var bY = Math.floor(getBounds(b).getTop())
-        if (aY === bY) {
-            if (aX > bX) {
-                return 1
-            } else if (aX < bX) {
-                return -1
-            }
-        } else if (aY < bY) {
+        if (aY < bY) {
             return 1
-        } else {
+        } else if (aY > bY) {
+            return -1
+        }
+        if (aX > bX) {
+            return 1
+        } else if (aX < bX) {
             return -1
         }
         return 0
@@ -100,15 +105,50 @@ function OrderByGroup(parent, ordersCollection) {
         var aY = Math.floor(getBounds(a).getTop())
         var bX = Math.floor(getBounds(b).getLeft())
         var bY = Math.floor(getBounds(b).getTop())
-        if (aX === bX) {
-            if (aY < bY) {
-                return 1
-            } else if (aY > bY) {
-                return -1
-            }
-        } else if (aX > bX) {
+        if (aX > bX) {
             return 1
-        } else {
+        } else if (aX < bX) {
+            return -1
+        }
+        if (aY < bY) {
+            return 1
+        } else if (aY > bY) {
+            return -1
+        }
+        return 0
+    }
+
+    function sortHorizontalRtl(a, b) {
+        var aX = Math.floor(getBounds(a).getLeft())
+        var aY = Math.floor(getBounds(a).getTop())
+        var bX = Math.floor(getBounds(b).getLeft())
+        var bY = Math.floor(getBounds(b).getTop())
+        if (aY < bY) {
+            return 1
+        } else if (aY > bY) {
+            return -1
+        }
+        if (aX > bX) {
+            return -1
+        } else if (aX < bX) {
+            return 1
+        }
+        return 0
+    }
+
+    function sortVerticalRtl(a, b) {
+        var aX = Math.floor(getBounds(a).getLeft())
+        var aY = Math.floor(getBounds(a).getTop())
+        var bX = Math.floor(getBounds(b).getLeft())
+        var bY = Math.floor(getBounds(b).getTop())
+        if (aX > bX) {
+            return -1
+        } else if (aX < bX) {
+            return 1
+        }
+        if (aY < bY) {
+            return 1
+        } else if (aY > bY) {
             return -1
         }
         return 0

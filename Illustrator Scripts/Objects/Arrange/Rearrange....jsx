@@ -1,5 +1,5 @@
 #target Illustrator
-#include '../.lib/commons.js'
+#include '../../.lib/commons.js'
 
 checkMultipleSelection()
 
@@ -15,7 +15,6 @@ var orderByGroup
 
 dialog.vgroup(function(main) {
     orderByGroup = new OrderByGroup(main, [ORDER_POSITIONS]).also(function(it) {
-        it.list.minimumSize.width = 280
         it.list.selectText('Horizontal')
     })
 })
@@ -28,19 +27,6 @@ dialog.setDefaultButton(undefined, function() {
         repeat(times, function() {
             it.zOrder(ZOrderMethod.SENDBACKWARD)
         })
-    })
-})
-dialog.setHelpButton('Reverse', function() {
-    // find reversed position and keep ordering until met
-    selection.forEach(function(it, index) {
-        var reversedPosition = initialPositions[initialPositions.lastIndex() - index]
-        println('Moving {0} from {1} to {2}', it.getLayerName(), it.absoluteZOrderPosition, reversedPosition)
-        while (it.absoluteZOrderPosition < reversedPosition) {
-            it.zOrder(ZOrderMethod.BRINGFORWARD)
-        }
-        while (it.absoluteZOrderPosition > reversedPosition) {
-            it.zOrder(ZOrderMethod.SENDBACKWARD)
-        }
     })
 })
 dialog.show()

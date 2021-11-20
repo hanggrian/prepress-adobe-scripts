@@ -1,5 +1,5 @@
 #target Illustrator
-#include '../.lib/commons.js'
+#include '../../.lib/commons.js'
 
 var COLOR_MODELS = ['Default', 'Grayscale', 'Bitmap']
 

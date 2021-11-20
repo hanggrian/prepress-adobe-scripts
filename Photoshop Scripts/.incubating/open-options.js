@@ -47,7 +47,7 @@ function OpenDocumentPanel(parent) {
         panel.hgroup(function(group) {
             group.tips('The initial fill of the document')
             group.staticText(BOUNDS_DOCUMENT_TEXT, 'Background:', JUSTIFY_RIGHT)
-            self.backgrounTransparentRadio = group.radioButton(undefined, 'Transparent', SELECTED)
+            self.backgrounTransparentRadio = group.radioButton(undefined, 'Transparent').also(SELECTED)
             self.backgrounWhiteRadio = group.radioButton(undefined, 'White')
         })
     })

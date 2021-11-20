@@ -1,5 +1,5 @@
 #target Illustrator
-#include '../.lib/commons.js'
+#include '../../.lib/commons.js'
 
 var BOUNDS_TEXT = [60, 21]
 var BOUNDS_EDIT = [180, 21]
