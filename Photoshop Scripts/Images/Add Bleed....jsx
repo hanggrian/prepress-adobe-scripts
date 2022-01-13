@@ -12,7 +12,7 @@
 var dialog = new Dialog('Add Bleed to Images', 'add-bleed-to-images')
 var bleedEdit
 var flattenImageCheck
-var useGuidesCheck, appendGuidesRadio, replaceGuidesRadio
+var guidesRadiosCheck
 var selectBleedCheck, correctionEdit
 
 dialog.vgroup(function(main) {
@@ -29,17 +29,10 @@ dialog.vgroup(function(main) {
         it.tip('Layers will be flattened')
         it.select()
     })
-    main.hgroup(function(group) {
-        group.tips('Guides will mark where bleed are added')
-        useGuidesCheck = group.checkBox(undefined, 'Use Guides').also(function(it) {
-            it.select()
-            it.onClick = function() {
-                appendGuidesRadio.enabled = it.value
-                replaceGuidesRadio.enabled = it.value
-            }
-        })
-        appendGuidesRadio = group.radioButton(undefined, 'Append').also(SELECTED)
-        replaceGuidesRadio = group.radioButton(undefined, 'Replace')
+    guidesRadiosCheck = main.radiosCheckBox('Use Guides', ['Append', 'Replace']).also(function(it) {
+        it.tips('Guides will mark where bleed are added')
+        it.check.select()
+        it.check.onClick()
     })
     main.hgroup(function(group) {
         group.tips('Select bleed with x correction')
@@ -85,8 +78,8 @@ function process(bleeds, correction, document) {
     if (flattenImageCheck.value) {
         document.flatten()
     }
-    if (useGuidesCheck.value) {
-        if (replaceGuidesRadio.value) {
+    if (guidesRadiosCheck.isSelected()) {
+        if (guidesRadiosCheck.getSelectedRadio() === 'Replace') {
             while (document.guides.length > 0) { // TODO: find out why forEach only clearing parts
                 document.guides.first().remove()
             }

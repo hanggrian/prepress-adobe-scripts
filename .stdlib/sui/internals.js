@@ -17,7 +17,7 @@ function _tips(parent, text) {
     parent.helpTips = text
     // attach it manually in case `setHelpTips` is called when children are already created
     parent.children.forEach(function(it) {
-        if (it.helpTip === undefined) {
+        if (it.helpTip !== text) {
             _tip(it, text)
         }
     })

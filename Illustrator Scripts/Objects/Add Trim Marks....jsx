@@ -11,7 +11,7 @@ var dialog = new Dialog('Add Trim Marks', 'add-trim-marks')
 var offsetEdit, lengthEdit, weightEdit, colorList
 var topLeftCheck, topRightCheck, leftTopCheck, rightTopCheck, leftBottomCheck, rightBottomCheck, bottomLeftCheck, bottomRightCheck // single checks
 var topCheck, rightCheck, bottomCheck, leftCheck // multiple checks
-var multipleTargetCheck
+var multipleTargetRadiosCheck
 
 dialog.vgroup(function(main) {
     main.alignChildren = 'right'
@@ -122,22 +122,21 @@ dialog.vgroup(function(main) {
             })
         })
     })
-    multipleTargetCheck = main.checkBox(undefined, 'Multiple Target').also(function(it) {
-        it.tip('When activated, trim marks will be added to each item')
-        it.enabled = selection.length > 1
-        it.onClick = function() {
-            topLeftCheck.visible = !it.value
-            topRightCheck.visible = !it.value
-            leftTopCheck.visible = !it.value
-            rightTopCheck.visible = !it.value
-            leftBottomCheck.visible = !it.value
-            rightBottomCheck.visible = !it.value
-            bottomLeftCheck.visible = !it.value
-            bottomRightCheck.visible = !it.value
-            leftCheck.visible = it.value
-            topCheck.visible = it.value
-            rightCheck.visible = it.value
-            bottomCheck.visible = it.value
+    multipleTargetRadiosCheck = main.radiosCheckBox('Multiple Target', ['Default', 'Recursive']).also(function(it) {
+        it.tips('When activated, trim marks will be added to each item')
+        it.checkOnClick = function() {
+            topLeftCheck.visible = !it.isSelected()
+            topRightCheck.visible = !it.isSelected()
+            leftTopCheck.visible = !it.isSelected()
+            rightTopCheck.visible = !it.isSelected()
+            leftBottomCheck.visible = !it.isSelected()
+            rightBottomCheck.visible = !it.isSelected()
+            bottomLeftCheck.visible = !it.isSelected()
+            bottomRightCheck.visible = !it.isSelected()
+            leftCheck.visible = it.isSelected()
+            topCheck.visible = it.isSelected()
+            rightCheck.visible = it.isSelected()
+            bottomCheck.visible = it.isSelected()
         }
     })
 })
@@ -148,9 +147,9 @@ dialog.setDefaultButton(undefined, function() {
     var weight = parseUnits(weightEdit.text)
     var color = parseColor(colorList.selection.text)
     var maxBounds = selection.getFarthestBounds()
-    selection = selection.concat(multipleTargetCheck.value
+    multipleTargetRadiosCheck.isSelected()
         ? processMultiple(offset, length, weight, color, maxBounds)
-        : processSingle(offset, length, weight, color, maxBounds))
+        : processSingle(offset, length, weight, color, maxBounds)
 })
 dialog.show()
 
@@ -233,7 +232,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
 
 function processMultiple(offset, length, weight, color, maxBounds) {
     var paths = []
-    selection.forEach(function(item) {
+    var action = function(item) {
         var clippingItem = item.getClippingPathItem()
         var width = clippingItem.width
         var height = clippingItem.height
@@ -305,7 +304,12 @@ function processMultiple(offset, length, weight, color, maxBounds) {
                 itemStartY
             ])
         }
-    })
+    }
+    if (multipleTargetRadiosCheck.getSelectedRadio() === 'Recursive') {
+        selection.forEachItem(action)
+    } else {
+        selection.forEach(action)
+    }
     var distinctPaths = []
     paths.forEach(function(path) {
         if (!containsPathBounds(distinctPaths, path)) {

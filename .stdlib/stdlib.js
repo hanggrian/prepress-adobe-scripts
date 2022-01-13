@@ -24,6 +24,7 @@
 #include 'sui/base/control-toggles.js'
 #include 'sui/base/parent-group.js'
 #include 'sui/base/parent-panel.js'
+#include 'sui/base/parent-radioscheckbox.js'
 #include 'sui/base/parent-tab.js'
 #include 'sui/base/parent-tabbedpanel.js'
 #include 'sui/window/dialog-alert.js'
