@@ -47,10 +47,10 @@ function AboutTabbedPanel(parent, clientDate) {
                         if (!result.exists) {
                             self.statusText.text = 'Unable to fetch data.'
                         } else {
-                            var serverDate = parseDate(result.readLine().substringAfter('"date": "').substringBefore('"').substring(0, 10))
+                            var serverDate = parseDate(result.readText().substringAfter('"date": "').substringBefore('"').substring(0, 10))
                             result.remove()
                             if (serverDate > clientDate) {
-                                self.statusText.text = 'Latest version ' + serverDate.toISOString() + ' is available.'
+                                self.statusText.text = 'Latest version {0} is available.'.format(serverDate.toISOString())
                                 self.downloadButton.enabled = true
                             } else {
                                 self.statusText.text = 'You have the latest version.'
@@ -68,21 +68,7 @@ function AboutTabbedPanel(parent, clientDate) {
             })
         })
         tabbedPanel.vtab('Licensing', function(tab) {
-            tab.editText(BOUNDS_ABOUT_TAB,
-                'Copyright 2021 Hendra Anggrian' +
-                '\n' +
-                '\nLicensed under the Apache License, Version 2.0 (the "License");' +
-                '\nyou may not use this file except in compliance with the License.' +
-                '\nYou may obtain a copy of the License at' +
-                '\n' +
-                '\n    http://www.apache.org/licenses/LICENSE-2.0' +
-                '\n' +
-                '\nUnless required by applicable law or agreed to in writing, software' +
-                '\ndistributed under the License is distributed on an "AS IS" BASIS,' +
-                '\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.' +
-                '\nSee the License for the specific language governing permissions and'+
-                '\nlimitations under the License.',
-                { multiline: true, readonly: true, scrollable: true })
+            tab.editText(BOUNDS_ABOUT_TAB, getResource('LICENSE').readText(), { multiline: true, readonly: true, scrollable: true })
         })
     })
 }

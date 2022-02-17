@@ -43,7 +43,7 @@ File.prototype.isPDF = function() {
  * Reads the file content as a string.
  * @returns {String}
  */
-File.prototype.readLine = function() {
+File.prototype.readText = function() {
     return this.use('r', function(it) { return it.read() })
 }
 
