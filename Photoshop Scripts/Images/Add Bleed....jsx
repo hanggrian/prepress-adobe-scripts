@@ -12,7 +12,7 @@
 var dialog = new Dialog('Add Bleed to Images', 'add-bleed-to-images')
 var bleedEdit
 var flattenImageCheck
-var guidesRadiosCheck
+var guidesRadiosCheckGroup
 var selectBleedCheck, correctionEdit
 
 dialog.vgroup(function(main) {
@@ -29,8 +29,8 @@ dialog.vgroup(function(main) {
         it.tip('Layers will be flattened')
         it.select()
     })
-    guidesRadiosCheck = main.radiosCheckBox('Use Guides', ['Append', 'Replace']).also(function(it) {
-        it.tips('Guides will mark where bleed are added')
+    guidesRadiosCheckGroup = new MultiRadioCheckGroup(main, 'Use Guides', ['Append', 'Replace']).also(function(it) {
+        it.main.tips('Guides will mark where bleed are added')
         it.check.select()
         it.check.onClick()
     })
@@ -78,8 +78,8 @@ function process(bleeds, correction, document) {
     if (flattenImageCheck.value) {
         document.flatten()
     }
-    if (guidesRadiosCheck.isSelected()) {
-        if (guidesRadiosCheck.getSelectedRadio() === 'Replace') {
+    if (guidesRadiosCheckGroup.isSelected()) {
+        if (guidesRadiosCheckGroup.getSelectedRadio() === 'Replace') {
             while (document.guides.length > 0) { // TODO: find out why forEach only clearing parts
                 document.guides.first().remove()
             }

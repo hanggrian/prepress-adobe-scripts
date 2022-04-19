@@ -11,7 +11,7 @@ var dialog = new Dialog('Add Trim Marks', 'add-trim-marks')
 var offsetEdit, lengthEdit, weightEdit, colorList
 var topLeftCheck, topRightCheck, leftTopCheck, rightTopCheck, leftBottomCheck, rightBottomCheck, bottomLeftCheck, bottomRightCheck // single checks
 var topCheck, rightCheck, bottomCheck, leftCheck // multiple checks
-var multipleTargetRadiosCheck
+var multipleTargetMultiRadioCheckGroup
 
 dialog.vgroup(function(main) {
     main.alignChildren = 'right'
@@ -122,8 +122,8 @@ dialog.vgroup(function(main) {
             })
         })
     })
-    multipleTargetRadiosCheck = main.radiosCheckBox('Multiple Target', ['Default', 'Recursive']).also(function(it) {
-        it.tips('When activated, trim marks will be added to each item')
+    multipleTargetMultiRadioCheckGroup = new MultiRadioCheckGroup(main, 'Multiple Target', ['Default', 'Recursive']).also(function(it) {
+        it.main.tips('When activated, trim marks will be added to each item')
         it.checkOnClick = function() {
             topLeftCheck.visible = !it.isSelected()
             topRightCheck.visible = !it.isSelected()
@@ -147,7 +147,7 @@ dialog.setDefaultButton(undefined, function() {
     var weight = parseUnits(weightEdit.text)
     var color = parseColor(colorList.selection.text)
     var maxBounds = selection.getFarthestBounds()
-    multipleTargetRadiosCheck.isSelected()
+    multipleTargetMultiRadioCheckGroup.isSelected()
         ? processMultiple(offset, length, weight, color, maxBounds)
         : processSingle(offset, length, weight, color, maxBounds)
 })
@@ -305,7 +305,7 @@ function processMultiple(offset, length, weight, color, maxBounds) {
             ])
         }
     }
-    if (multipleTargetRadiosCheck.getSelectedRadio() === 'Recursive') {
+    if (multipleTargetMultiRadioCheckGroup.getSelectedRadio() === 'Recursive') {
         selection.forEachItem(action)
     } else {
         selection.forEach(action)
