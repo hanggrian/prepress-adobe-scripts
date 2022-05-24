@@ -9,9 +9,9 @@
  * String formatting may be applied.
  */
 function print() {
-    $.write(arguments.isEmpty()
-        ? ''
-        : arguments.first().formatArr(Array.prototype.slice.call(arguments, 1)))
+  $.write(arguments.isEmpty()
+    ? ''
+    : arguments.first().formatArr(Array.prototype.slice.call(arguments, 1)))
 }
 
 /**
@@ -19,7 +19,7 @@ function print() {
  * String formatting may be applied.
  */
 function println() {
-    $.writeln(arguments.isEmpty()
-        ? ''
-        : arguments.first().formatArr(Array.prototype.slice.call(arguments, 1)))
+  $.writeln(arguments.isEmpty()
+    ? ''
+    : arguments.first().formatArr(Array.prototype.slice.call(arguments, 1)))
 }

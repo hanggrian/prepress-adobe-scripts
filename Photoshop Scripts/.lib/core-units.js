@@ -20,13 +20,13 @@ var UNITS = ['Pixels', 'Points', 'Inches', 'Millimeters', 'Centimeters']
  * @returns {String}
  */
 function formatUnits(unitValue, unitName, fraction) {
-    checkNotNull(unitValue)
-    checkNotNull(unitName)
-    var value = unitValue.as(unitName)
-    var s = fraction !== undefined
-        ? value.toFixed(fraction)
-        : value.toString()
-    return parseFloat(s) + ' ' + unitName
+  checkNotNull(unitValue)
+  checkNotNull(unitName)
+  var value = unitValue.as(unitName)
+  var s = fraction !== undefined
+    ? value.toFixed(fraction)
+    : value.toString()
+  return parseFloat(s) + ' ' + unitName
 }
 
 /**
@@ -35,12 +35,12 @@ function formatUnits(unitValue, unitName, fraction) {
  * @returns {Number}
  */
 function parseUnits(units) {
-    checkNotNull(units)
-    units = units.trim()
-    if (units.isEmpty()) {
-        return undefined
-    }
-    return units.isNumeric()
-        ? parseFloat(units)
-        : UnitValue(units).as('px')
+  checkNotNull(units)
+  units = units.trim()
+  if (units.isEmpty()) {
+    return undefined
+  }
+  return units.isNumeric()
+    ? parseFloat(units)
+    : UnitValue(units).as('px')
 }

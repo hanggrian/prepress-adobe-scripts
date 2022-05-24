@@ -5,28 +5,28 @@ checkMultipleSelection()
 
 var initialPositions = [selection[0].absoluteZOrderPosition]
 for (var i = 1; i < selection.length; i++) {
-    check(selection[i - 1].absoluteZOrderPosition - selection[i].absoluteZOrderPosition === 1,
-        'Objects to arrange must be connected to each other')
-    initialPositions.push(selection[i].absoluteZOrderPosition)
+  check(selection[i - 1].absoluteZOrderPosition - selection[i].absoluteZOrderPosition === 1,
+    'Objects to arrange must be connected to each other')
+  initialPositions.push(selection[i].absoluteZOrderPosition)
 }
 
 var dialog = new Dialog('Rearrange Objects')
 var orderByGroup
 
-dialog.vgroup(function(main) {
-    orderByGroup = new OrderByGroup(main, [ORDER_POSITIONS]).also(function(it) {
-        it.list.selectText('Horizontal')
-    })
+dialog.vgroup(function (main) {
+  orderByGroup = new OrderByGroup(main, [ORDER_POSITIONS]).also(function (it) {
+    it.list.selectText('Horizontal')
+  })
 })
 dialog.setCancelButton()
-dialog.setDefaultButton(undefined, function() {
-    // the idea is to keep pusing item to bottommost
-    orderByGroup.forEach(selection, function(it) {
-        var times = it.absoluteZOrderPosition - initialPositions.last()
-        println('Moving {0} {1} times', it.getLayerName(), times)
-        repeat(times, function() {
-            it.zOrder(ZOrderMethod.SENDBACKWARD)
-        })
+dialog.setDefaultButton(undefined, function () {
+  // the idea is to keep pusing item to bottommost
+  orderByGroup.forEach(selection, function (it) {
+    var times = it.absoluteZOrderPosition - initialPositions.last()
+    println('Moving {0} {1} times', it.getLayerName(), times)
+    repeat(times, function () {
+      it.zOrder(ZOrderMethod.SENDBACKWARD)
     })
+  })
 })
 dialog.show()

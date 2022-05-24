@@ -13,77 +13,77 @@
  * @param {Object} element value within this collection.
  * @returns {Boolean}
  */
-Object.prototype.indexOf = function(element) {
-    for (var i = 0; i < this.length; i++) {
-        if (this[i] === element) {
-            return i
-        }
+Object.prototype.indexOf = function (element) {
+  for (var i = 0; i < this.length; i++) {
+    if (this[i] === element) {
+      return i
     }
-    throw 'Element not found in this collection'
+  }
+  throw 'Element not found in this collection'
 }
 
- /**
-  * Last index of this collection.
-  * @returns {Boolean}
-  */
-Object.prototype.lastIndex = function() { return this.length - 1 }
+/**
+ * Last index of this collection.
+ * @returns {Boolean}
+ */
+Object.prototype.lastIndex = function () { return this.length - 1 }
 
 /**
  * Returns true if this collection is empty.
  * @returns {Boolean}
  */
-Object.prototype.isEmpty = function() { return this.length === 0 }
+Object.prototype.isEmpty = function () { return this.length === 0 }
 
 /**
  * Returns true if this collection is not empty.
  * @returns {Boolean}
  */
-Object.prototype.isNotEmpty = function() { return this.length > 0 }
+Object.prototype.isNotEmpty = function () { return this.length > 0 }
 
 /**
  * Returns true if element belongs in this collection.
  * @returns {Boolean}
  */
-Object.prototype.contains = function(element) {
-    var i = this.length
-    while (i--) {
-        if (this[i] === element) {
-            return true
-        }
+Object.prototype.contains = function (element) {
+  var i = this.length
+  while (i--) {
+    if (this[i] === element) {
+      return true
     }
-    return false
+  }
+  return false
 }
 
 /**
  * Returns an array containing only distinct elements from the given collection.
  * @returns {Array}
  */
-Object.prototype.distinct = function() {
-    var distinct = []
-    this.forEach(function(element) {
-        if (!distinct.contains(element)) {
-            distinct.push(element)
-        }
-    })
-    return distinct
+Object.prototype.distinct = function () {
+  var distinct = []
+  this.forEach(function (element) {
+    if (!distinct.contains(element)) {
+      distinct.push(element)
+    }
+  })
+  return distinct
 }
 
 /**
  * Iterate each element of this collection.
  * @param {Function} action runnable to execute.
  */
-Object.prototype.forEach = function(action) {
-    for (var i = 0; i < this.length; i++) {
-        action(this[i], i)
-    }
+Object.prototype.forEach = function (action) {
+  for (var i = 0; i < this.length; i++) {
+    action(this[i], i)
+  }
 }
 
 /**
  * Iterate each element of this collection as reversed.
  * @param {Function} action runnable to execute.
  */
-Object.prototype.forEachReversed = function(action) {
-    for (var i = this.lastIndex(); i >= 0; i--) {
-        action(this[i], i)
-    }
+Object.prototype.forEachReversed = function (action) {
+  for (var i = this.lastIndex(); i >= 0; i--) {
+    action(this[i], i)
+  }
 }

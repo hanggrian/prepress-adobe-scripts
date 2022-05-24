@@ -17,42 +17,42 @@ var rasterCount = 0
 var symbolCount = 0
 var textFrameCount = 0
 
-selection.forEachItem(function(it) {
-    switch (it.typename) {
-        case 'CompoundPathItem':
-            compoundPathCount++
-            break;
-        case 'GraphItem':
-            graphCount++
-            break;
-        case 'LegacyTextItem':
-            legacyTextCount++
-            break;
-        case 'MeshItem':
-            meshCount++
-            break;
-        case 'NonNativeItem':
-            nonNativeCount++
-            break;
-        case 'PathItem':
-            pathCount++
-            break;
-        case 'PlacedItem':
-            placedCount++
-            break;
-        case 'PluginItem':
-            pluginCount++
-            break;
-        case 'RasterItem':
-            rasterCount++
-            break;
-        case 'SymbolItem':
-            symbolCount++
-            break;
-        case 'TextFrame':
-            textFrameCount++
-            break;
-    }
+selection.forEachItem(function (it) {
+  switch (it.typename) {
+    case 'CompoundPathItem':
+      compoundPathCount++
+      break;
+    case 'GraphItem':
+      graphCount++
+      break;
+    case 'LegacyTextItem':
+      legacyTextCount++
+      break;
+    case 'MeshItem':
+      meshCount++
+      break;
+    case 'NonNativeItem':
+      nonNativeCount++
+      break;
+    case 'PathItem':
+      pathCount++
+      break;
+    case 'PlacedItem':
+      placedCount++
+      break;
+    case 'PluginItem':
+      pluginCount++
+      break;
+    case 'RasterItem':
+      rasterCount++
+      break;
+    case 'SymbolItem':
+      symbolCount++
+      break;
+    case 'TextFrame':
+      textFrameCount++
+      break;
+  }
 })
 
 var message = 'There are {0} items, containing:'.format(selection.length)
@@ -70,12 +70,12 @@ message += getItemLine(textFrameCount, 'text frame')
 alert(message, 'Count Objects')
 
 function getItemLine(count, suffix) {
-    if (count === 0) {
-        return ''
-    }
-    var line = '\n• ' + count + ' ' + suffix
-    if (count > 1) {
-        line += suffix.endsWith('sh') ? 'es' : 's'
-    }
-    return line
+  if (count === 0) {
+    return ''
+  }
+  var line = '\n• ' + count + ' ' + suffix
+  if (count > 1) {
+    line += suffix.endsWith('sh') ? 'es' : 's'
+  }
+  return line
 }

@@ -15,39 +15,39 @@ var BOUNDS_EDIT = [100, 21]
 var dialog = new Dialog('Resize Canvases', 'resizing-images-canvases#resize-canvases--f2')
 var widthEdit, heightEdit, anchorGroup
 
-dialog.hgroup(function(main) {
-    main.alignChildren = 'fill'
-    main.vpanel('Canvas', function(panel) {
-        panel.hgroup(function(group) {
-            group.tips("Canvases' new width")
-            group.staticText(BOUNDS_TEXT, 'Width:').also(JUSTIFY_RIGHT)
-            widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2)).also(function(it) {
-                it.validateUnits()
-                it.activate()
-            })
-        })
-        panel.hgroup(function(group) {
-            group.tips("Canvases' new height")
-            group.staticText(BOUNDS_TEXT, 'Height:').also(JUSTIFY_RIGHT)
-            heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2)).also(VALIDATE_UNITS)
-        })
+dialog.hgroup(function (main) {
+  main.alignChildren = 'fill'
+  main.vpanel('Canvas', function (panel) {
+    panel.hgroup(function (group) {
+      group.tips("Canvases' new width")
+      group.staticText(BOUNDS_TEXT, 'Width:').also(JUSTIFY_RIGHT)
+      widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2)).also(function (it) {
+        it.validateUnits()
+        it.activate()
+      })
     })
-    main.vpanel('Anchor', function(panel) {
-        anchorGroup = new AnchorGroup(panel, true)
+    panel.hgroup(function (group) {
+      group.tips("Canvases' new height")
+      group.staticText(BOUNDS_TEXT, 'Height:').also(JUSTIFY_RIGHT)
+      heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2)).also(VALIDATE_UNITS)
     })
+  })
+  main.vpanel('Anchor', function (panel) {
+    anchorGroup = new AnchorGroup(panel, true)
+  })
 })
 dialog.setCancelButton()
-dialog.setDefaultButton(undefined, function() {
-    var width = new UnitValue(widthEdit.text)
-    var height = new UnitValue(heightEdit.text)
-    var anchor = anchorGroup.getAnchorPosition()
+dialog.setDefaultButton(undefined, function () {
+  var width = new UnitValue(widthEdit.text)
+  var height = new UnitValue(heightEdit.text)
+  var anchor = anchorGroup.getAnchorPosition()
 
-    var progress = new ProgressPalette(app.documents.length, 'Resizing')
-    for (var i = 0; i < app.documents.length; i++) {
-        progress.increment()
-        var document = app.documents[i]
-        app.activeDocument = document
-        document.resizeCanvas(width, height, anchor)
-    }
+  var progress = new ProgressPalette(app.documents.length, 'Resizing')
+  for (var i = 0; i < app.documents.length; i++) {
+    progress.increment()
+    var document = app.documents[i]
+    app.activeDocument = document
+    document.resizeCanvas(width, height, anchor)
+  }
 })
 dialog.show()

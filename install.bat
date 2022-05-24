@@ -11,19 +11,19 @@ set RED=[91m
 set GREEN=[92m
 set YELLOW=[93m
 
-:: SOURCE_ROOT ends with backslash
-set SOURCE_ROOT=%~dp0
-
 :: Check sources
-if not exist "!SOURCE_ROOT!.stdlib" goto :fail_sources
-if not exist "!SOURCE_ROOT!.stdres" goto :fail_sources
-if not exist "!SOURCE_ROOT!Illustrator Scripts" goto :fail_sources
-if not exist "!SOURCE_ROOT!Photoshop Scripts" goto :fail_sources
-if not exist "!SOURCE_ROOT!Actions" goto :fail_sources
+if not exist "!SOURCE_ROOT!.stdlib" goto :error_sources
+if not exist "!SOURCE_ROOT!.stdres" goto :error_sources
+if not exist "!SOURCE_ROOT!Illustrator Scripts" goto :error_sources
+if not exist "!SOURCE_ROOT!Photoshop Scripts" goto :error_sources
+if not exist "!SOURCE_ROOT!Actions" goto :error_sources
 
 :: Check permissions
 net session >nul 2>&1
-if !errorLevel! neq 0 goto :fail_permissions
+if !errorLevel! neq 0 goto :error_permissions
+
+:: SOURCE_ROOT ends with backslash
+set SOURCE_ROOT=%~dp0
 
 echo.
 echo !YELLOW!!BOLD!WARNING!END!
@@ -55,7 +55,7 @@ if "!input!" equ "1" (
 ) else if "!input!" equ "Q" (
     rem
 ) else (
-    goto :fail_input
+    goto :error_input
 )
 
 echo.
@@ -160,21 +160,21 @@ goto :eof
     endlocal
 goto :eof
 
-:fail_permissions
+:error_permissions
     echo.
     echo !RED!Administrative permissions required.!END!
     echo.
     pause
 exit /b 1
 
-:fail_sources
+:error_sources
     echo.
     echo !RED!Missing sources.!END!
     echo.
     pause
 exit /b 1
 
-:fail_input
+:error_input
     echo.
     echo !RED!Unable to recognize input.!END!
     echo.

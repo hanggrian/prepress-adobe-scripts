@@ -5,9 +5,9 @@
  * @returns {void}
  */
 function check(requirement, errorMessage) {
-    if (!requirement) {
-        error(errorMessage || 'Failed requirement')
-    }
+  if (!requirement) {
+    error(errorMessage || 'Failed requirement')
+  }
 }
 
 /**
@@ -16,8 +16,8 @@ function check(requirement, errorMessage) {
  * @returns {Object}
  */
 function checkNull(value, errorMessage) {
-    check(value === undefined || value === null, errorMessage)
-    return value
+  check(value === undefined || value === null, errorMessage)
+  return value
 }
 
 /**
@@ -26,13 +26,13 @@ function checkNull(value, errorMessage) {
  * @returns {Object}
  */
 function checkNotNull(value, errorMessage) {
-    check(value !== undefined && value !== null, errorMessage)
-    return value
+  check(value !== undefined && value !== null, errorMessage)
+  return value
 }
 
 /** Assert an item's typename. */
 function checkTypename(item, typename) {
-    check(item.typename === typename, 'Selected item is not a ' + typename)
+  check(item.typename === typename, 'Selected item is not a ' + typename)
 }
 
 /*
@@ -46,8 +46,8 @@ function checkTypename(item, typename) {
  * @param {Object} errorMessage helpful alert, may be null.
  */
 function error(errorMessage) {
-    var message = errorMessage.toString()
-    throw new Error(message)
+  var message = errorMessage.toString()
+  throw new Error(message)
 }
 
 /**
@@ -56,7 +56,7 @@ function error(errorMessage) {
  * @param {Object} errorMessage helpful alert, may be null.
  */
 function errorWithAlert(errorMessage) {
-    var message = errorMessage.toString()
-    alert(message, 'Uncaught JavaScript exception', true)
-    throw new Error(message)
+  var message = errorMessage.toString()
+  alert(message, 'Uncaught JavaScript exception', true)
+  throw new Error(message)
 }

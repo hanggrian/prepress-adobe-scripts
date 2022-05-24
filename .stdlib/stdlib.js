@@ -57,9 +57,9 @@ var URL_WEBSITE = 'https://hendraanggrian.github.io/prepress-adobe-scripts'
  * @see https://community.adobe.com/t5/indesign/js-scriptui-url-links-in-dialogues/td-p/4572773?page=1
  */
 function openURL(url) {
-    var tempFile = new File(Folder.temp.absoluteURI + '/prepress-adobe-scripts.html')
-    tempFile.use('w', function(it) {
-        it.write('<html><head><META HTTP-EQUIV=Refresh CONTENT="0; URL=' + url + '"></head><body> <p></body></html>')
-    })
-    tempFile.execute()
+  var tempFile = new File(Folder.temp.absoluteURI + '/prepress-adobe-scripts.html')
+  tempFile.use('w', function (it) {
+    it.write('<html><head><META HTTP-EQUIV=Refresh CONTENT="0; URL=' + url + '"></head><body> <p></body></html>')
+  })
+  tempFile.execute()
 }

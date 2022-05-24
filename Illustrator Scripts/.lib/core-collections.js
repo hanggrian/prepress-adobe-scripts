@@ -4,36 +4,36 @@
  * Iterate each element of this collection.
  * @param {Function} action runnable to execute.
  */
-Object.prototype.forEachItem = function(action) {
-    _forEachItem(this, action)
+Object.prototype.forEachItem = function (action) {
+  _forEachItem(this, action)
 }
 
 function _forEachItem(items, action) {
-    for (var i = 0; i < items.length; i++) {
-        if (items[i].typename === 'GroupItem') {
-            _forEachItem(items[i].pageItems, action)
-        } else {
-            action(items[i], i)
-        }
+  for (var i = 0; i < items.length; i++) {
+    if (items[i].typename === 'GroupItem') {
+      _forEachItem(items[i].pageItems, action)
+    } else {
+      action(items[i], i)
     }
+  }
 }
 
 /**
  * Iterate each element of this collection as reversed.
  * @param {Function} action runnable to execute.
  */
-Object.prototype.forEachItemReversed = function(action) {
-    _forEachItemReversed(this, action)
+Object.prototype.forEachItemReversed = function (action) {
+  _forEachItemReversed(this, action)
 }
 
 function _forEachItemReversed(items, action) {
-    for (var i = items.lastIndex(); i >= 0; i--) {
-        if (items[i].typename === 'GroupItem') {
-            _forEachItemReversed(items[i].pageItems, action)
-        } else {
-            action(items[i], i)
-        }
+  for (var i = items.lastIndex(); i >= 0; i--) {
+    if (items[i].typename === 'GroupItem') {
+      _forEachItemReversed(items[i].pageItems, action)
+    } else {
+      action(items[i], i)
     }
+  }
 }
 
 /**
@@ -41,20 +41,20 @@ function _forEachItemReversed(items, action) {
  * @param {Function} transform runnable with return value.
  * @returns {Array}
  */
-Object.prototype.mapItem = function(transform) {
-    var result = []
-    _mapItem(this, transform, result)
-    return result
+Object.prototype.mapItem = function (transform) {
+  var result = []
+  _mapItem(this, transform, result)
+  return result
 }
 
 function _mapItem(items, transform, result) {
-    for (var i = 0; i < items.length; i++) {
-        if (items[i].typename === 'GroupItem') {
-            _mapItem(items[i].pageItems, transform, result)
-        } else {
-            result.push(transform(items[i], i))
-        }
+  for (var i = 0; i < items.length; i++) {
+    if (items[i].typename === 'GroupItem') {
+      _mapItem(items[i].pageItems, transform, result)
+    } else {
+      result.push(transform(items[i], i))
     }
+  }
 }
 
 /**
@@ -62,20 +62,20 @@ function _mapItem(items, transform, result) {
  * @param {Function} predicate runnable with return value.
  * @returns {Array}
  */
-Object.prototype.filterItem = function(predicate) {
-    var result = []
-    _filterItem(this, predicate, result)
-    return result
+Object.prototype.filterItem = function (predicate) {
+  var result = []
+  _filterItem(this, predicate, result)
+  return result
 }
 
 function _filterItem(items, predicate, result) {
-    for (var i = 0; i < items.length; i++) {
-        if (items[i].typename === 'GroupItem') {
-            _filterItem(items[i].pageItems, predicate, result)
-        } else {
-            if (predicate(items[i], i)) {
-                result.push(items[i])
-            }
-        }
+  for (var i = 0; i < items.length; i++) {
+    if (items[i].typename === 'GroupItem') {
+      _filterItem(items[i].pageItems, predicate, result)
+    } else {
+      if (predicate(items[i], i)) {
+        result.push(items[i])
+      }
     }
+  }
 }

@@ -9,12 +9,12 @@
  * @param {Function} transform runnable with return value.
  * @returns {Array}
  */
-Object.prototype.map = function(transform) {
-    var result = []
-    for (var i = 0; i < this.length; i++) {
-        result.push(transform(this[i], i))
-    }
-    return result
+Object.prototype.map = function (transform) {
+  var result = []
+  for (var i = 0; i < this.length; i++) {
+    result.push(transform(this[i], i))
+  }
+  return result
 }
 
 /**
@@ -22,12 +22,12 @@ Object.prototype.map = function(transform) {
  * @param {Function} transform runnable with return value.
  * @returns {Array}
  */
-Object.prototype.flatMap = function(transform) {
-    var result = []
-    for (var i = 0; i < this.length; i++) {
-        for (var j = 0; j < this[i].length; j++) {
-            result.push(transform(this[i][j]))
-        }
+Object.prototype.flatMap = function (transform) {
+  var result = []
+  for (var i = 0; i < this.length; i++) {
+    for (var j = 0; j < this[i].length; j++) {
+      result.push(transform(this[i][j]))
     }
-    return result
+  }
+  return result
 }

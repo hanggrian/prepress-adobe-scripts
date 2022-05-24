@@ -27,8 +27,8 @@ libPath = new File($.fileName).path
  * @this {PageItem}
  * @returns {String}
  */
-Object.prototype.getLayerName = function() {
-    return this.name != null & this.name.length > 0 ? this.name : this.typename
+Object.prototype.getLayerName = function () {
+  return this.name != null & this.name.length > 0 ? this.name : this.typename
 }
 
 /**
@@ -36,39 +36,39 @@ Object.prototype.getLayerName = function() {
  * @this {PageItem}
  * @returns {PathItem}
  */
-Object.prototype.getClippingPathItem = function() {
-    if (this.typename === 'GroupItem' && this.clipped) {
-        // can't use `first { }` because PathItems is not an Array
-        for (var i = 0; i < this.pathItems.length; i++) {
-            var pathItem = this.pathItems[i]
-            if (pathItem.clipping) {
-                return pathItem
-            }
-        }
+Object.prototype.getClippingPathItem = function () {
+  if (this.typename === 'GroupItem' && this.clipped) {
+    // can't use `first { }` because PathItems is not an Array
+    for (var i = 0; i < this.pathItems.length; i++) {
+      var pathItem = this.pathItems[i]
+      if (pathItem.clipping) {
+        return pathItem
+      }
     }
-    return this
+  }
+  return this
 }
 
 /**
  * Returns bounds covering all items.
  * @returns {Array}
  */
-Array.prototype.getFarthestBounds = function() {
-    var maxStartX, maxStartY, maxEndX, maxEndY
-    this.forEach(function(item) {
-        var clippingItem = item.getClippingPathItem()
-        var width = clippingItem.width
-        var height = clippingItem.height
-        var itemStartX = clippingItem.position.getLeft()
-        var itemStartY = clippingItem.position.getTop()
-        var itemEndX = itemStartX + width
-        var itemEndY = itemStartY - height
-        if (maxStartX === undefined || itemStartX < maxStartX) maxStartX = itemStartX
-        if (maxStartY === undefined || itemStartY > maxStartY) maxStartY = itemStartY
-        if (maxEndX === undefined || itemEndX > maxEndX) maxEndX = itemEndX
-        if (maxEndY === undefined || itemEndY < maxEndY) maxEndY = itemEndY
-    })
-    return [maxStartX, maxStartY, maxEndX, maxEndY]
+Array.prototype.getFarthestBounds = function () {
+  var maxStartX, maxStartY, maxEndX, maxEndY
+  this.forEach(function (item) {
+    var clippingItem = item.getClippingPathItem()
+    var width = clippingItem.width
+    var height = clippingItem.height
+    var itemStartX = clippingItem.position.getLeft()
+    var itemStartY = clippingItem.position.getTop()
+    var itemEndX = itemStartX + width
+    var itemEndY = itemStartY - height
+    if (maxStartX === undefined || itemStartX < maxStartX) maxStartX = itemStartX
+    if (maxStartY === undefined || itemStartY > maxStartY) maxStartY = itemStartY
+    if (maxEndX === undefined || itemEndX > maxEndX) maxEndX = itemEndX
+    if (maxEndY === undefined || itemEndY < maxEndY) maxEndY = itemEndY
+  })
+  return [maxStartX, maxStartY, maxEndX, maxEndY]
 }
 
 /**
@@ -76,12 +76,12 @@ Array.prototype.getFarthestBounds = function() {
  * @this {PlacedItem}
  * @returns {Boolean}
  */
-Object.prototype.isFileExists = function() {
-    check(this.typename === 'PlacedItem')
-    try {
-        this.file
-        return true
-    } catch (e) {
-        return false
-    }
+Object.prototype.isFileExists = function () {
+  check(this.typename === 'PlacedItem')
+  try {
+    this.file
+    return true
+  } catch (e) {
+    return false
+  }
 }

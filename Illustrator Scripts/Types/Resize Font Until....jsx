@@ -15,62 +15,62 @@ var dimensionWidthRadio, dimensionHeightRadio
 var dimensionSizeText, dimensionSizeEdit
 var roundingList
 
-dialog.vgroup(function(main) {
-    main.alignChildren = 'left'
-    main.hgroup(function(group) {
-        group.tips('Which bounds to use')
-        group.staticText(BOUNDS_TEXT, 'Dimension:').also(JUSTIFY_RIGHT)
-        dimensionWidthRadio = group.radioButton(undefined, 'Width').also(function(it) {
-            it.onClick = changeDimensionText
-            it.select()
-        })
-        dimensionHeightRadio = group.radioButton(undefined, 'Height').also(function(it) {
-            it.onClick = changeDimensionText
-        })
+dialog.vgroup(function (main) {
+  main.alignChildren = 'left'
+  main.hgroup(function (group) {
+    group.tips('Which bounds to use')
+    group.staticText(BOUNDS_TEXT, 'Dimension:').also(JUSTIFY_RIGHT)
+    dimensionWidthRadio = group.radioButton(undefined, 'Width').also(function (it) {
+      it.onClick = changeDimensionText
+      it.select()
     })
-    main.hgroup(function(group) {
-        group.tips('Target size to match')
-        dimensionSizeText = group.staticText(BOUNDS_TEXT, 'Width:').also(JUSTIFY_RIGHT)
-        dimensionSizeEdit = group.editText(BOUNDS_EDIT, formatUnits(item.width, unitName, 2)).also(function(it) {
-            it.validateUnits()
-            it.activate()
-        })
+    dimensionHeightRadio = group.radioButton(undefined, 'Height').also(function (it) {
+      it.onClick = changeDimensionText
     })
-    main.hgroup(function(group) {
-        group.tips('Method to round final font size')
-        group.staticText(BOUNDS_TEXT, 'Rounding:').also(JUSTIFY_RIGHT)
-        roundingList = group.dropDownList(BOUNDS_EDIT, ROUNDINGS).also(function(it) {
-            it.selectText('None')
-        })
+  })
+  main.hgroup(function (group) {
+    group.tips('Target size to match')
+    dimensionSizeText = group.staticText(BOUNDS_TEXT, 'Width:').also(JUSTIFY_RIGHT)
+    dimensionSizeEdit = group.editText(BOUNDS_EDIT, formatUnits(item.width, unitName, 2)).also(function (it) {
+      it.validateUnits()
+      it.activate()
     })
+  })
+  main.hgroup(function (group) {
+    group.tips('Method to round final font size')
+    group.staticText(BOUNDS_TEXT, 'Rounding:').also(JUSTIFY_RIGHT)
+    roundingList = group.dropDownList(BOUNDS_EDIT, ROUNDINGS).also(function (it) {
+      it.selectText('None')
+    })
+  })
 })
 dialog.setCancelButton()
-dialog.setDefaultButton(undefined, function() {
-    var currentFont = item.textRange.characterAttributes.size
-    var currentDimension // text's dimension are not an accurate real-world size, use its outline instead
-    item.duplicate(layer, ElementPlacement.PLACEATEND).createOutline().run(function(it) {
-        currentDimension = dimensionWidthRadio.value ? it.width : it.height
-        it.remove()
-    })
-    var targetDimension = parseUnits(dimensionSizeEdit.text)
-    var targetFont = currentFont * targetDimension / currentDimension
-    if (roundingList.selection.text === 'Round') {
-        targetFont = Math.round(targetFont)
-    } else if (roundingList.selection.text === 'Floor') {
-        targetFont = Math.floor(targetFont)
-    } else if (roundingList.selection.text === 'Ceil') {
-        targetFont = Math.ceil(targetFont)
-    }
-    item.textRange.characterAttributes.size = targetFont
+dialog.setDefaultButton(undefined, function () {
+  var currentFont = item.textRange.characterAttributes.size
+  var currentDimension // text's dimension are not an accurate real-world size, use its outline instead
+  item.duplicate(layer, ElementPlacement.PLACEATEND).createOutline().run(function (it) {
+    currentDimension = dimensionWidthRadio.value ? it.width : it.height
+    it.remove()
+  })
+  var targetDimension = parseUnits(dimensionSizeEdit.text)
+  var targetFont = currentFont * targetDimension / currentDimension
+  if (roundingList.selection.text === 'Round') {
+    targetFont = Math.round(targetFont)
+  } else if (roundingList.selection.text === 'Floor') {
+    targetFont = Math.floor(targetFont)
+  } else if (roundingList.selection.text === 'Ceil') {
+    targetFont = Math.ceil(targetFont)
+  }
+  item.textRange.characterAttributes.size = targetFont
 })
 dialog.show()
 
 function changeDimensionText() {
-    if (dimensionWidthRadio.value) {
-        dimensionSizeText.text = 'Width:'
-        dimensionSizeEdit.text = formatUnits(item.width, unitName, 2)
-    } else {
-        dimensionSizeText.text = 'Height:'
-        dimensionSizeEdit.text = formatUnits(item.height, unitName, 2)
-    }
+  if (dimensionWidthRadio.value) {
+    dimensionSizeText.text = 'Width:'
+    dimensionSizeEdit.text = formatUnits(item.width, unitName, 2)
+  } else {
+    dimensionSizeText.text = 'Height:'
+    dimensionSizeEdit.text = formatUnits(item.height, unitName, 2)
+  }
 }

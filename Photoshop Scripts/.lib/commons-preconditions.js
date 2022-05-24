@@ -6,5 +6,5 @@
 
 /** Assert that document is currently saved. */
 function checkSaved() {
-    check(document.saved, 'Save the document before proceeding')
+  check(document.saved, 'Save the document before proceeding')
 }

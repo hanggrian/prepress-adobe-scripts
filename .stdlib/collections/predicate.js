@@ -9,16 +9,16 @@
  * @param {Function} predicate optional consumer.
  * @returns {Object}
  */
-Object.prototype.first = function(predicate) {
-    if (predicate === undefined) {
-        return this[0]
+Object.prototype.first = function (predicate) {
+  if (predicate === undefined) {
+    return this[0]
+  }
+  for (var i = 0; i < this.length; i++) {
+    if (predicate(this[i], i)) {
+      return this[i]
     }
-    for (var i = 0; i < this.length; i++) {
-        if (predicate(this[i], i)) {
-            return this[i]
-        }
-    }
-    throw new Error('Element not found given the predicate')
+  }
+  throw new Error('Element not found given the predicate')
 }
 
 /**
@@ -26,16 +26,16 @@ Object.prototype.first = function(predicate) {
  * @param {Function} predicate optional consumer.
  * @returns {Object}
  */
-Object.prototype.last = function(predicate) {
-    if (predicate === undefined) {
-        return this[this.lastIndex()]
+Object.prototype.last = function (predicate) {
+  if (predicate === undefined) {
+    return this[this.lastIndex()]
+  }
+  for (var i = this.lastIndex(); i >= 0; i--) {
+    if (predicate(this[i], i)) {
+      return this[i]
     }
-    for (var i = this.lastIndex(); i >= 0; i--) {
-        if (predicate(this[i], i)) {
-            return this[i]
-        }
-    }
-    throw new Error('Element not found given the predicate')
+  }
+  throw new Error('Element not found given the predicate')
 }
 
 /**
@@ -43,16 +43,16 @@ Object.prototype.last = function(predicate) {
  * @param {Function} predicate optional consumer.
  * @returns {Boolean}
  */
-Object.prototype.none = function(predicate) {
-    if (predicate === undefined) {
-        return this.isEmpty()
+Object.prototype.none = function (predicate) {
+  if (predicate === undefined) {
+    return this.isEmpty()
+  }
+  for (var i = 0; i < this.length; i++) {
+    if (predicate(this[i], i)) {
+      return false
     }
-    for (var i = 0; i < this.length; i++) {
-        if (predicate(this[i], i)) {
-            return false
-        }
-    }
-    return true
+  }
+  return true
 }
 
 /**
@@ -60,16 +60,16 @@ Object.prototype.none = function(predicate) {
  * @param {Function} predicate optional consumer.
  * @returns {Boolean}
  */
-Object.prototype.any = function(predicate) {
-    if (predicate === undefined) {
-        return this.isNotEmpty()
+Object.prototype.any = function (predicate) {
+  if (predicate === undefined) {
+    return this.isNotEmpty()
+  }
+  for (var i = 0; i < this.length; i++) {
+    if (predicate(this[i], i)) {
+      return true
     }
-    for (var i = 0; i < this.length; i++) {
-        if (predicate(this[i], i)) {
-            return true
-        }
-    }
-    return false
+  }
+  return false
 }
 
 /**
@@ -77,13 +77,13 @@ Object.prototype.any = function(predicate) {
  * @param {Function} predicate consumer.
  * @returns {Boolean}
  */
-Object.prototype.all = function(predicate) {
-    for (var i = 0; i < this.length; i++) {
-        if (!predicate(this[i], i)) {
-            return false
-        }
+Object.prototype.all = function (predicate) {
+  for (var i = 0; i < this.length; i++) {
+    if (!predicate(this[i], i)) {
+      return false
     }
-    return true
+  }
+  return true
 }
 
 /**
@@ -91,12 +91,12 @@ Object.prototype.all = function(predicate) {
  * @param {Function} predicate runnable with return value.
  * @returns {Array}
  */
-Object.prototype.filter = function(predicate) {
-    var result = []
-    for (var i = 0; i < this.length; i++) {
-        if (predicate(this[i], i)) {
-            result.push(this[i])
-        }
+Object.prototype.filter = function (predicate) {
+  var result = []
+  for (var i = 0; i < this.length; i++) {
+    if (predicate(this[i], i)) {
+      result.push(this[i])
     }
-    return result
+  }
+  return result
 }

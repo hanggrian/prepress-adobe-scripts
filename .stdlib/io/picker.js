@@ -20,7 +20,7 @@ var FILTERS_TIFF = ['TIFF', 'tif', 'tiff']
  * @returns {Folder}
  */
 function openFolder(prompt) {
-    return Folder.selectDialog(prompt)
+  return Folder.selectDialog(prompt)
 }
 
 /**
@@ -31,34 +31,34 @@ function openFolder(prompt) {
  * @returns {File}
  */
 function openFile(prompt, filters, multiSelect) {
-    var nativeFilters
-    if (OS_MAC) {
-        nativeFilters = function(file) {
-            var condition = file instanceof Folder // required to go through directory
-            filters.forEach(function(array) {
-                array.slice(1).forEach(function(ext) {
-                    condition = condition || file.getExtension() === ext.toLowerCase()
-                })
-            })
-            return condition
-        }
-    } else {
-        // expected filters = 'Adobe Illustrator:*.ai;Photoshop:*.psd,*.psb,*.pdd;'
-        nativeFilters = ''
-        var allExtensions = []
-        filters.forEach(function(array) {
-            check(array.length > 1, 'File extension required')
-            var name = array.first()
-            var extensions = array.slice(1)
-            nativeFilters += name + ':*.' + extensions.join(';*.') + ','
-
-            allExtensions = allExtensions.concat(extensions)
+  var nativeFilters
+  if (OS_MAC) {
+    nativeFilters = function (file) {
+      var condition = file instanceof Folder // required to go through directory
+      filters.forEach(function (array) {
+        array.slice(1).forEach(function (ext) {
+          condition = condition || file.getExtension() === ext.toLowerCase()
         })
-        nativeFilters = 'All Formats:*.' + allExtensions.join(';*.') + ',' + nativeFilters
-        if (nativeFilters.endsWith(',')) {
-            nativeFilters = nativeFilters.substringBeforeLast(',')
-        }
-        println('Native filters = ' + nativeFilters)
+      })
+      return condition
     }
-    return File.openDialog(prompt, nativeFilters, multiSelect || false)
+  } else {
+    // expected filters = 'Adobe Illustrator:*.ai;Photoshop:*.psd,*.psb,*.pdd;'
+    nativeFilters = ''
+    var allExtensions = []
+    filters.forEach(function (array) {
+      check(array.length > 1, 'File extension required')
+      var name = array.first()
+      var extensions = array.slice(1)
+      nativeFilters += name + ':*.' + extensions.join(';*.') + ','
+
+      allExtensions = allExtensions.concat(extensions)
+    })
+    nativeFilters = 'All Formats:*.' + allExtensions.join(';*.') + ',' + nativeFilters
+    if (nativeFilters.endsWith(',')) {
+      nativeFilters = nativeFilters.substringBeforeLast(',')
+    }
+    println('Native filters = ' + nativeFilters)
+  }
+  return File.openDialog(prompt, nativeFilters, multiSelect || false)
 }

@@ -23,69 +23,69 @@ var dialog = new Dialog('Select Links', 'selecting-items#select-links---f2')
 var dimensionPanel
 var aiCheck, pdfCheck, bmpCheck, gifCheck, jpegCheck, jpeg2000Check, pngCheck, psdCheck, tiffCheck
 
-dialog.vgroup(function(main) {
-    main.alignChildren = 'fill'
-    dimensionPanel = new SelectDimensionPanel(main, BOUNDS_TEXT, BOUNDS_EDIT)
-    main.vpanel('File Types', function(panel) {
-        panel.tips('File extension of selected links')
-        panel.alignChildren = 'fill'
-        aiCheck = panel.checkBox(undefined, getTypeString('Adobe Illustrator', FILE_AI))
-        pdfCheck = panel.checkBox(undefined, getTypeString('Adobe PDF', FILE_PDF))
-        bmpCheck = panel.checkBox(undefined, getTypeString('BMP', FILE_BMP))
-        gifCheck = panel.checkBox(undefined, getTypeString('GIF89a', FILE_GIF))
-        jpegCheck = panel.checkBox(undefined, getTypeString('JPEG', FILE_JPEG))
-        jpeg2000Check = panel.checkBox(undefined, getTypeString('JPEG2000', FILE_JPEG2000))
-        pngCheck = panel.checkBox(undefined, getTypeString('PNG', FILE_PNG))
-        psdCheck = panel.checkBox(undefined, getTypeString('Photoshop', FILE_PSD))
-        tiffCheck = panel.checkBox(undefined, getTypeString('TIFF', FILE_TIFF))
-    })
+dialog.vgroup(function (main) {
+  main.alignChildren = 'fill'
+  dimensionPanel = new SelectDimensionPanel(main, BOUNDS_TEXT, BOUNDS_EDIT)
+  main.vpanel('File Types', function (panel) {
+    panel.tips('File extension of selected links')
+    panel.alignChildren = 'fill'
+    aiCheck = panel.checkBox(undefined, getTypeString('Adobe Illustrator', FILE_AI))
+    pdfCheck = panel.checkBox(undefined, getTypeString('Adobe PDF', FILE_PDF))
+    bmpCheck = panel.checkBox(undefined, getTypeString('BMP', FILE_BMP))
+    gifCheck = panel.checkBox(undefined, getTypeString('GIF89a', FILE_GIF))
+    jpegCheck = panel.checkBox(undefined, getTypeString('JPEG', FILE_JPEG))
+    jpeg2000Check = panel.checkBox(undefined, getTypeString('JPEG2000', FILE_JPEG2000))
+    pngCheck = panel.checkBox(undefined, getTypeString('PNG', FILE_PNG))
+    psdCheck = panel.checkBox(undefined, getTypeString('Photoshop', FILE_PSD))
+    tiffCheck = panel.checkBox(undefined, getTypeString('TIFF', FILE_TIFF))
+  })
 })
 dialog.setCancelButton()
-dialog.setDefaultButton(undefined, function() {
-    var width = dimensionPanel.getWidth()
-    var height = dimensionPanel.getHeight()
-    selectAll(['PlacedItem'], function(item) {
-        var condition = true
-        if (width !== undefined) {
-            condition = condition && parseInt(width) === parseInt(item.width)
-        }
-        if (height !== undefined) {
-            condition = condition && parseInt(height) === parseInt(item.height)
-        }
+dialog.setDefaultButton(undefined, function () {
+  var width = dimensionPanel.getWidth()
+  var height = dimensionPanel.getHeight()
+  selectAll(['PlacedItem'], function (item) {
+    var condition = true
+    if (width !== undefined) {
+      condition = condition && parseInt(width) === parseInt(item.width)
+    }
+    if (height !== undefined) {
+      condition = condition && parseInt(height) === parseInt(item.height)
+    }
 
-        var condition2 = false
-        var extension = item.isFileExists() && item.file.name.split('.').pop()
-        if (aiCheck.value) condition2 = condition2 || contains(FILE_AI, extension)
-        if (pdfCheck.value) condition2 = condition2 || contains(FILE_PDF, extension)
-        if (bmpCheck.value) condition2 = condition2 || contains(FILE_BMP, extension)
-        if (gifCheck.value) condition2 = condition2 || contains(FILE_GIF, extension)
-        if (jpegCheck.value) condition2 = condition2 || contains(FILE_JPEG, extension)
-        if (jpeg2000Check.value) condition2 = condition2 || contains(FILE_JPEG2000, extension)
-        if (pngCheck.value) condition2 = condition2 || contains(FILE_PNG, extension)
-        if (psdCheck.value) condition2 = condition2 || contains(FILE_PSD, extension)
-        if (tiffCheck.value) condition2 = condition2 || contains(FILE_TIFF, extension)
+    var condition2 = false
+    var extension = item.isFileExists() && item.file.name.split('.').pop()
+    if (aiCheck.value) condition2 = condition2 || contains(FILE_AI, extension)
+    if (pdfCheck.value) condition2 = condition2 || contains(FILE_PDF, extension)
+    if (bmpCheck.value) condition2 = condition2 || contains(FILE_BMP, extension)
+    if (gifCheck.value) condition2 = condition2 || contains(FILE_GIF, extension)
+    if (jpegCheck.value) condition2 = condition2 || contains(FILE_JPEG, extension)
+    if (jpeg2000Check.value) condition2 = condition2 || contains(FILE_JPEG2000, extension)
+    if (pngCheck.value) condition2 = condition2 || contains(FILE_PNG, extension)
+    if (psdCheck.value) condition2 = condition2 || contains(FILE_PSD, extension)
+    if (tiffCheck.value) condition2 = condition2 || contains(FILE_TIFF, extension)
 
-        return condition && condition2
-    })
+    return condition && condition2
+  })
 })
 dialog.show()
 
 function getTypeString(prefix, suffix) {
-    var s = ''
-    suffix.forEach(function(it, i) {
-        s += it
-        if (i != suffix.lastIndex()) {
-            s += ', '
-        }
-    })
-    return '{0} ({1})'.format(prefix, s)
+  var s = ''
+  suffix.forEach(function (it, i) {
+    s += it
+    if (i != suffix.lastIndex()) {
+      s += ', '
+    }
+  })
+  return '{0} ({1})'.format(prefix, s)
 }
 
 function contains(elements, element) {
-    for (var i = 0; i < elements.length; i++) {
-        if (elements[i].toLowerCase() === element) {
-            return true
-        }
+  for (var i = 0; i < elements.length; i++) {
+    if (elements[i].toLowerCase() === element) {
+      return true
     }
-    return false
+  }
+  return false
 }

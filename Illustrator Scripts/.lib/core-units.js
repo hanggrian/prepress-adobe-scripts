@@ -14,13 +14,13 @@ var UNITS = ['Pixels', 'Points', 'Inches', 'Millimeters', 'Centimeters']
  * @returns {String}
  */
 function formatUnits(unitValue, unitName, fraction) {
-    checkNotNull(unitValue)
-    checkNotNull(unitName)
-    var value = new UnitValue(unitValue, 'pt').as(unitName)
-    var s = fraction !== undefined
-        ? value.toFixed(fraction)
-        : value.toString()
-    return parseFloat(s) + ' ' + unitName
+  checkNotNull(unitValue)
+  checkNotNull(unitName)
+  var value = new UnitValue(unitValue, 'pt').as(unitName)
+  var s = fraction !== undefined
+    ? value.toFixed(fraction)
+    : value.toString()
+  return parseFloat(s) + ' ' + unitName
 }
 
 /**
@@ -29,14 +29,14 @@ function formatUnits(unitValue, unitName, fraction) {
  * @returns {Number}
  */
 function parseUnits(units) {
-    checkNotNull(units)
-    units = units.trim()
-    if (units.isEmpty()) {
-        return undefined
-    }
-    return units.isNumeric()
-        ? parseFloat(units)
-        : UnitValue(units).as('pt')
+  checkNotNull(units)
+  units = units.trim()
+  if (units.isEmpty()) {
+    return undefined
+  }
+  return units.isNumeric()
+    ? parseFloat(units)
+    : UnitValue(units).as('pt')
 }
 
 /**
@@ -45,18 +45,18 @@ function parseUnits(units) {
  * @returns {RulerUnits}
  */
 function parseRulerUnits(unitFullName) {
-    switch (unitFullName.trim()) {
-        case 'Pixels':
-            return RulerUnits.Pixels
-        case 'Points':
-            return RulerUnits.Points
-        case 'Inches':
-            return RulerUnits.Inches
-        case 'Millimeters':
-            return RulerUnits.Millimeters
-        case 'Centimeters':
-            return RulerUnits.Centimeters
-        default:
-            throw 'Unsupported units'
-    }
+  switch (unitFullName.trim()) {
+    case 'Pixels':
+      return RulerUnits.Pixels
+    case 'Points':
+      return RulerUnits.Points
+    case 'Inches':
+      return RulerUnits.Inches
+    case 'Millimeters':
+      return RulerUnits.Millimeters
+    case 'Centimeters':
+      return RulerUnits.Centimeters
+    default:
+      throw 'Unsupported units'
+  }
 }

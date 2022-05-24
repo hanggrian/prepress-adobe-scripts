@@ -10,27 +10,27 @@ var layer = selection.isNotEmpty() ? selection.first().layer : document.layers[0
 
 var unitName = ''
 switch (document.rulerUnits) {
-    case RulerUnits.Inches:
-        unitName = 'in'
-        break;
-    case RulerUnits.Centimeters:
-        unitName = 'cm'
-        break;
-    case RulerUnits.Points:
-        unitName = 'pt'
-        break;
-    case RulerUnits.Picas:
-        unitName = 'pica'
-        break;
-    case RulerUnits.Millimeters:
-        unitName = 'mm'
-        break;
-    case RulerUnits.Qs:
-        unitName = 'q'
-        break;
-    case RulerUnits.Pixels:
-        unitName = 'px'
-        break;
+  case RulerUnits.Inches:
+    unitName = 'in'
+    break;
+  case RulerUnits.Centimeters:
+    unitName = 'cm'
+    break;
+  case RulerUnits.Points:
+    unitName = 'pt'
+    break;
+  case RulerUnits.Picas:
+    unitName = 'pica'
+    break;
+  case RulerUnits.Millimeters:
+    unitName = 'mm'
+    break;
+  case RulerUnits.Qs:
+    unitName = 'q'
+    break;
+  case RulerUnits.Pixels:
+    unitName = 'px'
+    break;
 }
 
 /**
@@ -47,19 +47,19 @@ function unitsOf(input) { return UnitValue(input).as(unitName) + ' ' + unitName 
  * @param {Function} callable nullable custom item checker that should return true if the item parameter should be selected.
  */
 function selectAll(types, callable) {
-    var queue = []
-    var target = selection === null || selection.length === 0
-        ? document.pageItems
-        : selection
-    _forEachItem(target, function(item) {
-        if (types.contains(item.typename)) {
-            if (callable === undefined) {
-                callable = function() { return true }
-            }
-            if (callable(item)) {
-                queue.push(item)
-            }
-        }
-    })
-    selection = queue
+  var queue = []
+  var target = selection === null || selection.length === 0
+    ? document.pageItems
+    : selection
+  _forEachItem(target, function (item) {
+    if (types.contains(item.typename)) {
+      if (callable === undefined) {
+        callable = function () { return true }
+      }
+      if (callable(item)) {
+        queue.push(item)
+      }
+    }
+  })
+  selection = queue
 }
