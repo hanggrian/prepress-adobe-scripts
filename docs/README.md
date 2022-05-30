@@ -1,4 +1,4 @@
-[![build](https://img.shields.io/travis/com/hendraanggrian/prepress-adobe-scripts)](https://travis-ci.com/hendraanggrian/prepress-adobe-scripts)
+[![build](https://img.shields.io/travis/com/hendraanggrian/prepress-adobe-scripts)](https://travis-ci.com/github/hendraanggrian/prepress-adobe-scripts)
 
 Prepress Adobe Scripts
 ======================
