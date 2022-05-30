@@ -8,7 +8,7 @@
  * Add horizontal parent to tabbed panel.
  * @returns {Group}
  */
-Object.prototype.vtab = function (title, configuration) {
+Object.prototype.vtab = function(title, configuration) {
   check(this.type === 'tabbedpanel')
   return _tab(this, 'row', title).also(configuration)
 }
@@ -17,7 +17,7 @@ Object.prototype.vtab = function (title, configuration) {
  * Add vertical parent to tabbed panel.
  * @returns {Group}
  */
-Object.prototype.vtab = function (title, configuration) {
+Object.prototype.vtab = function(title, configuration) {
   check(this.type === 'tabbedpanel')
   return _tab(this, 'column', title).also(configuration)
 }
@@ -26,7 +26,7 @@ Object.prototype.vtab = function (title, configuration) {
  * Add stack parent to tabbed panel.
  * @returns {Group}
  */
-Object.prototype.stab = function (title, configuration) {
+Object.prototype.stab = function(title, configuration) {
   check(this.type === 'tabbedpanel')
   return _tab(this, 'stack', title).also(configuration)
 }

@@ -9,7 +9,7 @@
  * @param {Function} predicate optional consumer.
  * @returns {Object}
  */
-Object.prototype.first = function (predicate) {
+Object.prototype.first = function(predicate) {
   if (predicate === undefined) {
     return this[0]
   }
@@ -26,7 +26,7 @@ Object.prototype.first = function (predicate) {
  * @param {Function} predicate optional consumer.
  * @returns {Object}
  */
-Object.prototype.last = function (predicate) {
+Object.prototype.last = function(predicate) {
   if (predicate === undefined) {
     return this[this.lastIndex()]
   }
@@ -39,14 +39,11 @@ Object.prototype.last = function (predicate) {
 }
 
 /**
- * Returns true if the collection has no elements, or given predicate when defined.
- * @param {Function} predicate optional consumer.
+ * Returns true if the collection has no elements matching predicate.
+ * @param {Function} predicate runnable with return value.
  * @returns {Boolean}
  */
-Object.prototype.none = function (predicate) {
-  if (predicate === undefined) {
-    return this.isEmpty()
-  }
+Object.prototype.none = function(predicate) {
   for (var i = 0; i < this.length; i++) {
     if (predicate(this[i], i)) {
       return false
@@ -56,14 +53,11 @@ Object.prototype.none = function (predicate) {
 }
 
 /**
- * Returns true if collection has at least one element, or given predicate when defined.
- * @param {Function} predicate optional consumer.
+ * Returns true if collection has at least one element matching predicate.
+ * @param {Function} predicate runnable with return value.
  * @returns {Boolean}
  */
-Object.prototype.any = function (predicate) {
-  if (predicate === undefined) {
-    return this.isNotEmpty()
-  }
+Object.prototype.any = function(predicate) {
   for (var i = 0; i < this.length; i++) {
     if (predicate(this[i], i)) {
       return true
@@ -73,11 +67,11 @@ Object.prototype.any = function (predicate) {
 }
 
 /**
- * Returns true if all elements match the given predicate.
- * @param {Function} predicate consumer.
+ * Returns true if all elements in this collection match the predicate.
+ * @param {Function} predicate runnable with return value.
  * @returns {Boolean}
  */
-Object.prototype.all = function (predicate) {
+Object.prototype.all = function(predicate) {
   for (var i = 0; i < this.length; i++) {
     if (!predicate(this[i], i)) {
       return false
@@ -91,7 +85,7 @@ Object.prototype.all = function (predicate) {
  * @param {Function} predicate runnable with return value.
  * @returns {Array}
  */
-Object.prototype.filter = function (predicate) {
+Object.prototype.filter = function(predicate) {
   var result = []
   for (var i = 0; i < this.length; i++) {
     if (predicate(this[i], i)) {

@@ -16,7 +16,7 @@ function ProgressPalette(stop, status) {
   var window = new Window('palette', 'Please Wait')
   window.orientation = 'column'
 
-  this.texts = window.add('group').also(function (group) {
+  this.texts = window.add('group').also(function(group) {
     group.orientation = 'row'
     self.statusText = group.staticText([325, 21], (status || 'Please wait') + '...').also(JUSTIFY_LEFT)
     self.countText = group.staticText([75, 21], '0/' + stop).also(JUSTIFY_RIGHT)
@@ -24,7 +24,7 @@ function ProgressPalette(stop, status) {
   this.progressBar = window.add('slider', [0, 0, 400, 21], 0, 0, stop) // progressbar won't update in palette, use slider instead
 
   /** Add progression to dialog with optional status. */
-  this.increment = function () {
+  this.increment = function() {
     if (arguments.isNotEmpty()) {
       self.statusText.text = arguments.first().formatArr(Array.prototype.slice.call(arguments, 1)) + '...'
     }
@@ -38,7 +38,7 @@ function ProgressPalette(stop, status) {
   }
 
   /** Show the dialog. */
-  this.show = function () {
+  this.show = function() {
     window.show()
     if (dialog !== undefined) {
       window.location = [
@@ -49,17 +49,17 @@ function ProgressPalette(stop, status) {
   }
 
   /** Manually close the dialog. */
-  this.close = function () {
+  this.close = function() {
     window.close()
   }
 
   /** Returns bounds as Array, as opposed to native Bounds. */
-  this.getBounds = function () {
+  this.getBounds = function() {
     return [window.bounds[0], window.bounds[1], window.bounds[2], window.bounds[3]]
   }
 
   /** Returns location as Array, as opposed to native Bounds. */
-  this.getLocation = function () {
+  this.getLocation = function() {
     return [window.location[0], window.location[1]]
   }
 

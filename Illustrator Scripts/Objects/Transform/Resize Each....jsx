@@ -11,88 +11,82 @@ var prefill = selection.first()
 var widthEdit, widthCheck, heightEdit, heightCheck
 var changePositionsCheck, changeFillPatternsCheck, changeFillGradientsCheck, changeStrokePatternsCheck
 var documentOriginCheck, anchorGroup
+var recursiveCheck
 
-dialog.vgroup(function (main) {
-  main.hgroup(function (group) {
+dialog.vgroup(function(main) {
+  main.hgroup(function(group) {
     group.alignChildren = 'bottom'
     group.tips("Objects' new width, uncheck to ignore")
     group.staticText(BOUNDS_TEXT, 'Width:').also(JUSTIFY_RIGHT)
-    widthEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.width, unitName, 2)).also(function (it) {
+    widthEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.width, unitName, 2)).also(function(it) {
       it.validateUnits()
       it.activate()
     })
-    widthCheck = group.checkBox().also(function (it) {
+    widthCheck = group.checkBox().also(function(it) {
       it.select()
-      it.onClick = function () {
+      it.onClick = function() {
         widthEdit.enabled = it.value
       }
     })
   })
-  main.hgroup(function (group) {
+  main.hgroup(function(group) {
     group.alignChildren = 'bottom'
     group.tips("Objects' new height, uncheck to ignore")
     group.staticText(BOUNDS_TEXT, 'Height:').also(JUSTIFY_RIGHT)
     heightEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.height, unitName, 2)).also(VALIDATE_UNITS)
-    heightCheck = group.checkBox().also(function (it) {
+    heightCheck = group.checkBox().also(function(it) {
       it.select()
-      it.onClick = function () {
+      it.onClick = function() {
         heightEdit.enabled = it.value
       }
     })
   })
-  main.hgroup(function (group) {
+  main.hgroup(function(group) {
     group.alignChildren = 'fill'
-    group.vpanel('Change', function (panel) {
+    group.vpanel('Change', function(panel) {
       panel.alignChildren = 'fill'
-      changePositionsCheck = panel.checkBox(undefined, 'Positions').also(function (it) {
+      changePositionsCheck = panel.checkBox(undefined, 'Positions').also(function(it) {
         it.tip('Are art object positions and orientations effected?')
         it.select()
       })
-      changeFillPatternsCheck = panel.checkBox(undefined, 'Fill Patterns').also(function (it) {
+      changeFillPatternsCheck = panel.checkBox(undefined, 'Fill Patterns').also(function(it) {
         it.tip('Are the fill patterns assigned to paths to be transformed?')
         it.select()
       })
-      changeFillGradientsCheck = panel.checkBox(undefined, 'Fill Gradients').also(function (it) {
+      changeFillGradientsCheck = panel.checkBox(undefined, 'Fill Gradients').also(function(it) {
         it.tip('Are the fill gradients assigned to paths to be transformed?')
         it.select()
       })
-      changeStrokePatternsCheck = panel.checkBox(undefined, 'Stroke Patterns').also(function (it) {
+      changeStrokePatternsCheck = panel.checkBox(undefined, 'Stroke Patterns').also(function(it) {
         it.tip('Are the stroke patterns assigned to paths to be transformed?')
         it.select()
       })
     })
-    group.vpanel('Anchor', function (panel) {
+    group.vpanel('Anchor', function(panel) {
       panel.alignChildren = 'fill'
-      documentOriginCheck = panel.checkBox(undefined, 'Document Origin').also(function (it) {
+      documentOriginCheck = panel.checkBox(undefined, 'Document Origin').also(function(it) {
         it.tip('Use current reference point preference')
-        it.onClick = function () {
+        it.onClick = function() {
           anchorGroup.main.enabled = !it.value
         }
       })
       anchorGroup = new AnchorGroup(panel)
     })
   })
+  main.hgroup(function(it) {
+    it.alignment = 'right'
+    recursiveCheck = new RecursiveCheck(it)
+  })
 })
 dialog.setCancelButton()
-dialog.setDefaultButton(undefined, function () {
-  process(function (action) {
-    selection.forEach(action)
-  })
-})
-dialog.setYesButton('Recursive', function () {
-  process(function (action) {
-    selection.forEachItem(action)
-  })
-})
-dialog.show()
-
-function process(forEach) {
+dialog.setDefaultButton(undefined, function() {
   var width = parseUnits(widthEdit.text)
   var height = parseUnits(heightEdit.text)
   var transformation = documentOriginCheck.value
     ? Transformation.DOCUMENTORIGIN
     : anchorGroup.getTransformation()
-  forEach(function (item, i) {
+
+  var action = function(item, i) {
     print(i + '. ')
     var scaleX = !widthCheck.value ? 100 : 100 * width / item.width
     var scaleY = !heightCheck.value ? 100 : 100 * height / item.height
@@ -110,5 +104,11 @@ function process(forEach) {
       changeStrokePatternsCheck.value,
       100,
       transformation)
-  })
-}
+  }
+  if (recursiveCheck.isSelected()) {
+    selection.forEachItem(action)
+  } else {
+    selection.forEach(action)
+  }
+})
+dialog.show()

@@ -8,7 +8,7 @@ Prepress Adobe Scripts
 
 Collection of Illustrator and Photoshop scripts to automate repetitive tasks and procedures of preparing final print layout. Most of heavy-lifting workflow are expected to occur in Illustrator. Only tested on latest Adobe suite.
 
-Head to [repository website](http://hendraanggrian.com/prepress-adobe-scripts) for description of the scripts.
+Head to [repository website](https://hendraanggrian.com/prepress-adobe-scripts) for description of the scripts.
 
 Download
 --------

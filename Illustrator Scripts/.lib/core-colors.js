@@ -9,10 +9,10 @@ var COLORS = [
 ]
 
 var COLOR_WHITE = new CMYKColor()
-var COLOR_CYAN = new CMYKColor().also(function (it) { it.cyan = 100 })
-var COLOR_MAGENTA = new CMYKColor().also(function (it) { it.magenta = 100 })
-var COLOR_YELLOW = new CMYKColor().also(function (it) { it.yellow = 100 })
-var COLOR_BLACK = new CMYKColor().also(function (it) { it.black = 100 })
+var COLOR_CYAN = new CMYKColor().also(function(it) { it.cyan = 100 })
+var COLOR_MAGENTA = new CMYKColor().also(function(it) { it.magenta = 100 })
+var COLOR_YELLOW = new CMYKColor().also(function(it) { it.yellow = 100 })
+var COLOR_BLACK = new CMYKColor().also(function(it) { it.black = 100 })
 var COLOR_NONE = new NoColor()
 
 /**

@@ -16,7 +16,7 @@ function _tips(parent, text) {
   // queue tooltip that will be attached upon children creation
   parent.helpTips = text
   // attach it manually in case `setHelpTips` is called when children are already created
-  parent.children.forEach(function (it) {
+  parent.children.forEach(function(it) {
     if (it.helpTip !== text) {
       _tip(it, text)
     }
@@ -50,12 +50,12 @@ function _asFile(image) {
 
 /** Split list items to texts and files. */
 function _splitItems(items) {
-  if (items.all(function (it) { return typeof it === 'string' || it instanceof String })) {
+  if (items.all(function(it) { return typeof it === 'string' || it instanceof String })) {
     return [items, []]
   }
   var itemTexts = []
   var itemFiles = []
-  items.forEach(function (it) {
+  items.forEach(function(it) {
     itemTexts.push(it[0])
     itemFiles.push(it[0] === '-' ? undefined : _asFile(it[1]))
   })

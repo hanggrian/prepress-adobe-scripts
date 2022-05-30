@@ -19,16 +19,16 @@ function AlertDialog(title, message, error, helpUrlSuffix) {
   }
 
   var dialog = new Dialog(title, helpUrlSuffix)
-  dialog.hgroup(function (main) {
+  dialog.hgroup(function(main) {
     main.image(undefined, error ? 'alert_error' : 'alert_warning')
     main.staticText(undefined, message)
   })
 
   /** Returns native window title. */
-  this.getTitle = function () { return dialog.getTitle() }
+  this.getTitle = function() { return dialog.getTitle() }
 
   /** Sets native window title. */
-  this.setTitle = function (title) { dialog.setTitle(title) }
+  this.setTitle = function(title) { dialog.setTitle(title) }
 
   /**
    * Default button responds to pressing the Enter key.
@@ -36,7 +36,7 @@ function AlertDialog(title, message, error, helpUrlSuffix) {
    * @param {Function} action nullable button click listener, return true to keep dialog open.
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
-  this.setDefaultButton = function (text, action, disabled) {
+  this.setDefaultButton = function(text, action, disabled) {
     dialog.setDefaultButton(text, action, disabled)
   }
 
@@ -46,7 +46,7 @@ function AlertDialog(title, message, error, helpUrlSuffix) {
    * @param {Function} action nullable button click listener, return true to keep dialog open.
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
-  this.setYesButton = function (text, action, disabled) {
+  this.setYesButton = function(text, action, disabled) {
     dialog.setYesButton(text, action, disabled)
   }
 
@@ -56,7 +56,7 @@ function AlertDialog(title, message, error, helpUrlSuffix) {
    * @param {Function} action nullable button click listener, return true to keep dialog open.
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
-  this.setCancelButton = function (text, action, disabled) {
+  this.setCancelButton = function(text, action, disabled) {
     dialog.setCancelButton(text, action, disabled)
   }
 
@@ -66,12 +66,12 @@ function AlertDialog(title, message, error, helpUrlSuffix) {
    * @param {Function} action nullable button click listener, return true to keep dialog open.
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
-  this.setHelpButton = function (text, action, disabled) {
+  this.setHelpButton = function(text, action, disabled) {
     dialog.setHelpButton(text, action, disabled)
   }
 
   /** Show the dialog, after populating buttons. */
-  this.show = function () {
+  this.show = function() {
     dialog.prepare()
     dialog.leftButtons.children.forEach(setMaxHeight)
     dialog.rightButtons.children.forEach(setMaxHeight)
@@ -80,17 +80,17 @@ function AlertDialog(title, message, error, helpUrlSuffix) {
   }
 
   /** Manually close the dialog. */
-  this.close = function () {
+  this.close = function() {
     dialog.close()
   }
 
   /** Returns bounds as Array, as opposed to native Bounds. */
-  this.getBounds = function () {
+  this.getBounds = function() {
     return dialog.getBounds()
   }
 
   /** Returns location as Array, as opposed to native Bounds. */
-  this.getLocation = function () {
+  this.getLocation = function() {
     return dialog.getLocation()
   }
 

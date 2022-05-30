@@ -9,7 +9,7 @@
  * @param {Function} transform runnable with return value.
  * @returns {Array}
  */
-Object.prototype.map = function (transform) {
+Object.prototype.map = function(transform) {
   var result = []
   for (var i = 0; i < this.length; i++) {
     result.push(transform(this[i], i))
@@ -22,7 +22,7 @@ Object.prototype.map = function (transform) {
  * @param {Function} transform runnable with return value.
  * @returns {Array}
  */
-Object.prototype.flatMap = function (transform) {
+Object.prototype.flatMap = function(transform) {
   var result = []
   for (var i = 0; i < this.length; i++) {
     for (var j = 0; j < this[i].length; j++) {

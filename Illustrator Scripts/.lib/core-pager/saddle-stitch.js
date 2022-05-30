@@ -10,8 +10,8 @@ function SaddleStitchPager(document, start, end, isRtl) {
   var _isRtl = isRtl || false
   var _isFront = true
 
-  this.forEachArtboard = function (action) {
-    document.artboards.forEach(function (artboard) {
+  this.forEachArtboard = function(action) {
+    document.artboards.forEach(function(artboard) {
       var left, right
       if (_isFront) {
         if (!_isRtl) {

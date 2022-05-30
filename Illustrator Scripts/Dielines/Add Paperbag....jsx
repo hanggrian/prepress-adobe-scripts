@@ -8,68 +8,68 @@ var dialog = new Dialog('Add Paperbag Dielines', 'adding-measuring-dielines#add-
 var widthEdit, heightEdit, depthEdit, upperEdit, lowerEdit, glueLengthEdit, glueShearEdit
 var weightEdit, colorList
 
-dialog.hgroup(function (main) {
-  main.vgroup(function (topGroup) {
-    topGroup.vpanel('Area', function (panel) {
+dialog.hgroup(function(main) {
+  main.vgroup(function(topGroup) {
+    topGroup.vpanel('Area', function(panel) {
       panel.alignChildren = 'fill'
-      panel.hgroup(function (midGroup) {
-        midGroup.hgroup(function (group) {
+      panel.hgroup(function(midGroup) {
+        midGroup.hgroup(function(group) {
           group.tips('Width of paperbag')
           group.staticText(BOUNDS_TEXT, 'Width:').also(JUSTIFY_RIGHT)
-          widthEdit = group.editText(BOUNDS_EDIT, '210 mm').also(function (it) {
+          widthEdit = group.editText(BOUNDS_EDIT, '210 mm').also(function(it) {
             it.validateUnits()
             it.activate()
           })
         })
-        midGroup.hgroup(function (group) {
+        midGroup.hgroup(function(group) {
           group.tips('Height of paperbag')
           group.staticText(BOUNDS_TEXT, 'Height:').also(JUSTIFY_RIGHT)
           heightEdit = group.editText(BOUNDS_EDIT, '297 mm').also(VALIDATE_UNITS)
         })
       })
-      panel.hgroup(function (midGroup) {
-        midGroup.hgroup(function (group) {
+      panel.hgroup(function(midGroup) {
+        midGroup.hgroup(function(group) {
           group.tips('Depth of paperbag')
           group.staticText(BOUNDS_TEXT, 'Depth:').also(JUSTIFY_RIGHT)
           depthEdit = group.editText(BOUNDS_EDIT, '100 mm').also(VALIDATE_UNITS)
         })
       })
-      panel.hgroup(function (midGroup) {
-        midGroup.hgroup(function (group) {
+      panel.hgroup(function(midGroup) {
+        midGroup.hgroup(function(group) {
           group.tips('Length of upper area')
           group.staticText(BOUNDS_TEXT, 'Upper:').also(JUSTIFY_RIGHT)
           upperEdit = group.editText(BOUNDS_EDIT, '30 mm').also(VALIDATE_UNITS)
         })
-        midGroup.hgroup(function (group) {
+        midGroup.hgroup(function(group) {
           group.tips('Length of lower area')
           group.staticText(BOUNDS_TEXT, 'Lower:').also(JUSTIFY_RIGHT)
           lowerEdit = group.editText(BOUNDS_EDIT, '60 mm').also(VALIDATE_UNITS)
         })
       })
-      panel.hgroup(function (midGroup) {
-        midGroup.hgroup(function (group) {
+      panel.hgroup(function(midGroup) {
+        midGroup.hgroup(function(group) {
           group.tips('Length of glue area')
           group.staticText(BOUNDS_TEXT, 'Glue:').also(JUSTIFY_RIGHT)
           glueLengthEdit = group.editText(BOUNDS_EDIT, '20 mm').also(VALIDATE_UNITS)
         })
-        midGroup.hgroup(function (group) {
+        midGroup.hgroup(function(group) {
           group.tips('Length of glue area')
           group.staticText(BOUNDS_TEXT, 'Shear:').also(JUSTIFY_RIGHT)
           glueShearEdit = group.editText(BOUNDS_EDIT, '5 mm').also(VALIDATE_UNITS)
         })
       })
     })
-    topGroup.vpanel('Stroke', function (panel) {
-      panel.hgroup(function (midGroup) {
-        midGroup.hgroup(function (group) {
+    topGroup.vpanel('Stroke', function(panel) {
+      panel.hgroup(function(midGroup) {
+        midGroup.hgroup(function(group) {
           group.tips('Stroke width of dielines')
           group.staticText(BOUNDS_TEXT, 'Weight:').also(JUSTIFY_RIGHT)
           weightEdit = group.editText(BOUNDS_EDIT, '1 pt').also(VALIDATE_UNITS)
         })
-        midGroup.hgroup(function (group) {
+        midGroup.hgroup(function(group) {
           group.tips('Stroke color of dielines')
           group.staticText(BOUNDS_TEXT, 'Color:').also(JUSTIFY_RIGHT)
-          colorList = group.dropDownList(BOUNDS_EDIT, COLORS).also(function (it) {
+          colorList = group.dropDownList(BOUNDS_EDIT, COLORS).also(function(it) {
             it.selectText('Black')
           })
         })
@@ -78,8 +78,8 @@ dialog.hgroup(function (main) {
   })
 })
 dialog.setCancelButton()
-dialog.setDefaultButton('Full-Size', function () { process(true) })
-dialog.setYesButton('Half-Size', function () { process(false) })
+dialog.setDefaultButton('Full-Size', function() { process(true) })
+dialog.setYesButton('Half-Size', function() { process(false) })
 dialog.show()
 
 function process(isFull) {
@@ -95,7 +95,7 @@ function process(isFull) {
 
   var paths = []
   var leftMost, topMost, bottomMost, rightMost
-  document.artboards[document.artboards.getActiveArtboardIndex()].artboardRect.run(function (it) {
+  document.artboards[document.artboards.getActiveArtboardIndex()].artboardRect.run(function(it) {
     leftMost = it.getLeft() + it.getWidth() / 10
     topMost = it.getTop() - it.getHeight() / 10
   })

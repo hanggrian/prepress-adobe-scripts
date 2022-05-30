@@ -5,8 +5,8 @@
 function FourUpSimplexPager(document, start) {
   var current = start || 0
 
-  this.forEachArtboard = function (action) {
-    document.artboards.forEach(function (artboard) {
+  this.forEachArtboard = function(action) {
+    document.artboards.forEach(function(artboard) {
       var topLeft = current
       var topRight = current + 1
       var bottomLeft = current + 2
@@ -28,8 +28,8 @@ function FourUpDuplexPager(document, start) {
   var current = start || 0
   var isFront = true
 
-  this.forEachArtboard = function (action) {
-    document.artboards.forEach(function (artboard) {
+  this.forEachArtboard = function(action) {
+    document.artboards.forEach(function(artboard) {
       var topLeft, topRight, bottomLeft, bottomRight
       if (isFront) {
         topLeft = current
@@ -59,9 +59,9 @@ function FourUpDuplexPager(document, start) {
 function FourUpSimplexCutStackPager(document, start) {
   var current = start || 0
 
-  this.forEachArtboard = function (action) {
+  this.forEachArtboard = function(action) {
     var artboards = document.artboards.length
-    document.artboards.forEach(function (artboard) {
+    document.artboards.forEach(function(artboard) {
       var topLeft = current
       var topRight = current + artboards
       var bottomLeft = current + artboards * 2
@@ -83,9 +83,9 @@ function FourUpDuplexCutStackPager(document, start) {
   var current = start || 0
   var isFront = true
 
-  this.forEachArtboard = function (action) {
+  this.forEachArtboard = function(action) {
     var artboards = document.artboards.length
-    document.artboards.forEach(function (artboard) {
+    document.artboards.forEach(function(artboard) {
       var topLeft, topRight, bottomLeft, bottomRight
       if (isFront) {
         topLeft = current

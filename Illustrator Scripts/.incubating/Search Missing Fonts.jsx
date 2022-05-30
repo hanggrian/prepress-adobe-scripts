@@ -6,12 +6,12 @@
 
 checkHasSelection()
 
-var items = selection.filterItem(function (it) { return it.typename === 'TextFrame' })
+var items = selection.filterItem(function(it) { return it.typename === 'TextFrame' })
 check(items.isNotEmpty(), 'No types found in selection')
 
 alert(textFonts.first())
-var fonts = items.map(function (item) { return item.textRange.characterAttributes.textFont })
-  .filter(function (font) { return textFonts.contains(font) })
+var fonts = items.map(function(item) { return item.textRange.characterAttributes.textFont })
+  .filter(function(font) { return textFonts.contains(font) })
   .distinct()
 
 alert(fonts)

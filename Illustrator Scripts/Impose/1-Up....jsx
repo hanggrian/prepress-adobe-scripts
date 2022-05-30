@@ -16,15 +16,15 @@ var files = openFile(dialog.getTitle(), [
 if (files !== null && files.isNotEmpty()) {
   var collection = new FileCollection(files)
 
-  dialog.vgroup(function (main) {
+  dialog.vgroup(function(main) {
     main.alignChildren = 'right'
-    main.hgroup(function (topGroup) {
+    main.hgroup(function(topGroup) {
       topGroup.alignChildren = 'fill'
-      topGroup.vgroup(function (group) {
+      topGroup.vgroup(function(group) {
         if (collection.hasPDF) {
           pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
         }
-        pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT).also(function (panel) {
+        pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT).also(function(panel) {
           panel.rangeGroup.endEdit.text = collection.length
           if (!collection.isSinglePDF) {
             panel.rangeGroup.maxRange = collection.length
@@ -37,7 +37,7 @@ if (files !== null && files.isNotEmpty()) {
     nupGroup = new NUpOptionsGroup(main, true, false, false)
   })
   dialog.setCancelButton()
-  dialog.setDefaultButton(undefined, function () {
+  dialog.setDefaultButton(undefined, function() {
     var start = pagesPanel.rangeGroup.getStart()
     var pages = pagesPanel.rangeGroup.getLength()
     var artboards = pages
@@ -55,7 +55,7 @@ if (files !== null && files.isNotEmpty()) {
     var pager = new OneUpPager(document, start)
 
     var progress = new ProgressPalette(artboards, 'Imposing')
-    pager.forEachArtboard(function (artboard, index) {
+    pager.forEachArtboard(function(artboard, index) {
       progress.increment()
       var item = document.placedItems.add()
       item.file = collection.get(index)

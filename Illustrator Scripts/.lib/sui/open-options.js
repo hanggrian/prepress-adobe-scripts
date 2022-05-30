@@ -13,12 +13,12 @@ function OpenPDFPanel(parent, textBounds, editBounds) {
   var self = this
   this.boxTypeList
 
-  this.main = parent.vpanel('PDF Box', function (panel) {
+  this.main = parent.vpanel('PDF Box', function(panel) {
     panel.alignChildren = 'fill'
-    panel.hgroup(function (group) {
+    panel.hgroup(function(group) {
       group.tips('Which box should be used when placing a pdf document')
       group.staticText(textBounds, 'Crop to:').also(JUSTIFY_RIGHT)
-      self.boxTypeList = group.dropDownList(editBounds, OPEN_PDFBOXTYPES).also(function (it) {
+      self.boxTypeList = group.dropDownList(editBounds, OPEN_PDFBOXTYPES).also(function(it) {
         var prefill
         if (preferences.getPDFCrop() === PDFBoxType.PDFARTBOX) {
           prefill = 'Art'
@@ -34,7 +34,7 @@ function OpenPDFPanel(parent, textBounds, editBounds) {
           prefill = 'Bounding'
         }
         it.selection = OPEN_PDFBOXTYPES.indexOf(prefill)
-        it.onChange = function () {
+        it.onChange = function() {
           if (self.boxTypeList.selection.text === 'Art') {
             preferences.setPDFCrop(PDFBoxType.PDFARTBOX)
           } else if (self.boxTypeList.selection.text === 'Crop') {
@@ -58,34 +58,34 @@ function OpenPagesPanel(parent, textBounds, editBounds) {
   var self = this
   this.rangeGroup, this.widthEdit, this.heightEdit, this.bleedEdit
 
-  this.main = parent.vpanel('Pages', function (panel) {
+  this.main = parent.vpanel('Pages', function(panel) {
     panel.alignChildren = 'fill'
-    panel.hgroup(function (group) {
+    panel.hgroup(function(group) {
       group.tips('Which pages to impose')
       group.staticText(textBounds, 'Pages:').also(JUSTIFY_RIGHT)
       self.rangeGroup = new RangeGroup(group, editBounds)
     })
-    panel.hgroup(function (group) {
+    panel.hgroup(function(group) {
       group.tips('Page width, not artboard')
       group.staticText(textBounds, 'Width:').also(JUSTIFY_RIGHT)
       self.widthEdit = group.editText(editBounds, '210 mm').also(VALIDATE_UNITS)
     })
-    panel.hgroup(function (group) {
+    panel.hgroup(function(group) {
       group.tips('Page height, not artboard')
       group.staticText(textBounds, 'Height:').also(JUSTIFY_RIGHT)
       self.heightEdit = group.editText(editBounds, '297 mm').also(VALIDATE_UNITS)
     })
-    panel.hgroup(function (group) {
+    panel.hgroup(function(group) {
       group.tips('Extra area that will be added to page dimension')
       group.staticText(textBounds, 'Bleed:').also(JUSTIFY_RIGHT)
       self.bleedEdit = group.editText(editBounds, '0 mm').also(VALIDATE_UNITS)
     })
   })
 
-  this.getPages = function () { return parseInt(self.pagesEdit.text) }
-  this.getWidth = function () { return parseUnits(self.widthEdit.text) }
-  this.getHeight = function () { return parseUnits(self.heightEdit.text) }
-  this.getBleed = function () { return parseUnits(self.bleedEdit.text) }
+  this.getPages = function() { return parseInt(self.pagesEdit.text) }
+  this.getWidth = function() { return parseUnits(self.widthEdit.text) }
+  this.getHeight = function() { return parseUnits(self.heightEdit.text) }
+  this.getBleed = function() { return parseUnits(self.bleedEdit.text) }
 }
 
 function OpenDocumentPanel(parent) {
@@ -96,39 +96,39 @@ function OpenDocumentPanel(parent) {
   this.spacingEdit
   this.previewDefaultRadio, this.previewPixelRadio, this.previewOverprintRadio
 
-  this.main = parent.vpanel('Document Preset', function (panel) {
+  this.main = parent.vpanel('Document Preset', function(panel) {
     panel.alignChildren = 'fill'
-    panel.hgroup(function (group) {
+    panel.hgroup(function(group) {
       group.tips('The color mode and resolution for the new document')
       group.staticText(BOUNDS_DOCUMENT_TEXT, 'Color Mode:').also(JUSTIFY_RIGHT)
-      self.modeList = group.dropDownList(BOUNDS_DOCUMENT_EDIT, OPEN_DOCUMENTMODES).also(function (it) {
+      self.modeList = group.dropDownList(BOUNDS_DOCUMENT_EDIT, OPEN_DOCUMENTMODES).also(function(it) {
         it.selection = OPEN_DOCUMENTMODES.indexOf('CMYK')
       })
-      self.resolutionList = group.dropDownList(BOUNDS_DOCUMENT_EDIT2, OPEN_DOCUMENTRESOLUTIONS).also(function (it) {
+      self.resolutionList = group.dropDownList(BOUNDS_DOCUMENT_EDIT2, OPEN_DOCUMENTRESOLUTIONS).also(function(it) {
         it.selection = OPEN_DOCUMENTRESOLUTIONS.indexOf('High')
       })
     })
-    panel.hgroup(function (group) {
+    panel.hgroup(function(group) {
       group.tips('Layout for artboards')
       group.staticText(BOUNDS_DOCUMENT_TEXT, 'Layout:').also(JUSTIFY_RIGHT)
-      self.layoutList = group.dropDownList(BOUNDS_DOCUMENT_EDIT, OPEN_DOCUMENTLAYOUTS).also(function (it) {
+      self.layoutList = group.dropDownList(BOUNDS_DOCUMENT_EDIT, OPEN_DOCUMENTLAYOUTS).also(function(it) {
         it.selection = OPEN_DOCUMENTLAYOUTS.indexOf('Grid by Row')
       })
       self.rowsOrColsEdit = group.editText(BOUNDS_DOCUMENT_EDIT2, '2').also(VALIDATE_DIGITS)
     })
-    panel.hgroup(function (group) {
+    panel.hgroup(function(group) {
       group.tips('The units for the new document')
       group.staticText(BOUNDS_DOCUMENT_TEXT, 'Units:').also(JUSTIFY_RIGHT)
-      self.unitsList = group.dropDownList(BOUNDS_DOCUMENT_EDITMAX, UNITS).also(function (it) {
+      self.unitsList = group.dropDownList(BOUNDS_DOCUMENT_EDITMAX, UNITS).also(function(it) {
         it.selection = UNITS.indexOf('Millimeters')
       })
     })
-    panel.hgroup(function (group) {
+    panel.hgroup(function(group) {
       group.tips('Spacing between artboards')
       group.staticText(BOUNDS_DOCUMENT_TEXT, 'Spacing:').also(JUSTIFY_RIGHT)
       self.spacingEdit = group.editText(BOUNDS_DOCUMENT_EDITMAX, '10 mm').also(VALIDATE_UNITS)
     })
-    panel.hgroup(function (group) {
+    panel.hgroup(function(group) {
       group.tips('The preview mode for the new document')
       group.staticText(BOUNDS_DOCUMENT_TEXT, 'Preview Mode:').also(JUSTIFY_RIGHT)
       self.previewDefaultRadio = group.radioButton(undefined, 'Default').also(SELECTED)
@@ -137,8 +137,8 @@ function OpenDocumentPanel(parent) {
     })
   })
 
-  this.open = function (title, pages, width, height, bleed) {
-    return app.documents.addDocument(DocumentPresetType.Print, new DocumentPreset().also(function (preset) {
+  this.open = function(title, pages, width, height, bleed) {
+    return app.documents.addDocument(DocumentPresetType.Print, new DocumentPreset().also(function(preset) {
       preset.title = title
       preset.numArtboards = pages
       preset.width = width

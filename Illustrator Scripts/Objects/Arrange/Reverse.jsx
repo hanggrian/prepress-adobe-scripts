@@ -11,7 +11,7 @@ for (var i = 1; i < selection.length; i++) {
 }
 
 // find reversed position and keep ordering until met
-selection.forEach(function (it, index) {
+selection.forEach(function(it, index) {
   var reversedPosition = initialPositions[initialPositions.lastIndex() - index]
   println('Moving {0} from {1} to {2}', it.getLayerName(), it.absoluteZOrderPosition, reversedPosition)
   while (it.absoluteZOrderPosition < reversedPosition) {

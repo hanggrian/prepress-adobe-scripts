@@ -58,7 +58,7 @@ var URL_WEBSITE = 'https://hendraanggrian.github.io/prepress-adobe-scripts'
  */
 function openURL(url) {
   var tempFile = new File(Folder.temp.absoluteURI + '/prepress-adobe-scripts.html')
-  tempFile.use('w', function (it) {
+  tempFile.use('w', function(it) {
     it.write('<html><head><META HTTP-EQUIV=Refresh CONTENT="0; URL=' + url + '"></head><body> <p></body></html>')
   })
   tempFile.execute()

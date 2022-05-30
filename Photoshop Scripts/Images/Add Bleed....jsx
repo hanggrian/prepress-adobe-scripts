@@ -15,29 +15,29 @@ var flattenImageCheck
 var guidesRadiosCheckGroup
 var selectBleedCheck, correctionEdit
 
-dialog.vgroup(function (main) {
+dialog.vgroup(function(main) {
   main.alignChildren = 'fill'
-  main.hgroup(function (group) {
+  main.hgroup(function(group) {
     group.tips('Bleed are distributed around image')
     group.staticText(undefined, 'Bleed:').also(JUSTIFY_RIGHT)
-    bleedEdit = group.editText([150, 21], unitsOf('2.5 mm')).also(function (it) {
+    bleedEdit = group.editText([150, 21], unitsOf('2.5 mm')).also(function(it) {
       it.validateUnits()
       it.activate()
     })
   })
-  flattenImageCheck = main.checkBox(undefined, 'Flatten Image').also(function (it) {
+  flattenImageCheck = main.checkBox(undefined, 'Flatten Image').also(function(it) {
     it.tip('Layers will be flattened')
     it.select()
   })
-  guidesRadiosCheckGroup = new MultiRadioCheckGroup(main, 'Use Guides', ['Append', 'Replace']).also(function (it) {
+  guidesRadiosCheckGroup = new MultiRadioCheckGroup(main, 'Use Guides', ['Append', 'Replace']).also(function(it) {
     it.main.tips('Guides will mark where bleed are added')
     it.check.select()
     it.check.onClick()
   })
-  main.hgroup(function (group) {
+  main.hgroup(function(group) {
     group.tips('Select bleed with x correction')
-    selectBleedCheck = group.checkBox(undefined, 'Select Bleed with').also(function (it) {
-      it.onClick = function () {
+    selectBleedCheck = group.checkBox(undefined, 'Select Bleed with').also(function(it) {
+      it.onClick = function() {
         correctionEdit.enabled = it.value
         if (it.value) {
           correctionEdit.activate()
@@ -46,7 +46,7 @@ dialog.vgroup(function (main) {
         }
       }
     })
-    correctionEdit = group.editText([50, 21], '0 px').also(function (it) {
+    correctionEdit = group.editText([50, 21], '0 px').also(function(it) {
       it.validateUnits()
       it.enabled = false
     })
@@ -54,12 +54,12 @@ dialog.vgroup(function (main) {
   })
 })
 dialog.setCancelButton()
-dialog.setDefaultButton(undefined, function () {
+dialog.setDefaultButton(undefined, function() {
   var bleeds = new UnitValue(bleedEdit.text) * 2
   var correction = parseUnits(correctionEdit.text)
   process(bleeds, correction, document)
 })
-dialog.setYesButton('All', function () {
+dialog.setYesButton('All', function() {
   var bleeds = new UnitValue(bleedEdit.text) * 2
   var correction = parseUnits(correctionEdit.text)
   var progress = new ProgressPalette(app.documents.length, 'Adding bleed')

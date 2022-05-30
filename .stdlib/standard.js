@@ -11,28 +11,28 @@
 // See https://github.com/JetBrains/kotlin/blob/master/libraries/stdlib/src/kotlin/util/Standard.kt.
 
 /** Calls the specified function [block] and returns its result. */
-Object.prototype.run = function (block) {
+Object.prototype.run = function(block) {
   block(this)
 }
 
 /** Calls the specified function [block] with `this` value as its argument and returns `this` value. */
-Object.prototype.also = function (block) {
+Object.prototype.also = function(block) {
   block(this)
   return this
 }
 
 /** Calls the specified function [block] with `this` value as its argument and returns its result. */
-Object.prototype.let = function (block) {
+Object.prototype.let = function(block) {
   return block(this)
 }
 
 /** Returns `this` value if it satisfies the given [predicate] or `null`, if it doesn't. */
-Object.prototype.takeIf = function (predicate) {
+Object.prototype.takeIf = function(predicate) {
   return predicate(this) ? this : null
 }
 
 /** Returns `this` value if it _does not_ satisfy the given [predicate] or `null`, if it does. */
-Object.prototype.takeUnless = function (predicate) {
+Object.prototype.takeUnless = function(predicate) {
   return !predicate(this) ? this : null
 }
 

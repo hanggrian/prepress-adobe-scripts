@@ -7,11 +7,11 @@ function FileCollection(files) {
 
   this.isSinglePDF = files.length === 1 && files.first().isPDF()
 
-  this.hasPDF = files.any(function (it) { return it.isPDF() })
+  this.hasPDF = files.any(function(it) { return it.isPDF() })
 
   this.length = files.length
 
-  this.get = function (index) {
+  this.get = function(index) {
     var file = self.isSinglePDF ? files.first() : files[index]
     if (self.isSinglePDF) {
       preferences.setPDFPage(index)

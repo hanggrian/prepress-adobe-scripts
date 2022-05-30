@@ -51,10 +51,10 @@ function selectAll(types, callable) {
   var target = selection === null || selection.length === 0
     ? document.pageItems
     : selection
-  _forEachItem(target, function (item) {
+  _forEachItem(target, function(item) {
     if (types.contains(item.typename)) {
       if (callable === undefined) {
-        callable = function () { return true }
+        callable = function() { return true }
       }
       if (callable(item)) {
         queue.push(item)

@@ -28,7 +28,7 @@ var files = openFile(dialog.getTitle(), [
 ], true)
 
 if (files !== null && files.isNotEmpty()) {
-  if (files.filter(function (it) { return it.isPDF() }).isNotEmpty()) {
+  if (files.filter(function(it) { return it.isPDF() }).isNotEmpty()) {
     check(files.length === 1, 'Only supports single PDF file')
   }
 
@@ -54,10 +54,10 @@ if (files !== null && files.isNotEmpty()) {
   documentPanel = new OpenDocumentPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
 
   dialog.setCancelButton()
-  dialog.setDefaultButton(undefined, function () {
+  dialog.setDefaultButton(undefined, function() {
     var parts = parseInt(partsEdit.text) || 2
-    files.forEach(function (file) {
-      repeat(parts, function (i) {
+    files.forEach(function(file) {
+      repeat(parts, function(i) {
         app.load(file)
       })
     })

@@ -18,13 +18,13 @@ function Dialog(title, helpUrlSuffix) {
   window.orientation = 'column'
 
   this.main = window.add('group')
-  this.buttons = window.add('group').also(function (topGroup) {
+  this.buttons = window.add('group').also(function(topGroup) {
     topGroup.orientation = 'stack'
     topGroup.alignment = 'fill'
-    self.leftButtons = topGroup.hgroup(function (group) {
+    self.leftButtons = topGroup.hgroup(function(group) {
       group.alignment = 'left'
     })
-    self.rightButtons = topGroup.hgroup(function (group) {
+    self.rightButtons = topGroup.hgroup(function(group) {
       group.alignment = 'right'
     })
   })
@@ -35,13 +35,13 @@ function Dialog(title, helpUrlSuffix) {
   var helpButtonText, helpButtonAction, helpButtonDisabled
 
   /** Returns native window title. */
-  this.getTitle = function () { return window.text }
+  this.getTitle = function() { return window.text }
 
   /** Sets native window title. */
-  this.setTitle = function (title) { window.text = title }
+  this.setTitle = function(title) { window.text = title }
 
   /** Set main layout to horizontal. */
-  this.hgroup = function (configuration) {
+  this.hgroup = function(configuration) {
     self.main.orientation = 'row'
     if (configuration !== null) {
       configuration(self.main)
@@ -49,7 +49,7 @@ function Dialog(title, helpUrlSuffix) {
   }
 
   /** Set main layout to vertical. */
-  this.vgroup = function (configuration) {
+  this.vgroup = function(configuration) {
     self.main.orientation = 'column'
     if (configuration !== null) {
       configuration(self.main)
@@ -62,7 +62,7 @@ function Dialog(title, helpUrlSuffix) {
    * @param {Function} action nullable button click listener.
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
-  this.setDefaultButton = function (text, action, disabled) {
+  this.setDefaultButton = function(text, action, disabled) {
     defaultButtonText = text || 'OK'
     defaultButtonAction = action
     defaultButtonDisabled = disabled
@@ -74,7 +74,7 @@ function Dialog(title, helpUrlSuffix) {
    * @param {Function} action nullable button click listener.
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
-  this.setYesButton = function (text, action, disabled) {
+  this.setYesButton = function(text, action, disabled) {
     yesButtonText = text || 'Yes'
     yesButtonAction = action
     yesButtonDisabled = disabled
@@ -86,7 +86,7 @@ function Dialog(title, helpUrlSuffix) {
    * @param {Function} action nullable button click listener.
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
-  this.setCancelButton = function (text, action, disabled) {
+  this.setCancelButton = function(text, action, disabled) {
     cancelButtonText = text || 'Cancel'
     cancelButtonAction = action
     cancelButtonDisabled = disabled
@@ -98,20 +98,20 @@ function Dialog(title, helpUrlSuffix) {
    * @param {Function} action nullable button click listener.
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
-  this.setHelpButton = function (text, action, disabled) {
+  this.setHelpButton = function(text, action, disabled) {
     helpButtonText = text || 'Help'
     helpButtonAction = action
     helpButtonDisabled = disabled
   }
 
-  this.prepare = function () {
+  this.prepare = function() {
     if (prepared) {
       return
     }
     if (helpUrlSuffix !== undefined) {
-      self.helpIconButton = self.leftButtons.iconButton(undefined, 'ic_help', { style: 'toolbutton' }).also(function (it) {
+      self.helpIconButton = self.leftButtons.iconButton(undefined, 'ic_help', { style: 'toolbutton' }).also(function(it) {
         it.tip("What's this?")
-        it.onClick = function () { openURL(URL_WEBSITE + '/' + helpUrlSuffix) }
+        it.onClick = function() { openURL(URL_WEBSITE + '/' + helpUrlSuffix) }
       })
     }
     self.helpButton = appendButton(self.leftButtons, helpButtonText, helpButtonAction, helpButtonDisabled)
@@ -128,23 +128,23 @@ function Dialog(title, helpUrlSuffix) {
   }
 
   /** Show the dialog, after populating buttons. */
-  this.show = function () {
+  this.show = function() {
     self.prepare()
     window.show()
   }
 
   /** Manually close the dialog. */
-  this.close = function () {
+  this.close = function() {
     window.close()
   }
 
   /** Returns bounds as Array, as opposed to native Bounds. */
-  this.getBounds = function () {
+  this.getBounds = function() {
     return [window.bounds[0], window.bounds[1], window.bounds[2], window.bounds[3]]
   }
 
   /** Returns location as Array, as opposed to native Bounds. */
-  this.getLocation = function () {
+  this.getLocation = function() {
     return [window.location[0], window.location[1]]
   }
 
@@ -152,11 +152,11 @@ function Dialog(title, helpUrlSuffix) {
     if (text === undefined) {
       return undefined
     }
-    return group.button(undefined, text, properties).also(function (it) {
+    return group.button(undefined, text, properties).also(function(it) {
       if (disabled !== undefined && disabled) {
         it.enabled = false
       }
-      it.onClick = function () {
+      it.onClick = function() {
         self.close()
         if (action !== undefined) {
           action()

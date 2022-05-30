@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 function RangeGroup(parent, editBounds) {
   var self = this
   this.startEdit, this.endEdit
@@ -12,10 +6,10 @@ function RangeGroup(parent, editBounds) {
   this.maxRange = Number.MAX_VALUE
 
   editBounds = [editBounds[0] / 2 - 13, editBounds[1]]
-  this.main = parent.hgroup(function (group) {
-    self.startEdit = group.editText(editBounds, '1').also(function (it) {
+  this.main = parent.hgroup(function(group) {
+    self.startEdit = group.editText(editBounds, '1').also(function(it) {
       it.validateDigits()
-      it.onChange = function () {
+      it.onChange = function() {
         self.endEdit.text = self.startEdit.text
       }
     })
@@ -23,17 +17,17 @@ function RangeGroup(parent, editBounds) {
     self.endEdit = group.editText(editBounds, '1').also(VALIDATE_DIGITS)
   })
 
-  this.getStartText = function () {
+  this.getStartText = function() {
     checkValidity()
     return self.startEdit.text
   }
 
-  this.getEndText = function () {
+  this.getEndText = function() {
     checkValidity()
     return self.endEdit.text
   }
 
-  this.getStart = function () {
+  this.getStart = function() {
     var start = parseInt(self.getStartText()) - 1
     if (start < self.minRange) {
       errorWithAlert('Start range cannot be less than ' + self.minRange)
@@ -41,7 +35,7 @@ function RangeGroup(parent, editBounds) {
     return start
   }
 
-  this.getEnd = function () {
+  this.getEnd = function() {
     var end = parseInt(self.getEndText()) - 1
     if (end > self.maxRange) {
       errorWithAlert('End range cannot be more than ' + self.maxRange)
@@ -49,17 +43,17 @@ function RangeGroup(parent, editBounds) {
     return end
   }
 
-  this.getLength = function () {
+  this.getLength = function() {
     checkValidity()
     return self.getEnd() - self.getStart() + 1
   }
 
-  this.includes = function (i) {
+  this.includes = function(i) {
     checkValidity()
     return i >= self.getStart() && i <= self.getEnd()
   }
 
-  this.forEach = function (action) {
+  this.forEach = function(action) {
     checkValidity()
     var start = self.getStart()
     var end = start + self.getLength() // necessary to call `getLength` instead of `getEnd` to check range

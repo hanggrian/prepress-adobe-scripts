@@ -13,18 +13,18 @@ for (var i = 1; i < selection.length; i++) {
 var dialog = new Dialog('Rearrange Objects')
 var orderByGroup
 
-dialog.vgroup(function (main) {
-  orderByGroup = new OrderByGroup(main, [ORDER_POSITIONS]).also(function (it) {
+dialog.vgroup(function(main) {
+  orderByGroup = new OrderByGroup(main, [ORDER_POSITIONS]).also(function(it) {
     it.list.selectText('Horizontal')
   })
 })
 dialog.setCancelButton()
-dialog.setDefaultButton(undefined, function () {
+dialog.setDefaultButton(undefined, function() {
   // the idea is to keep pusing item to bottommost
-  orderByGroup.forEach(selection, function (it) {
+  orderByGroup.forEach(selection, function(it) {
     var times = it.absoluteZOrderPosition - initialPositions.last()
     println('Moving {0} {1} times', it.getLayerName(), times)
-    repeat(times, function () {
+    repeat(times, function() {
       it.zOrder(ZOrderMethod.SENDBACKWARD)
     })
   })

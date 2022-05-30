@@ -5,8 +5,8 @@
 function TwoUpSimplexPager(document, start) {
   var current = start || 0
 
-  this.forEachArtboard = function (action) {
-    document.artboards.forEach(function (artboard) {
+  this.forEachArtboard = function(action) {
+    document.artboards.forEach(function(artboard) {
       var left = current
       var right = current + 1
       artboard.name = '{0}-{1}'.format(left + 1, right + 1)
@@ -25,8 +25,8 @@ function TwoUpDuplexPager(document, start) {
   var current = start || 0
   var isFront = true
 
-  this.forEachArtboard = function (action) {
-    document.artboards.forEach(function (artboard) {
+  this.forEachArtboard = function(action) {
+    document.artboards.forEach(function(artboard) {
       var left, right
       if (isFront) {
         left = current
@@ -51,9 +51,9 @@ function TwoUpDuplexPager(document, start) {
 function TwoUpSimplexCutStackPager(document, start) {
   var current = start || 0
 
-  this.forEachArtboard = function (action) {
+  this.forEachArtboard = function(action) {
     var artboards = document.artboards.length
-    document.artboards.forEach(function (artboard) {
+    document.artboards.forEach(function(artboard) {
       var left = current
       var right = current + artboards
       artboard.name = '{0}-{1}'.format(left + 1, right + 1)
@@ -72,9 +72,9 @@ function TwoUpDuplexCutStackPager(document, start) {
   var current = start || 0
   var isFront = true
 
-  this.forEachArtboard = function (action) {
+  this.forEachArtboard = function(action) {
     var artboards = document.artboards.length
-    document.artboards.forEach(function (artboard) {
+    document.artboards.forEach(function(artboard) {
       var left, right
       if (isFront) {
         left = current

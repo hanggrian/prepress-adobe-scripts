@@ -1,3 +1,9 @@
+/*
+<javascriptresource>
+<menu>hide</menu>
+</javascriptresource>
+*/
+
 /**
  * Assert that a condition is satisfied, throw an error otherwise.
  * @param {Boolean} requirement expect value to be `true`.
@@ -34,12 +40,6 @@ function checkNotNull(value, errorMessage) {
 function checkTypename(item, typename) {
   check(item.typename === typename, 'Selected item is not a ' + typename)
 }
-
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
 
 /**
  * Throw an error.

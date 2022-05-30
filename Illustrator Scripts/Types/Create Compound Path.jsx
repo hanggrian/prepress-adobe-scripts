@@ -3,11 +3,11 @@
 
 checkHasSelection()
 
-var items = selection.filterItem(function (it) { return it.typename === 'TextFrame' })
+var items = selection.filterItem(function(it) { return it.typename === 'TextFrame' })
 check(items.isNotEmpty(), 'No types found in selection')
 
 var createdItems = []
-items.forEach(function (it) {
+items.forEach(function(it) {
   selection = [it] // isolate selection so that compound path are created individually
   var group = it.createOutline()
   for (var i = 0; i < group.compoundPathItems.length; i++) {

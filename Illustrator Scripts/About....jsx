@@ -4,8 +4,8 @@
 var dialog = new Dialog('About Scripts')
 var clientDate = parseDate(getResource('VERSION').readText())
 
-dialog.vgroup(function (main) {
-  main.hgroup(function (group) {
+dialog.vgroup(function(main) {
+  main.hgroup(function(group) {
     group.alignChildren = 'center'
     group.image(undefined, 'logo')
     group.staticText([300, 32], 'Prepress Adobe Scripts for Illustrator\nLast updated ' + clientDate.toISOString(), { multiline: true })
@@ -13,5 +13,5 @@ dialog.vgroup(function (main) {
   new AboutTabbedPanel(main, clientDate)
 })
 dialog.setCancelButton('Close') // because there is no default button
-dialog.setHelpButton('Visit GitHub', function () { openURL(URL_GITHUB) })
+dialog.setHelpButton('Visit GitHub', function() { openURL(URL_GITHUB) })
 dialog.show()

@@ -33,10 +33,10 @@ function openFolder(prompt) {
 function openFile(prompt, filters, multiSelect) {
   var nativeFilters
   if (OS_MAC) {
-    nativeFilters = function (file) {
+    nativeFilters = function(file) {
       var condition = file instanceof Folder // required to go through directory
-      filters.forEach(function (array) {
-        array.slice(1).forEach(function (ext) {
+      filters.forEach(function(array) {
+        array.slice(1).forEach(function(ext) {
           condition = condition || file.getExtension() === ext.toLowerCase()
         })
       })
@@ -46,7 +46,7 @@ function openFile(prompt, filters, multiSelect) {
     // expected filters = 'Adobe Illustrator:*.ai;Photoshop:*.psd,*.psb,*.pdd;'
     nativeFilters = ''
     var allExtensions = []
-    filters.forEach(function (array) {
+    filters.forEach(function(array) {
       check(array.length > 1, 'File extension required')
       var name = array.first()
       var extensions = array.slice(1)

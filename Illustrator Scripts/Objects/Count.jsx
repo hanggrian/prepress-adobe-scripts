@@ -17,7 +17,7 @@ var rasterCount = 0
 var symbolCount = 0
 var textFrameCount = 0
 
-selection.forEachItem(function (it) {
+selection.forEachItem(function(it) {
   switch (it.typename) {
     case 'CompoundPathItem':
       compoundPathCount++

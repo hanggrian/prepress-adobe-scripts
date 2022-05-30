@@ -23,10 +23,10 @@ var dialog = new Dialog('Select Links', 'selecting-items#select-links---f2')
 var dimensionPanel
 var aiCheck, pdfCheck, bmpCheck, gifCheck, jpegCheck, jpeg2000Check, pngCheck, psdCheck, tiffCheck
 
-dialog.vgroup(function (main) {
+dialog.vgroup(function(main) {
   main.alignChildren = 'fill'
   dimensionPanel = new SelectDimensionPanel(main, BOUNDS_TEXT, BOUNDS_EDIT)
-  main.vpanel('File Types', function (panel) {
+  main.vpanel('File Types', function(panel) {
     panel.tips('File extension of selected links')
     panel.alignChildren = 'fill'
     aiCheck = panel.checkBox(undefined, getTypeString('Adobe Illustrator', FILE_AI))
@@ -41,10 +41,10 @@ dialog.vgroup(function (main) {
   })
 })
 dialog.setCancelButton()
-dialog.setDefaultButton(undefined, function () {
+dialog.setDefaultButton(undefined, function() {
   var width = dimensionPanel.getWidth()
   var height = dimensionPanel.getHeight()
-  selectAll(['PlacedItem'], function (item) {
+  selectAll(['PlacedItem'], function(item) {
     var condition = true
     if (width !== undefined) {
       condition = condition && parseInt(width) === parseInt(item.width)
@@ -72,7 +72,7 @@ dialog.show()
 
 function getTypeString(prefix, suffix) {
   var s = ''
-  suffix.forEach(function (it, i) {
+  suffix.forEach(function(it, i) {
     s += it
     if (i != suffix.lastIndex()) {
       s += ', '

@@ -19,21 +19,21 @@ function OrderByGroup(parent, ordersCollection) {
 
   checkNotNull(ordersCollection)
   var orders = []
-  ordersCollection.forEach(function (it, i) {
+  ordersCollection.forEach(function(it, i) {
     orders = orders.concat(it)
     if (i !== ordersCollection.lastIndex()) {
       orders.push('-')
     }
   })
 
-  this.main = parent.hgroup(function (group) {
+  this.main = parent.hgroup(function(group) {
     group.tips('Modify how iteration should be operated')
-    self.list = group.dropDownList(undefined, orders).also(function (it) {
+    self.list = group.dropDownList(undefined, orders).also(function(it) {
       it.title = 'Order by:'
     })
   })
 
-  this.forEach = function (collection, action) {
+  this.forEach = function(collection, action) {
     if (self.list.selection.text === 'Default') {
       collection.forEach(action)
       return
@@ -41,7 +41,7 @@ function OrderByGroup(parent, ordersCollection) {
       collection.forEachReversed(action)
       return
     }
-    var sortedCollection = collection.map(function (it) { return it })
+    var sortedCollection = collection.map(function(it) { return it })
     if (self.list.selection.text === 'Ascending') {
       sortedCollection.sort(sortAscending)
     } else if (self.list.selection.text === 'Descending') {

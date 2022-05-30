@@ -16,15 +16,15 @@ var files = openFile(dialog.getTitle(), [
 if (files !== null && files.isNotEmpty()) {
   var collection = new FileCollection(files)
 
-  dialog.vgroup(function (main) {
+  dialog.vgroup(function(main) {
     main.alignChildren = 'right'
-    main.hgroup(function (topGroup) {
+    main.hgroup(function(topGroup) {
       topGroup.alignChildren = 'fill'
-      topGroup.vgroup(function (group) {
+      topGroup.vgroup(function(group) {
         if (collection.hasPDF) {
           pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
         }
-        pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT).also(function (panel) {
+        pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT).also(function(panel) {
           panel.rangeGroup.endEdit.text = collection.length
           if (!collection.isSinglePDF) {
             panel.rangeGroup.maxRange = collection.length
@@ -34,14 +34,14 @@ if (files !== null && files.isNotEmpty()) {
       })
       documentPanel = new OpenDocumentPanel(topGroup)
     })
-    main.hgroup(function (group) {
-      rtlCheck = group.checkBox(undefined, 'Right-to-Left').also(function (it) {
+    main.hgroup(function(group) {
+      rtlCheck = group.checkBox(undefined, 'Right-to-Left').also(function(it) {
         it.tip('Useful for Arabic layout')
       })
     })
   })
   dialog.setCancelButton()
-  dialog.setDefaultButton(undefined, function () {
+  dialog.setDefaultButton(undefined, function() {
     var start = pagesPanel.rangeGroup.getStart()
     var end = pagesPanel.rangeGroup.getEnd()
     var pages = pagesPanel.rangeGroup.getLength()
@@ -61,7 +61,7 @@ if (files !== null && files.isNotEmpty()) {
     var pager = new SaddleStitchPager(document, start, end, rtlCheck.value)
 
     var progress = new ProgressPalette(artboards, 'Imposing')
-    pager.forEachArtboard(function (artboard,
+    pager.forEachArtboard(function(artboard,
       leftIndex, rightIndex) {
       progress.increment()
       var item1 = document.placedItems.add()
@@ -71,7 +71,7 @@ if (files !== null && files.isNotEmpty()) {
       var x1 = artboard.artboardRect.getLeft()
       var x2 = x1 + width
       var y = artboard.artboardRect.getTop()
-      Array(item1, item2).forEach(function (it) {
+      Array(item1, item2).forEach(function(it) {
         it.width = width + bleed * 2
         it.height = height + bleed * 2
       })

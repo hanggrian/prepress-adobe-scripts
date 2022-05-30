@@ -8,20 +8,20 @@
  * Returns true if this string is empty.
  * @returns {Boolean}
  */
-String.prototype.isEmpty = function () { return this.length === 0 }
+String.prototype.isEmpty = function() { return this.length === 0 }
 
 /**
  * Returns true if this string is not empty.
  * @returns {Boolean}
  */
-String.prototype.isNotEmpty = function () { return this.length > 0 }
+String.prototype.isNotEmpty = function() { return this.length > 0 }
 
 /**
  * Returns true if text contains word.
  * @param {String} substring expected prefix.
  * @returns {Boolean}
  */
-String.prototype.includes = function (substring) {
+String.prototype.includes = function(substring) {
   return this.indexOf(substring) !== -1
 }
 
@@ -30,7 +30,7 @@ String.prototype.includes = function (substring) {
  * @param {String} substring expected prefix.
  * @returns {Boolean}
  */
-String.prototype.startsWith = function (substring) {
+String.prototype.startsWith = function(substring) {
   return this.lastIndexOf(substring, 0) === 0
 }
 
@@ -39,7 +39,7 @@ String.prototype.startsWith = function (substring) {
  * @param {String} substring expected suffix.
  * @returns {Boolean}
  */
-String.prototype.endsWith = function (substring) {
+String.prototype.endsWith = function(substring) {
   return this.indexOf(substring, this.length - substring.length) !== -1
 }
 
@@ -48,7 +48,7 @@ String.prototype.endsWith = function (substring) {
  * @param {String} substring target.
  * @returns {Boolean}
  */
-String.prototype.substringBefore = function (substring) {
+String.prototype.substringBefore = function(substring) {
   return this.substring(0, this.indexOf(substring))
 }
 
@@ -57,7 +57,7 @@ String.prototype.substringBefore = function (substring) {
  * @param {String} substring target.
  * @returns {Boolean}
  */
-String.prototype.substringBeforeLast = function (substring) {
+String.prototype.substringBeforeLast = function(substring) {
   return this.substring(0, this.lastIndexOf(substring))
 }
 
@@ -66,7 +66,7 @@ String.prototype.substringBeforeLast = function (substring) {
  * @param {String} substring target.
  * @returns {Boolean}
  */
-String.prototype.substringAfter = function (substring) {
+String.prototype.substringAfter = function(substring) {
   return this.substring(this.indexOf(substring) + substring.length)
 }
 
@@ -75,7 +75,7 @@ String.prototype.substringAfter = function (substring) {
  * @param {String} substring target.
  * @returns {Boolean}
  */
-String.prototype.substringAfterLast = function (substring) {
+String.prototype.substringAfterLast = function(substring) {
   return this.substring(this.lastIndexOf(substring) + substring.length)
 }
 
@@ -83,7 +83,7 @@ String.prototype.substringAfterLast = function (substring) {
  * Returns true if string is integer or decimal.
  * @returns {Boolean}
  */
-String.prototype.isNumeric = function () {
+String.prototype.isNumeric = function() {
   return /^-{0,1}\d*\.{0,1}\d+$/.test(this)
 }
 
@@ -91,7 +91,7 @@ String.prototype.isNumeric = function () {
  * Remove leading whitespaces.
  * @returns {String}
  */
-String.prototype.trimStart = function () {
+String.prototype.trimStart = function() {
   return this.replace(/^\s\s*/, '')
 }
 
@@ -99,7 +99,7 @@ String.prototype.trimStart = function () {
  * Remove trailing whitespaces.
  * @returns {String}
  */
-String.prototype.trimEnd = function () {
+String.prototype.trimEnd = function() {
   return this.replace(/\s\s*$/, '')
 }
 
@@ -107,7 +107,7 @@ String.prototype.trimEnd = function () {
  * Remove leading and trailing whitespaces.
  * @returns {String}
  */
-String.prototype.trim = function () {
+String.prototype.trim = function() {
   return this.trimStart().trimEnd()
 }
 
@@ -116,14 +116,14 @@ String.prototype.trim = function () {
  * @returns {String}
  * @see https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
  */
-String.prototype.format = function () { return _formatString(this, arguments) }
+String.prototype.format = function() { return _formatString(this, arguments) }
 
 /**
  * Returns a formatted string using array argument.
  * @returns {String}
  * @see https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
  */
-String.prototype.formatArr = function (arr) { return _formatString(this, arr) }
+String.prototype.formatArr = function(arr) { return _formatString(this, arr) }
 
 function _formatString(s, args) {
   var formatted = s

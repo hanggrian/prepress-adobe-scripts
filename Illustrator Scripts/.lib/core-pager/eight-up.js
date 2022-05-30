@@ -5,8 +5,8 @@
 function EightUpSimplexPager(document, start) {
   var current = start || 0
 
-  this.forEachArtboard = function (action) {
-    document.artboards.forEach(function (artboard) {
+  this.forEachArtboard = function(action) {
+    document.artboards.forEach(function(artboard) {
       var top1 = current
       var top2 = current + 1
       var top3 = current + 2
@@ -32,8 +32,8 @@ function EightUpDuplexPager(document, start) {
   var current = start || 0
   var isFront = true
 
-  this.forEachArtboard = function (action) {
-    document.artboards.forEach(function (artboard) {
+  this.forEachArtboard = function(action) {
+    document.artboards.forEach(function(artboard) {
       var top1, top2, top3, top4, bottom1, bottom2, bottom3, bottom3
       if (isFront) {
         top1 = current
@@ -71,9 +71,9 @@ function EightUpDuplexPager(document, start) {
 function EightUpSimplexCutStackPager(document, start) {
   var current = start || 0
 
-  this.forEachArtboard = function (action) {
+  this.forEachArtboard = function(action) {
     var artboards = document.artboards.length
-    document.artboards.forEach(function (artboard) {
+    document.artboards.forEach(function(artboard) {
       var top1 = current
       var top2 = current + artboards
       var top3 = current + artboards * 2
@@ -99,9 +99,9 @@ function EightUpDuplexCutStackPager(document, start) {
   var current = start || 0
   var isFront = true
 
-  this.forEachArtboard = function (action) {
+  this.forEachArtboard = function(action) {
     var artboards = document.artboards.length
-    document.artboards.forEach(function (artboard) {
+    document.artboards.forEach(function(artboard) {
       var top1, top2, top3, top4, bottom1, bottom2, bottom3, bottom3
       if (isFront) {
         top1 = current

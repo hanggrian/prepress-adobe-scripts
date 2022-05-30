@@ -9,9 +9,9 @@ function MultiRadioCheckGroup(parent, text, radioTexts) {
   this.check, this.checkOnClick
   this.radios = []
 
-  this.main = parent.hgroup(function (group) {
-    self.check = group.checkBox(undefined, text).also(function (check) {
-      check.onClick = function () {
+  this.main = parent.hgroup(function(group) {
+    self.check = group.checkBox(undefined, text).also(function(check) {
+      check.onClick = function() {
         if (self.checkOnClick !== undefined) {
           self.checkOnClick()
         }
@@ -22,7 +22,7 @@ function MultiRadioCheckGroup(parent, text, radioTexts) {
     })
 
     for (var i = 0; i < radioTexts.length; i++) {
-      group.radioButton(undefined, radioTexts[i]).also(function (radio) {
+      group.radioButton(undefined, radioTexts[i]).also(function(radio) {
         radio.enabled = false
         if (i === 0) {
           radio.select()
@@ -32,11 +32,11 @@ function MultiRadioCheckGroup(parent, text, radioTexts) {
     }
   })
 
-  this.isSelected = function () {
+  this.isSelected = function() {
     return self.check.value
   }
 
-  this.getSelectedRadio = function () {
+  this.getSelectedRadio = function() {
     for (var i = 0; i < radioTexts.length; i++) {
       if (self.radios[i].value) {
         return self.radios[i].text

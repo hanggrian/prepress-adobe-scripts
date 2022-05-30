@@ -12,7 +12,7 @@
 #include 'core-preferences.js'
 #include 'core-units.js'
 
-#include 'sui/maintain-size.js'
+#include 'sui/checks.js'
 #include 'sui/nup-options.js'
 #include 'sui/open-options.js'
 #include 'sui/order-by.js'
@@ -27,7 +27,7 @@ libPath = new File($.fileName).path
  * @this {PageItem}
  * @returns {String}
  */
-Object.prototype.getLayerName = function () {
+Object.prototype.getLayerName = function() {
   return this.name != null & this.name.length > 0 ? this.name : this.typename
 }
 
@@ -36,7 +36,7 @@ Object.prototype.getLayerName = function () {
  * @this {PageItem}
  * @returns {PathItem}
  */
-Object.prototype.getClippingPathItem = function () {
+Object.prototype.getClippingPathItem = function() {
   if (this.typename === 'GroupItem' && this.clipped) {
     // can't use `first { }` because PathItems is not an Array
     for (var i = 0; i < this.pathItems.length; i++) {
@@ -53,9 +53,9 @@ Object.prototype.getClippingPathItem = function () {
  * Returns bounds covering all items.
  * @returns {Array}
  */
-Array.prototype.getFarthestBounds = function () {
+Array.prototype.getFarthestBounds = function() {
   var maxStartX, maxStartY, maxEndX, maxEndY
-  this.forEach(function (item) {
+  this.forEach(function(item) {
     var clippingItem = item.getClippingPathItem()
     var width = clippingItem.width
     var height = clippingItem.height
@@ -76,7 +76,7 @@ Array.prototype.getFarthestBounds = function () {
  * @this {PlacedItem}
  * @returns {Boolean}
  */
-Object.prototype.isFileExists = function () {
+Object.prototype.isFileExists = function() {
   check(this.typename === 'PlacedItem')
   try {
     this.file

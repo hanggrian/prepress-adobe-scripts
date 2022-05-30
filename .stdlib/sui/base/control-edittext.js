@@ -14,15 +14,15 @@ var REPLACE_TRAILING_SPACE = /\s+$/
 var REPLACE_LEADING_ZERO = /^(?:0+(?=[1-9])|0+(?=0$))/mg // https://stackoverflow.com/questions/60509557/regex-remove-leading-zeros-but-keep-single-zero
 
 /** Digits are non-negative and non-decimal number. */
-EditText.prototype.validateDigits = function () {
-  this.registerValidator(MATCH_DIGITS, function (_, newValue) {
+EditText.prototype.validateDigits = function() {
+  this.registerValidator(MATCH_DIGITS, function(_, newValue) {
     return _removeRegexes(newValue, [REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
   })
 }
 
 /** Unit measurements are decimal number paired with short text. */
-EditText.prototype.validateUnits = function () {
-  this.registerValidator(MATCH_UNITS, function (oldValue, newValue) {
+EditText.prototype.validateUnits = function() {
+  this.registerValidator(MATCH_UNITS, function(oldValue, newValue) {
     var alphabetRegex = /[a-zA-Z]/
     var exec
 
@@ -56,11 +56,11 @@ EditText.prototype.validateUnits = function () {
  * @param {RegExp} regex pattern to match.
  * @param {Function} valueProvider consumer with `oldValue`, `newValue` parameters and final value return.
  */
-EditText.prototype.registerValidator = function (regex, valueProvider) {
+EditText.prototype.registerValidator = function(regex, valueProvider) {
   var editText = this
   var oldValue = editText.text
-  editText.onActivate = function () { oldValue = editText.text }
-  editText.onChange = function () {
+  editText.onActivate = function() { oldValue = editText.text }
+  editText.onChange = function() {
     var newValue = editText.text
     editText.text = regex.test(newValue)
       ? valueProvider(oldValue, newValue)
@@ -68,30 +68,30 @@ EditText.prototype.registerValidator = function (regex, valueProvider) {
   }
 }
 
-var ACTIVATE = function (editText) { editText.activate() }
-var VALIDATE_DIGITS = function (editText) { editText.validateDigits() }
-var VALIDATE_UNITS = function (editText) { editText.validateUnits() }
+var ACTIVATE = function(editText) { editText.activate() }
+var VALIDATE_DIGITS = function(editText) { editText.validateDigits() }
+var VALIDATE_UNITS = function(editText) { editText.validateUnits() }
 
 /** Focus on this edit text. */
-EditText.prototype.activate = function () { if (!this.active) this.active = true }
+EditText.prototype.activate = function() { if (!this.active) this.active = true }
 
 /**
  * Set tooltip to this children.
  * @returns {EditText}
  */
-EditText.prototype.tip = function (text) { return _tip(this, text) }
+EditText.prototype.tip = function(text) { return _tip(this, text) }
 
 /**
  * Add children to group.
  * @returns {EditText}
  */
-Group.prototype.editText = function (bounds, text, properties) { return _editText(this, bounds, text, properties) }
+Group.prototype.editText = function(bounds, text, properties) { return _editText(this, bounds, text, properties) }
 
 /**
  * Add children to panel.
  * @returns {EditText}
  */
-Panel.prototype.editText = function (bounds, text, properties) { return _editText(this, bounds, text, properties) }
+Panel.prototype.editText = function(bounds, text, properties) { return _editText(this, bounds, text, properties) }
 
 function _editText(parent, bounds, text, properties) {
   var result = parent.add('edittext', _expandBounds(bounds), text, properties)

@@ -20,31 +20,31 @@ function OpenDocumentPanel(parent) {
   this.unitsList
   this.backgrounTransparentRadio, this.backgrounWhiteRadio
 
-  this.main = parent.vpanel('Document Preset', function (panel) {
+  this.main = parent.vpanel('Document Preset', function(panel) {
     panel.alignChildren = 'fill'
-    panel.hgroup(function (group) {
+    panel.hgroup(function(group) {
       group.tips('The color mode and resolution for the new document')
       group.staticText(BOUNDS_DOCUMENT_TEXT, 'Color Mode:', JUSTIFY_RIGHT)
-      self.modeList = group.dropDownList(BOUNDS_DOCUMENT_EDIT, OPEN_DOCUMENTMODES, function (it) {
+      self.modeList = group.dropDownList(BOUNDS_DOCUMENT_EDIT, OPEN_DOCUMENTMODES, function(it) {
         it.selectText('CMYK')
       })
-      self.bitsList = group.dropDownList(BOUNDS_DOCUMENT_EDIT2, OPEN_DOCUMENTBITS, function (it) {
+      self.bitsList = group.dropDownList(BOUNDS_DOCUMENT_EDIT2, OPEN_DOCUMENTBITS, function(it) {
         it.selectText('8 bit')
       })
     })
-    panel.hgroup(function (group) {
+    panel.hgroup(function(group) {
       group.tips('The resolution for the new document')
       group.staticText(BOUNDS_DOCUMENT_TEXT, 'Resolution:', JUSTIFY_RIGHT)
       self.resolutionEdit = group.editText(BOUNDS_DOCUMENT_EDITMAX, '300')
     })
-    panel.hgroup(function (group) {
+    panel.hgroup(function(group) {
       group.tips('The units for the new document')
       group.staticText(BOUNDS_DOCUMENT_TEXT, 'Units:', JUSTIFY_RIGHT)
-      self.unitsList = group.dropDownList(BOUNDS_DOCUMENT_EDITMAX, UNITS, function (it) {
+      self.unitsList = group.dropDownList(BOUNDS_DOCUMENT_EDITMAX, UNITS, function(it) {
         it.selectText('Millimeters')
       })
     })
-    panel.hgroup(function (group) {
+    panel.hgroup(function(group) {
       group.tips('The initial fill of the document')
       group.staticText(BOUNDS_DOCUMENT_TEXT, 'Background:', JUSTIFY_RIGHT)
       self.backgrounTransparentRadio = group.radioButton(undefined, 'Transparent').also(SELECTED)
@@ -52,7 +52,7 @@ function OpenDocumentPanel(parent) {
     })
   })
 
-  this.open = function (title, width, height) {
+  this.open = function(title, width, height) {
     var mode, background, bits
     switch (self.modeList.selection.text) {
       case 'Bitmap':

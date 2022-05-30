@@ -17,40 +17,40 @@ var dimensionPanel
 var colorSpaceList, bitsEdit, transparentList
 var embeddedList, overprintList, statusList
 
-dialog.hgroup(function (main) {
+dialog.hgroup(function(main) {
   main.alignChildren = 'fill'
-  main.vgroup(function (topGroup) {
+  main.vgroup(function(topGroup) {
     dimensionPanel = new SelectDimensionPanel(topGroup, BOUNDS_LEFT_TEXT, BOUNDS_EDIT)
-    topGroup.vpanel('Image', function (panel) {
-      panel.hgroup(function (group) {
+    topGroup.vpanel('Image', function(panel) {
+      panel.hgroup(function(group) {
         group.tips('The color space of the raster image')
         group.staticText(BOUNDS_LEFT_TEXT, 'Color Space:').also(JUSTIFY_RIGHT)
         colorSpaceList = group.dropDownList(BOUNDS_EDIT, COLOR_SPACES)
       })
-      panel.hgroup(function (group) {
+      panel.hgroup(function(group) {
         group.tips('The number of bits per channel')
         group.staticText(BOUNDS_LEFT_TEXT, 'Bits/Channel:').also(JUSTIFY_RIGHT)
         bitsEdit = group.editText(BOUNDS_EDIT).also(VALIDATE_DIGITS)
       })
-      panel.hgroup(function (group) {
+      panel.hgroup(function(group) {
         group.tips('Is the raster art transparent?')
         group.staticText(BOUNDS_LEFT_TEXT, 'Transparent:').also(JUSTIFY_RIGHT)
         transparentList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
       })
     })
   })
-  main.vpanel('Others', function (panel) {
-    panel.hgroup(function (group) {
+  main.vpanel('Others', function(panel) {
+    panel.hgroup(function(group) {
       group.tips('Is the raster art embedded within the illustration?')
       group.staticText(BOUNDS_LEFT_TEXT, 'Embedded:').also(JUSTIFY_RIGHT)
       embeddedList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
     })
-    panel.hgroup(function (group) {
+    panel.hgroup(function(group) {
       group.tips('Is the raster art overprinting?')
       group.staticText(BOUNDS_LEFT_TEXT, 'Overprint:').also(JUSTIFY_RIGHT)
       overprintList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
     })
-    panel.hgroup(function (group) {
+    panel.hgroup(function(group) {
       group.tips('Status of the linked image')
       group.staticText(BOUNDS_LEFT_TEXT, 'Status:').also(JUSTIFY_RIGHT)
       statusList = group.dropDownList(BOUNDS_EDIT, STATUSES)
@@ -58,7 +58,7 @@ dialog.hgroup(function (main) {
   })
 })
 dialog.setCancelButton()
-dialog.setDefaultButton(undefined, function () {
+dialog.setDefaultButton(undefined, function() {
   var width = dimensionPanel.getWidth()
   var height = dimensionPanel.getHeight()
   var colorSpace
@@ -93,7 +93,7 @@ dialog.setDefaultButton(undefined, function () {
       status = RasterLinkState.DATAMODIFIED
     }
   }
-  selectAll(['RasterItem'], function (item) {
+  selectAll(['RasterItem'], function(item) {
     var condition = true
     if (width !== undefined) {
       condition = condition && parseInt(width) === parseInt(item.width)

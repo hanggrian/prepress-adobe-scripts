@@ -10,7 +10,7 @@ var _preferencesRoot = 'Prepress Adobe Scripts/'
 var preferences = new Preferences()
 
 /** Alias of `ActionDescriptor.getBoolean`. */
-Preferences.prototype.getBoolean = function (key) {
+Preferences.prototype.getBoolean = function(key) {
   var value
   try {
     var descriptor = app.getCustomOptions(_preferencesRoot)
@@ -24,7 +24,7 @@ Preferences.prototype.getBoolean = function (key) {
 }
 
 /** Alias of `ActionDescriptor.getBoolean`. */
-Preferences.prototype.getString = function (key) {
+Preferences.prototype.getString = function(key) {
   var value
   try {
     var descriptor = app.getCustomOptions(_preferencesRoot)
@@ -38,7 +38,7 @@ Preferences.prototype.getString = function (key) {
 }
 
 /** Alias of `ActionDescriptor.putBoolean`. */
-Preferences.prototype.setBoolean = function (key, value) {
+Preferences.prototype.setBoolean = function(key, value) {
   var descriptor = new ActionDescriptor()
   var actualKey = _getPreferenceKey(key)
   var actualValue = _getPreferenceValue(value)
@@ -48,7 +48,7 @@ Preferences.prototype.setBoolean = function (key, value) {
 }
 
 /** Alias of `ActionDescriptor.putString`. */
-Preferences.prototype.setString = function (key, value) {
+Preferences.prototype.setString = function(key, value) {
   var descriptor = new ActionDescriptor()
   var actualKey = _getPreferenceKey(key)
   var actualValue = _getPreferenceValue(value)

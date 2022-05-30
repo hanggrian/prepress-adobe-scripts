@@ -5,8 +5,8 @@
 function OneUpPager(document, start) {
   var _current = start || 0
 
-  this.forEachArtboard = function (action) {
-    document.artboards.forEach(function (artboard) {
+  this.forEachArtboard = function(action) {
+    document.artboards.forEach(function(artboard) {
       artboard.name = _current + 1
       action(artboard, _current++)
     })

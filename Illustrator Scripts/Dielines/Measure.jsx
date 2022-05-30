@@ -6,14 +6,14 @@
 
 checkHasSelection()
 
-var items = selection.filterItem(function (it) { return it.typename === 'PathItem' || it.typename === 'CompoundPathItem' })
+var items = selection.filterItem(function(it) { return it.typename === 'PathItem' || it.typename === 'CompoundPathItem' })
 check(items.isNotEmpty(), 'No paths found in selection')
 
 var count = 0
 var distance = 0
 var filledCount = 0, registrationCount = 0
 
-items.forEachItem(function (it) {
+items.forEachItem(function(it) {
   switch (it.typename) {
     case 'PathItem':
       increment(it)

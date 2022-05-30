@@ -22,7 +22,7 @@ function parseDate(date) {
  * E.g.: 2011-10-05
  * @returns {String}
  */
-Date.prototype.toISOString = function () {
+Date.prototype.toISOString = function() {
   var year = this.getFullYear()
   var month = this.getMonth() + 1
   if (month < 10) {

@@ -13,55 +13,55 @@ function AnchorGroup(parent, isPsd) {
   this.bottomLeftRadio, this.bottomRadio, this.bottomRightRadio
 
   isPsd = isPsd === undefined ? false : true
-  this.main = parent.vgroup(function (topGroup) {
-    topGroup.hgroup(function (group) {
+  this.main = parent.vgroup(function(topGroup) {
+    topGroup.hgroup(function(group) {
       if (isPsd) {
         group.spacing = 0
       }
-      self.topLeftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function (it) {
+      self.topLeftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
         it.tip('Top left')
         registerRadioClick(it)
       })
-      self.topRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function (it) {
+      self.topRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
         it.tip('Top')
         registerRadioClick(it)
       })
-      self.topRightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function (it) {
+      self.topRightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
         it.tip('Top right')
         registerRadioClick(it)
       })
     })
-    topGroup.hgroup(function (group) {
+    topGroup.hgroup(function(group) {
       if (isPsd) {
         group.spacing = 0
       }
-      self.leftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function (it) {
+      self.leftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
         it.tip('Left')
         registerRadioClick(it)
       })
-      self.centerRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function (it) {
+      self.centerRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
         it.tip('Center')
         it.select()
         registerRadioClick(it)
       })
-      self.rightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function (it) {
+      self.rightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
         it.tip('Right')
         registerRadioClick(it)
       })
     })
-    topGroup.hgroup(function (group) {
+    topGroup.hgroup(function(group) {
       if (isPsd) {
         group.spacing = 0
       }
-      self.bottomLeftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function (it) {
+      self.bottomLeftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
         it.tip('Bottom left')
         registerRadioClick(it)
       })
-      self.bottomRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function (it) {
+      self.bottomRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
         it.tip('Bottom')
         registerRadioClick(it)
       })
-      self.bottomRightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function (it) {
+      self.bottomRightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
         it.tip('Bottom right')
         registerRadioClick(it)
       })
@@ -69,26 +69,26 @@ function AnchorGroup(parent, isPsd) {
   })
 
   // Manual checks
-  this.isTopLeft = function () { return self.topLeftRadio.value }
-  this.isTop = function () { return self.topRadio.value }
-  this.isTopRight = function () { return self.topRightRadio.value }
-  this.isLeft = function () { return self.leftRadio.value }
-  this.isCenter = function () { return self.centerRadio.value }
-  this.isRight = function () { return self.rightRadio.value }
-  this.isBottomLeft = function () { return self.bottomLeftRadio.value }
-  this.isBottom = function () { return self.bottomRadio.value }
-  this.isBottomRight = function () { return self.bottomRightRadio.value }
+  this.isTopLeft = function() { return self.topLeftRadio.value }
+  this.isTop = function() { return self.topRadio.value }
+  this.isTopRight = function() { return self.topRightRadio.value }
+  this.isLeft = function() { return self.leftRadio.value }
+  this.isCenter = function() { return self.centerRadio.value }
+  this.isRight = function() { return self.rightRadio.value }
+  this.isBottomLeft = function() { return self.bottomLeftRadio.value }
+  this.isBottom = function() { return self.bottomRadio.value }
+  this.isBottomRight = function() { return self.bottomRightRadio.value }
 
   // Useful for building x & y
-  this.isHorizontalTop = function () { return self.isTopLeft() || self.isTop() || self.isTopRight() }
-  this.isHorizontalCenter = function () { return self.isLeft() || self.isCenter() || self.isRight() }
-  this.isHorizontalBottom = function () { return self.isBottomLeft() || self.isBottom() || self.isBottomRight() }
-  this.isVerticalLeft = function () { return self.isTopLeft() || self.isLeft() || self.isBottomLeft() }
-  this.isVerticalCenter = function () { return self.isTop() || self.isCenter() || self.isBottom() }
-  this.isVerticalRight = function () { return self.isTopRight() || self.isRight() || self.isBottomRight() }
+  this.isHorizontalTop = function() { return self.isTopLeft() || self.isTop() || self.isTopRight() }
+  this.isHorizontalCenter = function() { return self.isLeft() || self.isCenter() || self.isRight() }
+  this.isHorizontalBottom = function() { return self.isBottomLeft() || self.isBottom() || self.isBottomRight() }
+  this.isVerticalLeft = function() { return self.isTopLeft() || self.isLeft() || self.isBottomLeft() }
+  this.isVerticalCenter = function() { return self.isTop() || self.isCenter() || self.isBottom() }
+  this.isVerticalRight = function() { return self.isTopRight() || self.isRight() || self.isBottomRight() }
 
   // Ai
-  this.getTransformation = function () {
+  this.getTransformation = function() {
     if (self.isTopLeft()) {
       return Transformation.TOPLEFT
     } else if (self.isTop()) {
@@ -111,7 +111,7 @@ function AnchorGroup(parent, isPsd) {
   }
 
   // Psd
-  this.getAnchorPosition = function () {
+  this.getAnchorPosition = function() {
     if (self.isTopLeft()) {
       return AnchorPosition.TOPLEFT
     } else if (self.isTop()) {
@@ -134,7 +134,7 @@ function AnchorGroup(parent, isPsd) {
   }
 
   function registerRadioClick(radio) {
-    radio.onClick = function () {
+    radio.onClick = function() {
       if (radio != self.topLeftRadio) self.topLeftRadio.value = false
       if (radio != self.topRadio) self.topRadio.value = false
       if (radio != self.topRightRadio) self.topRightRadio.value = false
