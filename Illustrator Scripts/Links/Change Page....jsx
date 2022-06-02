@@ -3,11 +3,12 @@
 
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [120, 21]
+var PREDICATE_LINKS = function(it) {
+  return it.typename === 'PlacedItem' && it.isFileExists() && it.file.isPDF()
+}
 
 checkHasSelection()
-check(selection.anyItem(function(it) {
-  return it.typename === 'PlacedItem' && it.isFileExists() && it.file.isPDF()
-}), 'No PDF links found in selection')
+check(selection.anyItem(PREDICATE_LINKS), 'No PDF links found in selection')
 
 var dialog = new Dialog('Change Page', 'relinking-files#change-page-f7')
 var pdfPanel, rangeGroup, orderByGroup, recursiveCheck, keepSizeCheck
@@ -35,25 +36,25 @@ dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
   var current = rangeGroup.getStart()
   var end = rangeGroup.getEnd()
+  var isRecursive = recursiveCheck.isSelected()
 
-  var source = !recursiveCheck.isSelected() ? selection : selection.filterItem(function(it) {
-    return it.typename === 'PlacedItem' && it.isFileExists() && it.file.isPDF()
-  })
+  var source = isRecursive ? selection.filterItem(PREDICATE_LINKS) : selection
   var progress = new ProgressPalette(source.length)
   orderByGroup.forEach(source, function(item, i) {
     progress.increment('Linking item {0}', i + 1)
     print('Item {0} page {1}.'.format(i, current))
-    preferences.setPDFPage(current++)
-    if (item.typename === 'GroupItem') {
+    preferences.setPDFPage(current)
+    var relinked = false
+    if (!isRecursive && item.typename === 'GroupItem') {
       _forEachItem(item.pageItems, function(innerItem) {
-        if (innerItem.typename === 'PlacedItem' && innerItem.isFileExists() && innerItem.file.isPDF()) {
-          relink(innerItem)
+        if (PREDICATE_LINKS(innerItem)) {
+          relinked = relink(innerItem)
         }
       })
     } else {
-      relink(item)
+      relinked = relink(item)
     }
-    if (current > end) {
+    if (relinked && ++current > end) {
       current--
     }
     println('Done')
@@ -75,4 +76,5 @@ function relink(item) {
     item.height = height
     item.position = position
   }
+  return true
 }

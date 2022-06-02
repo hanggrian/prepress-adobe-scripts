@@ -3,11 +3,10 @@
 
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [120, 21]
+var PREDICATE_LINKS = function(it) { return it.typename === 'PlacedItem' }
 
 checkHasSelection()
-check(selection.anyItem(function(it) {
-  return it.typename === 'PlacedItem' && it.isFileExists() && it.file.isPDF()
-}), 'No PDF links found in selection')
+check(selection.anyItem(PREDICATE_LINKS), 'No links found in selection')
 
 var dialog = new Dialog('Relink Multipage', 'relinking-files#relink-multipage--f7')
 var pdfPanel, rangeGroup, orderByGroup, recursiveCheck, keepSizeCheck
@@ -48,25 +47,25 @@ if (files !== null && files.isNotEmpty()) {
   dialog.setDefaultButton(undefined, function() {
     var current = rangeGroup.getStart()
     var end = rangeGroup.getEnd()
+    var isRecursive = recursiveCheck.isSelected()
 
-    var source = !recursiveCheck.isSelected() ? selection : selection.filterItem(function(it) {
-      return it.typename === 'PlacedItem' && it.isFileExists() && it.file.isPDF()
-    })
+    var source = isRecursive ? selection.filterItem(PREDICATE_LINKS) : selection
     var progress = new ProgressPalette(source.length)
     orderByGroup.forEach(source, function(item, i) {
       progress.increment('Linking item {0}', i + 1)
       print('Item {0} page {1}.'.format(i, current))
-      var file = collection.get(current++)
-      if (item.typename === 'GroupItem') {
+      var file = collection.get(current)
+      var relinked = false
+      if (!isRecursive && item.typename === 'GroupItem') {
         _forEachItem(item.pageItems, function(innerItem) {
-          if (innerItem.typename === 'PlacedItem' && innerItem.isFileExists() && innerItem.file.isPDF()) {
-            relink(innerItem, file)
+          if (PREDICATE_LINKS(innerItem)) {
+            relinked = relink(innerItem, file)
           }
         })
       } else {
-        relink(item, file)
+        relinked = relink(item, file)
       }
-      if (current > end) {
+      if (relinked && ++current > end) {
         current--
       }
       println('Done')
@@ -91,4 +90,5 @@ function relink(item, file) {
     item.height = height
     item.position = position
   }
+  return true
 }

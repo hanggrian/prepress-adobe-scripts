@@ -1,6 +1,6 @@
 /*
 <javascriptresource>
-<name>Pre-Flight</name>
+<name>Pre-Flight Documents</name>
 <category>4</category>
 <enableinfo>true</enableinfo>
 </javascriptresource>
@@ -15,30 +15,33 @@ var allOkay = true
 for (var i = 0; i < app.documents.length; i++) {
   var document = app.documents[i]
   var errorCount = 0
-  var sb = new StringBuilder().appendLine('Issues found in ' + document.name + ':')
+  var result = 'Issues found in {0}:\n'.format(document.name)
 
-  var mode = document.mode
-  if (mode !== DocumentMode.CMYK) {
-    errorCount++
-    sb.appendLine('• Mode is ' + mode.toString().substringAfter('.') + '.')
-  }
-  var resolution = document.resolution
-  if (resolution < 300) {
-    errorCount++
-    sb.appendLine('• Resolution is ' + resolution + '.')
-  }
-  var bitsPerChannel = document.bitsPerChannel
-  if (bitsPerChannel !== BitsPerChannelType.EIGHT) {
-    errorCount++
-    sb.appendLine('• Bits per channel is ' + bitsPerChannel.toString().substringAfter('.') + '.')
-  }
+  document.mode.let(function(it) {
+    if (it !== DocumentMode.CMYK) {
+      errorCount++
+      result += '• Mode is {0}.\n'.format(it.toString().substringAfter('.'))
+    }
+  })
+  document.resolution.let(function(it) {
+    if (it < 300) {
+      errorCount++
+      result += '• Resolution is {0}.\n'.format(it)
+    }
+  })
+  document.bitsPerChannel.let(function(it) {
+    if (it !== BitsPerChannelType.EIGHT) {
+      errorCount++
+      result += '• Bits per channel is {0}.\n'.format(it.toString().substringAfter('.'))
+    }
+  })
 
   if (errorCount > 0) {
     allOkay = false
     app.activeDocument = document
-    alert(sb.toString().trim(), 'Pre-Flight', true)
+    alert(sb.trim(), 'Pre-Flight', true)
   }
 }
 if (allOkay) {
-  alert('No issues found in all documents.', 'Pre-Flight Documents')
+  alert('No issues found in all documents.', 'Pre-Flight')
 }

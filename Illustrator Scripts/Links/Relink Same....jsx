@@ -3,10 +3,10 @@
 
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [120, 21]
+var PREDICATE_LINKS = function(it) { return it.typename === 'PlacedItem' }
 
 checkHasSelection()
-
-var items = selection.filterItem(function(it) { return it.typename === 'PlacedItem' })
+var items = selection.filterItem(PREDICATE_LINKS)
 check(items.isNotEmpty(), 'No links found in selection')
 
 var dialog = new Dialog('Relink Same', 'relinking-files#relink-same--f7')
