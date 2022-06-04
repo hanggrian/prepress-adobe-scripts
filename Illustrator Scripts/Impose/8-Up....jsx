@@ -63,8 +63,8 @@ if (files !== null && files.isNotEmpty()) {
       : (!nupGroup.isDuplex()
         ? new EightUpSimplexCutStackPager(document, start)
         : new EightUpDuplexCutStackPager(document, start))
-
     var progress = new ProgressPalette(artboards, 'Imposing')
+
     pager.forEachArtboard(function(artboard,
       top1Index, top2Index, top3Index, top4Index,
       bottom1Index, bottom2Index, bottom3Index, bottom4Index) {

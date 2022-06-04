@@ -82,9 +82,7 @@ dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
   var width = parseUnits(widthEdit.text)
   var height = parseUnits(heightEdit.text)
-  var transformation = documentOriginCheck.value
-    ? Transformation.DOCUMENTORIGIN
-    : anchorGroup.getTransformation()
+  var transformation = documentOriginCheck.value ? Transformation.DOCUMENTORIGIN : anchorGroup.getTransformation()
 
   var action = function(item, i) {
     print(i + '. ')

@@ -32,8 +32,44 @@ function _forEachItemReversed(items, action) {
   }
 }
 
-// TODO: Object.prototype.firstItems
-// TODO: Object.prototype.lastItems
+/**
+ * First item of this collection, or given predicate when defined.
+ * @param {Function} predicate optional consumer.
+ * @returns {Object}
+ */
+Object.prototype.firstItem = function(predicate) { return _firstItem(this, predicate) }
+
+function _firstItem(items, predicate) {
+  for (var i = 0; i < items.length; i++) {
+    if (items[i].typename === 'GroupItem') {
+      return _firstItem(items[i].pageItems, predicate)
+    } else if (predicate(items[i], i)) {
+      return items[i]
+    }
+  }
+  throw new Error('Element not found given the predicate')
+}
+
+/**
+ * Last item of this collection, or given predicate when defined.
+ * @param {Function} predicate optional consumer.
+ * @returns {Object}
+ */
+Object.prototype.lastItem = function(predicate) { return _lastItem(this, predicate) }
+
+function _lastItem(items, predicate) {
+  for (var i = this.lastIndex(); i >= 0; i--) {
+    if (items[i].typename === 'GroupItem') {
+      return _firstItem(items[i].pageItems, predicate)
+    } else if (predicate(items[i], i)) {
+      return items[i]
+    }
+  }
+  throw new Error('Element not found given the predicate')
+}
+
+// TODO: Object.prototype.firstItem
+// TODO: Object.prototype.lastItem
 
 /**
  * Returns true if the collection has no elements matching predicate.

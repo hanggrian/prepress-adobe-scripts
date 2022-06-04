@@ -11,19 +11,19 @@ set RED=[91m
 set GREEN=[92m
 set YELLOW=[93m
 
+:: SOURCE_ROOT ends with backslash
+set SOURCE_ROOT=%~dp0
+
+:: Check permissions
+net session >nul 2>&1
+if !errorLevel! neq 0 goto :fail_permissions
+
 :: Check sources
 if not exist "!SOURCE_ROOT!.stdlib" goto :fail_sources
 if not exist "!SOURCE_ROOT!.stdres" goto :fail_sources
 if not exist "!SOURCE_ROOT!Illustrator Scripts" goto :fail_sources
 if not exist "!SOURCE_ROOT!Photoshop Scripts" goto :fail_sources
 if not exist "!SOURCE_ROOT!Actions" goto :fail_sources
-
-:: Check permissions
-net session >nul 2>&1
-if !errorLevel! neq 0 goto :fail_permissions
-
-:: SOURCE_ROOT ends with backslash
-set SOURCE_ROOT=%~dp0
 
 echo.
 echo !YELLOW!!BOLD!WARNING!END!

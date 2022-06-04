@@ -5,7 +5,7 @@
             "type": "extendscript-debug",
             "request": "launch",
             "name": "Prepress Adobe Scripts",
-            "program": "${workspaceFolder}/Illustrator Scripts/Links/Change Page....jsx",
+            "program": "${workspaceFolder}/Illustrator Scripts/Objects/Transform/Resize Clipping Mask....jsx",
             "stopOnEntry": false
         }
     ]

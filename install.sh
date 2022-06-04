@@ -117,6 +117,6 @@ case "$input" in
 esac
 
 echo
-echo "Goodbye!"
+echo 'Goodbye!'
 echo
 exit 0

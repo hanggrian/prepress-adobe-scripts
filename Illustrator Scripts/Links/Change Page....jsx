@@ -37,16 +37,16 @@ dialog.setDefaultButton(undefined, function() {
   var current = rangeGroup.getStart()
   var end = rangeGroup.getEnd()
   var isRecursive = recursiveCheck.isSelected()
-
   var source = isRecursive ? selection.filterItem(PREDICATE_LINKS) : selection
   var progress = new ProgressPalette(source.length)
+
   orderByGroup.forEach(source, function(item, i) {
     progress.increment('Linking item {0}', i + 1)
     print('Item {0} page {1}.'.format(i, current))
     preferences.setPDFPage(current)
     var relinked = false
     if (!isRecursive && item.typename === 'GroupItem') {
-      _forEachItem(item.pageItems, function(innerItem) {
+      [item].forEachItem(function(innerItem) {
         if (PREDICATE_LINKS(innerItem)) {
           relinked = relink(innerItem)
         }

@@ -55,15 +55,15 @@ dialog.setDefaultButton(undefined, function() {
 
     var condition2 = false
     var extension = item.isFileExists() && item.file.name.split('.').pop()
-    if (aiCheck.value) condition2 = condition2 || contains(FILE_AI, extension)
-    if (pdfCheck.value) condition2 = condition2 || contains(FILE_PDF, extension)
-    if (bmpCheck.value) condition2 = condition2 || contains(FILE_BMP, extension)
-    if (gifCheck.value) condition2 = condition2 || contains(FILE_GIF, extension)
-    if (jpegCheck.value) condition2 = condition2 || contains(FILE_JPEG, extension)
-    if (jpeg2000Check.value) condition2 = condition2 || contains(FILE_JPEG2000, extension)
-    if (pngCheck.value) condition2 = condition2 || contains(FILE_PNG, extension)
-    if (psdCheck.value) condition2 = condition2 || contains(FILE_PSD, extension)
-    if (tiffCheck.value) condition2 = condition2 || contains(FILE_TIFF, extension)
+    if (aiCheck.value) condition2 = condition2 || FILE_AI.contains(extension)
+    if (pdfCheck.value) condition2 = condition2 || FILE_PDF.contains(extension)
+    if (bmpCheck.value) condition2 = condition2 || FILE_BMP.contains(extension)
+    if (gifCheck.value) condition2 = condition2 || FILE_GIF.contains(extension)
+    if (jpegCheck.value) condition2 = condition2 || FILE_JPEG.contains(extension)
+    if (jpeg2000Check.value) condition2 = condition2 || FILE_JPEG2000.contains(extension)
+    if (pngCheck.value) condition2 = condition2 || FILE_PNG.contains(extension)
+    if (psdCheck.value) condition2 = condition2 || FILE_PSD.contains(extension)
+    if (tiffCheck.value) condition2 = condition2 || FILE_TIFF.contains(extension)
 
     return condition && condition2
   })
@@ -79,13 +79,4 @@ function getTypeString(prefix, suffix) {
     }
   })
   return '{0} ({1})'.format(prefix, s)
-}
-
-function contains(elements, element) {
-  for (var i = 0; i < elements.length; i++) {
-    if (elements[i].toLowerCase() === element) {
-      return true
-    }
-  }
-  return false
 }

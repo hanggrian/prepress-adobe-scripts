@@ -59,8 +59,8 @@ if (files !== null && files.isNotEmpty()) {
       height,
       bleed)
     var pager = new SaddleStitchPager(document, start, end, rtlCheck.value)
-
     var progress = new ProgressPalette(artboards, 'Imposing')
+
     pager.forEachArtboard(function(artboard,
       leftIndex, rightIndex) {
       progress.increment()

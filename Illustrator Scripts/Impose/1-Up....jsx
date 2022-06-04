@@ -53,8 +53,8 @@ if (files !== null && files.isNotEmpty()) {
       rotatedHeight,
       bleed)
     var pager = new OneUpPager(document, start)
-
     var progress = new ProgressPalette(artboards, 'Imposing')
+    
     pager.forEachArtboard(function(artboard, index) {
       progress.increment()
       var item = document.placedItems.add()

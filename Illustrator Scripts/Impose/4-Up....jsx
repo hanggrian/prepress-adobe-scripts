@@ -63,8 +63,8 @@ if (files !== null && files.isNotEmpty()) {
       : (!nupGroup.isDuplex()
         ? new FourUpSimplexCutStackPager(document, start)
         : new FourUpDuplexCutStackPager(document, start))
-
     var progress = new ProgressPalette(artboards, 'Imposing')
+
     pager.forEachArtboard(function(artboard,
       topLeftIndex, topRightIndex,
       bottomLeftIndex, bottomRightIndex) {
