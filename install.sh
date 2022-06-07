@@ -101,7 +101,7 @@ echo "$BOLD${UNDERLINE}Prepress Adobe Scripts$END"
 echo
 echo '1. Illustrator'
 echo '2. Photoshop'
-echo 'A. All'
+echo '3. All'
 echo
 echo 'Q. Quit'
 echo
@@ -111,7 +111,7 @@ read input
 case "$input" in
   1) patch_app 'Illustrator' 'aia' ;;
   2) patch_app 'Photoshop' 'atn' ;;
-  a | A) patch_app 'Illustrator' 'aia'; patch_app 'Photoshop' 'atn' ;;
+  3) patch_app 'Illustrator' 'aia'; patch_app 'Photoshop' 'atn' ;;
   q | Q) ;;
   *) fail 'Unable to recognize input' ;;
 esac

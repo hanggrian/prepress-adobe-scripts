@@ -34,7 +34,7 @@ echo !BOLD!!UNDERLINE!Prepress Adobe Scripts!END!
 echo.
 echo 1. Illustrator
 echo 2. Photoshop
-echo A. All
+echo 3. All
 echo.
 echo Q. Quit
 echo.
@@ -44,10 +44,7 @@ if "!input!" equ "1" (
   call :patch_app "Illustrator" "aia"
 ) else if "!input!" equ "2" (
   call :patch_app "Photoshop" "atn"
-) else if "!input!" equ "a" (
-  call :patch_app "Illustrator" "aia"
-  call :patch_app "Photoshop" "atn"
-) else if "!input!" equ "A" (
+) else if "!input!" equ "3" (
   call :patch_app "Illustrator" "aia"
   call :patch_app "Photoshop" "atn"
 ) else if "!input!" equ "q" (

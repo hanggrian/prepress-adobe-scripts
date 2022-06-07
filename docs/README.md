@@ -48,12 +48,4 @@ Usage
 ![](images/menu_ai.png)
 ![](images/menu_psd.png)
 
-If you decide to install the scripts, they can be accessed from menubar or keyboard shortcuts.
-
-### Keyboard Shortcuts
-
-This is made possible by using Actions feature which binds Fn keys to menu item.
-However, they need to be setup manually:
-1. In Actions panel, select `Load Actions...`.
-2. Navigate to local Adobe installation path, and find `Actions` directory under `Presets`.
-3. Open a file named `Prepress Adobe Script`.
+If you decide to install the scripts, they can be accessed from menubar or [keyboard shortcuts](keyboard_shortcuts.md).
