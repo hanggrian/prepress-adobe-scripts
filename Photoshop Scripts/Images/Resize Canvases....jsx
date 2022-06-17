@@ -42,7 +42,7 @@ dialog.setDefaultButton(undefined, function() {
   var height = new UnitValue(heightEdit.text)
   var anchor = anchorGroup.getAnchorPosition()
   var progress = new ProgressPalette(app.documents.length, 'Resizing')
-  
+
   for (var i = 0; i < app.documents.length; i++) {
     progress.increment()
     var document = app.documents[i]

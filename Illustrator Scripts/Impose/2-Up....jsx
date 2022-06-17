@@ -64,7 +64,7 @@ if (files !== null && files.isNotEmpty()) {
         ? new TwoUpSimplexCutStackPager(document, start)
         : new TwoUpDuplexCutStackPager(document, start))
     var progress = new ProgressPalette(artboards, 'Imposing')
-    
+
     pager.forEachArtboard(function(artboard,
       leftIndex, rightIndex) {
       progress.increment()
