@@ -1,10 +1,6 @@
 require('../.stdlib/geometry.js')
 var assert = require('./assert.js')
 
-var equalTo = function() {
-  assert.assertTrue([0, 1, 2, 3].equalTo([0, 1, 2, 3]))
-}()
-
 var getLeft = function() {
   assert.assertEquals(1, [1, 0, 0, 0].getLeft())
 }()

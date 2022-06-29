@@ -6,10 +6,10 @@
 
 /** Check if two bounds are equal. */
 Array.prototype.equalTo = function(other) {
-  return this.getLeft() === other.getLeft() &&
-    this.getTop() === other.getTop() &&
-    this.getRight() === other.getRight() &&
-    this.getBottom() === other.getBottom()
+  return isEqualRounded(this.getLeft(), other.getLeft()) &&
+    isEqualRounded(this.getTop(), other.getTop()) &&
+    isEqualRounded(this.getRight(), other.getRight()) &&
+    isEqualRounded(this.getBottom(), other.getBottom())
 }
 
 /**

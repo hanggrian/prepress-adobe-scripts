@@ -83,10 +83,10 @@ function OrderByGroup(parent, ordersCollection) {
   }
 
   function sortHorizontal(a, b) {
-    var aX = Math.floor(getBounds(a).getLeft())
-    var aY = Math.floor(getBounds(a).getTop())
-    var bX = Math.floor(getBounds(b).getLeft())
-    var bY = Math.floor(getBounds(b).getTop())
+    var aX = getBounds(a).getLeft().floor()
+    var aY = getBounds(a).getTop().floor()
+    var bX = getBounds(b).getLeft().floor()
+    var bY = getBounds(b).getTop().floor()
     if (aY < bY) {
       return 1
     } else if (aY > bY) {
@@ -101,10 +101,10 @@ function OrderByGroup(parent, ordersCollection) {
   }
 
   function sortVertical(a, b) {
-    var aX = Math.floor(getBounds(a).getLeft())
-    var aY = Math.floor(getBounds(a).getTop())
-    var bX = Math.floor(getBounds(b).getLeft())
-    var bY = Math.floor(getBounds(b).getTop())
+    var aX = getBounds(a).getLeft().floor()
+    var aY = getBounds(a).getTop().floor()
+    var bX = getBounds(b).getLeft().floor()
+    var bY = getBounds(b).getTop().floor()
     if (aX > bX) {
       return 1
     } else if (aX < bX) {
@@ -119,10 +119,10 @@ function OrderByGroup(parent, ordersCollection) {
   }
 
   function sortHorizontalRtl(a, b) {
-    var aX = Math.floor(getBounds(a).getLeft())
-    var aY = Math.floor(getBounds(a).getTop())
-    var bX = Math.floor(getBounds(b).getLeft())
-    var bY = Math.floor(getBounds(b).getTop())
+    var aX = getBounds(a).getLeft().floor()
+    var aY = getBounds(a).getTop().floor()
+    var bX = getBounds(b).getLeft().floor()
+    var bY = getBounds(b).getTop().floor()
     if (aY < bY) {
       return 1
     } else if (aY > bY) {
@@ -137,10 +137,10 @@ function OrderByGroup(parent, ordersCollection) {
   }
 
   function sortVerticalRtl(a, b) {
-    var aX = Math.floor(getBounds(a).getLeft())
-    var aY = Math.floor(getBounds(a).getTop())
-    var bX = Math.floor(getBounds(b).getLeft())
-    var bY = Math.floor(getBounds(b).getTop())
+    var aX = getBounds(a).getLeft().floor()
+    var aY = getBounds(a).getTop().floor()
+    var bX = getBounds(b).getLeft().floor()
+    var bY = getBounds(b).getTop().floor()
     if (aX > bX) {
       return -1
     } else if (aX < bX) {

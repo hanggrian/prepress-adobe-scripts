@@ -48,10 +48,14 @@ if (proceed) {
       })
     })
     main.hgroup(function(group) {
-      group.tips('Only relevant on artboard with different size than active artboard')
+      group.tips('Duplicate by putting distance between selection and anchor.\nThis option is only available when artboards do not have the same size.')
       group.staticText(BOUNDS_TEXT, 'Anchor:').also(JUSTIFY_RIGHT)
       anchorList = group.dropDownList(BOUNDS_EDIT, ANCHORS).also(function(it) {
         it.selectText('Top Left')
+      })
+      group.enabled = document.artboards.any(function(it) {
+        return !isEqualRounded(it.artboardRect.getWidth(), activeArtboardRect.getWidth()) ||
+          !isEqualRounded(it.artboardRect.getHeight(), activeArtboardRect.getHeight())
       })
     })
   })

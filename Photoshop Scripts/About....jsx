@@ -8,6 +8,8 @@
 #include '.lib/core.js'
 
 var dialog = new Dialog('About Scripts')
+var aboutPanel
+
 var clientDate = parseDate(getResource('VERSION').readText())
 
 dialog.vgroup(function(main) {
@@ -16,7 +18,7 @@ dialog.vgroup(function(main) {
     group.image(undefined, 'logo')
     group.staticText([300, 32], 'Prepress Adobe Scripts for Photoshop\nLast updated ' + clientDate.toISOString(), { multiline: true })
   })
-  new AboutTabbedPanel(main, clientDate)
+  aboutPanel = new AboutTabbedPanel(main, clientDate)
 })
 dialog.setCancelButton('Close') // because there is no default button
 dialog.setHelpButton('Visit GitHub', function() { openURL(URL_GITHUB) })

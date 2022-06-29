@@ -325,10 +325,10 @@ function containsPathBounds(collection, element) {
   var i = collection.length
   while (i--) {
     var _element = collection[i]
-    if (Math.round(_element[1]) === Math.round(element[1]) &&
-      Math.round(_element[2]) === Math.round(element[2]) &&
-      Math.round(_element[3]) === Math.round(element[3]) &&
-      Math.round(_element[4]) === Math.round(element[4])) {
+    if (isEqualRounded(_element[1], element[1]) &&
+      isEqualRounded(_element[2], element[2]) &&
+      isEqualRounded(_element[3], element[3]) &&
+      isEqualRounded(_element[4], element[4])) {
       return true
     }
   }
