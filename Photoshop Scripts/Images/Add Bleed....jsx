@@ -11,95 +11,130 @@
 
 var dialog = new Dialog('Add Bleed to Images', 'add-bleed-to-images')
 var bleedEdit
-var flattenImageCheck
-var guidesRadiosCheckGroup
-var selectBleedCheck, correctionEdit
+var anchorGroup
+var flattenImageCheck, guidesRadiosCheckGroup, selectBleedCheck, correctionEdit
 
 dialog.vgroup(function(main) {
   main.alignChildren = 'fill'
   main.hgroup(function(group) {
     group.tips('Bleed are distributed around image')
-    group.staticText(undefined, 'Bleed:').also(JUSTIFY_RIGHT)
-    bleedEdit = group.editText([150, 21], unitsOf('2.5 mm')).also(function(it) {
+    group.staticText([120, 21], 'Length:').also(JUSTIFY_RIGHT)
+    bleedEdit = group.editText([200, 21], unitsOf('2.5 mm')).also(function(it) {
       it.validateUnits()
       it.activate()
     })
   })
-  flattenImageCheck = main.checkBox(undefined, 'Flatten Image').also(function(it) {
-    it.tip('Layers will be flattened')
-    it.select()
-  })
-  guidesRadiosCheckGroup = new MultiRadioCheckGroup(main, 'Use Guides', ['Append', 'Replace']).also(function(it) {
-    it.main.tips('Guides will mark where bleed are added')
-    it.check.select()
-    it.check.onClick()
-  })
-  main.hgroup(function(group) {
-    group.tips('Select bleed with x correction')
-    selectBleedCheck = group.checkBox(undefined, 'Select Bleed with').also(function(it) {
-      it.onClick = function() {
-        correctionEdit.enabled = it.value
-        if (it.value) {
-          correctionEdit.activate()
-        } else {
-          bleedEdit.activate()
-        }
-      }
+  main.hgroup(function(topGroup) {
+    topGroup.alignChildren = 'fill'
+    topGroup.vpanel('Anchor', function(panel) {
+      anchorGroup = new AnchorGroup(panel, true)
     })
-    correctionEdit = group.editText([50, 21], '0 px').also(function(it) {
-      it.validateUnits()
-      it.enabled = false
+    topGroup.vpanel('Options', function(group) {
+      group.alignChildren = 'fill'
+      flattenImageCheck = group.checkBox(undefined, 'Flatten Image').also(function(it) {
+        it.tip('Layers will be flattened')
+        it.select()
+      })
+      guidesRadiosCheckGroup = new MultiRadioCheckGroup(group, 'Use Guides', ['Append', 'Replace']).also(function(it) {
+        it.main.tips('Guides will mark where bleed are added')
+        it.check.select()
+        it.check.onClick()
+      })
+      group.hgroup(function(innerGroup) {
+        innerGroup.tips('Select bleed with x correction')
+        selectBleedCheck = innerGroup.checkBox(undefined, 'Select Bleed with').also(function(it) {
+          it.onClick = function() {
+            correctionEdit.enabled = it.value
+            if (it.value) {
+              correctionEdit.activate()
+            } else {
+              bleedEdit.activate()
+            }
+          }
+        })
+        correctionEdit = innerGroup.editText([50, 21], '0 px').also(function(it) {
+          it.validateUnits()
+          it.enabled = false
+        })
+        innerGroup.staticText(undefined, 'Correction')
+      })
     })
-    group.staticText(undefined, 'Correction')
   })
 })
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
-  var bleeds = new UnitValue(bleedEdit.text) * 2
+  var bleed = new UnitValue(bleedEdit.text)
+  var anchor = anchorGroup.getAnchorPosition()
   var correction = parseUnits(correctionEdit.text)
-  process(bleeds, correction, document)
+  process(bleed, anchor, correction, document)
 })
 dialog.setYesButton('All', function() {
-  var bleeds = new UnitValue(bleedEdit.text) * 2
+  var bleed = new UnitValue(bleedEdit.text)
+  var anchor = anchorGroup.getAnchorPosition()
   var correction = parseUnits(correctionEdit.text)
   var progress = new ProgressPalette(app.documents.length, 'Adding bleed')
   for (var i = 0; i < app.documents.length; i++) {
     progress.increment()
-    process(bleeds, correction, app.documents[i])
+    process(bleed, anchor, correction, app.documents[i])
   }
 })
 dialog.show()
 
-function process(bleeds, correction, document) {
+function process(bleed, anchor, correction, document) {
   app.activeDocument = document
-  var originalWidth = document.width
-  var originalHeight = document.height
-  var leftGuide, topGuide, rightGuide, bottomGuide
-  if (flattenImageCheck.value) {
-    document.flatten()
+  var pushLeft = false, pushTop = false, pushRight = false, pushBottom = false
+  var guideLeft = false, guideTop = false, guideRight = false, guideBottom = false
+  var targetWidth = document.width, targetHeight = document.height
+
+  if (anchorGroup.isCenter()) {
+    pushTop = true
+    pushBottom = true
+    pushLeft = true
+    pushRight = true
+    targetWidth += bleed * 2
+    targetHeight += bleed * 2
+  } else {
+    if (anchorGroup.isHorizontalTop()) {
+      pushBottom = true
+      targetHeight += bleed
+    } else if (anchorGroup.isHorizontalBottom()) {
+      pushTop = true
+      targetHeight += bleed
+    }
+    if (anchorGroup.isVerticalLeft()) {
+      pushRight = true
+      targetWidth += bleed
+    } else if (anchorGroup.isVerticalRight()) {
+      pushLeft = true
+      targetWidth += bleed
+    }
   }
+
   if (guidesRadiosCheckGroup.isSelected()) {
     if (guidesRadiosCheckGroup.getSelectedRadio() === 'Replace') {
       while (document.guides.length > 0) { // TODO: find out why forEach only clearing parts
         document.guides.first().remove()
       }
     }
-    leftGuide = document.guides.add(Direction.VERTICAL, 0)
-    topGuide = document.guides.add(Direction.HORIZONTAL, 0)
-    rightGuide = document.guides.add(Direction.VERTICAL, document.width)
-    bottomGuide = document.guides.add(Direction.HORIZONTAL, document.height)
+    guideLeft = document.guides.add(Direction.VERTICAL, 0)
+    guideTop = document.guides.add(Direction.HORIZONTAL, 0)
+    guideRight = document.guides.add(Direction.VERTICAL, document.width)
+    guideBottom = document.guides.add(Direction.HORIZONTAL, document.height)
   }
-  document.resizeCanvas(originalWidth + bleeds, originalHeight + bleeds)
+  if (flattenImageCheck.value) {
+    document.flatten()
+  }
+  document.resizeCanvas(targetWidth, targetHeight, anchor)
   if (selectBleedCheck.value) {
-    var leftCoordinate = leftGuide.coordinate.as('px') + correction
-    var topCoordinate = topGuide.coordinate.as('px') + correction
-    var rightCoordinate = rightGuide.coordinate.as('px') - correction
-    var bottomCoordinate = bottomGuide.coordinate.as('px') - correction
+    var left = guideLeft.coordinate.as('px') + (pushLeft ? correction : 0)
+    var top = guideTop.coordinate.as('px') + (pushTop ? correction : 0)
+    var right = guideRight.coordinate.as('px') - (pushRight ? correction : 0)
+    var bottom = guideBottom.coordinate.as('px') - (pushBottom ? correction : 0)
     document.selection.select([
-      [leftCoordinate, topCoordinate],
-      [leftCoordinate, bottomCoordinate],
-      [rightCoordinate, bottomCoordinate],
-      [rightCoordinate, topCoordinate]
+      [left, top],
+      [left, bottom],
+      [right, bottom],
+      [right, top]
     ])
     document.selection.invert()
   }
