@@ -11,6 +11,7 @@ check(items.isNotEmpty(), 'No links found in selection')
 
 var dialog = new Dialog('Relink Same', 'relinking-files#relink-same--f7')
 var pdfPanel, pageEdit, keepSizeCheck
+var prefs = preferences.resolve('links/relink_same')
 
 var file = openFile(dialog.getTitle(), [
   FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
@@ -33,7 +34,9 @@ if (file !== null) {
     }
     main.hgroup(function(group) {
       group.alignment = 'right'
-      keepSizeCheck = new KeepSizeCheck(group)
+      keepSizeCheck = new KeepSizeCheck(group).also(function(it) {
+        it.main.value = prefs.getBoolean('keep_size')
+      })
     })
   })
   dialog.setCancelButton()
@@ -52,6 +55,8 @@ if (file !== null) {
       println('Done')
     })
     selection = items
+
+    prefs.setBoolean('keep_size', keepSizeCheck.isSelected())
   })
   dialog.show()
 }

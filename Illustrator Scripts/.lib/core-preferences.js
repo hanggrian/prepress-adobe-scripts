@@ -26,76 +26,116 @@ Preferences.prototype.getPSDPreserveLayers = function() { return this.photoshopF
 Preferences.prototype.setPSDPreserveSlices = function(preserveSlices) { this.photoshopFileOptions.preserveSlices = preserveSlices }
 Preferences.prototype.getPSDPreserveSlices = function() { return this.photoshopFileOptions.preserveSlices }
 
-/** Alias of `Preferences.getBooleanPreference`. */
-Preferences.prototype.getBoolean = function(key, prefix) {
-  var actualKey = _getPreferenceKey(key, prefix)
-  var value = this.getBooleanPreference(actualKey)
+/** Get boolean value from this preferences, returning true if not present. */
+Preferences.prototype.getBoolean = function(key) {
+  var value = this.getBooleanPreference(_preferencesRoot + key)
   println('Preference `{0}={1}` obtained', key, value)
   return value
 }
 
-/** Alias of `Preferences.getRealPreference`. */
-Preferences.prototype.getNumber = function(key, prefix) {
-  var actualKey = _getPreferenceKey(key, prefix)
-  var value = this.getRealPreference(actualKey)
+/** Get int value from this preferences, returning default if not present. */
+Preferences.prototype.getInt = function(key, defaultValue) {
+  var value = this.getIntegerPreference(_preferencesRoot + key)
+  println('Preference `{0}={1}` obtained', key, value)
+  return value === -1792921944 ? defaultValue : value
+}
+
+/** Get number value from this preferences, returning 0 if not present. */
+Preferences.prototype.getNumber = function(key) {
+  var value = this.getRealPreference(_preferencesRoot + key)
   println('Preference `{0}={1}` obtained', key, value)
   return value
 }
 
-/** Alias of `Preferences.getStringPreference`. */
-Preferences.prototype.getString = function(key, prefix) {
-  var actualKey = _getPreferenceKey(key, prefix)
-  var value = this.getStringPreference(actualKey)
+/** Get string value from this preferences, returning default if not present. */
+Preferences.prototype.getString = function(key, defaultValue) {
+  var value = this.getStringPreference(_preferencesRoot + key)
   println('Preference `{0}={1}` obtained', key, value)
-  return value
+  return value === '' ? defaultValue : value
 }
 
-/** Alias of `Preferences.setBooleanPreference`. */
-Preferences.prototype.setBoolean = function(key, value, prefix) {
-  var actualKey = _getPreferenceKey(key, prefix)
-  var actualValue = _getPreferenceValue(value)
-  this.setBooleanPreference(actualKey, actualValue)
+/** Set boolean value of this preferences. */
+Preferences.prototype.setBoolean = function(key, value) {
+  var actualValue = value instanceof Function ? value() : value
+  this.setBooleanPreference(_preferencesRoot + key, actualValue)
   println('Preference `{0}={1}` stored', key, actualValue)
 }
 
-/** Alias of `Preferences.setRealPreference`. */
-Preferences.prototype.setNumber = function(key, value, prefix) {
-  var actualKey = _getPreferenceKey(key, prefix)
-  var actualValue = _getPreferenceValue(value)
-  this.setRealPreference(actualKey, actualValue)
+/** Set int value of this preferences. */
+Preferences.prototype.setInt = function(key, value) {
+  var actualValue = value instanceof Function ? value() : value
+  this.setIntegerPreference(_preferencesRoot + key, actualValue)
   println('Preference `{0}={1}` stored', key, actualValue)
 }
 
-/** Alias of `Preferences.setStringPreference`. */
-Preferences.prototype.setString = function(key, value, prefix) {
-  var actualKey = _getPreferenceKey(key, prefix)
-  var actualValue = _getPreferenceValue(value)
-  this.setStringPreference(actualKey, actualValue)
+/** Set number value of this preferences. */
+Preferences.prototype.setNumber = function(key, value) {
+  var actualValue = value instanceof Function ? value() : value
+  this.setRealPreference(_preferencesRoot + key, actualValue)
   println('Preference `{0}={1}` stored', key, actualValue)
 }
 
-/** Alias of `Preferences.removePreference`. */
-Preferences.prototype.remove = function(key, prefix) {
-  var actualKey = _getPreferenceKey(key, prefix)
-  this.removePreference(actualKey)
+/** Set string value of this preferences. */
+Preferences.prototype.setString = function(key, value) {
+  var actualValue = value instanceof Function ? value() : value
+  this.setStringPreference(_preferencesRoot + key, actualValue)
+  println('Preference `{0}={1}` stored', key, actualValue)
+}
+
+/** Remove preference from this preferences. */
+Preferences.prototype.remove = function(key) {
+  this.removePreference(_preferencesRoot + key)
   println('Preference `{0}` removed', key)
 }
 
-function _getPreferenceKey(key, prefix) {
-  var s = _preferencesRoot
-  if (prefix !== undefined) {
-    if (typeof prefix === 'string' || prefix instanceof String) {
-      s += prefix + '/'
-    } else if (prefix instanceof Dialog) {
-      s += prefix.title + '/'
-    } else {
-      error('Unknown prefix type')
-    }
-  }
-  s += key
-  return s
+/** Create an instance of preference where the key is prefixed with `child`. */
+Preferences.prototype.resolve = function(child) {
+  return new _ChildPreferences(child)
 }
 
-function _getPreferenceValue(value) {
-  return value instanceof Function ? value() : value
+function _ChildPreferences(child) {
+  /** Get boolean value from this preferences, returning true if not present. */
+  this.getBoolean = function(key) {
+    return preferences.getBoolean(child + '/' + key)
+  }
+
+  /** Get int value from this preferences, returning default if not present. */
+  this.getInt = function(key, defaultValue) {
+    return preferences.getInt(child + '/' + key, defaultValue)
+  }
+
+  /** Get number value from this preferences, returning 0 if not present. */
+  this.getNumber = function(key) {
+    return preferences.getNumber(child + '/' + key)
+  }
+
+  /** Get string value from this preferences, returning default if not present. */
+  this.getString = function(key, defaultValue) {
+    return preferences.getString(child + '/' + key, defaultValue)
+  }
+
+  /** Set boolean value of this preferences. */
+  this.setBoolean = function(key, value) {
+    return preferences.setBoolean(child + '/' + key, value)
+  }
+
+  /** Set int value of this preferences. */
+  this.setInt = function(key, value) {
+    return preferences.setInt(child + '/' + key, value)
+  }
+
+  /** Set number value of this preferences. */
+  this.setNumber = function(key, value) {
+    return preferences.setNumber(child + '/' + key, value)
+  }
+
+  /** Set string value of this preferences. */
+  this.setString = function(key, value) {
+    return preferences.setString(child + '/' + key, value)
+  }
+
+  /** Remove preference from this preferences. */
+  this.remove = function(key) {
+    return preferences.remove(child + '/' + key)
+  }
 }

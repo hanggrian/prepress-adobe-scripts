@@ -12,6 +12,7 @@ check(selection.anyItem(PREDICATE_LINKS), 'No PDF links found in selection')
 
 var dialog = new Dialog('Change Page', 'relinking-files#change-page-f7')
 var pdfPanel, rangeGroup, orderByGroup, recursiveCheck, keepSizeCheck
+var prefs = preferences.resolve('links/change_page')
 
 dialog.vgroup(function(main) {
   main.alignChildren = 'right'
@@ -25,11 +26,15 @@ dialog.vgroup(function(main) {
     })
   })
   orderByGroup = new OrderByGroup(main, [ORDER_LAYERS, ORDER_POSITIONS]).also(function(group) {
-    group.list.selectText('Reversed')
+    group.list.selectText(prefs.getString('order', 'Reversed'))
   })
   main.hgroup(function(group) {
-    recursiveCheck = new RecursiveCheck(group)
-    keepSizeCheck = new KeepSizeCheck(group)
+    recursiveCheck = new RecursiveCheck(group).also(function(it) {
+      it.main.value = prefs.getBoolean('recursive')
+    })
+    keepSizeCheck = new KeepSizeCheck(group).also(function(it) {
+      it.main.value = prefs.getBoolean('keep_size')
+    })
   })
 })
 dialog.setCancelButton()
@@ -60,6 +65,10 @@ dialog.setDefaultButton(undefined, function() {
     println('Done')
   })
   selection = source
+
+  prefs.setString('order', orderByGroup.list.selection.text)
+  prefs.setBoolean('recursive', isRecursive)
+  prefs.setBoolean('keep_size', keepSizeCheck.isSelected())
 })
 dialog.show()
 

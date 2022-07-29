@@ -13,7 +13,6 @@ function KeepSizeCheck(parent) {
 
   this.main = parent.checkBox(undefined, 'Keep Size').also(function(it) {
     it.tip('Keep curent dimension')
-    it.value = true
   })
 
   this.isSelected = function() { return self.main.value }

@@ -5,8 +5,7 @@
             "type": "extendscript-debug",
             "request": "launch",
             "name": "Prepress Adobe Scripts",
-            "program": "${workspaceFolder}/Illustrator Scripts/Objects/Transform/Resize Clipping Mask....jsx",
-            "stopOnEntry": false
+            "script": "${workspaceFolder}/Illustrator Scripts/Objects/Add Trim Marks....jsx"
         }
     ]
 }

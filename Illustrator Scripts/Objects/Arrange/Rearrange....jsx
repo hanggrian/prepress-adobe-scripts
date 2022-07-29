@@ -12,10 +12,11 @@ for (var i = 1; i < selection.length; i++) {
 
 var dialog = new Dialog('Rearrange Objects')
 var orderByGroup
+var prefs = preferences.resolve('objects/rearrange')
 
 dialog.vgroup(function(main) {
   orderByGroup = new OrderByGroup(main, [ORDER_POSITIONS]).also(function(it) {
-    it.list.selectText('Horizontal')
+    it.list.selectText(prefs.getString('order', 'Horizontal'))
   })
 })
 dialog.setCancelButton()
@@ -28,5 +29,7 @@ dialog.setDefaultButton(undefined, function() {
       it.zOrder(ZOrderMethod.SENDBACKWARD)
     })
   })
+
+  prefs.setString('order', orderByGroup.list.selection.text)
 })
 dialog.show()

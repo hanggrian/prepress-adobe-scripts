@@ -2,8 +2,8 @@
 
 # Prepress Adobe Scripts
 
-![Illustrator logo](images/logo_ai.png)
-![Photoshop logo](images/logo_psd.png)
+![Illustrator logo](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/logo_ai.png)
+![Photoshop logo](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/logo_psd.png)
 
 Collection of Illustrator and Photoshop scripts to automate repetitive tasks and procedures of preparing final print layout. Most of heavy-lifting workflow are expected to occur in Illustrator. Only tested on latest Adobe suite.
 
@@ -17,7 +17,7 @@ In any case, download the source code and pick one of the following solutions.
 
 ### Automatic Installation
 
-![Install](images/install.png)
+![Install](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/install.png)
 
 Run `install.bat` as admin (Windows) or `install.sh` with sudo (macOS).
 
@@ -44,7 +44,7 @@ This is because the scripts are **not standalone**, all of them require hidden d
 
 ## Usage
 
-![Illustrator menu](images/menu_ai.png)
-![Photohsop menu](images/menu_psd.png)
+![Illustrator menu](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/menu_ai.png)
+![Photohsop menu](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/menu_psd.png)
 
-If you decide to install the scripts, they can be accessed from menubar or [keyboard shortcuts](keyboard_shortcuts.md).
+If you decide to install the scripts, they can be accessed from menubar or [keyboard shortcuts](Actions).

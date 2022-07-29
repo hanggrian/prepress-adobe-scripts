@@ -14,7 +14,7 @@ Preferences.prototype.getBoolean = function(key) {
   var value
   try {
     var descriptor = app.getCustomOptions(_preferencesRoot)
-    var actualKey = _getPreferenceKey(key)
+    var actualKey = app.stringIDToTypeID(key)
     value = descriptor.hasKey(actualKey) ? descriptor.getBoolean(actualKey) : false
   } catch (e) {
     value = false
@@ -28,7 +28,7 @@ Preferences.prototype.getString = function(key) {
   var value
   try {
     var descriptor = app.getCustomOptions(_preferencesRoot)
-    var actualKey = _getPreferenceKey(key)
+    var actualKey = app.stringIDToTypeID(key)
     value = descriptor.hasKey(actualKey) ? descriptor.getString(actualKey) : ''
   } catch (e) {
     value = ''
@@ -40,8 +40,8 @@ Preferences.prototype.getString = function(key) {
 /** Alias of `ActionDescriptor.putBoolean`. */
 Preferences.prototype.setBoolean = function(key, value) {
   var descriptor = new ActionDescriptor()
-  var actualKey = _getPreferenceKey(key)
-  var actualValue = _getPreferenceValue(value)
+  var actualKey = app.stringIDToTypeID(key)
+  var actualValue = value instanceof Function ? value() : value
   descriptor.putBoolean(actualKey, actualValue)
   app.putCustomOptions(_preferencesRoot, descriptor, true)
   println('Preference `{0}={1}` stored', key, actualValue)
@@ -50,19 +50,11 @@ Preferences.prototype.setBoolean = function(key, value) {
 /** Alias of `ActionDescriptor.putString`. */
 Preferences.prototype.setString = function(key, value) {
   var descriptor = new ActionDescriptor()
-  var actualKey = _getPreferenceKey(key)
-  var actualValue = _getPreferenceValue(value)
+  var actualKey = app.stringIDToTypeID(key)
+  var actualValue = value instanceof Function ? value() : value
   descriptor.putString(actualKey, actualValue)
   app.putCustomOptions(_preferencesRoot, descriptor, true)
   println('Preference `{0}={1}` stored', key, actualValue)
-}
-
-function _getPreferenceKey(key) {
-  return app.stringIDToTypeID(key)
-}
-
-function _getPreferenceValue(value) {
-  return value instanceof Function ? value() : value
 }
 
 function Preferences() { }

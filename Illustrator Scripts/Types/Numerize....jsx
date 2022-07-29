@@ -19,6 +19,7 @@ var dialog = new Dialog('Numerize', 'retyping-texts#numerize--f6')
 var startsAtEdit, digitsEdit, stopsAtGroup
 var stopsAtList, prefixEdit, suffixEdit
 var orderByGroup
+var prefs = preferences.resolve('types/numerize')
 
 dialog.vgroup(function(main) {
   main.alignChildren = 'right'
@@ -28,7 +29,7 @@ dialog.vgroup(function(main) {
       panel.hgroup(function(group) {
         group.tips('Starting counter')
         group.staticText(BOUNDS_TEXT, 'Starts at:').also(JUSTIFY_RIGHT)
-        startsAtEdit = group.editText(BOUNDS_EDIT, '1').also(function(it) {
+        startsAtEdit = group.editText(BOUNDS_EDIT, prefs.getInt('start', 1)).also(function(it) {
           it.validateDigits()
           it.activate()
         })
@@ -36,25 +37,30 @@ dialog.vgroup(function(main) {
       panel.hgroup(function(group) {
         group.tips('Put n number of zeroes, can be left empty')
         group.staticText(BOUNDS_TEXT, 'Digits:').also(JUSTIFY_RIGHT)
-        digitsEdit = group.editText(BOUNDS_EDIT).also(VALIDATE_DIGITS)
+        digitsEdit = group.editText(BOUNDS_EDIT, prefs.getInt('digit', 0)).also(VALIDATE_DIGITS)
       })
       stopsAtGroup = panel.hgroup(function(group) {
         group.tips('The iteration will stop at the selected alphabet and the number will reset back to 1, ignore if this behavior is not desired')
         group.staticText(BOUNDS_TEXT, 'Stops at:').also(JUSTIFY_RIGHT)
-        stopsAtList = group.dropDownList(BOUNDS_EDIT, ALPHABETS)
+        stopsAtList = group.dropDownList(BOUNDS_EDIT, ALPHABETS).also(function(it) {
+          var s = prefs.getString('stop')
+          if (s !== undefined) {
+            it.selectText(s)
+          }
+        })
       })
     })
     topGroup.vpanel('Affix', function(panel) {
       panel.hgroup(function(group) {
         group.tips('Extra text before content, can be left empty')
         group.staticText(BOUNDS_TEXT, 'Prefix:').also(JUSTIFY_RIGHT)
-        prefixEdit = group.editText(BOUNDS_EDIT)
+        prefixEdit = group.editText(BOUNDS_EDIT, prefs.getString('prefix'))
 
       })
       panel.hgroup(function(group) {
         group.tips('Extra text after content, can be left empty')
         group.staticText(BOUNDS_TEXT, 'Suffix:').also(JUSTIFY_RIGHT)
-        suffixEdit = group.editText(BOUNDS_EDIT)
+        suffixEdit = group.editText(BOUNDS_EDIT, prefs.getString('suffix'))
       })
     })
   })
@@ -64,7 +70,7 @@ dialog.vgroup(function(main) {
 })
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
-  var startsAt = parseInt(startsAtEdit.text) || 0
+  var startsAt = parseInt(startsAtEdit.text) || 1
   var digits = parseInt(digitsEdit.text) || 0
   var stopsAt, stopsCount
   if (stopsAtList.selection !== null) {
@@ -93,6 +99,14 @@ dialog.setDefaultButton(undefined, function() {
       startsAt++
     }
   })
+
+  prefs.setInt('start', parseInt(startsAtEdit.text) || 1)
+  prefs.setInt('digit', digits)
+  if (stopsAtList.selection !== null) {
+    prefs.setString('stop', stopsAtList.selection.text)
+  }
+  prefs.setString('prefix', prefix)
+  prefs.setString('suffix', suffix)
 })
 dialog.show()
 

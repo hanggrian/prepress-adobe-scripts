@@ -12,6 +12,7 @@ var offsetEdit, lengthEdit, weightEdit, colorList
 var topLeftCheck, topRightCheck, leftTopCheck, rightTopCheck, leftBottomCheck, rightBottomCheck, bottomLeftCheck, bottomRightCheck // single checks
 var topCheck, rightCheck, bottomCheck, leftCheck // multiple checks
 var multipleTargetMultiRadioCheckGroup
+var prefs = preferences.resolve('objects/add_trim_marks')
 
 dialog.vgroup(function(main) {
   main.alignChildren = 'right'
@@ -21,7 +22,7 @@ dialog.vgroup(function(main) {
       panel.hgroup(function(group) {
         group.tips('Distance between art and trim marks')
         group.staticText(BOUNDS_TEXT, 'Offset:').also(JUSTIFY_RIGHT)
-        offsetEdit = group.editText(BOUNDS_EDIT, '2.5 mm').also(function(it) {
+        offsetEdit = group.editText(BOUNDS_EDIT, prefs.getString('offset', '2.5 mm')).also(function(it) {
           it.validateUnits()
           it.activate()
         })
@@ -29,18 +30,18 @@ dialog.vgroup(function(main) {
       panel.hgroup(function(group) {
         group.tips('Size of trim marks')
         group.staticText(BOUNDS_TEXT, 'Length:').also(JUSTIFY_RIGHT)
-        lengthEdit = group.editText(BOUNDS_EDIT, '2.5 mm').also(VALIDATE_UNITS)
+        lengthEdit = group.editText(BOUNDS_EDIT, prefs.getString('length', '2.5 mm')).also(VALIDATE_UNITS)
       })
       panel.hgroup(function(group) {
         group.tips('Thickness of trim marks')
         group.staticText(BOUNDS_TEXT, 'Weight:').also(JUSTIFY_RIGHT)
-        weightEdit = group.editText(BOUNDS_EDIT, '0.3 pt').also(VALIDATE_UNITS) // the same value used in `Object > Create Trim Marks`
+        weightEdit = group.editText(BOUNDS_EDIT, prefs.getString('weight', '0.3 pt')).also(VALIDATE_UNITS) // the same value used in `Object > Create Trim Marks`
       })
       panel.hgroup(function(group) {
         group.tips('Color of trim marks')
         group.staticText(BOUNDS_TEXT, 'Color:').also(JUSTIFY_RIGHT)
         colorList = group.dropDownList(BOUNDS_EDIT, COLORS).also(function(it) {
-          it.selectText('Registration')
+          it.selectText(prefs.getString('color', 'Registration'))
         })
       })
     })
@@ -150,6 +151,11 @@ dialog.setDefaultButton(undefined, function() {
   multipleTargetMultiRadioCheckGroup.isSelected()
     ? processMultiple(offset, length, weight, color, maxBounds)
     : processSingle(offset, length, weight, color, maxBounds)
+
+  prefs.setString('offset', offsetEdit.text)
+  prefs.setString('length', lengthEdit.text)
+  prefs.setString('weight', weightEdit.text)
+  prefs.setString('color', colorList.selection.text)
 })
 dialog.show()
 

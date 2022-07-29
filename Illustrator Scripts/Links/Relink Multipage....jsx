@@ -11,6 +11,7 @@ check(selection.anyItem(PREDICATE_LINKS), 'No links found in selection')
 var dialog = new Dialog('Relink Multipage', 'relinking-files#relink-multipage--f7')
 var pdfPanel, rangeGroup, orderByGroup, recursiveCheck, keepSizeCheck
 var collection
+var prefs = preferences.resolve('links/relink_multipage')
 
 var files = openFile(dialog.getTitle(), [
   FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
@@ -36,11 +37,15 @@ if (files !== null && files.isNotEmpty()) {
       })
     })
     orderByGroup = new OrderByGroup(main, [ORDER_LAYERS, ORDER_POSITIONS]).also(function(group) {
-      group.list.selectText('Reversed')
+      group.list.selectText(prefs.getString('order', 'Reversed'))
     })
     main.hgroup(function(group) {
-      recursiveCheck = new RecursiveCheck(group)
-      keepSizeCheck = new KeepSizeCheck(group)
+      recursiveCheck = new RecursiveCheck(group).also(function(it) {
+        it.main.value = prefs.getBoolean('recursive')
+      })
+      keepSizeCheck = new KeepSizeCheck(group).also(function(it) {
+        it.main.value = prefs.getBoolean('keep_size')
+      })
     })
   })
   dialog.setCancelButton()
@@ -71,6 +76,10 @@ if (files !== null && files.isNotEmpty()) {
       println('Done')
     })
     selection = source
+
+    prefs.setString('order', orderByGroup.list.selection.text)
+    prefs.setBoolean('recursive', isRecursive)
+    prefs.setBoolean('keep_size', keepSizeCheck.isSelected())
   })
   dialog.show()
 }
