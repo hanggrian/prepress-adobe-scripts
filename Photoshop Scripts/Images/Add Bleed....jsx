@@ -10,16 +10,17 @@
 #include '../.lib/commons.js'
 
 var dialog = new Dialog('Add Bleed to Images', 'add-bleed-to-images')
-var bleedEdit
+var lengthEdit
 var anchorGroup
 var flattenImageCheck, guidesRadiosCheckGroup, selectBleedCheck, correctionEdit
+var prefs = preferences2.resolve('images/add_bleed')
 
 dialog.vgroup(function(main) {
   main.alignChildren = 'fill'
   main.hgroup(function(group) {
     group.tips('Bleed are distributed around image')
     group.staticText([120, 21], 'Length:').also(JUSTIFY_RIGHT)
-    bleedEdit = group.editText([200, 21], unitsOf('2.5 mm')).also(function(it) {
+    lengthEdit = group.editText([200, 21], prefs.getString('length', '2.5 mm')).also(function(it) {
       it.validateUnits()
       it.activate()
     })
@@ -48,7 +49,7 @@ dialog.vgroup(function(main) {
             if (it.value) {
               correctionEdit.activate()
             } else {
-              bleedEdit.activate()
+              lengthEdit.activate()
             }
           }
         })
@@ -63,13 +64,13 @@ dialog.vgroup(function(main) {
 })
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
-  var bleed = new UnitValue(bleedEdit.text)
+  var bleed = new UnitValue(lengthEdit.text)
   var anchor = anchorGroup.getAnchorPosition()
   var correction = parseUnits(correctionEdit.text)
   process(bleed, anchor, correction, document)
 })
 dialog.setYesButton('All', function() {
-  var bleed = new UnitValue(bleedEdit.text)
+  var bleed = new UnitValue(lengthEdit.text)
   var anchor = anchorGroup.getAnchorPosition()
   var correction = parseUnits(correctionEdit.text)
   var progress = new ProgressPalette(app.documents.length, 'Adding bleed')
@@ -138,4 +139,8 @@ function process(bleed, anchor, correction, document) {
     ])
     document.selection.invert()
   }
+
+  prefs.edit(function(it) {
+    it.setString('length', lengthEdit.text)
+  })
 }

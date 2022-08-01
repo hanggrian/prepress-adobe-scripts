@@ -12,7 +12,7 @@ for (var i = 1; i < selection.length; i++) {
 
 var dialog = new Dialog('Rearrange Objects')
 var orderByGroup
-var prefs = preferences.resolve('objects/rearrange')
+var prefs = preferences2.resolve('objects/rearrange')
 
 dialog.vgroup(function(main) {
   orderByGroup = new OrderByGroup(main, [ORDER_POSITIONS]).also(function(it) {

@@ -16,20 +16,22 @@ var items = selection.filterItem(function(it) { return it.typename === 'TextFram
 check(items.isNotEmpty(), 'No types found in selection')
 
 var dialog = new Dialog('Numerize', 'retyping-texts#numerize--f6')
-var startsAtEdit, digitsEdit, stopsAtGroup
-var stopsAtList, prefixEdit, suffixEdit
+var startsAtEdit, digitsEdit
+var stopsAtGroup, stopsAtCheck, stopsAtList
+var prefixEdit, suffixEdit
 var orderByGroup
-var prefs = preferences.resolve('types/numerize')
+var prefs = preferences2.resolve('types/numerize')
 
 dialog.vgroup(function(main) {
   main.alignChildren = 'right'
   main.hgroup(function(topGroup) {
     topGroup.alignChildren = 'fill'
     topGroup.vpanel('Options', function(panel) {
+      panel.alignChildren = 'fill'
       panel.hgroup(function(group) {
         group.tips('Starting counter')
         group.staticText(BOUNDS_TEXT, 'Starts at:').also(JUSTIFY_RIGHT)
-        startsAtEdit = group.editText(BOUNDS_EDIT, prefs.getInt('start', 1)).also(function(it) {
+        startsAtEdit = group.editText(BOUNDS_EDIT, prefs.getInt('start')).also(function(it) {
           it.validateDigits()
           it.activate()
         })
@@ -37,16 +39,22 @@ dialog.vgroup(function(main) {
       panel.hgroup(function(group) {
         group.tips('Put n number of zeroes, can be left empty')
         group.staticText(BOUNDS_TEXT, 'Digits:').also(JUSTIFY_RIGHT)
-        digitsEdit = group.editText(BOUNDS_EDIT, prefs.getInt('digit', 0)).also(VALIDATE_DIGITS)
+        digitsEdit = group.editText(BOUNDS_EDIT, prefs.getInt('digit')).also(VALIDATE_DIGITS)
       })
       stopsAtGroup = panel.hgroup(function(group) {
+        group.alignChildren = 'bottom'
         group.tips('The iteration will stop at the selected alphabet and the number will reset back to 1, ignore if this behavior is not desired')
         group.staticText(BOUNDS_TEXT, 'Stops at:').also(JUSTIFY_RIGHT)
-        stopsAtList = group.dropDownList(BOUNDS_EDIT, ALPHABETS).also(function(it) {
-          var s = prefs.getString('stop')
-          if (s !== undefined) {
-            it.selectText(s)
+        stopsAtCheck = group.checkBox(undefined).also(function(it) {
+          it.value = prefs.getBoolean('stop_enabled')
+          it.onClick = function() {
+            stopsAtList.enabled = stopsAtCheck.value
           }
+        })
+        stopsAtList = group.dropDownList(undefined, ALPHABETS).also(function(it) {
+          it.enabled = stopsAtCheck.value
+          var s = prefs.getString('stop_alphabet')
+          it.selectText(s !== undefined ? s : 'B')
         })
       })
     })
@@ -65,7 +73,7 @@ dialog.vgroup(function(main) {
     })
   })
   orderByGroup = new OrderByGroup(main, [ORDER_LAYERS, ORDER_POSITIONS]).also(function(group) {
-    group.list.selectText('Reversed')
+    group.list.selectText(prefs.getString('order', 'Reversed'))
   })
 })
 dialog.setCancelButton()
@@ -73,7 +81,7 @@ dialog.setDefaultButton(undefined, function() {
   var startsAt = parseInt(startsAtEdit.text) || 1
   var digits = parseInt(digitsEdit.text) || 0
   var stopsAt, stopsCount
-  if (stopsAtList.selection !== null) {
+  if (stopsAtCheck.value) {
     stopsAt = stopsAtList.selection.index + 1
     stopsCount = 0
   }
@@ -81,7 +89,7 @@ dialog.setDefaultButton(undefined, function() {
   var suffix = suffixEdit.text
   orderByGroup.forEach(items, function(item, i) {
     var s = pad(startsAt, digits)
-    if (stopsAtList.selection !== null) {
+    if (stopsAtCheck.value) {
       s += ALPHABETS[stopsCount]
     }
 
@@ -89,7 +97,7 @@ dialog.setDefaultButton(undefined, function() {
     println(i + '. ' + s)
     item.contents = s
 
-    if (stopsAtList.selection !== null) {
+    if (stopsAtCheck.value) {
       stopsCount++
       if (stopsCount === stopsAt) {
         startsAt++
@@ -102,11 +110,13 @@ dialog.setDefaultButton(undefined, function() {
 
   prefs.setInt('start', parseInt(startsAtEdit.text) || 1)
   prefs.setInt('digit', digits)
+  prefs.setBoolean('stop_enabled', stopsAtCheck.value)
   if (stopsAtList.selection !== null) {
-    prefs.setString('stop', stopsAtList.selection.text)
+    prefs.setString('stop_alphabet', stopsAtList.selection.text)
   }
   prefs.setString('prefix', prefix)
   prefs.setString('suffix', suffix)
+  prefs.setString('order', orderByGroup.list.selection.text)
 })
 dialog.show()
 

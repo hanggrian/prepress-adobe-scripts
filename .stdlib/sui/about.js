@@ -11,10 +11,11 @@ var MARGINS_ABOUT_TAB = [10, 0, 10, 0]
 
 function AboutTabbedPanel(parent, clientDate) {
   var self = this
+  this.preferencesTab, this.updatesTab, this.licensingTab, this.toolsTab
   this.statusText, this.downloadButton
 
   this.main = parent.tabbedPanel(function(tabbedPanel) {
-    tabbedPanel.vtab('Preferences', function(tab) {
+    self.preferencesTab = tabbedPanel.vtab('Preferences', function(tab) {
       tab.preferredSize = BOUNDS_ABOUT_TAB
       tab.margins = MARGINS_ABOUT_TAB
       tab.alignChildren = 'left'
@@ -22,17 +23,17 @@ function AboutTabbedPanel(parent, clientDate) {
         group.tips("Defines what icon color to be used.\nThe script is dumb and can't yet know UI brightness setting across apps")
         group.staticText(undefined, 'Theme:', 'right')
         group.dropDownList(undefined, ABOUT_THEMES).also(function(it) {
-          var theme = preferences.getString('scripts_theme')
+          var theme = preferences2.getString('scripts_theme')
           if (theme !== undefined && theme !== '') {
             it.selectText(theme)
           }
           it.onChange = function() {
-            preferences.setString('scripts_theme', it.selection.text)
+            preferences2.setString('scripts_theme', it.selection.text)
           }
         })
       })
     })
-    tabbedPanel.vtab('Updates', function(tab) {
+    self.updatesTab = tabbedPanel.vtab('Updates', function(tab) {
       tab.preferredSize = BOUNDS_ABOUT_TAB
       tab.margins = MARGINS_ABOUT_TAB
       tab.alignChildren = 'left'
@@ -67,8 +68,13 @@ function AboutTabbedPanel(parent, clientDate) {
         })
       })
     })
-    tabbedPanel.vtab('Licensing', function(tab) {
+    self.licensingTab = tabbedPanel.vtab('Licensing', function(tab) {
       tab.editText(BOUNDS_ABOUT_TAB, getResource('LICENSE').readText(), { multiline: true, readonly: true, scrollable: true })
+    })
+    self.toolsTab = tabbedPanel.vtab('Tools', function(tab) {
+      tab.preferredSize = BOUNDS_ABOUT_TAB
+      tab.margins = MARGINS_ABOUT_TAB
+      tab.alignChildren = 'left'
     })
   })
 }

@@ -54,3 +54,29 @@ function _group(parent, orientation) {
   }
   return result
 }
+
+/**
+ * Returns selected radio of this group.
+ * @returns {RadioButton}
+ */
+Group.prototype.getSelectedRadioText = function() { return _getSelectedRadioText(this) }
+
+/**
+ * Returns selected radio of this panel.
+ * @returns {RadioButton}
+ */
+Panel.prototype.getSelectedRadioText = function() { return _getSelectedRadioText(this) }
+
+function _getSelectedRadioText(parent) {
+  return parent.children.first(function(it) { return it.type === 'radiobutton' && it.value }).text
+}
+
+/** Select radio button of this group. */
+Group.prototype.selectRadioText = function(text) { return _selectRadioText(this, text) }
+
+/** Select radio button of this panel. */
+Panel.prototype.selectRadioText = function(text) { return _selectRadioText(this, text) }
+
+function _selectRadioText(parent, text) {
+  return parent.children.first(function(it) { return it.type === 'radiobutton' && it.text === text }).value = true
+}

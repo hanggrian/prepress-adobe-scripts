@@ -12,7 +12,7 @@ check(selection.anyItem(PREDICATE_LINKS), 'No PDF links found in selection')
 
 var dialog = new Dialog('Change Page', 'relinking-files#change-page-f7')
 var pdfPanel, rangeGroup, orderByGroup, recursiveCheck, keepSizeCheck
-var prefs = preferences.resolve('links/change_page')
+var prefs = preferences2.resolve('links/change_page')
 
 dialog.vgroup(function(main) {
   main.alignChildren = 'right'

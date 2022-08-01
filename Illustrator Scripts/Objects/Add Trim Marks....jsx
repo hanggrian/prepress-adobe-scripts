@@ -12,7 +12,7 @@ var offsetEdit, lengthEdit, weightEdit, colorList
 var topLeftCheck, topRightCheck, leftTopCheck, rightTopCheck, leftBottomCheck, rightBottomCheck, bottomLeftCheck, bottomRightCheck // single checks
 var topCheck, rightCheck, bottomCheck, leftCheck // multiple checks
 var multipleTargetMultiRadioCheckGroup
-var prefs = preferences.resolve('objects/add_trim_marks')
+var prefs = preferences2.resolve('objects/add_trim_marks')
 
 dialog.vgroup(function(main) {
   main.alignChildren = 'right'

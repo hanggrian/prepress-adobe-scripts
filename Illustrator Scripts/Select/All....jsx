@@ -9,7 +9,7 @@ var placedCheck, nonNativeCheck, rasterCheck, pluginCheck
 var pathCheck, compoundPathCheck
 var textFrameCheck, legacyTextCheck
 var symbolCheck, meshCheck, graphCheck
-var prefs = preferences.resolve('select/all')
+var prefs = preferences2.resolve('select/all')
 
 dialog.hgroup(function(main) {
   main.alignChildren = 'fill'

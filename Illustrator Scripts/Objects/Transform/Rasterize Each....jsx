@@ -12,10 +12,11 @@ checkHasSelection()
 var dialog = new Dialog('Rasterize Each', 'resizing-rasterizing-each#rasterize-each')
 var prefill = selection.first()
 var colorModelList, resolutionEdit
-var backgroundWhiteRadio, backgroundTransparentRadio
-var antiAliasingNoneRadio, antiAliasingArtRadio, antiAliasingTypeRadio
+var backgroundPanel, backgroundWhiteRadio, backgroundTransparentRadio
+var antiAliasingPanel, antiAliasingNoneRadio, antiAliasingArtRadio, antiAliasingTypeRadio
 var backgroundBlackCheck, clippingMaskCheck, convertSpotColorsCheck, convertTextToOutlinesCheck, includeLayersCheck, paddingEdit
 var recursiveCheck, keepSizeCheck
+var prefs = preferences2.resolve('objects/rasterize_each')
 
 dialog.vgroup(function(main) {
   main.hgroup(function(group) {
@@ -37,41 +38,43 @@ dialog.vgroup(function(main) {
     topGroup.alignChildren = 'fill'
     topGroup.vgroup(function(innerGroup) {
       innerGroup.alignChildren = 'fill'
-      innerGroup.vpanel('Background', function(panel) {
+      backgroundPanel = innerGroup.vpanel('Background', function(panel) {
         panel.alignChildren = 'fill'
         panel.tips('Should the resulting image use transparency')
-        backgroundWhiteRadio = panel.radioButton(undefined, 'White').also(SELECTED)
+        backgroundWhiteRadio = panel.radioButton(undefined, 'White')
         backgroundTransparentRadio = panel.radioButton(undefined, 'Transparent')
+        panel.selectRadioText(prefs.getString('background', 'White'))
       })
-      innerGroup.vpanel('Anti-Aliasing', function(panel) {
+      antiAliasingPanel = innerGroup.vpanel('Anti-Aliasing', function(panel) {
         panel.alignChildren = 'fill'
         panel.tips('The type of antialiasing method')
         antiAliasingNoneRadio = panel.radioButton(undefined, 'None')
         antiAliasingArtRadio = panel.radioButton(undefined, 'Art Optimized')
         antiAliasingTypeRadio = panel.radioButton(undefined, 'Type Optimized')
-        if (selection.filterItem(function(it) { return it.typename === 'TextFrame' }).isNotEmpty()) {
-          antiAliasingTypeRadio.value = true
-        } else {
-          antiAliasingArtRadio.value = true
-        }
+        panel.selectRadioText(prefs.getString('anti_aliasing', 'Art Optimized'))
       })
     })
     topGroup.vpanel('Options', function(panel) {
       panel.alignChildren = 'fill'
-      backgroundBlackCheck = panel.checkBox(undefined, 'Against Black Background').also(function(check) {
-        check.tip('Should rasterize against a black background instead of white')
+      backgroundBlackCheck = panel.checkBox(undefined, 'Against Black Background').also(function(it) {
+        it.tip('Should rasterize against a black background instead of white')
+        it.value = prefs.getBoolean('option1')
       })
-      clippingMaskCheck = panel.checkBox(undefined, 'Create Clipping Mask').also(function(check) {
-        check.tip('Should a clipping mask be created for the resulting image')
+      clippingMaskCheck = panel.checkBox(undefined, 'Create Clipping Mask').also(function(it) {
+        it.tip('Should a clipping mask be created for the resulting image')
+        it.value = prefs.getBoolean('option2')
       })
-      convertSpotColorsCheck = panel.checkBox(undefined, 'Convert Spot Colors').also(function(check) {
-        check.tip('Whether to convert all spot colors to process colors in the resulting image')
+      convertSpotColorsCheck = panel.checkBox(undefined, 'Convert Spot Colors').also(function(it) {
+        it.tip('Whether to convert all spot colors to process colors in the resulting image')
+        it.value = prefs.getBoolean('option3')
       })
-      convertTextToOutlinesCheck = panel.checkBox(undefined, 'Convert Text to Outlines').also(function(check) {
-        check.tip('Should all text be converted to outlines before rasterization')
+      convertTextToOutlinesCheck = panel.checkBox(undefined, 'Convert Text to Outlines').also(function(it) {
+        it.tip('Should all text be converted to outlines before rasterization')
+        it.value = prefs.getBoolean('option4')
       })
-      includeLayersCheck = panel.checkBox(undefined, 'Include Layers').also(function(check) {
-        check.tip('Should the resulting image incorporates the layer attributes (such as opacity and blend mode)')
+      includeLayersCheck = panel.checkBox(undefined, 'Include Layers').also(function(it) {
+        it.tip('Should the resulting image incorporates the layer attributes (such as opacity and blend mode)')
+        it.value = prefs.getBoolean('option5')
       })
       panel.hgroup(function(group) {
         group.tips('The amount of white space (in points) to be added around the object during rasterization')
@@ -83,8 +86,12 @@ dialog.vgroup(function(main) {
   })
   main.hgroup(function(it) {
     it.alignment = 'right'
-    recursiveCheck = new RecursiveCheck(it)
-    keepSizeCheck = new KeepSizeCheck(it)
+    recursiveCheck = new RecursiveCheck(it).also(function(it) {
+      it.main.value = prefs.getBoolean('recursive')
+    })
+    keepSizeCheck = new KeepSizeCheck(it).also(function(it) {
+      it.main.value = prefs.getBoolean('keep_size')
+    })
   })
 })
 dialog.setCancelButton()
@@ -135,5 +142,15 @@ dialog.setDefaultButton(undefined, function() {
     selection.forEach(action)
   }
   selection = selectQueues
+
+  prefs.setString('background', backgroundPanel.getSelectedRadioText())
+  prefs.setString('anti_aliasing', antiAliasingPanel.getSelectedRadioText())
+  prefs.setBoolean('option1', backgroundBlackCheck.value)
+  prefs.setBoolean('option2', clippingMaskCheck.value)
+  prefs.setBoolean('option3', convertSpotColorsCheck.value)
+  prefs.setBoolean('option4', convertTextToOutlinesCheck.value)
+  prefs.setBoolean('option5', includeLayersCheck.value)
+  prefs.setBoolean('recursive', recursiveCheck.isSelected())
+  prefs.setBoolean('keep_size', keepSizeCheck.isSelected())
 })
 dialog.show()

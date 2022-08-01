@@ -11,7 +11,7 @@ check(items.isNotEmpty(), 'No links found in selection')
 
 var dialog = new Dialog('Relink Same', 'relinking-files#relink-same--f7')
 var pdfPanel, pageEdit, keepSizeCheck
-var prefs = preferences.resolve('links/relink_same')
+var prefs = preferences2.resolve('links/relink_same')
 
 var file = openFile(dialog.getTitle(), [
   FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,

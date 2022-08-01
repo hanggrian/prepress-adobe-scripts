@@ -11,19 +11,19 @@ checkHasSelection()
 var dialog = new Dialog('Step and Repeat', 'step-and-repeat')
 var horizontalEdit, verticalEdit
 var moveHorizontalEdit, moveVerticalEdit, moveRelativeCheck
-var prefs = preferences.resolve('objects/step_and_repeat')
+var prefs = preferences2.resolve('objects/step_and_repeat')
 
 var bounds = selection.getFarthestBounds()
 dialog.vgroup(function(main) {
   main.hgroup(function(group) {
     group.tips('2 dimension target')
     group.staticText(BOUNDS_TEXT, 'Copies:').also(JUSTIFY_RIGHT)
-    horizontalEdit = group.editText(BOUNDS_EDIT, prefs.getInt('horizontal', 0)).also(function(it) {
+    horizontalEdit = group.editText(BOUNDS_EDIT, prefs.getInt('horizontal')).also(function(it) {
       it.validateDigits()
       it.activate()
     })
     group.staticText(undefined, '×')
-    verticalEdit = group.editText(BOUNDS_EDIT, prefs.getInt('vertical', 0)).also(VALIDATE_DIGITS)
+    verticalEdit = group.editText(BOUNDS_EDIT, prefs.getInt('vertical')).also(VALIDATE_DIGITS)
   })
   main.vpanel('Move', function(panel) {
     panel.alignChildren = 'right'

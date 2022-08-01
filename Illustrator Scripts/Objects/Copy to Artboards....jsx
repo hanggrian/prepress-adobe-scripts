@@ -36,6 +36,7 @@ if (proceed) {
 
   var dialog = new Dialog('Copy to Artboards', 'copy-to-artboards')
   var rangeGroup, anchorList
+  var prefs = preferences2.resolve('objects/copy_to_artboards')
 
   dialog.vgroup(function(main) {
     main.hgroup(function(group) {
@@ -51,7 +52,7 @@ if (proceed) {
       group.tips('Duplicate by putting distance between selection and anchor.\nThis option is only available when artboards do not have the same size.')
       group.staticText(BOUNDS_TEXT, 'Anchor:').also(JUSTIFY_RIGHT)
       anchorList = group.dropDownList(BOUNDS_EDIT, ANCHORS).also(function(it) {
-        it.selectText('Top Left')
+        it.selectText(prefs.getString('anchor', 'Top Left'))
       })
       group.enabled = document.artboards.any(function(it) {
         return !isEqualRounded(it.artboardRect.getWidth(), activeArtboardRect.getWidth()) ||
@@ -85,6 +86,8 @@ if (proceed) {
         println('{0}. Position X={1} Y={2}', artboardIndex, x, y)
       })
     })
+
+    prefs.setString('anchor', anchorList.selection.text)
   })
   dialog.show()
 }

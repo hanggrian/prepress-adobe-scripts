@@ -34,7 +34,7 @@ function getResource(fullName) {
  */
 function getImage(name) {
   if (_resLight === undefined) {
-    _resLight = preferences.getString('scripts_theme') === 'Light'
+    _resLight = preferences2.getString('scripts_theme') === 'Light'
   }
   var fileName = name + '.png'
   var file

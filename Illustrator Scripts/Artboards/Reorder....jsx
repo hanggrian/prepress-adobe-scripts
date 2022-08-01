@@ -5,7 +5,7 @@ check(document.artboards.length > 1, 'No other artboards')
 
 var dialog = new Dialog('Reorder Artboards', 'reordering-resizing-artboards#reorder-artboards-f3')
 var orderByGroup
-var prefs = preferences.resolve('artboards/reorder')
+var prefs = preferences2.resolve('artboards/reorder')
 
 dialog.vgroup(function(main) {
   orderByGroup = new OrderByGroup(main, [ORDER_NAMES, ORDER_POSITIONS]).also(function(it) {

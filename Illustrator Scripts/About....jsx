@@ -12,14 +12,16 @@ dialog.vgroup(function(main) {
     group.image(undefined, 'logo')
     group.staticText([300, 32], 'Prepress Adobe Scripts for Illustrator\nLast updated ' + clientDate.toISOString(), { multiline: true })
   })
-  aboutPanel = new AboutTabbedPanel(main, clientDate)
-  aboutPanel.main.vtab('Tools', function(tab) {
-    tab.preferredSize = BOUNDS_ABOUT_TAB
-    tab.margins = MARGINS_ABOUT_TAB
-    tab.alignChildren = 'left'
-    tab.button(undefined, 'Disable External JSX Warning').also(function(it) {
+  aboutPanel = new AboutTabbedPanel(main, clientDate).also(function(panel) {
+    panel.toolsTab.button(undefined, 'Clear Preferences').also(function(it) {
       it.onClick = function() {
-        app.preferences.setBooleanPreference('ShowExternalJSXWarning', false)
+        preferences.removePreference(PREFERENCES_ROOT)
+        alert('Done', 'About Scripts')
+      }
+    })
+    panel.toolsTab.button(undefined, 'Disable External JSX Warning').also(function(it) {
+      it.onClick = function() {
+        preferences.setBooleanPreference('ShowExternalJSXWarning', false)
         alert('Done', 'About Scripts')
       }
     })

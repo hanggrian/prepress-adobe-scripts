@@ -91,8 +91,7 @@ function OpenPagesPanel(parent, textBounds, editBounds) {
 function OpenDocumentPanel(parent) {
   var self = this
   this.modeList, this.resolutionList
-  this.layoutList, this.rowsOrColsEdit,
-    this.unitsList
+  this.layoutList, this.rowsOrColsEdit, this.unitsList
   this.spacingEdit
   this.previewDefaultRadio, this.previewPixelRadio, this.previewOverprintRadio
 

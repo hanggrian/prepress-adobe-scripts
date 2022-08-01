@@ -12,6 +12,7 @@ var widthEdit, widthCheck, heightEdit, heightCheck
 var changePositionsCheck, changeFillPatternsCheck, changeFillGradientsCheck, changeStrokePatternsCheck
 var documentOriginCheck, anchorGroup
 var recursiveCheck
+var prefs = preferences2.resolve('objects/resize_each')
 
 dialog.vgroup(function(main) {
   main.hgroup(function(group) {
@@ -47,19 +48,19 @@ dialog.vgroup(function(main) {
       panel.alignChildren = 'fill'
       changePositionsCheck = panel.checkBox(undefined, 'Positions').also(function(it) {
         it.tip('Are art object positions and orientations effected?')
-        it.select()
+        it.value = prefs.getBoolean('option1')
       })
       changeFillPatternsCheck = panel.checkBox(undefined, 'Fill Patterns').also(function(it) {
         it.tip('Are the fill patterns assigned to paths to be transformed?')
-        it.select()
+        it.value = prefs.getBoolean('option2')
       })
       changeFillGradientsCheck = panel.checkBox(undefined, 'Fill Gradients').also(function(it) {
         it.tip('Are the fill gradients assigned to paths to be transformed?')
-        it.select()
+        it.value = prefs.getBoolean('option3')
       })
       changeStrokePatternsCheck = panel.checkBox(undefined, 'Stroke Patterns').also(function(it) {
         it.tip('Are the stroke patterns assigned to paths to be transformed?')
-        it.select()
+        it.value = prefs.getBoolean('option4')
       })
     })
     group.vpanel('Anchor', function(panel) {
@@ -75,7 +76,9 @@ dialog.vgroup(function(main) {
   })
   main.hgroup(function(it) {
     it.alignment = 'right'
-    recursiveCheck = new RecursiveCheck(it)
+    recursiveCheck = new RecursiveCheck(it).also(function(it) {
+      it.main.value = prefs.getBoolean('recursive')
+    })
   })
 })
 dialog.setCancelButton()
@@ -108,5 +111,11 @@ dialog.setDefaultButton(undefined, function() {
   } else {
     selection.forEach(action)
   }
+
+  prefs.setBoolean('option1', changePositionsCheck.value)
+  prefs.setBoolean('option2', changeFillPatternsCheck.value)
+  prefs.setBoolean('option3', changeFillGradientsCheck.value)
+  prefs.setBoolean('option4', changeStrokePatternsCheck.value)
+  prefs.setBoolean('recursive', recursiveCheck.isSelected())
 })
 dialog.show()

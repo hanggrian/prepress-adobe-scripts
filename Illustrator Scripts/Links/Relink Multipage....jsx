@@ -11,7 +11,7 @@ check(selection.anyItem(PREDICATE_LINKS), 'No links found in selection')
 var dialog = new Dialog('Relink Multipage', 'relinking-files#relink-multipage--f7')
 var pdfPanel, rangeGroup, orderByGroup, recursiveCheck, keepSizeCheck
 var collection
-var prefs = preferences.resolve('links/relink_multipage')
+var prefs = preferences2.resolve('links/relink_multipage')
 
 var files = openFile(dialog.getTitle(), [
   FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
