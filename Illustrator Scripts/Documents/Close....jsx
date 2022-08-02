@@ -23,7 +23,7 @@ dialog.setYesButton('Others', function() {
     app.documents[i].close(SaveOptions.DONOTSAVECHANGES)
     i--
   }
-})
+}, app.documents.length === 1)
 dialog.setHelpButton('Keep Unsaved', function() {
   for (var i = 0; i < app.documents.length; i++) {
     if (!app.documents[i].saved) {

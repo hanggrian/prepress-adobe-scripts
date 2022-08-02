@@ -39,7 +39,7 @@ for (var i = 0; i < app.documents.length; i++) {
   if (errorCount > 0) {
     allOkay = false
     app.activeDocument = document
-    alert(sb.trim(), 'Pre-Flight', true)
+    alert(result.trim(), 'Pre-Flight', true)
   }
 }
 if (allOkay) {

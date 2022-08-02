@@ -20,6 +20,7 @@ dialog.vgroup(function(main) {
   })
   aboutPanel = new AboutTabbedPanel(main, clientDate).also(function(panel) {
     panel.toolsTab.button(undefined, 'Clear Preferences').also(function(it) {
+      it.maximumSize.height = 21
       it.onClick = function() {
         preferences2.resolve('images/add_bleed').edit(function(it) {
           it.remove('length')

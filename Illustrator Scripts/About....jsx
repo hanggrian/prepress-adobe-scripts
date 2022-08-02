@@ -14,12 +14,14 @@ dialog.vgroup(function(main) {
   })
   aboutPanel = new AboutTabbedPanel(main, clientDate).also(function(panel) {
     panel.toolsTab.button(undefined, 'Clear Preferences').also(function(it) {
+      it.maximumSize.height = 21
       it.onClick = function() {
         preferences.removePreference(PREFERENCES_ROOT)
         alert('Done', 'About Scripts')
       }
     })
     panel.toolsTab.button(undefined, 'Disable External JSX Warning').also(function(it) {
+      it.maximumSize.height = 21
       it.onClick = function() {
         preferences.setBooleanPreference('ShowExternalJSXWarning', false)
         alert('Done', 'About Scripts')
