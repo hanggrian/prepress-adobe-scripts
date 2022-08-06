@@ -9,7 +9,7 @@ comments: false
 <div class="col-md-8 pr-5"-->
 
 <p class="mb-5">
-<img class="shadow-lg" src="https://repository-images.githubusercontent.com/279662522/8450c480-d9f6-11eb-8ee4-b82d03f6b831"/>
+  <img class="shadow-lg" src="https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/social_preview.png"/>
 </p>
 
 <p>Collection of Illustrator and Photoshop scripts to automate repetitive tasks and procedures of preparing final print layout. Most of heavy-lifting workflow are expected to occur in Illustrator. Only tested on latest Adobe suite.</p>

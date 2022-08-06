@@ -1,20 +1,22 @@
 ---
 layout: post
-title: "Reordering and Resizing Artboards (... F3)"
+title: "Reordering and Resizing Artboards"
 author: ai
 categories: [ Illustrator Scripts ]
 tags: [ general ]
-image: assets/images/ai_reordering_resizing_artboards.png
+image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_artboards_reorder.png
 ---
 
 Common artboard operations.
 
-Reorder Artboards (F3)
-----------------------
+## Reorder Artboards
+
+![Rearrange indices of artboards.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_artboards_reorder.png)
 
 By changing artboards' title or position, this script adjust its z order.
 
-Resize Artboards (⇧ F3)
------------------------
+## Fit Artboards
 
-A script to bulk resize all artboards within range. An anchor option here works similarly like resizing canvas in Photoshop.
+![Resize artboards to their content.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_artboards_fittoarts.png)
+
+A script to bulk resize all artboards according to items within them.

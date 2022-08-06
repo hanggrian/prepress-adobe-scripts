@@ -16,7 +16,7 @@ comments: false
 
 <h5>Automatic Installation</h5>
 
-<img src="https://raw.githubusercontent.com/hendraanggrian/prepress-adobe-scripts/main/docs/images/install.png"/>
+<img src="https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/install.png"/>
 
 <p>Run <code class="highlighter-rouge">install.bat</code> as admin (Windows) or <code class="highlighter-rouge">install.sh</code> with sudo (macOS).</p>
 
@@ -24,14 +24,14 @@ comments: false
 
 <p>Find <b>Scripts</b> directory in your local Adobe installation paths:</p>
 <ul>
-    <li>Illustrator - <code class="highlighter-rouge">$PATH_TO_APP/Presets/$LOCALE_CODE/Scripts</code>.</li>
-    <li>Photoshop - <code class="highlighter-rouge">$PATH_TO_APP/Presets/Scripts</code>.</li>
+  <li>Illustrator - <code class="highlighter-rouge">$PATH_TO_APP/Presets/$LOCALE_CODE/Scripts</code>.</li>
+  <li>Photoshop - <code class="highlighter-rouge">$PATH_TO_APP/Presets/Scripts</code>.</li>
 </ul>
 
 <p>Now copy these:</p>
 <ul>
-    <li>Content of <code class="highlighter-rouge">Illustrator/Photoshop Scripts</code> to <b>Scripts</b>.</li>
-    <li><code class="highlighter-rouge">.stdlib</code> and <code class="highlighter-rouge">.stdres</code> to parent directory of <b>Scripts</b>.</li>
+  <li>Content of <code class="highlighter-rouge">Illustrator/Photoshop Scripts</code> to <b>Scripts</b>.</li>
+  <li><code class="highlighter-rouge">.stdlib</code> and <code class="highlighter-rouge">.stdres</code> to parent directory of <b>Scripts</b>.</li>
 </ul>
 
 <h5>No Installation</h5>
@@ -43,8 +43,8 @@ comments: false
 <h3>Usage</h3>
 
 <p>
-<img src="https://raw.githubusercontent.com/hendraanggrian/prepress-adobe-scripts/main/docs/images/menu_ai.png"/>
-<img src="https://raw.githubusercontent.com/hendraanggrian/prepress-adobe-scripts/main/docs/images/menu_psd.png"/>
+  <img src="https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/menu_ai.png"/>
+  <img src="https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/menu_psd.png"/>
 </p>
 
 <p>If you decide to install the scripts, they can be accessed from menubar or keyboard shortcuts.</p>
@@ -54,9 +54,9 @@ comments: false
 <p>This is made possible by using Actions feature which binds Fn keys to menu item.
 However, they need to be setup manually:</p>
 <ol>
-    <li>In Actions panel, select <code class="highlighter-rouge">Load Actions...</code>.</li>
-    <li>Navigate to local Adobe installation path, and find <code class="highlighter-rouge">Actions</code> directory under <code class="highlighter-rouge">Presets</code>.</li>
-    <li>Open a file named <code class="highlighter-rouge">Prepress Adobe Script</code>.</li>
+  <li>In Actions panel, select <code class="highlighter-rouge">Load Actions...</code>.</li>
+  <li>Navigate to local Adobe installation path, and find <code class="highlighter-rouge">Actions</code> directory under <code class="highlighter-rouge">Presets</code>.</li>
+  <li>Open a file named <code class="highlighter-rouge">Prepress Adobe Script</code>.</li>
 </ol>
 
 <!--/div>

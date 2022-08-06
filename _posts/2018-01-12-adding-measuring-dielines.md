@@ -1,29 +1,32 @@
 ---
 layout: post
-title: "Adding and Measuring Dielines (... F8)"
+title: "Adding and Measuring Dielines"
 author: ai
 categories: [ Illustrator Scripts ]
 tags: [ prepress ]
-image: assets/images/ai_adding_measuring_dielines.png
+image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_dielines_addpaperbag.png
 ---
 
-Measure Dielines (F8)
----------------------
+## Measure Dielines
+
+![Measure dielines of paths.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_dielines_measure.png)
 
 Combine the length of all selected paths, excluding:
 - Paths with any fill color, usually dielines are just simple lines.
 - Paths with registration stroke color, registration color lines are reserved for trim marks.
 
-Add Flap Dieline (⇧ F8)
------------------------
+## Add Flap Dieline
 
-![](../assets/images/ai_adding_measuring_dielines_flap.png)
+![Add flap dieline to item.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_dielines_addflap.png)
 
 Flaps are common parts of product packaging dielines.
 
-Add Paperbag Dielines (⌘ F8)
-----------------------------
+![Flap dieline types.](../images/samples/ai_dielines_addflap.png)
 
-![](../assets/images/ai_adding_measuring_dielines_paperbag.png)
+## Add Paperbag Dielines
+
+![Add paperbag dielines to document.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_dielines_addpaperbag.png)
 
 Pretty self-explanatory.
+
+![Paperbag dielines area.](../images/samples/ai_dielines_addpaperbag.png)

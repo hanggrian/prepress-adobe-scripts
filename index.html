@@ -8,22 +8,22 @@ title: Home
 <!-- Featured
 ================================================== -->
 <section class="featured-posts">
-    <div class="section-title">
-        <h2><span>Featured</span></h2>
-    </div>
-    <div class="row">
+  <div class="section-title">
+    <h2><span>Featured</span></h2>
+  </div>
+  <div class="row">
 
-    {% for post in site.posts %}
+  {% for post in site.posts %}
 
-        {% if post.featured == true %}
+    {% if post.featured == true %}
 
-            {% include featuredbox.html %}
+      {% include featuredbox.html %}
 
-        {% endif %}
+    {% endif %}
 
-    {% endfor %}
+  {% endfor %}
 
-    </div>
+  </div>
 </section>
 
 {% endif %}
@@ -32,30 +32,30 @@ title: Home
 ================================================== -->
 <section class="recent-posts">
 
-    <div class="section-title">
+  <div class="section-title">
 
-        <h2><span>All Stories</span></h2>
+    <h2><span>All Stories</span></h2>
 
-    </div>
+  </div>
 
-    <div class="row listrecent">
+  <div class="row listrecent">
 
-        {% for post in paginator.posts %}
+    {% for post in paginator.posts %}
 
-        {% include postbox.html %}
+    {% include postbox.html %}
 
-        {% endfor %}
+    {% endfor %}
 
-    </div>
+  </div>
 
 </section>
 
 <!-- Pagination
 ================================================== -->
 <div class="bottompagination">
-<div class="pointerup"><i class="fa fa-caret-up"></i></div>
-<span class="navigation" role="navigation">
+  <div class="pointerup"><i class="fa fa-caret-up"></i></div>
+  <span class="navigation" role="navigation">
     {% include pagination.html %}
-</span>
+  </span>
 </div>
 

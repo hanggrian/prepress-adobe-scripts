@@ -3,8 +3,8 @@ author: "Hendra Anggrian"
 name: "Prepress Adobe Scripts"
 title: "Prepress Adobe Scripts"
 description: "Essential Illustrator and Photoshop scripts for commercial printshop."
-logo: 'assets/images/logo.png'
-favicon: 'assets/images/logo.png'
+logo: 'images/logo.png'
+favicon: 'images/favicon.png'
 baseurl:
 google_analytics: 'UA-46278016-1'
 include: ["_pages"]
@@ -12,15 +12,20 @@ permalink: /:title/
 
 # Authors
 authors:
+  all:
+    name: All
+    display_name: Illustrator & Photoshop
+    avatar: 'images/avatar_all.png'
+    description: Scripts
   ai:
     name: Ai
     display_name: Illustrator
-    avatar: 'assets/images/avatar_ai.png'
+    avatar: 'images/avatar_ai.png'
     description: Script
   psd:
     name: Psd
     display_name: Photoshop
-    avatar: 'assets/images/avatar_psd.png'
+    avatar: 'images/avatar_psd.png'
     description: Script
 
 # Plugins

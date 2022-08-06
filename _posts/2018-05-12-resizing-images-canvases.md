@@ -1,20 +1,22 @@
 ---
 layout: post
-title: "Resizing Images and Canvases (... F2)"
+title: "Resizing Images and Canvases"
 author: psd
 categories: [ Photoshop Scripts ]
 tags: [ general ]
-image: assets/images/psd_resizing_images_canvases.png
+image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/psd_images_resizeimages.png
 ---
 
 Common images operation.
 
-Resize Images (F2)
-------------------
+## Resize Images
+
+![Resize all images.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/psd_images_resizeimages.png)
 
 Works exactly like `Menubar > Images > Resize Image` but targets all documents.
 
-Resize Canvases (⇧ F2)
-----------------------
+## Resize Canvases
+
+![Resize all canvases.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/psd_images_resizecanvases.png)
 
 Works exactly like `Menubar > Images > Resize Canvas` but targets all documents.
