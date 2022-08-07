@@ -1,17 +1,17 @@
 #target Illustrator
-#include '../.lib/commons.js'
+#include "../.lib/commons.js"
 
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [120, 21]
-var PREDICATE_LINKS = function(it) { return it.typename === 'PlacedItem' }
+var PREDICATE_LINKS = function(it) { return it.typename === "PlacedItem" }
 
 checkHasSelection()
 var items = selection.filterItem(PREDICATE_LINKS)
-check(items.isNotEmpty(), 'No links found in selection')
+check(items.isNotEmpty(), "No links found in selection")
 
-var dialog = new Dialog('Relink Same', 'relinking-files#relink-same--f7')
+var dialog = new Dialog("Relink Same", "relinking-files/#relink-same")
 var pdfPanel, pageEdit, keepSizeCheck
-var prefs = preferences2.resolve('links/relink_same')
+var prefs = preferences2.resolve("links/relink_same")
 
 var file = openFile(dialog.getTitle(), [
   FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
@@ -23,9 +23,9 @@ if (file !== null) {
     if (file.isPDF()) {
       pdfPanel = new OpenPDFPanel(main, BOUNDS_TEXT, BOUNDS_EDIT).also(function(panel) {
         panel.main.hgroup(function(group) {
-          group.tips('Which page should be used when opening a multipage document')
-          group.staticText(BOUNDS_TEXT, 'Page:').also(JUSTIFY_RIGHT)
-          pageEdit = group.editText(BOUNDS_EDIT, '1').also(function(it) {
+          group.tips("Which page should be used when opening a multipage document")
+          group.staticText(BOUNDS_TEXT, "Page:").also(JUSTIFY_RIGHT)
+          pageEdit = group.editText(BOUNDS_EDIT, "1").also(function(it) {
             it.validateDigits()
             it.activate()
           })
@@ -33,9 +33,9 @@ if (file !== null) {
       })
     }
     main.hgroup(function(group) {
-      group.alignment = 'right'
+      group.alignment = "right"
       keepSizeCheck = new KeepSizeCheck(group).also(function(it) {
-        it.main.value = prefs.getBoolean('keep_size')
+        it.main.value = prefs.getBoolean("keep_size")
       })
     })
   })
@@ -43,20 +43,20 @@ if (file !== null) {
   dialog.setDefaultButton(undefined, function() {
     if (file.isPDF()) {
       var page = parseInt(pageEdit.text) - 1
-      println('PDF page=' + page)
+      println("PDF page = " + page + ".")
       preferences.setPDFPage(page)
     }
 
     var progress = new ProgressPalette(items.length)
     items.forEach(function(item, i) {
-      progress.increment('Linking item {0}', i + 1)
-      print(i + '. ')
+      progress.increment("Linking item {0}", i + 1)
+      print(i + ". ")
       relink(item, file)
-      println('Done')
+      println("Done.")
     })
     selection = items
 
-    prefs.setBoolean('keep_size', keepSizeCheck.isSelected())
+    prefs.setBoolean("keep_size", keepSizeCheck.isSelected())
   })
   dialog.show()
 }
@@ -66,12 +66,12 @@ function relink(item, file) {
   var height = item.height
   var position = item.position
   if (file.isPDF() && item.isFileExists() && item.file.isPDF()) {
-    print('Appling PDF fix, ')
-    item.file = getImage('relink_fix')
+    print("Appling PDF fix, ")
+    item.file = getImage("relink_fix")
   }
   item.file = file
   if (keepSizeCheck.isSelected()) {
-    print('Keep size, ')
+    print("Keep size, ")
     item.width = width
     item.height = height
     item.position = position

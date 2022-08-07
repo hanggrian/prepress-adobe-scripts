@@ -1,76 +1,77 @@
 #target Illustrator
-#include '../.lib/commons.js'
+#include "../.lib/commons.js"
 
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [110, 21]
 
-var dialog = new Dialog('Add Paperbag Dielines', 'adding-measuring-dielines#add-paperbag-dielines--f8')
+var dialog = new Dialog("Add Paperbag Dielines", "adding-measuring-dielines/#add-paperbag-dielines")
 var widthEdit, heightEdit, depthEdit, upperEdit, lowerEdit, glueLengthEdit, glueShearEdit
-var weightEdit, colorList
+var strokeWeightEdit, strokeColorList
+var prefs = preferences2.resolve("dielines/add_paperbag")
 
 dialog.hgroup(function(main) {
   main.vgroup(function(topGroup) {
-    topGroup.vpanel('Area', function(panel) {
-      panel.alignChildren = 'fill'
+    topGroup.vpanel("Area", function(panel) {
+      panel.alignChildren = "fill"
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
-          group.tips('Width of paperbag')
-          group.staticText(BOUNDS_TEXT, 'Width:').also(JUSTIFY_RIGHT)
-          widthEdit = group.editText(BOUNDS_EDIT, '210 mm').also(function(it) {
+          group.tips("Width of paperbag")
+          group.staticText(BOUNDS_TEXT, "Width:").also(JUSTIFY_RIGHT)
+          widthEdit = group.editText(BOUNDS_EDIT, prefs.getString("width", "210 mm")).also(function(it) {
             it.validateUnits()
             it.activate()
           })
         })
         midGroup.hgroup(function(group) {
-          group.tips('Height of paperbag')
-          group.staticText(BOUNDS_TEXT, 'Height:').also(JUSTIFY_RIGHT)
-          heightEdit = group.editText(BOUNDS_EDIT, '297 mm').also(VALIDATE_UNITS)
+          group.tips("Height of paperbag")
+          group.staticText(BOUNDS_TEXT, "Height:").also(JUSTIFY_RIGHT)
+          heightEdit = group.editText(BOUNDS_EDIT, prefs.getString("height", "297 mm")).also(VALIDATE_UNITS)
         })
       })
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
-          group.tips('Depth of paperbag')
-          group.staticText(BOUNDS_TEXT, 'Depth:').also(JUSTIFY_RIGHT)
-          depthEdit = group.editText(BOUNDS_EDIT, '100 mm').also(VALIDATE_UNITS)
+          group.tips("Depth of paperbag")
+          group.staticText(BOUNDS_TEXT, "Depth:").also(JUSTIFY_RIGHT)
+          depthEdit = group.editText(BOUNDS_EDIT, prefs.getString("depth", "100 mm")).also(VALIDATE_UNITS)
         })
       })
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
-          group.tips('Length of upper area')
-          group.staticText(BOUNDS_TEXT, 'Upper:').also(JUSTIFY_RIGHT)
-          upperEdit = group.editText(BOUNDS_EDIT, '30 mm').also(VALIDATE_UNITS)
+          group.tips("Length of upper area")
+          group.staticText(BOUNDS_TEXT, "Upper:").also(JUSTIFY_RIGHT)
+          upperEdit = group.editText(BOUNDS_EDIT, prefs.getString("upper", "30 mm")).also(VALIDATE_UNITS)
         })
         midGroup.hgroup(function(group) {
-          group.tips('Length of lower area')
-          group.staticText(BOUNDS_TEXT, 'Lower:').also(JUSTIFY_RIGHT)
-          lowerEdit = group.editText(BOUNDS_EDIT, '60 mm').also(VALIDATE_UNITS)
+          group.tips("Length of lower area")
+          group.staticText(BOUNDS_TEXT, "Lower:").also(JUSTIFY_RIGHT)
+          lowerEdit = group.editText(BOUNDS_EDIT, prefs.getString("lower", "60 mm")).also(VALIDATE_UNITS)
         })
       })
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
-          group.tips('Length of glue area')
-          group.staticText(BOUNDS_TEXT, 'Glue:').also(JUSTIFY_RIGHT)
-          glueLengthEdit = group.editText(BOUNDS_EDIT, '20 mm').also(VALIDATE_UNITS)
+          group.tips("Length of glue area")
+          group.staticText(BOUNDS_TEXT, "Glue:").also(JUSTIFY_RIGHT)
+          glueLengthEdit = group.editText(BOUNDS_EDIT, prefs.getString("glue_length", "20 mm")).also(VALIDATE_UNITS)
         })
         midGroup.hgroup(function(group) {
-          group.tips('Length of glue area')
-          group.staticText(BOUNDS_TEXT, 'Shear:').also(JUSTIFY_RIGHT)
-          glueShearEdit = group.editText(BOUNDS_EDIT, '5 mm').also(VALIDATE_UNITS)
+          group.tips("Length of glue area")
+          group.staticText(BOUNDS_TEXT, "Shear:").also(JUSTIFY_RIGHT)
+          glueShearEdit = group.editText(BOUNDS_EDIT, prefs.getString("glue_shear", "5 mm")).also(VALIDATE_UNITS)
         })
       })
     })
-    topGroup.vpanel('Stroke', function(panel) {
+    topGroup.vpanel("Stroke", function(panel) {
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
-          group.tips('Stroke width of dielines')
-          group.staticText(BOUNDS_TEXT, 'Weight:').also(JUSTIFY_RIGHT)
-          weightEdit = group.editText(BOUNDS_EDIT, '1 pt').also(VALIDATE_UNITS)
+          group.tips("Stroke width of dielines")
+          group.staticText(BOUNDS_TEXT, "Weight:").also(JUSTIFY_RIGHT)
+          strokeWeightEdit = group.editText(BOUNDS_EDIT, prefs.getString("stroke_weight", "1 pt")).also(VALIDATE_UNITS)
         })
         midGroup.hgroup(function(group) {
-          group.tips('Stroke color of dielines')
-          group.staticText(BOUNDS_TEXT, 'Color:').also(JUSTIFY_RIGHT)
-          colorList = group.dropDownList(BOUNDS_EDIT, COLORS).also(function(it) {
-            it.selectText('Black')
+          group.tips("Stroke color of dielines")
+          group.staticText(BOUNDS_TEXT, "Color:").also(JUSTIFY_RIGHT)
+          strokeColorList = group.dropDownList(BOUNDS_EDIT, COLORS).also(function(it) {
+            it.selectText(prefs.getString("stroke_color", "Black"))
           })
         })
       })
@@ -78,8 +79,8 @@ dialog.hgroup(function(main) {
   })
 })
 dialog.setCancelButton()
-dialog.setDefaultButton('Full-Size', function() { process(true) })
-dialog.setYesButton('Half-Size', function() { process(false) })
+dialog.setDefaultButton("Full-Size", function() { process(true) })
+dialog.setYesButton("Half-Size", function() { process(false) })
 dialog.show()
 
 function process(isFull) {
@@ -90,8 +91,8 @@ function process(isFull) {
   var lower = parseUnits(lowerEdit.text)
   var glueLength = parseUnits(glueLengthEdit.text)
   var glueShear = parseUnits(glueShearEdit.text)
-  var weight = parseUnits(weightEdit.text)
-  var color = parseColor(colorList.selection.text)
+  var weight = parseUnits(strokeWeightEdit.text)
+  var color = parseColor(strokeColorList.selection.text)
 
   var paths = []
   var leftMost, topMost, bottomMost, rightMost
@@ -183,6 +184,16 @@ function process(isFull) {
   }
 
   selection = paths
+
+  prefs.setString("width", widthEdit.text)
+  prefs.setString("height", heightEdit.text)
+  prefs.setString("depth", depthEdit.text)
+  prefs.setString("upper", upperEdit.text)
+  prefs.setString("lower", lowerEdit.text)
+  prefs.setString("glue_length", glueLengthEdit.text)
+  prefs.setString("glue_shear", glueShearEdit.text)
+  prefs.setString("stroke_weight", strokeWeightEdit.text)
+  prefs.setString("stroke_color", strokeColorList.selection.text)
 }
 
 function createLine(weight, color, positions) {

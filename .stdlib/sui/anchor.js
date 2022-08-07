@@ -19,15 +19,15 @@ function AnchorGroup(parent, isPsd) {
         group.spacing = 0
       }
       self.topLeftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
-        it.tip('Top left')
+        it.tip("Top left")
         registerRadioClick(it)
       })
       self.topRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
-        it.tip('Top')
+        it.tip("Top")
         registerRadioClick(it)
       })
       self.topRightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
-        it.tip('Top right')
+        it.tip("Top right")
         registerRadioClick(it)
       })
     })
@@ -36,16 +36,16 @@ function AnchorGroup(parent, isPsd) {
         group.spacing = 0
       }
       self.leftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
-        it.tip('Left')
+        it.tip("Left")
         registerRadioClick(it)
       })
       self.centerRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
-        it.tip('Center')
+        it.tip("Center")
         it.select()
         registerRadioClick(it)
       })
       self.rightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
-        it.tip('Right')
+        it.tip("Right")
         registerRadioClick(it)
       })
     })
@@ -54,15 +54,15 @@ function AnchorGroup(parent, isPsd) {
         group.spacing = 0
       }
       self.bottomLeftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
-        it.tip('Bottom left')
+        it.tip("Bottom left")
         registerRadioClick(it)
       })
       self.bottomRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
-        it.tip('Bottom')
+        it.tip("Bottom")
         registerRadioClick(it)
       })
       self.bottomRightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
-        it.tip('Bottom right')
+        it.tip("Bottom right")
         registerRadioClick(it)
       })
     })

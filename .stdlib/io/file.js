@@ -17,7 +17,7 @@ File.prototype.equalTo = function(other) {
  * @returns {String}
  */
 File.prototype.getNameWithoutExtension = function() {
-  return unescape(this.name).substringBeforeLast('.')
+  return unescape(this.name).substringBeforeLast(".")
 }
 
 /**
@@ -25,7 +25,7 @@ File.prototype.getNameWithoutExtension = function() {
  * @returns {String}
  */
 File.prototype.getExtension = function() {
-  return unescape(this.name).substringAfterLast('.').toLowerCase()
+  return unescape(this.name).substringAfterLast(".").toLowerCase()
 }
 
 /**
@@ -35,7 +35,7 @@ File.prototype.getExtension = function() {
  */
 File.prototype.isPDF = function() {
   return this.getExtension().let(function(it) {
-    return it == 'ai' || it == 'pdf' // don't use ===
+    return it == "ai" || it == "pdf" // don't use ===
   })
 }
 
@@ -44,7 +44,7 @@ File.prototype.isPDF = function() {
  * @returns {String}
  */
 File.prototype.readText = function() {
-  return this.use('r', function(it) { return it.read() })
+  return this.use("r", function(it) { return it.read() })
 }
 
 /**

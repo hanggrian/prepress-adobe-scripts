@@ -1,17 +1,17 @@
 #target Illustrator
-#include '../.lib/commons.js'
+#include "../.lib/commons.js"
 
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [120, 21]
-var PREDICATE_LINKS = function(it) { return it.typename === 'PlacedItem' }
+var PREDICATE_LINKS = function(it) { return it.typename === "PlacedItem" }
 
 checkHasSelection()
-check(selection.anyItem(PREDICATE_LINKS), 'No links found in selection')
+check(selection.anyItem(PREDICATE_LINKS), "No links found in selection")
 
-var dialog = new Dialog('Relink Multipage', 'relinking-files#relink-multipage--f7')
+var dialog = new Dialog("Relink Multipage", "relinking-files/#relink-multipage")
 var pdfPanel, rangeGroup, orderByGroup, recursiveCheck, keepSizeCheck
 var collection
-var prefs = preferences2.resolve('links/relink_multipage')
+var prefs = preferences2.resolve("links/relink_multipage")
 
 var files = openFile(dialog.getTitle(), [
   FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
@@ -22,14 +22,14 @@ if (files !== null && files.isNotEmpty()) {
   collection = new FileCollection(files)
 
   dialog.vgroup(function(main) {
-    main.alignChildren = 'right'
+    main.alignChildren = "right"
     if (collection.hasPDF) {
       pdfPanel = new OpenPDFPanel(main, BOUNDS_TEXT, BOUNDS_EDIT)
     }
-    main.vpanel('Pages', function(panel) {
+    main.vpanel("Pages", function(panel) {
       panel.hgroup(function(group) {
-        group.tips('Which pages should be used when opening a multipage document')
-        group.staticText(BOUNDS_TEXT, 'Pages:').also(JUSTIFY_RIGHT)
+        group.tips("Which pages should be used when opening a multipage document")
+        group.staticText(BOUNDS_TEXT, "Pages:").also(JUSTIFY_RIGHT)
         rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
           it.startEdit.activate()
           it.endEdit.text = collection.length
@@ -37,14 +37,14 @@ if (files !== null && files.isNotEmpty()) {
       })
     })
     orderByGroup = new OrderByGroup(main, [ORDER_LAYERS, ORDER_POSITIONS]).also(function(group) {
-      group.list.selectText(prefs.getString('order', 'Reversed'))
+      group.list.selectText(prefs.getString("order", "Reversed"))
     })
     main.hgroup(function(group) {
       recursiveCheck = new RecursiveCheck(group).also(function(it) {
-        it.main.value = prefs.getBoolean('recursive')
+        it.main.value = prefs.getBoolean("recursive")
       })
       keepSizeCheck = new KeepSizeCheck(group).also(function(it) {
-        it.main.value = prefs.getBoolean('keep_size')
+        it.main.value = prefs.getBoolean("keep_size")
       })
     })
   })
@@ -57,11 +57,11 @@ if (files !== null && files.isNotEmpty()) {
     var progress = new ProgressPalette(source.length)
 
     orderByGroup.forEach(source, function(item, i) {
-      progress.increment('Linking item {0}', i + 1)
-      print('Item {0} page {1}.'.format(i, current))
+      progress.increment("Linking item {0}", i + 1)
+      print("Item {0} page {1}.".format(i, current))
       var file = collection.get(current)
       var relinked = false
-      if (!isRecursive && item.typename === 'GroupItem') {
+      if (!isRecursive && item.typename === "GroupItem") {
         [item].forEachItem(function(innerItem) {
           if (PREDICATE_LINKS(innerItem)) {
             relinked = relink(innerItem, file)
@@ -73,13 +73,13 @@ if (files !== null && files.isNotEmpty()) {
       if (relinked && ++current > end) {
         current--
       }
-      println('Done')
+      println("Done.")
     })
     selection = source
 
-    prefs.setString('order', orderByGroup.list.selection.text)
-    prefs.setBoolean('recursive', isRecursive)
-    prefs.setBoolean('keep_size', keepSizeCheck.isSelected())
+    prefs.setString("order", orderByGroup.list.selection.text)
+    prefs.setBoolean("recursive", isRecursive)
+    prefs.setBoolean("keep_size", keepSizeCheck.isSelected())
   })
   dialog.show()
 }
@@ -89,12 +89,12 @@ function relink(item, file) {
   var height = item.height
   var position = item.position
   if (file.isPDF() && item.isFileExists() && item.file.isPDF()) {
-    print('Appling PDF fix, ')
-    item.file = getImage('relink_fix')
+    print("Appling PDF fix, ")
+    item.file = getImage("relink_fix")
   }
   item.file = file
   if (keepSizeCheck.isSelected()) {
-    print('Keep size, ')
+    print("Keep size, ")
     item.width = width
     item.height = height
     item.position = position

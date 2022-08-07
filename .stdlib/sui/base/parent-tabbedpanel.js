@@ -9,7 +9,7 @@
  * @returns {TabbedPanel}
  */
 Object.prototype.tips = function(text) {
-  check(this.type === 'tabbedpanel')
+  check(this.type === "tabbedpanel")
   return _tips(this, text)
 }
 
@@ -26,7 +26,7 @@ Group.prototype.tabbedPanel = function(configuration) { return _tabbedPanel(this
 Panel.prototype.tabbedPanel = function(configuration) { return _tabbedPanel(this).also(configuration) }
 
 function _tabbedPanel(parent) {
-  var result = parent.add('tabbedpanel')
+  var result = parent.add("tabbedpanel")
   if (parent.helpTips !== undefined) {
     _tips(result, parent.helpTips)
   }

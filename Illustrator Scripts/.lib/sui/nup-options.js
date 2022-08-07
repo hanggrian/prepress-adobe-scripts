@@ -3,20 +3,20 @@ function NUpOptionsGroup(parent, showRotate, showDuplex, showCutStack) {
   this.rotateCheck, this.duplexCheck, this.cutStackCheck
 
   this.main = parent.hgroup(function(group) {
-    group.alignment = 'right'
+    group.alignment = "right"
     if (showRotate) {
-      self.rotateCheck = group.checkBox(undefined, 'Rotate Pages').also(function(it) {
-        it.tip('Should the page be rotated?')
+      self.rotateCheck = group.checkBox(undefined, "Rotate Pages").also(function(it) {
+        it.tip("Should the page be rotated?")
       })
     }
     if (showDuplex) {
-      self.duplexCheck = group.checkBox(undefined, 'Duplex Printing').also(function(it) {
-        it.tip('Should the page be printed on both sides?')
+      self.duplexCheck = group.checkBox(undefined, "Duplex Printing").also(function(it) {
+        it.tip("Should the page be printed on both sides?")
       })
     }
     if (showCutStack) {
-      self.cutStackCheck = group.checkBox(undefined, 'Cut Stack').also(function(it) {
-        it.tip('Should the pages stacked on top of each other?')
+      self.cutStackCheck = group.checkBox(undefined, "Cut Stack").also(function(it) {
+        it.tip("Should the pages stacked on top of each other?")
       })
     }
   })

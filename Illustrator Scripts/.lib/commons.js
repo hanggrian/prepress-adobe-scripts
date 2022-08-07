@@ -1,43 +1,43 @@
-#include 'core.js'
+#include "core.js"
 
-#include 'commons-preconditions.js'
+#include "commons-preconditions.js"
 
-check(app.documents.length > 0, 'No active document')
+check(app.documents.length > 0, "No active document")
 
 var document = app.activeDocument
 
 var layer = selection.isNotEmpty() ? selection.first().layer : document.layers[0]
 
-var unitName = ''
+var unitName = ""
 switch (document.rulerUnits) {
   case RulerUnits.Inches:
-    unitName = 'in'
+    unitName = "in"
     break;
   case RulerUnits.Centimeters:
-    unitName = 'cm'
+    unitName = "cm"
     break;
   case RulerUnits.Points:
-    unitName = 'pt'
+    unitName = "pt"
     break;
   case RulerUnits.Picas:
-    unitName = 'pica'
+    unitName = "pica"
     break;
   case RulerUnits.Millimeters:
-    unitName = 'mm'
+    unitName = "mm"
     break;
   case RulerUnits.Qs:
-    unitName = 'q'
+    unitName = "q"
     break;
   case RulerUnits.Pixels:
-    unitName = 'px'
+    unitName = "px"
     break;
 }
 
 /**
- * Recalibrate unit text (e.g: '20 mm') to current document's units.
+ * Recalibrate unit text (e.g: "20 mm") to current document's units.
  * @returns {String}
  */
-function unitsOf(input) { return UnitValue(input).as(unitName) + ' ' + unitName }
+function unitsOf(input) { return UnitValue(input).as(unitName) + " " + unitName }
 
 /**
  * Select all items that match selected configuration.

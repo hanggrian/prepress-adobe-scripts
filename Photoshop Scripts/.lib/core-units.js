@@ -10,7 +10,7 @@
 // * `unitName` are the suffix. (e.g. : `pt`, `mm`)
 // * `unitFullName` are the full form name. (e.g.: `Points`, `Millimeters`)
 
-var UNITS = ['Pixels', 'Points', 'Inches', 'Millimeters', 'Centimeters']
+var UNITS = ["Pixels", "Points", "Inches", "Millimeters", "Centimeters"]
 
 /**
  * Build string based on unit value, name and optional fraction.
@@ -26,7 +26,7 @@ function formatUnits(unitValue, unitName, fraction) {
   var s = fraction !== undefined
     ? value.toFixed(fraction)
     : value.toString()
-  return parseFloat(s) + ' ' + unitName
+  return parseFloat(s) + " " + unitName
 }
 
 /**
@@ -42,5 +42,5 @@ function parseUnits(units) {
   }
   return units.isNumeric()
     ? parseFloat(units)
-    : UnitValue(units).as('px')
+    : UnitValue(units).as("px")
 }

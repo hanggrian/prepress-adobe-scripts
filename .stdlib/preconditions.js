@@ -6,18 +6,20 @@
 
 /**
  * Assert that a condition is satisfied, throw an error otherwise.
+ * Error message is always suffixed with period by SUI.
  * @param {Boolean} requirement expect value to be `true`.
  * @param {Object} errorMessage helpful alert, may be null.
  * @returns {void}
  */
 function check(requirement, errorMessage) {
   if (!requirement) {
-    error(errorMessage || 'Failed requirement')
+    error(errorMessage || "Failed requirement")
   }
 }
 
 /**
  * Assert that a value is null.
+ * Error message is always suffixed with period by SUI.
  * @param {Object} errorMessage helpful alert, may be null.
  * @returns {Object}
  */
@@ -28,6 +30,7 @@ function checkNull(value, errorMessage) {
 
 /**
  * Assert that a value is not null.
+ * Error message is always suffixed with period by SUI.
  * @param {Object} errorMessage helpful alert, may be null.
  * @returns {Object}
  */
@@ -36,13 +39,17 @@ function checkNotNull(value, errorMessage) {
   return value
 }
 
-/** Assert an item's typename. */
+/**
+ * Assert an item's typename.
+ * Error message is always suffixed with period by SUI.
+ */
 function checkTypename(item, typename) {
-  check(item.typename === typename, 'Selected item is not a ' + typename)
+  check(item.typename === typename, "Selected item is not a " + typename)
 }
 
 /**
  * Throw an error.
+ * Error message is always suffixed with period by SUI.
  * @param {Object} errorMessage helpful alert, may be null.
  */
 function error(errorMessage) {
@@ -57,6 +64,6 @@ function error(errorMessage) {
  */
 function errorWithAlert(errorMessage) {
   var message = errorMessage.toString()
-  alert(message, 'Uncaught JavaScript exception', true)
+  alert(message, "Uncaught JavaScript Exception", true)
   throw new Error(message)
 }

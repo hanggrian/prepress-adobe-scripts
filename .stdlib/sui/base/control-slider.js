@@ -23,7 +23,7 @@ Group.prototype.slider = function(bounds, current, start, end, properties) { ret
 Panel.prototype.slider = function(bounds, current, start, end, properties) { return _slider(this, bounds, current, start, end, properties) }
 
 function _slider(parent, bounds, current, start, end, properties) {
-  var result = parent.add('slider', _expandBounds(bounds), current, start, end, properties)
+  var result = parent.add("slider", _expandBounds(bounds), current, start, end, properties)
   if (parent.helpTips !== undefined) {
     _tip(result, parent.helpTips)
   }

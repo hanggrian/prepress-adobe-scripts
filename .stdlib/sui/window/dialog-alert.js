@@ -20,7 +20,7 @@ function AlertDialog(title, message, error, helpUrlSuffix) {
 
   var dialog = new Dialog(title, helpUrlSuffix)
   dialog.hgroup(function(main) {
-    main.image(undefined, error ? 'alert_error' : 'alert_warning')
+    main.image(undefined, error ? "alert_error" : "alert_warning")
     main.staticText(undefined, message)
   })
 

@@ -7,20 +7,21 @@
 */
 
 #target Photoshop
-#include '../.lib/commons.js'
+#include "../.lib/commons.js"
 
 var BOUNDS_TEXT = [70, 21]
 var BOUNDS_EDIT = [100, 21]
-var RESAMPLES = ['Bicubic', 'Bicubic Sharper', 'Bicubic Smoother', 'Bilinear', 'Nearest Neighbor', 'None']
+var BOUNDS_LIST = [180, 21]
+var RESAMPLES = ["Bicubic", "Bicubic Sharper", "Bicubic Smoother", "Bilinear", "Nearest Neighbor", "None"]
 
-var dialog = new Dialog('Resize Images', 'resizing-images-canvases#resize-images-f2')
+var dialog = new Dialog("Resize Images", "resizing-images-canvases/#resize-images")
 var widthEdit, heightEdit, resolutionEdit, resampleList
 
 dialog.vgroup(function(main) {
-  main.alignChildren = 'fill'
+  main.alignChildren = "fill"
   main.hgroup(function(group) {
     group.tips("Images' new width")
-    group.staticText(BOUNDS_TEXT, 'Width:').also(JUSTIFY_RIGHT)
+    group.staticText(BOUNDS_TEXT, "Width:").also(JUSTIFY_RIGHT)
     widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2)).also(function(it) {
       it.validateUnits()
       it.activate()
@@ -28,19 +29,19 @@ dialog.vgroup(function(main) {
   })
   main.hgroup(function(group) {
     group.tips("Images' new height")
-    group.staticText(BOUNDS_TEXT, 'Height:').also(JUSTIFY_RIGHT)
+    group.staticText(BOUNDS_TEXT, "Height:").also(JUSTIFY_RIGHT)
     heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2)).also(VALIDATE_UNITS)
   })
   main.hgroup(function(group) {
     group.tips("Images' new resolution")
-    group.staticText(BOUNDS_TEXT, 'Resolution:').also(JUSTIFY_RIGHT)
+    group.staticText(BOUNDS_TEXT, "Resolution:").also(JUSTIFY_RIGHT)
     resolutionEdit = group.editText(BOUNDS_EDIT, document.resolution).also(VALIDATE_UNITS)
   })
   main.hgroup(function(group) {
-    group.tips('Method to resample new images')
-    group.staticText(BOUNDS_TEXT, 'Resample:').also(JUSTIFY_RIGHT)
-    resampleList = group.dropDownList(undefined, RESAMPLES).also(function(it) {
-      it.selectText('Bicubic')
+    group.tips("Method to resample new images")
+    group.staticText(BOUNDS_TEXT, "Resample:").also(JUSTIFY_RIGHT)
+    resampleList = group.dropDownList(BOUNDS_LIST, RESAMPLES).also(function(it) {
+      it.selectText("Bicubic")
     })
   })
 })
@@ -50,28 +51,39 @@ dialog.setDefaultButton(undefined, function() {
   var height = new UnitValue(heightEdit.text)
   var resolution = parseInt(resolutionEdit.text)
   var resample = getResample()
-  var progress = new ProgressPalette(app.documents.length, 'Resizing')
+
+  process(document, width, height, resolution, resample)
+})
+dialog.setYesButton('All', function() {
+  var width = new UnitValue(widthEdit.text)
+  var height = new UnitValue(heightEdit.text)
+  var resolution = parseInt(resolutionEdit.text)
+  var resample = getResample()
+  var progress = new ProgressPalette(app.documents.length, "Resizing")
 
   for (var i = 0; i < app.documents.length; i++) {
     progress.increment()
-    var document = app.documents[i]
-    app.activeDocument = document
-    document.resizeImage(width, height, resolution, resample)
+    process(app.documents[i], width, height, resolution, resample)
   }
 })
 dialog.show()
 
+function process(document, width, height, resample, resample) {
+  app.activeDocument = document
+  document.resizeImage(width, height, resolution, resample)
+}
+
 function getResample() {
   switch (resampleList.selection.text) {
-    case 'Bicubic':
+    case "Bicubic":
       return ResampleMethod.BICUBIC
-    case 'Bicubic Sharper':
+    case "Bicubic Sharper":
       return ResampleMethod.BICUBICSHARPER
-    case 'Bicubic Smoother':
+    case "Bicubic Smoother":
       return ResampleMethod.BICUBICSMOOTHER
-    case 'Bilinear':
+    case "Bilinear":
       return ResampleMethod.BILINEAR
-    case 'Nearest Neighbor':
+    case "Nearest Neighbor":
       return ResampleMethod.NEARESTNEIGHBOR
     default:
       return ResampleMethod.NONE

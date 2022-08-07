@@ -1,10 +1,10 @@
 #target Illustrator
-#include '../.lib/core.js'
+#include "../.lib/core.js"
 
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
 
-var dialog = new Dialog('Impose 1-Up', 'imposing-layout#n-up-f9--f9--f9')
+var dialog = new Dialog("Impose 1-Up", "imposing-layout/#n-up")
 var pdfPanel, pagesPanel, documentPanel
 var nupGroup
 
@@ -17,9 +17,9 @@ if (files !== null && files.isNotEmpty()) {
   var collection = new FileCollection(files)
 
   dialog.vgroup(function(main) {
-    main.alignChildren = 'right'
+    main.alignChildren = "right"
     main.hgroup(function(topGroup) {
-      topGroup.alignChildren = 'fill'
+      topGroup.alignChildren = "fill"
       topGroup.vgroup(function(group) {
         if (collection.hasPDF) {
           pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
@@ -47,13 +47,13 @@ if (files !== null && files.isNotEmpty()) {
     var rotatedWidth = !nupGroup.isRotate() ? width : height
     var rotatedHeight = !nupGroup.isRotate() ? height : width
 
-    var document = documentPanel.open('Untitled-1-Up',
+    var document = documentPanel.open("Untitled-1-Up",
       artboards,
       rotatedWidth,
       rotatedHeight,
       bleed)
     var pager = new OneUpPager(document, start)
-    var progress = new ProgressPalette(artboards, 'Imposing')
+    var progress = new ProgressPalette(artboards, "Imposing")
 
     pager.forEachArtboard(function(artboard, index) {
       progress.increment()

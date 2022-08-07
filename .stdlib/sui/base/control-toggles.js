@@ -31,7 +31,7 @@ Group.prototype.checkBox = function(bounds, text, properties) { return _checkBox
 Panel.prototype.checkBox = function(bounds, text, properties) { return _checkBox(this, bounds, text, properties) }
 
 function _checkBox(parent, bounds, text, properties) {
-  var result = parent.add('checkbox', _expandBounds(bounds), text, properties)
+  var result = parent.add("checkbox", _expandBounds(bounds), text, properties)
   if (parent.helpTips !== undefined) {
     _tip(result, parent.helpTips)
   }
@@ -57,7 +57,7 @@ Group.prototype.radioButton = function(bounds, text, properties) { return _radio
 Panel.prototype.radioButton = function(bounds, text, properties) { return _radioButton(this, bounds, text, properties) }
 
 function _radioButton(parent, bounds, text, properties) {
-  var result = parent.add('radiobutton', _expandBounds(bounds), text, properties)
+  var result = parent.add("radiobutton", _expandBounds(bounds), text, properties)
   if (parent.helpTips !== undefined) {
     _tip(result, parent.helpTips)
   }

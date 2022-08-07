@@ -1,16 +1,16 @@
 var ORDER_LAYERS = [
-  ['Default', 'ic_order_layer_default'],
-  ['Reversed', 'ic_order_layer_reversed']
+  ["Default", "ic_order_layer_default"],
+  ["Reversed", "ic_order_layer_reversed"]
 ]
 var ORDER_NAMES = [
-  ['Ascending', 'ic_order_name_ascending'],
-  ['Descending', 'ic_order_name_descending']
+  ["Ascending", "ic_order_name_ascending"],
+  ["Descending", "ic_order_name_descending"]
 ]
 var ORDER_POSITIONS = [
-  ['Horizontal', 'ic_order_position_horizontal'],
-  ['Vertical', 'ic_order_position_vertical'],
-  ['Horizontal RTL', 'ic_order_position_horizontalrtl'],
-  ['Vertical RTL', 'ic_order_position_verticalrtl']
+  ["Horizontal", "ic_order_position_horizontal"],
+  ["Vertical", "ic_order_position_vertical"],
+  ["Horizontal RTL", "ic_order_position_horizontalrtl"],
+  ["Vertical RTL", "ic_order_position_verticalrtl"]
 ]
 
 function OrderByGroup(parent, ordersCollection) {
@@ -22,46 +22,46 @@ function OrderByGroup(parent, ordersCollection) {
   ordersCollection.forEach(function(it, i) {
     orders = orders.concat(it)
     if (i !== ordersCollection.lastIndex()) {
-      orders.push('-')
+      orders.push("-")
     }
   })
 
   this.main = parent.hgroup(function(group) {
-    group.tips('Modify how iteration should be operated')
+    group.tips("Modify how iteration should be operated")
     self.list = group.dropDownList(undefined, orders).also(function(it) {
-      it.title = 'Order by:'
+      it.title = "Order by:"
     })
   })
 
   this.forEach = function(collection, action) {
-    if (self.list.selection.text === 'Default') {
+    if (self.list.selection.text === "Default") {
       collection.forEach(action)
       return
-    } else if (self.list.selection.text === 'Reversed') {
+    } else if (self.list.selection.text === "Reversed") {
       collection.forEachReversed(action)
       return
     }
     var sortedCollection = collection.map(function(it) { return it })
-    if (self.list.selection.text === 'Ascending') {
+    if (self.list.selection.text === "Ascending") {
       sortedCollection.sort(sortAscending)
-    } else if (self.list.selection.text === 'Descending') {
+    } else if (self.list.selection.text === "Descending") {
       sortedCollection.sort(sortDescending)
-    } else if (self.list.selection.text === 'Horizontal') {
+    } else if (self.list.selection.text === "Horizontal") {
       sortedCollection.sort(sortHorizontal)
-    } else if (self.list.selection.text === 'Vertical') {
+    } else if (self.list.selection.text === "Vertical") {
       sortedCollection.sort(sortVertical)
-    } else if (self.list.selection.text === 'Horizontal RTL') {
+    } else if (self.list.selection.text === "Horizontal RTL") {
       sortedCollection.sort(sortHorizontalRtl)
-    } else if (self.list.selection.text === 'Vertical RTL') {
+    } else if (self.list.selection.text === "Vertical RTL") {
       sortedCollection.sort(sortVerticalRtl)
     } else {
-      error('Ordering error')
+      error("Ordering error")
     }
     sortedCollection.forEach(action)
   }
 
   function getBounds(item) {
-    return item.typename === 'Artboard' ? item.artboardRect : item.geometricBounds
+    return item.typename === "Artboard" ? item.artboardRect : item.geometricBounds
   }
 
   function sortAscending(a, b) {

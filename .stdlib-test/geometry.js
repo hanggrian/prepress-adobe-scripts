@@ -1,5 +1,5 @@
-require('../.stdlib/geometry.js')
-var assert = require('./assert.js')
+require("../.stdlib/geometry.js")
+var assert = require("./assert.js")
 
 var getLeft = function() {
   assert.assertEquals(1, [1, 0, 0, 0].getLeft())

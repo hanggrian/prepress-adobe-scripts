@@ -1,10 +1,10 @@
 #target Illustrator
-#include '../.lib/core.js'
+#include "../.lib/core.js"
 
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
 
-var dialog = new Dialog('Impose 4-Up', 'imposing-layout#n-up-f9--f9--f9')
+var dialog = new Dialog("Impose 4-Up", "imposing-layout/#n-up")
 var pdfPanel, pagesPanel, documentPanel
 var nupGroup
 
@@ -17,9 +17,9 @@ if (files !== null && files.isNotEmpty()) {
   var collection = new FileCollection(files)
 
   dialog.vgroup(function(main) {
-    main.alignChildren = 'right'
+    main.alignChildren = "right"
     main.hgroup(function(topGroup) {
-      topGroup.alignChildren = 'fill'
+      topGroup.alignChildren = "fill"
       topGroup.vgroup(function(group) {
         if (collection.hasPDF) {
           pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
@@ -49,9 +49,9 @@ if (files !== null && files.isNotEmpty()) {
 
     var pagesDivisor = !nupGroup.isDuplex() ? 4 : 8
     if (pages % pagesDivisor !== 0) {
-      errorWithAlert('Pages must be divisible by ' + pagesDivisor)
+      errorWithAlert("Pages must be divisible by " + pagesDivisor + ".")
     }
-    var document = documentPanel.open('Untitled-4-Up',
+    var document = documentPanel.open("Untitled-4-Up",
       artboards,
       (rotatedWidth + bleed * 2) * 2,
       (rotatedHeight + bleed * 2) * 2,
@@ -63,7 +63,7 @@ if (files !== null && files.isNotEmpty()) {
       : (!nupGroup.isDuplex()
         ? new FourUpSimplexCutStackPager(document, start)
         : new FourUpDuplexCutStackPager(document, start))
-    var progress = new ProgressPalette(artboards, 'Imposing')
+    var progress = new ProgressPalette(artboards, "Imposing")
 
     pager.forEachArtboard(function(artboard,
       topLeftIndex, topRightIndex,

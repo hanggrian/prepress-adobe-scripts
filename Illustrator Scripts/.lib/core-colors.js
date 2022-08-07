@@ -1,11 +1,11 @@
 var COLORS = [
-  ['Registration', 'color_registration'],
-  ['White', 'color_white'],
-  '-',
-  ['Cyan', 'color_cyan'],
-  ['Magenta', 'color_magenta'],
-  ['Yellow', 'color_yellow'],
-  ['Black', 'color_black']
+  ["Registration", "color_registration"],
+  ["White", "color_white"],
+  "-",
+  ["Cyan", "color_cyan"],
+  ["Magenta", "color_magenta"],
+  ["Yellow", "color_yellow"],
+  ["Black", "color_black"]
 ]
 
 var COLOR_WHITE = new CMYKColor()
@@ -22,17 +22,17 @@ var COLOR_NONE = new NoColor()
  */
 function parseColor(text) {
   switch (text.trim()) {
-    case 'Registration':
+    case "Registration":
       return getRegistrationColor()
-    case 'White':
+    case "White":
       return COLOR_WHITE
-    case 'Cyan':
+    case "Cyan":
       return COLOR_CYAN
-    case 'Magenta':
+    case "Magenta":
       return COLOR_MAGENTA
-    case 'Yellow':
+    case "Yellow":
       return COLOR_YELLOW
-    case 'Black':
+    case "Black":
       return COLOR_BLACK
     default:
       return undefined
@@ -44,7 +44,7 @@ function parseColor(text) {
  * @returns {SpotColor}
  */
 function getRegistrationColor() {
-  return document.swatches['[registration]'].color
+  return document.swatches["[registration]"].color
 }
 
 /**

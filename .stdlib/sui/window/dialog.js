@@ -14,18 +14,18 @@ function Dialog(title, helpUrlSuffix) {
   var prepared = false
   this.defaultButton, this.yesButton, this.cancelButton, this.helpButton, this.helpIconButton
 
-  var window = new Window('dialog', title)
-  window.orientation = 'column'
+  var window = new Window("dialog", title)
+  window.orientation = "column"
 
-  this.main = window.add('group')
-  this.buttons = window.add('group').also(function(topGroup) {
-    topGroup.orientation = 'stack'
-    topGroup.alignment = 'fill'
+  this.main = window.add("group")
+  this.buttons = window.add("group").also(function(topGroup) {
+    topGroup.orientation = "stack"
+    topGroup.alignment = "fill"
     self.leftButtons = topGroup.hgroup(function(group) {
-      group.alignment = 'left'
+      group.alignment = "left"
     })
     self.rightButtons = topGroup.hgroup(function(group) {
-      group.alignment = 'right'
+      group.alignment = "right"
     })
   })
 
@@ -42,7 +42,7 @@ function Dialog(title, helpUrlSuffix) {
 
   /** Set main layout to horizontal. */
   this.hgroup = function(configuration) {
-    self.main.orientation = 'row'
+    self.main.orientation = "row"
     if (configuration !== null) {
       configuration(self.main)
     }
@@ -50,7 +50,7 @@ function Dialog(title, helpUrlSuffix) {
 
   /** Set main layout to vertical. */
   this.vgroup = function(configuration) {
-    self.main.orientation = 'column'
+    self.main.orientation = "column"
     if (configuration !== null) {
       configuration(self.main)
     }
@@ -63,7 +63,7 @@ function Dialog(title, helpUrlSuffix) {
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
   this.setDefaultButton = function(text, action, disabled) {
-    defaultButtonText = text || 'OK'
+    defaultButtonText = text || "OK"
     defaultButtonAction = action
     defaultButtonDisabled = disabled
   }
@@ -75,7 +75,7 @@ function Dialog(title, helpUrlSuffix) {
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
   this.setYesButton = function(text, action, disabled) {
-    yesButtonText = text || 'Yes'
+    yesButtonText = text || "Yes"
     yesButtonAction = action
     yesButtonDisabled = disabled
   }
@@ -87,7 +87,7 @@ function Dialog(title, helpUrlSuffix) {
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
   this.setCancelButton = function(text, action, disabled) {
-    cancelButtonText = text || 'Cancel'
+    cancelButtonText = text || "Cancel"
     cancelButtonAction = action
     cancelButtonDisabled = disabled
   }
@@ -99,7 +99,7 @@ function Dialog(title, helpUrlSuffix) {
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
   this.setHelpButton = function(text, action, disabled) {
-    helpButtonText = text || 'Help'
+    helpButtonText = text || "Help"
     helpButtonAction = action
     helpButtonDisabled = disabled
   }
@@ -109,20 +109,20 @@ function Dialog(title, helpUrlSuffix) {
       return
     }
     if (helpUrlSuffix !== undefined) {
-      self.helpIconButton = self.leftButtons.iconButton(undefined, 'ic_help', { style: 'toolbutton' }).also(function(it) {
+      self.helpIconButton = self.leftButtons.iconButton(undefined, "ic_help", { style: "toolbutton" }).also(function(it) {
         it.tip("What's this?")
-        it.onClick = function() { openURL(URL_WEBSITE + '/' + helpUrlSuffix) }
+        it.onClick = function() { openURL(URL_WEBSITE + "/" + helpUrlSuffix) }
       })
     }
     self.helpButton = appendButton(self.leftButtons, helpButtonText, helpButtonAction, helpButtonDisabled)
     if (OS_MAC) {
       self.yesButton = appendButton(self.rightButtons, yesButtonText, yesButtonAction, yesButtonDisabled)
-      self.cancelButton = appendButton(self.rightButtons, cancelButtonText, cancelButtonAction, cancelButtonDisabled, { name: 'cancel' })
-      self.defaultButton = appendButton(self.rightButtons, defaultButtonText, defaultButtonAction, defaultButtonDisabled, { name: 'ok' })
+      self.cancelButton = appendButton(self.rightButtons, cancelButtonText, cancelButtonAction, cancelButtonDisabled, { name: "cancel" })
+      self.defaultButton = appendButton(self.rightButtons, defaultButtonText, defaultButtonAction, defaultButtonDisabled, { name: "ok" })
     } else {
-      self.defaultButton = appendButton(self.rightButtons, defaultButtonText, defaultButtonAction, defaultButtonDisabled, { name: 'ok' })
+      self.defaultButton = appendButton(self.rightButtons, defaultButtonText, defaultButtonAction, defaultButtonDisabled, { name: "ok" })
       self.yesButton = appendButton(self.rightButtons, yesButtonText, yesButtonAction, yesButtonDisabled)
-      self.cancelButton = appendButton(self.rightButtons, cancelButtonText, cancelButtonAction, cancelButtonDisabled, { name: 'cancel' })
+      self.cancelButton = appendButton(self.rightButtons, cancelButtonText, cancelButtonAction, cancelButtonDisabled, { name: "cancel" })
     }
     prepared = true
   }

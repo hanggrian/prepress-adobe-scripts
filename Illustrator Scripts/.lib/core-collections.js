@@ -8,7 +8,7 @@ Object.prototype.forEachItem = function(action) { _forEachItem(this, action) }
 
 function _forEachItem(items, action) {
   for (var i = 0; i < items.length; i++) {
-    if (items[i].typename === 'GroupItem') {
+    if (items[i].typename === "GroupItem") {
       _forEachItem(items[i].pageItems, action)
     } else {
       action(items[i], i)
@@ -24,7 +24,7 @@ Object.prototype.forEachItemReversed = function(action) { _forEachItemReversed(t
 
 function _forEachItemReversed(items, action) {
   for (var i = items.lastIndex(); i >= 0; i--) {
-    if (items[i].typename === 'GroupItem') {
+    if (items[i].typename === "GroupItem") {
       _forEachItemReversed(items[i].pageItems, action)
     } else {
       action(items[i], i)
@@ -41,13 +41,13 @@ Object.prototype.firstItem = function(predicate) { return _firstItem(this, predi
 
 function _firstItem(items, predicate) {
   for (var i = 0; i < items.length; i++) {
-    if (items[i].typename === 'GroupItem') {
+    if (items[i].typename === "GroupItem") {
       return _firstItem(items[i].pageItems, predicate)
     } else if (predicate(items[i], i)) {
       return items[i]
     }
   }
-  throw new Error('Element not found given the predicate')
+  error("Element not found given the predicate")
 }
 
 /**
@@ -59,13 +59,13 @@ Object.prototype.lastItem = function(predicate) { return _lastItem(this, predica
 
 function _lastItem(items, predicate) {
   for (var i = this.lastIndex(); i >= 0; i--) {
-    if (items[i].typename === 'GroupItem') {
+    if (items[i].typename === "GroupItem") {
       return _firstItem(items[i].pageItems, predicate)
     } else if (predicate(items[i], i)) {
       return items[i]
     }
   }
-  throw new Error('Element not found given the predicate')
+  error("Element not found given the predicate")
 }
 
 // TODO: Object.prototype.firstItem
@@ -80,7 +80,7 @@ Object.prototype.noneItem = function(predicate) { return _noneItem(this, predica
 
 function _noneItem(items, predicate) {
   for (var i = 0; i < items.length; i++) {
-    if (items[i].typename === 'GroupItem') {
+    if (items[i].typename === "GroupItem") {
       if (!_noneItem(items[i].pageItems, predicate)) {
         return false
       }
@@ -100,7 +100,7 @@ Object.prototype.anyItem = function(predicate) { return _anyItem(this, predicate
 
 function _anyItem(items, predicate) {
   for (var i = 0; i < items.length; i++) {
-    if (items[i].typename === 'GroupItem') {
+    if (items[i].typename === "GroupItem") {
       if (_anyItem(items[i].pageItems, predicate)) {
         return true
       }
@@ -120,7 +120,7 @@ Object.prototype.allItem = function(predicate) { return _allItem(this, predicate
 
 function _allItem(items, predicate) {
   for (var i = 0; i < items.length; i++) {
-    if (items[i].typename === 'GroupItem') {
+    if (items[i].typename === "GroupItem") {
       if (!_allItem(items[i].pageItems, predicate)) {
         return false
       }
@@ -144,7 +144,7 @@ Object.prototype.filterItem = function(predicate) {
 
 function _filterItem(items, predicate, result) {
   for (var i = 0; i < items.length; i++) {
-    if (items[i].typename === 'GroupItem') {
+    if (items[i].typename === "GroupItem") {
       _filterItem(items[i].pageItems, predicate, result)
     } else {
       if (predicate(items[i], i)) {
@@ -167,7 +167,7 @@ Object.prototype.mapItem = function(transform) {
 
 function _mapItem(items, transform, result) {
   for (var i = 0; i < items.length; i++) {
-    if (items[i].typename === 'GroupItem') {
+    if (items[i].typename === "GroupItem") {
       _mapItem(items[i].pageItems, transform, result)
     } else {
       result.push(transform(items[i], i))

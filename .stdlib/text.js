@@ -92,7 +92,7 @@ String.prototype.isNumeric = function() {
  * @returns {String}
  */
 String.prototype.trimStart = function() {
-  return this.replace(/^\s\s*/, '')
+  return this.replace(/^\s\s*/, "")
 }
 
 /**
@@ -100,7 +100,7 @@ String.prototype.trimStart = function() {
  * @returns {String}
  */
 String.prototype.trimEnd = function() {
-  return this.replace(/\s\s*$/, '')
+  return this.replace(/\s\s*$/, "")
 }
 
 /**
@@ -128,7 +128,7 @@ String.prototype.formatArr = function(arr) { return _formatString(this, arr) }
 function _formatString(s, args) {
   var formatted = s
   for (var i = 0; i < args.length; i++) {
-    var regexp = new RegExp('\\{' + i + '\\}', 'gi')
+    var regexp = new RegExp("\\{" + i + "\\}", "gi")
     formatted = formatted.replace(regexp, args[i])
   }
   return formatted

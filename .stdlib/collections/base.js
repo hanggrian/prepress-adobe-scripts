@@ -19,7 +19,7 @@ Object.prototype.indexOf = function(element) {
       return i
     }
   }
-  throw 'Element not found in this collection'
+  error("Element not found in this collection")
 }
 
 /**

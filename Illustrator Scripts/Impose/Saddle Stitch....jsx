@@ -1,10 +1,10 @@
 #target Illustrator
-#include '../.lib/core.js'
+#include "../.lib/core.js"
 
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
 
-var dialog = new Dialog('Impose Saddle Stitch', 'imposing-layout#saddle-stitch---f9')
+var dialog = new Dialog("Impose Saddle Stitch", "imposing-layout/#saddle-stitch")
 var pdfPanel, pagesPanel, documentPanel
 var rtlCheck
 
@@ -17,9 +17,9 @@ if (files !== null && files.isNotEmpty()) {
   var collection = new FileCollection(files)
 
   dialog.vgroup(function(main) {
-    main.alignChildren = 'right'
+    main.alignChildren = "right"
     main.hgroup(function(topGroup) {
-      topGroup.alignChildren = 'fill'
+      topGroup.alignChildren = "fill"
       topGroup.vgroup(function(group) {
         if (collection.hasPDF) {
           pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
@@ -35,8 +35,8 @@ if (files !== null && files.isNotEmpty()) {
       documentPanel = new OpenDocumentPanel(topGroup)
     })
     main.hgroup(function(group) {
-      rtlCheck = group.checkBox(undefined, 'Right-to-Left').also(function(it) {
-        it.tip('Useful for Arabic layout')
+      rtlCheck = group.checkBox(undefined, "Right-to-Left").also(function(it) {
+        it.tip("Useful for Arabic layout")
       })
     })
   })
@@ -51,15 +51,15 @@ if (files !== null && files.isNotEmpty()) {
     var bleed = pagesPanel.getBleed()
 
     if (pages % 4 !== 0) {
-      errorWithAlert('Pages must be divisible by 4')
+      errorWithAlert("Pages must be divisible by 4.")
     }
-    var document = documentPanel.open('Untitled-Saddle Stitch',
+    var document = documentPanel.open("Untitled-Saddle Stitch",
       artboards,
       width * 2,
       height,
       bleed)
     var pager = new SaddleStitchPager(document, start, end, rtlCheck.value)
-    var progress = new ProgressPalette(artboards, 'Imposing')
+    var progress = new ProgressPalette(artboards, "Imposing")
 
     pager.forEachArtboard(function(artboard,
       leftIndex, rightIndex) {

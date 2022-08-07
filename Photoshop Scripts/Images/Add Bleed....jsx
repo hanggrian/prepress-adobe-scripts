@@ -7,43 +7,43 @@
 */
 
 #target Photoshop
-#include '../.lib/commons.js'
+#include "../.lib/commons.js"
 
-var dialog = new Dialog('Add Bleed to Images', 'add-bleed-to-images')
+var dialog = new Dialog("Add Bleed to Images", "add-bleed-to-images/")
 var lengthEdit
 var anchorGroup
 var flattenImageCheck, guidesRadiosCheckGroup, selectBleedCheck, correctionEdit
-var prefs = preferences2.resolve('images/add_bleed')
+var prefs = preferences2.resolve("images/add_bleed")
 
 dialog.vgroup(function(main) {
-  main.alignChildren = 'fill'
+  main.alignChildren = "fill"
   main.hgroup(function(group) {
-    group.tips('Bleed are distributed around image')
-    group.staticText([120, 21], 'Length:').also(JUSTIFY_RIGHT)
-    lengthEdit = group.editText([200, 21], prefs.getString('length', '2.5 mm')).also(function(it) {
+    group.tips("Bleed are distributed around image")
+    group.staticText([120, 21], "Length:").also(JUSTIFY_RIGHT)
+    lengthEdit = group.editText([200, 21], prefs.getString("length", "2.5 mm")).also(function(it) {
       it.validateUnits()
       it.activate()
     })
   })
   main.hgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    topGroup.vpanel('Anchor', function(panel) {
+    topGroup.alignChildren = "fill"
+    topGroup.vpanel("Anchor", function(panel) {
       anchorGroup = new AnchorGroup(panel, true)
     })
-    topGroup.vpanel('Options', function(group) {
-      group.alignChildren = 'fill'
-      flattenImageCheck = group.checkBox(undefined, 'Flatten Image').also(function(it) {
-        it.tip('Layers will be flattened')
+    topGroup.vpanel("Options", function(group) {
+      group.alignChildren = "fill"
+      flattenImageCheck = group.checkBox(undefined, "Flatten Image").also(function(it) {
+        it.tip("Layers will be flattened")
         it.select()
       })
-      guidesRadiosCheckGroup = new MultiRadioCheckGroup(group, 'Use Guides', ['Append', 'Replace']).also(function(it) {
-        it.main.tips('Guides will mark where bleed are added')
+      guidesRadiosCheckGroup = new MultiRadioCheckGroup(group, "Use Guides", ["Append", "Replace"]).also(function(it) {
+        it.main.tips("Guides will mark where bleed are added")
         it.check.select()
         it.check.onClick()
       })
       group.hgroup(function(innerGroup) {
-        innerGroup.tips('Select bleed with x correction')
-        selectBleedCheck = innerGroup.checkBox(undefined, 'Select Bleed with').also(function(it) {
+        innerGroup.tips("Select bleed with x correction")
+        selectBleedCheck = innerGroup.checkBox(undefined, "Select Bleed with").also(function(it) {
           it.onClick = function() {
             correctionEdit.enabled = it.value
             if (it.value) {
@@ -53,11 +53,11 @@ dialog.vgroup(function(main) {
             }
           }
         })
-        correctionEdit = innerGroup.editText([50, 21], '0 px').also(function(it) {
+        correctionEdit = innerGroup.editText([50, 21], "0 px").also(function(it) {
           it.validateUnits()
           it.enabled = false
         })
-        innerGroup.staticText(undefined, 'Correction')
+        innerGroup.staticText(undefined, "Correction")
       })
     })
   })
@@ -67,21 +67,21 @@ dialog.setDefaultButton(undefined, function() {
   var bleed = new UnitValue(lengthEdit.text)
   var anchor = anchorGroup.getAnchorPosition()
   var correction = parseUnits(correctionEdit.text)
-  process(bleed, anchor, correction, document)
+  process(document, bleed, anchor, correction)
 })
-dialog.setYesButton('All', function() {
+dialog.setYesButton("All", function() {
   var bleed = new UnitValue(lengthEdit.text)
   var anchor = anchorGroup.getAnchorPosition()
   var correction = parseUnits(correctionEdit.text)
-  var progress = new ProgressPalette(app.documents.length, 'Adding bleed')
+  var progress = new ProgressPalette(app.documents.length, "Adding bleed")
   for (var i = 0; i < app.documents.length; i++) {
     progress.increment()
-    process(bleed, anchor, correction, app.documents[i])
+    process(app.documents[i], bleed, anchor, correction)
   }
 })
 dialog.show()
 
-function process(bleed, anchor, correction, document) {
+function process(document, bleed, anchor, correction) {
   app.activeDocument = document
   var pushLeft = false, pushTop = false, pushRight = false, pushBottom = false
   var guideLeft = false, guideTop = false, guideRight = false, guideBottom = false
@@ -112,7 +112,7 @@ function process(bleed, anchor, correction, document) {
   }
 
   if (guidesRadiosCheckGroup.isSelected()) {
-    if (guidesRadiosCheckGroup.getSelectedRadio() === 'Replace') {
+    if (guidesRadiosCheckGroup.getSelectedRadio() === "Replace") {
       while (document.guides.length > 0) { // TODO: find out why forEach only clearing parts
         document.guides.first().remove()
       }
@@ -127,10 +127,10 @@ function process(bleed, anchor, correction, document) {
   }
   document.resizeCanvas(targetWidth, targetHeight, anchor)
   if (selectBleedCheck.value) {
-    var left = guideLeft.coordinate.as('px') + (pushLeft ? correction : 0)
-    var top = guideTop.coordinate.as('px') + (pushTop ? correction : 0)
-    var right = guideRight.coordinate.as('px') - (pushRight ? correction : 0)
-    var bottom = guideBottom.coordinate.as('px') - (pushBottom ? correction : 0)
+    var left = guideLeft.coordinate.as("px") + (pushLeft ? correction : 0)
+    var top = guideTop.coordinate.as("px") + (pushTop ? correction : 0)
+    var right = guideRight.coordinate.as("px") - (pushRight ? correction : 0)
+    var bottom = guideBottom.coordinate.as("px") - (pushBottom ? correction : 0)
     document.selection.select([
       [left, top],
       [left, bottom],
@@ -141,6 +141,6 @@ function process(bleed, anchor, correction, document) {
   }
 
   prefs.edit(function(it) {
-    it.setString('length', lengthEdit.text)
+    it.setString("length", lengthEdit.text)
   })
 }

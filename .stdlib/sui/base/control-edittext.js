@@ -40,11 +40,11 @@ EditText.prototype.validateUnits = function() {
     if (exec !== null) { // new unit type found, use it
       var newUnitValue = _removeRegexes(_new.substring(0, exec.index), [REPLACE_TRAILING_SPACE])
       var newUnitType = _new.substring(exec.index)
-      return newUnitValue + ' ' + newUnitType
+      return newUnitValue + " " + newUnitType
     } else { // new unit type not found, use old unit value if exist
-      if (_new.isEmpty()) _new = '0' // in event when all text is removed, use 0
+      if (_new.isEmpty()) _new = "0" // in event when all text is removed, use 0
       return oldUnitType !== undefined
-        ? _new + ' ' + oldUnitType
+        ? _new + " " + oldUnitType
         : _new
     }
   })
@@ -94,7 +94,7 @@ Group.prototype.editText = function(bounds, text, properties) { return _editText
 Panel.prototype.editText = function(bounds, text, properties) { return _editText(this, bounds, text, properties) }
 
 function _editText(parent, bounds, text, properties) {
-  var result = parent.add('edittext', _expandBounds(bounds), text, properties)
+  var result = parent.add("edittext", _expandBounds(bounds), text, properties)
   if (parent.helpTips !== undefined) {
     _tip(result, parent.helpTips)
   }

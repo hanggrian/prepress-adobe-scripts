@@ -1,5 +1,5 @@
 #target Illustrator
-#include '../.lib/commons.js'
+#include "../.lib/commons.js"
 
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [40, 21]
@@ -8,41 +8,41 @@ var BOUNDS_EDIT_MOVE = [100, 21]
 
 checkHasSelection()
 
-var dialog = new Dialog('Step and Repeat', 'step-and-repeat')
+var dialog = new Dialog("Step and Repeat", "step-and-repeat/")
 var horizontalEdit, verticalEdit
 var moveHorizontalEdit, moveVerticalEdit, moveRelativeCheck
-var prefs = preferences2.resolve('objects/step_and_repeat')
+var prefs = preferences2.resolve("objects/step_and_repeat")
 
 var bounds = selection.getFarthestBounds()
 dialog.vgroup(function(main) {
   main.hgroup(function(group) {
-    group.tips('2 dimension target')
-    group.staticText(BOUNDS_TEXT, 'Copies:').also(JUSTIFY_RIGHT)
-    horizontalEdit = group.editText(BOUNDS_EDIT, prefs.getInt('horizontal')).also(function(it) {
+    group.tips("2 dimension target")
+    group.staticText(BOUNDS_TEXT, "Copies:").also(JUSTIFY_RIGHT)
+    horizontalEdit = group.editText(BOUNDS_EDIT, prefs.getInt("horizontal")).also(function(it) {
       it.validateDigits()
       it.activate()
     })
-    group.staticText(undefined, '×')
-    verticalEdit = group.editText(BOUNDS_EDIT, prefs.getInt('vertical')).also(VALIDATE_DIGITS)
+    group.staticText(undefined, "×")
+    verticalEdit = group.editText(BOUNDS_EDIT, prefs.getInt("vertical")).also(VALIDATE_DIGITS)
   })
-  main.vpanel('Move', function(panel) {
-    panel.alignChildren = 'right'
+  main.vpanel("Move", function(panel) {
+    panel.alignChildren = "right"
     panel.hgroup(function(group) {
-      group.tips('Distance between arts horizontally')
-      group.staticText(BOUNDS_TEXT_MOVE, 'Horizontal:').also(JUSTIFY_RIGHT)
+      group.tips("Distance between arts horizontally")
+      group.staticText(BOUNDS_TEXT_MOVE, "Horizontal:").also(JUSTIFY_RIGHT)
       moveHorizontalEdit = group.editText(BOUNDS_EDIT_MOVE, formatUnits(bounds.getWidth(), unitName, 2)).also(VALIDATE_UNITS)
     })
     panel.hgroup(function(group) {
-      group.tips('Distance between arts vertically')
-      group.staticText(BOUNDS_TEXT_MOVE, 'Vertical:').also(JUSTIFY_RIGHT)
+      group.tips("Distance between arts vertically")
+      group.staticText(BOUNDS_TEXT_MOVE, "Vertical:").also(JUSTIFY_RIGHT)
       moveVerticalEdit = group.editText(BOUNDS_EDIT_MOVE, formatUnits(bounds.getHeight(), unitName, 2)).also(VALIDATE_UNITS)
     })
-    moveRelativeCheck = panel.checkBox(undefined, 'Relative Position').also(function(it) {
-      it.tip('Move the object relative to its current position')
+    moveRelativeCheck = panel.checkBox(undefined, "Relative Position").also(function(it) {
+      it.tip("Move the object relative to its current position")
       it.onClick = function() {
         if (it.value) {
-          moveHorizontalEdit.text = '0 ' + unitName
-          moveVerticalEdit.text = '0 ' + unitName
+          moveHorizontalEdit.text = "0 " + unitName
+          moveVerticalEdit.text = "0 " + unitName
         } else {
           moveHorizontalEdit.text = formatUnits(bounds.getWidth(), unitName, 2)
           moveVerticalEdit.text = formatUnits(bounds.getHeight(), unitName, 2)
@@ -60,7 +60,7 @@ dialog.setDefaultButton(undefined, function() {
   var moveVertical = parseUnits(moveVerticalEdit.text)
 
   if (horizontal < 1 || vertical < 1) {
-    errorWithAlert('Minimal value is 1×1')
+    errorWithAlert("Minimal value is 1×1.")
     return
   }
 
@@ -68,7 +68,7 @@ dialog.setDefaultButton(undefined, function() {
 
   // vertical starts with 0 because the starting point doesn't change
   for (var v = 0; v < vertical; v++) {
-    print(v + '. ')
+    print(v + ". ")
     var finalMoveVertical = moveVertical
     if (moveRelativeCheck.value) {
       finalMoveVertical += bounds.getHeight()
@@ -81,7 +81,7 @@ dialog.setDefaultButton(undefined, function() {
       })
     }
     for (var h = 1; h < horizontal; h++) {
-      print(h + ' ')
+      print(h + " ")
       var finalMoveHorizontal = moveHorizontal
       if (moveRelativeCheck.value) {
         finalMoveHorizontal += bounds.getWidth()
@@ -95,7 +95,7 @@ dialog.setDefaultButton(undefined, function() {
     println()
   }
 
-  prefs.setInt('horizontal', horizontal)
-  prefs.setInt('vertical', vertical)
+  prefs.setInt("horizontal", horizontal)
+  prefs.setInt("vertical", vertical)
 })
 dialog.show()

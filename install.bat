@@ -16,19 +16,16 @@ set SOURCE_ROOT=%~dp0
 
 :: Check permissions
 net session >nul 2>&1
-if !errorLevel! neq 0 goto :fail_permissions
-
-:: Check sources
-if not exist "!SOURCE_ROOT!.stdlib" goto :fail_sources
-if not exist "!SOURCE_ROOT!.stdres" goto :fail_sources
-if not exist "!SOURCE_ROOT!Illustrator Scripts" goto :fail_sources
-if not exist "!SOURCE_ROOT!Photoshop Scripts" goto :fail_sources
-if not exist "!SOURCE_ROOT!Actions" goto :fail_sources
+if !errorLevel! neq 0 goto :die Check sources
+if not exist "!SOURCE_ROOT!.stdlib" goto :die_sources
+if not exist "!SOURCE_ROOT!.stdres" goto :die_sources
+if not exist "!SOURCE_ROOT!Illustrator Scripts" goto :die_sources
+if not exist "!SOURCE_ROOT!Photoshop Scripts" goto :die_sources
+if not exist "!SOURCE_ROOT!Actions" goto :die_sources
 
 echo.
 echo !YELLOW!!BOLD!WARNING!END!
-echo !YELLOW!This command will replace all existing scripts, even the default ones.
-echo Backup if necessary.!END!
+echo !YELLOW!This command will replace all existing scripts, backup if necessary.!END!
 echo.
 echo !BOLD!!UNDERLINE!Prepress Adobe Scripts!END!
 echo.
@@ -52,7 +49,7 @@ if "!input!" equ "1" (
 ) else if "!input!" equ "Q" (
   rem
 ) else (
-  goto :fail_input
+  goto :die_input
 )
 
 echo.
@@ -157,21 +154,21 @@ goto :eof
   endlocal
 goto :eof
 
-:fail_permissions
+:die_permissions
   echo.
   echo !RED!Administrative permissions required.!END!
   echo.
   pause
 exit /b 1
 
-:fail_sources
+:die_sources
   echo.
   echo !RED!Missing sources.!END!
   echo.
   pause
 exit /b 1
 
-:fail_input
+:die_input
   echo.
   echo !RED!Unable to recognize input.!END!
   echo.

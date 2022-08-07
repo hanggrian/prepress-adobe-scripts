@@ -8,7 +8,8 @@ readonly RED=[91m
 readonly GREEN=[92m
 readonly YELLOW=[93m
 
-fail() { echo; echo "$RED$1$END"; echo; exit 1; }
+warn() { echo "$YELLOW$1$END"; } >&2
+die() { echo; echo "$RED$*$END"; echo; exit 1; } >&2
 
 # Find adobe apps and determine its scripts directory parent.
 # In mac, localized directories always have `.localized` suffix.
@@ -22,7 +23,7 @@ patch_app() {
   echo
   echo "Patching $name..."
 
-  for app in '/Applications/'*; do
+  for app in "/Applications"/*; do
     local app_name=$(basename "$app")
     if [[ "$app_name" == *"Adobe"* ]] && [[ "$app_name" == *"$name"* ]]; then
       local presets="$app/Presets"
@@ -82,41 +83,43 @@ patch_preset() {
 readonly SOURCE_ROOT="$(cd $(dirname "$0") && pwd)"
 
 # Check OS
-if [[ $(uname) != Darwin ]]; then fail 'Unsupported OS'; fi
+if [[ "$(uname)" != Darwin ]]; then die "Unsupported OS."; fi
 
 # Check sources
-if [[ ! -d "$SOURCE_ROOT/.stdlib" ]] || [[ ! -d "$SOURCE_ROOT/.stdres" ]]; then fail 'Missing hidden directories'; fi
-if [[ ! -d "$SOURCE_ROOT/Illustrator Scripts" ]] || [[ ! -d "$SOURCE_ROOT/Photoshop Scripts" ]]; then fail 'Missing scripts'; fi
-if [[ ! -d "$SOURCE_ROOT/Actions" ]]; then fail 'Missing actions'; fi
+if [[ ! -d "$SOURCE_ROOT/.stdlib" ]] || [[ ! -d "$SOURCE_ROOT/.stdres" ]]; then die "Missing hidden directories."; fi
+if [[ ! -d "$SOURCE_ROOT/Illustrator Scripts" ]] || [[ ! -d "$SOURCE_ROOT/Photoshop Scripts" ]]; then die "Missing scripts."; fi
+if [[ ! -d "$SOURCE_ROOT/Actions" ]]; then die "Missing actions."; fi
 
 # Check permissions
-if [[ "$EUID" -ne 0 ]]; then fail 'Root access required'; fi
+if [[ "$EUID" -ne 0 ]]; then die "Root access required."; fi
 
 echo
 echo "$YELLOW${BOLD}WARNING$END"
-echo "${YELLOW}This command will replace all existing scripts, even the default ones"
-echo "Backup if necessary.$END"
+warn "This command will replace all existing scripts, backup if necessary."
 echo
 echo "$BOLD${UNDERLINE}Prepress Adobe Scripts$END"
 echo
-echo '1. Illustrator'
-echo '2. Photoshop'
-echo '3. All'
+echo "1. Illustrator"
+echo "2. Photoshop"
+echo "a. All"
 echo
-echo 'Q. Quit'
+echo "Q. Quit"
 echo
 echo "${BOLD}Which scripts would you like to install:$END"
 read input
 
 case "$input" in
-  1) patch_app 'Illustrator' 'aia' ;;
-  2) patch_app 'Photoshop' 'atn' ;;
-  3) patch_app 'Illustrator' 'aia'; patch_app 'Photoshop' 'atn' ;;
+  1) patch_app "Illustrator" "aia" ;;
+  2) patch_app "Photoshop" "atn" ;;
+  a | A)
+    patch_app "Illustrator" "aia"
+    patch_app "Photoshop" "atn"
+    ;;
   q | Q) ;;
-  *) fail 'Unable to recognize input' ;;
+  *) die "Unable to recognize input." ;;
 esac
 
 echo
-echo 'Goodbye!'
+echo "Goodbye!"
 echo
 exit 0

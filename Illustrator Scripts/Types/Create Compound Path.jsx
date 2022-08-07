@@ -1,10 +1,10 @@
 #target Illustrator
-#include '../.lib/commons.js'
+#include "../.lib/commons.js"
 
 checkHasSelection()
 
-var items = selection.filterItem(function(it) { return it.typename === 'TextFrame' })
-check(items.isNotEmpty(), 'No types found in selection')
+var items = selection.filterItem(function(it) { return it.typename === "TextFrame" })
+check(items.isNotEmpty(), "No types found in selection")
 
 var createdItems = []
 items.forEach(function(it) {
@@ -17,7 +17,7 @@ items.forEach(function(it) {
     }
   }
   group.remove()
-  app.executeMenuCommand('compoundPath')
+  app.executeMenuCommand("compoundPath")
   createdItems.push(selection.first())
 })
 selection = createdItems

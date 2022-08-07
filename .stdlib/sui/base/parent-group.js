@@ -14,40 +14,40 @@ Group.prototype.tips = function(text) { return _tips(this, text) }
  * Add horizontal parent to group.
  * @returns {Group}
  */
-Group.prototype.hgroup = function(configuration) { return _group(this, 'row').also(configuration) }
+Group.prototype.hgroup = function(configuration) { return _group(this, "row").also(configuration) }
 
 /**
  * Add horizontal parent to panel.
  * @returns {Group}
  */
-Panel.prototype.hgroup = function(configuration) { return _group(this, 'row').also(configuration) }
+Panel.prototype.hgroup = function(configuration) { return _group(this, "row").also(configuration) }
 
 /**
  * Add vertical parent to group.
  * @returns {Group}
  */
-Group.prototype.vgroup = function(configuration) { return _group(this, 'column').also(configuration) }
+Group.prototype.vgroup = function(configuration) { return _group(this, "column").also(configuration) }
 
 /**
  * Add vertical parent to panel.
  * @returns {Group}
  */
-Panel.prototype.vgroup = function(configuration) { return _group(this, 'column').also(configuration) }
+Panel.prototype.vgroup = function(configuration) { return _group(this, "column").also(configuration) }
 
 /**
  * Add stack parent to group.
  * @returns {Group}
  */
-Group.prototype.sgroup = function(configuration) { return _group(this, 'stack').also(configuration) }
+Group.prototype.sgroup = function(configuration) { return _group(this, "stack").also(configuration) }
 
 /**
  * Add stack parent to panel.
  * @returns {Group}
  */
-Panel.prototype.sgroup = function(configuration) { return _group(this, 'stack').also(configuration) }
+Panel.prototype.sgroup = function(configuration) { return _group(this, "stack").also(configuration) }
 
 function _group(parent, orientation) {
-  var result = parent.add('group')
+  var result = parent.add("group")
   result.orientation = orientation
   if (parent.helpTips !== undefined) {
     _tips(result, parent.helpTips)
@@ -68,7 +68,7 @@ Group.prototype.getSelectedRadioText = function() { return _getSelectedRadioText
 Panel.prototype.getSelectedRadioText = function() { return _getSelectedRadioText(this) }
 
 function _getSelectedRadioText(parent) {
-  return parent.children.first(function(it) { return it.type === 'radiobutton' && it.value }).text
+  return parent.children.first(function(it) { return it.type === "radiobutton" && it.value }).text
 }
 
 /** Select radio button of this group. */
@@ -78,5 +78,5 @@ Group.prototype.selectRadioText = function(text) { return _selectRadioText(this,
 Panel.prototype.selectRadioText = function(text) { return _selectRadioText(this, text) }
 
 function _selectRadioText(parent, text) {
-  return parent.children.first(function(it) { return it.type === 'radiobutton' && it.text === text }).value = true
+  return parent.children.first(function(it) { return it.type === "radiobutton" && it.text === text }).value = true
 }

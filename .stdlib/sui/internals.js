@@ -7,7 +7,7 @@
 /** Set tooltip to children. */
 function _tip(child, text) {
   text = text.trim()
-  child.helpTip = text.endsWith('.') || text.endsWith('?') ? text : text + '.'
+  child.helpTip = text.endsWith(".") || text.endsWith("?") ? text : text + "."
   return child
 }
 
@@ -35,14 +35,14 @@ function _expandBounds(bounds) {
 function _removeRegexes(string, regexes) {
   var s = string
   for (var i = 0; i < regexes.length; i++) {
-    s = s.replace(regexes[i], '')
+    s = s.replace(regexes[i], "")
   }
   return s
 }
 
 /** Returns resource file, or self if already a file. */
 function _asFile(image) {
-  if (typeof image === 'string' || image instanceof String) {
+  if (typeof image === "string" || image instanceof String) {
     return getImage(image)
   }
   return image
@@ -50,14 +50,14 @@ function _asFile(image) {
 
 /** Split list items to texts and files. */
 function _splitItems(items) {
-  if (items.all(function(it) { return typeof it === 'string' || it instanceof String })) {
+  if (items.all(function(it) { return typeof it === "string" || it instanceof String })) {
     return [items, []]
   }
   var itemTexts = []
   var itemFiles = []
   items.forEach(function(it) {
     itemTexts.push(it[0])
-    itemFiles.push(it[0] === '-' ? undefined : _asFile(it[1]))
+    itemFiles.push(it[0] === "-" ? undefined : _asFile(it[1]))
   })
   return [itemTexts, itemFiles]
 }

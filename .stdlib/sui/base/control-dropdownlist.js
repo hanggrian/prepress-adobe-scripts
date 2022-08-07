@@ -34,7 +34,7 @@ function _dropDownList(parent, bounds, items, properties) {
     itemTexts = it[0]
     itemFiles = it[1]
   })
-  var result = parent.add('dropdownlist', _expandBounds(bounds), itemTexts, properties)
+  var result = parent.add("dropdownlist", _expandBounds(bounds), itemTexts, properties)
   if (itemFiles.isNotEmpty()) {
     result.items.forEach(function(it, i) {
       var itemFile = itemFiles[i]

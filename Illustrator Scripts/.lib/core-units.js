@@ -4,7 +4,7 @@
 // * `unitName` are the suffix. (e.g. : `pt`, `mm`)
 // * `unitFullName` are the full form name. (e.g.: `Points`, `Millimeters`)
 
-var UNITS = ['Pixels', 'Points', 'Inches', 'Millimeters', 'Centimeters']
+var UNITS = ["Pixels", "Points", "Inches", "Millimeters", "Centimeters"]
 
 /**
  * Build string based on unit value, name and optional fraction.
@@ -16,11 +16,11 @@ var UNITS = ['Pixels', 'Points', 'Inches', 'Millimeters', 'Centimeters']
 function formatUnits(unitValue, unitName, fraction) {
   checkNotNull(unitValue)
   checkNotNull(unitName)
-  var value = new UnitValue(unitValue, 'pt').as(unitName)
+  var value = new UnitValue(unitValue, "pt").as(unitName)
   var s = fraction !== undefined
     ? value.toFixed(fraction)
     : value.toString()
-  return parseFloat(s) + ' ' + unitName
+  return parseFloat(s) + " " + unitName
 }
 
 /**
@@ -36,7 +36,7 @@ function parseUnits(units) {
   }
   return units.isNumeric()
     ? parseFloat(units)
-    : UnitValue(units).as('pt')
+    : UnitValue(units).as("pt")
 }
 
 /**
@@ -46,17 +46,17 @@ function parseUnits(units) {
  */
 function parseRulerUnits(unitFullName) {
   switch (unitFullName.trim()) {
-    case 'Pixels':
+    case "Pixels":
       return RulerUnits.Pixels
-    case 'Points':
+    case "Points":
       return RulerUnits.Points
-    case 'Inches':
+    case "Inches":
       return RulerUnits.Inches
-    case 'Millimeters':
+    case "Millimeters":
       return RulerUnits.Millimeters
-    case 'Centimeters':
+    case "Centimeters":
       return RulerUnits.Centimeters
     default:
-      throw 'Unsupported units'
+      error("Unsupported units")
   }
 }

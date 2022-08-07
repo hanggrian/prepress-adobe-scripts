@@ -4,37 +4,37 @@
 </javascriptresource>
 */
 
-#include 'core.js'
+#include "core.js"
 
-#include 'commons-preconditions.js'
+#include "commons-preconditions.js"
 
-check(app.documents.length > 0, 'No active document')
+check(app.documents.length > 0, "No active document")
 
 var document = app.activeDocument
-var unitName = ''
+var unitName = ""
 switch (app.preferences.rulerUnits) {
   case Units.INCHES:
-    unitName = 'in'
+    unitName = "in"
     break;
   case Units.CM:
-    unitName = 'cm'
+    unitName = "cm"
     break;
   case Units.POINTS:
-    unitName = 'pt'
+    unitName = "pt"
     break;
   case Units.PICAS:
-    unitName = 'pica'
+    unitName = "pica"
     break;
   case Units.MM:
-    unitName = 'mm'
+    unitName = "mm"
     break;
   case Units.PIXELS:
-    unitName = 'px'
+    unitName = "px"
     break;
 }
 
 /**
- * Recalibrate unit text (e.g: '20 mm') to current document's units.
+ * Recalibrate unit text (e.g: "20 mm") to current document's units.
  * @returns {String}
  */
-function unitsOf(input) { return UnitValue(input).as(unitName) + ' ' + unitName }
+function unitsOf(input) { return UnitValue(input).as(unitName) + " " + unitName }

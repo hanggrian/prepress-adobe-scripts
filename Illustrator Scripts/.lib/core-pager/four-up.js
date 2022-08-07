@@ -11,7 +11,7 @@ function FourUpSimplexPager(document, start) {
       var topRight = current + 1
       var bottomLeft = current + 2
       var bottomRight = current + 3
-      artboard.name = '{0}-{1}-{2}-{3}'.format(topLeft + 1, topRight + 1, bottomLeft + 1, bottomRight + 1)
+      artboard.name = "{0}-{1}-{2}-{3}".format(topLeft + 1, topRight + 1, bottomLeft + 1, bottomRight + 1)
       action(artboard,
         topLeft, topRight,
         bottomLeft, bottomRight)
@@ -42,7 +42,7 @@ function FourUpDuplexPager(document, start) {
         bottomLeft = current + 3
         bottomRight = current + 1
       }
-      artboard.name = '{0}-{1}-{2}-{3}'.format(topLeft + 1, topRight + 1, bottomLeft + 1, bottomRight + 1)
+      artboard.name = "{0}-{1}-{2}-{3}".format(topLeft + 1, topRight + 1, bottomLeft + 1, bottomRight + 1)
       action(artboard,
         topLeft, topRight,
         bottomLeft, bottomRight)
@@ -66,7 +66,7 @@ function FourUpSimplexCutStackPager(document, start) {
       var topRight = current + artboards
       var bottomLeft = current + artboards * 2
       var bottomRight = current + artboards * 3
-      artboard.name = '{0}-{1}-{2}-{3}'.format(topLeft + 1, topRight + 1, bottomLeft + 1, bottomRight + 1)
+      artboard.name = "{0}-{1}-{2}-{3}".format(topLeft + 1, topRight + 1, bottomLeft + 1, bottomRight + 1)
       action(artboard,
         topLeft, topRight,
         bottomLeft, bottomRight)
@@ -98,7 +98,7 @@ function FourUpDuplexCutStackPager(document, start) {
         bottomLeft = current + artboards * 3
         bottomRight = current + artboards * 2
       }
-      artboard.name = '{0}-{1}-{2}-{3}'.format(topLeft + 1, topRight + 1, bottomLeft + 1, bottomRight + 1)
+      artboard.name = "{0}-{1}-{2}-{3}".format(topLeft + 1, topRight + 1, bottomLeft + 1, bottomRight + 1)
       action(artboard,
         topLeft, topRight,
         bottomLeft, bottomRight)

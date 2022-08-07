@@ -1,6 +1,6 @@
-require('../../.stdlib/collections/base.js')
-require('../../.stdlib/collections/predicate.js')
-var assert = require('../assert.js')
+require("../../.stdlib/collections/base.js")
+require("../../.stdlib/collections/predicate.js")
+var assert = require("../assert.js")
 
 var first = function() {
   var a = [1, 2, 3]

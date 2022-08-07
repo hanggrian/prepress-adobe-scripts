@@ -30,7 +30,7 @@ function SaddleStitchPager(document, start, end, isRtl) {
           right = _start
         }
       }
-      artboard.name = (left + 1) + '-' + (right + 1)
+      artboard.name = (left + 1) + "-" + (right + 1)
       action(artboard, left, right)
       _start++
       _end--

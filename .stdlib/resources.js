@@ -13,14 +13,14 @@ var _stdresDir, _resPath, _resLight
  */
 function getResource(fullName) {
   if (_stdresDir === undefined) {
-    _stdresDir = new File(stdlibPath + '/../.stdres')
-    _resDir = new File(libPath + '/../.res')
+    _stdresDir = new File(stdlibPath + "/../.stdres")
+    _resDir = new File(libPath + "/../.res")
   }
-  var file = new File(_resDir + '/' + fullName)
+  var file = new File(_resDir + "/" + fullName)
   if (file.exists) {
     return file
   }
-  file = new File(_stdresDir + '/' + fullName)
+  file = new File(_stdresDir + "/" + fullName)
   if (file.exists) {
     return file
   }
@@ -34,17 +34,17 @@ function getResource(fullName) {
  */
 function getImage(name) {
   if (_resLight === undefined) {
-    _resLight = preferences2.getString('scripts_theme') === 'Light'
+    _resLight = preferences2.getString("scripts_theme") === "Light"
   }
-  var fileName = name + '.png'
+  var fileName = name + ".png"
   var file
   if (_resLight) {
-    file = getResource('image-light/' + fileName)
+    file = getResource("image-light/" + fileName)
     if (file !== undefined && file.exists) {
       return file
     }
   }
-  file = getResource('image/' + fileName)
+  file = getResource("image/" + fileName)
   if (file !== undefined && file.exists) {
     return file
   }
@@ -57,5 +57,5 @@ function getImage(name) {
  * @returns {File}
  */
 function executeScript(name) {
-  getResource('script/' + name + (OS_MAC ? '.command' : '.cmd')).execute()
+  getResource("script/" + name + (OS_MAC ? ".command" : ".cmd")).execute()
 }

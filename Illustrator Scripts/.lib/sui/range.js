@@ -7,14 +7,14 @@ function RangeGroup(parent, editBounds) {
 
   editBounds = [editBounds[0] / 2 - 13, editBounds[1]]
   this.main = parent.hgroup(function(group) {
-    self.startEdit = group.editText(editBounds, '1').also(function(it) {
+    self.startEdit = group.editText(editBounds, "1").also(function(it) {
       it.validateDigits()
       it.onChange = function() {
         self.endEdit.text = self.startEdit.text
       }
     })
-    group.staticText(undefined, '–') // use en dash
-    self.endEdit = group.editText(editBounds, '1').also(VALIDATE_DIGITS)
+    group.staticText(undefined, "–") // use en dash
+    self.endEdit = group.editText(editBounds, "1").also(VALIDATE_DIGITS)
   })
 
   this.getStartText = function() {
@@ -30,7 +30,7 @@ function RangeGroup(parent, editBounds) {
   this.getStart = function() {
     var start = parseInt(self.getStartText()) - 1
     if (start < self.minRange) {
-      errorWithAlert('Start range cannot be less than ' + self.minRange)
+      errorWithAlert("Start range cannot be less than {0}".format(self.minRange))
     }
     return start
   }
@@ -38,7 +38,7 @@ function RangeGroup(parent, editBounds) {
   this.getEnd = function() {
     var end = parseInt(self.getEndText()) - 1
     if (end > self.maxRange) {
-      errorWithAlert('End range cannot be more than ' + self.maxRange)
+      errorWithAlert("End range cannot be more than {0}".format(self.maxRange))
     }
     return end
   }
@@ -64,7 +64,7 @@ function RangeGroup(parent, editBounds) {
 
   function checkValidity() {
     if (parseInt(self.startEdit.text) > parseInt(self.endEdit.text)) {
-      errorWithAlert('Invalid range')
+      errorWithAlert("Invalid range.")
     }
   }
 }

@@ -24,14 +24,14 @@ Preferences.prototype.getPSDPreserveLayers = function() { return this.photoshopF
 Preferences.prototype.setPSDPreserveSlices = function(preserveSlices) { this.photoshopFileOptions.preserveSlices = preserveSlices }
 Preferences.prototype.getPSDPreserveSlices = function() { return this.photoshopFileOptions.preserveSlices }
 
-var PREFERENCES_ROOT = 'Prepress Adobe Scripts'
+var PREFERENCES_ROOT = "Prepress Adobe Scripts"
 
 /** Global access to preferences wrapper. */
 var preferences2 = new PreferencesWrapper(PREFERENCES_ROOT)
 
 /** Wrapper of `Preferences` with simplified API. */
 function PreferencesWrapper(path) {
-  var prefix = path + '/'
+  var prefix = path + "/"
 
   this.resolve = function(relative) {
     return new PreferencesWrapper(prefix + relative)
@@ -40,33 +40,33 @@ function PreferencesWrapper(path) {
   /** Get boolean value from this preferences, returning true if not present. */
   this.getBoolean = function(key) {
     var value = preferences.getBooleanPreference(prefix + key)
-    println('Get preference `{0}`: {1}`', key, value)
+    println("Get preference `{0}`: {1}`.", key, value)
     return value
   }
 
   /** Get int value from this preferences, returning default if not present. */
   this.getInt = function(key) {
     var value = preferences.getIntegerPreference(prefix + key)
-    println('Get preference `{0}`: `{1}`', key, value)
+    println("Get preference `{0}`: `{1}`.", key, value)
     return value
   }
 
   /** Get number value from this preferences, returning 0 if not present. */
   this.getNumber = function(key) {
     var value = preferences.getRealPreference(prefix + key)
-    println('Get preference `{0}`: `{1}`', key, value)
+    println("Get preference `{0}`: `{1}`.", key, value)
     return value
   }
 
   /** Get string value from this preferences, returning default if not present. */
   this.getString = function(key, defaultValue) {
-    print('Get preference `{0}`: ', key)
+    print("Get preference `{0}`: ", key)
     var value = preferences.getStringPreference(prefix + key)
-    if (value === '') {
-      println('not found, use default `{1}`', defaultValue)
+    if (value === "") {
+      println("not found, use default `{1}`.", defaultValue)
       return defaultValue
     }
-    println('`{1}`', value)
+    println("`{1}`.", value)
     return value
   }
 
@@ -74,33 +74,33 @@ function PreferencesWrapper(path) {
   this.setBoolean = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     preferences.setBooleanPreference(prefix + key, actualValue)
-    println('Set preference `{0}`: `{1}`', key, actualValue)
+    println("Set preference `{0}`: `{1}`.", key, actualValue)
   }
 
   /** Set int value of this preferences. */
   this.setInt = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     preferences.setIntegerPreference(prefix + key, actualValue)
-    println('Set preference `{0}`: `{1}`', key, actualValue)
+    println("Set preference `{0}`: `{1}`.", key, actualValue)
   }
 
   /** Set number value of this preferences. */
   this.setNumber = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     preferences.setRealPreference(prefix + key, actualValue)
-    println('Set preference `{0}`: `{1}`', key, actualValue)
+    println("Set preference `{0}`: `{1}`.", key, actualValue)
   }
 
   /** Set string value of this preferences. */
   this.setString = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     preferences.setStringPreference(prefix + key, actualValue)
-    println('Set preference `{0}`: `{1}`', key, actualValue)
+    println("Set preference `{0}`: `{1}`.", key, actualValue)
   }
 
   /** Remove preference from this preferences. */
   this.remove = function(key) {
     preferences.removePreference(prefix + key)
-    println('Remove preference `{0}`', key)
+    println("Remove preference `{0}`.", key)
   }
 }

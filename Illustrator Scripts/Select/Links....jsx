@@ -4,47 +4,47 @@
 // The file type options are similar with Illustrator native `Relink...` dialog.
 
 #target Illustrator
-#include '../.lib/commons.js'
+#include "../.lib/commons.js"
 
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [150, 21]
 
-var FILE_AI = ['ai']
-var FILE_PDF = ['pdf']
-var FILE_BMP = ['bmp']
-var FILE_GIF = ['gif']
-var FILE_JPEG = ['jpg', 'jpe', 'jpeg']
-var FILE_JPEG2000 = ['jpf', 'jpx', 'jp2', 'j2k', 'j2c', 'jpc']
-var FILE_PNG = ['png', 'pns']
-var FILE_PSD = ['psd', 'psb', 'pdd']
-var FILE_TIFF = ['tif', 'tiff']
+var FILE_AI = ["ai"]
+var FILE_PDF = ["pdf"]
+var FILE_BMP = ["bmp"]
+var FILE_GIF = ["gif"]
+var FILE_JPEG = ["jpg", "jpe", "jpeg"]
+var FILE_JPEG2000 = ["jpf", "jpx", "jp2", "j2k", "j2c", "jpc"]
+var FILE_PNG = ["png", "pns"]
+var FILE_PSD = ["psd", "psb", "pdd"]
+var FILE_TIFF = ["tif", "tiff"]
 
-var dialog = new Dialog('Select Links', 'selecting-items#select-links---f2')
+var dialog = new Dialog("Select Links", "selecting-items/#select-links")
 var dimensionPanel
 var aiCheck, pdfCheck, bmpCheck, gifCheck, jpegCheck, jpeg2000Check, pngCheck, psdCheck, tiffCheck
 
 dialog.vgroup(function(main) {
-  main.alignChildren = 'fill'
+  main.alignChildren = "fill"
   dimensionPanel = new SelectDimensionPanel(main, BOUNDS_TEXT, BOUNDS_EDIT)
-  main.vpanel('File Types', function(panel) {
-    panel.tips('File extension of selected links')
-    panel.alignChildren = 'fill'
-    aiCheck = panel.checkBox(undefined, getTypeString('Adobe Illustrator', FILE_AI))
-    pdfCheck = panel.checkBox(undefined, getTypeString('Adobe PDF', FILE_PDF))
-    bmpCheck = panel.checkBox(undefined, getTypeString('BMP', FILE_BMP))
-    gifCheck = panel.checkBox(undefined, getTypeString('GIF89a', FILE_GIF))
-    jpegCheck = panel.checkBox(undefined, getTypeString('JPEG', FILE_JPEG))
-    jpeg2000Check = panel.checkBox(undefined, getTypeString('JPEG2000', FILE_JPEG2000))
-    pngCheck = panel.checkBox(undefined, getTypeString('PNG', FILE_PNG))
-    psdCheck = panel.checkBox(undefined, getTypeString('Photoshop', FILE_PSD))
-    tiffCheck = panel.checkBox(undefined, getTypeString('TIFF', FILE_TIFF))
+  main.vpanel("File Types", function(panel) {
+    panel.tips("File extension of selected links")
+    panel.alignChildren = "fill"
+    aiCheck = panel.checkBox(undefined, getTypeString("Adobe Illustrator", FILE_AI))
+    pdfCheck = panel.checkBox(undefined, getTypeString("Adobe PDF", FILE_PDF))
+    bmpCheck = panel.checkBox(undefined, getTypeString("BMP", FILE_BMP))
+    gifCheck = panel.checkBox(undefined, getTypeString("GIF89a", FILE_GIF))
+    jpegCheck = panel.checkBox(undefined, getTypeString("JPEG", FILE_JPEG))
+    jpeg2000Check = panel.checkBox(undefined, getTypeString("JPEG2000", FILE_JPEG2000))
+    pngCheck = panel.checkBox(undefined, getTypeString("PNG", FILE_PNG))
+    psdCheck = panel.checkBox(undefined, getTypeString("Photoshop", FILE_PSD))
+    tiffCheck = panel.checkBox(undefined, getTypeString("TIFF", FILE_TIFF))
   })
 })
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
   var width = dimensionPanel.getWidth()
   var height = dimensionPanel.getHeight()
-  selectAll(['PlacedItem'], function(item) {
+  selectAll(["PlacedItem"], function(item) {
     var condition = true
     if (width !== undefined) {
       condition = condition && parseInt(width) === parseInt(item.width)
@@ -54,7 +54,7 @@ dialog.setDefaultButton(undefined, function() {
     }
 
     var condition2 = false
-    var extension = item.isFileExists() && item.file.name.split('.').pop()
+    var extension = item.isFileExists() && item.file.name.split(".").pop()
     if (aiCheck.value) condition2 = condition2 || FILE_AI.contains(extension)
     if (pdfCheck.value) condition2 = condition2 || FILE_PDF.contains(extension)
     if (bmpCheck.value) condition2 = condition2 || FILE_BMP.contains(extension)
@@ -71,12 +71,12 @@ dialog.setDefaultButton(undefined, function() {
 dialog.show()
 
 function getTypeString(prefix, suffix) {
-  var s = ''
+  var s = ""
   suffix.forEach(function(it, i) {
     s += it
     if (i != suffix.lastIndex()) {
-      s += ', '
+      s += ", "
     }
   })
-  return '{0} ({1})'.format(prefix, s)
+  return "{0} ({1})".format(prefix, s)
 }

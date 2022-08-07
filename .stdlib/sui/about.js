@@ -4,7 +4,7 @@
 </javascriptresource>
 */
 
-var ABOUT_THEMES = ['Dark', 'Light']
+var ABOUT_THEMES = ["Dark", "Light"]
 
 var BOUNDS_ABOUT_TAB = [400, 75]
 var MARGINS_ABOUT_TAB = [10, 0, 10, 0]
@@ -15,66 +15,66 @@ function AboutTabbedPanel(parent, clientDate) {
   this.statusText, this.downloadButton
 
   this.main = parent.tabbedPanel(function(tabbedPanel) {
-    self.preferencesTab = tabbedPanel.vtab('Preferences', function(tab) {
+    self.preferencesTab = tabbedPanel.vtab("Preferences", function(tab) {
       tab.preferredSize = BOUNDS_ABOUT_TAB
       tab.margins = MARGINS_ABOUT_TAB
-      tab.alignChildren = 'left'
+      tab.alignChildren = "left"
       tab.hgroup(function(group) {
         group.tips("Defines what icon color to be used.\nThe script is dumb and can't yet know UI brightness setting across apps")
-        group.staticText(undefined, 'Theme:', 'right')
+        group.staticText(undefined, "Theme:", "right")
         group.dropDownList(undefined, ABOUT_THEMES).also(function(it) {
-          var theme = preferences2.getString('scripts_theme')
-          if (theme !== undefined && theme !== '') {
+          var theme = preferences2.getString("scripts_theme")
+          if (theme !== undefined && theme !== "") {
             it.selectText(theme)
           }
           it.onChange = function() {
-            preferences2.setString('scripts_theme', it.selection.text)
+            preferences2.setString("scripts_theme", it.selection.text)
           }
         })
       })
     })
-    self.updatesTab = tabbedPanel.vtab('Updates', function(tab) {
+    self.updatesTab = tabbedPanel.vtab("Updates", function(tab) {
       tab.preferredSize = BOUNDS_ABOUT_TAB
       tab.margins = MARGINS_ABOUT_TAB
-      tab.alignChildren = 'left'
-      self.statusText = tab.staticText([400, 21], 'Click Check Updates to fetch data.')
+      tab.alignChildren = "left"
+      self.statusText = tab.staticText([400, 21], "Click Check Updates to fetch data.")
       tab.hgroup(function(group) {
-        group.button(undefined, 'Check Updates').also(function(it) {
+        group.button(undefined, "Check Updates").also(function(it) {
           it.maximumSize.height = 21
           it.onClick = function() {
-            executeScript('check_updates')
+            executeScript("check_updates")
             $.sleep(3000)
-            var result = new File('~/prepress-adobe-scripts')
+            var result = new File("~/prepress-adobe-scripts")
             if (!result.exists) {
-              self.statusText.text = 'Unable to fetch data.'
+              self.statusText.text = "Unable to fetch data."
             } else {
               var serverDate = parseDate(result.readText().substringAfter('"date": "').substringBefore('"').substring(0, 10))
               result.remove()
               if (serverDate > clientDate) {
-                self.statusText.text = 'Latest version {0} is available.'.format(serverDate.toISOString())
+                self.statusText.text = "Latest version {0} is available.".format(serverDate.toISOString())
                 self.downloadButton.enabled = true
               } else {
-                self.statusText.text = 'You have the latest version.'
+                self.statusText.text = "You have the latest version."
               }
             }
           }
         })
-        self.downloadButton = group.button(undefined, 'Download').also(function(it) {
+        self.downloadButton = group.button(undefined, "Download").also(function(it) {
           it.maximumSize.height = 21
           it.enabled = false
           it.onClick = function() {
-            openURL(URL_GITHUB + '/archive/refs/heads/main.zip')
+            openURL(URL_GITHUB + "/archive/refs/heads/main.zip")
           }
         })
       })
     })
-    self.licensingTab = tabbedPanel.vtab('Licensing', function(tab) {
-      tab.editText(BOUNDS_ABOUT_TAB, getResource('LICENSE').readText(), { multiline: true, readonly: true, scrollable: true })
+    self.licensingTab = tabbedPanel.vtab("Licensing", function(tab) {
+      tab.editText(BOUNDS_ABOUT_TAB, getResource("LICENSE").readText(), { multiline: true, readonly: true, scrollable: true })
     })
-    self.toolsTab = tabbedPanel.vtab('Tools', function(tab) {
+    self.toolsTab = tabbedPanel.vtab("Tools", function(tab) {
       tab.preferredSize = BOUNDS_ABOUT_TAB
       tab.margins = MARGINS_ABOUT_TAB
-      tab.alignChildren = 'left'
+      tab.alignChildren = "left"
     })
   })
 }

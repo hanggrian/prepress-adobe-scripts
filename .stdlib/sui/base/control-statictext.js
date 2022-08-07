@@ -4,9 +4,9 @@
 </javascriptresource>
 */
 
-var JUSTIFY_LEFT = function(staticText) { staticText.justify = 'left' }
-var JUSTIFY_CENTER = function(staticText) { staticText.justify = 'center' }
-var JUSTIFY_RIGHT = function(staticText) { staticText.justify = 'right' }
+var JUSTIFY_LEFT = function(staticText) { staticText.justify = "left" }
+var JUSTIFY_CENTER = function(staticText) { staticText.justify = "center" }
+var JUSTIFY_RIGHT = function(staticText) { staticText.justify = "right" }
 
 /**
  * Set tooltip to this children.
@@ -27,7 +27,7 @@ Group.prototype.staticText = function(bounds, text, properties) { return _static
 Panel.prototype.staticText = function(bounds, text, properties) { return _staticText(this, bounds, text, properties) }
 
 function _staticText(parent, bounds, text, properties) {
-  var result = parent.add('statictext', _expandBounds(bounds), text, properties)
+  var result = parent.add("statictext", _expandBounds(bounds), text, properties)
   if (parent.helpTips !== undefined) {
     _tip(result, parent.helpTips)
   }

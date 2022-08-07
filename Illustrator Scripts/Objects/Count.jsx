@@ -1,7 +1,7 @@
 // Sum up all items recursively.
 
 #target Illustrator
-#include '../.lib/commons.js'
+#include "../.lib/commons.js"
 
 checkHasSelection()
 
@@ -19,63 +19,63 @@ var textFrameCount = 0
 
 selection.forEachItem(function(it) {
   switch (it.typename) {
-    case 'CompoundPathItem':
+    case "CompoundPathItem":
       compoundPathCount++
       break;
-    case 'GraphItem':
+    case "GraphItem":
       graphCount++
       break;
-    case 'LegacyTextItem':
+    case "LegacyTextItem":
       legacyTextCount++
       break;
-    case 'MeshItem':
+    case "MeshItem":
       meshCount++
       break;
-    case 'NonNativeItem':
+    case "NonNativeItem":
       nonNativeCount++
       break;
-    case 'PathItem':
+    case "PathItem":
       pathCount++
       break;
-    case 'PlacedItem':
+    case "PlacedItem":
       placedCount++
       break;
-    case 'PluginItem':
+    case "PluginItem":
       pluginCount++
       break;
-    case 'RasterItem':
+    case "RasterItem":
       rasterCount++
       break;
-    case 'SymbolItem':
+    case "SymbolItem":
       symbolCount++
       break;
-    case 'TextFrame':
+    case "TextFrame":
       textFrameCount++
       break;
   }
 })
 
-var message = 'There are {0} items, containing:'.format(selection.length)
-message += getItemLine(compoundPathCount, 'compound path')
-message += getItemLine(graphCount, 'graph')
-message += getItemLine(legacyTextCount, 'legacy text')
-message += getItemLine(meshCount, 'mesh')
-message += getItemLine(nonNativeCount, 'non-native')
-message += getItemLine(pathCount, 'path')
-message += getItemLine(placedCount, 'link')
-message += getItemLine(pluginCount, 'plugin')
-message += getItemLine(rasterCount, 'raster')
-message += getItemLine(symbolCount, 'symbol')
-message += getItemLine(textFrameCount, 'text frame')
-alert(message, 'Count Objects')
+var message = "There are {0} items, containing:".format(selection.length)
+message += getItemLine(compoundPathCount, "compound path")
+message += getItemLine(graphCount, "graph")
+message += getItemLine(legacyTextCount, "legacy text")
+message += getItemLine(meshCount, "mesh")
+message += getItemLine(nonNativeCount, "non-native")
+message += getItemLine(pathCount, "path")
+message += getItemLine(placedCount, "link")
+message += getItemLine(pluginCount, "plugin")
+message += getItemLine(rasterCount, "raster")
+message += getItemLine(symbolCount, "symbol")
+message += getItemLine(textFrameCount, "text frame")
+alert(message, "Count Objects")
 
 function getItemLine(count, suffix) {
   if (count === 0) {
-    return ''
+    return ""
   }
-  var line = '\n• ' + count + ' ' + suffix
+  var line = "\n• " + count + " " + suffix
   if (count > 1) {
-    line += suffix.endsWith('sh') ? 'es' : 's'
+    line += suffix.endsWith("sh") ? "es" : "s"
   }
   return line
 }

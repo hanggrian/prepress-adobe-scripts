@@ -18,7 +18,7 @@ Object.prototype.first = function(predicate) {
       return this[i]
     }
   }
-  throw new Error('Element not found given the predicate')
+  error("Element not found given the predicate")
 }
 
 /**
@@ -35,7 +35,7 @@ Object.prototype.last = function(predicate) {
       return this[i]
     }
   }
-  throw new Error('Element not found given the predicate')
+  error("Element not found given the predicate")
 }
 
 /**

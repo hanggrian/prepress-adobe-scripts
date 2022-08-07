@@ -1,5 +1,5 @@
 ﻿#target Illustrator
-#include '../.lib/commons.js'
+#include "../.lib/commons.js"
 
 checkHasSelection()
 
@@ -7,124 +7,124 @@ var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [110, 21]
 var BOUNDS_CHECK = [15, 15]
 
-var dialog = new Dialog('Add Trim Marks', 'add-trim-marks')
+var dialog = new Dialog("Add Trim Marks", "add-trim-marks/")
 var offsetEdit, lengthEdit, weightEdit, colorList
 var topLeftCheck, topRightCheck, leftTopCheck, rightTopCheck, leftBottomCheck, rightBottomCheck, bottomLeftCheck, bottomRightCheck // single checks
 var topCheck, rightCheck, bottomCheck, leftCheck // multiple checks
 var multipleTargetMultiRadioCheckGroup
-var prefs = preferences2.resolve('objects/add_trim_marks')
+var prefs = preferences2.resolve("objects/add_trim_marks")
 
 dialog.vgroup(function(main) {
-  main.alignChildren = 'right'
+  main.alignChildren = "right"
   main.hgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    topGroup.vpanel('Trim Marks', function(panel) {
+    topGroup.alignChildren = "fill"
+    topGroup.vpanel("Trim Marks", function(panel) {
       panel.hgroup(function(group) {
-        group.tips('Distance between art and trim marks')
-        group.staticText(BOUNDS_TEXT, 'Offset:').also(JUSTIFY_RIGHT)
-        offsetEdit = group.editText(BOUNDS_EDIT, prefs.getString('offset', '2.5 mm')).also(function(it) {
+        group.tips("Distance between art and trim marks")
+        group.staticText(BOUNDS_TEXT, "Offset:").also(JUSTIFY_RIGHT)
+        offsetEdit = group.editText(BOUNDS_EDIT, prefs.getString("offset", "2.5 mm")).also(function(it) {
           it.validateUnits()
           it.activate()
         })
       })
       panel.hgroup(function(group) {
-        group.tips('Size of trim marks')
-        group.staticText(BOUNDS_TEXT, 'Length:').also(JUSTIFY_RIGHT)
-        lengthEdit = group.editText(BOUNDS_EDIT, prefs.getString('length', '2.5 mm')).also(VALIDATE_UNITS)
+        group.tips("Size of trim marks")
+        group.staticText(BOUNDS_TEXT, "Length:").also(JUSTIFY_RIGHT)
+        lengthEdit = group.editText(BOUNDS_EDIT, prefs.getString("length", "2.5 mm")).also(VALIDATE_UNITS)
       })
       panel.hgroup(function(group) {
-        group.tips('Thickness of trim marks')
-        group.staticText(BOUNDS_TEXT, 'Weight:').also(JUSTIFY_RIGHT)
-        weightEdit = group.editText(BOUNDS_EDIT, prefs.getString('weight', '0.3 pt')).also(VALIDATE_UNITS) // the same value used in `Object > Create Trim Marks`
+        group.tips("Thickness of trim marks")
+        group.staticText(BOUNDS_TEXT, "Weight:").also(JUSTIFY_RIGHT)
+        weightEdit = group.editText(BOUNDS_EDIT, prefs.getString("weight", "0.3 pt")).also(VALIDATE_UNITS) // the same value used in `Object > Create Trim Marks`
       })
       panel.hgroup(function(group) {
-        group.tips('Color of trim marks')
-        group.staticText(BOUNDS_TEXT, 'Color:').also(JUSTIFY_RIGHT)
+        group.tips("Color of trim marks")
+        group.staticText(BOUNDS_TEXT, "Color:").also(JUSTIFY_RIGHT)
         colorList = group.dropDownList(BOUNDS_EDIT, COLORS).also(function(it) {
-          it.selectText(prefs.getString('color', 'Registration'))
+          it.selectText(prefs.getString("color", "Registration"))
         })
       })
     })
-    topGroup.vpanel('Locations', function(panel) {
+    topGroup.vpanel("Locations", function(panel) {
       panel.hgroup(function(group) {
         group.staticText(BOUNDS_CHECK)
         topLeftCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip('Top left')
+          it.tip("Top left")
         })
         topCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip('Top')
+          it.tip("Top")
           it.visible = false
         })
         topRightCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip('Top right')
+          it.tip("Top right")
         })
         group.staticText(BOUNDS_CHECK)
       })
       panel.hgroup(function(group) {
         leftTopCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip('Left top')
+          it.tip("Left top")
         })
-        group.image(BOUNDS_CHECK, 'ic_arrow_topleft')
-        group.image(BOUNDS_CHECK, 'ic_arrow_top')
-        group.image(BOUNDS_CHECK, 'ic_arrow_topright')
+        group.image(BOUNDS_CHECK, "ic_arrow_topleft")
+        group.image(BOUNDS_CHECK, "ic_arrow_top")
+        group.image(BOUNDS_CHECK, "ic_arrow_topright")
         rightTopCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip('Right top')
+          it.tip("Right top")
         })
       })
       panel.hgroup(function(group) {
         leftCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip('Left')
+          it.tip("Left")
           it.visible = false
         })
-        group.image(BOUNDS_CHECK, 'ic_arrow_left')
-        group.image(BOUNDS_CHECK, 'ic_arrow_center')
-        group.image(BOUNDS_CHECK, 'ic_arrow_right')
+        group.image(BOUNDS_CHECK, "ic_arrow_left")
+        group.image(BOUNDS_CHECK, "ic_arrow_center")
+        group.image(BOUNDS_CHECK, "ic_arrow_right")
         rightCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip('Right')
+          it.tip("Right")
           it.visible = false
         })
       })
       panel.hgroup(function(group) {
         leftBottomCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip('Left bottom')
+          it.tip("Left bottom")
         })
-        group.image(BOUNDS_CHECK, 'ic_arrow_bottomleft')
-        group.image(BOUNDS_CHECK, 'ic_arrow_bottom')
-        group.image(BOUNDS_CHECK, 'ic_arrow_bottomright')
+        group.image(BOUNDS_CHECK, "ic_arrow_bottomleft")
+        group.image(BOUNDS_CHECK, "ic_arrow_bottom")
+        group.image(BOUNDS_CHECK, "ic_arrow_bottomright")
         rightBottomCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip('Right bottom')
+          it.tip("Right bottom")
         })
       })
       panel.hgroup(function(group) {
         group.staticText(BOUNDS_CHECK)
         bottomLeftCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip('Bottom left')
+          it.tip("Bottom left")
         })
         bottomCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip('Bottom')
+          it.tip("Bottom")
           it.visible = false
         })
         bottomRightCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip('Bottom right')
+          it.tip("Bottom right")
         })
         group.staticText(BOUNDS_CHECK)
       })
     })
   })
-  multipleTargetMultiRadioCheckGroup = new MultiRadioCheckGroup(main, 'Multiple Target', ['Default', 'Recursive']).also(function(it) {
-    it.main.tips('When activated, trim marks will be added to each item')
+  multipleTargetMultiRadioCheckGroup = new MultiRadioCheckGroup(main, "Multiple Target", ["Default", "Recursive"]).also(function(it) {
+    it.main.tips("When activated, trim marks will be added to each item")
     it.checkOnClick = function() {
       topLeftCheck.visible = !it.isSelected()
       topRightCheck.visible = !it.isSelected()
@@ -152,10 +152,10 @@ dialog.setDefaultButton(undefined, function() {
     ? processMultiple(offset, length, weight, color, maxBounds)
     : processSingle(offset, length, weight, color, maxBounds)
 
-  prefs.setString('offset', offsetEdit.text)
-  prefs.setString('length', lengthEdit.text)
-  prefs.setString('weight', weightEdit.text)
-  prefs.setString('color', colorList.selection.text)
+  prefs.setString("offset", offsetEdit.text)
+  prefs.setString("length", lengthEdit.text)
+  prefs.setString("weight", weightEdit.text)
+  prefs.setString("color", colorList.selection.text)
 })
 dialog.show()
 
@@ -163,7 +163,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
   var paths = []
   if (topLeftCheck.value) {
     paths.push(createTrimMark(
-      weight, color, 'TOP',
+      weight, color, "TOP",
       maxBounds.getLeft(),
       maxBounds.getTop() + offset,
       maxBounds.getLeft(),
@@ -172,7 +172,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
   }
   if (topRightCheck.value) {
     paths.push(createTrimMark(
-      weight, color, 'TOP',
+      weight, color, "TOP",
       maxBounds.getRight(),
       maxBounds.getTop() + offset,
       maxBounds.getRight(),
@@ -181,7 +181,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
   }
   if (rightTopCheck.value) {
     paths.push(createTrimMark(
-      weight, color, 'RIGHT',
+      weight, color, "RIGHT",
       maxBounds.getRight() + offset,
       maxBounds.getTop(),
       maxBounds.getRight() + offset + length,
@@ -190,7 +190,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
   }
   if (rightBottomCheck.value) {
     paths.push(createTrimMark(
-      weight, color, 'RIGHT',
+      weight, color, "RIGHT",
       maxBounds.getRight() + offset,
       maxBounds.getBottom(),
       maxBounds.getRight() + offset + length,
@@ -199,7 +199,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
   }
   if (bottomRightCheck.value) {
     paths.push(createTrimMark(
-      weight, color, 'BOTTOM',
+      weight, color, "BOTTOM",
       maxBounds.getRight(),
       maxBounds.getBottom() - offset,
       maxBounds.getRight(),
@@ -208,7 +208,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
   }
   if (bottomLeftCheck.value) {
     paths.push(createTrimMark(
-      weight, color, 'BOTTOM',
+      weight, color, "BOTTOM",
       maxBounds.getLeft(),
       maxBounds.getBottom() - offset,
       maxBounds.getLeft(),
@@ -217,7 +217,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
   }
   if (leftBottomCheck.value) {
     paths.push(createTrimMark(
-      weight, color, 'LEFT',
+      weight, color, "LEFT",
       maxBounds.getLeft() - offset,
       maxBounds.getBottom(),
       maxBounds.getLeft() - offset - length,
@@ -226,7 +226,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
   }
   if (leftTopCheck.value) {
     paths.push(createTrimMark(
-      weight, color, 'LEFT',
+      weight, color, "LEFT",
       maxBounds.getLeft() - offset,
       maxBounds.getTop(),
       maxBounds.getLeft() - offset - length,
@@ -248,14 +248,14 @@ function processMultiple(offset, length, weight, color, maxBounds) {
     var itemEndY = itemStartY - height
     if (topCheck.value) {
       paths.push([
-        'TOP',
+        "TOP",
         itemStartX,
         maxBounds.getTop() + offset,
         itemStartX,
         maxBounds.getTop() + offset + length
       ])
       paths.push([
-        'TOP',
+        "TOP",
         itemEndX,
         maxBounds.getTop() + offset,
         itemEndX,
@@ -264,14 +264,14 @@ function processMultiple(offset, length, weight, color, maxBounds) {
     }
     if (rightCheck.value) {
       paths.push([
-        'RIGHT',
+        "RIGHT",
         maxBounds.getRight() + offset,
         itemStartY,
         maxBounds.getRight() + offset + length,
         itemStartY
       ])
       paths.push([
-        'RIGHT',
+        "RIGHT",
         maxBounds.getRight() + offset,
         itemEndY,
         maxBounds.getRight() + offset + length,
@@ -280,14 +280,14 @@ function processMultiple(offset, length, weight, color, maxBounds) {
     }
     if (bottomCheck.value) {
       paths.push([
-        'BOTTOM',
+        "BOTTOM",
         itemEndX,
         maxBounds.getBottom() - offset,
         itemEndX,
         maxBounds.getBottom() - offset - length
       ])
       paths.push([
-        'BOTTOM',
+        "BOTTOM",
         itemStartX,
         maxBounds.getBottom() - offset,
         itemStartX,
@@ -296,14 +296,14 @@ function processMultiple(offset, length, weight, color, maxBounds) {
     }
     if (leftCheck.value) {
       paths.push([
-        'LEFT',
+        "LEFT",
         maxBounds.getLeft() - offset,
         itemEndY,
         maxBounds.getLeft() - offset - length,
         itemEndY
       ])
       paths.push([
-        'LEFT',
+        "LEFT",
         maxBounds.getLeft() - offset,
         itemStartY,
         maxBounds.getLeft() - offset - length,
@@ -311,7 +311,7 @@ function processMultiple(offset, length, weight, color, maxBounds) {
       ])
     }
   }
-  if (multipleTargetMultiRadioCheckGroup.getSelectedRadio() === 'Recursive') {
+  if (multipleTargetMultiRadioCheckGroup.getSelectedRadio() === "Recursive") {
     selection.forEachItem(action)
   } else {
     selection.forEach(action)
@@ -342,9 +342,9 @@ function containsPathBounds(collection, element) {
 }
 
 function createTrimMark(weight, color, suffixName, fromX, fromY, toX, toY) {
-  println('{0}. From [{1}, {2}] to [{3}, {4}]', suffixName, fromX, fromY, toX, toY)
+  println("{0}. From [{1}, {2}] to [{3}, {4}].", suffixName, fromX, fromY, toX, toY)
   var path = layer.pathItems.add()
-  path.name = 'Trim' + suffixName
+  path.name = "Trim" + suffixName
   path.filled = false
   path.strokeDashes = []
   path.strokeColor = color

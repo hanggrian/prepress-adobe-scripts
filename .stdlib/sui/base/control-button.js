@@ -23,7 +23,7 @@ Group.prototype.button = function(bounds, text, properties) { return _button(thi
 Panel.prototype.button = function(bounds, text, properties) { return _button(this, bounds, text, properties) }
 
 function _button(parent, bounds, text, properties) {
-  var result = parent.add('button', _expandBounds(bounds), text, properties)
+  var result = parent.add("button", _expandBounds(bounds), text, properties)
   if (parent.helpTips !== undefined) {
     _tip(result, parent.helpTips)
   }

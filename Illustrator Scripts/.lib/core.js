@@ -1,24 +1,24 @@
-#include '../../.stdlib/stdlib.js'
+#include "../../.stdlib/stdlib.js"
 
-#include 'core-pager/eight-up.js'
-#include 'core-pager/four-up.js'
-#include 'core-pager/one-up.js'
-#include 'core-pager/saddle-stitch.js'
-#include 'core-pager/two-up.js'
+#include "core-pager/eight-up.js"
+#include "core-pager/four-up.js"
+#include "core-pager/one-up.js"
+#include "core-pager/saddle-stitch.js"
+#include "core-pager/two-up.js"
 
-#include 'core-collections.js'
-#include 'core-colors.js'
-#include 'core-files.js'
-#include 'core-preferences.js'
-#include 'core-units.js'
+#include "core-collections.js"
+#include "core-colors.js"
+#include "core-files.js"
+#include "core-preferences.js"
+#include "core-units.js"
 
-#include 'sui/checks.js'
-#include 'sui/nup-options.js'
-#include 'sui/open-options.js'
-#include 'sui/order-by.js'
-#include 'sui/range.js'
-#include 'sui/select-options.js'
-#include 'sui/slider.js'
+#include "sui/checks.js"
+#include "sui/nup-options.js"
+#include "sui/open-options.js"
+#include "sui/order-by.js"
+#include "sui/range.js"
+#include "sui/select-options.js"
+#include "sui/slider.js"
 
 libPath = new File($.fileName).path
 
@@ -37,7 +37,7 @@ Object.prototype.getLayerName = function() {
  * @returns {PathItem}
  */
 Object.prototype.getClippingPathItem = function() {
-  if (this.typename === 'GroupItem' && this.clipped) {
+  if (this.typename === "GroupItem" && this.clipped) {
     // can't use `first { }` because PathItems is not an Array
     for (var i = 0; i < this.pathItems.length; i++) {
       var pathItem = this.pathItems[i]
@@ -77,7 +77,7 @@ Array.prototype.getFarthestBounds = function() {
  * @returns {Boolean}
  */
 Object.prototype.isFileExists = function() {
-  check(this.typename === 'PlacedItem')
+  check(this.typename === "PlacedItem")
   try {
     this.file
     return true

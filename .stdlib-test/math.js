@@ -1,5 +1,5 @@
-require('../.stdlib/math.js')
-var assert = require('./assert.js')
+require("../.stdlib/math.js")
+var assert = require("./assert.js")
 
 var isOdd = function() {
   assert.assertTrue(1.0.isOdd())
