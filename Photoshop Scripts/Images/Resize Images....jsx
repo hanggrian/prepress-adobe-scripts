@@ -20,7 +20,7 @@ var widthEdit, heightEdit, resolutionEdit, resampleList
 dialog.vgroup(function(main) {
   main.alignChildren = "fill"
   main.hgroup(function(group) {
-    group.tips("Images' new width")
+    group.tooltips("Images' new width")
     group.staticText(BOUNDS_TEXT, "Width:").also(JUSTIFY_RIGHT)
     widthEdit = group.editText(BOUNDS_EDIT, formatUnits(document.width, unitName, 2)).also(function(it) {
       it.validateUnits()
@@ -28,17 +28,17 @@ dialog.vgroup(function(main) {
     })
   })
   main.hgroup(function(group) {
-    group.tips("Images' new height")
+    group.tooltips("Images' new height")
     group.staticText(BOUNDS_TEXT, "Height:").also(JUSTIFY_RIGHT)
     heightEdit = group.editText(BOUNDS_EDIT, formatUnits(document.height, unitName, 2)).also(VALIDATE_UNITS)
   })
   main.hgroup(function(group) {
-    group.tips("Images' new resolution")
+    group.tooltips("Images' new resolution")
     group.staticText(BOUNDS_TEXT, "Resolution:").also(JUSTIFY_RIGHT)
     resolutionEdit = group.editText(BOUNDS_EDIT, document.resolution).also(VALIDATE_UNITS)
   })
   main.hgroup(function(group) {
-    group.tips("Method to resample new images")
+    group.tooltips("Method to resample new images")
     group.staticText(BOUNDS_TEXT, "Resample:").also(JUSTIFY_RIGHT)
     resampleList = group.dropDownList(BOUNDS_LIST, RESAMPLES).also(function(it) {
       it.selectText("Bicubic")
@@ -50,30 +50,30 @@ dialog.setDefaultButton(undefined, function() {
   var width = new UnitValue(widthEdit.text)
   var height = new UnitValue(heightEdit.text)
   var resolution = parseInt(resolutionEdit.text)
-  var resample = getResample()
+  var method = getResampleMethod()
 
-  process(document, width, height, resolution, resample)
+  process(document, width, height, resolution, method)
 })
-dialog.setYesButton('All', function() {
+dialog.setYesButton("All", function() {
   var width = new UnitValue(widthEdit.text)
   var height = new UnitValue(heightEdit.text)
   var resolution = parseInt(resolutionEdit.text)
-  var resample = getResample()
+  var method = getResampleMethod()
   var progress = new ProgressPalette(app.documents.length, "Resizing")
 
-  for (var i = 0; i < app.documents.length; i++) {
+  Collections.forEach(app.documents, function(document) {
     progress.increment()
-    process(app.documents[i], width, height, resolution, resample)
-  }
+    process(document, width, height, resolution, method)
+  })
 })
 dialog.show()
 
-function process(document, width, height, resample, resample) {
+function process(document, width, height, resolution, method) {
   app.activeDocument = document
-  document.resizeImage(width, height, resolution, resample)
+  document.resizeImage(width, height, resolution, method)
 }
 
-function getResample() {
+function getResampleMethod() {
   switch (resampleList.selection.text) {
     case "Bicubic":
       return ResampleMethod.BICUBIC

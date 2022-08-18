@@ -4,22 +4,33 @@
 </javascriptresource>
 */
 
-// See see https://community.adobe.com/t5/illustrator/script-to-sort-artboard-list-alphabetically/m-p/9558395.
+// See https://community.adobe.com/t5/illustrator/script-to-sort-artboard-list-alphabetically/m-p/9558395.
 
-function copyProperties(source) {
-  var props = { }, key
-  for (key in source) {
-    try {
-      props[key] = source[key]
-    } catch (e) {
+var Properties = {
+  /**
+   * Returns an object with cloned properties.
+   * @param {Object} source object with properties.
+   */
+  copy: function(source) {
+    var props = { }, key
+    for (key in source) {
+      try {
+        props[key] = source[key]
+      } catch (e) {
+      }
     }
-  }
-  return props
-}
+    return props
+  },
 
-function pasteProperties(source, destination) {
-  var key
-  for (key in source) {
-    destination[key] = source[key]
+  /**
+   * Sets target's properties the exact same as source's.
+   * @param {Object} source object with properties.
+   * @param {Object} target any object.
+   */
+  paste: function(source, target) {
+    var key
+    for (key in source) {
+      target[key] = source[key]
+    }
   }
 }

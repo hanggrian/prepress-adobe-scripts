@@ -23,9 +23,7 @@ function formatUnits(unitValue, unitName, fraction) {
   checkNotNull(unitValue)
   checkNotNull(unitName)
   var value = unitValue.as(unitName)
-  var s = fraction !== undefined
-    ? value.toFixed(fraction)
-    : value.toString()
+  var s = fraction !== undefined ? value.toFixed(fraction) : value.toString()
   return parseFloat(s) + " " + unitName
 }
 
@@ -40,7 +38,5 @@ function parseUnits(units) {
   if (units.isEmpty()) {
     return undefined
   }
-  return units.isNumeric()
-    ? parseFloat(units)
-    : UnitValue(units).as("px")
+  return units.isNumeric() ? parseFloat(units) : UnitValue(units).as("px")
 }

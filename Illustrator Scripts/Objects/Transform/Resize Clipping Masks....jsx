@@ -5,7 +5,7 @@ var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [100, 21]
 
 checkHasSelection()
-check(selection.anyItem(function(it) { return it.clipping }), "No clipping paths in this selection")
+check(Collections.anyItem(selection, function(it) { return it.clipping }), "No clipping paths in this selection")
 
 var dialog = new Dialog("Resize Clipping Masks")
 var widthFromEdit, widthToEdit, heightFromEdit, heightToEdit
@@ -13,7 +13,7 @@ var documentOriginCheck, anchorGroup
 
 dialog.hgroup(function(main) {
   main.alignChildren = "fill"
-  var prefill = selection.firstItem(function(it) { return it.clipping })
+  var prefill = Collections.firstItem(selection, function(it) { return it.clipping })
   main.vpanel("Dimension", function(panel) {
     panel.hgroup(function(group) {
       group.staticText(BOUNDS_TEXT, "Width:").also(JUSTIFY_RIGHT)
@@ -34,7 +34,7 @@ dialog.hgroup(function(main) {
   main.vpanel("Anchor", function(panel) {
     panel.alignChildren = "fill"
     documentOriginCheck = panel.checkBox(undefined, "Document Origin").also(function(it) {
-      it.tip("Use current reference point preference")
+      it.tooltip("Use current reference point preference")
       it.onClick = function() {
         anchorGroup.main.enabled = !it.value
       }
@@ -49,14 +49,14 @@ dialog.setDefaultButton(undefined, function() {
   var widthTo = parseUnits(widthToEdit.text)
   var heightTo = parseUnits(heightToEdit.text)
   var transformation = documentOriginCheck.value ? Transformation.DOCUMENTORIGIN : anchorGroup.getTransformation()
-  var clippingPaths = selection.filterItem(function(it) {
+  var clippingPaths = Collections.filterItem(selection, function(it) {
     return it.clipping &&
       parseInt(it.width) === parseInt(widthFrom) &&
       parseInt(it.height) === parseInt(heightFrom)
   })
   var progress = new ProgressPalette(clippingPaths.length, "Resizing clipping mask")
 
-  clippingPaths.forEach(function(clippingPath, i) {
+  Collections.forEach(clippingPaths, function(clippingPath, i) {
     var clippingPath = clippingPaths[i]
     print(i + ". ")
     progress.increment()

@@ -4,11 +4,11 @@
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [120, 21]
 var PREDICATE_LINKS = function(it) {
-  return it.typename === "PlacedItem" && it.isFileExists() && it.file.isPDF()
+  return it.typename === "PlacedItem" && PlacedItems.isFileExists(it) && it.file.isPdf()
 }
 
 checkHasSelection()
-check(selection.anyItem(PREDICATE_LINKS), "No PDF links found in selection")
+check(Collections.anyItem(selection, PREDICATE_LINKS), "No PDF links found in selection")
 
 var dialog = new Dialog("Change Page", "relinking-files/#change-page")
 var pdfPanel, rangeGroup, orderByGroup, recursiveCheck, keepSizeCheck
@@ -18,7 +18,7 @@ dialog.vgroup(function(main) {
   main.alignChildren = "right"
   pdfPanel = new OpenPDFPanel(main, BOUNDS_TEXT, BOUNDS_EDIT).also(function(panel) {
     panel.main.hgroup(function(group) {
-      group.tips("Which pages should be used when opening a multipage document")
+      group.tooltips("Which pages should be used when opening a multipage document")
       group.staticText(BOUNDS_TEXT, "Pages:").also(JUSTIFY_RIGHT)
       rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
         it.startEdit.activate()
@@ -42,7 +42,7 @@ dialog.setDefaultButton(undefined, function() {
   var current = rangeGroup.getStart()
   var end = rangeGroup.getEnd()
   var isRecursive = recursiveCheck.isSelected()
-  var source = isRecursive ? selection.filterItem(PREDICATE_LINKS) : selection
+  var source = isRecursive ? Collections.filterItem(selection, PREDICATE_LINKS) : selection
   var progress = new ProgressPalette(source.length)
 
   orderByGroup.forEach(source, function(item, i) {
@@ -51,7 +51,7 @@ dialog.setDefaultButton(undefined, function() {
     preferences.setPDFPage(current)
     var relinked = false
     if (!isRecursive && item.typename === "GroupItem") {
-      [item].forEachItem(function(innerItem) {
+      Collections.forEachItem([item], function(innerItem) {
         if (PREDICATE_LINKS(innerItem)) {
           relinked = relink(innerItem)
         }
@@ -77,7 +77,7 @@ function relink(item) {
   var height = item.height
   var position = item.position
   var file = item.file
-  item.file = getImage("relink_fix") // Apply PDF fix
+  item.file = Resources.getImage("relink_fix") // Apply PDF fix
   item.file = file
   if (keepSizeCheck.isSelected()) {
     print("Keep size, ")

@@ -8,33 +8,34 @@
 #include "collections/predicate.js"
 #include "collections/transform.js"
 
+#include "controls/about.js"
+#include "controls/anchor.js"
+#include "controls/multiradiocheck.js"
+
 #include "io/console.js"
 #include "io/file.js"
 #include "io/picker.js"
 
-#include "sui/base/control-button.js"
-#include "sui/base/control-dropdownlist.js"
-#include "sui/base/control-edittext.js"
-#include "sui/base/control-iconbutton.js"
-#include "sui/base/control-image.js"
-#include "sui/base/control-listbox.js"
-#include "sui/base/control-progressbar.js"
-#include "sui/base/control-slider.js"
-#include "sui/base/control-statictext.js"
-#include "sui/base/control-toggles.js"
-#include "sui/base/parent-group.js"
-#include "sui/base/parent-panel.js"
-#include "sui/base/parent-tab.js"
-#include "sui/base/parent-tabbedpanel.js"
-#include "sui/window/dialog-alert.js"
-#include "sui/window/dialog.js"
-#include "sui/window/palette-progress.js"
-#include "sui/about.js"
-#include "sui/anchor.js"
-#include "sui/internals.js"
-#include "sui/multiradiocheck.js"
+#include "sui/child-button.js"
+#include "sui/child-dropdownlist.js"
+#include "sui/child-edittext.js"
+#include "sui/child-iconbutton.js"
+#include "sui/child-image.js"
+#include "sui/child-listbox.js"
+#include "sui/child-progressbar.js"
+#include "sui/child-slider.js"
+#include "sui/child-statictext.js"
+#include "sui/child-toggles.js"
+#include "sui/parent-group.js"
+#include "sui/parent-panel.js"
+#include "sui/parent-tab.js"
+#include "sui/parent-tabbedpanel.js"
+#include "sui/window-alert.js"
+#include "sui/window-dialog.js"
+#include "sui/window-progress.js"
 
 #include "geometry.js"
+#include "internals.js"
 #include "math.js"
 #include "preconditions.js"
 #include "properties.js"
@@ -43,13 +44,13 @@
 #include "text.js"
 #include "time.js"
 
-stdlibPath = new File($.fileName).path
+var PATH_STDLIB = new File($.fileName).path
 
 /** True if this script is running on macOS. */
 var OS_MAC = $.os.toLowerCase().indexOf("mac") >= 0
 
-var URL_GITHUB = "https://github.com/hendraanggrian/prepress-adobe-scripts"
-var URL_WEBSITE = "https://hendraanggrian.github.io/prepress-adobe-scripts"
+var URL_GITHUB = "https://github.com/hendraanggrian/prepress-adobe-scripts/"
+var URL_WEBSITE = "https://hendraanggrian.github.io/prepress-adobe-scripts/"
 
 /**
  * Create a temporary file to open url in default browser.

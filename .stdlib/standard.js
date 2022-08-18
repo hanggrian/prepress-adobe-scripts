@@ -10,33 +10,56 @@
 // Instead use `==` and `!=`.
 // See https://github.com/JetBrains/kotlin/blob/master/libraries/stdlib/src/kotlin/util/Standard.kt.
 
-/** Calls the specified function [block] and returns its result. */
+/**
+ * Calls the specified function `block` and returns its result.
+ * @param {Function} block runnable with receiver object as parameter.
+ */
 Object.prototype.run = function(block) {
   block(this)
 }
 
-/** Calls the specified function [block] with `this` value as its argument and returns `this` value. */
+/**
+ * Calls the specified function `block` with `this` value as its argument and returns `this` value.
+ * @param {Function} block runnable with receiver object as parameter.
+ * @returns {*}
+ */
 Object.prototype.also = function(block) {
   block(this)
   return this
 }
 
-/** Calls the specified function [block] with `this` value as its argument and returns its result. */
+/**
+ * Calls the specified function `block` with `this` value as its argument and returns its result.
+ * @param {Function} block runnable with receiver object as parameter.
+ * @returns {*}
+ */
 Object.prototype.let = function(block) {
   return block(this)
 }
 
-/** Returns `this` value if it satisfies the given [predicate] or `null`, if it doesn't. */
+/**
+ * Returns `this` value if it satisfies the given `predicate` or `null`, if it doesn't.
+ * @param {Function} predicate runnable with receiver object as parameter and boolean return value.
+ * @returns {Boolean}
+ */
 Object.prototype.takeIf = function(predicate) {
   return predicate(this) ? this : null
 }
 
-/** Returns `this` value if it _does not_ satisfy the given [predicate] or `null`, if it does. */
+/**
+ * Returns `this` value if it _does not_ satisfy the given `predicate` or `null`, if it does.
+ * @param {Function} predicate runnable with receiver object as parameter and boolean return value.
+ * @returns {Boolean}
+ */
 Object.prototype.takeUnless = function(predicate) {
   return !predicate(this) ? this : null
 }
 
-/** Iterate n times with provided action. */
+/**
+ * Iterate n times with provided action.
+ * @param {Number} times number of times to run the action.
+ * @param {Function} action runnable with no parameter.
+ */
 function repeat(times, action) {
   for (var i = 1; i <= times; i++) {
     action(i)

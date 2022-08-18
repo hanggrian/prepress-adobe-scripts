@@ -20,7 +20,7 @@ dialog.vgroup(function(main) {
     topGroup.alignChildren = "fill"
     topGroup.vpanel("Trim Marks", function(panel) {
       panel.hgroup(function(group) {
-        group.tips("Distance between art and trim marks")
+        group.tooltips("Distance between art and trim marks")
         group.staticText(BOUNDS_TEXT, "Offset:").also(JUSTIFY_RIGHT)
         offsetEdit = group.editText(BOUNDS_EDIT, prefs.getString("offset", "2.5 mm")).also(function(it) {
           it.validateUnits()
@@ -28,17 +28,17 @@ dialog.vgroup(function(main) {
         })
       })
       panel.hgroup(function(group) {
-        group.tips("Size of trim marks")
+        group.tooltips("Size of trim marks")
         group.staticText(BOUNDS_TEXT, "Length:").also(JUSTIFY_RIGHT)
         lengthEdit = group.editText(BOUNDS_EDIT, prefs.getString("length", "2.5 mm")).also(VALIDATE_UNITS)
       })
       panel.hgroup(function(group) {
-        group.tips("Thickness of trim marks")
+        group.tooltips("Thickness of trim marks")
         group.staticText(BOUNDS_TEXT, "Weight:").also(JUSTIFY_RIGHT)
         weightEdit = group.editText(BOUNDS_EDIT, prefs.getString("weight", "0.3 pt")).also(VALIDATE_UNITS) // the same value used in `Object > Create Trim Marks`
       })
       panel.hgroup(function(group) {
-        group.tips("Color of trim marks")
+        group.tooltips("Color of trim marks")
         group.staticText(BOUNDS_TEXT, "Color:").also(JUSTIFY_RIGHT)
         colorList = group.dropDownList(BOUNDS_EDIT, COLORS).also(function(it) {
           it.selectText(prefs.getString("color", "Registration"))
@@ -50,36 +50,36 @@ dialog.vgroup(function(main) {
         group.staticText(BOUNDS_CHECK)
         topLeftCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip("Top left")
+          it.tooltip("Top left")
         })
         topCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip("Top")
+          it.tooltip("Top")
           it.visible = false
         })
         topRightCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip("Top right")
+          it.tooltip("Top right")
         })
         group.staticText(BOUNDS_CHECK)
       })
       panel.hgroup(function(group) {
         leftTopCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip("Left top")
+          it.tooltip("Left top")
         })
         group.image(BOUNDS_CHECK, "ic_arrow_topleft")
         group.image(BOUNDS_CHECK, "ic_arrow_top")
         group.image(BOUNDS_CHECK, "ic_arrow_topright")
         rightTopCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip("Right top")
+          it.tooltip("Right top")
         })
       })
       panel.hgroup(function(group) {
         leftCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip("Left")
+          it.tooltip("Left")
           it.visible = false
         })
         group.image(BOUNDS_CHECK, "ic_arrow_left")
@@ -87,44 +87,44 @@ dialog.vgroup(function(main) {
         group.image(BOUNDS_CHECK, "ic_arrow_right")
         rightCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip("Right")
+          it.tooltip("Right")
           it.visible = false
         })
       })
       panel.hgroup(function(group) {
         leftBottomCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip("Left bottom")
+          it.tooltip("Left bottom")
         })
         group.image(BOUNDS_CHECK, "ic_arrow_bottomleft")
         group.image(BOUNDS_CHECK, "ic_arrow_bottom")
         group.image(BOUNDS_CHECK, "ic_arrow_bottomright")
         rightBottomCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip("Right bottom")
+          it.tooltip("Right bottom")
         })
       })
       panel.hgroup(function(group) {
         group.staticText(BOUNDS_CHECK)
         bottomLeftCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip("Bottom left")
+          it.tooltip("Bottom left")
         })
         bottomCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip("Bottom")
+          it.tooltip("Bottom")
           it.visible = false
         })
         bottomRightCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
           it.select()
-          it.tip("Bottom right")
+          it.tooltip("Bottom right")
         })
         group.staticText(BOUNDS_CHECK)
       })
     })
   })
   multipleTargetMultiRadioCheckGroup = new MultiRadioCheckGroup(main, "Multiple Target", ["Default", "Recursive"]).also(function(it) {
-    it.main.tips("When activated, trim marks will be added to each item")
+    it.main.tooltips("When activated, trim marks will be added to each item")
     it.checkOnClick = function() {
       topLeftCheck.visible = !it.isSelected()
       topRightCheck.visible = !it.isSelected()
@@ -147,7 +147,7 @@ dialog.setDefaultButton(undefined, function() {
   var length = parseUnits(lengthEdit.text)
   var weight = parseUnits(weightEdit.text)
   var color = parseColor(colorList.selection.text)
-  var maxBounds = selection.getFarthestBounds()
+  var maxBounds = PageItems.getMaxBounds(selection)
   multipleTargetMultiRadioCheckGroup.isSelected()
     ? processMultiple(offset, length, weight, color, maxBounds)
     : processSingle(offset, length, weight, color, maxBounds)
@@ -239,7 +239,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
 function processMultiple(offset, length, weight, color, maxBounds) {
   var paths = []
   var action = function(item) {
-    var clippingItem = item.getClippingPathItem()
+    var clippingItem = PageItems.getClippingItem(item)
     var width = clippingItem.width
     var height = clippingItem.height
     var itemStartX = clippingItem.position.getLeft()
@@ -311,18 +311,18 @@ function processMultiple(offset, length, weight, color, maxBounds) {
       ])
     }
   }
-  if (multipleTargetMultiRadioCheckGroup.getSelectedRadio() === "Recursive") {
-    selection.forEachItem(action)
+  if (multipleTargetMultiRadioCheckGroup.getSelectedRadioText() === "Recursive") {
+    Collections.forEachItem(selection, action)
   } else {
-    selection.forEach(action)
+    Collections.forEach(selection, action)
   }
   var distinctPaths = []
-  paths.forEach(function(path) {
+  Collections.forEach(paths, function(path) {
     if (!containsPathBounds(distinctPaths, path)) {
       distinctPaths.push(path)
     }
   })
-  return distinctPaths.map(function(it) {
+  return Collections.map(distinctPaths, function(it) {
     return createTrimMark(weight, color, it[0], it[1], it[2], it[3], it[4])
   })
 }

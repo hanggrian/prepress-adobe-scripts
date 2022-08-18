@@ -9,4 +9,4 @@
 #include "core-preferences.js"
 #include "core-units.js"
 
-libPath = new File($.fileName).path
+var PATH_LIB = new File($.fileName).path

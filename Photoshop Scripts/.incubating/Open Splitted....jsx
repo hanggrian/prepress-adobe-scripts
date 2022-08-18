@@ -15,7 +15,7 @@ var BOUNDS_EDIT = [100, 21]
 var dialog = new Dialog("Open Splitted")
 var documentPanel
 
-var files = openFile(dialog.getTitle(), [
+var files = FilePicker.openFile(dialog.getTitle(), [
   ["Adobe Illustrator", "AI"],
   ["Adobe PDF", "PDF"],
   ["BMP", "BMP"],
@@ -27,14 +27,14 @@ var files = openFile(dialog.getTitle(), [
   ["TIFF", "TIF", "TIFF"]
 ], true)
 
-if (files !== null && files.isNotEmpty()) {
-  if (files.filter(function(it) { return it.isPDF() }).isNotEmpty()) {
+if (files !== null && Collections.isNotEmpty(files)) {
+  if (Collections.isNotEmpty(Collections.filter(files, function(it) { return it.isPdf() }))) {
     check(files.length === 1, "Only supports single PDF file")
   }
 
   /* dialog.main.vpanel("Split Options", function(panel) {
       panel.hgroup(function(group) {
-          group.tips("Divide image horizontally/vertically")
+          group.tooltips("Divide image horizontally/vertically")
           group.staticText(BOUNDS_TEXT, "Direction:").also(JUSTIFY_RIGHT)
           group.vgroup(function(group2) {
               group2.alignChildren = "left"
@@ -43,7 +43,7 @@ if (files !== null && files.isNotEmpty()) {
           })
       })
       panel.hgroup(function(group) {
-          group.tips("Total number of divison")
+          group.tooltips("Total number of divison")
           group.staticText(BOUNDS_TEXT, "Parts:").also(JUSTIFY_RIGHT)
           partsEdit = group.editText(BOUNDS_EDIT, "2").also(function(it) {
               it.validateDigits()
@@ -56,7 +56,7 @@ if (files !== null && files.isNotEmpty()) {
   dialog.setCancelButton()
   dialog.setDefaultButton(undefined, function() {
     var parts = parseInt(partsEdit.text) || 2
-    files.forEach(function(file) {
+    Collections.forEach(files, function(file) {
       repeat(parts, function(i) {
         app.load(file)
       })

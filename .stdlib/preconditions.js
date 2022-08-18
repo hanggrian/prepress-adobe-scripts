@@ -5,11 +5,10 @@
 */
 
 /**
- * Assert that a condition is satisfied, throw an error otherwise.
+ * Asserts that a condition is satisfied, throw an error otherwise.
  * Error message is always suffixed with period by SUI.
  * @param {Boolean} requirement expect value to be `true`.
  * @param {Object} errorMessage helpful alert, may be null.
- * @returns {void}
  */
 function check(requirement, errorMessage) {
   if (!requirement) {
@@ -18,37 +17,27 @@ function check(requirement, errorMessage) {
 }
 
 /**
- * Assert that a value is null.
- * Error message is always suffixed with period by SUI.
- * @param {Object} errorMessage helpful alert, may be null.
+ * Asserts that a value is null.
+ * @param {Object} value expected to be `undefined` or `null`.
  * @returns {Object}
  */
-function checkNull(value, errorMessage) {
-  check(value === undefined || value === null, errorMessage)
+function checkNull(value) {
+  check(value === undefined || value === null, "Expected value to be null")
   return value
 }
 
 /**
- * Assert that a value is not null.
- * Error message is always suffixed with period by SUI.
- * @param {Object} errorMessage helpful alert, may be null.
+ * Asserts that a value is not null.
+ * @param {Object} value expected to be not `undefined` and not `null`.
  * @returns {Object}
  */
-function checkNotNull(value, errorMessage) {
-  check(value !== undefined && value !== null, errorMessage)
+function checkNotNull(value) {
+  check(value !== undefined && value !== null, "Expected value to be not null")
   return value
 }
 
 /**
- * Assert an item's typename.
- * Error message is always suffixed with period by SUI.
- */
-function checkTypename(item, typename) {
-  check(item.typename === typename, "Selected item is not a " + typename)
-}
-
-/**
- * Throw an error.
+ * Throws an error.
  * Error message is always suffixed with period by SUI.
  * @param {Object} errorMessage helpful alert, may be null.
  */
@@ -60,10 +49,11 @@ function error(errorMessage) {
 /**
  * In dialog on click listener, throwing an error stops a script but does not show an alert.
  * This function shows an alert with error icon before the script stops.
+ * Error message is always suffixed with period by SUI, following `error` and `check` convention.
  * @param {Object} errorMessage helpful alert, may be null.
  */
 function errorWithAlert(errorMessage) {
   var message = errorMessage.toString()
-  alert(message, "Uncaught JavaScript Exception", true)
+  alert(message + '.', "Uncaught JavaScript Exception", true)
   throw new Error(message)
 }

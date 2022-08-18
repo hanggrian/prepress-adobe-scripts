@@ -7,7 +7,7 @@ var BOUNDS_EDIT = [180, 21]
 checkHasSelection()
 
 var dialog = new Dialog("Resize Each", "resizing-rasterizing-each/#resize-each")
-var prefill = selection.first()
+var prefill = Collections.first(selection)
 var widthEdit, widthCheck, heightEdit, heightCheck
 var changePositionsCheck, changeFillPatternsCheck, changeFillGradientsCheck, changeStrokePatternsCheck
 var documentOriginCheck, anchorGroup
@@ -17,7 +17,7 @@ var prefs = preferences2.resolve("objects/resize_each")
 dialog.vgroup(function(main) {
   main.hgroup(function(group) {
     group.alignChildren = "bottom"
-    group.tips("Objects' new width, uncheck to ignore")
+    group.tooltips("Objects' new width, uncheck to ignore")
     group.staticText(BOUNDS_TEXT, "Width:").also(JUSTIFY_RIGHT)
     widthEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.width, unitName, 2)).also(function(it) {
       it.validateUnits()
@@ -32,7 +32,7 @@ dialog.vgroup(function(main) {
   })
   main.hgroup(function(group) {
     group.alignChildren = "bottom"
-    group.tips("Objects' new height, uncheck to ignore")
+    group.tooltips("Objects' new height, uncheck to ignore")
     group.staticText(BOUNDS_TEXT, "Height:").also(JUSTIFY_RIGHT)
     heightEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.height, unitName, 2)).also(VALIDATE_UNITS)
     heightCheck = group.checkBox().also(function(it) {
@@ -47,26 +47,26 @@ dialog.vgroup(function(main) {
     group.vpanel("Change", function(panel) {
       panel.alignChildren = "fill"
       changePositionsCheck = panel.checkBox(undefined, "Positions").also(function(it) {
-        it.tip("Are art object positions and orientations effected?")
+        it.tooltip("Are art object positions and orientations effected?")
         it.value = prefs.getBoolean("option1")
       })
       changeFillPatternsCheck = panel.checkBox(undefined, "Fill Patterns").also(function(it) {
-        it.tip("Are the fill patterns assigned to paths to be transformed?")
+        it.tooltip("Are the fill patterns assigned to paths to be transformed?")
         it.value = prefs.getBoolean("option2")
       })
       changeFillGradientsCheck = panel.checkBox(undefined, "Fill Gradients").also(function(it) {
-        it.tip("Are the fill gradients assigned to paths to be transformed?")
+        it.tooltip("Are the fill gradients assigned to paths to be transformed?")
         it.value = prefs.getBoolean("option3")
       })
       changeStrokePatternsCheck = panel.checkBox(undefined, "Stroke Patterns").also(function(it) {
-        it.tip("Are the stroke patterns assigned to paths to be transformed?")
+        it.tooltip("Are the stroke patterns assigned to paths to be transformed?")
         it.value = prefs.getBoolean("option4")
       })
     })
     group.vpanel("Anchor", function(panel) {
       panel.alignChildren = "fill"
       documentOriginCheck = panel.checkBox(undefined, "Document Origin").also(function(it) {
-        it.tip("Use current reference point preference")
+        it.tooltip("Use current reference point preference")
         it.onClick = function() {
           anchorGroup.main.enabled = !it.value
         }
@@ -107,9 +107,9 @@ dialog.setDefaultButton(undefined, function() {
       transformation)
   }
   if (recursiveCheck.isSelected()) {
-    selection.forEachItem(action)
+    Collections.forEachItem(selection, action)
   } else {
-    selection.forEach(action)
+    Collections.forEach(selection, action)
   }
 
   prefs.setBoolean("option1", changePositionsCheck.value)

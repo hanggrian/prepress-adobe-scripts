@@ -2,14 +2,13 @@
 
 /**
  * Iterate each element of this collection.
+ * @param {Object} items array or array-like objects.
  * @param {Function} action runnable to execute.
  */
-Object.prototype.forEachItem = function(action) { _forEachItem(this, action) }
-
-function _forEachItem(items, action) {
+Collections.forEachItem = function(items, action) {
   for (var i = 0; i < items.length; i++) {
     if (items[i].typename === "GroupItem") {
-      _forEachItem(items[i].pageItems, action)
+      Collections.forEachItem(items[i].pageItems, action)
     } else {
       action(items[i], i)
     }
@@ -18,14 +17,13 @@ function _forEachItem(items, action) {
 
 /**
  * Iterate each element of this collection as reversed.
+ * @param {Object} items array or array-like objects.
  * @param {Function} action runnable to execute.
  */
-Object.prototype.forEachItemReversed = function(action) { _forEachItemReversed(this, action) }
-
-function _forEachItemReversed(items, action) {
-  for (var i = items.lastIndex(); i >= 0; i--) {
+Collections.forEachItemReversed = function(items, action) {
+  for (var i = Collections.lastIndex(items); i >= 0; i--) {
     if (items[i].typename === "GroupItem") {
-      _forEachItemReversed(items[i].pageItems, action)
+      Collections.forEachItemReversed(items[i].pageItems, action)
     } else {
       action(items[i], i)
     }
@@ -34,15 +32,14 @@ function _forEachItemReversed(items, action) {
 
 /**
  * First item of this collection, or given predicate when defined.
+ * @param {Object} items array or array-like objects.
  * @param {Function} predicate optional consumer.
  * @returns {Object}
  */
-Object.prototype.firstItem = function(predicate) { return _firstItem(this, predicate) }
-
-function _firstItem(items, predicate) {
+Collections.firstItem = function(items, predicate) {
   for (var i = 0; i < items.length; i++) {
     if (items[i].typename === "GroupItem") {
-      return _firstItem(items[i].pageItems, predicate)
+      return Collections.firstItem(items[i].pageItems, predicate)
     } else if (predicate(items[i], i)) {
       return items[i]
     }
@@ -52,15 +49,14 @@ function _firstItem(items, predicate) {
 
 /**
  * Last item of this collection, or given predicate when defined.
+ * @param {Object} items array or array-like objects.
  * @param {Function} predicate optional consumer.
  * @returns {Object}
  */
-Object.prototype.lastItem = function(predicate) { return _lastItem(this, predicate) }
-
-function _lastItem(items, predicate) {
-  for (var i = this.lastIndex(); i >= 0; i--) {
+Collections.lastItem = function(items, predicate) {
+  for (var i = Collections.lastIndex(this); i >= 0; i--) {
     if (items[i].typename === "GroupItem") {
-      return _firstItem(items[i].pageItems, predicate)
+      return Collections.firstItem(items[i].pageItems, predicate)
     } else if (predicate(items[i], i)) {
       return items[i]
     }
@@ -73,15 +69,14 @@ function _lastItem(items, predicate) {
 
 /**
  * Returns true if the collection has no elements matching predicate.
+ * @param {Object} items array or array-like objects.
  * @param {Function} predicate runnable with return value.
  * @returns {Boolean}
  */
-Object.prototype.noneItem = function(predicate) { return _noneItem(this, predicate) }
-
-function _noneItem(items, predicate) {
+Collections.noneItem = function(items, predicate) {
   for (var i = 0; i < items.length; i++) {
     if (items[i].typename === "GroupItem") {
-      if (!_noneItem(items[i].pageItems, predicate)) {
+      if (!Collections.noneItem(items[i].pageItems, predicate)) {
         return false
       }
     } else if (predicate(items[i], i)) {
@@ -93,15 +88,14 @@ function _noneItem(items, predicate) {
 
 /**
  * Returns true if collection has at least one element matching predicate.
+ * @param {Object} items array or array-like objects.
  * @param {Function} predicate runnable with return value.
  * @returns {Boolean}
  */
-Object.prototype.anyItem = function(predicate) { return _anyItem(this, predicate) }
-
-function _anyItem(items, predicate) {
+Collections.anyItem = function(items, predicate) {
   for (var i = 0; i < items.length; i++) {
     if (items[i].typename === "GroupItem") {
-      if (_anyItem(items[i].pageItems, predicate)) {
+      if (Collections.anyItem(items[i].pageItems, predicate)) {
         return true
       }
     } else if (predicate(items[i], i)) {
@@ -113,15 +107,14 @@ function _anyItem(items, predicate) {
 
 /**
  * Returns true if all elements in this collection match the predicate.
+ * @param {Object} items array or array-like objects.
  * @param {Function} predicate runnable with return value.
  * @returns {Boolean}
  */
-Object.prototype.allItem = function(predicate) { return _allItem(this, predicate) }
-
-function _allItem(items, predicate) {
+Collections.allItem = function(items, predicate) {
   for (var i = 0; i < items.length; i++) {
     if (items[i].typename === "GroupItem") {
-      if (!_allItem(items[i].pageItems, predicate)) {
+      if (!Collections.allItem(items[i].pageItems, predicate)) {
         return false
       }
     } else if (!predicate(items[i], i)) {
@@ -133,12 +126,13 @@ function _allItem(items, predicate) {
 
 /**
  * Returns a list containing only elements matching the given predicate.
+ * @param {Object} items array or array-like objects.
  * @param {Function} predicate runnable with return value.
  * @returns {Array}
  */
-Object.prototype.filterItem = function(predicate) {
+Collections.filterItem = function(items, predicate) {
   var result = []
-  _filterItem(this, predicate, result)
+  _filterItem(items, predicate, result)
   return result
 }
 
@@ -156,12 +150,13 @@ function _filterItem(items, predicate, result) {
 
 /**
  * Returns an array containing the results of applying the given transform function.
+ * @param {Object} items array or array-like objects.
  * @param {Function} transform runnable with return value.
  * @returns {Array}
  */
-Object.prototype.mapItem = function(transform) {
+Collections.mapItem = function(items, transform) {
   var result = []
-  _mapItem(this, transform, result)
+  _mapItem(items, transform, result)
   return result
 }
 

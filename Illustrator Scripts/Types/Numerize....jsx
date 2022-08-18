@@ -12,8 +12,8 @@ var BOUNDS_EDIT = [100, 21]
 
 checkHasSelection()
 
-var items = selection.filterItem(function(it) { return it.typename === "TextFrame" })
-check(items.isNotEmpty(), "No types found in selection")
+var items = Collections.filterItem(selection, function(it) { return it.typename === "TextFrame" })
+check(Collections.isNotEmpty(items), "No types found in selection")
 
 var dialog = new Dialog("Numerize", "retyping-texts/#numerize")
 var startsAtEdit, digitsEdit
@@ -29,7 +29,7 @@ dialog.vgroup(function(main) {
     topGroup.vpanel("Options", function(panel) {
       panel.alignChildren = "fill"
       panel.hgroup(function(group) {
-        group.tips("Starting counter")
+        group.tooltips("Starting counter")
         group.staticText(BOUNDS_TEXT, "Starts at:").also(JUSTIFY_RIGHT)
         startsAtEdit = group.editText(BOUNDS_EDIT, prefs.getInt("start")).also(function(it) {
           it.validateDigits()
@@ -37,13 +37,13 @@ dialog.vgroup(function(main) {
         })
       })
       panel.hgroup(function(group) {
-        group.tips("Put n number of zeroes, can be left empty")
+        group.tooltips("Put n number of zeroes, can be left empty")
         group.staticText(BOUNDS_TEXT, "Digits:").also(JUSTIFY_RIGHT)
         digitsEdit = group.editText(BOUNDS_EDIT, prefs.getInt("digit")).also(VALIDATE_DIGITS)
       })
       stopsAtGroup = panel.hgroup(function(group) {
         group.alignChildren = "bottom"
-        group.tips("The iteration will stop at the selected alphabet and the number will reset back to 1, ignore if this behavior is not desired")
+        group.tooltips("The iteration will stop at the selected alphabet and the number will reset back to 1, ignore if this behavior is not desired")
         group.staticText(BOUNDS_TEXT, "Stops at:").also(JUSTIFY_RIGHT)
         stopsAtCheck = group.checkBox(undefined).also(function(it) {
           it.value = prefs.getBoolean("stop_enabled")
@@ -60,13 +60,13 @@ dialog.vgroup(function(main) {
     })
     topGroup.vpanel("Affix", function(panel) {
       panel.hgroup(function(group) {
-        group.tips("Extra text before content, can be left empty")
+        group.tooltips("Extra text before content, can be left empty")
         group.staticText(BOUNDS_TEXT, "Prefix:").also(JUSTIFY_RIGHT)
         prefixEdit = group.editText(BOUNDS_EDIT, prefs.getString("prefix"))
 
       })
       panel.hgroup(function(group) {
-        group.tips("Extra text after content, can be left empty")
+        group.tooltips("Extra text after content, can be left empty")
         group.staticText(BOUNDS_TEXT, "Suffix:").also(JUSTIFY_RIGHT)
         suffixEdit = group.editText(BOUNDS_EDIT, prefs.getString("suffix"))
       })

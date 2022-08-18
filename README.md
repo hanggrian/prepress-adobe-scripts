@@ -1,5 +1,3 @@
-[![Travis CI](https://img.shields.io/travis/com/hendraanggrian/prepress-adobe-scripts)](https://travis-ci.com/github/hendraanggrian/prepress-adobe-scripts/)
-
 # Prepress Adobe Scripts
 
 ![Social preview.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/social_preview.png)

@@ -30,7 +30,7 @@ dialog.hgroup(function(main) {
     topGroup.alignChildren = "fill"
     topGroup.vpanel("Flap", function(panel) {
       panel.hgroup(function(group) {
-        group.tips("In horizontal direction, this is height. In vertical direction, this is width.")
+        group.tooltips("In horizontal direction, this is height. In vertical direction, this is width.")
         group.staticText(BOUNDS_TEXT, "Length:").also(JUSTIFY_RIGHT)
         lengthEdit = group.editText(BOUNDS_EDIT, prefs.getString("length", "20 mm")).also(function(it) {
           it.validateUnits()
@@ -38,19 +38,19 @@ dialog.hgroup(function(main) {
         })
       })
       panel.hgroup(function(group) {
-        group.tips("Stroke width of dielines")
+        group.tooltips("Stroke width of dielines")
         group.staticText(BOUNDS_TEXT, "Weight:").also(JUSTIFY_RIGHT)
         weightEdit = group.editText(BOUNDS_EDIT, prefs.getString("weight", "1 pt")).also(VALIDATE_UNITS)
       })
       panel.hgroup(function(group) {
-        group.tips("Stroke color of dielines")
+        group.tooltips("Stroke color of dielines")
         group.staticText(BOUNDS_TEXT, "Color:").also(JUSTIFY_RIGHT)
         colorList = group.dropDownList(BOUNDS_EDIT, COLORS).also(function(it) {
           it.selectText(prefs.getString("color", "Black"))
         })
       })
       panel.hgroup(function(group) {
-        group.tips("Where should the flap be added relative to target")
+        group.tooltips("Where should the flap be added relative to target")
         group.staticText(BOUNDS_TEXT, "Direction:").also(JUSTIFY_RIGHT)
         directionList = group.dropDownList(BOUNDS_EDIT, DIRECTIONS).also(function(it) {
           it.selectText(prefs.getString("direction", "Top"))
@@ -58,19 +58,19 @@ dialog.hgroup(function(main) {
       })
     })
   })
-  tabbedPanel = main.tabbedPanel(function(tabbedPanel) {
-    tabbedPanel.preferredSize = [200, 0]
-    tabbedPanel.vtab("Glue Flap", function(tab) {
+  tabbedPanel = main.tabbedPanel(function(panel) {
+    panel.preferredSize = [200, 0]
+    panel.vtab("Glue Flap", function(tab) {
       tab.hgroup(function(topGroup) {
         topGroup.alignChildren = "top"
         topGroup.vgroup(function(midGroup) {
           midGroup.hgroup(function(group) {
-            group.tips("End line of glue flat must be lesser than starting line, shear value make sure of it")
+            group.tooltips("End line of glue flat must be lesser than starting line, shear value make sure of it")
             group.staticText(BOUNDS_TEXT2, "Shear:").also(JUSTIFY_RIGHT)
             glueShearEdit = group.editText(BOUNDS_EDIT, "5 mm").also(VALIDATE_UNITS)
           })
           midGroup.hgroup(function(group) {
-            group.tips("Distance between scratches, leave blank for no scratches")
+            group.tooltips("Distance between scratches, leave blank for no scratches")
             group.staticText(BOUNDS_TEXT2, "Scratches:").also(JUSTIFY_RIGHT)
             glueScratchEdit = group.editText(BOUNDS_EDIT, "0 mm").also(function(it) {
               it.validateUnits()
@@ -85,39 +85,39 @@ dialog.hgroup(function(main) {
             topGroup.alignChildren = "top"
             topGroup.vgroup(function(midGroup) {
                 midGroup.hgroup(function(group) {
-                    group.tips("How big should the curve be relative to length, in percentage")
+                    group.tooltips("How big should the curve be relative to length, in percentage")
                     group.staticText(BOUNDS_TEXT2, "Curve:").also(JUSTIFY_RIGHT)
                     tuckSliderGroup = new SliderGroup(group, BOUNDS_EDIT, 2, 0, 4, 25)
                 })
                 midGroup.hgroup(function(group) {
-                    group.tips("Thicker material should have more distance")
+                    group.tooltips("Thicker material should have more distance")
                     group.staticText(BOUNDS_TEXT2, "Distance:").also(JUSTIFY_RIGHT)
                     tuckDistanceEdit = group.editText(BOUNDS_EDIT, "0 mm").also(VALIDATE_UNITS)
                 })
             })
         })
     }) */
-    tabbedPanel.vtab("Dust Flap", function(tab) {
+    panel.vtab("Dust Flap", function(tab) {
       tab.hgroup(function(topGroup) {
         topGroup.alignChildren = "top"
         topGroup.vgroup(function(midGroup) {
           midGroup.hgroup(function(group) {
-            group.tips("Necessary for locking a tuck flap")
+            group.tooltips("Necessary for locking a tuck flap")
             group.staticText(BOUNDS_TEXT2, "Shoulder:").also(JUSTIFY_RIGHT)
             dustShoulderEdit = group.editText(BOUNDS_EDIT, "5 mm").also(VALIDATE_UNITS)
           })
           midGroup.hgroup(function(group) {
-            group.tips("Thicker material should have more distance")
+            group.tooltips("Thicker material should have more distance")
             group.staticText(BOUNDS_TEXT2, "Distance:").also(JUSTIFY_RIGHT)
             dustDistanceEdit = group.editText(BOUNDS_EDIT, "0 mm").also(VALIDATE_UNITS)
           })
         })
       })
     })
-    tabbedPanel.onChange = function() {
-      if (tabbedPanel.selection.text === "Glue Flap") {
+    panel.onChange = function() {
+      if (panel.selection.text === "Glue Flap") {
         glueShearEdit.activate()
-      } else if (tabbedPanel.selection.text === "Tuck Flap") {
+      } else if (panel.selection.text === "Tuck Flap") {
         tuckCurveEdit.activate()
       } else {
         dustShoulderEdit.activate()
@@ -131,20 +131,20 @@ dialog.setDefaultButton(undefined, function() {
   var weight = parseUnits(weightEdit.text)
   var color = parseColor(colorList.selection.text)
 
-  var path = layer.pathItems.add()
-  path.filled = false
-  path.strokeDashes = []
-  path.strokeColor = color
-  path.strokeWidth = weight
+  var pathItem = layer.pathItems.add()
+  pathItem.filled = false
+  pathItem.strokeDashes = []
+  pathItem.strokeColor = color
+  pathItem.strokeWidth = weight
 
   if (tabbedPanel.selection.text === "Glue Flap") {
-    processGlue(length, path)
+    processGlue(pathItem, length)
   } else if (tabbedPanel.selection.text === "Tuck Flap") {
-    processTuck(length, path)
+    processTuck(pathItem, length)
   } else {
-    processDust(length, path)
+    processDust(pathItem, length)
   }
-  selection = [path]
+  selection = [pathItem]
 
   prefs.setString("length", lengthEdit.text)
   prefs.setString("weight", weightEdit.text)
@@ -153,11 +153,11 @@ dialog.setDefaultButton(undefined, function() {
 })
 dialog.show()
 
-function processGlue(length, path) {
+function processGlue(pathItem, length) {
   var glueShear = parseUnits(glueShearEdit.text)
   var glueScratch = parseUnits(glueScratchEdit.text)
   var positions = []
-  selection.first().geometricBounds.run(function(it) {
+  Collections.first(selection).geometricBounds.run(function(it) {
     if (directionList.selection.text === "Left") {
       positions.push([it.getLeft(), it.getTop()])
       positions.push([it.getLeft() - length, it.getTop() - glueShear])
@@ -180,16 +180,16 @@ function processGlue(length, path) {
       positions.push([it.getRight(), it.getBottom()])
     }
   })
-  path.name = "FlapGLUE"
-  path.setEntirePath(positions)
+  pathItem.name = "FlapGLUE"
+  pathItem.setEntirePath(positions)
 }
 
-function processTuck(length, path) {
+function processTuck(pathItem, length) {
   var tuckCurve = parseInt(tuckCurveEdit.text) * length / 100
   var tuckStart = length - tuckCurve
   var tuckDistance = parseUnits(tuckDistanceEdit.text)
   var positions = []
-  selection.first().geometricBounds.run(function(it) {
+  Collections.first(selection).geometricBounds.run(function(it) {
     if (directionList.selection.text === "Left") {
       positions.push([it.getLeft(), it.getTop() - tuckDistance])
       positions.push([it.getLeft() - tuckStart, it.getTop() - tuckDistance])
@@ -202,20 +202,20 @@ function processTuck(length, path) {
     } else {
     }
   })
-  path.name = "FlapTUCK"
+  pathItem.name = "FlapTUCK"
   positions.forEach(function(it) {
-    var point = path.pathPoints.add()
+    var point = pathItem.pathPoints.add()
     point.anchor = it
     point.leftDirection = it
     point.rightDirection = it
   })
 }
 
-function processDust(length, path) {
+function processDust(pathItem, length) {
   var dustShoulder = parseUnits(dustShoulderEdit.text)
   var dustDistance = parseUnits(dustDistanceEdit.text)
   var positions = []
-  selection.first().geometricBounds.run(function(it) {
+  Collections.first(selection).geometricBounds.run(function(it) {
     if (directionList.selection.text === "Left") {
       positions.push([it.getLeft(), it.getTop()])
       positions.push([it.getLeft() - dustDistance, it.getTop() - dustDistance])
@@ -250,6 +250,6 @@ function processDust(length, path) {
       positions.push([it.getRight(), it.getBottom()])
     }
   })
-  path.name = "FlapDUST"
-  path.setEntirePath(positions)
+  pathItem.name = "FlapDUST"
+  pathItem.setEntirePath(positions)
 }

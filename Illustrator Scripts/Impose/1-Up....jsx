@@ -8,12 +8,12 @@ var dialog = new Dialog("Impose 1-Up", "imposing-layout/#n-up")
 var pdfPanel, pagesPanel, documentPanel
 var nupGroup
 
-var files = openFile(dialog.getTitle(), [
+var files = FilePicker.openFile(dialog.getTitle(), [
   FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
   FILTERS_BMP, FILTERS_GIF89a, FILTERS_JPEG, FILTERS_JPEG2000, FILTERS_PNG, FILTERS_PHOTOSHOP, FILTERS_TIFF
 ], true)
 
-if (files !== null && files.isNotEmpty()) {
+if (files !== null && Collections.isNotEmpty(files)) {
   var collection = new FileCollection(files)
 
   dialog.vgroup(function(main) {

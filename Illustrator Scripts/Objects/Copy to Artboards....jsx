@@ -20,12 +20,12 @@ var activeArtboard = document.artboards[activeArtboardIndex]
 var activeArtboardRect = activeArtboard.artboardRect
 
 var proceed = true
-if (!selection.all(function(it) { return it.geometricBounds.isWithin(activeArtboardRect) })) {
+if (!Collections.all(selection, function(it) { return it.geometricBounds.isWithin(activeArtboardRect) })) {
   proceed = confirm("Selected items are out of active artboard. Would you like to continue?")
 }
 
 if (proceed) {
-  var relativePositions = selection.map(function(it) {
+  var relativePositions = Collections.map(selection, function(it) {
     var bounds = it.geometricBounds
     var relativeLeft = bounds.getLeft() - activeArtboardRect.getLeft()
     var relativeRight = activeArtboardRect.getRight() - bounds.getRight() + bounds.getWidth()
@@ -40,7 +40,7 @@ if (proceed) {
 
   dialog.vgroup(function(main) {
     main.hgroup(function(group) {
-      group.tips("Which artboards to paste")
+      group.tooltips("Which artboards to paste")
       group.staticText(BOUNDS_TEXT, "Artboards:").also(JUSTIFY_RIGHT)
       rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
         it.maxRange = document.artboards.length
@@ -49,12 +49,12 @@ if (proceed) {
       })
     })
     main.hgroup(function(group) {
-      group.tips("Duplicate by putting distance between selection and anchor.\nThis option is only available when artboards do not have the same size.")
+      group.tooltips("Duplicate by putting distance between selection and anchor.\nThis option is only available when artboards do not have the same size.")
       group.staticText(BOUNDS_TEXT, "Anchor:").also(JUSTIFY_RIGHT)
       anchorList = group.dropDownList(BOUNDS_EDIT, ANCHORS).also(function(it) {
         it.selectText(prefs.getString("anchor", "Top Left"))
       })
-      group.enabled = document.artboards.any(function(it) {
+      group.enabled = Collections.any(document.artboards, function(it) {
         return !isEqualRounded(it.artboardRect.getWidth(), activeArtboardRect.getWidth()) ||
           !isEqualRounded(it.artboardRect.getHeight(), activeArtboardRect.getHeight())
       })
@@ -63,13 +63,13 @@ if (proceed) {
   dialog.setCancelButton()
   dialog.setDefaultButton(undefined, function() {
     var readOnlySelection = selection
-    document.artboards.forEach(function(artboard, artboardIndex) {
+    Collections.forEach(document.artboards, function(artboard, artboardIndex) {
       if (artboardIndex === activeArtboardIndex || !rangeGroup.includes(artboardIndex)) {
         println(activeArtboardIndex + ". Ignore active artboard" + ".")
         return
       }
       var artboardRect = artboard.artboardRect
-      readOnlySelection.forEachReversed(function(item, itemIndex) {
+      Collections.forEachReversed(readOnlySelection, function(item, itemIndex) {
         var relativePosition = relativePositions[itemIndex]
         var x, y
         if (anchorList.selection.text.endsWith("Left")) {

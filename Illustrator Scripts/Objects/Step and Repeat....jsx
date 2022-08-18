@@ -13,10 +13,10 @@ var horizontalEdit, verticalEdit
 var moveHorizontalEdit, moveVerticalEdit, moveRelativeCheck
 var prefs = preferences2.resolve("objects/step_and_repeat")
 
-var bounds = selection.getFarthestBounds()
+var bounds = PageItems.getMaxBounds(selection)
 dialog.vgroup(function(main) {
   main.hgroup(function(group) {
-    group.tips("2 dimension target")
+    group.tooltips("2 dimension target")
     group.staticText(BOUNDS_TEXT, "Copies:").also(JUSTIFY_RIGHT)
     horizontalEdit = group.editText(BOUNDS_EDIT, prefs.getInt("horizontal")).also(function(it) {
       it.validateDigits()
@@ -28,17 +28,17 @@ dialog.vgroup(function(main) {
   main.vpanel("Move", function(panel) {
     panel.alignChildren = "right"
     panel.hgroup(function(group) {
-      group.tips("Distance between arts horizontally")
+      group.tooltips("Distance between arts horizontally")
       group.staticText(BOUNDS_TEXT_MOVE, "Horizontal:").also(JUSTIFY_RIGHT)
       moveHorizontalEdit = group.editText(BOUNDS_EDIT_MOVE, formatUnits(bounds.getWidth(), unitName, 2)).also(VALIDATE_UNITS)
     })
     panel.hgroup(function(group) {
-      group.tips("Distance between arts vertically")
+      group.tooltips("Distance between arts vertically")
       group.staticText(BOUNDS_TEXT_MOVE, "Vertical:").also(JUSTIFY_RIGHT)
       moveVerticalEdit = group.editText(BOUNDS_EDIT_MOVE, formatUnits(bounds.getHeight(), unitName, 2)).also(VALIDATE_UNITS)
     })
     moveRelativeCheck = panel.checkBox(undefined, "Relative Position").also(function(it) {
-      it.tip("Move the object relative to its current position")
+      it.tooltip("Move the object relative to its current position")
       it.onClick = function() {
         if (it.value) {
           moveHorizontalEdit.text = "0 " + unitName
@@ -60,7 +60,7 @@ dialog.setDefaultButton(undefined, function() {
   var moveVertical = parseUnits(moveVerticalEdit.text)
 
   if (horizontal < 1 || vertical < 1) {
-    errorWithAlert("Minimal value is 1×1.")
+    errorWithAlert("Minimal value is 1×1")
     return
   }
 
@@ -74,7 +74,7 @@ dialog.setDefaultButton(undefined, function() {
       finalMoveVertical += bounds.getHeight()
     }
     if (v !== 0) { // skip first
-      readOnlySelection.forEachReversed(function(item) {
+      Collections.forEachReversed(readOnlySelection, function(item) {
         var x = bounds.getLeft() - (bounds.getLeft() - item.position.getLeft())
         var y = bounds.getTop() - (bounds.getTop() - item.position.getTop())
         item.duplicate(layer, ElementPlacement.PLACEATBEGINNING).position = [x, y - v * finalMoveVertical]
@@ -86,7 +86,7 @@ dialog.setDefaultButton(undefined, function() {
       if (moveRelativeCheck.value) {
         finalMoveHorizontal += bounds.getWidth()
       }
-      readOnlySelection.forEachReversed(function(item) {
+      Collections.forEachReversed(readOnlySelection, function(item) {
         var x = bounds.getLeft() - (bounds.getLeft() - item.position.getLeft())
         var y = bounds.getTop() - (bounds.getTop() - item.position.getTop())
         item.duplicate(layer, ElementPlacement.PLACEATBEGINNING).position = [x + h * finalMoveHorizontal, y - v * finalMoveVertical]

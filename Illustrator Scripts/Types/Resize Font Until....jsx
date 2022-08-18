@@ -7,7 +7,7 @@ var ROUNDINGS = ["None", "Round", "Floor", "Ceil"]
 
 checkSingleSelection()
 
-var item = selection.first()
+var item = Collections.first(selection)
 checkTypename(item, "TextFrame")
 
 var dialog = new Dialog("Resize Font Until")
@@ -18,7 +18,7 @@ var roundingList
 dialog.vgroup(function(main) {
   main.alignChildren = "left"
   main.hgroup(function(group) {
-    group.tips("Which bounds to use")
+    group.tooltips("Which bounds to use")
     group.staticText(BOUNDS_TEXT, "Dimension:").also(JUSTIFY_RIGHT)
     dimensionWidthRadio = group.radioButton(undefined, "Width").also(function(it) {
       it.onClick = changeDimensionText
@@ -29,7 +29,7 @@ dialog.vgroup(function(main) {
     })
   })
   main.hgroup(function(group) {
-    group.tips("Target size to match")
+    group.tooltips("Target size to match")
     dimensionSizeText = group.staticText(BOUNDS_TEXT, "Width:").also(JUSTIFY_RIGHT)
     dimensionSizeEdit = group.editText(BOUNDS_EDIT, formatUnits(item.width, unitName, 2)).also(function(it) {
       it.validateUnits()
@@ -37,7 +37,7 @@ dialog.vgroup(function(main) {
     })
   })
   main.hgroup(function(group) {
-    group.tips("Method to round final font size")
+    group.tooltips("Method to round final font size")
     group.staticText(BOUNDS_TEXT, "Rounding:").also(JUSTIFY_RIGHT)
     roundingList = group.dropDownList(BOUNDS_EDIT, ROUNDINGS).also(function(it) {
       it.selectText("None")

@@ -43,9 +43,7 @@ function parseColor(text) {
  * Refer to current swatch to obtain registration color.
  * @returns {SpotColor}
  */
-function getRegistrationColor() {
-  return document.swatches["[registration]"].color
-}
+function getRegistrationColor() { return document.swatches["[registration]"].color }
 
 /**
  * Returns true if both CMYK colors are equal.

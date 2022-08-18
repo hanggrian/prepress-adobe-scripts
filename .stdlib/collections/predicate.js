@@ -6,16 +6,17 @@
 
 /**
  * First item of this collection, or given predicate when defined.
+ * @param {Object} collection array or array-like objects.
  * @param {Function} predicate optional consumer.
  * @returns {Object}
  */
-Object.prototype.first = function(predicate) {
+Collections.first = function(collection, predicate) {
   if (predicate === undefined) {
-    return this[0]
+    return collection[0]
   }
-  for (var i = 0; i < this.length; i++) {
-    if (predicate(this[i], i)) {
-      return this[i]
+  for (var i = 0; i < collection.length; i++) {
+    if (predicate(collection[i], i)) {
+      return collection[i]
     }
   }
   error("Element not found given the predicate")
@@ -23,16 +24,17 @@ Object.prototype.first = function(predicate) {
 
 /**
  * Last item of this collection, or given predicate when defined.
+ * @param {Object} collection array or array-like objects.
  * @param {Function} predicate optional consumer.
  * @returns {Object}
  */
-Object.prototype.last = function(predicate) {
+Collections.last = function(collection, predicate) {
   if (predicate === undefined) {
-    return this[this.lastIndex()]
+    return collection[Collections.lastIndex(collection)]
   }
-  for (var i = this.lastIndex(); i >= 0; i--) {
-    if (predicate(this[i], i)) {
-      return this[i]
+  for (var i = Collections.lastIndex(collection); i >= 0; i--) {
+    if (predicate(collection[i], i)) {
+      return collection[i]
     }
   }
   error("Element not found given the predicate")
@@ -40,12 +42,13 @@ Object.prototype.last = function(predicate) {
 
 /**
  * Returns true if the collection has no elements matching predicate.
+ * @param {Object} collection array or array-like objects.
  * @param {Function} predicate runnable with return value.
  * @returns {Boolean}
  */
-Object.prototype.none = function(predicate) {
-  for (var i = 0; i < this.length; i++) {
-    if (predicate(this[i], i)) {
+Collections.none = function(collection, predicate) {
+  for (var i = 0; i < collection.length; i++) {
+    if (predicate(collection[i], i)) {
       return false
     }
   }
@@ -54,12 +57,13 @@ Object.prototype.none = function(predicate) {
 
 /**
  * Returns true if collection has at least one element matching predicate.
+ * @param {Object} collection array or array-like objects.
  * @param {Function} predicate runnable with return value.
  * @returns {Boolean}
  */
-Object.prototype.any = function(predicate) {
-  for (var i = 0; i < this.length; i++) {
-    if (predicate(this[i], i)) {
+Collections.any = function(collection, predicate) {
+  for (var i = 0; i < collection.length; i++) {
+    if (predicate(collection[i], i)) {
       return true
     }
   }
@@ -68,12 +72,13 @@ Object.prototype.any = function(predicate) {
 
 /**
  * Returns true if all elements in this collection match the predicate.
+ * @param {Object} collection array or array-like objects.
  * @param {Function} predicate runnable with return value.
  * @returns {Boolean}
  */
-Object.prototype.all = function(predicate) {
-  for (var i = 0; i < this.length; i++) {
-    if (!predicate(this[i], i)) {
+Collections.all = function(collection, predicate) {
+  for (var i = 0; i < collection.length; i++) {
+    if (!predicate(collection[i], i)) {
       return false
     }
   }
@@ -82,14 +87,15 @@ Object.prototype.all = function(predicate) {
 
 /**
  * Returns a list containing only elements matching the given predicate.
+ * @param {Object} collection array or array-like objects.
  * @param {Function} predicate runnable with return value.
  * @returns {Array}
  */
-Object.prototype.filter = function(predicate) {
+Collections.filter = function(collection, predicate) {
   var result = []
-  for (var i = 0; i < this.length; i++) {
-    if (predicate(this[i], i)) {
-      result.push(this[i])
+  for (var i = 0; i < collection.length; i++) {
+    if (predicate(collection[i], i)) {
+      result.push(collection[i])
     }
   }
   return result

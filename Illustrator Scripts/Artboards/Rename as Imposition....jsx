@@ -11,7 +11,7 @@ var startEdit, impositionList, nupGroup
 
 dialog.vgroup(function(main) {
   main.hgroup(function(group) {
-    group.tips("Imposition range")
+    group.tooltips("Imposition range")
     group.staticText(BOUNDS_TEXT, "Start:").also(JUSTIFY_RIGHT)
     startEdit = group.editText(BOUNDS_EDIT, "1").also(function(it) {
       it.validateDigits()
@@ -19,7 +19,7 @@ dialog.vgroup(function(main) {
     })
   })
   main.hgroup(function(group) {
-    group.tips("Imposition type")
+    group.tooltips("Imposition type")
     group.staticText(BOUNDS_TEXT, "Mode:").also(JUSTIFY_RIGHT)
     impositionList = group.dropDownList(BOUNDS_EDIT, IMPOSITIONS).also(function(it) {
       it.selectText("2-Up")

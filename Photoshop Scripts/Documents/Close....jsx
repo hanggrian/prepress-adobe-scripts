@@ -9,12 +9,7 @@
 #target Photoshop
 #include "../.lib/commons.js"
 
-var unsavedLength = 0
-for (var i = 0; i < app.documents.length; i++) {
-  if (!app.documents[i].saved) {
-    unsavedLength++
-  }
-}
+var unsavedLength = Collections.filter(app.documents, function(it) { return !it.saved }).length
 
 var dialog = new AlertDialog("Close Documents", "There are {0} documents, {1} of them unsaved. Close them without saving?"
   .format(app.documents.length, unsavedLength > 0 ? unsavedLength : "none"))

@@ -27,7 +27,7 @@ dialog.vgroup(function(main) {
   main.alignChildren = "fill"
   dimensionPanel = new SelectDimensionPanel(main, BOUNDS_TEXT, BOUNDS_EDIT)
   main.vpanel("File Types", function(panel) {
-    panel.tips("File extension of selected links")
+    panel.tooltips("File extension of selected links")
     panel.alignChildren = "fill"
     aiCheck = panel.checkBox(undefined, getTypeString("Adobe Illustrator", FILE_AI))
     pdfCheck = panel.checkBox(undefined, getTypeString("Adobe PDF", FILE_PDF))
@@ -54,16 +54,16 @@ dialog.setDefaultButton(undefined, function() {
     }
 
     var condition2 = false
-    var extension = item.isFileExists() && item.file.name.split(".").pop()
-    if (aiCheck.value) condition2 = condition2 || FILE_AI.contains(extension)
-    if (pdfCheck.value) condition2 = condition2 || FILE_PDF.contains(extension)
-    if (bmpCheck.value) condition2 = condition2 || FILE_BMP.contains(extension)
-    if (gifCheck.value) condition2 = condition2 || FILE_GIF.contains(extension)
-    if (jpegCheck.value) condition2 = condition2 || FILE_JPEG.contains(extension)
-    if (jpeg2000Check.value) condition2 = condition2 || FILE_JPEG2000.contains(extension)
-    if (pngCheck.value) condition2 = condition2 || FILE_PNG.contains(extension)
-    if (psdCheck.value) condition2 = condition2 || FILE_PSD.contains(extension)
-    if (tiffCheck.value) condition2 = condition2 || FILE_TIFF.contains(extension)
+    var extension = PlacedItems.isFileExists(item) && item.file.name.split(".").pop()
+    if (aiCheck.value) condition2 = condition2 || Collections.contains(FILE_AI, extension)
+    if (pdfCheck.value) condition2 = condition2 || Collections.contains(FILE_PDF, extension)
+    if (bmpCheck.value) condition2 = condition2 || Collections.contains(FILE_PDF, extension)
+    if (gifCheck.value) condition2 = condition2 || Collections.contains(FILE_PDF, extension)
+    if (jpegCheck.value) condition2 = condition2 || Collections.contains(FILE_PDF, extension)
+    if (jpeg2000Check.value) condition2 = condition2 || Collections.contains(FILE_PDF, extension)
+    if (pngCheck.value) condition2 = condition2 || Collections.contains(FILE_PDF, extension)
+    if (psdCheck.value) condition2 = condition2 || Collections.contains(FILE_PDF, extension)
+    if (tiffCheck.value) condition2 = condition2 || Collections.contains(FILE_PDF, extension)
 
     return condition && condition2
   })
@@ -72,9 +72,9 @@ dialog.show()
 
 function getTypeString(prefix, suffix) {
   var s = ""
-  suffix.forEach(function(it, i) {
+  Collections.forEach(suffix, function(it, i) {
     s += it
-    if (i != suffix.lastIndex()) {
+    if (i != Collections.lastIndex(suffix)) {
       s += ", "
     }
   })

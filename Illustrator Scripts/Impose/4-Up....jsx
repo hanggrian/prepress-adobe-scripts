@@ -8,12 +8,12 @@ var dialog = new Dialog("Impose 4-Up", "imposing-layout/#n-up")
 var pdfPanel, pagesPanel, documentPanel
 var nupGroup
 
-var files = openFile(dialog.getTitle(), [
+var files = FilePicker.openFile(dialog.getTitle(), [
   FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
   FILTERS_BMP, FILTERS_GIF89a, FILTERS_JPEG, FILTERS_JPEG2000, FILTERS_PNG, FILTERS_PHOTOSHOP, FILTERS_TIFF
 ], true)
 
-if (files !== null && files.isNotEmpty()) {
+if (files !== null && Collections.isNotEmpty(files)) {
   var collection = new FileCollection(files)
 
   dialog.vgroup(function(main) {
@@ -49,7 +49,7 @@ if (files !== null && files.isNotEmpty()) {
 
     var pagesDivisor = !nupGroup.isDuplex() ? 4 : 8
     if (pages % pagesDivisor !== 0) {
-      errorWithAlert("Pages must be divisible by " + pagesDivisor + ".")
+      errorWithAlert("Pages must be divisible by " + pagesDivisor)
     }
     var document = documentPanel.open("Untitled-4-Up",
       artboards,
@@ -81,13 +81,14 @@ if (files !== null && files.isNotEmpty()) {
       var x2 = x1 + rotatedWidth + bleed * 2
       var y1 = artboard.artboardRect.getTop()
       var y2 = y1 - rotatedHeight - bleed * 2
-      Array(topItem1, topItem2, bottomItem1, bottomItem2).forEach(function(it) {
-        it.width = width + bleed * 2
-        it.height = height + bleed * 2
-        if (nupGroup.isRotate()) {
-          it.rotate(nupGroup.isDuplex() && document.artboards.indexOf(artboard).isOdd() ? 270 : 90)
-        }
-      })
+      Collections.forEach([topItem1, topItem2, bottomItem1, bottomItem2],
+        function(it) {
+          it.width = width + bleed * 2
+          it.height = height + bleed * 2
+          if (nupGroup.isRotate()) {
+            it.rotate(nupGroup.isDuplex() && Collections.indexOf(document.artboards, artboard).isOdd() ? 270 : 90)
+          }
+        })
       topItem1.position = [x1, y1]
       topItem2.position = [x2, y1]
       bottomItem1.position = [x1, y2]

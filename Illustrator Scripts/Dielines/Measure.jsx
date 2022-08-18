@@ -6,22 +6,22 @@
 
 checkHasSelection()
 
-var items = selection.filterItem(function(it) { return it.typename === "PathItem" || it.typename === "CompoundPathItem" })
-check(items.isNotEmpty(), "No paths found in selection")
+var items = Collections.filterItem(selection, function(it) { return it.typename === "PathItem" || it.typename === "CompoundPathItem" })
+check(Collections.isNotEmpty(items), "No paths found in selection")
 
 var count = 0
 var distance = 0
 var filledCount = 0, registrationCount = 0
 
-items.forEachItem(function(it) {
-  switch (it.typename) {
+Collections.forEachItem(items, function(item) {
+  switch (item.typename) {
     case "PathItem":
-      increment(it)
+      increment(item)
       break;
     case "CompoundPathItem":
-      for (var i = 0; i < it.pathItems.length; i++) {
-        increment(it.pathItems[i])
-      }
+      Collections.forEach(item.pathItems, function(it) {
+        increment(it)
+      })
       break;
   }
 })

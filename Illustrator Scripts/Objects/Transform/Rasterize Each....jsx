@@ -10,7 +10,7 @@ var BOUNDS_EDIT_SMALL = [70, 21]
 checkHasSelection()
 
 var dialog = new Dialog("Rasterize Each", "resizing-rasterizing-each/#rasterize-each")
-var prefill = selection.first()
+var prefill = Collections.first(selection)
 var colorModelList, resolutionEdit
 var backgroundPanel, backgroundWhiteRadio, backgroundTransparentRadio
 var antiAliasingPanel, antiAliasingNoneRadio, antiAliasingArtRadio, antiAliasingTypeRadio
@@ -20,14 +20,14 @@ var prefs = preferences2.resolve("objects/rasterize_each")
 
 dialog.vgroup(function(main) {
   main.hgroup(function(group) {
-    group.tips("The color model for the rasterization")
+    group.tooltips("The color model for the rasterization")
     group.staticText(BOUNDS_TEXT, "Color Model:").also(JUSTIFY_RIGHT)
     colorModelList = group.dropDownList(BOUNDS_EDIT, COLOR_MODELS).also(function(it) {
       it.selectText("Default")
     })
   })
   main.hgroup(function(group) {
-    group.tips("The rasterization resolution in dots-per-inch (dpi)")
+    group.tooltips("The rasterization resolution in dots-per-inch (dpi)")
     group.staticText(BOUNDS_TEXT, "Resolution:").also(JUSTIFY_RIGHT)
     resolutionEdit = group.editText(BOUNDS_EDIT, "300").also(function(it) {
       it.validateDigits()
@@ -40,14 +40,14 @@ dialog.vgroup(function(main) {
       innerGroup.alignChildren = "fill"
       backgroundPanel = innerGroup.vpanel("Background", function(panel) {
         panel.alignChildren = "fill"
-        panel.tips("Should the resulting image use transparency")
+        panel.tooltips("Should the resulting image use transparency")
         backgroundWhiteRadio = panel.radioButton(undefined, "White")
         backgroundTransparentRadio = panel.radioButton(undefined, "Transparent")
         panel.selectRadioText(prefs.getString("background", "White"))
       })
       antiAliasingPanel = innerGroup.vpanel("Anti-Aliasing", function(panel) {
         panel.alignChildren = "fill"
-        panel.tips("The type of antialiasing method")
+        panel.tooltips("The type of antialiasing method")
         antiAliasingNoneRadio = panel.radioButton(undefined, "None")
         antiAliasingArtRadio = panel.radioButton(undefined, "Art Optimized")
         antiAliasingTypeRadio = panel.radioButton(undefined, "Type Optimized")
@@ -57,27 +57,27 @@ dialog.vgroup(function(main) {
     topGroup.vpanel("Options", function(panel) {
       panel.alignChildren = "fill"
       backgroundBlackCheck = panel.checkBox(undefined, "Against Black Background").also(function(it) {
-        it.tip("Should rasterize against a black background instead of white")
+        it.tooltip("Should rasterize against a black background instead of white")
         it.value = prefs.getBoolean("option1")
       })
       clippingMaskCheck = panel.checkBox(undefined, "Create Clipping Mask").also(function(it) {
-        it.tip("Should a clipping mask be created for the resulting image")
+        it.tooltip("Should a clipping mask be created for the resulting image")
         it.value = prefs.getBoolean("option2")
       })
       convertSpotColorsCheck = panel.checkBox(undefined, "Convert Spot Colors").also(function(it) {
-        it.tip("Whether to convert all spot colors to process colors in the resulting image")
+        it.tooltip("Whether to convert all spot colors to process colors in the resulting image")
         it.value = prefs.getBoolean("option3")
       })
       convertTextToOutlinesCheck = panel.checkBox(undefined, "Convert Text to Outlines").also(function(it) {
-        it.tip("Should all text be converted to outlines before rasterization")
+        it.tooltip("Should all text be converted to outlines before rasterization")
         it.value = prefs.getBoolean("option4")
       })
       includeLayersCheck = panel.checkBox(undefined, "Include Layers").also(function(it) {
-        it.tip("Should the resulting image incorporates the layer attributes (such as opacity and blend mode)")
+        it.tooltip("Should the resulting image incorporates the layer attributes (such as opacity and blend mode)")
         it.value = prefs.getBoolean("option5")
       })
       panel.hgroup(function(group) {
-        group.tips("The amount of white space (in points) to be added around the object during rasterization")
+        group.tooltips("The amount of white space (in points) to be added around the object during rasterization")
         group.staticText(undefined, "Add")
         paddingEdit = group.editText(BOUNDS_EDIT_SMALL, unitsOf("0 mm")).also(VALIDATE_UNITS)
         group.staticText(undefined, "Around Object")
@@ -137,9 +137,9 @@ dialog.setDefaultButton(undefined, function() {
     println("Done.")
   }
   if (recursiveCheck.isSelected()) {
-    selection.forEachItem(action)
+    Collections.forEachItem(selection, action)
   } else {
-    selection.forEach(action)
+    Collections.forEach(selection, action)
   }
   selection = selectQueues
 

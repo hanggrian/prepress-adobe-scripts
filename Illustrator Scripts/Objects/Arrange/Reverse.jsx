@@ -11,9 +11,9 @@ for (var i = 1; i < selection.length; i++) {
 }
 
 // find reversed position and keep ordering until met
-selection.forEach(function(it, index) {
-  var reversedPosition = initialPositions[initialPositions.lastIndex() - index]
-  println("Moving {0} from {1} to {2}.", it.getLayerName(), it.absoluteZOrderPosition, reversedPosition)
+Collections.forEach(selection, function(it, index) {
+  var reversedPosition = initialPositions[Collections.lastIndex(initialPositions) - index]
+  println("Moving {0} from {1} to {2}.", PageItems.getName(it), it.absoluteZOrderPosition, reversedPosition)
   while (it.absoluteZOrderPosition < reversedPosition) {
     it.zOrder(ZOrderMethod.BRINGFORWARD)
   }

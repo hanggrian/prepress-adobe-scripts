@@ -18,7 +18,7 @@ var prefs = preferences2.resolve("images/add_bleed")
 dialog.vgroup(function(main) {
   main.alignChildren = "fill"
   main.hgroup(function(group) {
-    group.tips("Bleed are distributed around image")
+    group.tooltips("Bleed are distributed around image")
     group.staticText([120, 21], "Length:").also(JUSTIFY_RIGHT)
     lengthEdit = group.editText([200, 21], prefs.getString("length", "2.5 mm")).also(function(it) {
       it.validateUnits()
@@ -33,16 +33,16 @@ dialog.vgroup(function(main) {
     topGroup.vpanel("Options", function(group) {
       group.alignChildren = "fill"
       flattenImageCheck = group.checkBox(undefined, "Flatten Image").also(function(it) {
-        it.tip("Layers will be flattened")
+        it.tooltip("Layers will be flattened")
         it.select()
       })
       guidesRadiosCheckGroup = new MultiRadioCheckGroup(group, "Use Guides", ["Append", "Replace"]).also(function(it) {
-        it.main.tips("Guides will mark where bleed are added")
+        it.main.tooltips("Guides will mark where bleed are added")
         it.check.select()
         it.check.onClick()
       })
       group.hgroup(function(innerGroup) {
-        innerGroup.tips("Select bleed with x correction")
+        innerGroup.tooltips("Select bleed with x correction")
         selectBleedCheck = innerGroup.checkBox(undefined, "Select Bleed with").also(function(it) {
           it.onClick = function() {
             correctionEdit.enabled = it.value
@@ -67,6 +67,7 @@ dialog.setDefaultButton(undefined, function() {
   var bleed = new UnitValue(lengthEdit.text)
   var anchor = anchorGroup.getAnchorPosition()
   var correction = parseUnits(correctionEdit.text)
+
   process(document, bleed, anchor, correction)
 })
 dialog.setYesButton("All", function() {
@@ -74,10 +75,11 @@ dialog.setYesButton("All", function() {
   var anchor = anchorGroup.getAnchorPosition()
   var correction = parseUnits(correctionEdit.text)
   var progress = new ProgressPalette(app.documents.length, "Adding bleed")
-  for (var i = 0; i < app.documents.length; i++) {
+  
+  Collections.forEach(app.documents, function(document) {
     progress.increment()
-    process(app.documents[i], bleed, anchor, correction)
-  }
+    process(document, bleed, anchor, correction)
+  })
 })
 dialog.show()
 
@@ -112,9 +114,9 @@ function process(document, bleed, anchor, correction) {
   }
 
   if (guidesRadiosCheckGroup.isSelected()) {
-    if (guidesRadiosCheckGroup.getSelectedRadio() === "Replace") {
+    if (guidesRadiosCheckGroup.getSelectedRadioText() === "Replace") {
       while (document.guides.length > 0) { // TODO: find out why forEach only clearing parts
-        document.guides.first().remove()
+        Collections.first(document.guides).remove()
       }
     }
     guideLeft = document.guides.add(Direction.VERTICAL, 0)

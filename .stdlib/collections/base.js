@@ -4,86 +4,97 @@
 </javascriptresource>
 */
 
-// https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/
-// Functions declared in this script are `Object.prototype` and not `Array.prototype`.
-// This is due to Adobe's custom non-array collection objects like `Artboards`, `PageItems`, etc.
-
 /**
- * Last index of this collection.
- * @param {Object} element value within this collection.
- * @returns {Boolean}
+ * Static helper class for any array-like objects.
+ * This is due to Adobe's custom non-array collection objects like `Artboards`, `PageItems`, etc.
  */
-Object.prototype.indexOf = function(element) {
-  for (var i = 0; i < this.length; i++) {
-    if (this[i] === element) {
-      return i
+var Collections = {
+
+  /**
+   * Last index of this collection.
+   * @param {Object} collection array or array-like objects.
+   * @param {Object} element value within this collection.
+   * @returns {Boolean}
+   */
+  indexOf: function(collection, element) {
+    for (var i = 0; i < collection.length; i++) {
+      if (collection[i] === element) {
+        return i
+      }
     }
-  }
-  error("Element not found in this collection")
-}
+    error("Element not found in this collection")
+  },
 
-/**
- * Last index of this collection.
- * @returns {Boolean}
- */
-Object.prototype.lastIndex = function() { return this.length - 1 }
+  /**
+   * Last index of this collection.
+   * @param {Object} collection array or array-like objects.
+   * @returns {Boolean}
+   */
+  lastIndex: function(collection) { return collection.length - 1 },
 
-/**
- * Returns true if this collection is empty.
- * @returns {Boolean}
- */
-Object.prototype.isEmpty = function() { return this.length === 0 }
+  /**
+   * Returns true if this collection is empty.
+   * @param {Object} collection array or array-like objects.
+   * @returns {Boolean}
+   */
+  isEmpty: function(collection) { return collection.length === 0 },
 
-/**
- * Returns true if this collection is not empty.
- * @returns {Boolean}
- */
-Object.prototype.isNotEmpty = function() { return this.length > 0 }
+  /**
+   * Returns true if this collection is not empty.
+   * @param {Object} collection array or array-like objects.
+   * @returns {Boolean}
+   */
+  isNotEmpty: function(collection) { return collection.length > 0 },
 
-/**
- * Returns true if element belongs in this collection.
- * @returns {Boolean}
- */
-Object.prototype.contains = function(element) {
-  var i = this.length
-  while (i--) {
-    if (this[i] === element) {
-      return true
+  /**
+   * Returns true if element belongs in this collection.
+   * @param {Object} collection array or array-like objects.
+   * @returns {Boolean}
+   */
+  contains: function(collection, element) {
+    var i = collection.length
+    while (i--) {
+      if (collection[i] === element) {
+        return true
+      }
     }
-  }
-  return false
-}
+    return false
+  },
 
-/**
- * Returns an array containing only distinct elements from the given collection.
- * @returns {Array}
- */
-Object.prototype.distinct = function() {
-  var distinct = []
-  this.forEach(function(element) {
-    if (!distinct.contains(element)) {
-      distinct.push(element)
+  /**
+   * Returns an array containing only distinct elements from the given collection.
+   * @param {Object} collection array or array-like objects.
+   * @returns {Array}
+   */
+  distinct: function(collection) {
+    var distinct = []
+    Collections.forEach(collection, function(element) {
+      if (!Collections.contains(distinct, element)) {
+        distinct.push(element)
+      }
+    })
+    return distinct
+  },
+
+  /**
+   * Iterate each element of this collection.
+   * @param {Object} collection array or array-like objects.
+   * @param {Function} action runnable to execute.
+   */
+  forEach: function(collection, action) {
+    for (var i = 0; i < collection.length; i++) {
+      action(collection[i], i)
     }
-  })
-  return distinct
-}
+  },
 
-/**
- * Iterate each element of this collection.
- * @param {Function} action runnable to execute.
- */
-Object.prototype.forEach = function(action) {
-  for (var i = 0; i < this.length; i++) {
-    action(this[i], i)
-  }
-}
-
-/**
- * Iterate each element of this collection as reversed.
- * @param {Function} action runnable to execute.
- */
-Object.prototype.forEachReversed = function(action) {
-  for (var i = this.lastIndex(); i >= 0; i--) {
-    action(this[i], i)
+  /**
+   * Iterate each element of this collection as reversed.
+   * @param {Object} collection array or array-like objects.
+   * @param {Function} action runnable to execute.
+   */
+  forEachReversed: function(collection, action) {
+    for (var i = Collections.lastIndex(collection); i >= 0; i--) {
+      action(collection[i], i)
+    }
   }
 }

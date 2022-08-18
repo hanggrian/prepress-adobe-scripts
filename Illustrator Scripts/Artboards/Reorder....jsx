@@ -17,10 +17,10 @@ dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
   var properties = []
   orderByGroup.forEach(document.artboards, function(it) {
-    properties.push(copyProperties(it))
+    properties.push(Properties.copy(it))
   })
-  document.artboards.forEach(function(it, i) {
-    pasteProperties(properties[i], it)
+  Collections.forEach(document.artboards, function(it, i) {
+    Properties.paste(properties[i], it)
   })
 
   prefs.setString("order", orderByGroup.list.selection.text)

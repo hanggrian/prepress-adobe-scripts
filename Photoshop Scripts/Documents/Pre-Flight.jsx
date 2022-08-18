@@ -12,8 +12,7 @@
 #include "../.lib/commons.js"
 
 var allOkay = true
-for (var i = 0; i < app.documents.length; i++) {
-  var document = app.documents[i]
+Collections.forEach(app.documents, function(document) {
   var errorCount = 0
   var result = "Issues found in {0}:\n".format(document.name)
 
@@ -41,7 +40,7 @@ for (var i = 0; i < app.documents.length; i++) {
     app.activeDocument = document
     alert(result.trim(), "Pre-Flight", true)
   }
-}
+})
 if (allOkay) {
   alert("No issues found in all documents.", "Pre-Flight")
 }

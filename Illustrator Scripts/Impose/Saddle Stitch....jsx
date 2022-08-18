@@ -8,12 +8,12 @@ var dialog = new Dialog("Impose Saddle Stitch", "imposing-layout/#saddle-stitch"
 var pdfPanel, pagesPanel, documentPanel
 var rtlCheck
 
-var files = openFile(dialog.getTitle(), [
+var files = FilePicker.openFile(dialog.getTitle(), [
   FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
   FILTERS_BMP, FILTERS_GIF89a, FILTERS_JPEG, FILTERS_JPEG2000, FILTERS_PNG, FILTERS_PHOTOSHOP, FILTERS_TIFF
 ], true)
 
-if (files !== null && files.isNotEmpty()) {
+if (files !== null && Collections.isNotEmpty(files)) {
   var collection = new FileCollection(files)
 
   dialog.vgroup(function(main) {
@@ -36,7 +36,7 @@ if (files !== null && files.isNotEmpty()) {
     })
     main.hgroup(function(group) {
       rtlCheck = group.checkBox(undefined, "Right-to-Left").also(function(it) {
-        it.tip("Useful for Arabic layout")
+        it.tooltip("Useful for Arabic layout")
       })
     })
   })
@@ -51,7 +51,7 @@ if (files !== null && files.isNotEmpty()) {
     var bleed = pagesPanel.getBleed()
 
     if (pages % 4 !== 0) {
-      errorWithAlert("Pages must be divisible by 4.")
+      errorWithAlert("Pages must be divisible by 4")
     }
     var document = documentPanel.open("Untitled-Saddle Stitch",
       artboards,
@@ -71,7 +71,7 @@ if (files !== null && files.isNotEmpty()) {
       var x1 = artboard.artboardRect.getLeft()
       var x2 = x1 + width
       var y = artboard.artboardRect.getTop()
-      Array(item1, item2).forEach(function(it) {
+      Collections.forEach([item1, item2], function(it) {
         it.width = width + bleed * 2
         it.height = height + bleed * 2
       })

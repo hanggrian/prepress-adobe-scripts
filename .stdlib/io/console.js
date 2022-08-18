@@ -6,16 +6,24 @@
 
 /**
  * Print a message to the console.
- * String formatting may be applied.
+ * @param {Array} arguments first element as format template, the rest are its format arguments
  */
 function print() {
-  $.write(arguments.isEmpty() ? "" : arguments.first().formatArr(Array.prototype.slice.call(arguments, 1)))
+  if (Collections.isEmpty(arguments)) {
+    $.write()
+    return
+  }
+  $.write(Collections.first(arguments).formatArr(Array.prototype.slice.call(arguments, 1)))
 }
 
 /**
  * Print a message to the console with newline.
- * String formatting may be applied.
+ * @param {Array} arguments first element as format template, the rest are its format arguments
  */
 function println() {
-  $.writeln(arguments.isEmpty() ? "" : arguments.first().formatArr(Array.prototype.slice.call(arguments, 1)))
+  if (Collections.isEmpty(arguments)) {
+    $.writeln()
+    return
+  }
+  $.writeln(Collections.first(arguments).formatArr(Array.prototype.slice.call(arguments, 1)))
 }

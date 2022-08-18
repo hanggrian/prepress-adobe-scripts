@@ -15,7 +15,7 @@ dialog.hgroup(function(main) {
       panel.alignChildren = "fill"
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
-          group.tips("Width of paperbag")
+          group.tooltips("Width of paperbag")
           group.staticText(BOUNDS_TEXT, "Width:").also(JUSTIFY_RIGHT)
           widthEdit = group.editText(BOUNDS_EDIT, prefs.getString("width", "210 mm")).also(function(it) {
             it.validateUnits()
@@ -23,38 +23,38 @@ dialog.hgroup(function(main) {
           })
         })
         midGroup.hgroup(function(group) {
-          group.tips("Height of paperbag")
+          group.tooltips("Height of paperbag")
           group.staticText(BOUNDS_TEXT, "Height:").also(JUSTIFY_RIGHT)
           heightEdit = group.editText(BOUNDS_EDIT, prefs.getString("height", "297 mm")).also(VALIDATE_UNITS)
         })
       })
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
-          group.tips("Depth of paperbag")
+          group.tooltips("Depth of paperbag")
           group.staticText(BOUNDS_TEXT, "Depth:").also(JUSTIFY_RIGHT)
           depthEdit = group.editText(BOUNDS_EDIT, prefs.getString("depth", "100 mm")).also(VALIDATE_UNITS)
         })
       })
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
-          group.tips("Length of upper area")
+          group.tooltips("Length of upper area")
           group.staticText(BOUNDS_TEXT, "Upper:").also(JUSTIFY_RIGHT)
           upperEdit = group.editText(BOUNDS_EDIT, prefs.getString("upper", "30 mm")).also(VALIDATE_UNITS)
         })
         midGroup.hgroup(function(group) {
-          group.tips("Length of lower area")
+          group.tooltips("Length of lower area")
           group.staticText(BOUNDS_TEXT, "Lower:").also(JUSTIFY_RIGHT)
           lowerEdit = group.editText(BOUNDS_EDIT, prefs.getString("lower", "60 mm")).also(VALIDATE_UNITS)
         })
       })
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
-          group.tips("Length of glue area")
+          group.tooltips("Length of glue area")
           group.staticText(BOUNDS_TEXT, "Glue:").also(JUSTIFY_RIGHT)
           glueLengthEdit = group.editText(BOUNDS_EDIT, prefs.getString("glue_length", "20 mm")).also(VALIDATE_UNITS)
         })
         midGroup.hgroup(function(group) {
-          group.tips("Length of glue area")
+          group.tooltips("Length of glue area")
           group.staticText(BOUNDS_TEXT, "Shear:").also(JUSTIFY_RIGHT)
           glueShearEdit = group.editText(BOUNDS_EDIT, prefs.getString("glue_shear", "5 mm")).also(VALIDATE_UNITS)
         })
@@ -63,12 +63,12 @@ dialog.hgroup(function(main) {
     topGroup.vpanel("Stroke", function(panel) {
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
-          group.tips("Stroke width of dielines")
+          group.tooltips("Stroke width of dielines")
           group.staticText(BOUNDS_TEXT, "Weight:").also(JUSTIFY_RIGHT)
           strokeWeightEdit = group.editText(BOUNDS_EDIT, prefs.getString("stroke_weight", "1 pt")).also(VALIDATE_UNITS)
         })
         midGroup.hgroup(function(group) {
-          group.tips("Stroke color of dielines")
+          group.tooltips("Stroke color of dielines")
           group.staticText(BOUNDS_TEXT, "Color:").also(JUSTIFY_RIGHT)
           strokeColorList = group.dropDownList(BOUNDS_EDIT, COLORS).also(function(it) {
             it.selectText(prefs.getString("stroke_color", "Black"))

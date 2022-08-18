@@ -10,7 +10,7 @@
 var dialog = new Dialog("About Scripts")
 var aboutPanel
 
-var clientDate = parseDate(getResource("VERSION").readText())
+var clientDate = parseDate(Resources.get("VERSION").readText())
 
 dialog.vgroup(function(main) {
   main.hgroup(function(group) {
