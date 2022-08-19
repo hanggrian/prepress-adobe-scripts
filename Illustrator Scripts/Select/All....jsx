@@ -4,18 +4,53 @@
 #target Illustrator
 #include "../.lib/commons.js"
 
+check(Collections.isNotEmpty(document.pageItems), "No items in this document")
+var isFilterMode = Collections.isNotEmpty(selection)
+
 var dialog = new Dialog("Select All", "selecting-items/#select-all")
-var placedCheck, nonNativeCheck, rasterCheck, pluginCheck
+var groupCheck, clippingMaskCheck
 var pathCheck, compoundPathCheck
 var textFrameCheck, legacyTextCheck
+var placedCheck, nonNativeCheck, rasterCheck, pluginCheck
 var symbolCheck, meshCheck, graphCheck
+var recursiveCheck
 var prefs = preferences2.resolve("select/all")
 
 dialog.hgroup(function(main) {
   main.alignChildren = "fill"
-  main.vgroup(function(group) {
-    group.alignChildren = "fill"
-    group.vpanel("Imports", function(panel) {
+  main.vgroup(function(topGroup) {
+    topGroup.alignChildren = "fill"
+    topGroup.vpanel("Groups", function(panel) {
+      panel.alignChildren = "fill"
+      groupCheck = panel.checkBox(undefined, "Groups").also(function(it) {
+        it.value = prefs.getBoolean("group")
+      })
+      clippingMaskCheck = panel.checkBox(undefined, "Clipping Masks").also(function(it) {
+        it.value = prefs.getBoolean("group2")
+      })
+    })
+    topGroup.vpanel("Paths", function(panel) {
+      panel.alignChildren = "fill"
+      pathCheck = panel.checkBox(undefined, "Paths").also(function(it) {
+        it.value = prefs.getBoolean("path")
+      })
+      compoundPathCheck = panel.checkBox(undefined, "Compound Paths").also(function(it) {
+        it.value = prefs.getBoolean("compound_path")
+      })
+    })
+    topGroup.vpanel("Types", function(panel) {
+      panel.alignChildren = "fill"
+      textFrameCheck = panel.checkBox(undefined, "Texts").also(function(it) {
+        it.value = prefs.getBoolean("text_frame")
+      })
+      legacyTextCheck = panel.checkBox(undefined, "Legacy Texts").also(function(it) {
+        it.value = prefs.getBoolean("legacy_text")
+      })
+    })
+  })
+  main.vgroup(function(topGroup) {
+    topGroup.alignChildren = "fill"
+    topGroup.vpanel("Imports", function(panel) {
       panel.alignChildren = "fill"
       placedCheck = panel.checkBox(undefined, "Links").also(function(it) {
         it.value = prefs.getBoolean("placed")
@@ -30,28 +65,7 @@ dialog.hgroup(function(main) {
         it.value = prefs.getBoolean("plugin")
       })
     })
-    group.vpanel("Types", function(panel) {
-      panel.alignChildren = "fill"
-      textFrameCheck = panel.checkBox(undefined, "Text Frames").also(function(it) {
-        it.value = prefs.getBoolean("text_frame")
-      })
-      legacyTextCheck = panel.checkBox(undefined, "Legacy Texts").also(function(it) {
-        it.value = prefs.getBoolean("legacy_text")
-      })
-    })
-  })
-  main.vgroup(function(group) {
-    group.alignChildren = "fill"
-    group.vpanel("Paths", function(panel) {
-      panel.alignChildren = "fill"
-      pathCheck = panel.checkBox(undefined, "Paths").also(function(it) {
-        it.value = prefs.getBoolean("path")
-      })
-      compoundPathCheck = panel.checkBox(undefined, "Compound Paths").also(function(it) {
-        it.value = prefs.getBoolean("compound_path")
-      })
-    })
-    group.vpanel("Others", function(panel) {
+    topGroup.vpanel("Others", function(panel) {
       panel.alignChildren = "fill"
       symbolCheck = panel.checkBox(undefined, "Symbols").also(function(it) {
         it.value = prefs.getBoolean("symbol")
@@ -63,6 +77,12 @@ dialog.hgroup(function(main) {
         it.value = prefs.getBoolean("graph")
       })
     })
+    if (isFilterMode) {
+      recursiveCheck = new RecursiveCheck(topGroup).also(function(it) {
+        it.main.alignment = "right"
+        it.main.value = prefs.getBoolean("recursive")
+      })
+    }
   })
 })
 dialog.setCancelButton()
@@ -70,6 +90,7 @@ dialog.setDefaultButton(undefined, function() {
   var types = []
   if (compoundPathCheck.value) types.push("CompoundPathItem")
   if (graphCheck.value) types.push("GraphItem")
+  if (groupCheck.value || clippingMaskCheck.value) types.push("GroupItem")
   if (legacyTextCheck.value) types.push("LegacyTextItem")
   if (meshCheck.value) types.push("MeshItem")
   if (nonNativeCheck.value) types.push("NonNativeItem")
@@ -79,18 +100,29 @@ dialog.setDefaultButton(undefined, function() {
   if (rasterCheck.value) types.push("RasterItem")
   if (symbolCheck.value) types.push("SymbolItem")
   if (textFrameCheck.value) types.push("TextFrame")
-  selectAll(types)
+  selectAll(types, function(item) {
+    if (groupCheck.value && item.typename === "GroupItem" && item.clipped) {
+      return false
+    }
+    if (clippingMaskCheck.value && item.typename === "GroupItem" && !item.clipped) {
+      return false
+    }
+    return true
+  }, isFilterMode && recursiveCheck.isSelected())
 
-  prefs.setBoolean("placed", placedCheck.value)
-  prefs.setBoolean("nonnative", nonNativeCheck.value)
-  prefs.setBoolean("raster", rasterCheck.value)
-  prefs.setBoolean("plugin", pluginCheck.value)
-  prefs.setBoolean("path", pathCheck.value)
   prefs.setBoolean("compound_path", compoundPathCheck.value)
-  prefs.setBoolean("text_frame", textFrameCheck.value)
-  prefs.setBoolean("legacy_text", legacyTextCheck.value)
-  prefs.setBoolean("symbol", symbolCheck.value)
-  prefs.setBoolean("mesh", meshCheck.value)
   prefs.setBoolean("graph", graphCheck.value)
+  prefs.setBoolean("group", groupCheck.value)
+  prefs.setBoolean("group2", clippingMaskCheck.value)
+  prefs.setBoolean("legacy_text", legacyTextCheck.value)
+  prefs.setBoolean("mesh", meshCheck.value)
+  prefs.setBoolean("nonnative", nonNativeCheck.value)
+  prefs.setBoolean("path", pathCheck.value)
+  prefs.setBoolean("placed", placedCheck.value)
+  prefs.setBoolean("plugin", pluginCheck.value)
+  prefs.setBoolean("raster", rasterCheck.value)
+  prefs.setBoolean("symbol", symbolCheck.value)
+  prefs.setBoolean("text_frame", textFrameCheck.value)
+  prefs.setBoolean("recursive", recursiveCheck.isSelected())
 })
 dialog.show()

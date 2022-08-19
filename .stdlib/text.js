@@ -23,20 +23,10 @@ String.prototype.isNotEmpty = function() { return this.length > 0 }
 String.prototype.isBlank = function() { return this.isEmpty() || this.trim().isEmpty() }
 
 /**
- * Returns true if this string undefined or empty.
+ * Returns true if this string is not empty and all whitespaces.
  * @returns {Boolean}
  */
-String.prototype.isNullOrEmpty = function() {
-  return this === undefined || this === null || this.isEmpty()
-}
-
-/**
- * Returns true if this string undefined or blank.
- * @returns {Boolean}
-*/
-String.prototype.isNullOrBlank = function() {
-  return this === undefined || this === null || this.isBlank()
-}
+String.prototype.isNotBlank = function() { return this.isNotEmpty() && this.trim().isNotEmpty() }
 
 /**
  * Returns true if text contains word.

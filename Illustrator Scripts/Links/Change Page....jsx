@@ -3,9 +3,7 @@
 
 var BOUNDS_TEXT = [50, 21]
 var BOUNDS_EDIT = [120, 21]
-var PREDICATE_LINKS = function(it) {
-  return it.typename === "PlacedItem" && PlacedItems.isFileExists(it) && it.file.isPdf()
-}
+var PREDICATE_LINKS = function(it) { return it.typename === "PlacedItem" && Items.isLinkExists(it) && it.file.isPdf() }
 
 checkHasSelection()
 check(Collections.anyItem(selection, PREDICATE_LINKS), "No PDF links found in selection")

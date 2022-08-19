@@ -84,12 +84,12 @@ dialog.vgroup(function(main) {
       })
     })
   })
-  main.hgroup(function(it) {
-    it.alignment = "right"
-    recursiveCheck = new RecursiveCheck(it).also(function(it) {
+  main.hgroup(function(group) {
+    group.alignment = "right"
+    recursiveCheck = new RecursiveCheck(group).also(function(it) {
       it.main.value = prefs.getBoolean("recursive")
     })
-    keepSizeCheck = new KeepSizeCheck(it).also(function(it) {
+    keepSizeCheck = new KeepSizeCheck(group).also(function(it) {
       it.main.value = prefs.getBoolean("keep_size")
     })
   })

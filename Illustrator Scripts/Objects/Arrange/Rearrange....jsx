@@ -24,7 +24,7 @@ dialog.setDefaultButton(undefined, function() {
   // the idea is to keep pusing item to bottommost
   orderByGroup.forEach(selection, function(it) {
     var times = it.absoluteZOrderPosition - Collections.last(initialPositions)
-    println("Moving {0} {1} times.", PageItems.getName(it), times)
+    println("Moving {0} {1} times.", Items.getName(it), times)
     repeat(times, function() {
       it.zOrder(ZOrderMethod.SENDBACKWARD)
     })

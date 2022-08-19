@@ -31,7 +31,7 @@ echo !BOLD!!UNDERLINE!Prepress Adobe Scripts!END!
 echo.
 echo 1. Illustrator
 echo 2. Photoshop
-echo 3. All
+echo A. All
 echo.
 echo Q. Quit
 echo.
@@ -41,12 +41,15 @@ if "!input!" equ "1" (
   call :patch_app "Illustrator" "aia"
 ) else if "!input!" equ "2" (
   call :patch_app "Photoshop" "atn"
-) else if "!input!" equ "3" (
+) else if "!input!" equ "A" (
   call :patch_app "Illustrator" "aia"
   call :patch_app "Photoshop" "atn"
-) else if "!input!" equ "q" (
-  rem
+) else if "!input!" equ "a" (
+  call :patch_app "Illustrator" "aia"
+  call :patch_app "Photoshop" "atn"
 ) else if "!input!" equ "Q" (
+  rem
+) else if "!input!" equ "q" (
   rem
 ) else (
   goto :die_input
@@ -151,6 +154,7 @@ goto :eof
   :: Clean up
   del "!target_root!\.stdres\script\check_updates.command"
   rmdir /s /q "!target_root!\Scripts\.incubating"
+  rmdir /s /q "!target_root!\Scripts\.lib-test"
   endlocal
 goto :eof
 

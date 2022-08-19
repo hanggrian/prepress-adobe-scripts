@@ -147,7 +147,7 @@ dialog.setDefaultButton(undefined, function() {
   var length = parseUnits(lengthEdit.text)
   var weight = parseUnits(weightEdit.text)
   var color = parseColor(colorList.selection.text)
-  var maxBounds = PageItems.getMaxBounds(selection)
+  var maxBounds = Items.getMaxBounds(selection)
   multipleTargetMultiRadioCheckGroup.isSelected()
     ? processMultiple(offset, length, weight, color, maxBounds)
     : processSingle(offset, length, weight, color, maxBounds)
@@ -239,7 +239,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
 function processMultiple(offset, length, weight, color, maxBounds) {
   var paths = []
   var action = function(item) {
-    var clippingItem = PageItems.getClippingItem(item)
+    var clippingItem = Items.getClippingItem(item)
     var width = clippingItem.width
     var height = clippingItem.height
     var itemStartX = clippingItem.position.getLeft()

@@ -13,7 +13,7 @@ var horizontalEdit, verticalEdit
 var moveHorizontalEdit, moveVerticalEdit, moveRelativeCheck
 var prefs = preferences2.resolve("objects/step_and_repeat")
 
-var bounds = PageItems.getMaxBounds(selection)
+var bounds = Items.getMaxBounds(selection)
 dialog.vgroup(function(main) {
   main.hgroup(function(group) {
     group.tooltips("2 dimension target")

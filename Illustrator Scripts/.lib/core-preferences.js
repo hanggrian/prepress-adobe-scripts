@@ -52,7 +52,7 @@ function PreferencesWrapper(path) {
    */
   this.getBoolean = function(key) {
     var value = preferences.getBooleanPreference(prefix + key)
-    println("Get preference `{0}`: {1}`.", key, value)
+    println("Get preference `{0}`: `{1}`.", key, value)
     return value
   }
 
@@ -88,10 +88,10 @@ function PreferencesWrapper(path) {
     print("Get preference `{0}`: ", key)
     var value = preferences.getStringPreference(prefix + key)
     if (value === "") {
-      println("not found, use default `{1}`.", defaultValue)
+      println("not found, use default `{0}`.", defaultValue)
       return defaultValue
     }
-    println("`{1}`.", value)
+    println("`{0}`.", value)
     return value
   }
 

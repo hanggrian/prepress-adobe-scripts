@@ -23,14 +23,14 @@
 
 var PATH_LIB = new File($.fileName).path
 
-var PageItems = {
+var Items = {
   /**
    * Returns item name in the layer, or typename if it is unnamed.
    * @param {PageItem} item any type of item.
    * @returns {String}
    */
   getName: function(item) {
-    return !item.name.isNullOrBlank() ? item.name : item.typename
+    return item.name !== undefined && item.name.isNotBlank() ? item.name : item.typename
   },
 
   /**
@@ -47,13 +47,13 @@ var PageItems = {
 
   /**
    * Returns bounds covering all items.
-   * @param {Object} items array or array-like objects containing any type of item.
+   * @param {Array|Object} items array or array-like objects containing any type of item.
    * @returns {Array}
    */
   getMaxBounds: function(items) {
     var maxStartX, maxStartY, maxEndX, maxEndY
     Collections.forEach(items, function(item) {
-      var clippingItem = PageItems.getClippingItem(item)
+      var clippingItem = Items.getClippingItem(item)
       var width = clippingItem.width
       var height = clippingItem.height
       var itemStartX = clippingItem.position.getLeft()
@@ -74,16 +74,14 @@ var PageItems = {
       }
     })
     return [maxStartX, maxStartY, maxEndX, maxEndY]
-  }
-}
+  },
 
-var PlacedItems = {
   /**
    * Returns true if the file associated with this PlacedItem is not missing.
    * @param {PlacedItem} item a link.
    * @returns {Boolean}
    */
-  isFileExists: function(item) {
+  isLinkExists: function(item) {
     checkTypename(item, "PlacedItem")
     try {
       return item.file.exists

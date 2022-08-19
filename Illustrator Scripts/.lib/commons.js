@@ -45,16 +45,19 @@ function unitsOf(input) { return UnitValue(input).as(unitName) + " " + unitName 
  * When there are selection, it will instead filter the selection to only match requested parameters.
  * @param {Array} types array of `PageItem` typenames.
  * @param {Function} predicate nullable custom item checker that should return true if the item parameter should be selected.
+ * @param {Boolean} recursive whether or not search within groups recursively.
  */
-function selectAll(types, predicate) {
-  var queue = []
-  var target = selection === null || selection.length === 0 ? document.pageItems : selection
-  Collections.forEachItem(target, function(item) {
-    if (Collections.contains(types, item.typename)) {
-      if (predicate === undefined || predicate(item)) {
-        queue.push(item)
-      }
-    }
-  })
-  selection = queue
+function selectAll(types, predicate, recursive) {
+  predicate = predicate || function(_) { return true }
+  recursive = recursive || false
+
+  var source = Collections.isEmpty(selection) ? document.pageItems : selection
+  var filterPredicate = function(item) {
+    return Collections.contains(types, item.typename) && predicate(item)
+  }
+  if (recursive) {
+    selection = Collections.filterItem(source, filterPredicate)
+  } else {
+    selection = Collections.filter(source, filterPredicate)
+  }
 }

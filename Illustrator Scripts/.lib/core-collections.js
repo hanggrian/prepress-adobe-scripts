@@ -2,7 +2,7 @@
 
 /**
  * Iterate each element of this collection.
- * @param {Object} items array or array-like objects.
+ * @param {Array|Object} items array or array-like objects.
  * @param {Function} action runnable to execute.
  */
 Collections.forEachItem = function(items, action) {
@@ -17,7 +17,7 @@ Collections.forEachItem = function(items, action) {
 
 /**
  * Iterate each element of this collection as reversed.
- * @param {Object} items array or array-like objects.
+ * @param {Array|Object} items array or array-like objects.
  * @param {Function} action runnable to execute.
  */
 Collections.forEachItemReversed = function(items, action) {
@@ -32,7 +32,7 @@ Collections.forEachItemReversed = function(items, action) {
 
 /**
  * First item of this collection, or given predicate when defined.
- * @param {Object} items array or array-like objects.
+ * @param {Array|Object} items array or array-like objects.
  * @param {Function} predicate optional consumer.
  * @returns {Object}
  */
@@ -49,7 +49,7 @@ Collections.firstItem = function(items, predicate) {
 
 /**
  * Last item of this collection, or given predicate when defined.
- * @param {Object} items array or array-like objects.
+ * @param {Array|Object} items array or array-like objects.
  * @param {Function} predicate optional consumer.
  * @returns {Object}
  */
@@ -69,7 +69,7 @@ Collections.lastItem = function(items, predicate) {
 
 /**
  * Returns true if the collection has no elements matching predicate.
- * @param {Object} items array or array-like objects.
+ * @param {Array|Object} items array or array-like objects.
  * @param {Function} predicate runnable with return value.
  * @returns {Boolean}
  */
@@ -88,7 +88,7 @@ Collections.noneItem = function(items, predicate) {
 
 /**
  * Returns true if collection has at least one element matching predicate.
- * @param {Object} items array or array-like objects.
+ * @param {Array|Object} items array or array-like objects.
  * @param {Function} predicate runnable with return value.
  * @returns {Boolean}
  */
@@ -107,7 +107,7 @@ Collections.anyItem = function(items, predicate) {
 
 /**
  * Returns true if all elements in this collection match the predicate.
- * @param {Object} items array or array-like objects.
+ * @param {Array|Object} items array or array-like objects.
  * @param {Function} predicate runnable with return value.
  * @returns {Boolean}
  */
@@ -126,7 +126,7 @@ Collections.allItem = function(items, predicate) {
 
 /**
  * Returns a list containing only elements matching the given predicate.
- * @param {Object} items array or array-like objects.
+ * @param {Array|Object} items array or array-like objects.
  * @param {Function} predicate runnable with return value.
  * @returns {Array}
  */
@@ -150,7 +150,7 @@ function _filterItem(items, predicate, result) {
 
 /**
  * Returns an array containing the results of applying the given transform function.
- * @param {Object} items array or array-like objects.
+ * @param {Array|Object} items array or array-like objects.
  * @param {Function} transform runnable with return value.
  * @returns {Array}
  */

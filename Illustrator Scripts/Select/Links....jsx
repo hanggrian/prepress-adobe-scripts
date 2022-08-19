@@ -19,9 +19,14 @@ var FILE_PNG = ["png", "pns"]
 var FILE_PSD = ["psd", "psb", "pdd"]
 var FILE_TIFF = ["tif", "tiff"]
 
+check(Collections.isNotEmpty(document.placedItems), "No links in this document")
+var isFilterMode = Collections.isNotEmpty(selection)
+
 var dialog = new Dialog("Select Links", "selecting-items/#select-links")
 var dimensionPanel
 var aiCheck, pdfCheck, bmpCheck, gifCheck, jpegCheck, jpeg2000Check, pngCheck, psdCheck, tiffCheck
+var recursiveCheck
+var prefs = preferences2.resolve("select/links")
 
 dialog.vgroup(function(main) {
   main.alignChildren = "fill"
@@ -39,34 +44,34 @@ dialog.vgroup(function(main) {
     psdCheck = panel.checkBox(undefined, getTypeString("Photoshop", FILE_PSD))
     tiffCheck = panel.checkBox(undefined, getTypeString("TIFF", FILE_TIFF))
   })
+  if (isFilterMode) {
+    recursiveCheck = new RecursiveCheck(main).also(function(it) {
+      it.main.alignment = "right"
+      it.main.value = prefs.getBoolean("recursive")
+    })
+  }
 })
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
   var width = dimensionPanel.getWidth()
   var height = dimensionPanel.getHeight()
   selectAll(["PlacedItem"], function(item) {
-    var condition = true
-    if (width !== undefined) {
-      condition = condition && parseInt(width) === parseInt(item.width)
-    }
-    if (height !== undefined) {
-      condition = condition && parseInt(height) === parseInt(item.height)
-    }
+    if (width !== undefined && parseInt(width) !== parseInt(item.width)) return false
+    if (height !== undefined && parseInt(height) !== parseInt(item.height)) return false
+    var extension = Items.isLinkExists(item) && item.file.name.split(".").pop()
+    if (aiCheck.value && !Collections.contains(FILE_AI, extension)) return false
+    if (pdfCheck.value && !Collections.contains(FILE_PDF, extension)) return false
+    if (bmpCheck.value && !Collections.contains(FILE_BMP, extension)) return false
+    if (gifCheck.value && !Collections.contains(FILE_GIF, extension)) return false
+    if (jpegCheck.value && !Collections.contains(FILE_JPEG, extension)) return false
+    if (jpeg2000Check.value && !Collections.contains(FILE_JPEG2000, extension)) return false
+    if (pngCheck.value && !Collections.contains(FILE_PNG, extension)) return false
+    if (psdCheck.value && !Collections.contains(FILE_PSD, extension)) return false
+    if (tiffCheck.value && !Collections.contains(FILE_TIFF, extension)) return false
+    return true
+  }, isFilterMode && recursiveCheck.isSelected())
 
-    var condition2 = false
-    var extension = PlacedItems.isFileExists(item) && item.file.name.split(".").pop()
-    if (aiCheck.value) condition2 = condition2 || Collections.contains(FILE_AI, extension)
-    if (pdfCheck.value) condition2 = condition2 || Collections.contains(FILE_PDF, extension)
-    if (bmpCheck.value) condition2 = condition2 || Collections.contains(FILE_PDF, extension)
-    if (gifCheck.value) condition2 = condition2 || Collections.contains(FILE_PDF, extension)
-    if (jpegCheck.value) condition2 = condition2 || Collections.contains(FILE_PDF, extension)
-    if (jpeg2000Check.value) condition2 = condition2 || Collections.contains(FILE_PDF, extension)
-    if (pngCheck.value) condition2 = condition2 || Collections.contains(FILE_PDF, extension)
-    if (psdCheck.value) condition2 = condition2 || Collections.contains(FILE_PDF, extension)
-    if (tiffCheck.value) condition2 = condition2 || Collections.contains(FILE_PDF, extension)
-
-    return condition && condition2
-  })
+  prefs.setBoolean("recursive", recursiveCheck.isSelected())
 })
 dialog.show()
 

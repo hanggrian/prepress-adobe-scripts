@@ -43,11 +43,11 @@ function PreferencesWrapper(path) {
     var actualKey = app.stringIDToTypeID(key)
     print("Get preference `{0}`: ", actualKey)
     if (!descriptor.hasKey(actualKey)) {
-      println("not found, use default `{1}`.", defaultValue)
+      println("not found, use default `{0}`.", defaultValue)
       return defaultValue
     }
     var value = descriptor.getBoolean(actualKey)
-    println("`{1}`.", value)
+    println("`{0}`.", value)
     return value
   }
 
@@ -61,11 +61,11 @@ function PreferencesWrapper(path) {
     var actualKey = app.stringIDToTypeID(key)
     print("Get preference `{0}`: ", actualKey)
     if (!descriptor.hasKey(actualKey)) {
-      println("not found, use default `{1}`.", defaultValue)
+      println("not found, use default `{0}`.", defaultValue)
       return defaultValue
     }
     var value = descriptor.getString(actualKey)
-    println("`{1}`.", value)
+    println("`{0}`.", value)
     return value
   }
 

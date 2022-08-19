@@ -28,10 +28,7 @@ function AboutTabbedPanel(parent, clientDate) {
         group.tooltips("Defines what icon color to be used.\nThe script is dumb and can't yet know UI brightness setting across apps")
         group.staticText(undefined, "Theme:", "right")
         group.dropDownList(undefined, ABOUT_THEMES).also(function(it) {
-          var theme = preferences2.getString("scripts_theme")
-          if (theme !== undefined && theme !== "") {
-            it.selectText(theme)
-          }
+          it.selectText(preferences2.getString("scripts_theme", "Dark"))
           it.onChange = function() {
             preferences2.setString("scripts_theme", it.selection.text)
           }

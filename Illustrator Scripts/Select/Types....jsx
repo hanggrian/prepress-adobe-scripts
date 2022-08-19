@@ -13,17 +13,22 @@ var BOUNDS_LEFT_EDIT = [100, 21]
 var BOUNDS_RIGHT_TEXT = [70, 21]
 var BOUNDS_RIGHT_EDIT = [110, 21]
 
+check(Collections.isNotEmpty(document.textFrames), "No texts in this document")
+var isFilterMode = Collections.isNotEmpty(selection)
+
 var dialog = new Dialog("Select Types", "selecting-items/#select-types")
 var findEdit, matchCaseCheck, matchWordCheck
 var fontNameEdit, fontSizeEdit, italicList, underlineList
 var fillColorList, strokeColorList
 var kindList, orientationList
+var recursiveCheck
+var prefs = preferences2.resolve("select/types")
 
 dialog.hgroup(function(main) {
   main.alignChildren = "fill"
-  main.vgroup(function(midGroup) {
-    midGroup.alignChildren = "fill"
-    midGroup.vpanel("Content", function(panel) {
+  main.vgroup(function(topGroup) {
+    topGroup.alignChildren = "fill"
+    topGroup.vpanel("Content", function(panel) {
       panel.alignChildren = "fill"
       panel.hgroup(function(group) {
         group.tooltips("Text to find in content")
@@ -35,7 +40,7 @@ dialog.hgroup(function(main) {
         matchWordCheck = group.checkBox(undefined, "Match Whole Word")
       })
     })
-    midGroup.vpanel("Character", function(panel) {
+    topGroup.vpanel("Character", function(panel) {
       panel.alignChildren = "fill"
       panel.hgroup(function(group) {
         group.tooltips("The font's full name")
@@ -59,9 +64,9 @@ dialog.hgroup(function(main) {
       })
     })
   })
-  main.vgroup(function(midGroup) {
-    midGroup.alignChildren = "fill"
-    midGroup.vpanel("Color", function(panel) {
+  main.vgroup(function(topGroup) {
+    topGroup.alignChildren = "fill"
+    topGroup.vpanel("Color", function(panel) {
       panel.hgroup(function(group) {
         group.tooltips("The color of the text fill")
         group.staticText(BOUNDS_RIGHT_TEXT, "Fill:").also(JUSTIFY_RIGHT)
@@ -73,7 +78,7 @@ dialog.hgroup(function(main) {
         strokeColorList = group.dropDownList(BOUNDS_RIGHT_EDIT, COLORS)
       })
     })
-    midGroup.vpanel("Others", function(panel) {
+    topGroup.vpanel("Others", function(panel) {
       panel.hgroup(function(group) {
         group.tooltips("The type of a text frame item")
         group.staticText(BOUNDS_RIGHT_TEXT, "Kind:").also(JUSTIFY_RIGHT)
@@ -85,6 +90,12 @@ dialog.hgroup(function(main) {
         orientationList = group.dropDownList(BOUNDS_RIGHT_EDIT, ORIENTATIONS)
       })
     })
+    if (isFilterMode) {
+      recursiveCheck = new RecursiveCheck(topGroup).also(function(it) {
+        it.main.alignment = "right"
+        it.main.value = prefs.getBoolean("recursive")
+      })
+    }
   })
 })
 dialog.setCancelButton()
@@ -115,42 +126,27 @@ dialog.setDefaultButton(undefined, function() {
     }
   }
   selectAll(["TextFrame"], function(item) {
-    var attr = item.textRange.characterAttributes
-    var condition = true
     if (substring.isNotEmpty()) {
       var string = item.contents
       if (!matchCaseCheck.value) {
         string = string.toLowerCase()
         substring = substring.toLowerCase()
       }
-      condition = condition && find(string, substring)
+      if (!find(string, substring)) return false
     }
-    if (fontName.isNotEmpty()) {
-      condition = condition && attr.textFont.name.toLowerCase().includes(fontName.toLowerCase())
-    }
-    if (fontSize !== undefined) {
-      condition = condition && parseInt(fontSize) === parseInt(attr.size)
-    }
-    if (italic !== undefined) {
-      condition = condition && italic === attr.italics
-    }
-    if (underline !== undefined) {
-      condition = condition && underline === attr.underline
-    }
-    if (fillColor !== undefined) {
-      condition = condition && isColorEqual(attr.fillColor, fillColor)
-    }
-    if (strokeColor !== undefined) {
-      condition = condition && isColorEqual(attr.strokeColor, strokeColor)
-    }
-    if (kind !== undefined) {
-      condition = condition && kind === item.kind
-    }
-    if (orientation !== undefined) {
-      condition = condition && orientation === item.orientation
-    }
-    return condition
-  })
+    var attr = item.textRange.characterAttributes
+    if (fontName.isNotEmpty() && !attr.textFont.name.toLowerCase().includes(fontName.toLowerCase())) return false
+    if (fontSize !== undefined && parseInt(fontSize) !== parseInt(attr.size)) return false
+    if (italic !== undefined && italic !== attr.italics) return false
+    if (underline !== undefined && underline !== attr.underline) return false
+    if (fillColor !== undefined && !isColorEqual(attr.fillColor, fillColor)) return false
+    if (strokeColor !== undefined && !isColorEqual(attr.strokeColor, strokeColor)) return false
+    if (kind !== undefined && kind !== item.kind) return false
+    if (orientation !== undefined && orientation !== item.orientation) return false
+    return true
+  }, isFilterMode && recursiveCheck.isSelected())
+
+  prefs.setBoolean("recursive", recursiveCheck.isSelected())
 })
 dialog.show()
 

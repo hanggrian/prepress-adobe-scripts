@@ -10,16 +10,21 @@ var BOUNDS_LEFT_TEXT = [60, 21]
 var BOUNDS_RIGHT_TEXT = [60, 21]
 var BOUNDS_EDIT = [110, 21]
 
+check(Collections.isNotEmpty(document.pathItems), "No paths in this document")
+var isFilterMode = Collections.isNotEmpty(selection)
+
 var dialog = new Dialog("Select Paths", "selecting-items/#select-paths")
 var fillColorList, fillOverprintList
 var strokeColorList, strokeWeightEdit, strokeDashedList, strokeOverprintList
 var dimensionPanel
 var clippingList, closedList, guidesList
+var recursiveCheck
+var prefs = preferences2.resolve("select/paths")
 
 dialog.hgroup(function(main) {
   main.alignChildren = "fill"
-  main.vgroup(function(midGroup) {
-    midGroup.vpanel("Fill", function(panel) {
+  main.vgroup(function(topGroup) {
+    topGroup.vpanel("Fill", function(panel) {
       panel.hgroup(function(group) {
         group.tooltips("Fill color")
         group.staticText(BOUNDS_RIGHT_TEXT, "Color:").also(JUSTIFY_RIGHT)
@@ -31,7 +36,7 @@ dialog.hgroup(function(main) {
         fillOverprintList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
       })
     })
-    midGroup.vpanel("Stroke", function(panel) {
+    topGroup.vpanel("Stroke", function(panel) {
       panel.hgroup(function(group) {
         group.tooltips("Stroke color")
         group.staticText(BOUNDS_RIGHT_TEXT, "Color:").also(JUSTIFY_RIGHT)
@@ -57,9 +62,9 @@ dialog.hgroup(function(main) {
       })
     })
   })
-  main.vgroup(function(midGroup) {
-    dimensionPanel = new SelectDimensionPanel(midGroup, BOUNDS_LEFT_TEXT, BOUNDS_EDIT)
-    midGroup.vpanel("Others", function(panel) {
+  main.vgroup(function(topGroup) {
+    dimensionPanel = new SelectDimensionPanel(topGroup, BOUNDS_LEFT_TEXT, BOUNDS_EDIT)
+    topGroup.vpanel("Others", function(panel) {
       panel.hgroup(function(group) {
         group.tooltips("Should this be used as a clipping path?")
         group.staticText(BOUNDS_LEFT_TEXT, "Clipping:").also(JUSTIFY_RIGHT)
@@ -76,6 +81,12 @@ dialog.hgroup(function(main) {
         guidesList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
       })
     })
+    if (isFilterMode) {
+      recursiveCheck = new RecursiveCheck(topGroup).also(function(it) {
+        it.main.alignment = "right"
+        it.main.value = prefs.getBoolean("recursive")
+      })
+    }
   })
 })
 dialog.setCancelButton()
@@ -92,41 +103,20 @@ dialog.setDefaultButton(undefined, function() {
   var closed = closedList.hasSelection() ? closedList.selection.text === "Yes" : undefined
   var guides = guidesList.hasSelection() ? guidesList.selection.text === "Yes" : undefined
   selectAll(["PathItem"], function(item) {
-    var condition = true
-    if (width !== undefined) {
-      condition = condition && parseInt(width) === parseInt(item.width)
-    }
-    if (height !== undefined) {
-      condition = condition && parseInt(height) === parseInt(item.height)
-    }
-    if (clipping !== undefined) {
-      condition = condition && clipping === item.clipping
-    }
-    if (closed !== undefined) {
-      condition = condition && closed === item.closed
-    }
-    if (guides !== undefined) {
-      condition = condition && guides === item.guides
-    }
-    if (fillColor !== undefined) {
-      condition = condition && isColorEqual(fillColor, item.fillColor)
-    }
-    if (fillOverprint !== undefined) {
-      condition = condition && fillOverprint === item.fillOverprint
-    }
-    if (strokeColor !== undefined) {
-      condition = condition && isColorEqual(strokeColor, item.strokeColor)
-    }
-    if (strokeWeight !== undefined) {
-      condition = condition && parseInt(strokeWeight) === parseInt(item.strokeWidth)
-    }
-    if (strokeDashed !== undefined) {
-      condition = condition && strokeDashed === Collections.isNotEmpty(item.strokeDashes)
-    }
-    if (strokeOverprint !== undefined) {
-      condition = condition && strokeOverprint === item.strokeOverprint
-    }
-    return condition
-  })
+    if (width !== undefined && parseInt(width) !== parseInt(item.width)) return false
+    if (height !== undefined && parseInt(height) !== parseInt(item.height)) return false
+    if (clipping !== undefined && clipping !== item.clipping) return false
+    if (closed !== undefined && closed !== item.closed) return false
+    if (guides !== undefined && guides !== item.guides) return false
+    if (fillColor !== undefined && !isColorEqual(fillColor, item.fillColor)) return false
+    if (fillOverprint !== undefined  && fillOverprint !== item.fillOverprint) return false
+    if (strokeColor !== undefined && !isColorEqual(strokeColor, item.strokeColor)) return false
+    if (strokeWeight !== undefined && parseInt(strokeWeight) !== parseInt(item.strokeWidth)) return false
+    if (strokeDashed !== undefined && strokeDashed !== Collections.isNotEmpty(item.strokeDashes)) return false
+    if (strokeOverprint !== undefined && strokeOverprint !== item.strokeOverprint) return false
+    return true
+  }, isFilterMode && recursiveCheck.isSelected())
+
+  prefs.setBoolean("recursive", recursiveCheck.isSelected())
 })
 dialog.show()

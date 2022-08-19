@@ -18,7 +18,7 @@ var Collections = {
    */
   indexOf: function(collection, element) {
     for (var i = 0; i < collection.length; i++) {
-      if (collection[i] === element) {
+      if (collection[i] == element) {
         return i
       }
     }
@@ -54,7 +54,7 @@ var Collections = {
   contains: function(collection, element) {
     var i = collection.length
     while (i--) {
-      if (collection[i] === element) {
+      if (collection[i] == element) {
         return true
       }
     }

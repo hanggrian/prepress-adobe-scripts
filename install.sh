@@ -77,6 +77,7 @@ patch_preset() {
   # Clean up
   rm -f "$target_root/.stdres/script/check_updates.cmd"
   rm -rf "$target_root/Scripts/.incubating"
+  rm -rf "$target_root/Scripts/.lib-test"
 }
 
 # SOURCE_ROOT doesn't end with slash
@@ -101,7 +102,7 @@ echo "$BOLD${UNDERLINE}Prepress Adobe Scripts$END"
 echo
 echo "1. Illustrator"
 echo "2. Photoshop"
-echo "a. All"
+echo "A. All"
 echo
 echo "Q. Quit"
 echo
@@ -111,11 +112,11 @@ read input
 case "$input" in
   1) patch_app "Illustrator" "aia" ;;
   2) patch_app "Photoshop" "atn" ;;
-  a | A)
+  A | a)
     patch_app "Illustrator" "aia"
     patch_app "Photoshop" "atn"
     ;;
-  q | Q) ;;
+  Q | q) ;;
   *) die "Unable to recognize input." ;;
 esac
 

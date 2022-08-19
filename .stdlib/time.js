@@ -5,7 +5,7 @@
 */
 
 /**
- * E.g.: 2021-07-30
+ * E.g.: 2022-07-20T07:09:04Z
  * @param {String} date date to convert.
  * @returns {Date}
  */

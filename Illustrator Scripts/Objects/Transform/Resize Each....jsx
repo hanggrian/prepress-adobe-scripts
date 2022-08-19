@@ -74,9 +74,9 @@ dialog.vgroup(function(main) {
       anchorGroup = new AnchorGroup(panel)
     })
   })
-  main.hgroup(function(it) {
-    it.alignment = "right"
-    recursiveCheck = new RecursiveCheck(it).also(function(it) {
+  main.hgroup(function(group) {
+    group.alignment = "right"
+    recursiveCheck = new RecursiveCheck(group).also(function(it) {
       it.main.value = prefs.getBoolean("recursive")
     })
   })
