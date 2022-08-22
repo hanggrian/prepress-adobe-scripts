@@ -62,7 +62,7 @@ dialog.setDefaultButton(undefined, function() {
     progress.increment()
     var scaleX = 100 * widthTo / clippingPath.width
     var scaleY = 100 * heightTo / clippingPath.height
-    println("Scale X={0} Y={1}.", scaleX, scaleY)
+    println("Scale X=%d Y=%d.", scaleX, scaleY)
     clippingPath.resize(scaleX, scaleY, true, true, true, true, 100, transformation)
   })
 })

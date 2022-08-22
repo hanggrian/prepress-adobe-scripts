@@ -13,7 +13,7 @@ for (var i = 1; i < selection.length; i++) {
 // find reversed position and keep ordering until met
 Collections.forEach(selection, function(it, index) {
   var reversedPosition = initialPositions[Collections.lastIndex(initialPositions) - index]
-  println("Moving {0} from {1} to {2}.", Items.getName(it), it.absoluteZOrderPosition, reversedPosition)
+  println("Moving %s from %d to %d.", Items.getName(it), it.absoluteZOrderPosition, reversedPosition)
   while (it.absoluteZOrderPosition < reversedPosition) {
     it.zOrder(ZOrderMethod.BRINGFORWARD)
   }

@@ -57,8 +57,8 @@ if (files !== null && Collections.isNotEmpty(files)) {
     var progress = new ProgressPalette(source.length)
 
     orderByGroup.forEach(source, function(item, i) {
-      progress.increment("Linking item {0}", i + 1)
-      print("Item {0} page {1}.".format(i, current))
+      progress.increment("Linking item %d", i + 1)
+      print("Item %d page %d.".format(i, current))
       var file = collection.get(current)
       var relinked = false
       if (!isRecursive && item.typename === "GroupItem") {

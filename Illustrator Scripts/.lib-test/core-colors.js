@@ -1,7 +1,6 @@
-#include "../.lib/core.js"
-#include "../../.stdlib-test/assert.js"
+initTest($)
 
-var parseColor = function() {
+test("parseColor", function() {
   var cyan = parseColor("Cyan")
   assertTrue(100, cyan.cyan)
   var magenta = parseColor("Magenta")
@@ -10,12 +9,12 @@ var parseColor = function() {
   assertTrue(100, yellow.yellow)
   var black = parseColor("Black")
   assertTrue(100, black.black)
-}()
+})
 
-var isColorEqual = function() {
+test("isColorEqual", function() {
   var colorA = new CMYKColor().also(function(it) { it.cyan = 100 })
   var colorB = new CMYKColor().also(function(it) { it.cyan = 100 })
   var colorC = new CMYKColor().also(function(it) { it.magenta = 100 })
   assertTrue(isColorEqual(colorA, colorB))
   assertFalse(isColorEqual(colorA, colorC))
-}()
+})

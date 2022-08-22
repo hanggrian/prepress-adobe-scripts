@@ -14,7 +14,7 @@ function TwoUpSimplexPager(document, start) {
     Collections.forEach(document.artboards, function(artboard) {
       var left = current
       var right = current + 1
-      artboard.name = "{0}-{1}".format(left + 1, right + 1)
+      artboard.name = "%d-%d".format(left + 1, right + 1)
       action(artboard,
         left, right)
       current += 2
@@ -45,7 +45,7 @@ function TwoUpDuplexPager(document, start) {
         left = current + 1
         right = current - 1
       }
-      artboard.name = "{0}-{1}".format(left + 1, right + 1)
+      artboard.name = "%d-%d".format(left + 1, right + 1)
       action(artboard,
         left, right)
       current += 2
@@ -71,7 +71,7 @@ function TwoUpSimplexCutStackPager(document, start) {
     Collections.forEach(document.artboards, function(artboard) {
       var left = current
       var right = current + artboards
-      artboard.name = "{0}-{1}".format(left + 1, right + 1)
+      artboard.name = "%d-%d".format(left + 1, right + 1)
       action(artboard,
         left, right)
       current++
@@ -103,7 +103,7 @@ function TwoUpDuplexCutStackPager(document, start) {
         left = current + artboards
         right = current
       }
-      artboard.name = "{0}-{1}".format(left + 1, right + 1)
+      artboard.name = "%d-%d".format(left + 1, right + 1)
       action(artboard,
         left, right)
       current++

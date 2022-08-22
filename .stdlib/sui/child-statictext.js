@@ -12,7 +12,7 @@ var JUSTIFY_RIGHT = function(staticText) { staticText.justify = "right" }
  * Set tooltip to this children.
  * @param {String} text tips to display.
  */
-StaticText.prototype.tooltip = function(text) { return Internals.setTooltip(this, text) }
+StaticText.prototype.tooltip = function(text) { Internals.setTooltip(this, text) }
 
 /**
  * Add children to group.

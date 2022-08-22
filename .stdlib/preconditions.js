@@ -39,21 +39,27 @@ function checkNotNull(value) {
 /**
  * Throws an error.
  * Error message is always suffixed with period by SUI.
- * @param {Object} errorMessage helpful alert, may be null.
+ * @param {Object} message error description, may be null.
+ * @param {Object} title error title, may be null.
  */
-function error(errorMessage) {
-  var message = errorMessage.toString()
-  throw new Error(message)
+function error(message, title) {
+  var error = new Error()
+  if (message !== undefined) error.message = message.toString()
+  if (title !== undefined) error.name = title.toString()
+  throw error
 }
 
 /**
  * In dialog on click listener, throwing an error stops a script but does not show an alert.
  * This function shows an alert with error icon before the script stops.
  * Error message is always suffixed with period by SUI, following `error` and `check` convention.
- * @param {Object} errorMessage helpful alert, may be null.
+ * @param {Object} message error description, may be null.
+ * @param {Object} title error title, may be null.
  */
-function errorWithAlert(errorMessage) {
-  var message = errorMessage.toString()
-  alert(message + '.', "Uncaught JavaScript Exception", true)
-  throw new Error(message)
+function errorWithAlert(message, title) {
+  var error = new Error()
+  if (message !== undefined) error.message = message.toString()
+  if (title !== undefined) error.name = title.toString()
+  alert(error.message + '.', error.name || "Uncaught JavaScript Exception", true)
+  throw error
 }

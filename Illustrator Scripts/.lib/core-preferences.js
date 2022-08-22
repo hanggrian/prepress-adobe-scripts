@@ -52,7 +52,7 @@ function PreferencesWrapper(path) {
    */
   this.getBoolean = function(key) {
     var value = preferences.getBooleanPreference(prefix + key)
-    println("Get preference `{0}`: `{1}`.", key, value)
+    println("Get preference `%s`: `%s`.", key, value)
     return value
   }
 
@@ -63,7 +63,7 @@ function PreferencesWrapper(path) {
    */
   this.getInt = function(key) {
     var value = preferences.getIntegerPreference(prefix + key)
-    println("Get preference `{0}`: `{1}`.", key, value)
+    println("Get preference `%s`: `%d`.", key, value)
     return value
   }
 
@@ -74,7 +74,7 @@ function PreferencesWrapper(path) {
    */
   this.getNumber = function(key) {
     var value = preferences.getRealPreference(prefix + key)
-    println("Get preference `{0}`: `{1}`.", key, value)
+    println("Get preference `%s`: `%d`.", key, value)
     return value
   }
 
@@ -85,13 +85,13 @@ function PreferencesWrapper(path) {
    * @returns {String}
    */
   this.getString = function(key, defaultValue) {
-    print("Get preference `{0}`: ", key)
+    print("Get preference `%s`: ", key)
     var value = preferences.getStringPreference(prefix + key)
     if (value === "") {
-      println("not found, use default `{0}`.", defaultValue)
+      println("not found, use default `%s`.", defaultValue)
       return defaultValue
     }
-    println("`{0}`.", value)
+    println("`%s`.", value)
     return value
   }
 
@@ -103,7 +103,7 @@ function PreferencesWrapper(path) {
   this.setBoolean = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     preferences.setBooleanPreference(prefix + key, actualValue)
-    println("Set preference `{0}`: `{1}`.", key, actualValue)
+    println("Set preference `%s`: `%d`.", key, actualValue)
   }
 
   /**
@@ -114,7 +114,7 @@ function PreferencesWrapper(path) {
   this.setInt = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     preferences.setIntegerPreference(prefix + key, actualValue)
-    println("Set preference `{0}`: `{1}`.", key, actualValue)
+    println("Set preference `%s`: `%d`.", key, actualValue)
   }
 
   /**
@@ -125,7 +125,7 @@ function PreferencesWrapper(path) {
   this.setNumber = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     preferences.setRealPreference(prefix + key, actualValue)
-    println("Set preference `{0}`: `{1}`.", key, actualValue)
+    println("Set preference `%s`: `%d`.", key, actualValue)
   }
 
   /**
@@ -136,7 +136,7 @@ function PreferencesWrapper(path) {
   this.setString = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     preferences.setStringPreference(prefix + key, actualValue)
-    println("Set preference `{0}`: `{1}`.", key, actualValue)
+    println("Set preference `%s`: `%s`.", key, actualValue)
   }
 
   /**
@@ -145,6 +145,6 @@ function PreferencesWrapper(path) {
    */
   this.remove = function(key) {
     preferences.removePreference(prefix + key)
-    println("Remove preference `{0}`.", key)
+    println("Remove preference `%s`.", key)
   }
 }

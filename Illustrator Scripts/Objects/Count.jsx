@@ -55,7 +55,7 @@ Collections.forEachItem(selection, function(it) {
   }
 })
 
-var message = "There are {0} items, containing:".format(selection.length)
+var message = "There are %d items, containing:".format(selection.length)
 message += getItemLine(compoundPathCount, "compound path")
 message += getItemLine(graphCount, "graph")
 message += getItemLine(legacyTextCount, "legacy text")

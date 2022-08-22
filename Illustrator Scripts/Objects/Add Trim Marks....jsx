@@ -342,7 +342,7 @@ function containsPathBounds(collection, element) {
 }
 
 function createTrimMark(weight, color, suffixName, fromX, fromY, toX, toY) {
-  println("{0}. From [{1}, {2}] to [{3}, {4}].", suffixName, fromX, fromY, toX, toY)
+  println("%d. From [%d, %d] to [%d, %d].", suffixName, fromX, fromY, toX, toY)
   var path = layer.pathItems.add()
   path.name = "Trim" + suffixName
   path.filled = false

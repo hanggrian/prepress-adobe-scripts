@@ -1,6 +1,5 @@
-#include "../.lib/core.js"
-#include "../../.stdlib-test/assert.js"
+initTest($)
 
-var parseUnits = function() {
+test("parseUnits", function() {
   assertEquals("7", parseUnits("2.5 mm").round())
-}()
+})

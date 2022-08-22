@@ -44,6 +44,9 @@ var Internals = {
   },
 
   splitListItems: function(items) {
+    if (items === undefined || Collections.isEmpty(items)) {
+      return [[], []]
+    }
     if (Collections.all(items, function(it) { return typeof it === "string" || it instanceof String })) {
       return [items, []]
     }
@@ -108,12 +111,12 @@ var Internals = {
     return nativeFilters
   },
 
-  formatString: function(s, args) {
-    var formatted = s
-    for (var i = 0; i < args.length; i++) {
-      var regexp = new RegExp("\\{" + i + "\\}", "gi")
-      formatted = formatted.replace(regexp, args[i])
-    }
-    return formatted
+  // https://stackoverflow.com/questions/7975005/format-a-javascript-string-using-placeholders-and-an-object-of-substitutions
+  formatString: function(s, arr) {
+    var args = Array.prototype.slice.call(arr);
+    var rep = args.slice(0, args.length)
+    var i = 0
+    var output = s.replace(/%s|%d|%f|%@/g, function() { return rep.slice(i, ++i) })
+    return output
   }
 }

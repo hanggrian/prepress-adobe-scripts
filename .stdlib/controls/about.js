@@ -53,7 +53,7 @@ function AboutTabbedPanel(parent, clientDate) {
               var serverDate = parseDate(result.readText().substringAfter('"date": "').substringBefore('"').substring(0, 10))
               result.remove()
               if (serverDate > clientDate) {
-                self.statusText.text = "Latest version {0} is available.".format(serverDate.toISOString())
+                self.statusText.text = "Latest version %s is available.".format(serverDate.toISOString())
                 self.downloadButton.enabled = true
               } else {
                 self.statusText.text = "You have the latest version."

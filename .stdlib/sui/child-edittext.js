@@ -59,7 +59,7 @@ EditText.prototype.activate = function() { if (!this.active) this.active = true 
  * Set tooltip to this children.
  * @param {String} text tips to display.
  */
-EditText.prototype.tooltip = function(text) { return Internals.setTooltip(this, text) }
+EditText.prototype.tooltip = function(text) { Internals.setTooltip(this, text) }
 
 /**
  * Add children to group.

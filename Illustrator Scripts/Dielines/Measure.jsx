@@ -30,13 +30,13 @@ var message = ""
 if (count + distance === 0) {
   message += "No dielines found in selection."
 } else {
-  message += "{0} lines measuring at {1}.".format(count, formatUnits(distance, unitName, 2))
+  message += "%d lines measuring at %d.".format(count, formatUnits(distance, unitName, 2))
 }
 if (filledCount > 0) {
-  message += "\n{0} lines with colored fill are ignored.".format(filledCount)
+  message += "\n%d lines with colored fill are ignored.".format(filledCount)
 }
 if (registrationCount > 0) {
-  message += "\n{0} lines with registration stroke are ignored.".format(registrationCount)
+  message += "\n%d lines with registration stroke are ignored.".format(registrationCount)
 }
 alert(message, "Measure Dielines")
 

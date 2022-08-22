@@ -97,7 +97,7 @@ dialog.setDefaultButton(undefined, function() {
     if (!isFinite(scaleY)) {
       scaleY = 100
     }
-    println("Scale X={0} Y={1}.", scaleX, scaleY)
+    println("Scale X=%d Y=%d.", scaleX, scaleY)
     item.resize(scaleX, scaleY,
       changePositionsCheck.value,
       changeFillPatternsCheck.value,

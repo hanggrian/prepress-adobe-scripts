@@ -110,13 +110,11 @@ String.prototype.trim = function() { return this.trimStart().trimEnd() }
 /**
  * Returns a formatted string using varargs arguments.
  * @returns {String}
- * @see https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
  */
 String.prototype.format = function() { return Internals.formatString(this, arguments) }
 
 /**
  * Returns a formatted string using array argument.
  * @returns {String}
- * @see https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
  */
 String.prototype.formatArr = function(arr) { return Internals.formatString(this, arr) }

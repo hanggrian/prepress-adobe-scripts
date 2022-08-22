@@ -10,6 +10,8 @@
  */
 var Collections = {
 
+  EMPTY_ARRAY: [],
+
   /**
    * Last index of this collection.
    * @param {Object} collection array or array-like objects.

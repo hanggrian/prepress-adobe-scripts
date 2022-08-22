@@ -16,7 +16,7 @@ RadioButton.prototype.select = function() { if (!this.value) this.value = true }
  * Set tooltip to this children.
  * @param {String} text tips to display.
  */
-Checkbox.prototype.tooltip = function(text) { return Internals.setTooltip(this, text) }
+Checkbox.prototype.tooltip = function(text) { Internals.setTooltip(this, text) }
 
 /**
  * Add children to group.
@@ -52,7 +52,7 @@ function _checkBox(parent, bounds, text, properties) {
  * Set tooltip to this children.
  * @param {String} text tips to display.
  */
-RadioButton.prototype.tooltip = function(text) { return Internals.setTooltip(this, text) }
+RadioButton.prototype.tooltip = function(text) { Internals.setTooltip(this, text) }
 
 /**
  * Add children to group.

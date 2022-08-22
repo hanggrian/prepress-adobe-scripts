@@ -49,7 +49,7 @@ if (file !== null) {
 
     var progress = new ProgressPalette(items.length)
     Collections.forEach(items, function(item, i) {
-      progress.increment("Linking item {0}", i + 1)
+      progress.increment("Linking item %d", i + 1)
       print(i + ". ")
       relink(item, file)
       println("Done.")

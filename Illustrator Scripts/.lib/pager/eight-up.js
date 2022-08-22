@@ -20,7 +20,8 @@ function EightUpSimplexPager(document, start) {
       var bottom2 = current + 5
       var bottom3 = current + 6
       var bottom4 = current + 7
-      artboard.name = "{0}-{1}-{2}-{3}-{4}-{5}-{6}-{7}".format(top1 + 1, top2 + 1, top3 + 1, top4 + 1, bottom1 + 1, bottom2 + 1, bottom3 + 1, bottom4 + 1)
+      artboard.name = "%d-%d-%d-%d-%d-%d-%d-%d".format(top1 + 1, top2 + 1, top3 + 1, top4 + 1,
+        bottom1 + 1, bottom2 + 1, bottom3 + 1, bottom4 + 1)
       action(artboard,
         top1, top2, top3, top4,
         bottom1, bottom2, bottom3, bottom4)
@@ -64,7 +65,8 @@ function EightUpDuplexPager(document, start) {
         bottom3 = current + 3
         bottom4 = current + 1
       }
-      artboard.name = "{0}-{1}-{2}-{3}-{4}-{5}-{6}-{7}".format(top1 + 1, top2 + 1, top3 + 1, top4 + 1, bottom1 + 1, bottom2 + 1, bottom3 + 1, bottom4 + 1)
+      artboard.name = "%d-%d-%d-%d-%d-%d-%d-%d".format(top1 + 1, top2 + 1, top3 + 1, top4 + 1,
+        bottom1 + 1, bottom2 + 1, bottom3 + 1, bottom4 + 1)
       action(artboard,
         top1, top2, top3, top4,
         bottom1, bottom2, bottom3, bottom4)
@@ -97,7 +99,8 @@ function EightUpSimplexCutStackPager(document, start) {
       var bottom2 = current + artboards * 5
       var bottom3 = current + artboards * 6
       var bottom4 = current + artboards * 7
-      artboard.name = "{0}-{1}-{2}-{3}-{4}-{5}-{6}-{7}".format(top1 + 1, top2 + 1, top3 + 1, top4 + 1, bottom1 + 1, bottom2 + 1, bottom3 + 1, bottom4 + 1)
+      artboard.name = "%d-%d-%d-%d-%d-%d-%d-%d".format(top1 + 1, top2 + 1, top3 + 1, top4 + 1,
+        bottom1 + 1, bottom2 + 1, bottom3 + 1, bottom4 + 1)
       action(artboard,
         top1, top2, top3, top4,
         bottom1, bottom2, bottom3, bottom4)
@@ -142,7 +145,8 @@ function EightUpDuplexCutStackPager(document, start) {
         bottom3 = current + artboards * 5
         bottom4 = current + artboards * 4
       }
-      artboard.name = "{0}-{1}-{2}-{3}-{4}-{5}-{6}-{7}".format(top1 + 1, top2 + 1, top3 + 1, top4 + 1, bottom1 + 1, bottom2 + 1, bottom3 + 1, bottom4 + 1)
+      artboard.name = "%d-%d-%d-%d-%d-%d-%d-%d".format(top1 + 1, top2 + 1, top3 + 1, top4 + 1,
+        bottom1 + 1, bottom2 + 1, bottom3 + 1, bottom4 + 1)
       action(artboard,
         top1, top2, top3, top4,
         bottom1, bottom2, bottom3, bottom4)

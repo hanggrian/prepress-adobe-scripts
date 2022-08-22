@@ -41,13 +41,13 @@ function PreferencesWrapper(path) {
    */
   this.getBoolean = function(key, defaultValue) {
     var actualKey = app.stringIDToTypeID(key)
-    print("Get preference `{0}`: ", actualKey)
+    print("Get preference `%s`: ", actualKey)
     if (!descriptor.hasKey(actualKey)) {
-      println("not found, use default `{0}`.", defaultValue)
+      println("not found, use default `%s`.", defaultValue)
       return defaultValue
     }
     var value = descriptor.getBoolean(actualKey)
-    println("`{0}`.", value)
+    println("`%s`.", value)
     return value
   }
 
@@ -59,13 +59,13 @@ function PreferencesWrapper(path) {
    */
   this.getString = function(key, defaultValue) {
     var actualKey = app.stringIDToTypeID(key)
-    print("Get preference `{0}`: ", actualKey)
+    print("Get preference `%s`: ", actualKey)
     if (!descriptor.hasKey(actualKey)) {
-      println("not found, use default `{0}`.", defaultValue)
+      println("not found, use default `%s`.", defaultValue)
       return defaultValue
     }
     var value = descriptor.getString(actualKey)
-    println("`{0}`.", value)
+    println("`%s`.", value)
     return value
   }
 
@@ -97,7 +97,7 @@ function PreferencesEditor(path, descriptor) {
   this.setBoolean = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     descriptor.putBoolean(app.stringIDToTypeID(key), actualValue)
-    println("Set preference `{0}`: `{1}`.", key, actualValue)
+    println("Set preference `%s`: `%s`.", key, actualValue)
   }
 
   /**
@@ -108,7 +108,7 @@ function PreferencesEditor(path, descriptor) {
   this.setString = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     descriptor.putString(app.stringIDToTypeID(key), actualValue)
-    println("Set preference `{0}`: `{1}`.", key, actualValue)
+    println("Set preference `%s`: `%s`.", key, actualValue)
   }
 
   /**
@@ -117,7 +117,7 @@ function PreferencesEditor(path, descriptor) {
    */
   this.remove = function(key) {
     descriptor.erase(app.stringIDToTypeID(key))
-    println("Remove preference `{0}`.", key)
+    println("Remove preference `%s`.", key)
   }
 
   /** Confirm all the changes to this editor. */

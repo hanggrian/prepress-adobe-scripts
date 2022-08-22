@@ -83,5 +83,5 @@ function getTypeString(prefix, suffix) {
       s += ", "
     }
   })
-  return "{0} ({1})".format(prefix, s)
+  return "%s (%s)".format(prefix, s)
 }

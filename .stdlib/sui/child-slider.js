@@ -8,7 +8,7 @@
  * Set tooltip to this children.
  * @param {String} text tips to display.
  */
-Slider.prototype.tooltip = function(text) { return Internals.setTooltip(this, text) }
+Slider.prototype.tooltip = function(text) { Internals.setTooltip(this, text) }
 
 /**
  * Add children to group.

@@ -6,32 +6,30 @@
 </javascriptresource>
 */
 
-// Quality check all tabs.
-
 #target Photoshop
 #include "../.lib/commons.js"
 
 var allOkay = true
 Collections.forEach(app.documents, function(document) {
   var errorCount = 0
-  var result = "Issues found in {0}:\n".format(document.name)
+  var result = "Issues found in %s:\n".format(document.name)
 
   document.mode.let(function(it) {
     if (it !== DocumentMode.CMYK) {
       errorCount++
-      result += "• Mode is {0}.\n".format(it.toString().substringAfter("."))
+      result += "• Mode is %s.\n".format(it.toString().substringAfter("."))
     }
   })
   document.resolution.let(function(it) {
     if (it < 300) {
       errorCount++
-      result += "• Resolution is {0}.\n".format(it)
+      result += "• Resolution is %s.\n".format(it)
     }
   })
   document.bitsPerChannel.let(function(it) {
     if (it !== BitsPerChannelType.EIGHT) {
       errorCount++
-      result += "• Bits per channel is {0}.\n".format(it.toString().substringAfter("."))
+      result += "• Bits per channel is %s.\n".format(it.toString().substringAfter("."))
     }
   })
 

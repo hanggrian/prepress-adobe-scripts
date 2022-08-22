@@ -1,53 +1,52 @@
-#include "../../.stdlib/stdlib.js"
-#include "../assert.js"
+initTest($)
 
-var indexOf = function() {
+test("indexOf", function() {
   var a = [1, 2, 3]
   assertEquals(1, Collections.indexOf(a, 2))
-}()
+})
 
-var lastIndex = function() {
+test("lastIndex", function() {
   var a = [1, 2, 3]
   assertEquals(2, Collections.lastIndex(a))
-}()
+})
 
-var isEmpty = function() {
+test("isEmpty", function() {
   var a = [1, 2, 3]
   assertTrue(Collections.isEmpty([]))
   assertFalse(Collections.isEmpty(a))
-}()
+})
 
-var isNotEmpty = function() {
+test("isNotEmpty", function() {
   var a = [1, 2, 3]
   assertFalse(Collections.isNotEmpty([]))
   assertTrue(Collections.isNotEmpty(a))
-}()
+})
 
-var contains = function() {
+test("contains", function() {
   var a = [1, 2, 3]
   assertTrue(Collections.contains(a, 2))
   assertFalse(Collections.contains(a, 4))
-}()
+})
 
-var distinct = function() {
+test("distinct", function() {
   var a = Collections.distinct([1, 2, 2, 3, 3, 3])
   assertEquals(1, a[0])
   assertEquals(2, a[1])
   assertEquals(3, a[2])
-}()
+})
 
-var forEach = function() {
+test("forEach", function() {
   var a = [1, 2, 3]
   var result = []
   Collections.forEach(a, function(it) { result.push(it) })
   assertEquals(1, result[0])
   assertEquals(3, result[2])
-}()
+})
 
-var forEachReversed = function() {
+test("forEachReversed", function() {
   var a = [1, 2, 3]
   var result = []
   Collections.forEachReversed(a, function(it) { result.push(it) })
   assertEquals(3, result[0])
   assertEquals(1, result[2])
-}()
+})

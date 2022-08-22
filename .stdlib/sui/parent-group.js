@@ -8,7 +8,7 @@
  * Set tooltip to this parent.
  * @param {String} text tips to display.
  */
-Group.prototype.tooltips = function(text) { return Internals.setTooltips(this, text) }
+Group.prototype.tooltips = function(text) { Internals.setTooltips(this, text) }
 
 /**
  * Add horizontal parent to group.
@@ -16,7 +16,7 @@ Group.prototype.tooltips = function(text) { return Internals.setTooltips(this, t
  * @returns {Group}
  */
 Group.prototype.hgroup = function(configuration) {
-  return _group(this, "row").also(configuration)
+  return _group(this, "row", configuration)
 }
 
 /**
@@ -25,7 +25,7 @@ Group.prototype.hgroup = function(configuration) {
  * @returns {Group}
  */
 Panel.prototype.hgroup = function(configuration) {
-  return _group(this, "row").also(configuration)
+  return _group(this, "row", configuration)
 }
 
 /**
@@ -34,7 +34,7 @@ Panel.prototype.hgroup = function(configuration) {
  * @returns {Group}
  */
 Group.prototype.vgroup = function(configuration) {
-  return _group(this, "column").also(configuration)
+  return _group(this, "column", configuration)
 }
 
 /**
@@ -43,7 +43,7 @@ Group.prototype.vgroup = function(configuration) {
  * @returns {Group}
  */
 Panel.prototype.vgroup = function(configuration) {
-  return _group(this, "column").also(configuration)
+  return _group(this, "column", configuration)
 }
 
 /**
@@ -52,7 +52,7 @@ Panel.prototype.vgroup = function(configuration) {
  * @returns {Group}
  */
 Group.prototype.sgroup = function(configuration) {
-  return _group(this, "stack").also(configuration)
+  return _group(this, "stack", configuration)
 }
 
 /**
@@ -61,14 +61,17 @@ Group.prototype.sgroup = function(configuration) {
  * @returns {Group}
  */
 Panel.prototype.sgroup = function(configuration) {
-  return _group(this, "stack").also(configuration)
+  return _group(this, "stack", configuration)
 }
 
-function _group(parent, orientation) {
+function _group(parent, orientation, configuration) {
   var result = parent.add("group")
   result.orientation = orientation
   if (parent.helpTips !== undefined) {
     Internals.setTooltips(result, parent.helpTips)
+  }
+  if (configuration !== undefined) {
+    configuration(result)
   }
   return result
 }

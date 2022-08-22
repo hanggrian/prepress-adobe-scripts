@@ -101,10 +101,13 @@ dialog.setDefaultButton(undefined, function() {
   if (symbolCheck.value) types.push("SymbolItem")
   if (textFrameCheck.value) types.push("TextFrame")
   selectAll(types, function(item) {
-    if (groupCheck.value && item.typename === "GroupItem" && item.clipped) {
-      return false
-    }
-    if (clippingMaskCheck.value && item.typename === "GroupItem" && !item.clipped) {
+    if (item.typename === "GroupItem") {
+      if (groupCheck.value && !item.clipped) {
+        return true
+      }
+      if (clippingMaskCheck.value && item.clipped) {
+        return true
+      }
       return false
     }
     return true
