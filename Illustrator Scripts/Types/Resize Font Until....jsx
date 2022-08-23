@@ -1,9 +1,9 @@
 #target Illustrator
 #include "../.lib/commons.js"
 
-var BOUNDS_TEXT = [70, 21]
-var BOUNDS_EDIT = [150, 21]
 var ROUNDINGS = ["None", "Round", "Floor", "Ceil"]
+var SIZE_LABEL = [70, 21] // manual sizing because content is changable
+var SIZE_INPUT = [150, 21]
 
 checkSingleSelection()
 
@@ -19,7 +19,7 @@ dialog.vgroup(function(main) {
   main.alignChildren = "left"
   main.hgroup(function(group) {
     group.tooltips("Which bounds to use")
-    group.staticText(BOUNDS_TEXT, "Dimension:").also(JUSTIFY_RIGHT)
+    group.staticText(SIZE_LABEL, "Dimension:").also(JUSTIFY_RIGHT)
     dimensionWidthRadio = group.radioButton(undefined, "Width").also(function(it) {
       it.onClick = changeDimensionText
       it.select()
@@ -30,16 +30,16 @@ dialog.vgroup(function(main) {
   })
   main.hgroup(function(group) {
     group.tooltips("Target size to match")
-    dimensionSizeText = group.staticText(BOUNDS_TEXT, "Width:").also(JUSTIFY_RIGHT)
-    dimensionSizeEdit = group.editText(BOUNDS_EDIT, formatUnits(item.width, unitName, 2)).also(function(it) {
+    dimensionSizeText = group.staticText(SIZE_LABEL, "Width:").also(JUSTIFY_RIGHT)
+    dimensionSizeEdit = group.editText(SIZE_INPUT, formatUnits(item.width, unitName, 2)).also(function(it) {
       it.validateUnits()
       it.activate()
     })
   })
   main.hgroup(function(group) {
     group.tooltips("Method to round final font size")
-    group.staticText(BOUNDS_TEXT, "Rounding:").also(JUSTIFY_RIGHT)
-    roundingList = group.dropDownList(BOUNDS_EDIT, ROUNDINGS).also(function(it) {
+    group.staticText(SIZE_LABEL, "Rounding:").also(JUSTIFY_RIGHT)
+    roundingList = group.dropDownList(SIZE_INPUT, ROUNDINGS).also(function(it) {
       it.selectText("None")
     })
   })

@@ -1,8 +1,7 @@
 #target Illustrator
 #include "../../.lib/commons.js"
 
-var BOUNDS_TEXT = [50, 21]
-var BOUNDS_EDIT = [100, 21]
+var SIZE_INPUT = [100, 21]
 
 checkHasSelection()
 check(Collections.anyItem(selection, function(it) { return it.clipping }), "No clipping paths in this selection")
@@ -15,20 +14,21 @@ dialog.hgroup(function(main) {
   main.alignChildren = "fill"
   var prefill = Collections.firstItem(selection, function(it) { return it.clipping })
   main.vpanel("Dimension", function(panel) {
+    panel.alignChildren = "right"
     panel.hgroup(function(group) {
-      group.staticText(BOUNDS_TEXT, "Width:").also(JUSTIFY_RIGHT)
-      widthFromEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.width, unitName, 2)).also(function(it) {
+      group.staticText(undefined, "Width:").also(JUSTIFY_RIGHT)
+      widthFromEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitName, 2)).also(function(it) {
         it.validateUnits()
         it.activate()
       })
       group.staticText(undefined, "to")
-      widthToEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.width, unitName, 2)).also(VALIDATE_UNITS)
+      widthToEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitName, 2)).also(VALIDATE_UNITS)
     })
     panel.hgroup(function(group) {
-      group.staticText(BOUNDS_TEXT, "Height:").also(JUSTIFY_RIGHT)
-      heightFromEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.height, unitName, 2)).also(VALIDATE_UNITS)
+      group.staticText(undefined, "Height:").also(JUSTIFY_RIGHT)
+      heightFromEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitName, 2)).also(VALIDATE_UNITS)
       group.staticText(undefined, "to")
-      heightToEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.height, unitName, 2)).also(VALIDATE_UNITS)
+      heightToEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitName, 2)).also(VALIDATE_UNITS)
     })
   })
   main.vpanel("Anchor", function(panel) {

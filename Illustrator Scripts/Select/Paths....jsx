@@ -5,10 +5,7 @@
 #include "../.lib/commons.js"
 
 var YES_OR_NO = ["Yes", "No"]
-
-var BOUNDS_LEFT_TEXT = [60, 21]
-var BOUNDS_RIGHT_TEXT = [60, 21]
-var BOUNDS_EDIT = [110, 21]
+var SIZE_INPUT = [110, 21]
 
 check(Collections.isNotEmpty(document.pathItems), "No paths in this document")
 var isFilterMode = Collections.isNotEmpty(selection)
@@ -19,72 +16,77 @@ var strokeColorList, strokeWeightEdit, strokeDashedList, strokeOverprintList
 var dimensionPanel
 var clippingList, closedList, guidesList
 var recursiveCheck
-var prefs = preferences2.resolve("select/paths")
+var config = configs.resolve("select/paths")
 
 dialog.hgroup(function(main) {
   main.alignChildren = "fill"
   main.vgroup(function(topGroup) {
+    topGroup.alignChildren = "fill"
     topGroup.vpanel("Fill", function(panel) {
+      panel.alignChildren = "right"
       panel.hgroup(function(group) {
         group.tooltips("Fill color")
-        group.staticText(BOUNDS_RIGHT_TEXT, "Color:").also(JUSTIFY_RIGHT)
-        fillColorList = group.dropDownList(BOUNDS_EDIT, COLORS)
+        group.staticText(undefined, "Color:").also(JUSTIFY_RIGHT)
+        fillColorList = group.dropDownList(SIZE_INPUT, COLORS)
       })
       panel.hgroup(function(group) {
         group.tooltips("Will art beneath a filled object be overprinted?")
-        group.staticText(BOUNDS_RIGHT_TEXT, "Overprint:").also(JUSTIFY_RIGHT)
-        fillOverprintList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
+        group.staticText(undefined, "Overprint:").also(JUSTIFY_RIGHT)
+        fillOverprintList = group.dropDownList(SIZE_INPUT, YES_OR_NO)
       })
     })
     topGroup.vpanel("Stroke", function(panel) {
+      panel.alignChildren = "right"
       panel.hgroup(function(group) {
         group.tooltips("Stroke color")
-        group.staticText(BOUNDS_RIGHT_TEXT, "Color:").also(JUSTIFY_RIGHT)
-        strokeColorList = group.dropDownList(BOUNDS_EDIT, COLORS)
+        group.staticText(undefined, "Color:").also(JUSTIFY_RIGHT)
+        strokeColorList = group.dropDownList(SIZE_INPUT, COLORS)
       })
       panel.hgroup(function(group) {
         group.tooltips("Width of stroke")
-        group.staticText(BOUNDS_RIGHT_TEXT, "Weight:").also(JUSTIFY_RIGHT)
-        strokeWeightEdit = group.editText(BOUNDS_EDIT).also(function(it) {
+        group.staticText(undefined, "Weight:").also(JUSTIFY_RIGHT)
+        strokeWeightEdit = group.editText(SIZE_INPUT).also(function(it) {
           it.validateUnits()
           it.activate()
         })
       })
       panel.hgroup(function(group) {
         group.tooltips("Is the stroke dashed?")
-        group.staticText(BOUNDS_RIGHT_TEXT, "Dashed:").also(JUSTIFY_RIGHT)
-        strokeDashedList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
+        group.staticText(undefined, "Dashed:").also(JUSTIFY_RIGHT)
+        strokeDashedList = group.dropDownList(SIZE_INPUT, YES_OR_NO)
       })
       panel.hgroup(function(group) {
         group.tooltips("Will art beneath a stroked object be overprinted?")
-        group.staticText(BOUNDS_RIGHT_TEXT, "Overprint:").also(JUSTIFY_RIGHT)
-        strokeOverprintList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
+        group.staticText(undefined, "Overprint:").also(JUSTIFY_RIGHT)
+        strokeOverprintList = group.dropDownList(SIZE_INPUT, YES_OR_NO)
       })
     })
   })
   main.vgroup(function(topGroup) {
-    dimensionPanel = new SelectDimensionPanel(topGroup, BOUNDS_LEFT_TEXT, BOUNDS_EDIT)
+    topGroup.alignChildren = "fill"
+    dimensionPanel = new SelectDimensionPanel(topGroup, SIZE_INPUT)
     topGroup.vpanel("Others", function(panel) {
+      panel.alignChildren = "right"
       panel.hgroup(function(group) {
         group.tooltips("Should this be used as a clipping path?")
-        group.staticText(BOUNDS_LEFT_TEXT, "Clipping:").also(JUSTIFY_RIGHT)
-        clippingList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
+        group.staticText(undefined, "Clipping:").also(JUSTIFY_RIGHT)
+        clippingList = group.dropDownList(SIZE_INPUT, YES_OR_NO)
       })
       panel.hgroup(function(group) {
         group.tooltips("Is this path closed?")
-        group.staticText(BOUNDS_LEFT_TEXT, "Closed:").also(JUSTIFY_RIGHT)
-        closedList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
+        group.staticText(undefined, "Closed:").also(JUSTIFY_RIGHT)
+        closedList = group.dropDownList(SIZE_INPUT, YES_OR_NO)
       })
       panel.hgroup(function(group) {
         group.tooltips("Is this path a guide object?")
-        group.staticText(BOUNDS_LEFT_TEXT, "Guides:").also(JUSTIFY_RIGHT)
-        guidesList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
+        group.staticText(undefined, "Guides:").also(JUSTIFY_RIGHT)
+        guidesList = group.dropDownList(SIZE_INPUT, YES_OR_NO)
       })
     })
     if (isFilterMode) {
       recursiveCheck = new RecursiveCheck(topGroup).also(function(it) {
         it.main.alignment = "right"
-        it.main.value = prefs.getBoolean("recursive")
+        it.main.value = config.getBoolean("recursive")
       })
     }
   })
@@ -117,6 +119,6 @@ dialog.setDefaultButton(undefined, function() {
     return true
   }, isFilterMode && recursiveCheck.isSelected())
 
-  prefs.setBoolean("recursive", recursiveCheck.isSelected())
+  if (isFilterMode) config.setBoolean("recursive", recursiveCheck.isSelected())
 })
 dialog.show()

@@ -70,18 +70,18 @@ Panel.prototype.spanel = function(text, configuration) {
   return _panel(this, "stack", text, configuration)
 }
 
-function _panel(parent, orientation, text, configuration) {
-  var result = parent.add("panel", undefined, text)
-  result.orientation = orientation
-  if (parent.helpTips !== undefined) {
-    Internals.setTooltips(result, parent.helpTips)
+function _panel(root, orientation, text, configuration) {
+  var parent = root.add("panel", undefined, text)
+  parent.orientation = orientation
+  if (root.helpTips !== undefined) {
+    Internals.setTooltips(parent, root.helpTips)
   }
   if (text !== undefined) {
     // default margin is [15, 10, 15, 10], but this margin is unsufficient when title is present
-    result.margins = [15, 15, 15, 10]
+    parent.margins = [15, 15, 15, 10]
   }
   if (configuration !== undefined) {
-    configuration(result)
+    configuration(parent)
   }
-  return result
+  return parent
 }

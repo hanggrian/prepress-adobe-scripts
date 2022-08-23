@@ -24,16 +24,14 @@ Preferences.prototype.getPSDPreserveLayers = function() { return this.photoshopF
 Preferences.prototype.setPSDPreserveSlices = function(preserveSlices) { this.photoshopFileOptions.preserveSlices = preserveSlices }
 Preferences.prototype.getPSDPreserveSlices = function() { return this.photoshopFileOptions.preserveSlices }
 
-var PREFERENCES_ROOT = "Prepress Adobe Scripts"
-
 /** Global access to preferences wrapper. */
-var preferences2 = new PreferencesWrapper(PREFERENCES_ROOT)
+var configs = new Configs("Prepress Adobe Scripts")
 
 /**
  * Wrapper of `Preferences` with simplified API.
  * @param {String} path hierarcy of preferences.
  */
-function PreferencesWrapper(path) {
+function Configs(path) {
   var prefix = path + "/"
 
   /**
@@ -42,7 +40,7 @@ function PreferencesWrapper(path) {
    * @returns {Boolean}
    */
   this.resolve = function(relative) {
-    return new PreferencesWrapper(prefix + relative)
+    return new Configs(prefix + relative)
   }
 
   /**

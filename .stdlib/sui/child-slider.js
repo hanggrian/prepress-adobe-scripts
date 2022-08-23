@@ -12,34 +12,34 @@ Slider.prototype.tooltip = function(text) { Internals.setTooltip(this, text) }
 
 /**
  * Add children to group.
- * @param {Array} bounds optional array of size or position & size.
+ * @param {Array} size optional size or bounds.
  * @param {Number} current current value.
  * @param {Number} start min value.
  * @param {Number} end max value.
  * @param {Object} properties optional extra properties.
  * @returns {Slider}
  */
-Group.prototype.slider = function(bounds, current, start, end, properties) {
-  return _slider(this, bounds, current, start, end, properties)
+Group.prototype.slider = function(size, current, start, end, properties) {
+  return _slider(this, size, current, start, end, properties)
 }
 
 /**
  * Add children to panel.
- * @param {Array} bounds optional array of size or position & size.
+ * @param {Array} size optional size or bounds.
  * @param {Number} current current value.
  * @param {Number} start min value.
  * @param {Number} end max value.
  * @param {Object} properties optional extra properties.
  * @returns {Slider}
  */
-Panel.prototype.slider = function(bounds, current, start, end, properties) {
-  return _slider(this, bounds, current, start, end, properties)
+Panel.prototype.slider = function(size, current, start, end, properties) {
+  return _slider(this, size, current, start, end, properties)
 }
 
-function _slider(parent, bounds, current, start, end, properties) {
-  var result = parent.add("slider", Internals.expandBounds(bounds), current, start, end, properties)
-  if (parent.helpTips !== undefined) {
-    Internals.setTooltip(result, parent.helpTips)
+function _slider(root, size, current, start, end, properties) {
+  var child = root.add("slider", Internals.sizeToBounds(size), current, start, end, properties)
+  if (root.helpTips !== undefined) {
+    Internals.setTooltip(child, root.helpTips)
   }
-  return result
+  return child
 }

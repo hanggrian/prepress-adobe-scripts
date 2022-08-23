@@ -6,7 +6,7 @@
 
 /**
  * Returns an array containing the results of applying the given transform function.
- * @param {Object} collection array or array-like objects.
+ * @param {Array|Object} collection array or array-like objects.
  * @param {Function} transform runnable with return value.
  * @returns {Array}
  */
@@ -21,7 +21,7 @@ Collections.map = function(collection, transform) {
 /**
  * Returns a single sequence of all elements from results of
  * transform function being invoked on each element of original sequence.
- * @param {Object} collection array or array-like objects.
+ * @param {Array|Object} collection array or array-like objects.
  * @param {Function} transform runnable with return value.
  * @returns {Array}
  */

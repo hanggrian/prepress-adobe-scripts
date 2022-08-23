@@ -1,13 +1,13 @@
 #target Illustrator
 #include "../.lib/commons.js"
 
-var BOUNDS_TEXT = [50, 21]
-var BOUNDS_EDIT = [110, 21]
+var SIZE_TEXT = [60, 21] // manual sizing because for multiple input column
+var SIZE_EDIT = [100, 21]
 
 var dialog = new Dialog("Add Paperbag Dielines", "adding-measuring-dielines/#add-paperbag-dielines")
 var widthEdit, heightEdit, depthEdit, upperEdit, lowerEdit, glueLengthEdit, glueShearEdit
 var strokeWeightEdit, strokeColorList
-var prefs = preferences2.resolve("dielines/add_paperbag")
+var config = configs.resolve("dielines/add_paperbag")
 
 dialog.hgroup(function(main) {
   main.vgroup(function(topGroup) {
@@ -16,47 +16,47 @@ dialog.hgroup(function(main) {
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
           group.tooltips("Width of paperbag")
-          group.staticText(BOUNDS_TEXT, "Width:").also(JUSTIFY_RIGHT)
-          widthEdit = group.editText(BOUNDS_EDIT, prefs.getString("width", "210 mm")).also(function(it) {
+          group.staticText(SIZE_TEXT, "Width:").also(JUSTIFY_RIGHT)
+          widthEdit = group.editText(SIZE_EDIT, config.getString("width", "210 mm")).also(function(it) {
             it.validateUnits()
             it.activate()
           })
         })
         midGroup.hgroup(function(group) {
           group.tooltips("Height of paperbag")
-          group.staticText(BOUNDS_TEXT, "Height:").also(JUSTIFY_RIGHT)
-          heightEdit = group.editText(BOUNDS_EDIT, prefs.getString("height", "297 mm")).also(VALIDATE_UNITS)
+          group.staticText(SIZE_TEXT, "Height:").also(JUSTIFY_RIGHT)
+          heightEdit = group.editText(SIZE_EDIT, config.getString("height", "297 mm")).also(VALIDATE_UNITS)
         })
       })
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
           group.tooltips("Depth of paperbag")
-          group.staticText(BOUNDS_TEXT, "Depth:").also(JUSTIFY_RIGHT)
-          depthEdit = group.editText(BOUNDS_EDIT, prefs.getString("depth", "100 mm")).also(VALIDATE_UNITS)
+          group.staticText(SIZE_TEXT, "Depth:").also(JUSTIFY_RIGHT)
+          depthEdit = group.editText(SIZE_EDIT, config.getString("depth", "100 mm")).also(VALIDATE_UNITS)
         })
       })
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
           group.tooltips("Length of upper area")
-          group.staticText(BOUNDS_TEXT, "Upper:").also(JUSTIFY_RIGHT)
-          upperEdit = group.editText(BOUNDS_EDIT, prefs.getString("upper", "30 mm")).also(VALIDATE_UNITS)
+          group.staticText(SIZE_TEXT, "Upper:").also(JUSTIFY_RIGHT)
+          upperEdit = group.editText(SIZE_EDIT, config.getString("upper", "30 mm")).also(VALIDATE_UNITS)
         })
         midGroup.hgroup(function(group) {
           group.tooltips("Length of lower area")
-          group.staticText(BOUNDS_TEXT, "Lower:").also(JUSTIFY_RIGHT)
-          lowerEdit = group.editText(BOUNDS_EDIT, prefs.getString("lower", "60 mm")).also(VALIDATE_UNITS)
+          group.staticText(SIZE_TEXT, "Lower:").also(JUSTIFY_RIGHT)
+          lowerEdit = group.editText(SIZE_EDIT, config.getString("lower", "60 mm")).also(VALIDATE_UNITS)
         })
       })
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
           group.tooltips("Length of glue area")
-          group.staticText(BOUNDS_TEXT, "Glue:").also(JUSTIFY_RIGHT)
-          glueLengthEdit = group.editText(BOUNDS_EDIT, prefs.getString("glue_length", "20 mm")).also(VALIDATE_UNITS)
+          group.staticText(SIZE_TEXT, "Glue:").also(JUSTIFY_RIGHT)
+          glueLengthEdit = group.editText(SIZE_EDIT, config.getString("glue_length", "20 mm")).also(VALIDATE_UNITS)
         })
         midGroup.hgroup(function(group) {
           group.tooltips("Length of glue area")
-          group.staticText(BOUNDS_TEXT, "Shear:").also(JUSTIFY_RIGHT)
-          glueShearEdit = group.editText(BOUNDS_EDIT, prefs.getString("glue_shear", "5 mm")).also(VALIDATE_UNITS)
+          group.staticText(SIZE_TEXT, "Shear:").also(JUSTIFY_RIGHT)
+          glueShearEdit = group.editText(SIZE_EDIT, config.getString("glue_shear", "5 mm")).also(VALIDATE_UNITS)
         })
       })
     })
@@ -64,14 +64,14 @@ dialog.hgroup(function(main) {
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
           group.tooltips("Stroke width of dielines")
-          group.staticText(BOUNDS_TEXT, "Weight:").also(JUSTIFY_RIGHT)
-          strokeWeightEdit = group.editText(BOUNDS_EDIT, prefs.getString("stroke_weight", "1 pt")).also(VALIDATE_UNITS)
+          group.staticText(SIZE_TEXT, "Weight:").also(JUSTIFY_RIGHT)
+          strokeWeightEdit = group.editText(SIZE_EDIT, config.getString("stroke_weight", "1 pt")).also(VALIDATE_UNITS)
         })
         midGroup.hgroup(function(group) {
           group.tooltips("Stroke color of dielines")
-          group.staticText(BOUNDS_TEXT, "Color:").also(JUSTIFY_RIGHT)
-          strokeColorList = group.dropDownList(BOUNDS_EDIT, COLORS).also(function(it) {
-            it.selectText(prefs.getString("stroke_color", "Black"))
+          group.staticText(SIZE_TEXT, "Color:").also(JUSTIFY_RIGHT)
+          strokeColorList = group.dropDownList(SIZE_EDIT, COLORS).also(function(it) {
+            it.selectText(config.getString("stroke_color", "Black"))
           })
         })
       })
@@ -185,15 +185,15 @@ function process(isFull) {
 
   selection = paths
 
-  prefs.setString("width", widthEdit.text)
-  prefs.setString("height", heightEdit.text)
-  prefs.setString("depth", depthEdit.text)
-  prefs.setString("upper", upperEdit.text)
-  prefs.setString("lower", lowerEdit.text)
-  prefs.setString("glue_length", glueLengthEdit.text)
-  prefs.setString("glue_shear", glueShearEdit.text)
-  prefs.setString("stroke_weight", strokeWeightEdit.text)
-  prefs.setString("stroke_color", strokeColorList.selection.text)
+  config.setString("width", widthEdit.text)
+  config.setString("height", heightEdit.text)
+  config.setString("depth", depthEdit.text)
+  config.setString("upper", upperEdit.text)
+  config.setString("lower", lowerEdit.text)
+  config.setString("glue_length", glueLengthEdit.text)
+  config.setString("glue_shear", glueShearEdit.text)
+  config.setString("stroke_weight", strokeWeightEdit.text)
+  config.setString("stroke_color", strokeColorList.selection.text)
 }
 
 function createLine(weight, color, positions) {

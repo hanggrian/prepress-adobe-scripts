@@ -7,10 +7,7 @@ var ANCHORS = [
   ["Bottom Left", "ic_arrow_bottomleft"],
   ["Bottom Right", "ic_arrow_bottomright"]
 ]
-
-var BOUNDS_TEXT = [80, 21]
-var BOUNDS_EDIT = [120, 21]
-var BOUNDS_RADIO = [15, 15]
+var SIZE_INPUT = [150, 21]
 
 checkHasSelection()
 
@@ -36,13 +33,14 @@ if (proceed) {
 
   var dialog = new Dialog("Copy to Artboards", "copy-to-artboards/")
   var rangeGroup, anchorList
-  var prefs = preferences2.resolve("objects/copy_to_artboards")
+  var config = configs.resolve("objects/copy_to_artboards")
 
   dialog.vgroup(function(main) {
+    main.alignChildren = "right"
     main.hgroup(function(group) {
       group.tooltips("Which artboards to paste")
-      group.staticText(BOUNDS_TEXT, "Artboards:").also(JUSTIFY_RIGHT)
-      rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
+      group.staticText(undefined, "Artboards:").also(JUSTIFY_RIGHT)
+      rangeGroup = new RangeGroup(group, SIZE_INPUT).also(function(it) {
         it.maxRange = document.artboards.length
         it.endEdit.text = document.artboards.length
         it.startEdit.activate()
@@ -50,9 +48,9 @@ if (proceed) {
     })
     main.hgroup(function(group) {
       group.tooltips("Duplicate by putting distance between selection and anchor.\nThis option is only available when artboards do not have the same size.")
-      group.staticText(BOUNDS_TEXT, "Anchor:").also(JUSTIFY_RIGHT)
-      anchorList = group.dropDownList(BOUNDS_EDIT, ANCHORS).also(function(it) {
-        it.selectText(prefs.getString("anchor", "Top Left"))
+      group.staticText(undefined, "Anchor:").also(JUSTIFY_RIGHT)
+      anchorList = group.dropDownList(SIZE_INPUT, ANCHORS).also(function(it) {
+        it.selectText(config.getString("anchor", "Top Left"))
       })
       group.enabled = Collections.any(document.artboards, function(it) {
         return !isEqualRounded(it.artboardRect.getWidth(), activeArtboardRect.getWidth()) ||
@@ -87,7 +85,7 @@ if (proceed) {
       })
     })
 
-    prefs.setString("anchor", anchorList.selection.text)
+    config.setString("anchor", anchorList.selection.text)
   })
   dialog.show()
 }

@@ -1,9 +1,8 @@
 #target Illustrator
 #include "../.lib/commons.js"
 
-var BOUNDS_TEXT = [50, 21]
-var BOUNDS_EDIT = [120, 21]
 var PREDICATE_LINKS = function(it) { return it.typename === "PlacedItem" }
+var SIZE_INPUT = [120, 21]
 
 checkHasSelection()
 var items = Collections.filterItem(selection, PREDICATE_LINKS)
@@ -11,7 +10,7 @@ check(Collections.isNotEmpty(items), "No links found in selection")
 
 var dialog = new Dialog("Relink Same", "relinking-files/#relink-same")
 var pdfPanel, pageEdit, keepSizeCheck
-var prefs = preferences2.resolve("links/relink_same")
+var config = configs.resolve("links/relink_same")
 
 var file = FilePicker.openFile(dialog.getTitle(), [
   FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
@@ -20,12 +19,13 @@ var file = FilePicker.openFile(dialog.getTitle(), [
 
 if (file !== null) {
   dialog.vgroup(function(main) {
+    main.alignChildren = "fill"
     if (file.isPdf()) {
-      pdfPanel = new OpenPDFPanel(main, BOUNDS_TEXT, BOUNDS_EDIT).also(function(panel) {
+      pdfPanel = new OpenPDFPanel(main, SIZE_INPUT).also(function(panel) {
         panel.main.hgroup(function(group) {
           group.tooltips("Which page should be used when opening a multipage document")
-          group.staticText(BOUNDS_TEXT, "Page:").also(JUSTIFY_RIGHT)
-          pageEdit = group.editText(BOUNDS_EDIT, "1").also(function(it) {
+          group.staticText(undefined, "Page:").also(JUSTIFY_RIGHT)
+          pageEdit = group.editText(SIZE_INPUT, "1").also(function(it) {
             it.validateDigits()
             it.activate()
           })
@@ -35,7 +35,7 @@ if (file !== null) {
     main.hgroup(function(group) {
       group.alignment = "right"
       keepSizeCheck = new KeepSizeCheck(group).also(function(it) {
-        it.main.value = prefs.getBoolean("keep_size")
+        it.main.value = config.getBoolean("keep_size")
       })
     })
   })
@@ -56,7 +56,7 @@ if (file !== null) {
     })
     selection = items
 
-    prefs.setBoolean("keep_size", keepSizeCheck.isSelected())
+    config.setBoolean("keep_size", keepSizeCheck.isSelected())
   })
   dialog.show()
 }

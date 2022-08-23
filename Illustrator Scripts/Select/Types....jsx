@@ -7,11 +7,8 @@
 var YES_OR_NO = ["Yes", "No"]
 var KINDS = ["Point Text", "Area Text", "Path Text"]
 var ORIENTATIONS = ["Horizontal", "Vertical"]
-
-var BOUNDS_LEFT_TEXT = [80, 21]
-var BOUNDS_LEFT_EDIT = [100, 21]
-var BOUNDS_RIGHT_TEXT = [70, 21]
-var BOUNDS_RIGHT_EDIT = [110, 21]
+var SIZE_INPUT_LEFT = [100, 21]
+var SIZE_INPUT_RIGHT = [110, 21]
 
 check(Collections.isNotEmpty(document.textFrames), "No texts in this document")
 var isFilterMode = Collections.isNotEmpty(selection)
@@ -22,7 +19,7 @@ var fontNameEdit, fontSizeEdit, italicList, underlineList
 var fillColorList, strokeColorList
 var kindList, orientationList
 var recursiveCheck
-var prefs = preferences2.resolve("select/types")
+var config = configs.resolve("select/types")
 
 dialog.hgroup(function(main) {
   main.alignChildren = "fill"
@@ -41,59 +38,61 @@ dialog.hgroup(function(main) {
       })
     })
     topGroup.vpanel("Character", function(panel) {
-      panel.alignChildren = "fill"
+      panel.alignChildren = "right"
       panel.hgroup(function(group) {
         group.tooltips("The font's full name")
-        group.staticText(BOUNDS_LEFT_TEXT, "Font name:").also(JUSTIFY_RIGHT)
-        fontNameEdit = group.editText(BOUNDS_LEFT_EDIT)
+        group.staticText(undefined, "Font name:").also(JUSTIFY_RIGHT)
+        fontNameEdit = group.editText(SIZE_INPUT_LEFT)
       })
       panel.hgroup(function(group) {
         group.tooltips("Font size in points")
-        group.staticText(BOUNDS_LEFT_TEXT, "Font size:").also(JUSTIFY_RIGHT)
-        fontSizeEdit = group.editText(BOUNDS_LEFT_EDIT).also(VALIDATE_UNITS)
+        group.staticText(undefined, "Font size:").also(JUSTIFY_RIGHT)
+        fontSizeEdit = group.editText(SIZE_INPUT_LEFT).also(VALIDATE_UNITS)
       })
       panel.hgroup(function(group) {
         group.tooltips("Does the Japanese OpenType support italics?")
-        group.staticText(BOUNDS_LEFT_TEXT, "Italic:").also(JUSTIFY_RIGHT)
-        italicList = group.dropDownList(BOUNDS_LEFT_EDIT, YES_OR_NO)
+        group.staticText(undefined, "Italic:").also(JUSTIFY_RIGHT)
+        italicList = group.dropDownList(SIZE_INPUT_LEFT, YES_OR_NO)
       })
       panel.hgroup(function(group) {
         group.tooltips("Whether to underline the text")
-        group.staticText(BOUNDS_LEFT_TEXT, "Underline:").also(JUSTIFY_RIGHT)
-        underlineList = group.dropDownList(BOUNDS_LEFT_EDIT, YES_OR_NO)
+        group.staticText(undefined, "Underline:").also(JUSTIFY_RIGHT)
+        underlineList = group.dropDownList(SIZE_INPUT_LEFT, YES_OR_NO)
       })
     })
   })
   main.vgroup(function(topGroup) {
     topGroup.alignChildren = "fill"
     topGroup.vpanel("Color", function(panel) {
+      panel.alignChildren = "right"
       panel.hgroup(function(group) {
         group.tooltips("The color of the text fill")
-        group.staticText(BOUNDS_RIGHT_TEXT, "Fill:").also(JUSTIFY_RIGHT)
-        fillColorList = group.dropDownList(BOUNDS_RIGHT_EDIT, COLORS)
+        group.staticText(undefined, "Fill:").also(JUSTIFY_RIGHT)
+        fillColorList = group.dropDownList(SIZE_INPUT_RIGHT, COLORS)
       })
       panel.hgroup(function(group) {
         group.tooltips("The color of the text stroke")
-        group.staticText(BOUNDS_RIGHT_TEXT, "Stroke:").also(JUSTIFY_RIGHT)
-        strokeColorList = group.dropDownList(BOUNDS_RIGHT_EDIT, COLORS)
+        group.staticText(undefined, "Stroke:").also(JUSTIFY_RIGHT)
+        strokeColorList = group.dropDownList(SIZE_INPUT_RIGHT, COLORS)
       })
     })
     topGroup.vpanel("Others", function(panel) {
+      panel.alignChildren = "right"
       panel.hgroup(function(group) {
         group.tooltips("The type of a text frame item")
-        group.staticText(BOUNDS_RIGHT_TEXT, "Kind:").also(JUSTIFY_RIGHT)
-        kindList = group.dropDownList(BOUNDS_RIGHT_EDIT, KINDS)
+        group.staticText(undefined, "Kind:").also(JUSTIFY_RIGHT)
+        kindList = group.dropDownList(SIZE_INPUT_RIGHT, KINDS)
       })
       panel.hgroup(function(group) {
         group.tooltips("The orientation of the text in the frame")
-        group.staticText(BOUNDS_RIGHT_TEXT, "Orientation:").also(JUSTIFY_RIGHT)
-        orientationList = group.dropDownList(BOUNDS_RIGHT_EDIT, ORIENTATIONS)
+        group.staticText(undefined, "Orientation:").also(JUSTIFY_RIGHT)
+        orientationList = group.dropDownList(SIZE_INPUT_RIGHT, ORIENTATIONS)
       })
     })
     if (isFilterMode) {
       recursiveCheck = new RecursiveCheck(topGroup).also(function(it) {
         it.main.alignment = "right"
-        it.main.value = prefs.getBoolean("recursive")
+        it.main.value = config.getBoolean("recursive")
       })
     }
   })
@@ -146,7 +145,7 @@ dialog.setDefaultButton(undefined, function() {
     return true
   }, isFilterMode && recursiveCheck.isSelected())
 
-  prefs.setBoolean("recursive", recursiveCheck.isSelected())
+  if (isFilterMode) config.setBoolean("recursive", recursiveCheck.isSelected())
 })
 dialog.show()
 

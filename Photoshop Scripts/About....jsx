@@ -22,7 +22,7 @@ dialog.vgroup(function(main) {
     panel.toolsTab.button(undefined, "Clear Preferences").also(function(it) {
       it.maximumSize.height = 21
       it.onClick = function() {
-        preferences2.resolve("images/add_bleed").edit(function(it) {
+        configs.resolve("images/add_bleed").edit(function(it) {
           it.remove("length")
         })
         alert("Done.", "About Scripts")

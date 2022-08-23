@@ -13,14 +13,14 @@ var dialog = new Dialog("Add Bleed to Images", "add-bleed-to-images/")
 var lengthEdit
 var anchorGroup
 var flattenImageCheck, guidesRadiosCheckGroup, selectBleedCheck, correctionEdit
-var prefs = preferences2.resolve("images/add_bleed")
+var config = configs.resolve("images/add_bleed")
 
 dialog.vgroup(function(main) {
   main.alignChildren = "fill"
   main.hgroup(function(group) {
     group.tooltips("Bleed are distributed around image")
     group.staticText([120, 21], "Length:").also(JUSTIFY_RIGHT)
-    lengthEdit = group.editText([200, 21], prefs.getString("length", "2.5 mm")).also(function(it) {
+    lengthEdit = group.editText([200, 21], config.getString("length", "2.5 mm")).also(function(it) {
       it.validateUnits()
       it.activate()
     })
@@ -75,7 +75,7 @@ dialog.setYesButton("All", function() {
   var anchor = anchorGroup.getAnchorPosition()
   var correction = parseUnits(correctionEdit.text)
   var progress = new ProgressPalette(app.documents.length, "Adding bleed")
-  
+
   Collections.forEach(app.documents, function(document) {
     progress.increment()
     process(document, bleed, anchor, correction)
@@ -142,7 +142,7 @@ function process(document, bleed, anchor, correction) {
     document.selection.invert()
   }
 
-  prefs.edit(function(it) {
+  config.edit(function(it) {
     it.setString("length", lengthEdit.text)
   })
 }

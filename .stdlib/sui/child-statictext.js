@@ -16,30 +16,30 @@ StaticText.prototype.tooltip = function(text) { Internals.setTooltip(this, text)
 
 /**
  * Add children to group.
- * @param {Array} bounds optional array of size or position & size.
+ * @param {Array} size optional size or bounds.
  * @param {String} text optional control text.
  * @param {Object} properties optional extra properties.
  * @returns {StaticText}
  */
-Group.prototype.staticText = function(bounds, text, properties) {
-  return _staticText(this, bounds, text, properties)
+Group.prototype.staticText = function(size, text, properties) {
+  return _staticText(this, size, text, properties)
 }
 
 /**
  * Add children to panel.
- * @param {Array} bounds optional array of size or position & size.
+ * @param {Array} size optional size or bounds.
  * @param {String} text optional control text.
  * @param {Object} properties optional extra properties.
  * @returns {StaticText}
  */
-Panel.prototype.staticText = function(bounds, text, properties) {
-  return _staticText(this, bounds, text, properties)
+Panel.prototype.staticText = function(size, text, properties) {
+  return _staticText(this, size, text, properties)
 }
 
-function _staticText(parent, bounds, text, properties) {
-  var result = parent.add("statictext", Internals.expandBounds(bounds), text, properties)
-  if (parent.helpTips !== undefined) {
-    Internals.setTooltip(result, parent.helpTips)
+function _staticText(root, size, text, properties) {
+  var child = root.add("statictext", Internals.sizeToBounds(size), text, properties)
+  if (root.helpTips !== undefined) {
+    Internals.setTooltip(child, root.helpTips)
   }
-  return result
+  return child
 }

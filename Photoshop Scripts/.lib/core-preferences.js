@@ -7,16 +7,14 @@
 /** Global access to preferences. */
 var preferences = app.preferences
 
-var PREFERENCES_ROOT = "Prepress Adobe Scripts"
-
 /** Global access to preferences wrapper. */
-var preferences2 = new PreferencesWrapper(PREFERENCES_ROOT)
+var configs = new Configs("Prepress Adobe Scripts")
 
 /**
  * Wrapper of `Preferences` with simplified API.
  * @param {String} path hierarcy of preferences.
  */
-function PreferencesWrapper(path) {
+function Configs(path) {
   var descriptor
   try {
     descriptor = app.getCustomOptions(path)
@@ -30,7 +28,7 @@ function PreferencesWrapper(path) {
    * @returns {Boolean}
    */
   this.resolve = function(relative) {
-    return new PreferencesWrapper(path + "/" + relative)
+    return new Configs(path + "/" + relative)
   }
 
   /**
@@ -69,60 +67,60 @@ function PreferencesWrapper(path) {
     return value
   }
 
-  this.editor = new PreferencesEditor(path, descriptor)
+  this.editor = new Editor(path, descriptor)
 
   /**
    * Open DSL to configure preferences.
    * @param {Function} action runnable with editor as parameter.
    */
   this.edit = function(action) {
-    var editor = new PreferencesEditor(path, descriptor)
+    var editor = new Editor(path, descriptor)
     action(editor)
     editor.save()
   }
-}
-
-/**
- * A class to edit values of preferences.
- * Any configuration is queued until `save` is called.
- * @param {String} path hierarcy of preferences.
- * @param {ActionDescriptor} descriptor inherited from `PreferencesWrapper`.
- */
-function PreferencesEditor(path, descriptor) {
-  /**
-   * Set boolean value of this preferences.
-   * @param {String} key preference's key.
-   * @param {Boolean} value preference's value to store.
-   */
-  this.setBoolean = function(key, value) {
-    var actualValue = value instanceof Function ? value() : value
-    descriptor.putBoolean(app.stringIDToTypeID(key), actualValue)
-    println("Set preference `%s`: `%s`.", key, actualValue)
-  }
 
   /**
-   * Set string value of this preferences.
-   * @param {String} key preference's key.
-   * @param {String} value preference's value to store.
+   * A class to edit values of preferences.
+   * Any configuration is queued until `save` is called.
+   * @param {String} path hierarcy of preferences.
+   * @param {ActionDescriptor} descriptor inherited from `PreferencesWrapper`.
    */
-  this.setString = function(key, value) {
-    var actualValue = value instanceof Function ? value() : value
-    descriptor.putString(app.stringIDToTypeID(key), actualValue)
-    println("Set preference `%s`: `%s`.", key, actualValue)
-  }
+  function Editor(path, descriptor) {
+    /**
+     * Set boolean value of this preferences.
+     * @param {String} key preference's key.
+     * @param {Boolean} value preference's value to store.
+     */
+    this.setBoolean = function(key, value) {
+      var actualValue = value instanceof Function ? value() : value
+      descriptor.putBoolean(app.stringIDToTypeID(key), actualValue)
+      println("Set preference `%s`: `%s`.", key, actualValue)
+    }
 
-  /**
-   * Remove preference from this preferences.
-   * @param {String} key preference's key.
-   */
-  this.remove = function(key) {
-    descriptor.erase(app.stringIDToTypeID(key))
-    println("Remove preference `%s`.", key)
-  }
+    /**
+     * Set string value of this preferences.
+     * @param {String} key preference's key.
+     * @param {String} value preference's value to store.
+     */
+    this.setString = function(key, value) {
+      var actualValue = value instanceof Function ? value() : value
+      descriptor.putString(app.stringIDToTypeID(key), actualValue)
+      println("Set preference `%s`: `%s`.", key, actualValue)
+    }
 
-  /** Confirm all the changes to this editor. */
-  this.save = function() {
-    app.putCustomOptions(path, descriptor, true)
-    println("Save preferences.")
+    /**
+     * Remove preference from this preferences.
+     * @param {String} key preference's key.
+     */
+    this.remove = function(key) {
+      descriptor.erase(app.stringIDToTypeID(key))
+      println("Remove preference `%s`.", key)
+    }
+
+    /** Confirm all the changes to this editor. */
+    this.save = function() {
+      app.putCustomOptions(path, descriptor, true)
+      println("Save preferences.")
+    }
   }
 }

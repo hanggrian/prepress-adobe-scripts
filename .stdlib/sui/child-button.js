@@ -12,30 +12,30 @@ Button.prototype.tooltip = function(text) { Internals.setTooltip(this, text) }
 
 /**
  * Add children to group.
- * @param {Array} bounds optional array of size or position & size.
+ * @param {Array} size optional size or bounds.
  * @param {String} text optional control text.
  * @param {Object} properties optional extra properties.
  * @returns {Button}
  */
-Group.prototype.button = function(bounds, text, properties) {
-  return _button(this, bounds, text, properties)
+Group.prototype.button = function(size, text, properties) {
+  return _button(this, size, text, properties)
 }
 
 /**
  * Add children to panel.
- * @param {Array} bounds optional array of size or position & size.
+ * @param {Array} size optional size or bounds.
  * @param {String} text optional control text.
  * @param {Object} properties optional extra properties.
  * @returns {Button}
  */
-Panel.prototype.button = function(bounds, text, properties) {
-  return _button(this, bounds, text, properties)
+Panel.prototype.button = function(size, text, properties) {
+  return _button(this, size, text, properties)
 }
 
-function _button(parent, bounds, text, properties) {
-  var result = parent.add("button", Internals.expandBounds(bounds), text, properties)
-  if (parent.helpTips !== undefined) {
-    Internals.setTooltip(result, parent.helpTips)
+function _button(root, size, text, properties) {
+  var child = root.add("button", Internals.sizeToBounds(size), text, properties)
+  if (root.helpTips !== undefined) {
+    Internals.setTooltip(child, root.helpTips)
   }
-  return result
+  return child
 }

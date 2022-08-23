@@ -22,10 +22,8 @@ var Internals = {
     })
   },
 
-  expandBounds: function(bounds) {
-    return bounds !== undefined && bounds.length === 2
-      ? [0, 0, bounds[0], bounds[1]]
-      : bounds
+  sizeToBounds: function(size) {
+    return size !== undefined && size.length === 2 ? [0, 0, size[0], size[1]] : size
   },
 
   removeRegexes: function(string, regexes) {

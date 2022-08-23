@@ -3,123 +3,123 @@
 
 checkHasSelection()
 
-var BOUNDS_TEXT = [50, 21]
-var BOUNDS_EDIT = [110, 21]
-var BOUNDS_CHECK = [15, 15]
+var SIZE_INPUT = [110, 21]
+var SIZE_CHECK = [15, 15]
 
 var dialog = new Dialog("Add Trim Marks", "add-trim-marks/")
 var offsetEdit, lengthEdit, weightEdit, colorList
 var topLeftCheck, topRightCheck, leftTopCheck, rightTopCheck, leftBottomCheck, rightBottomCheck, bottomLeftCheck, bottomRightCheck // single checks
 var topCheck, rightCheck, bottomCheck, leftCheck // multiple checks
 var multipleTargetMultiRadioCheckGroup
-var prefs = preferences2.resolve("objects/add_trim_marks")
+var config = configs.resolve("objects/add_trim_marks")
 
 dialog.vgroup(function(main) {
   main.alignChildren = "right"
   main.hgroup(function(topGroup) {
     topGroup.alignChildren = "fill"
     topGroup.vpanel("Trim Marks", function(panel) {
+      panel.alignChildren = "right"
       panel.hgroup(function(group) {
         group.tooltips("Distance between art and trim marks")
-        group.staticText(BOUNDS_TEXT, "Offset:").also(JUSTIFY_RIGHT)
-        offsetEdit = group.editText(BOUNDS_EDIT, prefs.getString("offset", "2.5 mm")).also(function(it) {
+        group.staticText(undefined, "Offset:").also(JUSTIFY_RIGHT)
+        offsetEdit = group.editText(SIZE_INPUT, config.getString("offset", "2.5 mm")).also(function(it) {
           it.validateUnits()
           it.activate()
         })
       })
       panel.hgroup(function(group) {
         group.tooltips("Size of trim marks")
-        group.staticText(BOUNDS_TEXT, "Length:").also(JUSTIFY_RIGHT)
-        lengthEdit = group.editText(BOUNDS_EDIT, prefs.getString("length", "2.5 mm")).also(VALIDATE_UNITS)
+        group.staticText(undefined, "Length:").also(JUSTIFY_RIGHT)
+        lengthEdit = group.editText(SIZE_INPUT, config.getString("length", "2.5 mm")).also(VALIDATE_UNITS)
       })
       panel.hgroup(function(group) {
         group.tooltips("Thickness of trim marks")
-        group.staticText(BOUNDS_TEXT, "Weight:").also(JUSTIFY_RIGHT)
-        weightEdit = group.editText(BOUNDS_EDIT, prefs.getString("weight", "0.3 pt")).also(VALIDATE_UNITS) // the same value used in `Object > Create Trim Marks`
+        group.staticText(undefined, "Weight:").also(JUSTIFY_RIGHT)
+        weightEdit = group.editText(SIZE_INPUT, config.getString("weight", "0.3 pt")).also(VALIDATE_UNITS) // the same value used in `Object > Create Trim Marks`
       })
       panel.hgroup(function(group) {
         group.tooltips("Color of trim marks")
-        group.staticText(BOUNDS_TEXT, "Color:").also(JUSTIFY_RIGHT)
-        colorList = group.dropDownList(BOUNDS_EDIT, COLORS).also(function(it) {
-          it.selectText(prefs.getString("color", "Registration"))
+        group.staticText(undefined, "Color:").also(JUSTIFY_RIGHT)
+        colorList = group.dropDownList(SIZE_INPUT, COLORS).also(function(it) {
+          it.selectText(config.getString("color", "Registration"))
         })
       })
     })
     topGroup.vpanel("Locations", function(panel) {
       panel.hgroup(function(group) {
-        group.staticText(BOUNDS_CHECK)
-        topLeftCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
+        group.staticText(SIZE_CHECK)
+        topLeftCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
           it.tooltip("Top left")
         })
-        topCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
+        topCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
           it.tooltip("Top")
           it.visible = false
         })
-        topRightCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
+        topRightCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
           it.tooltip("Top right")
         })
-        group.staticText(BOUNDS_CHECK)
+        group.staticText(SIZE_CHECK)
       })
       panel.hgroup(function(group) {
-        leftTopCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
+        leftTopCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
           it.tooltip("Left top")
         })
-        group.image(BOUNDS_CHECK, "ic_arrow_topleft")
-        group.image(BOUNDS_CHECK, "ic_arrow_top")
-        group.image(BOUNDS_CHECK, "ic_arrow_topright")
-        rightTopCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
+        group.image(SIZE_CHECK, "ic_arrow_topleft")
+        group.image(SIZE_CHECK, "ic_arrow_top")
+        group.image(SIZE_CHECK, "ic_arrow_topright")
+        rightTopCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
           it.tooltip("Right top")
         })
       })
       panel.hgroup(function(group) {
-        leftCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
+        leftCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
           it.tooltip("Left")
           it.visible = false
         })
-        group.image(BOUNDS_CHECK, "ic_arrow_left")
-        group.image(BOUNDS_CHECK, "ic_arrow_center")
-        group.image(BOUNDS_CHECK, "ic_arrow_right")
-        rightCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
+        group.image(SIZE_CHECK, "ic_arrow_left")
+        group.image(SIZE_CHECK, "ic_arrow_center")
+        group.image(SIZE_CHECK, "ic_arrow_right")
+        rightCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
           it.tooltip("Right")
           it.visible = false
         })
       })
       panel.hgroup(function(group) {
-        leftBottomCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
+        leftBottomCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
           it.tooltip("Left bottom")
         })
-        group.image(BOUNDS_CHECK, "ic_arrow_bottomleft")
-        group.image(BOUNDS_CHECK, "ic_arrow_bottom")
-        group.image(BOUNDS_CHECK, "ic_arrow_bottomright")
-        rightBottomCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
+        group.image(SIZE_CHECK, "ic_arrow_bottomleft")
+        group.image(SIZE_CHECK, "ic_arrow_bottom")
+        group.image(SIZE_CHECK, "ic_arrow_bottomright")
+        rightBottomCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
           it.tooltip("Right bottom")
         })
       })
       panel.hgroup(function(group) {
-        group.staticText(BOUNDS_CHECK)
-        bottomLeftCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
+        group.staticText(SIZE_CHECK)
+        bottomLeftCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
           it.tooltip("Bottom left")
         })
-        bottomCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
+        bottomCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
           it.tooltip("Bottom")
           it.visible = false
         })
-        bottomRightCheck = group.checkBox(BOUNDS_CHECK).also(function(it) {
+        bottomRightCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
           it.tooltip("Bottom right")
         })
-        group.staticText(BOUNDS_CHECK)
+        group.staticText(SIZE_CHECK)
       })
     })
   })
@@ -152,10 +152,10 @@ dialog.setDefaultButton(undefined, function() {
     ? processMultiple(offset, length, weight, color, maxBounds)
     : processSingle(offset, length, weight, color, maxBounds)
 
-  prefs.setString("offset", offsetEdit.text)
-  prefs.setString("length", lengthEdit.text)
-  prefs.setString("weight", weightEdit.text)
-  prefs.setString("color", colorList.selection.text)
+  config.setString("offset", offsetEdit.text)
+  config.setString("length", lengthEdit.text)
+  config.setString("weight", weightEdit.text)
+  config.setString("color", colorList.selection.text)
 })
 dialog.show()
 

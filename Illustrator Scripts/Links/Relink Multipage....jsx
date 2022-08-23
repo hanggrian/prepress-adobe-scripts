@@ -1,9 +1,8 @@
 #target Illustrator
 #include "../.lib/commons.js"
 
-var BOUNDS_TEXT = [50, 21]
-var BOUNDS_EDIT = [120, 21]
 var PREDICATE_LINKS = function(it) { return it.typename === "PlacedItem" }
+var SIZE_INPUT = [120, 21]
 
 checkHasSelection()
 check(Collections.anyItem(selection, PREDICATE_LINKS), "No links found in selection")
@@ -11,7 +10,7 @@ check(Collections.anyItem(selection, PREDICATE_LINKS), "No links found in select
 var dialog = new Dialog("Relink Multipage", "relinking-files/#relink-multipage")
 var pdfPanel, rangeGroup, orderByGroup, recursiveCheck, keepSizeCheck
 var collection
-var prefs = preferences2.resolve("links/relink_multipage")
+var config = configs.resolve("links/relink_multipage")
 
 var files = FilePicker.openFile(dialog.getTitle(), [
   FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
@@ -22,29 +21,32 @@ if (files !== null && Collections.isNotEmpty(files)) {
   collection = new FileCollection(files)
 
   dialog.vgroup(function(main) {
-    main.alignChildren = "right"
+    main.alignChildren = "fill"
     if (collection.hasPDF) {
-      pdfPanel = new OpenPDFPanel(main, BOUNDS_TEXT, BOUNDS_EDIT)
+      pdfPanel = new OpenPDFPanel(main, SIZE_INPUT)
     }
     main.vpanel("Pages", function(panel) {
+      panel.alignChildren = "right"
       panel.hgroup(function(group) {
         group.tooltips("Which pages should be used when opening a multipage document")
-        group.staticText(BOUNDS_TEXT, "Pages:").also(JUSTIFY_RIGHT)
-        rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
+        group.staticText(undefined, "Pages:").also(JUSTIFY_RIGHT)
+        rangeGroup = new RangeGroup(group, SIZE_INPUT).also(function(it) {
           it.startEdit.activate()
           it.endEdit.text = collection.length
         })
       })
     })
     orderByGroup = new OrderByGroup(main, [ORDER_LAYERS, ORDER_POSITIONS]).also(function(group) {
-      group.list.selectText(prefs.getString("order", "Reversed"))
+      group.main.alignment = "right"
+      group.list.selectText(config.getString("order", "Reversed"))
     })
     main.hgroup(function(group) {
+      group.alignment = "right"
       recursiveCheck = new RecursiveCheck(group).also(function(it) {
-        it.main.value = prefs.getBoolean("recursive")
+        it.main.value = config.getBoolean("recursive")
       })
       keepSizeCheck = new KeepSizeCheck(group).also(function(it) {
-        it.main.value = prefs.getBoolean("keep_size")
+        it.main.value = config.getBoolean("keep_size")
       })
     })
   })
@@ -77,9 +79,9 @@ if (files !== null && Collections.isNotEmpty(files)) {
     })
     selection = source
 
-    prefs.setString("order", orderByGroup.list.selection.text)
-    prefs.setBoolean("recursive", isRecursive)
-    prefs.setBoolean("keep_size", keepSizeCheck.isSelected())
+    config.setString("order", orderByGroup.list.selection.text)
+    config.setBoolean("recursive", isRecursive)
+    config.setBoolean("keep_size", keepSizeCheck.isSelected())
   })
   dialog.show()
 }

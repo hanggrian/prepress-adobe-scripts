@@ -4,7 +4,7 @@
 </javascriptresource>
 */
 
-var BOUNDS_ANCHOR_RADIO = [15, 15]
+var SIZE_ANCHOR_RADIO = [15, 15]
 
 /**
  * 3 groups with 3 radio buttons each representing anchor position.
@@ -23,15 +23,15 @@ function AnchorGroup(parent, isPsd) {
       if (isPsd) {
         group.spacing = 0
       }
-      self.topLeftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
+      self.topLeftRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
         it.tooltip("Top left")
         registerRadioClick(it)
       })
-      self.topRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
+      self.topRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
         it.tooltip("Top")
         registerRadioClick(it)
       })
-      self.topRightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
+      self.topRightRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
         it.tooltip("Top right")
         registerRadioClick(it)
       })
@@ -40,16 +40,16 @@ function AnchorGroup(parent, isPsd) {
       if (isPsd) {
         group.spacing = 0
       }
-      self.leftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
+      self.leftRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
         it.tooltip("Left")
         registerRadioClick(it)
       })
-      self.centerRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
+      self.centerRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
         it.tooltip("Center")
         it.select()
         registerRadioClick(it)
       })
-      self.rightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
+      self.rightRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
         it.tooltip("Right")
         registerRadioClick(it)
       })
@@ -58,15 +58,15 @@ function AnchorGroup(parent, isPsd) {
       if (isPsd) {
         group.spacing = 0
       }
-      self.bottomLeftRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
+      self.bottomLeftRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
         it.tooltip("Bottom left")
         registerRadioClick(it)
       })
-      self.bottomRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
+      self.bottomRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
         it.tooltip("Bottom")
         registerRadioClick(it)
       })
-      self.bottomRightRadio = group.radioButton(BOUNDS_ANCHOR_RADIO).also(function(it) {
+      self.bottomRightRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
         it.tooltip("Bottom right")
         registerRadioClick(it)
       })

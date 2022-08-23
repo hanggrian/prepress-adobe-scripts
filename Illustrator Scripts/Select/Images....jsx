@@ -7,10 +7,7 @@
 var YES_OR_NO = ["Yes", "No"]
 var COLOR_SPACES = ["Grayscale", "RGB", "CMYK", "LAB", "Separations", "DeviceN", "Indexed"]
 var STATUSES = ["No Data", "Data from File", "Data Modified"]
-
-var BOUNDS_LEFT_TEXT = [80, 21]
-var BOUNDS_RIGHT_TEXT = [60, 21]
-var BOUNDS_EDIT = [100, 21]
+var SIZE_INPUT = [100, 21]
 
 check(Collections.isNotEmpty(document.rasterItems), "No images in this document")
 var isFilterMode = Collections.isNotEmpty(selection)
@@ -20,54 +17,56 @@ var dimensionPanel
 var colorSpaceList, bitsEdit, transparentList
 var embeddedList, overprintList, statusList
 var recursiveCheck
-var prefs = preferences2.resolve("select/images")
+var config = configs.resolve("select/images")
 
 dialog.hgroup(function(main) {
   main.alignChildren = "fill"
   main.vgroup(function(topGroup) {
     topGroup.alignChildren = "fill"
-    dimensionPanel = new SelectDimensionPanel(topGroup, BOUNDS_LEFT_TEXT, BOUNDS_EDIT)
+    dimensionPanel = new SelectDimensionPanel(topGroup, SIZE_INPUT)
     topGroup.vpanel("Image", function(panel) {
+      panel.alignChildren = "right"
       panel.hgroup(function(group) {
         group.tooltips("The color space of the raster image")
-        group.staticText(BOUNDS_LEFT_TEXT, "Color Space:").also(JUSTIFY_RIGHT)
-        colorSpaceList = group.dropDownList(BOUNDS_EDIT, COLOR_SPACES)
+        group.staticText(undefined, "Color Space:").also(JUSTIFY_RIGHT)
+        colorSpaceList = group.dropDownList(SIZE_INPUT, COLOR_SPACES)
       })
       panel.hgroup(function(group) {
         group.tooltips("The number of bits per channel")
-        group.staticText(BOUNDS_LEFT_TEXT, "Bits/Channel:").also(JUSTIFY_RIGHT)
-        bitsEdit = group.editText(BOUNDS_EDIT).also(VALIDATE_DIGITS)
+        group.staticText(undefined, "Bits/Channel:").also(JUSTIFY_RIGHT)
+        bitsEdit = group.editText(SIZE_INPUT).also(VALIDATE_DIGITS)
       })
       panel.hgroup(function(group) {
         group.tooltips("Is the raster art transparent?")
-        group.staticText(BOUNDS_LEFT_TEXT, "Transparent:").also(JUSTIFY_RIGHT)
-        transparentList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
+        group.staticText(undefined, "Transparent:").also(JUSTIFY_RIGHT)
+        transparentList = group.dropDownList(SIZE_INPUT, YES_OR_NO)
       })
     })
   })
   main.vgroup(function(topGroup) {
     topGroup.alignChildren = "fill"
     topGroup.vpanel("Others", function(panel) {
+      panel.alignChildren = "right"
       panel.hgroup(function(group) {
         group.tooltips("Is the raster art embedded within the illustration?")
-        group.staticText(BOUNDS_LEFT_TEXT, "Embedded:").also(JUSTIFY_RIGHT)
-        embeddedList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
+        group.staticText(undefined, "Embedded:").also(JUSTIFY_RIGHT)
+        embeddedList = group.dropDownList(SIZE_INPUT, YES_OR_NO)
       })
       panel.hgroup(function(group) {
         group.tooltips("Is the raster art overprinting?")
-        group.staticText(BOUNDS_LEFT_TEXT, "Overprint:").also(JUSTIFY_RIGHT)
-        overprintList = group.dropDownList(BOUNDS_EDIT, YES_OR_NO)
+        group.staticText(undefined, "Overprint:").also(JUSTIFY_RIGHT)
+        overprintList = group.dropDownList(SIZE_INPUT, YES_OR_NO)
       })
       panel.hgroup(function(group) {
         group.tooltips("Status of the linked image")
-        group.staticText(BOUNDS_LEFT_TEXT, "Status:").also(JUSTIFY_RIGHT)
-        statusList = group.dropDownList(BOUNDS_EDIT, STATUSES)
+        group.staticText(undefined, "Status:").also(JUSTIFY_RIGHT)
+        statusList = group.dropDownList(SIZE_INPUT, STATUSES)
       })
     })
     if (isFilterMode) {
       recursiveCheck = new RecursiveCheck(topGroup).also(function(it) {
         it.main.alignment = "right"
-        it.main.value = prefs.getBoolean("recursive")
+        it.main.value = config.getBoolean("recursive")
       })
     }
   })
@@ -94,7 +93,7 @@ dialog.setDefaultButton(undefined, function() {
       colorSpace = ImageColorSpace.Indexed
     }
   }
-  var bits = parseInt(bitsEdit.text)
+  var bits = parseInt(bitsEdit.text) || 0
   var transparent = transparentList.hasSelection() ? transparentList.selection.text === "Yes" : undefined
   var embedded = embeddedList.hasSelection() ? embeddedList.selection.text === "Yes" : undefined
   var overprint = overprintList.hasSelection() ? overprintList.selection.text === "Yes" : undefined
@@ -112,7 +111,7 @@ dialog.setDefaultButton(undefined, function() {
     if (width !== undefined && parseInt(width) !== parseInt(item.width)) return false
     if (height !== undefined && parseInt(height) !== parseInt(item.height)) return false
     if (colorSpace !== undefined && colorSpace !== item.imageColorSpace) return false
-    if (bits !== undefined && parseInt(bits) !== parseInt(item.bitsPerChannel)) return false
+    if (bits !== 0 && parseInt(bits) !== parseInt(item.bitsPerChannel)) return false
     if (transparent !== undefined && transparent !== item.transparent) return false
     if (embedded !== undefined && embedded !== item.embedded) return false
     if (overprint !== undefined && overprint !== item.overprint) return false
@@ -120,6 +119,6 @@ dialog.setDefaultButton(undefined, function() {
     return true
   }, isFilterMode && recursiveCheck.isSelected())
 
-  prefs.setBoolean("recursive", recursiveCheck.isSelected())
+  if (isFilterMode) config.setBoolean("recursive", recursiveCheck.isSelected())
 })
 dialog.show()

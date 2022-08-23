@@ -1,25 +1,25 @@
 /**
  * Left and right EditText representing start and end point of range.
  * @param {Group|Panel|Window} parent holder of this control.
- * @param {Array} editBounds size or position & size array.
+ * @param {Array} inputSize size or bounds.
  */
-function RangeGroup(parent, editBounds) {
+function RangeGroup(parent, inputSize) {
   var self = this
   this.startEdit, this.endEdit
 
   this.minRange = 0
   this.maxRange = Number.MAX_VALUE
 
-  editBounds = [editBounds[0] / 2 - 13, editBounds[1]]
+  inputSize = [inputSize[0] / 2 - 13, inputSize[1]]
   this.main = parent.hgroup(function(group) {
-    self.startEdit = group.editText(editBounds, "1").also(function(it) {
+    self.startEdit = group.editText(inputSize, "1").also(function(it) {
       it.validateDigits()
       it.onChange = function() {
         self.endEdit.text = self.startEdit.text
       }
     })
     group.staticText(undefined, "–") // use en dash
-    self.endEdit = group.editText(editBounds, "1").also(VALIDATE_DIGITS)
+    self.endEdit = group.editText(inputSize, "1").also(VALIDATE_DIGITS)
   })
 
   /**

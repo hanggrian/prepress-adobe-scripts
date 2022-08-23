@@ -12,32 +12,32 @@ Progressbar.prototype.tooltip = function(text) { Internals.setTooltip(this, text
 
 /**
  * Add children to group.
- * @param {Array} bounds optional array of size or position & size.
+ * @param {Array} size optional size or bounds.
  * @param {Number} start min value.
  * @param {Number} end max value.
  * @param {Object} properties optional extra properties.
  * @returns {Progressbar}
  */
-Group.prototype.progressBar = function(bounds, start, end, properties) {
-  return _progressBar(this, bounds, start, end, properties)
+Group.prototype.progressBar = function(size, start, end, properties) {
+  return _progressBar(this, size, start, end, properties)
 }
 
 /**
  * Add children to panel.
- * @param {Array} bounds optional array of size or position & size.
+ * @param {Array} size optional size or bounds.
  * @param {Number} start min value.
  * @param {Number} end max value.
  * @param {Object} properties optional extra properties.
  * @returns {Progressbar}
  */
-Panel.prototype.progressBar = function(bounds, start, end, properties) {
-  return _progressBar(this, bounds, start, end, properties)
+Panel.prototype.progressBar = function(size, start, end, properties) {
+  return _progressBar(this, size, start, end, properties)
 }
 
-function _progressBar(parent, bounds, start, end, properties) {
-  var result = parent.add("progressbar", Internals.expandBounds(bounds), start, end, properties)
-  if (parent.helpTips !== undefined) {
-    Internals.setTooltip(result, parent.helpTips)
+function _progressBar(root, size, start, end, properties) {
+  var child = root.add("progressbar", Internals.sizeToBounds(size), start, end, properties)
+  if (root.helpTips !== undefined) {
+    Internals.setTooltip(child, root.helpTips)
   }
-  return result
+  return child
 }

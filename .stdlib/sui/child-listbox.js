@@ -27,43 +27,43 @@ ListBox.prototype.tooltip = function(text) { Internals.setTooltip(this, text) }
 
 /**
  * Add children to group.
- * @param {Array} bounds optional array of size or position & size.
+ * @param {Array} size optional size or bounds.
  * @param {Array} items optional list items.
  * @param {Object} properties optional extra properties.
  * @returns {ListBox}
  */
-Group.prototype.listBox = function(bounds, items, properties) {
-  return _listBox(this, bounds, items, properties)
+Group.prototype.listBox = function(size, items, properties) {
+  return _listBox(this, size, items, properties)
 }
 
 /**
  * Add children to panel.
- * @param {Array} bounds optional array of size or position & size.
+ * @param {Array} size optional size or bounds.
  * @param {Array} items optional list items.
  * @param {Object} properties optional extra properties.
  * @returns {ListBox}
  */
-Panel.prototype.listBox = function(bounds, items, properties) {
-  return _listBox(this, bounds, items, properties)
+Panel.prototype.listBox = function(size, items, properties) {
+  return _listBox(this, size, items, properties)
 }
 
-function _listBox(parent, bounds, items, properties) {
+function _listBox(root, size, items, properties) {
   var itemTexts, itemFiles
   Internals.splitListItems(items).run(function(it) {
     itemTexts = it[0]
     itemFiles = it[1]
   })
-  var result = parent.add("listbox", Internals.expandBounds(bounds), itemTexts, properties)
+  var child = root.add("listbox", Internals.sizeToBounds(size), itemTexts, properties)
   if (Collections.isNotEmpty(itemFiles)) {
-    Collections.forEach(result.items, function(it, i) {
+    Collections.forEach(child.items, function(it, i) {
       var itemFile = itemFiles[i]
       if (itemFile !== undefined) {
         it.image = itemFile
       }
     })
   }
-  if (parent.helpTips !== undefined) {
-    Internals.setTooltip(result, parent.helpTips)
+  if (root.helpTips !== undefined) {
+    Internals.setTooltip(child, root.helpTips)
   }
-  return result
+  return child
 }

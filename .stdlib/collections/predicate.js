@@ -6,7 +6,7 @@
 
 /**
  * First item of this collection, or given predicate when defined.
- * @param {Object} collection array or array-like objects.
+ * @param {Array|Object} collection array or array-like objects.
  * @param {Function} predicate optional consumer.
  * @returns {Object}
  */
@@ -24,7 +24,7 @@ Collections.first = function(collection, predicate) {
 
 /**
  * Last item of this collection, or given predicate when defined.
- * @param {Object} collection array or array-like objects.
+ * @param {Array|Object} collection array or array-like objects.
  * @param {Function} predicate optional consumer.
  * @returns {Object}
  */
@@ -42,7 +42,7 @@ Collections.last = function(collection, predicate) {
 
 /**
  * Returns true if the collection has no elements matching predicate.
- * @param {Object} collection array or array-like objects.
+ * @param {Array|Object} collection array or array-like objects.
  * @param {Function} predicate runnable with return value.
  * @returns {Boolean}
  */
@@ -57,7 +57,7 @@ Collections.none = function(collection, predicate) {
 
 /**
  * Returns true if collection has at least one element matching predicate.
- * @param {Object} collection array or array-like objects.
+ * @param {Array|Object} collection array or array-like objects.
  * @param {Function} predicate runnable with return value.
  * @returns {Boolean}
  */
@@ -72,7 +72,7 @@ Collections.any = function(collection, predicate) {
 
 /**
  * Returns true if all elements in this collection match the predicate.
- * @param {Object} collection array or array-like objects.
+ * @param {Array|Object} collection array or array-like objects.
  * @param {Function} predicate runnable with return value.
  * @returns {Boolean}
  */
@@ -87,7 +87,7 @@ Collections.all = function(collection, predicate) {
 
 /**
  * Returns a list containing only elements matching the given predicate.
- * @param {Object} collection array or array-like objects.
+ * @param {Array|Object} collection array or array-like objects.
  * @param {Function} predicate runnable with return value.
  * @returns {Array}
  */

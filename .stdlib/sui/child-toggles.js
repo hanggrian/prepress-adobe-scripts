@@ -20,32 +20,32 @@ Checkbox.prototype.tooltip = function(text) { Internals.setTooltip(this, text) }
 
 /**
  * Add children to group.
- * @param {Array} bounds optional array of size or position & size.
+ * @param {Array} size optional size or bounds.
  * @param {String} text optional control text.
  * @param {Object} properties optional extra properties.
  * @returns {CheckBox}
  */
-Group.prototype.checkBox = function(bounds, text, properties) {
-  return _checkBox(this, bounds, text, properties)
+Group.prototype.checkBox = function(size, text, properties) {
+  return _checkBox(this, size, text, properties)
 }
 
 /**
  * Add children to panel.
- * @param {Array} bounds optional array of size or position & size.
+ * @param {Array} size optional size or bounds.
  * @param {String} text optional control text.
  * @param {Object} properties optional extra properties.
  * @returns {CheckBox}
  */
-Panel.prototype.checkBox = function(bounds, text, properties) {
-  return _checkBox(this, bounds, text, properties)
+Panel.prototype.checkBox = function(size, text, properties) {
+  return _checkBox(this, size, text, properties)
 }
 
-function _checkBox(parent, bounds, text, properties) {
-  var result = parent.add("checkbox", Internals.expandBounds(bounds), text, properties)
-  if (parent.helpTips !== undefined) {
-    Internals.setTooltip(result, parent.helpTips)
+function _checkBox(root, size, text, properties) {
+  var child = root.add("checkbox", Internals.sizeToBounds(size), text, properties)
+  if (root.helpTips !== undefined) {
+    Internals.setTooltip(child, root.helpTips)
   }
-  return result
+  return child
 }
 
 /**
@@ -56,30 +56,30 @@ RadioButton.prototype.tooltip = function(text) { Internals.setTooltip(this, text
 
 /**
  * Add children to group.
- * @param {Array} bounds optional array of size or position & size.
+ * @param {Array} size optional size or bounds.
  * @param {String} text optional control text.
  * @param {Object} properties optional extra properties.
  * @returns {RadioButton}
  */
-Group.prototype.radioButton = function(bounds, text, properties) {
-  return _radioButton(this, bounds, text, properties)
+Group.prototype.radioButton = function(size, text, properties) {
+  return _radioButton(this, size, text, properties)
 }
 
 /**
  * Add children to panel.
- * @param {Array} bounds optional array of size or position & size.
+ * @param {Array} size optional size or bounds.
  * @param {String} text optional control text.
  * @param {Object} properties optional extra properties.
  * @returns {RadioButton}
  */
-Panel.prototype.radioButton = function(bounds, text, properties) {
-  return _radioButton(this, bounds, text, properties)
+Panel.prototype.radioButton = function(size, text, properties) {
+  return _radioButton(this, size, text, properties)
 }
 
-function _radioButton(parent, bounds, text, properties) {
-  var result = parent.add("radiobutton", Internals.expandBounds(bounds), text, properties)
-  if (parent.helpTips !== undefined) {
-    Internals.setTooltip(result, parent.helpTips)
+function _radioButton(root, size, text, properties) {
+  var child = root.add("radiobutton", Internals.sizeToBounds(size), text, properties)
+  if (root.helpTips !== undefined) {
+    Internals.setTooltip(child, root.helpTips)
   }
-  return result
+  return child
 }

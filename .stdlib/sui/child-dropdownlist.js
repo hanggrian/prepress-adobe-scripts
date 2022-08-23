@@ -27,43 +27,43 @@ DropDownList.prototype.tooltip = function(text) { Internals.setTooltip(this, tex
 
 /**
  * Add children to group.
- * @param {Array} bounds optional array of size or position & size.
+ * @param {Array} size optional size or bounds.
  * @param {Array} items optional list items.
  * @param {Object} properties optional extra properties.
  * @returns {DropDownList}
  */
-Group.prototype.dropDownList = function(bounds, items, properties) {
-  return _dropDownList(this, bounds, items, properties)
+Group.prototype.dropDownList = function(size, items, properties) {
+  return _dropDownList(this, size, items, properties)
 }
 
 /**
  * Add children to panel.
- * @param {Array} bounds optional array of size or position & size.
+ * @param {Array} size optional size or bounds.
  * @param {Array} items optional list items.
  * @param {Object} properties optional extra properties.
  * @returns {DropDownList}
  */
-Panel.prototype.dropDownList = function(bounds, items, properties) {
-  return _dropDownList(this, bounds, items, properties)
+Panel.prototype.dropDownList = function(size, items, properties) {
+  return _dropDownList(this, size, items, properties)
 }
 
-function _dropDownList(parent, bounds, items, properties) {
+function _dropDownList(root, size, items, properties) {
   var itemTexts, itemFiles
   Internals.splitListItems(items).run(function(it) {
     itemTexts = it[0]
     itemFiles = it[1]
   })
-  var result = parent.add("dropdownlist", Internals.expandBounds(bounds), itemTexts, properties)
+  var child = root.add("dropdownlist", Internals.sizeToBounds(size), itemTexts, properties)
   if (Collections.isNotEmpty(itemFiles)) {
-    Collections.forEach(result.items, function(it, i) {
+    Collections.forEach(child.items, function(it, i) {
       var itemFile = itemFiles[i]
       if (itemFile !== undefined) {
         it.image = itemFile
       }
     })
   }
-  if (parent.helpTips !== undefined) {
-    Internals.setTooltip(result, parent.helpTips)
+  if (root.helpTips !== undefined) {
+    Internals.setTooltip(child, root.helpTips)
   }
-  return result
+  return child
 }

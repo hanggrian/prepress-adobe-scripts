@@ -1,37 +1,38 @@
 #target Illustrator
 #include "../.lib/commons.js"
 
-var BOUNDS_TEXT = [50, 21]
-var BOUNDS_EDIT = [120, 21]
 var PREDICATE_LINKS = function(it) { return it.typename === "PlacedItem" && Items.isLinkExists(it) && it.file.isPdf() }
+var SIZE_INPUT = [120, 21]
 
 checkHasSelection()
 check(Collections.anyItem(selection, PREDICATE_LINKS), "No PDF links found in selection")
 
 var dialog = new Dialog("Change Page", "relinking-files/#change-page")
 var pdfPanel, rangeGroup, orderByGroup, recursiveCheck, keepSizeCheck
-var prefs = preferences2.resolve("links/change_page")
+var config = configs.resolve("links/change_page")
 
 dialog.vgroup(function(main) {
-  main.alignChildren = "right"
-  pdfPanel = new OpenPDFPanel(main, BOUNDS_TEXT, BOUNDS_EDIT).also(function(panel) {
+  main.alignChildren = "fill"
+  pdfPanel = new OpenPDFPanel(main, SIZE_INPUT).also(function(panel) {
     panel.main.hgroup(function(group) {
       group.tooltips("Which pages should be used when opening a multipage document")
-      group.staticText(BOUNDS_TEXT, "Pages:").also(JUSTIFY_RIGHT)
-      rangeGroup = new RangeGroup(group, BOUNDS_EDIT).also(function(it) {
+      group.staticText(undefined, "Pages:").also(JUSTIFY_RIGHT)
+      rangeGroup = new RangeGroup(group, SIZE_INPUT).also(function(it) {
         it.startEdit.activate()
       })
     })
   })
   orderByGroup = new OrderByGroup(main, [ORDER_LAYERS, ORDER_POSITIONS]).also(function(group) {
-    group.list.selectText(prefs.getString("order", "Reversed"))
+    group.main.alignment = "right"
+    group.list.selectText(config.getString("order", "Reversed"))
   })
   main.hgroup(function(group) {
+    group.alignment = "right"
     recursiveCheck = new RecursiveCheck(group).also(function(it) {
-      it.main.value = prefs.getBoolean("recursive")
+      it.main.value = config.getBoolean("recursive")
     })
     keepSizeCheck = new KeepSizeCheck(group).also(function(it) {
-      it.main.value = prefs.getBoolean("keep_size")
+      it.main.value = config.getBoolean("keep_size")
     })
   })
 })
@@ -64,9 +65,9 @@ dialog.setDefaultButton(undefined, function() {
   })
   selection = source
 
-  prefs.setString("order", orderByGroup.list.selection.text)
-  prefs.setBoolean("recursive", isRecursive)
-  prefs.setBoolean("keep_size", keepSizeCheck.isSelected())
+  config.setString("order", orderByGroup.list.selection.text)
+  config.setBoolean("recursive", isRecursive)
+  config.setBoolean("keep_size", keepSizeCheck.isSelected())
 })
 dialog.show()
 

@@ -1,3 +1,5 @@
+// TODO: Broken, tabbedpanel is null when default dialog button is clicked
+
 #target Illustrator
 #include "../.lib/commons.js"
 
@@ -7,53 +9,50 @@ var DIRECTIONS = [
   ["Bottom", "ic_arrow_bottom"],
   ["Left", "ic_arrow_left"]
 ]
-
-var BOUNDS_TEXT = [60, 21]
-var BOUNDS_TEXT2 = [70, 21]
-var BOUNDS_EDIT = [110, 21]
-var BOUNDS_RADIO = [15, 15]
+var SIZE_INPUT = [110, 21]
+var SIZE_LABEL_TAB = [70, 21] // can't align right on tabbed panel
+var SIZE_RADIO = [15, 15]
 
 checkSingleSelection()
 
 var dialog = new Dialog("Add Flap Dieline", "adding-measuring-dielines/#add-flap-dieline")
-var lengthEdit, weightEdit, colorList, directionList
-var tabbedPanel
+var lengthEdit, weightEdit, colorList, directionList, tabbedPanel
 var glueShearEdit, glueScratchEdit
 var tuckSliderGroup, tuckDistanceEdit
 var dustShoulderEdit, dustDistanceEdit
 var leftRadio, topRadio, rightRadio, bottomRadio
-var prefs = preferences2.resolve("dielines/add_flap")
+var config = configs.resolve("dielines/add_flap")
 
 dialog.hgroup(function(main) {
   main.alignChildren = "fill"
   main.hgroup(function(topGroup) {
-    topGroup.alignChildren = "fill"
     topGroup.vpanel("Flap", function(panel) {
+      panel.alignChildren = "right"
       panel.hgroup(function(group) {
         group.tooltips("In horizontal direction, this is height. In vertical direction, this is width.")
-        group.staticText(BOUNDS_TEXT, "Length:").also(JUSTIFY_RIGHT)
-        lengthEdit = group.editText(BOUNDS_EDIT, prefs.getString("length", "20 mm")).also(function(it) {
+        group.staticText(undefined, "Length:").also(JUSTIFY_RIGHT)
+        lengthEdit = group.editText(SIZE_INPUT, config.getString("length", "20 mm")).also(function(it) {
           it.validateUnits()
           it.activate()
         })
       })
       panel.hgroup(function(group) {
         group.tooltips("Stroke width of dielines")
-        group.staticText(BOUNDS_TEXT, "Weight:").also(JUSTIFY_RIGHT)
-        weightEdit = group.editText(BOUNDS_EDIT, prefs.getString("weight", "1 pt")).also(VALIDATE_UNITS)
+        group.staticText(undefined, "Weight:").also(JUSTIFY_RIGHT)
+        weightEdit = group.editText(SIZE_INPUT, config.getString("weight", "1 pt")).also(VALIDATE_UNITS)
       })
       panel.hgroup(function(group) {
         group.tooltips("Stroke color of dielines")
-        group.staticText(BOUNDS_TEXT, "Color:").also(JUSTIFY_RIGHT)
-        colorList = group.dropDownList(BOUNDS_EDIT, COLORS).also(function(it) {
-          it.selectText(prefs.getString("color", "Black"))
+        group.staticText(undefined, "Color:").also(JUSTIFY_RIGHT)
+        colorList = group.dropDownList(SIZE_INPUT, COLORS).also(function(it) {
+          it.selectText(config.getString("color", "Black"))
         })
       })
       panel.hgroup(function(group) {
         group.tooltips("Where should the flap be added relative to target")
-        group.staticText(BOUNDS_TEXT, "Direction:").also(JUSTIFY_RIGHT)
-        directionList = group.dropDownList(BOUNDS_EDIT, DIRECTIONS).also(function(it) {
-          it.selectText(prefs.getString("direction", "Top"))
+        group.staticText(undefined, "Direction:").also(JUSTIFY_RIGHT)
+        directionList = group.dropDownList(SIZE_INPUT, DIRECTIONS).also(function(it) {
+          it.selectText(config.getString("direction", "Top"))
         })
       })
     })
@@ -61,61 +60,48 @@ dialog.hgroup(function(main) {
   tabbedPanel = main.tabbedPanel(function(panel) {
     panel.preferredSize = [200, 0]
     panel.vtab("Glue Flap", function(tab) {
-      tab.hgroup(function(topGroup) {
-        topGroup.alignChildren = "top"
-        topGroup.vgroup(function(midGroup) {
-          midGroup.hgroup(function(group) {
-            group.tooltips("End line of glue flat must be lesser than starting line, shear value make sure of it")
-            group.staticText(BOUNDS_TEXT2, "Shear:").also(JUSTIFY_RIGHT)
-            glueShearEdit = group.editText(BOUNDS_EDIT, "5 mm").also(VALIDATE_UNITS)
-          })
-          midGroup.hgroup(function(group) {
-            group.tooltips("Distance between scratches, leave blank for no scratches")
-            group.staticText(BOUNDS_TEXT2, "Scratches:").also(JUSTIFY_RIGHT)
-            glueScratchEdit = group.editText(BOUNDS_EDIT, "0 mm").also(function(it) {
-              it.validateUnits()
-              it.enabled = false
-            })
-          })
+      tab.hgroup(function(group) {
+        group.tooltips("End line of glue flat must be lesser than starting line, shear value make sure of it")
+        group.staticText(SIZE_LABEL_TAB, "Shear:").also(JUSTIFY_RIGHT)
+        glueShearEdit = group.editText(SIZE_INPUT, "5 mm").also(VALIDATE_UNITS)
+      })
+      tab.hgroup(function(group) {
+        group.tooltips("Distance between scratches, leave blank for no scratches")
+        group.staticText(SIZE_LABEL_TAB, "Scratches:").also(JUSTIFY_RIGHT)
+        glueScratchEdit = group.editText(SIZE_INPUT, "0 mm").also(function(it) {
+          it.validateUnits()
+          it.enabled = false
         })
       })
     })
     /* tabbedPanel.vtab("Tuck Flap", function(tab) {
-        tab.hgroup(function(topGroup) {
-            topGroup.alignChildren = "top"
-            topGroup.vgroup(function(midGroup) {
-                midGroup.hgroup(function(group) {
-                    group.tooltips("How big should the curve be relative to length, in percentage")
-                    group.staticText(BOUNDS_TEXT2, "Curve:").also(JUSTIFY_RIGHT)
-                    tuckSliderGroup = new SliderGroup(group, BOUNDS_EDIT, 2, 0, 4, 25)
-                })
-                midGroup.hgroup(function(group) {
-                    group.tooltips("Thicker material should have more distance")
-                    group.staticText(BOUNDS_TEXT2, "Distance:").also(JUSTIFY_RIGHT)
-                    tuckDistanceEdit = group.editText(BOUNDS_EDIT, "0 mm").also(VALIDATE_UNITS)
-                })
-            })
-        })
+      tab.hgroup(function(group) {
+        group.tooltips("How big should the curve be relative to length, in percentage")
+        group.staticText(SIZE_LABEL_TAB, "Curve:").also(JUSTIFY_RIGHT)
+        tuckSliderGroup = new SliderGroup(group, SIZE_EDIT, 2, 0, 4, 25)
+      })
+      tab.hgroup(function(group) {
+        group.tooltips("Thicker material should have more distance")
+        group.staticText(SIZE_LABEL_TAB, "Distance:").also(JUSTIFY_RIGHT)
+        tuckDistanceEdit = group.editText(SIZE_EDIT, "0 mm").also(VALIDATE_UNITS)
+      })
     }) */
     panel.vtab("Dust Flap", function(tab) {
-      tab.hgroup(function(topGroup) {
-        topGroup.alignChildren = "top"
-        topGroup.vgroup(function(midGroup) {
-          midGroup.hgroup(function(group) {
-            group.tooltips("Necessary for locking a tuck flap")
-            group.staticText(BOUNDS_TEXT2, "Shoulder:").also(JUSTIFY_RIGHT)
-            dustShoulderEdit = group.editText(BOUNDS_EDIT, "5 mm").also(VALIDATE_UNITS)
-          })
-          midGroup.hgroup(function(group) {
-            group.tooltips("Thicker material should have more distance")
-            group.staticText(BOUNDS_TEXT2, "Distance:").also(JUSTIFY_RIGHT)
-            dustDistanceEdit = group.editText(BOUNDS_EDIT, "0 mm").also(VALIDATE_UNITS)
-          })
-        })
+      tab.hgroup(function(group) {
+        group.tooltips("Necessary for locking a tuck flap")
+        group.staticText(SIZE_LABEL_TAB, "Shoulder:").also(JUSTIFY_RIGHT)
+        dustShoulderEdit = group.editText(SIZE_INPUT, "5 mm").also(VALIDATE_UNITS)
+      })
+      tab.hgroup(function(group) {
+        group.tooltips("Thicker material should have more distance")
+        group.staticText(SIZE_LABEL_TAB, "Distance:").also(JUSTIFY_RIGHT)
+        dustDistanceEdit = group.editText(SIZE_INPUT, "0 mm").also(VALIDATE_UNITS)
       })
     })
     panel.onChange = function() {
-      if (panel.selection.text === "Glue Flap") {
+      if (panel.selection === null) {
+        return
+      } else if (panel.selection.text === "Glue Flap") {
         glueShearEdit.activate()
       } else if (panel.selection.text === "Tuck Flap") {
         tuckCurveEdit.activate()
@@ -146,10 +132,10 @@ dialog.setDefaultButton(undefined, function() {
   }
   selection = [pathItem]
 
-  prefs.setString("length", lengthEdit.text)
-  prefs.setString("weight", weightEdit.text)
-  prefs.setString("color", colorList.selection.text)
-  prefs.setString("direction", directionList.selection.text)
+  config.setString("length", lengthEdit.text)
+  config.setString("weight", weightEdit.text)
+  config.setString("color", colorList.selection.text)
+  config.setString("direction", directionList.selection.text)
 })
 dialog.show()
 

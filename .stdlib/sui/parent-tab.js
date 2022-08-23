@@ -11,7 +11,6 @@
  * @returns {Tab}
  */
 Panel.prototype.htab = function(text, configuration) {
-  check(this.type === "tabbedpanel")
   return _tab(this, "row", text, configuration)
 }
 
@@ -22,7 +21,6 @@ Panel.prototype.htab = function(text, configuration) {
  * @returns {Tab}
  */
 Panel.prototype.vtab = function(text, configuration) {
-  check(this.type === "tabbedpanel")
   return _tab(this, "column", text, configuration)
 }
 
@@ -33,15 +31,12 @@ Panel.prototype.vtab = function(text, configuration) {
  * @returns {Tab}
  */
 Panel.prototype.stab = function(text, configuration) {
-  check(this.type === "tabbedpanel")
   return _tab(this, "stack", text, configuration)
 }
 
-function _tab(parent, orientation, text, configuration) {
-  var tab = parent.add("tab", undefined, text)
-  var result = _group(tab, orientation)
-  if (configuration !== undefined) {
-    configuration(result)
-  }
-  return result
+function _tab(root, orientation, text, configuration) {
+  check(root.type === "tabbedpanel")
+  var tab = root.add("tab", undefined, text)
+  var parent = _group(tab, orientation, configuration)
+  return parent
 }

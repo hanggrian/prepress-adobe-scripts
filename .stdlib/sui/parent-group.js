@@ -64,16 +64,16 @@ Panel.prototype.sgroup = function(configuration) {
   return _group(this, "stack", configuration)
 }
 
-function _group(parent, orientation, configuration) {
-  var result = parent.add("group")
-  result.orientation = orientation
-  if (parent.helpTips !== undefined) {
-    Internals.setTooltips(result, parent.helpTips)
+function _group(root, orientation, configuration) {
+  var parent = root.add("group")
+  parent.orientation = orientation
+  if (root.helpTips !== undefined) {
+    Internals.setTooltips(parent, root.helpTips)
   }
   if (configuration !== undefined) {
-    configuration(result)
+    configuration(parent)
   }
-  return result
+  return parent
 }
 
 /**

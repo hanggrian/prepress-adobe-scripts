@@ -63,30 +63,30 @@ EditText.prototype.tooltip = function(text) { Internals.setTooltip(this, text) }
 
 /**
  * Add children to group.
- * @param {Array} bounds optional array of size or position & size.
+ * @param {Array} size optional size or bounds.
  * @param {String} text optional control text.
  * @param {Object} properties optional extra properties.
  * @returns {EditText}
  */
-Group.prototype.editText = function(bounds, text, properties) {
-  return _editText(this, bounds, text, properties)
+Group.prototype.editText = function(size, text, properties) {
+  return _editText(this, size, text, properties)
 }
 
 /**
  * Add children to panel.
- * @param {Array} bounds optional array of size or position & size.
+ * @param {Array} size optional size or bounds.
  * @param {String} text optional control text.
  * @param {Object} properties optional extra properties.
  * @returns {EditText}
  */
-Panel.prototype.editText = function(bounds, text, properties) {
-  return _editText(this, bounds, text, properties)
+Panel.prototype.editText = function(size, text, properties) {
+  return _editText(this, size, text, properties)
 }
 
-function _editText(parent, bounds, text, properties) {
-  var result = parent.add("edittext", Internals.expandBounds(bounds), text, properties)
-  if (parent.helpTips !== undefined) {
-    Internals.setTooltip(result, parent.helpTips)
+function _editText(root, size, text, properties) {
+  var child = root.add("edittext", Internals.sizeToBounds(size), text, properties)
+  if (root.helpTips !== undefined) {
+    Internals.setTooltip(child, root.helpTips)
   }
-  return result
+  return child
 }

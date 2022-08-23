@@ -17,19 +17,19 @@ Collections.forEach(app.documents, function(document) {
   document.mode.let(function(it) {
     if (it !== DocumentMode.CMYK) {
       errorCount++
-      result += "• Mode is %s.\n".format(it.toString().substringAfter("."))
+      result += "Mode is %s.\n".format(it.toString().substringAfter("."))
     }
   })
   document.resolution.let(function(it) {
     if (it < 300) {
       errorCount++
-      result += "• Resolution is %s.\n".format(it)
+      result += "Resolution is %s.\n".format(it)
     }
   })
   document.bitsPerChannel.let(function(it) {
     if (it !== BitsPerChannelType.EIGHT) {
       errorCount++
-      result += "• Bits per channel is %s.\n".format(it.toString().substringAfter("."))
+      result += "Bits per channel is %s.\n".format(it.toString().substringAfter("."))
     }
   })
 

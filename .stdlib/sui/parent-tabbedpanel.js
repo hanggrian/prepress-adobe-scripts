@@ -10,7 +10,7 @@
  * @returns {TabbedPanel}
  */
 Group.prototype.tabbedPanel = function(configuration) {
-  return _tabbedPanel(this).also(configuration)
+  return _tabbedPanel(this, configuration)
 }
 
 /**
@@ -19,13 +19,16 @@ Group.prototype.tabbedPanel = function(configuration) {
  * @returns {TabbedPanel}
  */
 Panel.prototype.tabbedPanel = function(configuration) {
-  return _tabbedPanel(this).also(configuration)
+  return _tabbedPanel(this, configuration)
 }
 
-function _tabbedPanel(parent) {
-  var result = parent.add("tabbedpanel")
-  if (parent.helpTips !== undefined) {
-    Internals.setTooltips(result, parent.helpTips)
+function _tabbedPanel(root, configuration) {
+  var parent = root.add("tabbedpanel")
+  if (root.helpTips !== undefined) {
+    Internals.setTooltips(parent, root.helpTips)
   }
-  return result
+  if (configuration !== undefined) {
+    configuration(parent)
+  }
+  return parent
 }

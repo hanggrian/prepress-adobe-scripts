@@ -14,7 +14,7 @@ var Collections = {
 
   /**
    * Last index of this collection.
-   * @param {Object} collection array or array-like objects.
+   * @param {Array|Object} collection array or array-like objects.
    * @param {Object} element value within this collection.
    * @returns {Boolean}
    */
@@ -29,28 +29,28 @@ var Collections = {
 
   /**
    * Last index of this collection.
-   * @param {Object} collection array or array-like objects.
+   * @param {Array|Object} collection array or array-like objects.
    * @returns {Boolean}
    */
   lastIndex: function(collection) { return collection.length - 1 },
 
   /**
    * Returns true if this collection is empty.
-   * @param {Object} collection array or array-like objects.
+   * @param {Array|Object} collection array or array-like objects.
    * @returns {Boolean}
    */
   isEmpty: function(collection) { return collection.length === 0 },
 
   /**
    * Returns true if this collection is not empty.
-   * @param {Object} collection array or array-like objects.
+   * @param {Array|Object} collection array or array-like objects.
    * @returns {Boolean}
    */
   isNotEmpty: function(collection) { return collection.length > 0 },
 
   /**
    * Returns true if element belongs in this collection.
-   * @param {Object} collection array or array-like objects.
+   * @param {Array|Object} collection array or array-like objects.
    * @returns {Boolean}
    */
   contains: function(collection, element) {
@@ -65,7 +65,7 @@ var Collections = {
 
   /**
    * Returns an array containing only distinct elements from the given collection.
-   * @param {Object} collection array or array-like objects.
+   * @param {Array|Object} collection array or array-like objects.
    * @returns {Array}
    */
   distinct: function(collection) {
@@ -80,7 +80,7 @@ var Collections = {
 
   /**
    * Iterate each element of this collection.
-   * @param {Object} collection array or array-like objects.
+   * @param {Array|Object} collection array or array-like objects.
    * @param {Function} action runnable to execute.
    */
   forEach: function(collection, action) {
@@ -91,7 +91,7 @@ var Collections = {
 
   /**
    * Iterate each element of this collection as reversed.
-   * @param {Object} collection array or array-like objects.
+   * @param {Array|Object} collection array or array-like objects.
    * @param {Function} action runnable to execute.
    */
   forEachReversed: function(collection, action) {

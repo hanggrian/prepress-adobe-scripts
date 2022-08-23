@@ -1,23 +1,23 @@
 /**
  * Panel of width and height inputs.
  * @param {Group|Panel|Window} parent holder of this control.
- * @param {Array} textBounds size or position & size array.
- * @param {Array} editBounds size or position & size array.
+ * @param {Array} inputSize size or bounds.
  */
-function SelectDimensionPanel(parent, textBounds, editBounds) {
+function SelectDimensionPanel(parent, inputSize) {
   var self = this
   this.widthEdit, this.heightEdit
 
   this.main = parent.vpanel("Dimension", function(panel) {
+    panel.alignChildren = "right"
     panel.hgroup(function(group) {
       group.tooltips("Selected object's width")
-      group.staticText(textBounds, "Width:").also(JUSTIFY_RIGHT)
-      self.widthEdit = group.editText(editBounds).also(VALIDATE_UNITS)
+      group.staticText(undefined, "Width:").also(JUSTIFY_RIGHT)
+      self.widthEdit = group.editText(inputSize).also(VALIDATE_UNITS)
     })
     panel.hgroup(function(group) {
       group.tooltips("Selected object's height")
-      group.staticText(textBounds, "Height:").also(JUSTIFY_RIGHT)
-      self.heightEdit = group.editText(editBounds).also(VALIDATE_UNITS)
+      group.staticText(undefined, "Height:").also(JUSTIFY_RIGHT)
+      self.heightEdit = group.editText(inputSize).also(VALIDATE_UNITS)
     })
   })
 

@@ -1,8 +1,7 @@
 #target Illustrator
 #include "../../.lib/commons.js"
 
-var BOUNDS_TEXT = [60, 21]
-var BOUNDS_EDIT = [180, 21]
+var SIZE_INPUT = [170, 21]
 
 checkHasSelection()
 
@@ -12,34 +11,37 @@ var widthEdit, widthCheck, heightEdit, heightCheck
 var changePositionsCheck, changeFillPatternsCheck, changeFillGradientsCheck, changeStrokePatternsCheck
 var documentOriginCheck, anchorGroup
 var recursiveCheck
-var prefs = preferences2.resolve("objects/resize_each")
+var config = configs.resolve("objects/resize_each")
 
 dialog.vgroup(function(main) {
-  main.hgroup(function(group) {
-    group.alignChildren = "bottom"
-    group.tooltips("Objects' new width, uncheck to ignore")
-    group.staticText(BOUNDS_TEXT, "Width:").also(JUSTIFY_RIGHT)
-    widthEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.width, unitName, 2)).also(function(it) {
-      it.validateUnits()
-      it.activate()
+  main.vgroup(function(topGroup) {
+    topGroup.alignChildren = "right"
+    topGroup.hgroup(function(group) {
+      group.alignChildren = "bottom"
+      group.tooltips("Objects' new width, uncheck to ignore")
+      group.staticText(undefined, "Width:").also(JUSTIFY_RIGHT)
+      widthEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitName, 2)).also(function(it) {
+        it.validateUnits()
+        it.activate()
+      })
+      widthCheck = group.checkBox().also(function(it) {
+        it.select()
+        it.onClick = function() {
+          widthEdit.enabled = it.value
+        }
+      })
     })
-    widthCheck = group.checkBox().also(function(it) {
-      it.select()
-      it.onClick = function() {
-        widthEdit.enabled = it.value
-      }
-    })
-  })
-  main.hgroup(function(group) {
-    group.alignChildren = "bottom"
-    group.tooltips("Objects' new height, uncheck to ignore")
-    group.staticText(BOUNDS_TEXT, "Height:").also(JUSTIFY_RIGHT)
-    heightEdit = group.editText(BOUNDS_EDIT, formatUnits(prefill.height, unitName, 2)).also(VALIDATE_UNITS)
-    heightCheck = group.checkBox().also(function(it) {
-      it.select()
-      it.onClick = function() {
-        heightEdit.enabled = it.value
-      }
+    topGroup.hgroup(function(group) {
+      group.alignChildren = "bottom"
+      group.tooltips("Objects' new height, uncheck to ignore")
+      group.staticText(undefined, "Height:").also(JUSTIFY_RIGHT)
+      heightEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitName, 2)).also(VALIDATE_UNITS)
+      heightCheck = group.checkBox().also(function(it) {
+        it.select()
+        it.onClick = function() {
+          heightEdit.enabled = it.value
+        }
+      })
     })
   })
   main.hgroup(function(group) {
@@ -48,19 +50,19 @@ dialog.vgroup(function(main) {
       panel.alignChildren = "fill"
       changePositionsCheck = panel.checkBox(undefined, "Positions").also(function(it) {
         it.tooltip("Are art object positions and orientations effected?")
-        it.value = prefs.getBoolean("option1")
+        it.value = config.getBoolean("option1")
       })
       changeFillPatternsCheck = panel.checkBox(undefined, "Fill Patterns").also(function(it) {
         it.tooltip("Are the fill patterns assigned to paths to be transformed?")
-        it.value = prefs.getBoolean("option2")
+        it.value = config.getBoolean("option2")
       })
       changeFillGradientsCheck = panel.checkBox(undefined, "Fill Gradients").also(function(it) {
         it.tooltip("Are the fill gradients assigned to paths to be transformed?")
-        it.value = prefs.getBoolean("option3")
+        it.value = config.getBoolean("option3")
       })
       changeStrokePatternsCheck = panel.checkBox(undefined, "Stroke Patterns").also(function(it) {
         it.tooltip("Are the stroke patterns assigned to paths to be transformed?")
-        it.value = prefs.getBoolean("option4")
+        it.value = config.getBoolean("option4")
       })
     })
     group.vpanel("Anchor", function(panel) {
@@ -77,7 +79,7 @@ dialog.vgroup(function(main) {
   main.hgroup(function(group) {
     group.alignment = "right"
     recursiveCheck = new RecursiveCheck(group).also(function(it) {
-      it.main.value = prefs.getBoolean("recursive")
+      it.main.value = config.getBoolean("recursive")
     })
   })
 })
@@ -112,10 +114,10 @@ dialog.setDefaultButton(undefined, function() {
     Collections.forEach(selection, action)
   }
 
-  prefs.setBoolean("option1", changePositionsCheck.value)
-  prefs.setBoolean("option2", changeFillPatternsCheck.value)
-  prefs.setBoolean("option3", changeFillGradientsCheck.value)
-  prefs.setBoolean("option4", changeStrokePatternsCheck.value)
-  prefs.setBoolean("recursive", recursiveCheck.isSelected())
+  config.setBoolean("option1", changePositionsCheck.value)
+  config.setBoolean("option2", changeFillPatternsCheck.value)
+  config.setBoolean("option3", changeFillGradientsCheck.value)
+  config.setBoolean("option4", changeStrokePatternsCheck.value)
+  config.setBoolean("recursive", recursiveCheck.isSelected())
 })
 dialog.show()

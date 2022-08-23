@@ -12,11 +12,11 @@ for (var i = 1; i < selection.length; i++) {
 
 var dialog = new Dialog("Rearrange Objects")
 var orderByGroup
-var prefs = preferences2.resolve("objects/rearrange")
+var config = configs.resolve("objects/rearrange")
 
 dialog.vgroup(function(main) {
   orderByGroup = new OrderByGroup(main, [ORDER_POSITIONS]).also(function(it) {
-    it.list.selectText(prefs.getString("order", "Horizontal"))
+    it.list.selectText(config.getString("order", "Horizontal"))
   })
 })
 dialog.setCancelButton()
@@ -30,6 +30,6 @@ dialog.setDefaultButton(undefined, function() {
     })
   })
 
-  prefs.setString("order", orderByGroup.list.selection.text)
+  config.setString("order", orderByGroup.list.selection.text)
 })
 dialog.show()

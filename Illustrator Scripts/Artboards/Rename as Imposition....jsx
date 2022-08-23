@@ -2,26 +2,25 @@
 #include "../.lib/commons.js"
 
 var IMPOSITIONS = ["2-Up", "4-Up", "8-Up", "Saddle Stitch"]
-
-var BOUNDS_TEXT = [40, 21]
-var BOUNDS_EDIT = [120, 21]
+var SIZE_INPUT = [120, 21]
 
 var dialog = new Dialog("Rename as Imposition")
 var startEdit, impositionList, nupGroup
 
 dialog.vgroup(function(main) {
+  main.alignChildren = "right"
   main.hgroup(function(group) {
     group.tooltips("Imposition range")
-    group.staticText(BOUNDS_TEXT, "Start:").also(JUSTIFY_RIGHT)
-    startEdit = group.editText(BOUNDS_EDIT, "1").also(function(it) {
+    group.staticText(undefined, "Start:").also(JUSTIFY_RIGHT)
+    startEdit = group.editText(SIZE_INPUT, "1").also(function(it) {
       it.validateDigits()
       it.activate()
     })
   })
   main.hgroup(function(group) {
     group.tooltips("Imposition type")
-    group.staticText(BOUNDS_TEXT, "Mode:").also(JUSTIFY_RIGHT)
-    impositionList = group.dropDownList(BOUNDS_EDIT, IMPOSITIONS).also(function(it) {
+    group.staticText(undefined, "Mode:").also(JUSTIFY_RIGHT)
+    impositionList = group.dropDownList(SIZE_INPUT, IMPOSITIONS).also(function(it) {
       it.selectText("2-Up")
       it.onChange = function() {
         var checksEnabled = it.selection.text !== "Saddle Stitch"

@@ -1,8 +1,6 @@
 #target Illustrator
 #include "../../.lib/commons.js"
 
-var BOUNDS_TEXT = [40, 21]
-
 // var adobePPDs = app.PPDFileList.filter(function(it) { return it.name.startsWith("Adobe") })
 
 var dialog = new Dialog("Export PostScript")
@@ -17,7 +15,7 @@ dialog.vgroup(function(main) {
     topGroup.vpanel("Options", function(panel) {
       panel.hgroup(function(group) {
         group.tooltips("Output mode")
-        group.staticText(BOUNDS_TEXT, "Mode:").also(JUSTIFY_RIGHT)
+        group.staticText(undefined, "Mode:").also(JUSTIFY_RIGHT)
         group.radioButton(undefined, "Composite")
         group.radioButton(undefined, "Separations").also(SELECTED)
       })

@@ -12,30 +12,30 @@ IconButton.prototype.tooltip = function(text) { Internals.setTooltip(this, text)
 
 /**
  * Add children to group.
- * @param {Array} bounds optional array of size or position & size.
+ * @param {Array} size optional size or bounds.
  * @param {String} text optional image source.
  * @param {Object} properties optional extra properties.
  * @returns {IconButton}
  */
-Group.prototype.iconButton = function(bounds, file, properties) {
-  return _iconButton(this, bounds, file, properties)
+Group.prototype.iconButton = function(size, file, properties) {
+  return _iconButton(this, size, file, properties)
 }
 
 /**
  * Add children to panel.
- * @param {Array} bounds optional array of size or position & size.
+ * @param {Array} size optional size or bounds.
  * @param {String} text optional image source.
  * @param {Object} properties optional extra properties.
  * @returns {IconButton}
  */
-Panel.prototype.iconButton = function(bounds, file, properties) {
-  return _iconButton(this, bounds, file, properties)
+Panel.prototype.iconButton = function(size, file, properties) {
+  return _iconButton(this, size, file, properties)
 }
 
-function _iconButton(parent, bounds, file, properties) {
-  var result = parent.add("iconbutton", Internals.expandBounds(bounds), Internals.getResourceFile(file), properties)
-  if (parent.helpTips !== undefined) {
-    Internals.setTooltip(result, parent.helpTips)
+function _iconButton(root, size, file, properties) {
+  var child = root.add("iconbutton", Internals.sizeToBounds(size), Internals.getResourceFile(file), properties)
+  if (root.helpTips !== undefined) {
+    Internals.setTooltip(child, root.helpTips)
   }
-  return result
+  return child
 }

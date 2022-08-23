@@ -6,7 +6,7 @@
 
 var ABOUT_THEMES = ["Dark", "Light"]
 
-var BOUNDS_ABOUT_TAB = [400, 75]
+var SIZE_ABOUT_TAB = [400, 75]
 var MARGINS_ABOUT_TAB = [10, 0, 10, 0]
 
 /**
@@ -21,22 +21,22 @@ function AboutTabbedPanel(parent, clientDate) {
 
   this.main = parent.tabbedPanel(function(tabbedPanel) {
     self.preferencesTab = tabbedPanel.vtab("Preferences", function(tab) {
-      tab.preferredSize = BOUNDS_ABOUT_TAB
+      tab.preferredSize = SIZE_ABOUT_TAB
       tab.margins = MARGINS_ABOUT_TAB
       tab.alignChildren = "left"
       tab.hgroup(function(group) {
         group.tooltips("Defines what icon color to be used.\nThe script is dumb and can't yet know UI brightness setting across apps")
         group.staticText(undefined, "Theme:", "right")
         group.dropDownList(undefined, ABOUT_THEMES).also(function(it) {
-          it.selectText(preferences2.getString("scripts_theme", "Dark"))
+          it.selectText(configs.getString("scripts_theme", "Dark"))
           it.onChange = function() {
-            preferences2.setString("scripts_theme", it.selection.text)
+            configs.setString("scripts_theme", it.selection.text)
           }
         })
       })
     })
     self.updatesTab = tabbedPanel.vtab("Updates", function(tab) {
-      tab.preferredSize = BOUNDS_ABOUT_TAB
+      tab.preferredSize = SIZE_ABOUT_TAB
       tab.margins = MARGINS_ABOUT_TAB
       tab.alignChildren = "left"
       self.statusText = tab.staticText([400, 21], "Click Check Updates to fetch data.")
@@ -70,14 +70,14 @@ function AboutTabbedPanel(parent, clientDate) {
         })
       })
     })
-    self.licensingTab = tabbedPanel.vtab("Licensing", function(tab) {
-      tab.editText(BOUNDS_ABOUT_TAB, Resources.get("LICENSE").readText(),
-        { multiline: true, readonly: true, scrollable: true })
-    })
     self.toolsTab = tabbedPanel.vtab("Tools", function(tab) {
-      tab.preferredSize = BOUNDS_ABOUT_TAB
+      tab.preferredSize = SIZE_ABOUT_TAB
       tab.margins = MARGINS_ABOUT_TAB
       tab.alignChildren = "left"
+    })
+    self.licensingTab = tabbedPanel.vtab("Licensing", function(tab) {
+      tab.editText(SIZE_ABOUT_TAB, Resources.get("LICENSE").readText(),
+        { multiline: true, readonly: true, scrollable: true })
     })
   })
 }

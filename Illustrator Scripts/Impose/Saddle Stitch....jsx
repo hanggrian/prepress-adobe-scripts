@@ -1,8 +1,7 @@
 #target Illustrator
 #include "../.lib/core.js"
 
-var BOUNDS_TEXT = [50, 21]
-var BOUNDS_EDIT = [100, 21]
+var SIZE_INPUT = [100, 21]
 
 var dialog = new Dialog("Impose Saddle Stitch", "imposing-layout/#saddle-stitch")
 var pdfPanel, pagesPanel, documentPanel
@@ -22,9 +21,9 @@ if (files !== null && Collections.isNotEmpty(files)) {
       topGroup.alignChildren = "fill"
       topGroup.vgroup(function(group) {
         if (collection.hasPDF) {
-          pdfPanel = new OpenPDFPanel(group, BOUNDS_TEXT, BOUNDS_EDIT)
+          pdfPanel = new OpenPDFPanel(group, SIZE_INPUT)
         }
-        pagesPanel = new OpenPagesPanel(group, BOUNDS_TEXT, BOUNDS_EDIT).also(function(panel) {
+        pagesPanel = new OpenPagesPanel(group, SIZE_INPUT).also(function(panel) {
           panel.rangeGroup.endEdit.text = collection.length
           if (!collection.isSinglePDF) {
             panel.rangeGroup.maxRange = collection.length

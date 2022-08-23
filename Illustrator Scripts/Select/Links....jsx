@@ -6,9 +6,6 @@
 #target Illustrator
 #include "../.lib/commons.js"
 
-var BOUNDS_TEXT = [50, 21]
-var BOUNDS_EDIT = [150, 21]
-
 var FILE_AI = ["ai"]
 var FILE_PDF = ["pdf"]
 var FILE_BMP = ["bmp"]
@@ -18,6 +15,7 @@ var FILE_JPEG2000 = ["jpf", "jpx", "jp2", "j2k", "j2c", "jpc"]
 var FILE_PNG = ["png", "pns"]
 var FILE_PSD = ["psd", "psb", "pdd"]
 var FILE_TIFF = ["tif", "tiff"]
+var SIZE_INPUT = [150, 21]
 
 check(Collections.isNotEmpty(document.placedItems), "No links in this document")
 var isFilterMode = Collections.isNotEmpty(selection)
@@ -26,11 +24,11 @@ var dialog = new Dialog("Select Links", "selecting-items/#select-links")
 var dimensionPanel
 var aiCheck, pdfCheck, bmpCheck, gifCheck, jpegCheck, jpeg2000Check, pngCheck, psdCheck, tiffCheck
 var recursiveCheck
-var prefs = preferences2.resolve("select/links")
+var config = configs.resolve("select/links")
 
 dialog.vgroup(function(main) {
   main.alignChildren = "fill"
-  dimensionPanel = new SelectDimensionPanel(main, BOUNDS_TEXT, BOUNDS_EDIT)
+  dimensionPanel = new SelectDimensionPanel(main, SIZE_INPUT)
   main.vpanel("File Types", function(panel) {
     panel.tooltips("File extension of selected links")
     panel.alignChildren = "fill"
@@ -47,7 +45,7 @@ dialog.vgroup(function(main) {
   if (isFilterMode) {
     recursiveCheck = new RecursiveCheck(main).also(function(it) {
       it.main.alignment = "right"
-      it.main.value = prefs.getBoolean("recursive")
+      it.main.value = config.getBoolean("recursive")
     })
   }
 })
@@ -71,7 +69,7 @@ dialog.setDefaultButton(undefined, function() {
     return true
   }, isFilterMode && recursiveCheck.isSelected())
 
-  prefs.setBoolean("recursive", recursiveCheck.isSelected())
+  if (isFilterMode) config.setBoolean("recursive", recursiveCheck.isSelected())
 })
 dialog.show()
 

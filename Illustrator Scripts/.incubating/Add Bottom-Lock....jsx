@@ -1,8 +1,7 @@
 #target Illustrator
 #include "../.lib/core.js"
 
-var BOUNDS_TEXT = [100, 21]
-var BOUNDS_EDIT = [150, 21]
+var SIZE_INPUT = [150, 21]
 
 var dialog = new Dialog("Add Bottom-Lock")
 var widthEdit, depthEdit, horizontalLockEdit, verticalLockEdit
@@ -12,26 +11,26 @@ dialog.vgroup(function(main) {
     topGroup.vgroup(function(midGroup) {
       midGroup.hgroup(function(group) {
         group.tooltips("Width of box")
-        group.staticText(BOUNDS_TEXT, "Width:").also(JUSTIFY_RIGHT)
-        widthEdit = group.editText(BOUNDS_EDIT, "210 mm").also(function(it) {
+        group.staticText(undefined, "Width:").also(JUSTIFY_RIGHT)
+        widthEdit = group.editText(SIZE_INPUT, "210 mm").also(function(it) {
           it.validateUnits()
           it.activate()
         })
       })
       midGroup.hgroup(function(group) {
         group.tooltips("Depth of box")
-        group.staticText(BOUNDS_TEXT, "Depth:").also(JUSTIFY_RIGHT)
-        depthEdit = group.editText(BOUNDS_EDIT, "100 mm").also(VALIDATE_UNITS)
+        group.staticText(undefined, "Depth:").also(JUSTIFY_RIGHT)
+        depthEdit = group.editText(SIZE_INPUT, "100 mm").also(VALIDATE_UNITS)
       })
       midGroup.hgroup(function(group) {
         group.tooltips("Length of horizontal lock")
-        group.staticText(BOUNDS_TEXT, "Horizontal Lock:").also(JUSTIFY_RIGHT)
-        horizontalLockEdit = group.editText(BOUNDS_EDIT, "20 mm").also(VALIDATE_UNITS)
+        group.staticText(undefined, "Horizontal Lock:").also(JUSTIFY_RIGHT)
+        horizontalLockEdit = group.editText(SIZE_INPUT, "20 mm").also(VALIDATE_UNITS)
       })
       midGroup.hgroup(function(group) {
         group.tooltips("Length of vertical lock")
-        group.staticText(BOUNDS_TEXT, "Vertical Lock:").also(JUSTIFY_RIGHT)
-        verticalLockEdit = group.editText(BOUNDS_EDIT, "20 mm").also(VALIDATE_UNITS)
+        group.staticText(undefined, "Vertical Lock:").also(JUSTIFY_RIGHT)
+        verticalLockEdit = group.editText(SIZE_INPUT, "20 mm").also(VALIDATE_UNITS)
       })
     })
     topGroup.image(undefined, "dieline_bottomlock")

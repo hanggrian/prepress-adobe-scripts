@@ -7,8 +7,8 @@
 #target Photoshop
 #include "../.lib/core.js"
 
-var BOUNDS_TEXT = [60, 21]
-var BOUNDS_EDIT = [100, 21]
+var SIZE_TEXT = [60, 21]
+var SIZE_EDIT = [100, 21]
 
 var dialog = new Dialog("Open Splitted")
 var documentPanel
@@ -33,7 +33,7 @@ if (files !== null && Collections.isNotEmpty(files)) {
   /* dialog.main.vpanel("Split Options", function(panel) {
       panel.hgroup(function(group) {
           group.tooltips("Divide image horizontally/vertically")
-          group.staticText(BOUNDS_TEXT, "Direction:").also(JUSTIFY_RIGHT)
+          group.staticText(SIZE_TEXT, "Direction:").also(JUSTIFY_RIGHT)
           group.vgroup(function(group2) {
               group2.alignChildren = "left"
               horizontalRadio = group2.radioButton(undefined, "Horizontal").also(SELECTED)
@@ -42,14 +42,14 @@ if (files !== null && Collections.isNotEmpty(files)) {
       })
       panel.hgroup(function(group) {
           group.tooltips("Total number of divison")
-          group.staticText(BOUNDS_TEXT, "Parts:").also(JUSTIFY_RIGHT)
-          partsEdit = group.editText(BOUNDS_EDIT, "2").also(function(it) {
+          group.staticText(SIZE_TEXT, "Parts:").also(JUSTIFY_RIGHT)
+          partsEdit = group.editText(SIZE_EDIT, "2").also(function(it) {
               it.validateDigits()
               it.activate()
           })
       })
   }) */
-  documentPanel = new OpenDocumentPanel(dialog.main, BOUNDS_TEXT, BOUNDS_EDIT)
+  documentPanel = new OpenDocumentPanel(dialog.main, SIZE_TEXT, SIZE_EDIT)
 
   dialog.setCancelButton()
   dialog.setDefaultButton(undefined, function() {

@@ -55,27 +55,34 @@ Collections.forEachItem(selection, function(it) {
   }
 })
 
-var message = "There are %d items, containing:".format(selection.length)
-message += getItemLine(compoundPathCount, "compound path")
-message += getItemLine(graphCount, "graph")
-message += getItemLine(legacyTextCount, "legacy text")
-message += getItemLine(meshCount, "mesh")
-message += getItemLine(nonNativeCount, "non-native")
-message += getItemLine(pathCount, "path")
-message += getItemLine(placedCount, "link")
-message += getItemLine(pluginCount, "plugin")
-message += getItemLine(rasterCount, "raster")
-message += getItemLine(symbolCount, "symbol")
-message += getItemLine(textFrameCount, "text frame")
+var message = "There are "
+var prefix = ""
+
+if (selection.length !== maxOf(compoundPathCount, graphCount, legacyTextCount, meshCount,
+  nonNativeCount, pathCount, placedCount, pluginCount, rasterCount, symbolCount, textFrameCount)) {
+  message += selection.length + " items, containing:"
+  prefix = "\n"
+}
+message += getItemLine(prefix, compoundPathCount, "compound path")
+message += getItemLine(prefix, graphCount, "graph")
+message += getItemLine(prefix, legacyTextCount, "legacy text")
+message += getItemLine(prefix, meshCount, "mesh")
+message += getItemLine(prefix, nonNativeCount, "non-native")
+message += getItemLine(prefix, pathCount, "path")
+message += getItemLine(prefix, placedCount, "link")
+message += getItemLine(prefix, pluginCount, "plugin")
+message += getItemLine(prefix, rasterCount, "raster")
+message += getItemLine(prefix, symbolCount, "symbol")
+message += getItemLine(prefix, textFrameCount, "text frame")
 alert(message, "Count Objects")
 
-function getItemLine(count, suffix) {
+function getItemLine(prefix, count, suffix) {
   if (count === 0) {
     return ""
   }
-  var line = "\n• " + count + " " + suffix
+  var line = "%s%d %s".format(prefix, count, suffix)
   if (count > 1) {
     line += suffix.endsWith("sh") ? "es" : "s"
   }
-  return line
+  return line + "."
 }

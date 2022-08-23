@@ -3,28 +3,25 @@ var OPEN_DOCUMENTMODES = ["RGB", "CMYK"]
 var OPEN_DOCUMENTRESOLUTIONS = ["Screen", "Medium", "High"]
 var OPEN_DOCUMENTLAYOUTS = ["Grid by Row", "Grid by Column", "Row", "Column", "RTL Grid by Row", "RTL Grid by Column", "RTL Row"]
 var OPEN_DOCUMENTPREVIEWMODES = ["Default", "Pixel", "Overprint"]
-
-var BOUNDS_DOCUMENT_TEXT = [90, 21]
-var BOUNDS_DOCUMENT_EDIT = [120, 21]
-var BOUNDS_DOCUMENT_EDIT2 = [70, 21]
-var BOUNDS_DOCUMENT_EDITMAX = [120 + 70 + 10, 21]
+var SIZE_DOCUMENT_INPUT = [120, 21]
+var SIZE_DOCUMENT_INPUT2 = [70, 21]
+var SIZE_DOCUMENT_INPUTMAX = [120 + 70 + 10, 21]
 
 /**
  * PDF placing option panel.
  * @param {Group|Panel|Window} parent holder of this control.
- * @param {Array} textBounds size or position & size array.
- * @param {Array} editBounds size or position & size array.
+ * @param {Array} inputSize size or bounds.
  */
-function OpenPDFPanel(parent, textBounds, editBounds) {
+function OpenPDFPanel(parent, inputSize) {
   var self = this
   this.boxTypeList
 
   this.main = parent.vpanel("PDF Box", function(panel) {
-    panel.alignChildren = "fill"
+    panel.alignChildren = "right"
     panel.hgroup(function(group) {
       group.tooltips("Which box should be used when placing a pdf document")
-      group.staticText(textBounds, "Crop to:").also(JUSTIFY_RIGHT)
-      self.boxTypeList = group.dropDownList(editBounds, OPEN_PDFBOXTYPES).also(function(it) {
+      group.staticText(undefined, "Crop to:").also(JUSTIFY_RIGHT)
+      self.boxTypeList = group.dropDownList(inputSize, OPEN_PDFBOXTYPES).also(function(it) {
         var prefill
         if (preferences.getPDFCrop() === PDFBoxType.PDFARTBOX) {
           prefill = "Art"
@@ -63,34 +60,33 @@ function OpenPDFPanel(parent, textBounds, editBounds) {
 /**
  * Impose pages option panel.
  * @param {Group|Panel|Window} parent holder of this control.
- * @param {Array} textBounds size or position & size array.
- * @param {Array} editBounds size or position & size array.
+ * @param {Array} inputSize size or bounds.
  */
-function OpenPagesPanel(parent, textBounds, editBounds) {
+function OpenPagesPanel(parent, inputSize) {
   var self = this
   this.rangeGroup, this.widthEdit, this.heightEdit, this.bleedEdit
 
   this.main = parent.vpanel("Pages", function(panel) {
-    panel.alignChildren = "fill"
+    panel.alignChildren = "right"
     panel.hgroup(function(group) {
       group.tooltips("Which pages to impose")
-      group.staticText(textBounds, "Pages:").also(JUSTIFY_RIGHT)
-      self.rangeGroup = new RangeGroup(group, editBounds)
+      group.staticText(undefined, "Pages:").also(JUSTIFY_RIGHT)
+      self.rangeGroup = new RangeGroup(group, inputSize)
     })
     panel.hgroup(function(group) {
       group.tooltips("Page width, not artboard")
-      group.staticText(textBounds, "Width:").also(JUSTIFY_RIGHT)
-      self.widthEdit = group.editText(editBounds, "210 mm").also(VALIDATE_UNITS)
+      group.staticText(undefined, "Width:").also(JUSTIFY_RIGHT)
+      self.widthEdit = group.editText(inputSize, "210 mm").also(VALIDATE_UNITS)
     })
     panel.hgroup(function(group) {
       group.tooltips("Page height, not artboard")
-      group.staticText(textBounds, "Height:").also(JUSTIFY_RIGHT)
-      self.heightEdit = group.editText(editBounds, "297 mm").also(VALIDATE_UNITS)
+      group.staticText(undefined, "Height:").also(JUSTIFY_RIGHT)
+      self.heightEdit = group.editText(inputSize, "297 mm").also(VALIDATE_UNITS)
     })
     panel.hgroup(function(group) {
       group.tooltips("Extra area that will be added to page dimension")
-      group.staticText(textBounds, "Bleed:").also(JUSTIFY_RIGHT)
-      self.bleedEdit = group.editText(editBounds, "0 mm").also(VALIDATE_UNITS)
+      group.staticText(undefined, "Bleed:").also(JUSTIFY_RIGHT)
+      self.bleedEdit = group.editText(inputSize, "0 mm").also(VALIDATE_UNITS)
     })
   })
 
@@ -125,40 +121,40 @@ function OpenDocumentPanel(parent) {
   this.previewDefaultRadio, this.previewPixelRadio, this.previewOverprintRadio
 
   this.main = parent.vpanel("Document Preset", function(panel) {
-    panel.alignChildren = "fill"
+    panel.alignChildren = "right"
     panel.hgroup(function(group) {
       group.tooltips("The color mode and resolution for the new document")
-      group.staticText(BOUNDS_DOCUMENT_TEXT, "Color Mode:").also(JUSTIFY_RIGHT)
-      self.modeList = group.dropDownList(BOUNDS_DOCUMENT_EDIT, OPEN_DOCUMENTMODES).also(function(it) {
+      group.staticText(undefined, "Color Mode:").also(JUSTIFY_RIGHT)
+      self.modeList = group.dropDownList(SIZE_DOCUMENT_INPUT, OPEN_DOCUMENTMODES).also(function(it) {
         it.selection = Collections.indexOf(OPEN_DOCUMENTMODES, "CMYK")
       })
-      self.resolutionList = group.dropDownList(BOUNDS_DOCUMENT_EDIT2, OPEN_DOCUMENTRESOLUTIONS).also(function(it) {
+      self.resolutionList = group.dropDownList(SIZE_DOCUMENT_INPUT2, OPEN_DOCUMENTRESOLUTIONS).also(function(it) {
         it.selection = Collections.indexOf(OPEN_DOCUMENTRESOLUTIONS, "High")
       })
     })
     panel.hgroup(function(group) {
       group.tooltips("Layout for artboards")
-      group.staticText(BOUNDS_DOCUMENT_TEXT, "Layout:").also(JUSTIFY_RIGHT)
-      self.layoutList = group.dropDownList(BOUNDS_DOCUMENT_EDIT, OPEN_DOCUMENTLAYOUTS).also(function(it) {
+      group.staticText(undefined, "Layout:").also(JUSTIFY_RIGHT)
+      self.layoutList = group.dropDownList(SIZE_DOCUMENT_INPUT, OPEN_DOCUMENTLAYOUTS).also(function(it) {
         it.selection = Collections.indexOf(OPEN_DOCUMENTLAYOUTS, "Grid by Row")
       })
-      self.rowsOrColsEdit = group.editText(BOUNDS_DOCUMENT_EDIT2, "2").also(VALIDATE_DIGITS)
+      self.rowsOrColsEdit = group.editText(SIZE_DOCUMENT_INPUT2, "2").also(VALIDATE_DIGITS)
     })
     panel.hgroup(function(group) {
       group.tooltips("The units for the new document")
-      group.staticText(BOUNDS_DOCUMENT_TEXT, "Units:").also(JUSTIFY_RIGHT)
-      self.unitsList = group.dropDownList(BOUNDS_DOCUMENT_EDITMAX, UNITS).also(function(it) {
+      group.staticText(undefined, "Units:").also(JUSTIFY_RIGHT)
+      self.unitsList = group.dropDownList(SIZE_DOCUMENT_INPUTMAX, UNITS).also(function(it) {
         it.selection = Collections.indexOf(UNITS, "Millimeters")
       })
     })
     panel.hgroup(function(group) {
       group.tooltips("Spacing between artboards")
-      group.staticText(BOUNDS_DOCUMENT_TEXT, "Spacing:").also(JUSTIFY_RIGHT)
-      self.spacingEdit = group.editText(BOUNDS_DOCUMENT_EDITMAX, "10 mm").also(VALIDATE_UNITS)
+      group.staticText(undefined, "Spacing:").also(JUSTIFY_RIGHT)
+      self.spacingEdit = group.editText(SIZE_DOCUMENT_INPUTMAX, "10 mm").also(VALIDATE_UNITS)
     })
     panel.hgroup(function(group) {
       group.tooltips("The preview mode for the new document")
-      group.staticText(BOUNDS_DOCUMENT_TEXT, "Preview Mode:").also(JUSTIFY_RIGHT)
+      group.staticText(undefined, "Preview Mode:").also(JUSTIFY_RIGHT)
       self.previewDefaultRadio = group.radioButton(undefined, "Default").also(SELECTED)
       self.previewPixelRadio = group.radioButton(undefined, "Pixel")
       self.previewOverprintRadio = group.radioButton(undefined, "Overprint")
