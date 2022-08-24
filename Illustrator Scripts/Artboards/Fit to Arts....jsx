@@ -13,10 +13,12 @@ dialog.hgroup(function(main) {
 })
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
+  var temp = selection // preserve selection
   rangeGroup.forEach(function(i) {
     document.artboards.setActiveArtboardIndex(i)
     document.selectObjectsOnActiveArtboard(i)
     document.fitArtboardToSelectedArt(i)
   })
+  selection = temp
 })
 dialog.show()

@@ -33,7 +33,7 @@ if (files !== null && Collections.isNotEmpty(files)) {
       })
       documentPanel = new OpenDocumentPanel(topGroup)
     })
-    nupGroup = new NUpOptionsGroup(main, true, true, true)
+    nupGroup = new NUpOptionsGroup(main, false)
   })
   dialog.setCancelButton()
   dialog.setDefaultButton(undefined, function() {
@@ -55,22 +55,21 @@ if (files !== null && Collections.isNotEmpty(files)) {
       (rotatedWidth + bleed * 2) * 2,
       (rotatedHeight + bleed * 2),
       0)
-    var pager = !nupGroup.isCutStack()
+    var pager = !nupGroup.isStack()
       ? (!nupGroup.isDuplex()
         ? new TwoUpSimplexPager(document, start)
         : new TwoUpDuplexPager(document, start))
       : (!nupGroup.isDuplex()
-        ? new TwoUpSimplexCutStackPager(document, start)
-        : new TwoUpDuplexCutStackPager(document, start))
-    var progress = new ProgressPalette(artboards, "Imposing")
+        ? new TwoUpSimplexStackPager(document, start)
+        : new TwoUpDuplexStackPager(document, start))
+    var progress = new ProgressDialog(artboards, "Imposing")
 
-    pager.forEachArtboard(function(artboard,
-      leftIndex, rightIndex) {
+    pager.forEachArtboard(function(artboard, left, right) {
       progress.increment()
       var item1 = document.placedItems.add()
       var item2 = document.placedItems.add()
-      item1.file = collection.get(leftIndex)
-      item2.file = collection.get(rightIndex)
+      item1.file = collection.get(left)
+      item2.file = collection.get(right)
       var x1 = artboard.artboardRect.getLeft()
       var x2 = x1 + rotatedWidth + bleed * 2
       var y = artboard.artboardRect.getTop()

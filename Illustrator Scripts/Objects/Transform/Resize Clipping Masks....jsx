@@ -36,7 +36,7 @@ dialog.hgroup(function(main) {
     documentOriginCheck = panel.checkBox(undefined, "Document Origin").also(function(it) {
       it.tooltip("Use current reference point preference")
       it.onClick = function() {
-        anchorGroup.main.enabled = !it.value
+        anchorGroup.enabled = !it.value
       }
     })
     anchorGroup = new AnchorGroup(panel)
@@ -54,7 +54,7 @@ dialog.setDefaultButton(undefined, function() {
       parseInt(it.width) === parseInt(widthFrom) &&
       parseInt(it.height) === parseInt(heightFrom)
   })
-  var progress = new ProgressPalette(clippingPaths.length, "Resizing clipping mask")
+  var progress = new ProgressDialog(clippingPaths.length, "Resizing clipping mask")
 
   Collections.forEach(clippingPaths, function(clippingPath, i) {
     var clippingPath = clippingPaths[i]

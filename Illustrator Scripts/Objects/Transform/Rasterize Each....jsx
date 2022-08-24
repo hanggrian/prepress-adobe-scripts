@@ -87,10 +87,10 @@ dialog.vgroup(function(main) {
   main.hgroup(function(group) {
     group.alignment = "right"
     recursiveCheck = new RecursiveCheck(group).also(function(it) {
-      it.main.value = config.getBoolean("recursive")
+      it.value = config.getBoolean("recursive")
     })
     keepSizeCheck = new KeepSizeCheck(group).also(function(it) {
-      it.main.value = config.getBoolean("keep_size")
+      it.value = config.getBoolean("keep_size")
     })
   })
 })
@@ -128,7 +128,7 @@ dialog.setDefaultButton(undefined, function() {
     var position = item.position
     var newItem = document.rasterize(item, item.geometricBounds, options)
     selectQueues.push(newItem)
-    if (keepSizeCheck.isSelected() && item.typename !== "TextFrame") {
+    if (keepSizeCheck.value && item.typename !== "TextFrame") {
       print("Keep size, ")
       newItem.width = width + options.padding * 2
       newItem.height = height + options.padding * 2
@@ -136,7 +136,7 @@ dialog.setDefaultButton(undefined, function() {
     }
     println("Done.")
   }
-  if (recursiveCheck.isSelected()) {
+  if (recursiveCheck.value) {
     Collections.forEachItem(selection, action)
   } else {
     Collections.forEach(selection, action)
@@ -150,7 +150,7 @@ dialog.setDefaultButton(undefined, function() {
   config.setBoolean("option3", convertSpotColorsCheck.value)
   config.setBoolean("option4", convertTextToOutlinesCheck.value)
   config.setBoolean("option5", includeLayersCheck.value)
-  config.setBoolean("recursive", recursiveCheck.isSelected())
-  config.setBoolean("keep_size", keepSizeCheck.isSelected())
+  config.setBoolean("recursive", recursiveCheck.value)
+  config.setBoolean("keep_size", keepSizeCheck.value)
 })
 dialog.show()

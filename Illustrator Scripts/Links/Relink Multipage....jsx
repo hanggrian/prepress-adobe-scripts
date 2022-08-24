@@ -8,7 +8,7 @@ checkHasSelection()
 check(Collections.anyItem(selection, PREDICATE_LINKS), "No links found in selection")
 
 var dialog = new Dialog("Relink Multipage", "relinking-files/#relink-multipage")
-var pdfPanel, rangeGroup, orderByGroup, recursiveCheck, keepSizeCheck
+var pdfPanel, rangeGroup, orderByList, recursiveCheck, keepSizeCheck
 var collection
 var config = configs.resolve("links/relink_multipage")
 
@@ -36,17 +36,17 @@ if (files !== null && Collections.isNotEmpty(files)) {
         })
       })
     })
-    orderByGroup = new OrderByGroup(main, [ORDER_LAYERS, ORDER_POSITIONS]).also(function(group) {
-      group.main.alignment = "right"
-      group.list.selectText(config.getString("order", "Reversed"))
+    orderByList = new OrderByList(main, [ORDER_LAYERS, ORDER_POSITIONS]).also(function(it) {
+      it.alignment = "right"
+      it.selectText(config.getString("order", "Reversed"))
     })
     main.hgroup(function(group) {
       group.alignment = "right"
       recursiveCheck = new RecursiveCheck(group).also(function(it) {
-        it.main.value = config.getBoolean("recursive")
+        it.value = config.getBoolean("recursive")
       })
       keepSizeCheck = new KeepSizeCheck(group).also(function(it) {
-        it.main.value = config.getBoolean("keep_size")
+        it.value = config.getBoolean("keep_size")
       })
     })
   })
@@ -54,16 +54,15 @@ if (files !== null && Collections.isNotEmpty(files)) {
   dialog.setDefaultButton(undefined, function() {
     var current = rangeGroup.getStart()
     var end = rangeGroup.getEnd()
-    var isRecursive = recursiveCheck.isSelected()
-    var source = isRecursive ? Collections.filterItem(selection, PREDICATE_LINKS) : selection
-    var progress = new ProgressPalette(source.length)
+    var source = recursiveCheck.value ? Collections.filterItem(selection, PREDICATE_LINKS) : selection
+    var progress = new ProgressDialog(source.length)
 
-    orderByGroup.forEach(source, function(item, i) {
+    orderByList.forEach(source, function(item, i) {
       progress.increment("Linking item %d", i + 1)
       print("Item %d page %d.".format(i, current))
       var file = collection.get(current)
       var relinked = false
-      if (!isRecursive && item.typename === "GroupItem") {
+      if (!recursiveCheck.value && item.typename === "GroupItem") {
         Collections.forEachItem([item], function(innerItem) {
           if (PREDICATE_LINKS(innerItem)) {
             relinked = relink(innerItem, file)
@@ -79,9 +78,9 @@ if (files !== null && Collections.isNotEmpty(files)) {
     })
     selection = source
 
-    config.setString("order", orderByGroup.list.selection.text)
-    config.setBoolean("recursive", isRecursive)
-    config.setBoolean("keep_size", keepSizeCheck.isSelected())
+    config.setString("order", orderByList.selection.text)
+    config.setBoolean("recursive", recursiveCheck.value)
+    config.setBoolean("keep_size", keepSizeCheck.value)
   })
   dialog.show()
 }
@@ -95,7 +94,7 @@ function relink(item, file) {
     item.file = Resources.getImage("relink_fix")
   }
   item.file = file
-  if (keepSizeCheck.isSelected()) {
+  if (keepSizeCheck.value) {
     print("Keep size, ")
     item.width = width
     item.height = height

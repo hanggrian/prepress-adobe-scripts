@@ -5,7 +5,7 @@
             "type": "extendscript-debug",
             "request": "launch",
             "name": "Prepress Adobe Scripts",
-            "script": "${workspaceFolder}/Illustrator Scripts/Dielines/Add Flap....jsx"
+            "script": "${workspaceFolder}/Illustrator Scripts/Artboards/Rename as Imposition....jsx"
         }
     ]
 }

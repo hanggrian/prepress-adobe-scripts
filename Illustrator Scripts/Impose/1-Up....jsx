@@ -33,7 +33,7 @@ if (files !== null && Collections.isNotEmpty(files)) {
       })
       documentPanel = new OpenDocumentPanel(topGroup)
     })
-    nupGroup = new NUpOptionsGroup(main, true, false, false)
+    nupGroup = new NUpOptionsGroup(main, false, true, false, false)
   })
   dialog.setCancelButton()
   dialog.setDefaultButton(undefined, function() {
@@ -52,7 +52,7 @@ if (files !== null && Collections.isNotEmpty(files)) {
       rotatedHeight,
       bleed)
     var pager = new OneUpPager(document, start)
-    var progress = new ProgressPalette(artboards, "Imposing")
+    var progress = new ProgressDialog(artboards, "Imposing")
 
     pager.forEachArtboard(function(artboard, index) {
       progress.increment()

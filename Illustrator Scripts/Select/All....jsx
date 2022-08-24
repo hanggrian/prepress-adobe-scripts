@@ -79,8 +79,8 @@ dialog.hgroup(function(main) {
     })
     if (isFilterMode) {
       recursiveCheck = new RecursiveCheck(topGroup).also(function(it) {
-        it.main.alignment = "right"
-        it.main.value = config.getBoolean("recursive")
+        it.alignment = "right"
+        it.value = config.getBoolean("recursive")
       })
     }
   })
@@ -111,7 +111,7 @@ dialog.setDefaultButton(undefined, function() {
       return false
     }
     return true
-  }, isFilterMode && recursiveCheck.isSelected())
+  }, isFilterMode && recursiveCheck.value)
 
   config.setBoolean("compound_path", compoundPathCheck.value)
   config.setBoolean("graph", graphCheck.value)
@@ -126,6 +126,6 @@ dialog.setDefaultButton(undefined, function() {
   config.setBoolean("raster", rasterCheck.value)
   config.setBoolean("symbol", symbolCheck.value)
   config.setBoolean("text_frame", textFrameCheck.value)
-  if (isFilterMode) config.setBoolean("recursive", recursiveCheck.isSelected())
+  if (isFilterMode) config.setBoolean("recursive", recursiveCheck.value)
 })
 dialog.show()

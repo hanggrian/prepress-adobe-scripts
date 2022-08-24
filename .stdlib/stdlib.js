@@ -10,7 +10,7 @@
 
 #include "controls/about.js"
 #include "controls/anchor.js"
-#include "controls/multiradiocheck.js"
+#include "controls/multi-toggles.js"
 
 #include "io/console.js"
 #include "io/file.js"

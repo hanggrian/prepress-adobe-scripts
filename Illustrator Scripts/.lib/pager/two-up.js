@@ -59,7 +59,7 @@ function TwoUpDuplexPager(document, start) {
  * @param {Document} document to attach to, use `document` for active document.
  * @param {Number} start first page to open, the first and default is 0.
  */
-function TwoUpSimplexCutStackPager(document, start) {
+function TwoUpSimplexStackPager(document, start) {
   var current = start || 0
 
   /**
@@ -84,7 +84,7 @@ function TwoUpSimplexCutStackPager(document, start) {
  * @param {Document} document to attach to, use `document` for active document.
  * @param {Number} start first page to open, the first and default is 0.
  */
-function TwoUpDuplexCutStackPager(document, start) {
+function TwoUpDuplexStackPager(document, start) {
   var current = start || 0
   var isFront = true
 

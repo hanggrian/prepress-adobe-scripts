@@ -1,4 +1,41 @@
 /**
+ * 4 pages of folding layout.
+ * @param {Document} document to attach to, use `document` for active document.
+ * @param {Number} start first page to open, the first and default is 0.
+ */
+function FourUpFoldingPager(document, start) {
+  var current = start || 0
+  var isFront = true
+
+  /**
+   * Iterate artboards.
+   * @param {Function} action runnable with pages' index as parameters.
+   */
+  this.forEachArtboard = function(action) {
+    Collections.forEach(document.artboards, function(artboard) {
+      var top1, top2, bottom1, bottom2
+      if (isFront) {
+        top1 = current + 7
+        top2 = current + 4
+        bottom1 = current
+        bottom2 = current + 3
+      } else {
+        top1 = current + 1
+        top2 = current + 2
+        bottom1 = current - 2
+        bottom2 = current - 3
+      }
+      artboard.name = "%d-%d-%d-%d".format(top1 + 1, top2 + 1, bottom1 + 1, bottom2 + 1)
+      action(artboard,
+        top1, top2,
+        bottom1, bottom2)
+      current += 4
+      isFront = !isFront
+    })
+  }
+}
+
+/**
  * 4 pages of single-side layout.
  * @param {Document} document to attach to, use `document` for active document.
  * @param {Number} start first page to open, the first and default is 0.
@@ -12,14 +49,14 @@ function FourUpSimplexPager(document, start) {
    */
   this.forEachArtboard = function(action) {
     Collections.forEach(document.artboards, function(artboard) {
-      var topLeft = current
-      var topRight = current + 1
-      var bottomLeft = current + 2
-      var bottomRight = current + 3
-      artboard.name = "%d-%d-%d-%d".format(topLeft + 1, topRight + 1, bottomLeft + 1, bottomRight + 1)
+      var top1 = current
+      var top2 = current + 1
+      var bottom1 = current + 2
+      var bottom2 = current + 3
+      artboard.name = "%d-%d-%d-%d".format(top1 + 1, top2 + 1, bottom1 + 1, bottom2 + 1)
       action(artboard,
-        topLeft, topRight,
-        bottomLeft, bottomRight)
+        top1, top2,
+        bottom1, bottom2)
       current += 4
     })
   }
@@ -40,22 +77,22 @@ function FourUpDuplexPager(document, start) {
    */
   this.forEachArtboard = function(action) {
     Collections.forEach(document.artboards, function(artboard) {
-      var topLeft, topRight, bottomLeft, bottomRight
+      var top1, top2, bottom1, bottom2
       if (isFront) {
-        topLeft = current
-        topRight = current + 2
-        bottomLeft = current + 4
-        bottomRight = current + 6
+        top1 = current
+        top2 = current + 2
+        bottom1 = current + 4
+        bottom2 = current + 6
       } else {
-        topLeft = current - 1
-        topRight = current - 3
-        bottomLeft = current + 3
-        bottomRight = current + 1
+        top1 = current - 1
+        top2 = current - 3
+        bottom1 = current + 3
+        bottom2 = current + 1
       }
-      artboard.name = "%d-%d-%d-%d".format(topLeft + 1, topRight + 1, bottomLeft + 1, bottomRight + 1)
+      artboard.name = "%d-%d-%d-%d".format(top1 + 1, top2 + 1, bottom1 + 1, bottom2 + 1)
       action(artboard,
-        topLeft, topRight,
-        bottomLeft, bottomRight)
+        top1, top2,
+        bottom1, bottom2)
       current += 4
       isFront = !isFront
     })
@@ -67,7 +104,7 @@ function FourUpDuplexPager(document, start) {
  * @param {Document} document to attach to, use `document` for active document.
  * @param {Number} start first page to open, the first and default is 0.
  */
-function FourUpSimplexCutStackPager(document, start) {
+function FourUpSimplexStackPager(document, start) {
   var current = start || 0
 
   /**
@@ -77,14 +114,14 @@ function FourUpSimplexCutStackPager(document, start) {
   this.forEachArtboard = function(action) {
     var artboards = document.artboards.length
     Collections.forEach(document.artboards, function(artboard) {
-      var topLeft = current
-      var topRight = current + artboards
-      var bottomLeft = current + artboards * 2
-      var bottomRight = current + artboards * 3
-      artboard.name = "%d-%d-%d-%d".format(topLeft + 1, topRight + 1, bottomLeft + 1, bottomRight + 1)
+      var top1 = current
+      var top2 = current + artboards
+      var bottom1 = current + artboards * 2
+      var bottom2 = current + artboards * 3
+      artboard.name = "%d-%d-%d-%d".format(top1 + 1, top2 + 1, bottom1 + 1, bottom2 + 1)
       action(artboard,
-        topLeft, topRight,
-        bottomLeft, bottomRight)
+        top1, top2,
+        bottom1, bottom2)
       current++
     })
   }
@@ -95,7 +132,7 @@ function FourUpSimplexCutStackPager(document, start) {
  * @param {Document} document to attach to, use `document` for active document.
  * @param {Number} start first page to open, the first and default is 0.
  */
-function FourUpDuplexCutStackPager(document, start) {
+function FourUpDuplexStackPager(document, start) {
   var current = start || 0
   var isFront = true
 
@@ -106,22 +143,22 @@ function FourUpDuplexCutStackPager(document, start) {
   this.forEachArtboard = function(action) {
     var artboards = document.artboards.length
     Collections.forEach(document.artboards, function(artboard) {
-      var topLeft, topRight, bottomLeft, bottomRight
+      var top1, top2, bottom1, bottom2
       if (isFront) {
-        topLeft = current
-        topRight = current + artboards
-        bottomLeft = current + artboards * 2
-        bottomRight = current + artboards * 3
+        top1 = current
+        top2 = current + artboards
+        bottom1 = current + artboards * 2
+        bottom2 = current + artboards * 3
       } else {
-        topLeft = current + artboards
-        topRight = current
-        bottomLeft = current + artboards * 3
-        bottomRight = current + artboards * 2
+        top1 = current + artboards
+        top2 = current
+        bottom1 = current + artboards * 3
+        bottom2 = current + artboards * 2
       }
-      artboard.name = "%d-%d-%d-%d".format(topLeft + 1, topRight + 1, bottomLeft + 1, bottomRight + 1)
+      artboard.name = "%d-%d-%d-%d".format(top1 + 1, top2 + 1, bottom1 + 1, bottom2 + 1)
       action(artboard,
-        topLeft, topRight,
-        bottomLeft, bottomRight)
+        top1, top2,
+        bottom1, bottom2)
       current++
       isFront = !isFront
     })

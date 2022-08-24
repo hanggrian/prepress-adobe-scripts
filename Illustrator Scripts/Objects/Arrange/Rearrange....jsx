@@ -11,18 +11,18 @@ for (var i = 1; i < selection.length; i++) {
 }
 
 var dialog = new Dialog("Rearrange Objects")
-var orderByGroup
+var orderByList
 var config = configs.resolve("objects/rearrange")
 
 dialog.vgroup(function(main) {
-  orderByGroup = new OrderByGroup(main, [ORDER_POSITIONS]).also(function(it) {
-    it.list.selectText(config.getString("order", "Horizontal"))
+  orderByList = new OrderByList(main, [ORDER_POSITIONS]).also(function(it) {
+    it.selectText(config.getString("order", "Horizontal"))
   })
 })
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
   // the idea is to keep pusing item to bottommost
-  orderByGroup.forEach(selection, function(it) {
+  orderByList.forEach(selection, function(it) {
     var times = it.absoluteZOrderPosition - Collections.last(initialPositions)
     println("Moving %s %d times.", Items.getName(it), times)
     repeat(times, function() {
@@ -30,6 +30,6 @@ dialog.setDefaultButton(undefined, function() {
     })
   })
 
-  config.setString("order", orderByGroup.list.selection.text)
+  config.setString("order", orderByList.selection.text)
 })
 dialog.show()

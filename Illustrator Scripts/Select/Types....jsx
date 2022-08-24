@@ -91,8 +91,8 @@ dialog.hgroup(function(main) {
     })
     if (isFilterMode) {
       recursiveCheck = new RecursiveCheck(topGroup).also(function(it) {
-        it.main.alignment = "right"
-        it.main.value = config.getBoolean("recursive")
+        it.alignment = "right"
+        it.value = config.getBoolean("recursive")
       })
     }
   })
@@ -143,9 +143,9 @@ dialog.setDefaultButton(undefined, function() {
     if (kind !== undefined && kind !== item.kind) return false
     if (orientation !== undefined && orientation !== item.orientation) return false
     return true
-  }, isFilterMode && recursiveCheck.isSelected())
+  }, isFilterMode && recursiveCheck.value)
 
-  if (isFilterMode) config.setBoolean("recursive", recursiveCheck.isSelected())
+  if (isFilterMode) config.setBoolean("recursive", recursiveCheck.value)
 })
 dialog.show()
 

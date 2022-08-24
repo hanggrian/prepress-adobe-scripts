@@ -64,8 +64,8 @@ Collections.lastItem = function(items, predicate) {
   error("Element not found given the predicate")
 }
 
-// TODO: Object.prototype.firstItem
-// TODO: Object.prototype.lastItem
+// TODO: Collections.firstItem
+// TODO: Collections.lastItem
 
 /**
  * Returns true if the collection has no elements matching predicate.

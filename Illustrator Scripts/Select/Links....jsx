@@ -44,8 +44,8 @@ dialog.vgroup(function(main) {
   })
   if (isFilterMode) {
     recursiveCheck = new RecursiveCheck(main).also(function(it) {
-      it.main.alignment = "right"
-      it.main.value = config.getBoolean("recursive")
+      it.alignment = "right"
+      it.value = config.getBoolean("recursive")
     })
   }
 })
@@ -67,9 +67,9 @@ dialog.setDefaultButton(undefined, function() {
     if (psdCheck.value && !Collections.contains(FILE_PSD, extension)) return false
     if (tiffCheck.value && !Collections.contains(FILE_TIFF, extension)) return false
     return true
-  }, isFilterMode && recursiveCheck.isSelected())
+  }, isFilterMode && recursiveCheck.value)
 
-  if (isFilterMode) config.setBoolean("recursive", recursiveCheck.isSelected())
+  if (isFilterMode) config.setBoolean("recursive", recursiveCheck.value)
 })
 dialog.show()
 

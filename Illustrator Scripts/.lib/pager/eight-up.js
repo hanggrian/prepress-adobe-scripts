@@ -1,4 +1,50 @@
 /**
+ * 8 pages of folding layout.
+ * @param {Document} document to attach to, use `document` for active document.
+ * @param {Number} start first page to open, the first and default is 0.
+ */
+function EightUpFoldingPager(document, start) {
+  var current = start || 0
+  var isFront = true
+
+  /**
+   * Iterate artboards.
+   * @param {Function} action runnable with pages' index as parameters.
+   */
+  this.forEachArtboard = function(action) {
+    Collections.forEach(document.artboards, function(artboard) {
+      var top1, top2, top3, top4, bottom1, bottom2, bottom3, bottom3
+      if (isFront) {
+        top1 = current + 4
+        top2 = current + 11
+        top3 = current + 8
+        top4 = current + 7
+        bottom1 = current + 3
+        bottom2 = current + 12
+        bottom3 = current + 15
+        bottom4 = current
+      } else {
+        top1 = current - 2
+        top2 = current + 1
+        top3 = current + 2
+        top4 = current - 3
+        bottom1 = current - 7
+        bottom2 = current + 6
+        bottom3 = current + 5
+        bottom4 = current - 6
+      }
+      artboard.name = "%d-%d-%d-%d-%d-%d-%d-%d".format(top1 + 1, top2 + 1, top3 + 1, top4 + 1,
+        bottom1 + 1, bottom2 + 1, bottom3 + 1, bottom4 + 1)
+      action(artboard,
+        top1, top2, top3, top4,
+        bottom1, bottom2, bottom3, bottom4)
+      current += 8
+      isFront = !isFront
+    })
+  }
+}
+
+/**
  * 8 pages of single-side layout.
  * @param {Document} document to attach to, use `document` for active document.
  * @param {Number} start first page to open, the first and default is 0.
@@ -81,7 +127,7 @@ function EightUpDuplexPager(document, start) {
  * @param {Document} document to attach to, use `document` for active document.
  * @param {Number} start first page to open, the first and default is 0.
  */
-function EightUpSimplexCutStackPager(document, start) {
+function EightUpSimplexStackPager(document, start) {
   var current = start || 0
 
   /**
@@ -114,7 +160,7 @@ function EightUpSimplexCutStackPager(document, start) {
  * @param {Document} document to attach to, use `document` for active document.
  * @param {Number} start first page to open, the first and default is 0.
  */
-function EightUpDuplexCutStackPager(document, start) {
+function EightUpDuplexStackPager(document, start) {
   var current = start || 0
   var isFront = true
 

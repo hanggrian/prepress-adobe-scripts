@@ -22,7 +22,7 @@ if (file !== null) {
     main.alignChildren = "fill"
     if (file.isPdf()) {
       pdfPanel = new OpenPDFPanel(main, SIZE_INPUT).also(function(panel) {
-        panel.main.hgroup(function(group) {
+        panel.hgroup(function(group) {
           group.tooltips("Which page should be used when opening a multipage document")
           group.staticText(undefined, "Page:").also(JUSTIFY_RIGHT)
           pageEdit = group.editText(SIZE_INPUT, "1").also(function(it) {
@@ -35,7 +35,7 @@ if (file !== null) {
     main.hgroup(function(group) {
       group.alignment = "right"
       keepSizeCheck = new KeepSizeCheck(group).also(function(it) {
-        it.main.value = config.getBoolean("keep_size")
+        it.value = config.getBoolean("keep_size")
       })
     })
   })
@@ -47,7 +47,7 @@ if (file !== null) {
       preferences.setPDFPage(page)
     }
 
-    var progress = new ProgressPalette(items.length)
+    var progress = new ProgressDialog(items.length)
     Collections.forEach(items, function(item, i) {
       progress.increment("Linking item %d", i + 1)
       print(i + ". ")
@@ -56,7 +56,7 @@ if (file !== null) {
     })
     selection = items
 
-    config.setBoolean("keep_size", keepSizeCheck.isSelected())
+    config.setBoolean("keep_size", keepSizeCheck.value)
   })
   dialog.show()
 }
@@ -70,7 +70,7 @@ function relink(item, file) {
     item.file = Resources.getImage("relink_fix")
   }
   item.file = file
-  if (keepSizeCheck.isSelected()) {
+  if (keepSizeCheck.value) {
     print("Keep size, ")
     item.width = width
     item.height = height

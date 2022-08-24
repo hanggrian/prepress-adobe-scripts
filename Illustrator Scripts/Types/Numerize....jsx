@@ -17,7 +17,7 @@ var dialog = new Dialog("Numerize", "retyping-texts/#numerize")
 var startsAtEdit, digitsEdit
 var stopsAtGroup, stopsAtCheck, stopsAtList
 var prefixEdit, suffixEdit
-var orderByGroup
+var orderByList
 var config = configs.resolve("types/numerize")
 
 dialog.vgroup(function(main) {
@@ -70,8 +70,8 @@ dialog.vgroup(function(main) {
       })
     })
   })
-  orderByGroup = new OrderByGroup(main, [ORDER_LAYERS, ORDER_POSITIONS]).also(function(group) {
-    group.list.selectText(config.getString("order", "Reversed"))
+  orderByList = new OrderByList(main, [ORDER_LAYERS, ORDER_POSITIONS]).also(function(it) {
+    it.selectText(config.getString("order", "Reversed"))
   })
 })
 dialog.setCancelButton()
@@ -85,7 +85,7 @@ dialog.setDefaultButton(undefined, function() {
   }
   var prefix = prefixEdit.text
   var suffix = suffixEdit.text
-  orderByGroup.forEach(items, function(item, i) {
+  orderByList.forEach(items, function(item, i) {
     var s = pad(startsAt, digits)
     if (stopsAtCheck.value) {
       s += ALPHABETS[stopsCount]
@@ -114,7 +114,7 @@ dialog.setDefaultButton(undefined, function() {
   }
   config.setString("prefix", prefix)
   config.setString("suffix", suffix)
-  config.setString("order", orderByGroup.list.selection.text)
+  config.setString("order", orderByList.selection.text)
 })
 dialog.show()
 

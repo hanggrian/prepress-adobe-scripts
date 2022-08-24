@@ -12,45 +12,43 @@ var SIZE_DOCUMENT_INPUT2 = [70, 21]
 var SIZE_DOCUMENT_INPUTMAX = [120 + 70 + 10, 21]
 
 function OpenDocumentPanel(parent) {
-  var self = this
-  this.modeList, this.bitsList
-  this.resolutionEdit
-  this.unitsList
-  this.backgrounTransparentRadio, this.backgrounWhiteRadio
+  var self = parent.vpanel("Document Preset")
+  self.modeList, self.bitsList
+  self.resolutionEdit
+  self.unitsList
+  self.backgrounTransparentRadio, self.backgrounWhiteRadio
 
-  this.main = parent.vpanel("Document Preset", function(panel) {
-    panel.alignChildren = "right"
-    panel.hgroup(function(group) {
-      group.tooltips("The color mode and resolution for the new document")
-      group.staticText(undefined, "Color Mode:", JUSTIFY_RIGHT)
-      self.modeList = group.dropDownList(SIZE_DOCUMENT_INPUT, OPEN_DOCUMENTMODES, function(it) {
-        it.selectText("CMYK")
-      })
-      self.bitsList = group.dropDownList(SIZE_DOCUMENT_INPUT2, OPEN_DOCUMENTBITS, function(it) {
-        it.selectText("8 bit")
-      })
+  self.alignChildren = "right"
+  self.hgroup(function(group) {
+    group.tooltips("The color mode and resolution for the new document")
+    group.staticText(undefined, "Color Mode:", JUSTIFY_RIGHT)
+    self.modeList = group.dropDownList(SIZE_DOCUMENT_INPUT, OPEN_DOCUMENTMODES, function(it) {
+      it.selectText("CMYK")
     })
-    panel.hgroup(function(group) {
-      group.tooltips("The resolution for the new document")
-      group.staticText(undefined, "Resolution:", JUSTIFY_RIGHT)
-      self.resolutionEdit = group.editText(SIZE_DOCUMENT_INPUTMAX, "300")
-    })
-    panel.hgroup(function(group) {
-      group.tooltips("The units for the new document")
-      group.staticText(undefined, "Units:", JUSTIFY_RIGHT)
-      self.unitsList = group.dropDownList(SIZE_DOCUMENT_INPUTMAX, UNITS, function(it) {
-        it.selectText("Millimeters")
-      })
-    })
-    panel.hgroup(function(group) {
-      group.tooltips("The initial fill of the document")
-      group.staticText(undefined, "Background:", JUSTIFY_RIGHT)
-      self.backgrounTransparentRadio = group.radioButton(undefined, "Transparent").also(SELECTED)
-      self.backgrounWhiteRadio = group.radioButton(undefined, "White")
+    self.bitsList = group.dropDownList(SIZE_DOCUMENT_INPUT2, OPEN_DOCUMENTBITS, function(it) {
+      it.selectText("8 bit")
     })
   })
+  self.hgroup(function(group) {
+    group.tooltips("The resolution for the new document")
+    group.staticText(undefined, "Resolution:", JUSTIFY_RIGHT)
+    self.resolutionEdit = group.editText(SIZE_DOCUMENT_INPUTMAX, "300")
+  })
+  self.hgroup(function(group) {
+    group.tooltips("The units for the new document")
+    group.staticText(undefined, "Units:", JUSTIFY_RIGHT)
+    self.unitsList = group.dropDownList(SIZE_DOCUMENT_INPUTMAX, UNITS, function(it) {
+      it.selectText("Millimeters")
+    })
+  })
+  self.hgroup(function(group) {
+    group.tooltips("The initial fill of the document")
+    group.staticText(undefined, "Background:", JUSTIFY_RIGHT)
+    self.backgrounTransparentRadio = group.radioButton(undefined, "Transparent").also(SELECTED)
+    self.backgrounWhiteRadio = group.radioButton(undefined, "White")
+  })
 
-  this.open = function(title, width, height) {
+  self.open = function(title, width, height) {
     var mode, background, bits
     switch (self.modeList.selection.text) {
       case "Bitmap":
@@ -91,4 +89,6 @@ function OpenDocumentPanel(parent) {
     }
     return app.documents.add(width, height, resolution, title, mode, background, 1.0, bits)
   }
+
+  return self
 }

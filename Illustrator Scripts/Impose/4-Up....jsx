@@ -33,7 +33,7 @@ if (files !== null && Collections.isNotEmpty(files)) {
       })
       documentPanel = new OpenDocumentPanel(topGroup)
     })
-    nupGroup = new NUpOptionsGroup(main, true, true, true)
+    nupGroup = new NUpOptionsGroup(main)
   })
   dialog.setCancelButton()
   dialog.setDefaultButton(undefined, function() {
@@ -43,8 +43,8 @@ if (files !== null && Collections.isNotEmpty(files)) {
     var width = pagesPanel.getWidth()
     var height = pagesPanel.getHeight()
     var bleed = pagesPanel.getBleed()
-    var rotatedWidth = !nupGroup.isRotate() ? width : height
-    var rotatedHeight = !nupGroup.isRotate() ? height : width
+    var rotatedWidth = nupGroup.isFolding() || nupGroup.isRotate() ? height : width
+    var rotatedHeight = nupGroup.isFolding() || nupGroup.isRotate() ? width : height
 
     var pagesDivisor = !nupGroup.isDuplex() ? 4 : 8
     if (pages % pagesDivisor !== 0) {
@@ -55,27 +55,30 @@ if (files !== null && Collections.isNotEmpty(files)) {
       (rotatedWidth + bleed * 2) * 2,
       (rotatedHeight + bleed * 2) * 2,
       0)
-    var pager = !nupGroup.isCutStack()
-      ? (!nupGroup.isDuplex()
-        ? new FourUpSimplexPager(document, start)
-        : new FourUpDuplexPager(document, start))
-      : (!nupGroup.isDuplex()
-        ? new FourUpSimplexCutStackPager(document, start)
-        : new FourUpDuplexCutStackPager(document, start))
-    var progress = new ProgressPalette(artboards, "Imposing")
+    var pager
+    if (nupGroup.isFolding()) {
+      pager = new FourUpFoldingPager(document, start)
+    } else {
+      pager = !nupGroup.isStack()
+        ? (!nupGroup.isDuplex()
+          ? new FourUpSimplexPager(document, start)
+          : new FourUpDuplexPager(document, start))
+        : (!nupGroup.isDuplex()
+          ? new FourUpSimplexStackPager(document, start)
+          : new FourUpDuplexStackPager(document, start))
+    }
+    var progress = new ProgressDialog(artboards, "Imposing")
 
-    pager.forEachArtboard(function(artboard,
-      topLeftIndex, topRightIndex,
-      bottomLeftIndex, bottomRightIndex) {
+    pager.forEachArtboard(function(artboard, top1, top2, bottom1, bottom2) {
       progress.increment()
       var topItem1 = document.placedItems.add()
       var topItem2 = document.placedItems.add()
       var bottomItem1 = document.placedItems.add()
       var bottomItem2 = document.placedItems.add()
-      topItem1.file = collection.get(topLeftIndex)
-      topItem2.file = collection.get(topRightIndex)
-      bottomItem1.file = collection.get(bottomLeftIndex)
-      bottomItem2.file = collection.get(bottomRightIndex)
+      topItem1.file = collection.get(top1)
+      topItem2.file = collection.get(top2)
+      bottomItem1.file = collection.get(bottom1)
+      bottomItem2.file = collection.get(bottom2)
       var x1 = artboard.artboardRect.getLeft()
       var x2 = x1 + rotatedWidth + bleed * 2
       var y1 = artboard.artboardRect.getTop()
@@ -84,10 +87,16 @@ if (files !== null && Collections.isNotEmpty(files)) {
         function(it) {
           it.width = width + bleed * 2
           it.height = height + bleed * 2
-          if (nupGroup.isRotate()) {
+          if (!nupGroup.isFolding() && nupGroup.isRotate()) {
             it.rotate(nupGroup.isDuplex() && Collections.indexOf(document.artboards, artboard).isOdd() ? 270 : 90)
           }
         })
+      if (nupGroup.isFolding()) {
+        topItem1.rotate(270)
+        topItem2.rotate(90)
+        bottomItem1.rotate(270)
+        bottomItem2.rotate(90)
+      }
       topItem1.position = [x1, y1]
       topItem2.position = [x2, y1]
       bottomItem1.position = [x1, y2]

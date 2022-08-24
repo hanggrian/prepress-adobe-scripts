@@ -18,24 +18,18 @@ var ORDER_POSITIONS = [
  * @param {Group|Panel|Window} parent holder of this control.
  * @param {Array} ordersCollection ordering options.
  */
-function OrderByGroup(parent, ordersCollection) {
-  var self = this
-  this.list
-
-  checkNotNull(ordersCollection)
+function OrderByList(parent, ordersCollection) {
   var orders = []
-  Collections.forEach(ordersCollection, function(it, i) {
+  Collections.forEach(checkNotNull(ordersCollection), function(it, i) {
     orders = orders.concat(it)
     if (i !== Collections.lastIndex(ordersCollection)) {
       orders.push("-")
     }
   })
 
-  this.main = parent.hgroup(function(group) {
-    group.tooltips("Modify how iteration should be operated")
-    self.list = group.dropDownList(undefined, orders).also(function(it) {
-      it.title = "Order by:"
-    })
+  var self = parent.dropDownList(undefined, orders).also(function(it) {
+    it.tooltip("Modify how iteration should be operated")
+    it.title = "Order by:"
   })
 
   /**
@@ -44,26 +38,26 @@ function OrderByGroup(parent, ordersCollection) {
    * @param {Function} action runnable of element as parameter.
    * @returns
    */
-  this.forEach = function(collection, action) {
-    if (self.list.selection.text === "Default") {
+  self.forEach = function(collection, action) {
+    if (self.selection.text === "Default") {
       Collections.forEach(collection, action)
       return
-    } else if (self.list.selection.text === "Reversed") {
+    } else if (self.selection.text === "Reversed") {
       Collections.forEachReversed(collection, action)
       return
     }
     var sortedCollection = Collections.map(collection, function(it) { return it })
-    if (self.list.selection.text === "Ascending") {
+    if (self.selection.text === "Ascending") {
       sortedCollection.sort(sortAscending)
-    } else if (self.list.selection.text === "Descending") {
+    } else if (self.selection.text === "Descending") {
       sortedCollection.sort(sortDescending)
-    } else if (self.list.selection.text === "Horizontal") {
+    } else if (self.selection.text === "Horizontal") {
       sortedCollection.sort(sortHorizontal)
-    } else if (self.list.selection.text === "Vertical") {
+    } else if (self.selection.text === "Vertical") {
       sortedCollection.sort(sortVertical)
-    } else if (self.list.selection.text === "Horizontal RTL") {
+    } else if (self.selection.text === "Horizontal RTL") {
       sortedCollection.sort(sortHorizontalRtl)
-    } else if (self.list.selection.text === "Vertical RTL") {
+    } else if (self.selection.text === "Vertical RTL") {
       sortedCollection.sort(sortVerticalRtl)
     } else {
       error("Ordering error")
@@ -164,4 +158,6 @@ function OrderByGroup(parent, ordersCollection) {
     }
     return 0
   }
+
+  return self
 }

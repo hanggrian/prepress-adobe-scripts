@@ -39,9 +39,7 @@ function Configs(path) {
    * @param {String} relative relative file path.
    * @returns {Boolean}
    */
-  this.resolve = function(relative) {
-    return new Configs(prefix + relative)
-  }
+  this.resolve = function(relative) { return new Configs(prefix + relative) }
 
   /**
    * Get boolean value from this preferences, returning true if not present.

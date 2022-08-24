@@ -33,7 +33,7 @@ if (files !== null && Collections.isNotEmpty(files)) {
       })
       documentPanel = new OpenDocumentPanel(topGroup)
     })
-    nupGroup = new NUpOptionsGroup(main, true, true, true)
+    nupGroup = new NUpOptionsGroup(main)
   })
   dialog.setCancelButton()
   dialog.setDefaultButton(undefined, function() {
@@ -43,10 +43,10 @@ if (files !== null && Collections.isNotEmpty(files)) {
     var width = pagesPanel.getWidth()
     var height = pagesPanel.getHeight()
     var bleed = pagesPanel.getBleed()
-    var rotatedWidth = !nupGroup.isRotate() ? width : height
-    var rotatedHeight = !nupGroup.isRotate() ? height : width
+    var rotatedWidth = !nupGroup.isFolding() && nupGroup.isRotate() ? height : width
+    var rotatedHeight = !nupGroup.isFolding() && nupGroup.isRotate() ? width : height
 
-    var pagesDivisor = !nupGroup.isDuplex() ? 8 : 16
+    var pagesDivisor = nupGroup.isDuplex() ? 8 : 16
     if (pages % pagesDivisor !== 0) {
       errorWithAlert("Pages must be divisible by " + pagesDivisor)
     }
@@ -55,18 +55,22 @@ if (files !== null && Collections.isNotEmpty(files)) {
       (rotatedWidth + bleed * 2) * 4,
       (rotatedHeight + bleed * 2) * 2,
       0)
-    var pager = !nupGroup.isCutStack()
-      ? (!nupGroup.isDuplex()
-        ? new EightUpSimplexPager(document, start)
-        : new EightUpDuplexPager(document, start))
-      : (!nupGroup.isDuplex()
-        ? new EightUpSimplexCutStackPager(document, start)
-        : new EightUpDuplexCutStackPager(document, start))
-    var progress = new ProgressPalette(artboards, "Imposing")
+    var pager
+    if (nupGroup.isFolding()) {
+      pager = new EightUpFoldingPager(document, start)
+    } else {
+      pager = !nupGroup.isStack()
+        ? (!nupGroup.isDuplex()
+          ? new EightUpSimplexPager(document, start)
+          : new EightUpDuplexPager(document, start))
+        : (!nupGroup.isDuplex()
+          ? new EightUpSimplexStackPager(document, start)
+          : new EightUpDuplexStackPager(document, start))
+    }
+    var progress = new ProgressDialog(artboards, "Imposing")
 
     pager.forEachArtboard(function(artboard,
-      top1Index, top2Index, top3Index, top4Index,
-      bottom1Index, bottom2Index, bottom3Index, bottom4Index) {
+      top1, top2, top3, top4, bottom1, bottom2, bottom3, bottom4) {
       progress.increment()
       var topItem1 = document.placedItems.add()
       var topItem2 = document.placedItems.add()
@@ -76,14 +80,14 @@ if (files !== null && Collections.isNotEmpty(files)) {
       var bottomItem2 = document.placedItems.add()
       var bottomItem3 = document.placedItems.add()
       var bottomItem4 = document.placedItems.add()
-      topItem1.file = collection.get(top1Index)
-      topItem2.file = collection.get(top2Index)
-      topItem3.file = collection.get(top3Index)
-      topItem4.file = collection.get(top4Index)
-      bottomItem1.file = collection.get(bottom1Index)
-      bottomItem2.file = collection.get(bottom2Index)
-      bottomItem3.file = collection.get(bottom3Index)
-      bottomItem4.file = collection.get(bottom4Index)
+      topItem1.file = collection.get(top1)
+      topItem2.file = collection.get(top2)
+      topItem3.file = collection.get(top3)
+      topItem4.file = collection.get(top4)
+      bottomItem1.file = collection.get(bottom1)
+      bottomItem2.file = collection.get(bottom2)
+      bottomItem3.file = collection.get(bottom3)
+      bottomItem4.file = collection.get(bottom4)
       var x1 = artboard.artboardRect.getLeft()
       var x2 = x1 + rotatedWidth + bleed * 2
       var x3 = x2 + rotatedWidth + bleed * 2
@@ -94,10 +98,16 @@ if (files !== null && Collections.isNotEmpty(files)) {
         function(it) {
           it.width = width + bleed * 2
           it.height = height + bleed * 2
-          if (nupGroup.isRotate()) {
+          if (!nupGroup.isFolding() && nupGroup.isRotate()) {
             it.rotate(nupGroup.isDuplex() && Collections.indexOf(document.artboards, artboard).isOdd() ? 270 : 90)
           }
         })
+      if (nupGroup.isFolding()) {
+        topItem1.rotate(180)
+        topItem2.rotate(180)
+        topItem3.rotate(180)
+        topItem4.rotate(180)
+      }
       topItem1.position = [x1, y1]
       topItem2.position = [x2, y1]
       topItem3.position = [x3, y1]

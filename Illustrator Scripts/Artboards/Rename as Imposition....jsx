@@ -25,13 +25,13 @@ dialog.vgroup(function(main) {
       it.onChange = function() {
         var checksEnabled = it.selection.text !== "Saddle Stitch"
         nupGroup.duplexCheck.enabled = checksEnabled
-        nupGroup.cutStackCheck.enabled = checksEnabled
+        nupGroup.stackCheck.enabled = checksEnabled
       }
     })
   })
   nupGroup = new NUpOptionsGroup(main, false, true, true).also(function(it) {
-    it.main.alignChildren = "right"
-    it.main.orientation = "column"
+    it.alignChildren = "right"
+    it.orientation = "column"
   })
 })
 dialog.setCancelButton()
@@ -39,7 +39,7 @@ dialog.setDefaultButton(undefined, function() {
   var start = parseInt(startEdit.text) - 1
 
   if (impositionList.selection.text === "2-Up") {
-    if (!nupGroup.isCutStack()) {
+    if (!nupGroup.isStack()) {
       if (!nupGroup.isDuplex()) {
         new TwoUpSimplexPager(document, start).forEachArtboard(function() { })
       } else {
@@ -47,13 +47,13 @@ dialog.setDefaultButton(undefined, function() {
       }
     } else {
       if (!nupGroup.isDuplex()) {
-        new TwoUpSimplexCutStackPager(document, start).forEachArtboard(function() { })
+        new TwoUpSimplexStackPager(document, start).forEachArtboard(function() { })
       } else {
-        new TwoUpDuplexCutStackPager(document, start).forEachArtboard(function() { })
+        new TwoUpDuplexStackPager(document, start).forEachArtboard(function() { })
       }
     }
   } else if (impositionList.selection.text === "4-Up") {
-    if (!nupGroup.isCutStack()) {
+    if (!nupGroup.isStack()) {
       if (!nupGroup.isDuplex()) {
         new FourUpSimplexPager(document, start).forEachArtboard(function() { })
       } else {
@@ -61,13 +61,13 @@ dialog.setDefaultButton(undefined, function() {
       }
     } else {
       if (!nupGroup.isDuplex()) {
-        new FourUpSimplexCutStackPager(document, start).forEachArtboard(function() { })
+        new FourUpSimplexStackPager(document, start).forEachArtboard(function() { })
       } else {
-        new FourUpDuplexCutStackPager(document, start).forEachArtboard(function() { })
+        new FourUpDuplexStackPager(document, start).forEachArtboard(function() { })
       }
     }
   } else if (impositionList.selection.text === "8-Up") {
-    if (!nupGroup.isCutStack()) {
+    if (!nupGroup.isStack()) {
       if (!nupGroup.isDuplex()) {
         new EightUpSimplexPager(document, start).forEachArtboard(function() { })
       } else {
@@ -75,9 +75,9 @@ dialog.setDefaultButton(undefined, function() {
       }
     } else {
       if (!nupGroup.isDuplex()) {
-        new EightUpSimplexCutStackPager(document, start).forEachArtboard(function() { })
+        new EightUpSimplexStackPager(document, start).forEachArtboard(function() { })
       } else {
-        new EightUpDuplexCutStackPager(document, start).forEachArtboard(function() { })
+        new EightUpDuplexStackPager(document, start).forEachArtboard(function() { })
       }
     }
   } else if (impositionList.selection.text === "Saddle Stitch") {

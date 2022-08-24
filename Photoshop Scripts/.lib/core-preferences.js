@@ -27,9 +27,7 @@ function Configs(path) {
    * @param {String} relative relative file path.
    * @returns {Boolean}
    */
-  this.resolve = function(relative) {
-    return new Configs(path + "/" + relative)
-  }
+  this.resolve = function(relative) { return new Configs(path + "/" + relative) }
 
   /**
    * Get boolean value from this preferences, returning default if not present.

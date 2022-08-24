@@ -4,29 +4,27 @@
  * @param {Array} inputSize size or bounds.
  */
 function RangeGroup(parent, inputSize) {
-  var self = this
-  this.startEdit, this.endEdit
+  var self = parent.hgroup()
+  self.startEdit, self.endEdit
 
-  this.minRange = 0
-  this.maxRange = Number.MAX_VALUE
+  self.minRange = 0
+  self.maxRange = Number.MAX_VALUE
 
   inputSize = [inputSize[0] / 2 - 13, inputSize[1]]
-  this.main = parent.hgroup(function(group) {
-    self.startEdit = group.editText(inputSize, "1").also(function(it) {
-      it.validateDigits()
-      it.onChange = function() {
-        self.endEdit.text = self.startEdit.text
-      }
-    })
-    group.staticText(undefined, "–") // use en dash
-    self.endEdit = group.editText(inputSize, "1").also(VALIDATE_DIGITS)
+  self.startEdit = self.editText(inputSize, "1").also(function(it) {
+    it.validateDigits()
+    it.onChange = function() {
+      self.endEdit.text = self.startEdit.text
+    }
   })
+  self.staticText(undefined, "–") // use en dash
+  self.endEdit = self.editText(inputSize, "1").also(VALIDATE_DIGITS)
 
   /**
    * Returns start input as text, throws error if range is invalid.
    * @returns {String}
    */
-  this.getStartText = function() {
+  self.getStartText = function() {
     checkValidity()
     return self.startEdit.text
   }
@@ -35,7 +33,7 @@ function RangeGroup(parent, inputSize) {
    * Returns end input as text, throws error if range is invalid.
    * @returns {String}
    */
-  this.getEndText = function() {
+  self.getEndText = function() {
     checkValidity()
     return self.endEdit.text
   }
@@ -44,7 +42,7 @@ function RangeGroup(parent, inputSize) {
    * Returns start input, shows error alert if range is invalid,
    * @returns {Number}
    */
-  this.getStart = function() {
+  self.getStart = function() {
     var start = parseInt(self.getStartText()) - 1
     if (start < self.minRange) {
       errorWithAlert("Start range cannot be less than " + self.minRange)
@@ -56,7 +54,7 @@ function RangeGroup(parent, inputSize) {
    * Returns end input, shows error alert if range is invalid,
    * @returns {Number}
    */
-  this.getEnd = function() {
+  self.getEnd = function() {
     var end = parseInt(self.getEndText()) - 1
     if (end > self.maxRange) {
       errorWithAlert("End range cannot be more than " + self.maxRange)
@@ -68,7 +66,7 @@ function RangeGroup(parent, inputSize) {
    * Returns range distance, throws error if range is invalid.
    * @returns {Number}
    */
-  this.getLength = function() {
+  self.getLength = function() {
     checkValidity()
     return self.getEnd() - self.getStart() + 1
   }
@@ -78,7 +76,7 @@ function RangeGroup(parent, inputSize) {
    * @param {Number} input expected to be more than start and less than end.
    * @returns {Boolean}
    */
-  this.includes = function(input) {
+  self.includes = function(input) {
     checkValidity()
     return input >= self.getStart() && input <= self.getEnd()
   }
@@ -87,7 +85,7 @@ function RangeGroup(parent, inputSize) {
    * Iterate from start to end input.
    * @param {Function} action runnable with current index as parameter.
    */
-  this.forEach = function(action) {
+  self.forEach = function(action) {
     checkValidity()
     var start = self.getStart()
     var end = start + self.getLength() // necessary to call `getLength` instead of `getEnd` to check range
@@ -101,4 +99,6 @@ function RangeGroup(parent, inputSize) {
       errorWithAlert("Invalid range")
     }
   }
+
+  return self
 }

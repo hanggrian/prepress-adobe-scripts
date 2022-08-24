@@ -38,5 +38,5 @@ dialog.setHelpButton("Keep Unsaved", function() {
     app.documents[i].close(SaveOptions.DONOTSAVECHANGES)
     i--
   }
-}, unsavedLength === 0)
+}, app.documents.length === 1 || unsavedLength === 0)
 dialog.show()

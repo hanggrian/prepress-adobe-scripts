@@ -70,7 +70,7 @@ dialog.vgroup(function(main) {
       documentOriginCheck = panel.checkBox(undefined, "Document Origin").also(function(it) {
         it.tooltip("Use current reference point preference")
         it.onClick = function() {
-          anchorGroup.main.enabled = !it.value
+          anchorGroup.enabled = !it.value
         }
       })
       anchorGroup = new AnchorGroup(panel)
@@ -79,7 +79,7 @@ dialog.vgroup(function(main) {
   main.hgroup(function(group) {
     group.alignment = "right"
     recursiveCheck = new RecursiveCheck(group).also(function(it) {
-      it.main.value = config.getBoolean("recursive")
+      it.value = config.getBoolean("recursive")
     })
   })
 })
@@ -108,7 +108,7 @@ dialog.setDefaultButton(undefined, function() {
       100,
       transformation)
   }
-  if (recursiveCheck.isSelected()) {
+  if (recursiveCheck.value) {
     Collections.forEachItem(selection, action)
   } else {
     Collections.forEach(selection, action)
@@ -118,6 +118,6 @@ dialog.setDefaultButton(undefined, function() {
   config.setBoolean("option2", changeFillPatternsCheck.value)
   config.setBoolean("option3", changeFillGradientsCheck.value)
   config.setBoolean("option4", changeStrokePatternsCheck.value)
-  config.setBoolean("recursive", recursiveCheck.isSelected())
+  config.setBoolean("recursive", recursiveCheck.value)
 })
 dialog.show()

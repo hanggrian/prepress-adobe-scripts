@@ -57,7 +57,7 @@ dialog.setYesButton("All", function() {
   var height = new UnitValue(heightEdit.text)
   var resolution = parseInt(resolutionEdit.text)
   var method = getResampleMethod()
-  var progress = new ProgressPalette(app.documents.length, "Resizing")
+  var progress = new ProgressDialog(app.documents.length, "Resizing")
 
   Collections.forEach(app.documents, function(document) {
     progress.increment()

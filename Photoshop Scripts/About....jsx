@@ -18,7 +18,7 @@ dialog.vgroup(function(main) {
     group.image(undefined, "logo")
     group.staticText([300, 32], "Prepress Adobe Scripts for Photoshop\nLast updated " + clientDate.toISOString(), { multiline: true })
   })
-  aboutPanel = new AboutTabbedPanel(main, clientDate).also(function(panel) {
+  aboutPanel = new AboutPanel(main, clientDate).also(function(panel) {
     panel.toolsTab.button(undefined, "Clear Preferences").also(function(it) {
       it.maximumSize.height = 21
       it.onClick = function() {

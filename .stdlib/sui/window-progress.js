@@ -9,7 +9,7 @@
  * @param {Number} stop final value of progress bar.
  * @param {String} status starting message, may be null.
  */
-function ProgressPalette(stop, status) {
+function ProgressDialog(stop, status) {
   var self = this
   this.statusText, this.countText, this.progressBar
 

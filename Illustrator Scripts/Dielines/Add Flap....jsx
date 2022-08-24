@@ -1,5 +1,3 @@
-// TODO: Broken, tabbedpanel is null when default dialog button is clicked
-
 #target Illustrator
 #include "../.lib/commons.js"
 
@@ -22,6 +20,7 @@ var tuckSliderGroup, tuckDistanceEdit
 var dustShoulderEdit, dustDistanceEdit
 var leftRadio, topRadio, rightRadio, bottomRadio
 var config = configs.resolve("dielines/add_flap")
+var currentTab = "Glue Flap" // do not use tabbedpanel.selection as it crashes on macOS
 
 dialog.hgroup(function(main) {
   main.alignChildren = "fill"
@@ -101,9 +100,11 @@ dialog.hgroup(function(main) {
     panel.onChange = function() {
       if (panel.selection === null) {
         return
-      } else if (panel.selection.text === "Glue Flap") {
+      }
+      currentTab = panel.selection.text
+      if (currentTab === "Glue Flap") {
         glueShearEdit.activate()
-      } else if (panel.selection.text === "Tuck Flap") {
+      } else if (currentTab === "Tuck Flap") {
         tuckCurveEdit.activate()
       } else {
         dustShoulderEdit.activate()
@@ -123,9 +124,9 @@ dialog.setDefaultButton(undefined, function() {
   pathItem.strokeColor = color
   pathItem.strokeWidth = weight
 
-  if (tabbedPanel.selection.text === "Glue Flap") {
+  if (currentTab === "Glue Flap") {
     processGlue(pathItem, length)
-  } else if (tabbedPanel.selection.text === "Tuck Flap") {
+  } else if (currentTab === "Tuck Flap") {
     processTuck(pathItem, length)
   } else {
     processDust(pathItem, length)

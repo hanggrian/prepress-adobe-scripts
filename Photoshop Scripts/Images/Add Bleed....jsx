@@ -12,7 +12,7 @@
 var dialog = new Dialog("Add Bleed to Images", "add-bleed-to-images/")
 var lengthEdit
 var anchorGroup
-var flattenImageCheck, guidesRadiosCheckGroup, selectBleedCheck, correctionEdit
+var flattenImageCheck, guidesMultiRadioGroup, selectBleedCheck, correctionEdit
 var config = configs.resolve("images/add_bleed")
 
 dialog.vgroup(function(main) {
@@ -36,8 +36,8 @@ dialog.vgroup(function(main) {
         it.tooltip("Layers will be flattened")
         it.select()
       })
-      guidesRadiosCheckGroup = new MultiRadioCheckGroup(group, "Use Guides", ["Append", "Replace"]).also(function(it) {
-        it.main.tooltips("Guides will mark where bleed are added")
+      guidesMultiRadioGroup = new MultiRadioGroup(group, "Use Guides", ["Append", "Replace"]).also(function(it) {
+        it.tooltips("Guides will mark where bleed are added")
         it.check.select()
         it.check.onClick()
       })
@@ -74,7 +74,7 @@ dialog.setYesButton("All", function() {
   var bleed = new UnitValue(lengthEdit.text)
   var anchor = anchorGroup.getAnchorPosition()
   var correction = parseUnits(correctionEdit.text)
-  var progress = new ProgressPalette(app.documents.length, "Adding bleed")
+  var progress = new ProgressDialog(app.documents.length, "Adding bleed")
 
   Collections.forEach(app.documents, function(document) {
     progress.increment()
@@ -113,8 +113,8 @@ function process(document, bleed, anchor, correction) {
     }
   }
 
-  if (guidesRadiosCheckGroup.isSelected()) {
-    if (guidesRadiosCheckGroup.getSelectedRadioText() === "Replace") {
+  if (guidesMultiRadioGroup.isSelected()) {
+    if (guidesMultiRadioGroup.getSelectedRadioText() === "Replace") {
       while (document.guides.length > 0) { // TODO: find out why forEach only clearing parts
         Collections.first(document.guides).remove()
       }
