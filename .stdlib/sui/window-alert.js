@@ -6,7 +6,7 @@
 
 /**
  * Alert is a simpler dialog containing only text.
- * @param {String} title window title.
+ * @param {String|Object} title window title.
  * @param {String} message content of the alert.
  * @param {Boolean} error true to display error icon, default to false.
  * @param {String} helpUrlSuffix enable bottom-left icon button to go to url for help, may be null.
@@ -19,7 +19,7 @@ function AlertDialog(title, message, error, helpUrlSuffix) {
   var dialog = new Dialog(title, helpUrlSuffix)
   dialog.hgroup(function(main) {
     main.image(undefined, error ? "alert_error" : "alert_warning")
-    main.staticText(undefined, message)
+    main.staticText(undefined, Internals.stringOrResources(message))
   })
 
   /**

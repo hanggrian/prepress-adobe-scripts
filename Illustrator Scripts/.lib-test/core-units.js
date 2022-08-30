@@ -10,9 +10,9 @@ test("parseUnits", function() {
 })
 
 test("parseRulerUnits", function() {
-  assertEquals(RulerUnits.Pixels, parseRulerUnits("Pixels"))
-  assertEquals(RulerUnits.Points, parseRulerUnits("Points"))
-  assertEquals(RulerUnits.Inches, parseRulerUnits("Inches"))
-  assertEquals(RulerUnits.Millimeters, parseRulerUnits("Millimeters"))
-  assertEquals(RulerUnits.Centimeters, parseRulerUnits("Centimeters"))
+  assertEquals(RulerUnits.Pixels, parseRulerUnits(getString(R.string.pixels)))
+  assertEquals(RulerUnits.Points, parseRulerUnits(getString(R.string.points)))
+  assertEquals(RulerUnits.Inches, parseRulerUnits(getString(R.string.inches)))
+  assertEquals(RulerUnits.Millimeters, parseRulerUnits(getString(R.string.millimeters)))
+  assertEquals(RulerUnits.Centimeters, parseRulerUnits(getString(R.string.centimeters)))
 })

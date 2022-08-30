@@ -6,9 +6,9 @@
 
 /**
  * Set tooltip to this children.
- * @param {String} text tips to display.
+ * @param {String|Object} text tips to display.
  */
-Progressbar.prototype.tooltip = function(text) { Internals.setTooltip(this, text) }
+Progressbar.prototype.tooltip = function(text) { Internals.setTooltip(this, Internals.stringOrResources(text)) }
 
 /**
  * Add children to group.
@@ -35,7 +35,7 @@ Panel.prototype.progressBar = function(size, start, end, properties) {
 }
 
 function _progressBar(root, size, start, end, properties) {
-  var child = root.add("progressbar", Internals.sizeToBounds(size), start, end, properties)
+  var child = root.add("progressbar", Internals.sizeOrBounds(size), start, end, properties)
   if (root.helpTips !== undefined) {
     Internals.setTooltip(child, root.helpTips)
   }

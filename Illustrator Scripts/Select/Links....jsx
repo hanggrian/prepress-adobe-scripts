@@ -20,7 +20,7 @@ var SIZE_INPUT = [150, 21]
 check(Collections.isNotEmpty(document.placedItems), "No links in this document")
 var isFilterMode = Collections.isNotEmpty(selection)
 
-var dialog = new Dialog("Select Links", "selecting-items/#select-links")
+var dialog = new Dialog(R.string.select_links, "selecting-items/#select-links")
 var dimensionPanel
 var aiCheck, pdfCheck, bmpCheck, gifCheck, jpegCheck, jpeg2000Check, pngCheck, psdCheck, tiffCheck
 var recursiveCheck
@@ -29,8 +29,8 @@ var config = configs.resolve("select/links")
 dialog.vgroup(function(main) {
   main.alignChildren = "fill"
   dimensionPanel = new SelectDimensionPanel(main, SIZE_INPUT)
-  main.vpanel("File Types", function(panel) {
-    panel.tooltips("File extension of selected links")
+  main.vpanel(R.string.file_types, function(panel) {
+    panel.tooltips(R.string.tip_selectlinks_filetypes)
     panel.alignChildren = "fill"
     aiCheck = panel.checkBox(undefined, getTypeString("Adobe Illustrator", FILE_AI))
     pdfCheck = panel.checkBox(undefined, getTypeString("Adobe PDF", FILE_PDF))

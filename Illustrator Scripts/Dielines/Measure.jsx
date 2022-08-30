@@ -28,17 +28,17 @@ Collections.forEachItem(items, function(item) {
 
 var message = ""
 if (count + distance === 0) {
-  message += "No dielines found in selection."
+  message += getString(R.string.message_measuredielines1)
 } else {
-  message += "%d lines measuring at %d.".format(count, formatUnits(distance, unitName, 2))
+  message += getString(R.string.message_measuredielines2, count, formatUnits(distance, unitName, 2))
 }
 if (filledCount > 0) {
-  message += "\n%d lines with colored fill are ignored.".format(filledCount)
+  message += getString(R.string.message_measuredielines3, filledCount)
 }
 if (registrationCount > 0) {
-  message += "\n%d lines with registration stroke are ignored.".format(registrationCount)
+  message += getString(R.string.message_measuredielines4, registrationCount)
 }
-alert(message, "Measure Dielines")
+Windows.alert(message, R.string.measure_dielines)
 
 function increment(item) {
   if (item.filled) {

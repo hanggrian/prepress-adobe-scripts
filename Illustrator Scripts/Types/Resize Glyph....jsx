@@ -1,8 +1,9 @@
 #target Illustrator
 #include "../.lib/commons.js"
 
-var ROUNDINGS = ["None", "Round", "Floor", "Ceil"]
-var SIZE_LABEL = [70, 21] // manual sizing because content is changable
+function listRoundings() { return [R.string.none, R.string.nearest, R.string.floor, R.string.ceil] }
+
+var SIZE_LABEL = [80, 21] // manual sizing because content is changable
 var SIZE_INPUT = [150, 21]
 
 checkSingleSelection()
@@ -10,7 +11,7 @@ checkSingleSelection()
 var item = Collections.first(selection)
 checkTypename(item, "TextFrame")
 
-var dialog = new Dialog("Resize Font Until")
+var dialog = new Dialog(R.string.resize_glyph)
 var dimensionWidthRadio, dimensionHeightRadio
 var dimensionSizeText, dimensionSizeEdit
 var roundingList
@@ -18,29 +19,29 @@ var roundingList
 dialog.vgroup(function(main) {
   main.alignChildren = "left"
   main.hgroup(function(group) {
-    group.tooltips("Which bounds to use")
-    group.staticText(SIZE_LABEL, "Dimension:").also(JUSTIFY_RIGHT)
-    dimensionWidthRadio = group.radioButton(undefined, "Width").also(function(it) {
+    group.tooltips(R.string.tip_resizeglyph_dimension)
+    group.leftStaticText(SIZE_LABEL, R.string.dimension)
+    dimensionWidthRadio = group.radioButton(undefined, R.string.width).also(function(it) {
       it.onClick = changeDimensionText
       it.select()
     })
-    dimensionHeightRadio = group.radioButton(undefined, "Height").also(function(it) {
+    dimensionHeightRadio = group.radioButton(undefined, R.string.height).also(function(it) {
       it.onClick = changeDimensionText
     })
   })
   main.hgroup(function(group) {
-    group.tooltips("Target size to match")
-    dimensionSizeText = group.staticText(SIZE_LABEL, "Width:").also(JUSTIFY_RIGHT)
+    group.tooltips(R.string.tip_resizeglyph_size)
+    dimensionSizeText = group.leftStaticText(SIZE_LABEL, R.string.width)
     dimensionSizeEdit = group.editText(SIZE_INPUT, formatUnits(item.width, unitName, 2)).also(function(it) {
       it.validateUnits()
       it.activate()
     })
   })
   main.hgroup(function(group) {
-    group.tooltips("Method to round final font size")
-    group.staticText(SIZE_LABEL, "Rounding:").also(JUSTIFY_RIGHT)
-    roundingList = group.dropDownList(SIZE_INPUT, ROUNDINGS).also(function(it) {
-      it.selectText("None")
+    group.tooltips(R.string.tip_resizeglyph_rounding)
+    group.leftStaticText(SIZE_LABEL, R.string.rounding)
+    roundingList = group.dropDownList(SIZE_INPUT, listRoundings()).also(function(it) {
+      it.selection = 0
     })
   })
 })
@@ -54,11 +55,11 @@ dialog.setDefaultButton(undefined, function() {
   })
   var targetDimension = parseUnits(dimensionSizeEdit.text)
   var targetFont = currentFont * targetDimension / currentDimension
-  if (roundingList.selection.text === "Round") {
+  if (roundingList.selection.index === 1) {
     targetFont = targetFont.round()
-  } else if (roundingList.selection.text === "Floor") {
+  } else if (roundingList.selection.index === 2) {
     targetFont = targetFont.floor()
-  } else if (roundingList.selection.text === "Ceil") {
+  } else if (roundingList.selection.index === 3) {
     targetFont = targetFont.ceil()
   }
   item.textRange.characterAttributes.size = targetFont
@@ -67,10 +68,10 @@ dialog.show()
 
 function changeDimensionText() {
   if (dimensionWidthRadio.value) {
-    dimensionSizeText.text = "Width:"
+    dimensionSizeText.text = getString(R.string.width) + ":"
     dimensionSizeEdit.text = formatUnits(item.width, unitName, 2)
   } else {
-    dimensionSizeText.text = "Height:"
+    dimensionSizeText.text = getString(R.string.height) + ":"
     dimensionSizeEdit.text = formatUnits(item.height, unitName, 2)
   }
 }

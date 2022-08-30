@@ -4,8 +4,6 @@
 // * `unitName` are the suffix. (e.g. : `pt`, `mm`)
 // * `unitFullName` are the full form name. (e.g.: `Points`, `Millimeters`)
 
-var UNITS = ["Pixels", "Points", "Inches", "Millimeters", "Centimeters"]
-
 /**
  * Build string based on unit value, name and optional fraction.
  * @param {Number} unitValue unit value in pt.
@@ -42,17 +40,17 @@ function parseUnits(units) {
  */
 function parseRulerUnits(unitFullName) {
   switch (unitFullName.trim()) {
-    case "Pixels":
+    case getString(R.string.pixels):
       return RulerUnits.Pixels
-    case "Points":
+    case getString(R.string.points):
       return RulerUnits.Points
-    case "Inches":
+    case getString(R.string.inches):
       return RulerUnits.Inches
-    case "Millimeters":
+    case getString(R.string.millimeters):
       return RulerUnits.Millimeters
-    case "Centimeters":
+    case getString(R.string.centimeters):
       return RulerUnits.Centimeters
     default:
-      error("Unsupported units")
+      errorWithAlert("Unsupported units")
   }
 }

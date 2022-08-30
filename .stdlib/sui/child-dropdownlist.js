@@ -12,18 +12,18 @@ DropDownList.prototype.hasSelection = function() { return this.selection !== nul
 
 /**
  * Change selection to ListItem with `text`.
- * @param {String} text existing text of any ListItem, throws error if not found.
+ * @param {String|Object} text existing text of any ListItem, throws error if not found.
  */
 DropDownList.prototype.selectText = function(text) {
   this.selection = Collections.indexOf(
-    Collections.map(this.items, function(it) { return it.text }), text)
+    Collections.map(this.items, function(it) { return it.text }), Internals.stringOrResources(text))
 }
 
 /**
  * Set tooltip to this children.
- * @param {String} text tips to display.
+ * @param {String|Object} text tips to display.
  */
-DropDownList.prototype.tooltip = function(text) { Internals.setTooltip(this, text) }
+DropDownList.prototype.tooltip = function(text) { Internals.setTooltip(this, Internals.stringOrResources(text)) }
 
 /**
  * Add children to group.
@@ -53,12 +53,11 @@ function _dropDownList(root, size, items, properties) {
     itemTexts = it[0]
     itemFiles = it[1]
   })
-  var child = root.add("dropdownlist", Internals.sizeToBounds(size), itemTexts, properties)
+  var child = root.add("dropdownlist", Internals.sizeOrBounds(size), itemTexts, properties)
   if (Collections.isNotEmpty(itemFiles)) {
     Collections.forEach(child.items, function(it, i) {
-      var itemFile = itemFiles[i]
-      if (itemFile !== undefined) {
-        it.image = itemFile
+      if (itemFiles[i] !== undefined) {
+        it.image = itemFiles[i]
       }
     })
   }

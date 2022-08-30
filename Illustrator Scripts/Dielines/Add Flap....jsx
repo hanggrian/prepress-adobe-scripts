@@ -1,99 +1,102 @@
 #target Illustrator
 #include "../.lib/commons.js"
 
-var DIRECTIONS = [
-  ["Top", "ic_arrow_top"],
-  ["Right", "ic_arrow_right"],
-  ["Bottom", "ic_arrow_bottom"],
-  ["Left", "ic_arrow_left"]
-]
+function listDirections() {
+  return [
+    [R.string.top, "ic_arrow_top"],
+    [R.string.right, "ic_arrow_right"],
+    [R.string.bottom, "ic_arrow_bottom"],
+    [R.string.left, "ic_arrow_left"]
+  ]
+}
+
 var SIZE_INPUT = [110, 21]
 var SIZE_LABEL_TAB = [70, 21] // can't align right on tabbed panel
 var SIZE_RADIO = [15, 15]
 
 checkSingleSelection()
 
-var dialog = new Dialog("Add Flap Dieline", "adding-measuring-dielines/#add-flap-dieline")
+var dialog = new Dialog(R.string.add_flap_dieline, "adding-measuring-dielines/#add-flap-dieline")
 var lengthEdit, weightEdit, colorList, directionList, tabbedPanel
 var glueShearEdit, glueScratchEdit
 var tuckSliderGroup, tuckDistanceEdit
 var dustShoulderEdit, dustDistanceEdit
 var leftRadio, topRadio, rightRadio, bottomRadio
 var config = configs.resolve("dielines/add_flap")
-var currentTab = "Glue Flap" // do not use tabbedpanel.selection as it crashes on macOS
+var currentTab = getString(R.string.glue_flap) // do not use tabbedpanel.selection as it crashes on macOS
 
 dialog.hgroup(function(main) {
   main.alignChildren = "fill"
   main.hgroup(function(topGroup) {
-    topGroup.vpanel("Flap", function(panel) {
+    topGroup.vpanel(R.string.flap, function(panel) {
       panel.alignChildren = "right"
       panel.hgroup(function(group) {
-        group.tooltips("In horizontal direction, this is height. In vertical direction, this is width.")
-        group.staticText(undefined, "Length:").also(JUSTIFY_RIGHT)
+        group.tooltips(R.string.tip_addflapdieline_length)
+        group.leftStaticText(undefined, R.string.length)
         lengthEdit = group.editText(SIZE_INPUT, config.getString("length", "20 mm")).also(function(it) {
           it.validateUnits()
           it.activate()
         })
       })
       panel.hgroup(function(group) {
-        group.tooltips("Stroke width of dielines")
-        group.staticText(undefined, "Weight:").also(JUSTIFY_RIGHT)
+        group.tooltips(R.string.tip_addflapdieline_weight)
+        group.leftStaticText(undefined, R.string.weight)
         weightEdit = group.editText(SIZE_INPUT, config.getString("weight", "1 pt")).also(VALIDATE_UNITS)
       })
       panel.hgroup(function(group) {
-        group.tooltips("Stroke color of dielines")
-        group.staticText(undefined, "Color:").also(JUSTIFY_RIGHT)
-        colorList = group.dropDownList(SIZE_INPUT, COLORS).also(function(it) {
-          it.selectText(config.getString("color", "Black"))
+        group.tooltips(R.string.tip_addflapdieline_color)
+        group.leftStaticText(undefined, R.string.color)
+        colorList = group.dropDownList(SIZE_INPUT, Colors.list()).also(function(it) {
+          it.selection = config.getInt("color")
         })
       })
       panel.hgroup(function(group) {
-        group.tooltips("Where should the flap be added relative to target")
-        group.staticText(undefined, "Direction:").also(JUSTIFY_RIGHT)
-        directionList = group.dropDownList(SIZE_INPUT, DIRECTIONS).also(function(it) {
-          it.selectText(config.getString("direction", "Top"))
+        group.tooltips(R.string.tip_addflapdieline_direction)
+        group.leftStaticText(undefined, R.string.direction)
+        directionList = group.dropDownList(SIZE_INPUT, listDirections()).also(function(it) {
+          it.selection = config.getInt("direction")
         })
       })
     })
   })
   tabbedPanel = main.tabbedPanel(function(panel) {
     panel.preferredSize = [200, 0]
-    panel.vtab("Glue Flap", function(tab) {
+    panel.vtab(R.string.glue_flap, function(tab) {
       tab.hgroup(function(group) {
-        group.tooltips("End line of glue flat must be lesser than starting line, shear value make sure of it")
-        group.staticText(SIZE_LABEL_TAB, "Shear:").also(JUSTIFY_RIGHT)
+        group.tooltips(R.string.tip_addflapdieline_glueflap_shear)
+        group.leftStaticText(SIZE_LABEL_TAB, R.string.shear)
         glueShearEdit = group.editText(SIZE_INPUT, "5 mm").also(VALIDATE_UNITS)
       })
       tab.hgroup(function(group) {
-        group.tooltips("Distance between scratches, leave blank for no scratches")
-        group.staticText(SIZE_LABEL_TAB, "Scratches:").also(JUSTIFY_RIGHT)
+        group.tooltips(R.string.tip_addflapdieline_glueflap_scratches)
+        group.leftStaticText(SIZE_LABEL_TAB, R.string.scratches)
         glueScratchEdit = group.editText(SIZE_INPUT, "0 mm").also(function(it) {
           it.validateUnits()
           it.enabled = false
         })
       })
     })
-    /* tabbedPanel.vtab("Tuck Flap", function(tab) {
+    /* tabbedPanel.vtab(R.string.tuck_flap, function(tab) {
       tab.hgroup(function(group) {
-        group.tooltips("How big should the curve be relative to length, in percentage")
-        group.staticText(SIZE_LABEL_TAB, "Curve:").also(JUSTIFY_RIGHT)
+        group.tooltips(R.string.tip_addflapdieline_tuckflap_curve)
+        group.leftStaticText(SIZE_LABEL_TAB, R.string.curve)
         tuckSliderGroup = new SliderGroup(group, SIZE_EDIT, 2, 0, 4, 25)
       })
       tab.hgroup(function(group) {
-        group.tooltips("Thicker material should have more distance")
-        group.staticText(SIZE_LABEL_TAB, "Distance:").also(JUSTIFY_RIGHT)
+        group.tooltips(R.string.tip_addflapdieline_tuckflap_distance)
+        group.leftStaticText(SIZE_LABEL_TAB, R.string.distance)
         tuckDistanceEdit = group.editText(SIZE_EDIT, "0 mm").also(VALIDATE_UNITS)
       })
     }) */
-    panel.vtab("Dust Flap", function(tab) {
+    panel.vtab(R.string.dust_flap, function(tab) {
       tab.hgroup(function(group) {
-        group.tooltips("Necessary for locking a tuck flap")
-        group.staticText(SIZE_LABEL_TAB, "Shoulder:").also(JUSTIFY_RIGHT)
+        group.tooltips(R.string.tip_addflapdieline_dustflap_shoulder)
+        group.leftStaticText(SIZE_LABEL_TAB, R.string.shoulder)
         dustShoulderEdit = group.editText(SIZE_INPUT, "5 mm").also(VALIDATE_UNITS)
       })
       tab.hgroup(function(group) {
-        group.tooltips("Thicker material should have more distance")
-        group.staticText(SIZE_LABEL_TAB, "Distance:").also(JUSTIFY_RIGHT)
+        group.tooltips(R.string.tip_addflapdieline_dustflap_distance)
+        group.leftStaticText(SIZE_LABEL_TAB, R.string.distance)
         dustDistanceEdit = group.editText(SIZE_INPUT, "0 mm").also(VALIDATE_UNITS)
       })
     })
@@ -102,9 +105,9 @@ dialog.hgroup(function(main) {
         return
       }
       currentTab = panel.selection.text
-      if (currentTab === "Glue Flap") {
+      if (currentTab === getString(R.string.glue_flap)) {
         glueShearEdit.activate()
-      } else if (currentTab === "Tuck Flap") {
+      } else if (currentTab === getString(R.string.tuck_flap)) {
         tuckCurveEdit.activate()
       } else {
         dustShoulderEdit.activate()
@@ -124,9 +127,9 @@ dialog.setDefaultButton(undefined, function() {
   pathItem.strokeColor = color
   pathItem.strokeWidth = weight
 
-  if (currentTab === "Glue Flap") {
+  if (currentTab === getString(R.string.glue_flap)) {
     processGlue(pathItem, length)
-  } else if (currentTab === "Tuck Flap") {
+  } else if (currentTab === getString(R.string.tuck_flap)) {
     processTuck(pathItem, length)
   } else {
     processDust(pathItem, length)
@@ -135,8 +138,8 @@ dialog.setDefaultButton(undefined, function() {
 
   config.setString("length", lengthEdit.text)
   config.setString("weight", weightEdit.text)
-  config.setString("color", colorList.selection.text)
-  config.setString("direction", directionList.selection.text)
+  config.setInt("color", colorList.selection.index)
+  config.setInt("direction", directionList.selection.index)
 })
 dialog.show()
 
@@ -145,17 +148,17 @@ function processGlue(pathItem, length) {
   var glueScratch = parseUnits(glueScratchEdit.text)
   var positions = []
   Collections.first(selection).geometricBounds.run(function(it) {
-    if (directionList.selection.text === "Left") {
+    if (directionList.selection.text === getString(R.string.left)) {
       positions.push([it.getLeft(), it.getTop()])
       positions.push([it.getLeft() - length, it.getTop() - glueShear])
       positions.push([it.getLeft() - length, it.getBottom() + glueShear])
       positions.push([it.getLeft(), it.getBottom()])
-    } else if (directionList.selection.text === "Top") {
+    } else if (directionList.selection.text === getString(R.string.top)) {
       positions.push([it.getLeft(), it.getTop()])
       positions.push([it.getLeft() + glueShear, it.getTop() + length])
       positions.push([it.getRight() - glueShear, it.getTop() + length])
       positions.push([it.getRight(), it.getTop()])
-    } else if (directionList.selection.text === "Right") {
+    } else if (directionList.selection.text === getString(R.string.right)) {
       positions.push([it.getRight(), it.getTop()])
       positions.push([it.getRight() + length, it.getTop() - glueShear])
       positions.push([it.getRight() + length, it.getBottom() + glueShear])
@@ -177,15 +180,15 @@ function processTuck(pathItem, length) {
   var tuckDistance = parseUnits(tuckDistanceEdit.text)
   var positions = []
   Collections.first(selection).geometricBounds.run(function(it) {
-    if (directionList.selection.text === "Left") {
+    if (directionList.selection.text === getString(R.string.left)) {
       positions.push([it.getLeft(), it.getTop() - tuckDistance])
       positions.push([it.getLeft() - tuckStart, it.getTop() - tuckDistance])
       positions.push([it.getLeft() - length, it.getTop() - tuckCurve - tuckDistance])
       positions.push([it.getLeft() - length, it.getBottom() + tuckCurve + tuckDistance])
       positions.push([it.getLeft() - tuckStart, it.getBottom() + tuckDistance])
       positions.push([it.getLeft(), it.getBottom() + tuckDistance])
-    } else if (directionList.selection.text === "Top") {
-    } else if (directionList.selection.text === "Right") {
+    } else if (directionList.selection.text === getString(R.string.top)) {
+    } else if (directionList.selection.text === getString(R.string.right)) {
     } else {
     }
   })
@@ -203,7 +206,7 @@ function processDust(pathItem, length) {
   var dustDistance = parseUnits(dustDistanceEdit.text)
   var positions = []
   Collections.first(selection).geometricBounds.run(function(it) {
-    if (directionList.selection.text === "Left") {
+    if (directionList.selection.text === getString(R.string.left)) {
       positions.push([it.getLeft(), it.getTop()])
       positions.push([it.getLeft() - dustDistance, it.getTop() - dustDistance])
       positions.push([it.getLeft() - length, it.getTop() - dustDistance])
@@ -211,7 +214,7 @@ function processDust(pathItem, length) {
       positions.push([it.getLeft() - dustShoulder * 1.5, it.getBottom() + dustShoulder / 2])
       positions.push([it.getLeft() - dustShoulder, it.getBottom()])
       positions.push([it.getLeft(), it.getBottom()])
-    } else if (directionList.selection.text === "Top") {
+    } else if (directionList.selection.text === getString(R.string.top)) {
       positions.push([it.getLeft(), it.getTop()])
       positions.push([it.getLeft() + dustDistance, it.getTop() + dustDistance])
       positions.push([it.getLeft() + dustDistance, it.getTop() + length])
@@ -219,7 +222,7 @@ function processDust(pathItem, length) {
       positions.push([it.getRight() - dustShoulder / 2, it.getTop() + dustShoulder * 1.5])
       positions.push([it.getRight(), it.getTop() + dustShoulder])
       positions.push([it.getRight(), it.getTop()])
-    } else if (directionList.selection.text === "Right") {
+    } else if (directionList.selection.text === getString(R.string.right)) {
       positions.push([it.getRight(), it.getTop()])
       positions.push([it.getRight() + dustDistance, it.getTop() - dustDistance])
       positions.push([it.getRight() + length, it.getTop() - dustDistance])

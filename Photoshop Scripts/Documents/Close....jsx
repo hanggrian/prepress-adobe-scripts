@@ -11,16 +11,16 @@
 
 var unsavedLength = Collections.filter(app.documents, function(it) { return !it.saved }).length
 
-var dialog = new AlertDialog("Close Documents", "There are %d documents, %d of them unsaved. Close them without saving?"
-  .format(app.documents.length, unsavedLength > 0 ? unsavedLength : "none"))
+var dialog = new AlertDialog(R.string.close_documents, getString(R.string.confirm_closedocuments,
+  app.documents.length, unsavedLength > 0 ? unsavedLength : "none"))
 dialog.setCancelButton()
-dialog.setDefaultButton("All", function() {
+dialog.setDefaultButton(R.string.all, function() {
   for (var i = 0; i < app.documents.length; i++) {
     app.documents[i].close(SaveOptions.DONOTSAVECHANGES)
     i--
   }
 })
-dialog.setYesButton("Others", function() {
+dialog.setYesButton(R.string.others, function() {
   // in Photoshop, compare documents
   for (var i = 0; i < app.documents.length; i++) {
     if (app.documents[i] === document) {
@@ -30,7 +30,7 @@ dialog.setYesButton("Others", function() {
     i--
   }
 }, app.documents.length === 1)
-dialog.setHelpButton("Keep Unsaved", function() {
+dialog.setHelpButton(R.string.keep_unsaved, function() {
   for (var i = 0; i < app.documents.length; i++) {
     if (!app.documents[i].saved) {
       continue

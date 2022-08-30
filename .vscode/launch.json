@@ -5,7 +5,7 @@
             "type": "extendscript-debug",
             "request": "launch",
             "name": "Prepress Adobe Scripts",
-            "script": "${workspaceFolder}/Illustrator Scripts/Artboards/Rename as Imposition....jsx"
+            "script": "${workspaceFolder}/codegen/generate.jsx"
         }
     ]
 }

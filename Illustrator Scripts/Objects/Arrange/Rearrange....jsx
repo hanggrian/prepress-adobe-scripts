@@ -10,13 +10,13 @@ for (var i = 1; i < selection.length; i++) {
   initialPositions.push(selection[i].absoluteZOrderPosition)
 }
 
-var dialog = new Dialog("Rearrange Objects")
+var dialog = new Dialog(R.string.rearrange_objects)
 var orderByList
 var config = configs.resolve("objects/rearrange")
 
 dialog.vgroup(function(main) {
-  orderByList = new OrderByList(main, [ORDER_POSITIONS]).also(function(it) {
-    it.selectText(config.getString("order", "Horizontal"))
+  orderByList = new OrderByList(main, [OrderBy.positions()]).also(function(it) {
+    it.selection = config.getInt("order")
   })
 })
 dialog.setCancelButton()
@@ -30,6 +30,6 @@ dialog.setDefaultButton(undefined, function() {
     })
   })
 
-  config.setString("order", orderByList.selection.text)
+  config.setInt("order", orderByList.selection.index)
 })
 dialog.show()

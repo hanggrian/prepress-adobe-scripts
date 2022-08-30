@@ -4,16 +4,17 @@
 #target Illustrator
 #include "../.lib/commons.js"
 
-var YES_OR_NO = ["Yes", "No"]
-var KINDS = ["Point Text", "Area Text", "Path Text"]
-var ORIENTATIONS = ["Horizontal", "Vertical"]
+function listYesNo() { return [R.string.yes, R.string.no] }
+function listKinds() { return [R.string.point_text, R.string.area_text, R.string.path_text] }
+function listOrientations() { return [R.string.horizontal, R.string.vertical] }
+
 var SIZE_INPUT_LEFT = [100, 21]
 var SIZE_INPUT_RIGHT = [110, 21]
 
 check(Collections.isNotEmpty(document.textFrames), "No texts in this document")
 var isFilterMode = Collections.isNotEmpty(selection)
 
-var dialog = new Dialog("Select Types", "selecting-items/#select-types")
+var dialog = new Dialog(R.string.select_types, "selecting-items/#select-types")
 var findEdit, matchCaseCheck, matchWordCheck
 var fontNameEdit, fontSizeEdit, italicList, underlineList
 var fillColorList, strokeColorList
@@ -25,68 +26,66 @@ dialog.hgroup(function(main) {
   main.alignChildren = "fill"
   main.vgroup(function(topGroup) {
     topGroup.alignChildren = "fill"
-    topGroup.vpanel("Content", function(panel) {
+    topGroup.vpanel(R.string.content, function(panel) {
       panel.alignChildren = "fill"
       panel.hgroup(function(group) {
-        group.tooltips("Text to find in content")
-        group.staticText(undefined, "Find:").also(JUSTIFY_RIGHT)
+        group.tooltips(R.string.tip_selecttypes_content)
+        group.leftStaticText(undefined, R.string.find)
         findEdit = group.editText([150, 21]).also(ACTIVATE)
       })
-      panel.hgroup(function(group) {
-        matchCaseCheck = group.checkBox(undefined, "Match Case")
-        matchWordCheck = group.checkBox(undefined, "Match Whole Word")
-      })
+      matchCaseCheck = panel.checkBox(undefined, R.string.match_case)
+      matchWordCheck = panel.checkBox(undefined, R.string.match_whole_word)
     })
-    topGroup.vpanel("Character", function(panel) {
+    topGroup.vpanel(R.string.character, function(panel) {
       panel.alignChildren = "right"
       panel.hgroup(function(group) {
-        group.tooltips("The font's full name")
-        group.staticText(undefined, "Font name:").also(JUSTIFY_RIGHT)
+        group.tooltips(R.string.tip_selecttypes_fontname)
+        group.leftStaticText(undefined, R.string.font_name)
         fontNameEdit = group.editText(SIZE_INPUT_LEFT)
       })
       panel.hgroup(function(group) {
-        group.tooltips("Font size in points")
-        group.staticText(undefined, "Font size:").also(JUSTIFY_RIGHT)
+        group.tooltips(R.string.tip_selecttypes_fontsize)
+        group.leftStaticText(undefined, R.string.font_size)
         fontSizeEdit = group.editText(SIZE_INPUT_LEFT).also(VALIDATE_UNITS)
       })
       panel.hgroup(function(group) {
-        group.tooltips("Does the Japanese OpenType support italics?")
-        group.staticText(undefined, "Italic:").also(JUSTIFY_RIGHT)
-        italicList = group.dropDownList(SIZE_INPUT_LEFT, YES_OR_NO)
+        group.tooltips(R.string.tip_selecttypes_italic)
+        group.leftStaticText(undefined, R.string.italic)
+        italicList = group.dropDownList(SIZE_INPUT_LEFT, listYesNo())
       })
       panel.hgroup(function(group) {
-        group.tooltips("Whether to underline the text")
-        group.staticText(undefined, "Underline:").also(JUSTIFY_RIGHT)
-        underlineList = group.dropDownList(SIZE_INPUT_LEFT, YES_OR_NO)
+        group.tooltips(R.string.tip_selecttypes_underline)
+        group.leftStaticText(undefined, R.string.underline)
+        underlineList = group.dropDownList(SIZE_INPUT_LEFT, listYesNo())
       })
     })
   })
   main.vgroup(function(topGroup) {
     topGroup.alignChildren = "fill"
-    topGroup.vpanel("Color", function(panel) {
+    topGroup.vpanel(R.string.color, function(panel) {
       panel.alignChildren = "right"
       panel.hgroup(function(group) {
-        group.tooltips("The color of the text fill")
-        group.staticText(undefined, "Fill:").also(JUSTIFY_RIGHT)
-        fillColorList = group.dropDownList(SIZE_INPUT_RIGHT, COLORS)
+        group.tooltips(R.string.tip_selecttypes_fill)
+        group.leftStaticText(undefined, R.string.fill)
+        fillColorList = group.dropDownList(SIZE_INPUT_RIGHT, Colors.list())
       })
       panel.hgroup(function(group) {
-        group.tooltips("The color of the text stroke")
-        group.staticText(undefined, "Stroke:").also(JUSTIFY_RIGHT)
-        strokeColorList = group.dropDownList(SIZE_INPUT_RIGHT, COLORS)
+        group.tooltips(R.string.tip_selecttypes_stroke)
+        group.leftStaticText(undefined, R.string.stroke)
+        strokeColorList = group.dropDownList(SIZE_INPUT_RIGHT, Colors.list())
       })
     })
-    topGroup.vpanel("Others", function(panel) {
+    topGroup.vpanel(R.string.others, function(panel) {
       panel.alignChildren = "right"
       panel.hgroup(function(group) {
-        group.tooltips("The type of a text frame item")
-        group.staticText(undefined, "Kind:").also(JUSTIFY_RIGHT)
-        kindList = group.dropDownList(SIZE_INPUT_RIGHT, KINDS)
+        group.tooltips(R.string.tip_selecttypes_kind)
+        group.leftStaticText(undefined, R.string.kind)
+        kindList = group.dropDownList(SIZE_INPUT_RIGHT, listKinds())
       })
       panel.hgroup(function(group) {
-        group.tooltips("The orientation of the text in the frame")
-        group.staticText(undefined, "Orientation:").also(JUSTIFY_RIGHT)
-        orientationList = group.dropDownList(SIZE_INPUT_RIGHT, ORIENTATIONS)
+        group.tooltips(R.string.tip_selecttypes_orientation)
+        group.leftStaticText(undefined, R.string.orientation)
+        orientationList = group.dropDownList(SIZE_INPUT_RIGHT, listOrientations())
       })
     })
     if (isFilterMode) {
@@ -102,15 +101,15 @@ dialog.setDefaultButton(undefined, function() {
   var substring = findEdit.text
   var fontName = fontNameEdit.text
   var fontSize = parseUnits(fontSizeEdit.text)
-  var italic = italicList.hasSelection() ? italicList.selection.text === "Yes" : undefined
-  var underline = underlineList.hasSelection() ? underlineList.selection.text === "Yes" : undefined
+  var italic = italicList.hasSelection() ? italicList.selection.text === getString(R.string.yes) : undefined
+  var underline = underlineList.hasSelection() ? underlineList.selection.text === getString(R.string.yes) : undefined
   var fillColor = fillColorList.hasSelection() ? parseColor(fillColorList.selection.text) : undefined
   var strokeColor = strokeColorList.hasSelection() ? parseColor(strokeColorList.selection.text) : undefined
   var kind
   if (kindList.hasSelection()) {
-    if (kindList.selection.text === "Point Text") {
+    if (kindList.selection.text === getString(R.string.point_text)) {
       kind = TextType.POINTTEXT
-    } else if (kindList.selection.text === "Area Text") {
+    } else if (kindList.selection.text === getString(R.string.area_text)) {
       kind = TextType.AREATEXT
     } else {
       kind = TextType.PATHTEXT
@@ -118,7 +117,7 @@ dialog.setDefaultButton(undefined, function() {
   }
   var orientation
   if (orientationList.hasSelection()) {
-    if (orientationList.selection.text === "Horizontal") {
+    if (orientationList.selection.text === getString(R.string.horizontal)) {
       orientation = TextOrientation.HORIZONTAL
     } else {
       orientation = TextOrientation.VERTICAL

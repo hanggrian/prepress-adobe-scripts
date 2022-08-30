@@ -1,11 +1,31 @@
-var OPEN_PDFBOXTYPES = ["Bounding", "-", "Art", "Crop", "Trim", "Bleed", "Media"]
-var OPEN_DOCUMENTMODES = ["RGB", "CMYK"]
-var OPEN_DOCUMENTRESOLUTIONS = ["Screen", "Medium", "High"]
-var OPEN_DOCUMENTLAYOUTS = ["Grid by Row", "Grid by Column", "Row", "Column", "RTL Grid by Row", "RTL Grid by Column", "RTL Row"]
-var OPEN_DOCUMENTPREVIEWMODES = ["Default", "Pixel", "Overprint"]
 var SIZE_DOCUMENT_INPUT = [120, 21]
 var SIZE_DOCUMENT_INPUT2 = [70, 21]
 var SIZE_DOCUMENT_INPUTMAX = [120 + 70 + 10, 21]
+
+var OpenPages = {
+  PDF_BOXES: ["Bounding", "-", "Art", "Crop", "Trim", "Bleed", "Media"]
+}
+var OpenDocuments = {
+  COLOR_MODES: ["RGB", "CMYK"],
+  listResolutions: function() {
+    return [
+      R.string.screen,
+      R.string.medium,
+      R.string.high
+    ]
+  },
+  listLayouts: function() {
+    return [
+      R.string.grid_by_row,
+      R.string.grid_by_column,
+      R.string.row,
+      R.string.column,
+      R.string.rtl_grid_by_row,
+      R.string.rtl_grid_by_column,
+      R.string.rtl_row
+    ]
+  }
+}
 
 /**
  * PDF placing option panel.
@@ -13,29 +33,28 @@ var SIZE_DOCUMENT_INPUTMAX = [120 + 70 + 10, 21]
  * @param {Array} inputSize size or bounds.
  */
 function OpenPDFPanel(parent, inputSize) {
-  var self = parent.vpanel("PDF Box")
+  var self = parent.vpanel(R.string.pdf_box)
   self.boxTypeList
 
   self.alignChildren = "right"
+  self.alignment = "fill"
   self.hgroup(function(group) {
-    group.tooltips("Which box should be used when placing a pdf document")
-    group.staticText(undefined, "Crop to:").also(JUSTIFY_RIGHT)
-    self.boxTypeList = group.dropDownList(inputSize, OPEN_PDFBOXTYPES).also(function(it) {
-      var prefill
+    group.tooltips(R.string.tip_cropto)
+    group.leftStaticText(undefined, R.string.crop_to)
+    self.boxTypeList = group.dropDownList(inputSize, OpenPages.PDF_BOXES).also(function(it) {
       if (preferences.getPDFCrop() === PDFBoxType.PDFARTBOX) {
-        prefill = "Art"
+        it.selection = 2
       } else if (preferences.getPDFCrop() === PDFBoxType.PDFCROPBOX) {
-        prefill = "Crop"
+        it.selection = 3
       } else if (preferences.getPDFCrop() === PDFBoxType.PDFTRIMBOX) {
-        prefill = "Trim"
+        it.selection = 4
       } else if (preferences.getPDFCrop() === PDFBoxType.PDFBLEEDBOX) {
-        prefill = "Bleed"
+        it.selection = 5
       } else if (preferences.getPDFCrop() === PDFBoxType.PDFMEDIABOX) {
-        prefill = "Media"
+        it.selection = 6
       } else {
-        prefill = "Bounding"
+        it.selection = 0
       }
-      it.selection = Collections.indexOf(OPEN_PDFBOXTYPES, prefill)
       it.onChange = function() {
         if (self.boxTypeList.selection.text === "Art") {
           preferences.setPDFCrop(PDFBoxType.PDFARTBOX)
@@ -62,28 +81,29 @@ function OpenPDFPanel(parent, inputSize) {
  * @param {Array} inputSize size or bounds.
  */
 function OpenPagesPanel(parent, inputSize) {
-  var self = parent.vpanel("Pages")
+  var self = parent.vpanel(R.string.pages)
   self.rangeGroup, self.widthEdit, self.heightEdit, self.bleedEdit
 
   self.alignChildren = "right"
+  self.alignment = "fill"
   self.hgroup(function(group) {
-    group.tooltips("Which pages to impose")
-    group.staticText(undefined, "Pages:").also(JUSTIFY_RIGHT)
+    group.tooltips(R.string.tip_openpages_pages)
+    group.leftStaticText(undefined, R.string.pages)
     self.rangeGroup = new RangeGroup(group, inputSize)
   })
   self.hgroup(function(group) {
-    group.tooltips("Page width, not artboard")
-    group.staticText(undefined, "Width:").also(JUSTIFY_RIGHT)
+    group.tooltips(R.string.tip_openpages_width)
+    group.leftStaticText(undefined, R.string.width)
     self.widthEdit = group.editText(inputSize, "210 mm").also(VALIDATE_UNITS)
   })
   self.hgroup(function(group) {
-    group.tooltips("Page height, not artboard")
-    group.staticText(undefined, "Height:").also(JUSTIFY_RIGHT)
+    group.tooltips(R.string.tip_openpages_height)
+    group.leftStaticText(undefined, R.string.height)
     self.heightEdit = group.editText(inputSize, "297 mm").also(VALIDATE_UNITS)
   })
   self.hgroup(function(group) {
-    group.tooltips("Extra area that will be added to page dimension")
-    group.staticText(undefined, "Bleed:").also(JUSTIFY_RIGHT)
+    group.tooltips(R.string.tip_openpages_bleed)
+    group.leftStaticText(undefined, R.string.bleed)
     self.bleedEdit = group.editText(inputSize, "0 mm").also(VALIDATE_UNITS)
   })
 
@@ -113,46 +133,48 @@ function OpenPagesPanel(parent, inputSize) {
  * @param {Group|Panel|Window} parent holder of this control.
  */
 function OpenDocumentPanel(parent) {
-  var self = parent.vpanel("Document Preset")
+  var self = parent.vpanel(R.string.document)
   self.modeList, self.resolutionList
   self.layoutList, self.rowsOrColsEdit, self.unitsList
   self.spacingEdit
   self.previewDefaultRadio, self.previewPixelRadio, self.previewOverprintRadio
 
   self.alignChildren = "right"
+  self.alignment = "fill"
   self.hgroup(function(group) {
-    group.tooltips("The color mode and resolution for the new document")
-    group.staticText(undefined, "Color Mode:").also(JUSTIFY_RIGHT)
-    self.modeList = group.dropDownList(SIZE_DOCUMENT_INPUT, OPEN_DOCUMENTMODES).also(function(it) {
-      it.selection = Collections.indexOf(OPEN_DOCUMENTMODES, "CMYK")
+    group.tooltips(R.string.tip_opendocuments_colormode)
+    group.leftStaticText(undefined, R.string.color_mode)
+    self.modeList = group.dropDownList(SIZE_DOCUMENT_INPUT, OpenDocuments.COLOR_MODES).also(function(it) {
+      it.selection = 1
     })
-    self.resolutionList = group.dropDownList(SIZE_DOCUMENT_INPUT2, OPEN_DOCUMENTRESOLUTIONS).also(function(it) {
-      it.selection = Collections.indexOf(OPEN_DOCUMENTRESOLUTIONS, "High")
+    self.resolutionList = group.dropDownList(SIZE_DOCUMENT_INPUT2, OpenDocuments.listResolutions()).also(function(it) {
+      it.selection = 2
     })
   })
   self.hgroup(function(group) {
-    group.tooltips("Layout for artboards")
-    group.staticText(undefined, "Layout:").also(JUSTIFY_RIGHT)
-    self.layoutList = group.dropDownList(SIZE_DOCUMENT_INPUT, OPEN_DOCUMENTLAYOUTS).also(function(it) {
-      it.selection = Collections.indexOf(OPEN_DOCUMENTLAYOUTS, "Grid by Row")
+    group.tooltips(R.string.tip_opendocuments_layout)
+    group.leftStaticText(undefined, R.string.layout)
+    self.layoutList = group.dropDownList(SIZE_DOCUMENT_INPUT, OpenDocuments.listLayouts()).also(function(it) {
+      it.selection = 0
     })
     self.rowsOrColsEdit = group.editText(SIZE_DOCUMENT_INPUT2, "2").also(VALIDATE_DIGITS)
   })
   self.hgroup(function(group) {
-    group.tooltips("The units for the new document")
-    group.staticText(undefined, "Units:").also(JUSTIFY_RIGHT)
-    self.unitsList = group.dropDownList(SIZE_DOCUMENT_INPUTMAX, UNITS).also(function(it) {
-      it.selection = Collections.indexOf(UNITS, "Millimeters")
+    group.tooltips(R.string.tip_opendocuments_units)
+    group.leftStaticText(undefined, R.string.units)
+    self.unitsList = group.dropDownList(SIZE_DOCUMENT_INPUTMAX, Units.list()).also(function(it) {
+      it.selection = 3
     })
   })
   self.hgroup(function(group) {
-    group.tooltips("Spacing between artboards")
-    group.staticText(undefined, "Spacing:").also(JUSTIFY_RIGHT)
+    group.tooltips(R.string.tip_opendocuments_spacing)
+    group.leftStaticText(undefined, R.string.spacing)
     self.spacingEdit = group.editText(SIZE_DOCUMENT_INPUTMAX, "10 mm").also(VALIDATE_UNITS)
   })
   self.hgroup(function(group) {
-    group.tooltips("The preview mode for the new document")
-    group.staticText(undefined, "Preview Mode:").also(JUSTIFY_RIGHT)
+    group.alignChildren = "bottom"
+    group.tooltips(R.string.tip_opendocuments_previewmode)
+    group.leftStaticText(undefined, R.string.preview_mode)
     self.previewDefaultRadio = group.radioButton(undefined, "Default").also(SELECTED)
     self.previewPixelRadio = group.radioButton(undefined, "Pixel")
     self.previewOverprintRadio = group.radioButton(undefined, "Overprint")
@@ -177,42 +199,42 @@ function OpenDocumentPanel(parent) {
         preset.documentBleedLink = true
         preset.documentBleedOffset = [bleed, bleed, bleed, bleed]
       }
-      switch (self.modeList.selection.text) {
-        case "RGB":
+      switch (self.modeList.selection.index) {
+        case 0:
           preset.colorMode = DocumentColorSpace.RGB
           break;
         default:
           preset.colorMode = DocumentColorSpace.CMYK
           break;
       }
-      switch (self.resolutionList.selection.text) {
-        case "Screen":
+      switch (self.resolutionList.selection.index) {
+        case 0:
           preset.rasterResolution = DocumentRasterResolution.ScreenResolution
           break;
-        case "Medium":
+        case 1:
           preset.rasterResolution = DocumentRasterResolution.MediumResolution
           break;
         default:
           preset.rasterResolution = DocumentRasterResolution.HighResolution
           break;
       }
-      switch (self.layoutList.selection.text) {
-        case "Grid by Row":
+      switch (self.layoutList.selection.index) {
+        case 0:
           preset.artboardLayout = DocumentArtboardLayout.GridByRow
           break;
-        case "Grid by Column":
+        case 1:
           preset.artboardLayout = DocumentArtboardLayout.GridByCol
           break;
-        case "Row":
+        case 2:
           preset.artboardLayout = DocumentArtboardLayout.Row
           break;
-        case "Column":
+        case 3:
           preset.artboardLayout = DocumentArtboardLayout.Column
           break;
-        case "RTL Grid by Row":
+        case 4:
           preset.artboardLayout = DocumentArtboardLayout.RLGridByRow
           break;
-        case "RTL Grid by Column":
+        case 5:
           preset.artboardLayout = DocumentArtboardLayout.RLGridByCol
           break;
         default:

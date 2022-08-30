@@ -7,7 +7,7 @@ var SIZE_INPUT = [120, 21]
 checkHasSelection()
 check(Collections.anyItem(selection, PREDICATE_LINKS), "No PDF links found in selection")
 
-var dialog = new Dialog("Change Page", "relinking-files/#change-page")
+var dialog = new Dialog(R.string.change_page, "relinking-files/#change-page")
 var pdfPanel, rangeGroup, orderByList, recursiveCheck, keepSizeCheck
 var config = configs.resolve("links/change_page")
 
@@ -15,16 +15,16 @@ dialog.vgroup(function(main) {
   main.alignChildren = "fill"
   pdfPanel = new OpenPDFPanel(main, SIZE_INPUT).also(function(panel) {
     panel.hgroup(function(group) {
-      group.tooltips("Which pages should be used when opening a multipage document")
-      group.staticText(undefined, "Pages:").also(JUSTIFY_RIGHT)
+      group.tooltips(R.string.tip_relink_pages)
+      group.leftStaticText(undefined, R.string.pages)
       rangeGroup = new RangeGroup(group, SIZE_INPUT).also(function(it) {
         it.startEdit.activate()
       })
     })
   })
-  orderByList = new OrderByList(main, [ORDER_LAYERS, ORDER_POSITIONS]).also(function(it) {
+  orderByList = new OrderByList(main, [OrderBy.layers(), OrderBy.positions()]).also(function(it) {
     it.alignment = "right"
-    it.selectText(config.getString("order", "Reversed"))
+    it.selection = config.getInt("order")
   })
   main.hgroup(function(group) {
     group.alignment = "right"
@@ -44,7 +44,7 @@ dialog.setDefaultButton(undefined, function() {
   var progress = new ProgressDialog(source.length)
 
   orderByList.forEach(source, function(item, i) {
-    progress.increment("Linking item %d", i + 1)
+    progress.increment(R.string.progress_relink, i + 1)
     print("Item %d page %d.".format(i, current))
     preferences.setPDFPage(current)
     var relinked = false
@@ -64,7 +64,7 @@ dialog.setDefaultButton(undefined, function() {
   })
   selection = source
 
-  config.setString("order", orderByList.selection.text)
+  config.setInt("order", orderByList.selection.index)
   config.setBoolean("recursive", recursiveCheck.value)
   config.setBoolean("keep_size", keepSizeCheck.value)
 })
@@ -75,7 +75,7 @@ function relink(item) {
   var height = item.height
   var position = item.position
   var file = item.file
-  item.file = Resources.getImage("relink_fix") // Apply PDF fix
+  item.file = getImage("relink_fix") // Apply PDF fix
   item.file = file
   if (keepSizeCheck.value) {
     print("Keep size, ")

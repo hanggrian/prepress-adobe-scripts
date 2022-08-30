@@ -1,17 +1,25 @@
-var ORDER_LAYERS = [
-  ["Default", "ic_order_layer_default"],
-  ["Reversed", "ic_order_layer_reversed"]
-]
-var ORDER_NAMES = [
-  ["Ascending", "ic_order_name_ascending"],
-  ["Descending", "ic_order_name_descending"]
-]
-var ORDER_POSITIONS = [
-  ["Horizontal", "ic_order_position_horizontal"],
-  ["Vertical", "ic_order_position_vertical"],
-  ["Horizontal RTL", "ic_order_position_horizontalrtl"],
-  ["Vertical RTL", "ic_order_position_verticalrtl"]
-]
+var OrderBy = {
+  layers: function() {
+    return [
+      [R.string.default, "ic_order_layer_default"],
+      [R.string.reversed, "ic_order_layer_reversed"]
+    ]
+  },
+  names: function() {
+    return [
+      [R.string.ascending, "ic_order_name_ascending"],
+      [R.string.descending, "ic_order_name_descending"]
+    ]
+  },
+  positions: function() {
+    return [
+      [R.string.horizontal, "ic_order_position_horizontal"],
+      [R.string.vertical, "ic_order_position_vertical"],
+      [R.string.horizontal_rtl, "ic_order_position_horizontalrtl"],
+      [R.string.vertical_rtl, "ic_order_position_verticalrtl"]
+    ]
+  }
+}
 
 /**
  * DropDownList of ordering choices.
@@ -28,8 +36,8 @@ function OrderByList(parent, ordersCollection) {
   })
 
   var self = parent.dropDownList(undefined, orders).also(function(it) {
-    it.tooltip("Modify how iteration should be operated")
-    it.title = "Order by:"
+    it.tooltip(R.string.tip_orderby)
+    it.title = getString(R.string.order_by) + ":"
   })
 
   /**
@@ -39,28 +47,29 @@ function OrderByList(parent, ordersCollection) {
    * @returns
    */
   self.forEach = function(collection, action) {
-    if (self.selection.text === "Default") {
+    var imageName = self.selection.image.name.substringBefore(".png")
+    if (imageName === "ic_order_layer_default") {
       Collections.forEach(collection, action)
       return
-    } else if (self.selection.text === "Reversed") {
+    } else if (imageName === "ic_order_layer_reversed") {
       Collections.forEachReversed(collection, action)
       return
     }
     var sortedCollection = Collections.map(collection, function(it) { return it })
-    if (self.selection.text === "Ascending") {
+    if (imageName === "ic_order_name_ascending") {
       sortedCollection.sort(sortAscending)
-    } else if (self.selection.text === "Descending") {
+    } else if (imageName === "ic_order_name_descending") {
       sortedCollection.sort(sortDescending)
-    } else if (self.selection.text === "Horizontal") {
+    } else if (imageName === "ic_order_position_horizontal") {
       sortedCollection.sort(sortHorizontal)
-    } else if (self.selection.text === "Vertical") {
+    } else if (imageName === "ic_order_position_vertical") {
       sortedCollection.sort(sortVertical)
-    } else if (self.selection.text === "Horizontal RTL") {
+    } else if (imageName === "ic_order_position_horizontalrtl") {
       sortedCollection.sort(sortHorizontalRtl)
-    } else if (self.selection.text === "Vertical RTL") {
+    } else if (imageName === "ic_order_position_verticalrtl") {
       sortedCollection.sort(sortVerticalRtl)
     } else {
-      error("Ordering error")
+      errorWithAlert("Ordering error")
     }
     Collections.forEach(sortedCollection, action)
   }

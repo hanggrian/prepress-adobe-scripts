@@ -18,15 +18,17 @@ function ProgressDialog(stop, status) {
 
   this.texts = window.add("group").also(function(group) {
     group.orientation = "row"
-    self.statusText = group.staticText([325, 21], (status || "Please wait") + "...").also(JUSTIFY_LEFT)
-    self.countText = group.staticText([75, 21], "0/" + stop).also(JUSTIFY_RIGHT)
+    self.statusText = group.staticText([325, 21], (Internals.stringOrResources(status) || "Please wait") + "...")
+      .also(function(it) { it.justify = "left" })
+    self.countText = group.staticText([75, 21], "0/" + stop).also(function(it) { it.justify = "right" })
   })
   this.progressBar = window.add("slider", [0, 0, 400, 21], 0, 0, stop) // progressbar won't update in palette, use slider instead
 
   /** Add progression to dialog with optional status. */
   this.increment = function() {
     if (Collections.isNotEmpty(arguments)) {
-      self.statusText.text = Collections.first(arguments).formatArr(Array.prototype.slice.call(arguments, 1)) + "..."
+      var format = Internals.stringOrResources(Collections.first(arguments))
+      self.statusText.text = format.formatArr(Array.prototype.slice.call(arguments, 1)) + "..."
     }
     self.progressBar.value++
     self.countText.text = self.progressBar.value + "/" + stop

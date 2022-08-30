@@ -4,15 +4,16 @@
 #target Illustrator
 #include "../.lib/commons.js"
 
-var YES_OR_NO = ["Yes", "No"]
+function listYesNo() { return [R.string.yes, R.string.no] }
 var COLOR_SPACES = ["Grayscale", "RGB", "CMYK", "LAB", "Separations", "DeviceN", "Indexed"]
 var STATUSES = ["No Data", "Data from File", "Data Modified"]
+
 var SIZE_INPUT = [100, 21]
 
 check(Collections.isNotEmpty(document.rasterItems), "No images in this document")
 var isFilterMode = Collections.isNotEmpty(selection)
 
-var dialog = new Dialog("Select Images", "selecting-items/#select-images")
+var dialog = new Dialog(R.string.select_images, "selecting-items/#select-images")
 var dimensionPanel
 var colorSpaceList, bitsEdit, transparentList
 var embeddedList, overprintList, statusList
@@ -24,42 +25,42 @@ dialog.hgroup(function(main) {
   main.vgroup(function(topGroup) {
     topGroup.alignChildren = "fill"
     dimensionPanel = new SelectDimensionPanel(topGroup, SIZE_INPUT)
-    topGroup.vpanel("Image", function(panel) {
+    topGroup.vpanel(R.string.image, function(panel) {
       panel.alignChildren = "right"
       panel.hgroup(function(group) {
-        group.tooltips("The color space of the raster image")
-        group.staticText(undefined, "Color Space:").also(JUSTIFY_RIGHT)
+        group.tooltips(R.string.tip_selectimage_colorspace)
+        group.leftStaticText(undefined, R.string.color_space)
         colorSpaceList = group.dropDownList(SIZE_INPUT, COLOR_SPACES)
       })
       panel.hgroup(function(group) {
-        group.tooltips("The number of bits per channel")
-        group.staticText(undefined, "Bits/Channel:").also(JUSTIFY_RIGHT)
+        group.tooltips(R.string.tip_selectimage_bitsperchannel)
+        group.leftStaticText(undefined, R.string.bits_per_channel)
         bitsEdit = group.editText(SIZE_INPUT).also(VALIDATE_DIGITS)
       })
       panel.hgroup(function(group) {
-        group.tooltips("Is the raster art transparent?")
-        group.staticText(undefined, "Transparent:").also(JUSTIFY_RIGHT)
-        transparentList = group.dropDownList(SIZE_INPUT, YES_OR_NO)
+        group.tooltips(R.string.tip_selectimage_transparent)
+        group.leftStaticText(undefined, R.string.transparent)
+        transparentList = group.dropDownList(SIZE_INPUT, listYesNo())
       })
     })
   })
   main.vgroup(function(topGroup) {
     topGroup.alignChildren = "fill"
-    topGroup.vpanel("Others", function(panel) {
+    topGroup.vpanel(R.string.others, function(panel) {
       panel.alignChildren = "right"
       panel.hgroup(function(group) {
-        group.tooltips("Is the raster art embedded within the illustration?")
-        group.staticText(undefined, "Embedded:").also(JUSTIFY_RIGHT)
-        embeddedList = group.dropDownList(SIZE_INPUT, YES_OR_NO)
+        group.tooltips(R.string.tip_selectimage_embedded)
+        group.leftStaticText(undefined, R.string.embedded)
+        embeddedList = group.dropDownList(SIZE_INPUT, listYesNo())
       })
       panel.hgroup(function(group) {
-        group.tooltips("Is the raster art overprinting?")
-        group.staticText(undefined, "Overprint:").also(JUSTIFY_RIGHT)
-        overprintList = group.dropDownList(SIZE_INPUT, YES_OR_NO)
+        group.tooltips(R.string.tip_selectimage_overprint)
+        group.leftStaticText(undefined, R.string.overprint)
+        overprintList = group.dropDownList(SIZE_INPUT, listYesNo())
       })
       panel.hgroup(function(group) {
-        group.tooltips("Status of the linked image")
-        group.staticText(undefined, "Status:").also(JUSTIFY_RIGHT)
+        group.tooltips(R.string.tip_selectimage_status)
+        group.leftStaticText(undefined, R.string.status)
         statusList = group.dropDownList(SIZE_INPUT, STATUSES)
       })
     })
@@ -94,9 +95,9 @@ dialog.setDefaultButton(undefined, function() {
     }
   }
   var bits = parseInt(bitsEdit.text) || 0
-  var transparent = transparentList.hasSelection() ? transparentList.selection.text === "Yes" : undefined
-  var embedded = embeddedList.hasSelection() ? embeddedList.selection.text === "Yes" : undefined
-  var overprint = overprintList.hasSelection() ? overprintList.selection.text === "Yes" : undefined
+  var transparent = transparentList.hasSelection() ? transparentList.selection.text === getString(R.string.yes) : undefined
+  var embedded = embeddedList.hasSelection() ? embeddedList.selection.text === getString(R.string.yes) : undefined
+  var overprint = overprintList.hasSelection() ? overprintList.selection.text === getString(R.string.yes) : undefined
   var status
   if (statusList.hasSelection()) {
     if (statusList.selection.text === "No Data") {

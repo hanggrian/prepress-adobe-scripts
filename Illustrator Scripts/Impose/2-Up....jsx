@@ -3,7 +3,7 @@
 
 var SIZE_INPUT = [100, 21]
 
-var dialog = new Dialog("Impose 2-Up", "imposing-layout/#n-up")
+var dialog = new Dialog(getString(R.string.impose_n_up, 2), "imposing-layout/#n-up")
 var pdfPanel, pagesPanel, documentPanel
 var nupGroup
 
@@ -50,7 +50,7 @@ if (files !== null && Collections.isNotEmpty(files)) {
     if (pages % pagesDivisor !== 0) {
       errorWithAlert("Pages must be divisible by " + pagesDivisor)
     }
-    var document = documentPanel.open("Untitled-2-Up",
+    var document = documentPanel.open(getString(R.string.impose_n_up, 2),
       artboards,
       (rotatedWidth + bleed * 2) * 2,
       (rotatedHeight + bleed * 2),
@@ -62,7 +62,7 @@ if (files !== null && Collections.isNotEmpty(files)) {
       : (!nupGroup.isDuplex()
         ? new TwoUpSimplexStackPager(document, start)
         : new TwoUpDuplexStackPager(document, start))
-    var progress = new ProgressDialog(artboards, "Imposing")
+        var progress = new ProgressDialog(artboards, R.string.imposing)
 
     pager.forEachArtboard(function(artboard, left, right) {
       progress.increment()

@@ -6,7 +6,7 @@ checkHasSelection()
 var SIZE_INPUT = [110, 21]
 var SIZE_CHECK = [15, 15]
 
-var dialog = new Dialog("Add Trim Marks", "add-trim-marks/")
+var dialog = new Dialog(R.string.add_trim_marks, "add-trim-marks/")
 var offsetEdit, lengthEdit, weightEdit, colorList
 var topLeftCheck, topRightCheck, leftTopCheck, rightTopCheck, leftBottomCheck, rightBottomCheck, bottomLeftCheck, bottomRightCheck // single checks
 var topCheck, rightCheck, bottomCheck, leftCheck // multiple checks
@@ -17,69 +17,69 @@ dialog.vgroup(function(main) {
   main.alignChildren = "right"
   main.hgroup(function(topGroup) {
     topGroup.alignChildren = "fill"
-    topGroup.vpanel("Trim Marks", function(panel) {
+    topGroup.vpanel(R.string.trim_marks, function(panel) {
       panel.alignChildren = "right"
       panel.hgroup(function(group) {
-        group.tooltips("Distance between art and trim marks")
-        group.staticText(undefined, "Offset:").also(JUSTIFY_RIGHT)
+        group.tooltips(R.string.tip_addtrimmarks_offset)
+        group.leftStaticText(undefined, R.string.offset)
         offsetEdit = group.editText(SIZE_INPUT, config.getString("offset", "2.5 mm")).also(function(it) {
           it.validateUnits()
           it.activate()
         })
       })
       panel.hgroup(function(group) {
-        group.tooltips("Size of trim marks")
-        group.staticText(undefined, "Length:").also(JUSTIFY_RIGHT)
+        group.tooltips(R.string.tip_addtrimmarks_length)
+        group.leftStaticText(undefined, R.string.length)
         lengthEdit = group.editText(SIZE_INPUT, config.getString("length", "2.5 mm")).also(VALIDATE_UNITS)
       })
       panel.hgroup(function(group) {
-        group.tooltips("Thickness of trim marks")
-        group.staticText(undefined, "Weight:").also(JUSTIFY_RIGHT)
+        group.tooltips(R.string.tip_addtrimmarks_weight)
+        group.leftStaticText(undefined, R.string.weight)
         weightEdit = group.editText(SIZE_INPUT, config.getString("weight", "0.3 pt")).also(VALIDATE_UNITS) // the same value used in `Object > Create Trim Marks`
       })
       panel.hgroup(function(group) {
-        group.tooltips("Color of trim marks")
-        group.staticText(undefined, "Color:").also(JUSTIFY_RIGHT)
-        colorList = group.dropDownList(SIZE_INPUT, COLORS).also(function(it) {
-          it.selectText(config.getString("color", "Registration"))
+        group.tooltips(R.string.tip_addtrimmarks_color)
+        group.leftStaticText(undefined, R.string.color)
+        colorList = group.dropDownList(SIZE_INPUT, Colors.list()).also(function(it) {
+          it.selection = config.getInt("color")
         })
       })
     })
-    topGroup.vpanel("Locations", function(panel) {
+    topGroup.vpanel(R.string.locations, function(panel) {
       panel.hgroup(function(group) {
         group.staticText(SIZE_CHECK)
         topLeftCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip("Top left")
+          it.tooltip(R.string.top)
         })
         topCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip("Top")
+          it.tooltip(R.string.top)
           it.visible = false
         })
         topRightCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip("Top right")
+          it.tooltip(R.string.top)
         })
         group.staticText(SIZE_CHECK)
       })
       panel.hgroup(function(group) {
         leftTopCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip("Left top")
+          it.tooltip(R.string.left)
         })
         group.image(SIZE_CHECK, "ic_arrow_topleft")
         group.image(SIZE_CHECK, "ic_arrow_top")
         group.image(SIZE_CHECK, "ic_arrow_topright")
         rightTopCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip("Right top")
+          it.tooltip(R.string.right)
         })
       })
       panel.hgroup(function(group) {
         leftCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip("Left")
+          it.tooltip(R.string.left)
           it.visible = false
         })
         group.image(SIZE_CHECK, "ic_arrow_left")
@@ -87,44 +87,45 @@ dialog.vgroup(function(main) {
         group.image(SIZE_CHECK, "ic_arrow_right")
         rightCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip("Right")
+          it.tooltip(R.string.right)
           it.visible = false
         })
       })
       panel.hgroup(function(group) {
         leftBottomCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip("Left bottom")
+          it.tooltip(R.string.left)
         })
         group.image(SIZE_CHECK, "ic_arrow_bottomleft")
         group.image(SIZE_CHECK, "ic_arrow_bottom")
         group.image(SIZE_CHECK, "ic_arrow_bottomright")
         rightBottomCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip("Right bottom")
+          it.tooltip(R.string.right)
         })
       })
       panel.hgroup(function(group) {
         group.staticText(SIZE_CHECK)
         bottomLeftCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip("Bottom left")
+          it.tooltip(R.string.bottom)
         })
         bottomCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip("Bottom")
+          it.tooltip(R.string.bottom)
           it.visible = false
         })
         bottomRightCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip("Bottom right")
+          it.tooltip(R.string.bottom)
         })
         group.staticText(SIZE_CHECK)
       })
     })
   })
-  multipleMultiRadioGroup = new MultiRadioGroup(main, "Multiple Target", ["Default", "Recursive"]).also(function(it) {
-    it.tooltips("When activated, trim marks will be added to each item")
+  multipleMultiRadioGroup = new MultiRadioGroup(main, R.string.multiple_target,
+    [R.string.default, R.string.recursive]).also(function(it) {
+    it.tooltips(R.string.tip_addtrimmarks_multipletarget)
     it.checkOnClick = function() {
       topLeftCheck.visible = !it.isSelected()
       topRightCheck.visible = !it.isSelected()
@@ -155,7 +156,7 @@ dialog.setDefaultButton(undefined, function() {
   config.setString("offset", offsetEdit.text)
   config.setString("length", lengthEdit.text)
   config.setString("weight", weightEdit.text)
-  config.setString("color", colorList.selection.text)
+  config.setInt("color", colorList.selection.index)
 })
 dialog.show()
 
@@ -311,7 +312,7 @@ function processMultiple(offset, length, weight, color, maxBounds) {
       ])
     }
   }
-  if (multipleMultiRadioGroup.getSelectedRadioText() === "Recursive") {
+  if (multipleMultiRadioGroup.getSelectedRadioIndex() === 1) {
     Collections.forEachItem(selection, action)
   } else {
     Collections.forEach(selection, action)

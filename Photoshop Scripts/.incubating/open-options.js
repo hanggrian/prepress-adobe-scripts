@@ -37,7 +37,7 @@ function OpenDocumentPanel(parent) {
   self.hgroup(function(group) {
     group.tooltips("The units for the new document")
     group.staticText(undefined, "Units:", JUSTIFY_RIGHT)
-    self.unitsList = group.dropDownList(SIZE_DOCUMENT_INPUTMAX, UNITS, function(it) {
+    self.unitsList = group.dropDownList(SIZE_DOCUMENT_INPUTMAX, Units.list(), function(it) {
       it.selectText("Millimeters")
     })
   })

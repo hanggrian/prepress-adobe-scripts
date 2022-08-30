@@ -11,7 +11,7 @@ dialog.vgroup(function(main) {
     topGroup.vgroup(function(midGroup) {
       midGroup.hgroup(function(group) {
         group.tooltips("Width of box")
-        group.staticText(undefined, "Width:").also(JUSTIFY_RIGHT)
+        group.leftStaticText(undefined, "Width")
         widthEdit = group.editText(SIZE_INPUT, "210 mm").also(function(it) {
           it.validateUnits()
           it.activate()
@@ -19,17 +19,17 @@ dialog.vgroup(function(main) {
       })
       midGroup.hgroup(function(group) {
         group.tooltips("Depth of box")
-        group.staticText(undefined, "Depth:").also(JUSTIFY_RIGHT)
+        group.leftStaticText(undefined, "Depth")
         depthEdit = group.editText(SIZE_INPUT, "100 mm").also(VALIDATE_UNITS)
       })
       midGroup.hgroup(function(group) {
         group.tooltips("Length of horizontal lock")
-        group.staticText(undefined, "Horizontal Lock:").also(JUSTIFY_RIGHT)
+        group.leftStaticText(undefined, "Horizontal Lock")
         horizontalLockEdit = group.editText(SIZE_INPUT, "20 mm").also(VALIDATE_UNITS)
       })
       midGroup.hgroup(function(group) {
         group.tooltips("Length of vertical lock")
-        group.staticText(undefined, "Vertical Lock:").also(JUSTIFY_RIGHT)
+        group.leftStaticText(undefined, "Vertical Lock")
         verticalLockEdit = group.editText(SIZE_INPUT, "20 mm").also(VALIDATE_UNITS)
       })
     })

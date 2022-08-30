@@ -23,8 +23,8 @@ patch_app() {
   echo
   echo "Patching $name..."
 
-  for app in "/Applications"/*; do
-    local app_name=$(basename "$app")
+  for app in "/Applications/"*; do
+    local app_name="$(basename $app)"
     if [[ "$app_name" == *"Adobe"* ]] && [[ "$app_name" == *"$name"* ]]; then
       local presets="$app/Presets"
       local localizedPresets="$presets.localized"
@@ -70,10 +70,10 @@ patch_preset() {
     rm -f "$target_root/Actions/$action_filename"
   fi
   # Copy new ones
-  cp -r "$SOURCE_ROOT/.stdlib"/. "$target_root/.stdlib"
-  cp -r "$SOURCE_ROOT/.stdres"/. "$target_root/.stdres" && chmod +x "$target_root/.stdres/script/check_updates.command"
-  cp -r "$SOURCE_ROOT/$scripts_filename"/. "$target_root/Scripts"
-  cp "$SOURCE_ROOT/Actions/$action_filename" "$target_root/Actions/$action_filename"
+  rsync -a "$SOURCE_ROOT/.stdlib" "$target_root"
+  rsync -a "$SOURCE_ROOT/.stdres" "$target_root" && chmod +x "$target_root/.stdres/script/check_updates.command"
+  rsync -a "$SOURCE_ROOT/$scripts_filename/". "$target_root/Scripts"
+  rsync -a "$SOURCE_ROOT/Actions/$action_filename" "$target_root/Actions/$action_filename"
   # Clean up
   rm -f "$target_root/.stdres/script/check_updates.cmd"
   rm -rf "$target_root/Scripts/.incubating"
@@ -81,7 +81,7 @@ patch_preset() {
 }
 
 # SOURCE_ROOT doesn't end with slash
-readonly SOURCE_ROOT="$(cd $(dirname "$0") && pwd)"
+readonly SOURCE_ROOT="$(cd $(dirname $0) && pwd)"
 
 # Check OS
 if [[ "$(uname)" != Darwin ]]; then die "Unsupported OS."; fi

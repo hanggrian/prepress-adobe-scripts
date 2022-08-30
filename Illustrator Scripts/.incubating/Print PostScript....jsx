@@ -15,7 +15,7 @@ dialog.vgroup(function(main) {
     topGroup.vpanel("Options", function(panel) {
       panel.hgroup(function(group) {
         group.tooltips("Output mode")
-        group.staticText(undefined, "Mode:").also(JUSTIFY_RIGHT)
+        group.leftStaticText(undefined, "Mode")
         group.radioButton(undefined, "Composite")
         group.radioButton(undefined, "Separations").also(SELECTED)
       })

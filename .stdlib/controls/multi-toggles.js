@@ -41,11 +41,11 @@ function MultiRadioGroup(parent, text, radioTexts) {
   self.isSelected = function() { return self.check.value }
 
   /**
-   * Returns selected radio button's text, will still return value if checkbox is not selected.
-   * @returns {String}
+   * Returns index of selected toggle, will still return value if checkbox is not selected.
+   * @returns {Number}
    */
-  self.getSelectedRadioText = function() {
-    return Collections.first(self.radios, function(it) { return it.value }).text
+  self.getSelectedRadioIndex = function() {
+    return Internals.getSelectedRadioIndex(self)
   }
 
   return self
@@ -92,11 +92,11 @@ function MultiCheckGroup(parent, textOff, textOn, checkTexts) {
   self.isOn = function() { return self.radioOn.value }
 
   /**
-   * Returns true if checkbox with that text is selected, will still return value if in off state.
-   * @returns {String}
+   * Returns index of selected toggle, will still return value if in off state.
+   * @returns {Number}
    */
-  self.isSelectedCheckText = function(text) {
-    return Collections.first(self.checks, function(it) { return it.text === text }).value
+  self.getSelectedRadioIndex = function() {
+    return Internals.getSelectedRadioIndex(self)
   }
 
   return self

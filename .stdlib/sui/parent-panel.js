@@ -6,13 +6,13 @@
 
 /**
  * Set tooltip to this parent.
- * @param {String} text tips to display.
+ * @param {String|Object} text tips to display.
  */
-Panel.prototype.tooltips = function(text) { Internals.setTooltips(this, text) }
+Panel.prototype.tooltips = function(text) { Internals.setTooltips(this, Internals.stringOrResources(text)) }
 
 /**
  * Add horizontal parent to group.
- * @param {String} text parent title.
+ * @param {String|Object} text parent title.
  * @param {Function} configuration runnable with this parent as parameter.
  * @returns {Panel}
  */
@@ -22,7 +22,7 @@ Group.prototype.hpanel = function(text, configuration) {
 
 /**
  * Add horizontal parent to panel.
- * @param {String} text parent title.
+ * @param {String|Object} text parent title.
  * @param {Function} configuration runnable with this parent as parameter.
  * @returns {Panel}
  */
@@ -32,7 +32,7 @@ Panel.prototype.hpanel = function(text, configuration) {
 
 /**
  * Add vertical parent to group.
- * @param {String} text parent title.
+ * @param {String|Object} text parent title.
  * @param {Function} configuration runnable with this parent as parameter.
  * @returns {Panel}
  */
@@ -42,7 +42,7 @@ Group.prototype.vpanel = function(text, configuration) {
 
 /**
  * Add vertical parent to panel.
- * @param {String} text parent title.
+ * @param {String|Object} text parent title.
  * @param {Function} configuration runnable with this parent as parameter.
  * @returns {Panel}
  */
@@ -52,7 +52,7 @@ Panel.prototype.vpanel = function(text, configuration) {
 
 /**
  * Add stack parent to group.
- * @param {String} text parent title.
+ * @param {String|Object} text parent title.
  * @param {Function} configuration runnable with this parent as parameter.
  * @returns {Panel}
  */
@@ -62,7 +62,7 @@ Group.prototype.spanel = function(text, configuration) {
 
 /**
  * Add stack parent to panel.
- * @param {String} text parent title.
+ * @param {String|Object} text parent title.
  * @param {Function} configuration runnable with this parent as parameter.
  * @returns {Panel}
  */
@@ -71,7 +71,7 @@ Panel.prototype.spanel = function(text, configuration) {
 }
 
 function _panel(root, orientation, text, configuration) {
-  var parent = root.add("panel", undefined, text)
+  var parent = root.add("panel", undefined, Internals.stringOrResources(text))
   parent.orientation = orientation
   if (root.helpTips !== undefined) {
     Internals.setTooltips(parent, root.helpTips)
@@ -84,4 +84,18 @@ function _panel(root, orientation, text, configuration) {
     configuration(parent)
   }
   return parent
+}
+
+/**
+ * Returns selected radio index of this group.
+ * @returns {Number}
+ */
+Panel.prototype.getSelectedRadioIndex = function() { return Internals.getSelectedRadioIndex(this) }
+
+/**
+ * Select radio button of this group.
+ * @param {String|Object} text existing text of any RadioButton, throws error if not found.
+ */
+Panel.prototype.selectRadioIndex = function(index) {
+  return Internals.selectRadioIndex(this, index)
 }

@@ -48,7 +48,7 @@ function Configs(path) {
    */
   this.getBoolean = function(key) {
     var value = preferences.getBooleanPreference(prefix + key)
-    println("Get preference `%s`: `%s`.", key, value)
+    println("Get bool preference `%s`: `%s`.", key, value)
     return value
   }
 
@@ -59,7 +59,7 @@ function Configs(path) {
    */
   this.getInt = function(key) {
     var value = preferences.getIntegerPreference(prefix + key)
-    println("Get preference `%s`: `%d`.", key, value)
+    println("Get int preference `%s`: `%d`.", key, value)
     return value
   }
 
@@ -70,7 +70,7 @@ function Configs(path) {
    */
   this.getNumber = function(key) {
     var value = preferences.getRealPreference(prefix + key)
-    println("Get preference `%s`: `%d`.", key, value)
+    println("Get num preference `%s`: `%d`.", key, value)
     return value
   }
 
@@ -81,7 +81,7 @@ function Configs(path) {
    * @returns {String}
    */
   this.getString = function(key, defaultValue) {
-    print("Get preference `%s`: ", key)
+    print("Get str preference `%s`: ", key)
     var value = preferences.getStringPreference(prefix + key)
     if (value === "") {
       println("not found, use default `%s`.", defaultValue)
@@ -99,7 +99,7 @@ function Configs(path) {
   this.setBoolean = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     preferences.setBooleanPreference(prefix + key, actualValue)
-    println("Set preference `%s`: `%d`.", key, actualValue)
+    println("Set bool preference `%s`: `%d`.", key, actualValue)
   }
 
   /**
@@ -110,7 +110,7 @@ function Configs(path) {
   this.setInt = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     preferences.setIntegerPreference(prefix + key, actualValue)
-    println("Set preference `%s`: `%d`.", key, actualValue)
+    println("Set int preference `%s`: `%d`.", key, actualValue)
   }
 
   /**
@@ -121,7 +121,7 @@ function Configs(path) {
   this.setNumber = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     preferences.setRealPreference(prefix + key, actualValue)
-    println("Set preference `%s`: `%d`.", key, actualValue)
+    println("Set num preference `%s`: `%d`.", key, actualValue)
   }
 
   /**
@@ -132,7 +132,7 @@ function Configs(path) {
   this.setString = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     preferences.setStringPreference(prefix + key, actualValue)
-    println("Set preference `%s`: `%s`.", key, actualValue)
+    println("Set str preference `%s`: `%s`.", key, actualValue)
   }
 
   /**

@@ -7,7 +7,7 @@ var SIZE_INPUT = [120, 21]
 checkHasSelection()
 check(Collections.anyItem(selection, PREDICATE_LINKS), "No links found in selection")
 
-var dialog = new Dialog("Relink Multipage", "relinking-files/#relink-multipage")
+var dialog = new Dialog(R.string.relink_multipage, "relinking-files/#relink-multipage")
 var pdfPanel, rangeGroup, orderByList, recursiveCheck, keepSizeCheck
 var collection
 var config = configs.resolve("links/relink_multipage")
@@ -25,20 +25,20 @@ if (files !== null && Collections.isNotEmpty(files)) {
     if (collection.hasPDF) {
       pdfPanel = new OpenPDFPanel(main, SIZE_INPUT)
     }
-    main.vpanel("Pages", function(panel) {
+    main.vpanel(R.string.pages, function(panel) {
       panel.alignChildren = "right"
       panel.hgroup(function(group) {
-        group.tooltips("Which pages should be used when opening a multipage document")
-        group.staticText(undefined, "Pages:").also(JUSTIFY_RIGHT)
+        group.tooltips(R.string.tip_relink_pages)
+        group.leftStaticText(undefined, R.string.pages)
         rangeGroup = new RangeGroup(group, SIZE_INPUT).also(function(it) {
           it.startEdit.activate()
           it.endEdit.text = collection.length
         })
       })
     })
-    orderByList = new OrderByList(main, [ORDER_LAYERS, ORDER_POSITIONS]).also(function(it) {
+    orderByList = new OrderByList(main, [OrderBy.layers(), OrderBy.positions()]).also(function(it) {
       it.alignment = "right"
-      it.selectText(config.getString("order", "Reversed"))
+      it.selection = config.getInt("order")
     })
     main.hgroup(function(group) {
       group.alignment = "right"
@@ -58,7 +58,7 @@ if (files !== null && Collections.isNotEmpty(files)) {
     var progress = new ProgressDialog(source.length)
 
     orderByList.forEach(source, function(item, i) {
-      progress.increment("Linking item %d", i + 1)
+      progress.increment(R.string.progress_relink, i + 1)
       print("Item %d page %d.".format(i, current))
       var file = collection.get(current)
       var relinked = false
@@ -78,7 +78,7 @@ if (files !== null && Collections.isNotEmpty(files)) {
     })
     selection = source
 
-    config.setString("order", orderByList.selection.text)
+    config.setInt("order", orderByList.selection.index)
     config.setBoolean("recursive", recursiveCheck.value)
     config.setBoolean("keep_size", keepSizeCheck.value)
   })
@@ -91,7 +91,7 @@ function relink(item, file) {
   var position = item.position
   if (file.isPdf() && Items.isLinkExists(item) && item.file.isPdf()) {
     print("Appling PDF fix, ")
-    item.file = Resources.getImage("relink_fix")
+    item.file = getImage("relink_fix")
   }
   item.file = file
   if (keepSizeCheck.value) {

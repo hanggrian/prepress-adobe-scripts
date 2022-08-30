@@ -16,6 +16,10 @@
 #include "io/file.js"
 #include "io/picker.js"
 
+#include "resources/base.js"
+#include "resources/plurals.js"
+#include "resources/strings.js"
+
 #include "sui/child-button.js"
 #include "sui/child-dropdownlist.js"
 #include "sui/child-edittext.js"
@@ -31,6 +35,7 @@
 #include "sui/parent-tab.js"
 #include "sui/parent-tabbedpanel.js"
 #include "sui/window-alert.js"
+#include "sui/window-native.js"
 #include "sui/window-dialog.js"
 #include "sui/window-progress.js"
 
@@ -39,10 +44,10 @@
 #include "math.js"
 #include "preconditions.js"
 #include "properties.js"
-#include "resources.js"
 #include "standard.js"
 #include "text.js"
 #include "time.js"
+#include "units.js"
 
 var PATH_STDLIB = new File($.fileName).path
 
@@ -60,7 +65,7 @@ var URL_WEBSITE = "https://hendraanggrian.github.io/prepress-adobe-scripts/"
 function openURL(url) {
   var tempFile = new File(Folder.temp.absoluteURI + "/prepress-adobe-scripts.html")
   tempFile.use("w", function(it) {
-    it.write('<html><head><META HTTP-EQUIV=Refresh CONTENT="0; URL=' + url + '"></head><body> <p></body></html>')
+    it.write('<html><head><META HTTP-EQUIV=Refresh CONTENT="0; URL=%s"></head><body> <p></body></html>'.format(url))
   })
   tempFile.execute()
 }

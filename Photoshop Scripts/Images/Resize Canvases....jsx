@@ -11,28 +11,28 @@
 
 var SIZE_INPUT = [100, 21]
 
-var dialog = new Dialog("Resize Canvases", "resizing-images-canvases/#resize-canvases")
+var dialog = new Dialog(R.string.resize_canvases, "resizing-images-canvases/#resize-canvases")
 var widthEdit, heightEdit, anchorGroup
 
 dialog.hgroup(function(main) {
   main.alignChildren = "fill"
-  main.vpanel("Canvas", function(panel) {
+  main.vpanel(R.string.canvas, function(panel) {
     panel.alignChildren = "right"
     panel.hgroup(function(group) {
-      group.tooltips("Canvases' new width")
-      group.staticText(undefined, "Width:").also(JUSTIFY_RIGHT)
+      group.tooltips(R.string.tip_resizecanvases_width)
+      group.leftStaticText(undefined, R.string.width)
       widthEdit = group.editText(SIZE_INPUT, formatUnits(document.width, unitName, 2)).also(function(it) {
         it.validateUnits()
         it.activate()
       })
     })
     panel.hgroup(function(group) {
-      group.tooltips("Canvases' new height")
-      group.staticText(undefined, "Height:").also(JUSTIFY_RIGHT)
+      group.tooltips(R.string.tip_resizecanvases_height)
+      group.leftStaticText(undefined, R.string.height)
       heightEdit = group.editText(SIZE_INPUT, formatUnits(document.height, unitName, 2)).also(VALIDATE_UNITS)
     })
   })
-  main.vpanel("Anchor", function(panel) {
+  main.vpanel(R.string.anchor, function(panel) {
     anchorGroup = new AnchorGroup(panel, true)
   })
 })
@@ -44,11 +44,11 @@ dialog.setDefaultButton(undefined, function() {
 
   process(document, width, height, anchor)
 })
-dialog.setYesButton("All", function() {
+dialog.setYesButton(R.string.all, function() {
   var width = new UnitValue(widthEdit.text)
   var height = new UnitValue(heightEdit.text)
   var anchor = anchorGroup.getAnchorPosition()
-  var progress = new ProgressDialog(app.documents.length, "Resizing")
+  var progress = new ProgressDialog(app.documents.length, R.string.resizing)
 
   Collections.forEach(app.documents, function(document) {
     progress.increment()

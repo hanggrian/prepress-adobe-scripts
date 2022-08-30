@@ -57,14 +57,14 @@ EditText.prototype.activate = function() { if (!this.active) this.active = true 
 
 /**
  * Set tooltip to this children.
- * @param {String} text tips to display.
+ * @param {String|Object} text tips to display.
  */
-EditText.prototype.tooltip = function(text) { Internals.setTooltip(this, text) }
+EditText.prototype.tooltip = function(text) { Internals.setTooltip(this, Internals.stringOrResources(text)) }
 
 /**
  * Add children to group.
  * @param {Array} size optional size or bounds.
- * @param {String} text optional control text.
+ * @param {String|Object} text optional control text.
  * @param {Object} properties optional extra properties.
  * @returns {EditText}
  */
@@ -75,7 +75,7 @@ Group.prototype.editText = function(size, text, properties) {
 /**
  * Add children to panel.
  * @param {Array} size optional size or bounds.
- * @param {String} text optional control text.
+ * @param {String|Object} text optional control text.
  * @param {Object} properties optional extra properties.
  * @returns {EditText}
  */
@@ -84,7 +84,7 @@ Panel.prototype.editText = function(size, text, properties) {
 }
 
 function _editText(root, size, text, properties) {
-  var child = root.add("edittext", Internals.sizeToBounds(size), text, properties)
+  var child = root.add("edittext", Internals.sizeOrBounds(size), Internals.stringOrResources(text), properties)
   if (root.helpTips !== undefined) {
     Internals.setTooltip(child, root.helpTips)
   }

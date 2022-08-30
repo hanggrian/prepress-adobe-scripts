@@ -3,7 +3,7 @@
 
 var SIZE_INPUT = [100, 21]
 
-var dialog = new Dialog("Impose Saddle Stitch", "imposing-layout/#saddle-stitch")
+var dialog = new Dialog(R.string.impose_saddle_stitch, "imposing-layout/#saddle-stitch")
 var pdfPanel, pagesPanel, documentPanel
 var rtlCheck
 
@@ -34,8 +34,8 @@ if (files !== null && Collections.isNotEmpty(files)) {
       documentPanel = new OpenDocumentPanel(topGroup)
     })
     main.hgroup(function(group) {
-      rtlCheck = group.checkBox(undefined, "Right-to-Left").also(function(it) {
-        it.tooltip("Useful for Arabic layout")
+      rtlCheck = group.checkBox(undefined, R.string.right_to_left).also(function(it) {
+        it.tooltip(R.string.tip_impose_rtl)
       })
     })
   })
@@ -52,13 +52,13 @@ if (files !== null && Collections.isNotEmpty(files)) {
     if (pages % 4 !== 0) {
       errorWithAlert("Pages must be divisible by 4")
     }
-    var document = documentPanel.open("Untitled-Saddle Stitch",
+    var document = documentPanel.open(getString(R.string.impose_saddle_stitch),
       artboards,
       width * 2,
       height,
       bleed)
     var pager = new SaddleStitchPager(document, start, end, rtlCheck.value)
-    var progress = new ProgressDialog(artboards, "Imposing")
+    var progress = new ProgressDialog(artboards, R.string.imposing)
 
     pager.forEachArtboard(function(artboard,
       leftIndex, rightIndex) {

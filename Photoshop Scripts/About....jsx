@@ -7,29 +7,32 @@
 #target Photoshop
 #include ".lib/core.js"
 
-var dialog = new Dialog("About Scripts")
+var dialog = new Dialog(R.string.aboutscripts)
 var aboutPanel
 
 var clientDate = parseDate(Resources.get("VERSION").readText())
+var onChangeTheme = function(selection) { configs.edit(function(it) { it.setInt("theme", selection.index) }) }
+var onChangeLanguage = function(selection) { configs.edit(function(it) { it.setString("language", selection.text) }) }
 
 dialog.vgroup(function(main) {
   main.hgroup(function(group) {
     group.alignChildren = "center"
     group.image(undefined, "logo")
-    group.staticText([300, 32], "Prepress Adobe Scripts for Photoshop\nLast updated " + clientDate.toISOString(), { multiline: true })
+    group.staticText([300, 32], getString(R.string.message_aboutscripts, "Photoshop", clientDate.toISOString()),
+      { multiline: true })
   })
-  aboutPanel = new AboutPanel(main, clientDate).also(function(panel) {
-    panel.toolsTab.button(undefined, "Clear Preferences").also(function(it) {
+  aboutPanel = new AboutPanel(main, clientDate, onChangeTheme, onChangeLanguage).also(function(panel) {
+    panel.toolsTab.button(undefined, R.string.clear_preferences).also(function(it) {
       it.maximumSize.height = 21
       it.onClick = function() {
         configs.resolve("images/add_bleed").edit(function(it) {
           it.remove("length")
         })
-        alert("Done.", "About Scripts")
+        Windows.alert(R.string.done, R.string.about_scripts)
       }
     })
   })
 })
-dialog.setCancelButton("Close") // because there is no default button
-dialog.setHelpButton("Visit GitHub", function() { openURL(URL_GITHUB) })
+dialog.setCancelButton(R.string.close) // because there is no default button
+dialog.setHelpButton(R.string.visit_github, function() { openURL(URL_GITHUB) })
 dialog.show()

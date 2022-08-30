@@ -9,9 +9,7 @@
  * This is due to Adobe's custom non-array collection objects like `Artboards`, `PageItems`, etc.
  */
 var Collections = {
-
-  EMPTY_ARRAY: [],
-
+  
   /**
    * Last index of this collection.
    * @param {Array|Object} collection array or array-like objects.

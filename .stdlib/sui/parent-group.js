@@ -6,9 +6,9 @@
 
 /**
  * Set tooltip to this parent.
- * @param {String} text tips to display.
+ * @param {String|Object} text tips to display.
  */
-Group.prototype.tooltips = function(text) { Internals.setTooltips(this, text) }
+Group.prototype.tooltips = function(text) { Internals.setTooltips(this, Internals.stringOrResources(text)) }
 
 /**
  * Add horizontal parent to group.
@@ -77,25 +77,15 @@ function _group(root, orientation, configuration) {
 }
 
 /**
- * Returns selected radio of this group.
- * @returns {RadioButton}
+ * Returns selected radio index of this group.
+ * @returns {Number}
  */
-Group.prototype.getSelectedRadioText = function() { return Internals.getSelectedRadioText(this) }
-
-/**
- * Returns selected radio of this panel.
- * @returns {RadioButton}
- */
-Panel.prototype.getSelectedRadioText = function() { return Internals.getSelectedRadioText(this) }
+Group.prototype.getSelectedRadioIndex = function() { return Internals.getSelectedRadioIndex(this) }
 
 /**
  * Select radio button of this group.
- * @param {String} text existing text of any RadioButton, throws error if not found.
+ * @param {String|Object} text existing text of any RadioButton, throws error if not found.
  */
-Group.prototype.selectRadioText = function(text) { return Internals.selectRadioText(this, text) }
-
-/**
- * Select radio button of this panel.
- * @param {String} text existing text of any RadioButton, throws error if not found.
- */
-Panel.prototype.selectRadioText = function(text) { return Internals.selectRadioText(this, text) }
+Group.prototype.selectRadioIndex = function(index) {
+  return Internals.selectRadioIndex(this, index)
+}

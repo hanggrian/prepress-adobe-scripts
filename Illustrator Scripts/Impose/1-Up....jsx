@@ -3,7 +3,7 @@
 
 var SIZE_INPUT = [100, 21]
 
-var dialog = new Dialog("Impose 1-Up", "imposing-layout/#n-up")
+var dialog = new Dialog(getString(R.string.impose_n_up, 1), "imposing-layout/#n-up")
 var pdfPanel, pagesPanel, documentPanel
 var nupGroup
 
@@ -46,13 +46,13 @@ if (files !== null && Collections.isNotEmpty(files)) {
     var rotatedWidth = !nupGroup.isRotate() ? width : height
     var rotatedHeight = !nupGroup.isRotate() ? height : width
 
-    var document = documentPanel.open("Untitled-1-Up",
+    var document = documentPanel.open(getString(R.string.impose_n_up, 1),
       artboards,
       rotatedWidth,
       rotatedHeight,
       bleed)
     var pager = new OneUpPager(document, start)
-    var progress = new ProgressDialog(artboards, "Imposing")
+    var progress = new ProgressDialog(artboards, R.string.imposing)
 
     pager.forEachArtboard(function(artboard, index) {
       progress.increment()

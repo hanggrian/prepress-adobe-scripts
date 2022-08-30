@@ -3,7 +3,7 @@
 
 var SIZE_INPUT = [100, 21]
 
-var dialog = new Dialog("Impose 4-Up", "imposing-layout/#n-up")
+var dialog = new Dialog(getString(R.string.impose_n_up, 4), "imposing-layout/#n-up")
 var pdfPanel, pagesPanel, documentPanel
 var nupGroup
 
@@ -50,7 +50,7 @@ if (files !== null && Collections.isNotEmpty(files)) {
     if (pages % pagesDivisor !== 0) {
       errorWithAlert("Pages must be divisible by " + pagesDivisor)
     }
-    var document = documentPanel.open("Untitled-4-Up",
+    var document = documentPanel.open(getString(R.string.impose_n_up, 4),
       artboards,
       (rotatedWidth + bleed * 2) * 2,
       (rotatedHeight + bleed * 2) * 2,
@@ -67,7 +67,7 @@ if (files !== null && Collections.isNotEmpty(files)) {
           ? new FourUpSimplexStackPager(document, start)
           : new FourUpDuplexStackPager(document, start))
     }
-    var progress = new ProgressDialog(artboards, "Imposing")
+    var progress = new ProgressDialog(artboards, R.string.imposing)
 
     pager.forEachArtboard(function(artboard, top1, top2, bottom1, bottom2) {
       progress.increment()

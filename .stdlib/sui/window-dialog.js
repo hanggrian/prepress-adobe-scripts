@@ -6,7 +6,7 @@
 
 /**
  * Construct a new dialog.
- * @param {String} title window title.
+ * @param {String|Object} title window title.
  * @param {String} helpUrlSuffix enable bottom-left icon button to go to url for help, may be null.
  */
 function Dialog(title, helpUrlSuffix) {
@@ -14,7 +14,7 @@ function Dialog(title, helpUrlSuffix) {
   var prepared = false
   this.defaultButton, this.yesButton, this.cancelButton, this.helpButton, this.helpIconButton
 
-  var window = new Window("dialog", title)
+  var window = new Window("dialog", Internals.stringOrResources(title))
   window.orientation = "column"
 
   this.main = window.add("group")
@@ -42,9 +42,9 @@ function Dialog(title, helpUrlSuffix) {
 
   /**
    * Sets native window title.
-   * @param {String} title window title.
+   * @param {String|Object} title window title.
    */
-  this.setTitle = function(title) { window.text = title }
+  this.setTitle = function(title) { window.text = Internals.stringOrResources(title) }
 
   /**
    * Set main layout to horizontal.
@@ -70,48 +70,48 @@ function Dialog(title, helpUrlSuffix) {
 
   /**
    * Default button responds to pressing the Enter key.
-   * @param {String} text nullable button text.
+   * @param {String|Object} text nullable button text.
    * @param {Function} action nullable button click listener.
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
   this.setDefaultButton = function(text, action, disabled) {
-    defaultButtonText = text || "OK"
+    defaultButtonText = Internals.stringOrResources(text) || "OK"
     defaultButtonAction = action
     defaultButtonDisabled = disabled
   }
 
   /**
    * Yes button is a secondary default button that sits beside it.
-   * @param {String} text nullable button text.
+   * @param {String|Object} text nullable button text.
    * @param {Function} action nullable button click listener.
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
   this.setYesButton = function(text, action, disabled) {
-    yesButtonText = text || "Yes"
+    yesButtonText = Internals.stringOrResources(text) || getString(R.string.yes)
     yesButtonAction = action
     yesButtonDisabled = disabled
   }
 
   /**
    * Cancel button responds to pressing the Escape key.
-   * @param {String} text nullable button text.
+   * @param {String|Object} text nullable button text.
    * @param {Function} action nullable button click listener.
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
   this.setCancelButton = function(text, action, disabled) {
-    cancelButtonText = text || "Cancel"
+    cancelButtonText = Internals.stringOrResources(text) || getString(R.string.cancel)
     cancelButtonAction = action
     cancelButtonDisabled = disabled
   }
 
   /**
    * Help button sits on the left side of the dialog.
-   * @param {String} text nullable button text.
+   * @param {String|Object} text nullable button text.
    * @param {Function} action nullable button click listener.
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
   this.setHelpButton = function(text, action, disabled) {
-    helpButtonText = text || "Help"
+    helpButtonText = Internals.stringOrResources(text) || getString(R.string.help)
     helpButtonAction = action
     helpButtonDisabled = disabled
   }

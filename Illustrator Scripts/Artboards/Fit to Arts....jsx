@@ -1,11 +1,11 @@
 #target Illustrator
 #include "../.lib/commons.js"
 
-var dialog = new Dialog("Fit to Arts")
+var dialog = new Dialog(R.string.fit_to_arts)
 var rangeGroup
 
 dialog.hgroup(function(main) {
-  main.staticText(undefined, "Range:").also(JUSTIFY_RIGHT)
+  main.leftStaticText(undefined, R.string.range)
   rangeGroup = new RangeGroup(main, [150, 21]).also(function(it) {
     it.startEdit.activate()
     it.endEdit.text = document.artboards.length

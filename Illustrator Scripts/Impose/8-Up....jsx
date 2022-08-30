@@ -3,7 +3,7 @@
 
 var SIZE_INPUT = [100, 21]
 
-var dialog = new Dialog("Impose 8-Up", "imposing-layout/#n-up")
+var dialog = new Dialog(getString(R.string.impose_n_up, 8), "imposing-layout/#n-up")
 var pdfPanel, pagesPanel, documentPanel
 var nupGroup
 
@@ -50,7 +50,7 @@ if (files !== null && Collections.isNotEmpty(files)) {
     if (pages % pagesDivisor !== 0) {
       errorWithAlert("Pages must be divisible by " + pagesDivisor)
     }
-    var document = documentPanel.open("Untitled-8-Up",
+    var document = documentPanel.open(getString(R.string.impose_n_up, 8),
       artboards,
       (rotatedWidth + bleed * 2) * 4,
       (rotatedHeight + bleed * 2) * 2,
@@ -67,7 +67,7 @@ if (files !== null && Collections.isNotEmpty(files)) {
           ? new EightUpSimplexStackPager(document, start)
           : new EightUpDuplexStackPager(document, start))
     }
-    var progress = new ProgressDialog(artboards, "Imposing")
+    var progress = new ProgressDialog(artboards, R.string.imposing)
 
     pager.forEachArtboard(function(artboard,
       top1, top2, top3, top4, bottom1, bottom2, bottom3, bottom4) {

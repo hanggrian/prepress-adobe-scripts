@@ -12,33 +12,33 @@
 var allOkay = true
 Collections.forEach(app.documents, function(document) {
   var errorCount = 0
-  var result = "Issues found in %s:\n".format(document.name)
+  var result = getString(R.string.message_preflight_issue, document.name)
 
   document.mode.let(function(it) {
     if (it !== DocumentMode.CMYK) {
       errorCount++
-      result += "Mode is %s.\n".format(it.toString().substringAfter("."))
+      result += getString(R.string.message_preflight_issue_mode, it.toString().substringAfter("."))
     }
   })
   document.resolution.let(function(it) {
     if (it < 300) {
       errorCount++
-      result += "Resolution is %s.\n".format(it)
+      result += getString(R.string.message_preflight_issue_resolution, it)
     }
   })
   document.bitsPerChannel.let(function(it) {
     if (it !== BitsPerChannelType.EIGHT) {
       errorCount++
-      result += "Bits per channel is %s.\n".format(it.toString().substringAfter("."))
+      result += getString(R.string.message_preflight_issue_bits, it.toString().substringAfter("."))
     }
   })
 
   if (errorCount > 0) {
     allOkay = false
     app.activeDocument = document
-    alert(result.trim(), "Pre-Flight", true)
+    Windows.alert(result.trim(), R.string.pre_flight, true)
   }
 })
 if (allOkay) {
-  alert("No issues found in all documents.", "Pre-Flight")
+  Windows.alert(R.string.message_preflight_allokay, R.string.pre_flight)
 }

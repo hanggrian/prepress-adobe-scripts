@@ -7,7 +7,7 @@
 check(Collections.isNotEmpty(document.pageItems), "No items in this document")
 var isFilterMode = Collections.isNotEmpty(selection)
 
-var dialog = new Dialog("Select All", "selecting-items/#select-all")
+var dialog = new Dialog(R.string.select_all, "selecting-items/#select-all")
 var groupCheck, clippingMaskCheck
 var pathCheck, compoundPathCheck
 var textFrameCheck, legacyTextCheck
@@ -20,60 +20,60 @@ dialog.hgroup(function(main) {
   main.alignChildren = "fill"
   main.vgroup(function(topGroup) {
     topGroup.alignChildren = "fill"
-    topGroup.vpanel("Groups", function(panel) {
+    topGroup.vpanel(R.string.groups, function(panel) {
       panel.alignChildren = "fill"
-      groupCheck = panel.checkBox(undefined, "Groups").also(function(it) {
+      groupCheck = panel.checkBox(undefined, R.string.groups).also(function(it) {
         it.value = config.getBoolean("group")
       })
-      clippingMaskCheck = panel.checkBox(undefined, "Clipping Masks").also(function(it) {
+      clippingMaskCheck = panel.checkBox(undefined, R.string.clipping_masks).also(function(it) {
         it.value = config.getBoolean("group2")
       })
     })
-    topGroup.vpanel("Paths", function(panel) {
+    topGroup.vpanel(getPlural(R.plurals.path, 2), function(panel) {
       panel.alignChildren = "fill"
-      pathCheck = panel.checkBox(undefined, "Paths").also(function(it) {
+      pathCheck = panel.checkBox(undefined, getPlural(R.plurals.path, 2)).also(function(it) {
         it.value = config.getBoolean("path")
       })
-      compoundPathCheck = panel.checkBox(undefined, "Compound Paths").also(function(it) {
+      compoundPathCheck = panel.checkBox(undefined, getPlural(R.plurals.compound_path, 2)).also(function(it) {
         it.value = config.getBoolean("compound_path")
       })
     })
-    topGroup.vpanel("Types", function(panel) {
+    topGroup.vpanel(getPlural(R.plurals.text, 2), function(panel) {
       panel.alignChildren = "fill"
-      textFrameCheck = panel.checkBox(undefined, "Texts").also(function(it) {
-        it.value = config.getBoolean("text_frame")
+      textFrameCheck = panel.checkBox(undefined, getPlural(R.plurals.text, 2)).also(function(it) {
+        it.value = config.getBoolean("text")
       })
-      legacyTextCheck = panel.checkBox(undefined, "Legacy Texts").also(function(it) {
+      legacyTextCheck = panel.checkBox(undefined, getPlural(R.plurals.legacy_text, 2)).also(function(it) {
         it.value = config.getBoolean("legacy_text")
       })
     })
   })
   main.vgroup(function(topGroup) {
     topGroup.alignChildren = "fill"
-    topGroup.vpanel("Imports", function(panel) {
+    topGroup.vpanel(R.string.imports, function(panel) {
       panel.alignChildren = "fill"
-      placedCheck = panel.checkBox(undefined, "Links").also(function(it) {
+      placedCheck = panel.checkBox(undefined, getPlural(R.plurals.link, 2)).also(function(it) {
         it.value = config.getBoolean("placed")
       })
-      nonNativeCheck = panel.checkBox(undefined, "Non-Native Arts").also(function(it) {
+      nonNativeCheck = panel.checkBox(undefined, getPlural(R.plurals.non_native, 2)).also(function(it) {
         it.value = config.getBoolean("nonnative")
       })
-      rasterCheck = panel.checkBox(undefined, "Images").also(function(it) {
+      rasterCheck = panel.checkBox(undefined, getPlural(R.plurals.raster, 2)).also(function(it) {
         it.value = config.getBoolean("raster")
       })
-      pluginCheck = panel.checkBox(undefined, "Plugins").also(function(it) {
+      pluginCheck = panel.checkBox(undefined, getPlural(R.plurals.plugin, 2)).also(function(it) {
         it.value = config.getBoolean("plugin")
       })
     })
-    topGroup.vpanel("Others", function(panel) {
+    topGroup.vpanel(R.string.others, function(panel) {
       panel.alignChildren = "fill"
-      symbolCheck = panel.checkBox(undefined, "Symbols").also(function(it) {
+      symbolCheck = panel.checkBox(undefined, getPlural(R.plurals.symbol, 2)).also(function(it) {
         it.value = config.getBoolean("symbol")
       })
-      meshCheck = panel.checkBox(undefined, "Meshes").also(function(it) {
+      meshCheck = panel.checkBox(undefined, getPlural(R.plurals.mesh, 2)).also(function(it) {
         it.value = config.getBoolean("mesh")
       })
-      graphCheck = panel.checkBox(undefined, "Graphs").also(function(it) {
+      graphCheck = panel.checkBox(undefined, getPlural(R.plurals.graph, 2)).also(function(it) {
         it.value = config.getBoolean("graph")
       })
     })
@@ -125,7 +125,7 @@ dialog.setDefaultButton(undefined, function() {
   config.setBoolean("plugin", pluginCheck.value)
   config.setBoolean("raster", rasterCheck.value)
   config.setBoolean("symbol", symbolCheck.value)
-  config.setBoolean("text_frame", textFrameCheck.value)
+  config.setBoolean("text", textFrameCheck.value)
   if (isFilterMode) config.setBoolean("recursive", recursiveCheck.value)
 })
 dialog.show()

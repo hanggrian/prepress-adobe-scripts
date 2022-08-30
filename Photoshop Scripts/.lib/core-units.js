@@ -10,8 +10,6 @@
 // * `unitName` are the suffix. (e.g. : `pt`, `mm`)
 // * `unitFullName` are the full form name. (e.g.: `Points`, `Millimeters`)
 
-var UNITS = ["Pixels", "Points", "Inches", "Millimeters", "Centimeters"]
-
 /**
  * Build string based on unit value, name and optional fraction.
  * @param {UnitValue} unitValue native unit value.

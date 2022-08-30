@@ -6,7 +6,7 @@ var SIZE_INPUT_MOVE = [100, 21]
 
 checkHasSelection()
 
-var dialog = new Dialog("Step and Repeat", "step-and-repeat/")
+var dialog = new Dialog(R.string.step_and_repeat, "step-and-repeat/")
 var horizontalEdit, verticalEdit
 var moveHorizontalEdit, moveVerticalEdit, moveRelativeCheck
 var config = configs.resolve("objects/step_and_repeat")
@@ -14,29 +14,29 @@ var config = configs.resolve("objects/step_and_repeat")
 var bounds = Items.getMaxBounds(selection)
 dialog.vgroup(function(main) {
   main.hgroup(function(group) {
-    group.tooltips("2 dimension target")
-    group.staticText(undefined, "Copies:").also(JUSTIFY_RIGHT)
-    horizontalEdit = group.editText(SIZE_INPUT, config.getInt("horizontal")).also(function(it) {
+    group.tooltips(R.string.tip_stepandrepeat_copies)
+    group.leftStaticText(undefined, R.string.copies)
+    horizontalEdit = group.editText(SIZE_INPUT, config.getInt("horizontal").toString()).also(function(it) {
       it.validateDigits()
       it.activate()
     })
     group.staticText(undefined, "×")
-    verticalEdit = group.editText(SIZE_INPUT, config.getInt("vertical")).also(VALIDATE_DIGITS)
+    verticalEdit = group.editText(SIZE_INPUT, config.getInt("vertical").toString()).also(VALIDATE_DIGITS)
   })
-  main.vpanel("Move", function(panel) {
+  main.vpanel(R.string.move, function(panel) {
     panel.alignChildren = "right"
     panel.hgroup(function(group) {
-      group.tooltips("Distance between arts horizontally")
-      group.staticText(undefined, "Horizontal:").also(JUSTIFY_RIGHT)
+      group.tooltips(R.string.tip_stepandrepeat_horizontal)
+      group.leftStaticText(undefined, R.string.horizontal)
       moveHorizontalEdit = group.editText(SIZE_INPUT_MOVE, formatUnits(bounds.getWidth(), unitName, 2)).also(VALIDATE_UNITS)
     })
     panel.hgroup(function(group) {
-      group.tooltips("Distance between arts vertically")
-      group.staticText(undefined, "Vertical:").also(JUSTIFY_RIGHT)
+      group.tooltips(R.string.tip_stepandrepeat_vertical)
+      group.leftStaticText(undefined, R.string.vertical)
       moveVerticalEdit = group.editText(SIZE_INPUT_MOVE, formatUnits(bounds.getHeight(), unitName, 2)).also(VALIDATE_UNITS)
     })
-    moveRelativeCheck = panel.checkBox(undefined, "Relative Position").also(function(it) {
-      it.tooltip("Move the object relative to its current position")
+    moveRelativeCheck = panel.checkBox(undefined, R.string.relative_position).also(function(it) {
+      it.tooltip(R.string.tip_stepandrepeat_relativeposition)
       it.onClick = function() {
         if (it.value) {
           moveHorizontalEdit.text = "0 " + unitName
@@ -58,7 +58,7 @@ dialog.setDefaultButton(undefined, function() {
   var moveVertical = parseUnits(moveVerticalEdit.text)
 
   if (horizontal < 1 || vertical < 1) {
-    errorWithAlert("Minimal value is 1×1")
+    errorWithAlert(getString(R.string.error_stepandrepeat))
     return
   }
 

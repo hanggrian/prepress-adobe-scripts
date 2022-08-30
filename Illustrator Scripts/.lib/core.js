@@ -19,6 +19,7 @@
 #include "core-files.js"
 #include "core-preconditions.js"
 #include "core-preferences.js"
+#include "core-resources.js"
 #include "core-units.js"
 
 var PATH_LIB = new File($.fileName).path

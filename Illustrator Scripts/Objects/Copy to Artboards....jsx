@@ -1,12 +1,15 @@
 #target Illustrator
 #include "../.lib/commons.js"
 
-var ANCHORS = [
-  ["Top Left", "ic_arrow_topleft"],
-  ["Top Right", "ic_arrow_topright"],
-  ["Bottom Left", "ic_arrow_bottomleft"],
-  ["Bottom Right", "ic_arrow_bottomright"]
-]
+function listAnchors() {
+  return [
+    [R.string.top_left, "ic_arrow_topleft"],
+    [R.string.top_right, "ic_arrow_topright"],
+    [R.string.bottom_left, "ic_arrow_bottomleft"],
+    [R.string.bottom_right, "ic_arrow_bottomright"]
+  ]
+}
+
 var SIZE_INPUT = [150, 21]
 
 checkHasSelection()
@@ -18,7 +21,7 @@ var activeArtboardRect = activeArtboard.artboardRect
 
 var proceed = true
 if (!Collections.all(selection, function(it) { return it.geometricBounds.isWithin(activeArtboardRect) })) {
-  proceed = confirm("Selected items are out of active artboard. Would you like to continue?")
+  proceed = Windows.confirm(R.string.confirm_copytoartboards)
 }
 
 if (proceed) {
@@ -38,8 +41,8 @@ if (proceed) {
   dialog.vgroup(function(main) {
     main.alignChildren = "right"
     main.hgroup(function(group) {
-      group.tooltips("Which artboards to paste")
-      group.staticText(undefined, "Artboards:").also(JUSTIFY_RIGHT)
+      group.tooltips(R.string.tip_copytoartboards_artboards)
+      group.leftStaticText(undefined, R.string.artboards)
       rangeGroup = new RangeGroup(group, SIZE_INPUT).also(function(it) {
         it.maxRange = document.artboards.length
         it.endEdit.text = document.artboards.length
@@ -47,10 +50,10 @@ if (proceed) {
       })
     })
     main.hgroup(function(group) {
-      group.tooltips("Duplicate by putting distance between selection and anchor.\nThis option is only available when artboards do not have the same size.")
-      group.staticText(undefined, "Anchor:").also(JUSTIFY_RIGHT)
-      anchorList = group.dropDownList(SIZE_INPUT, ANCHORS).also(function(it) {
-        it.selectText(config.getString("anchor", "Top Left"))
+      group.tooltips(R.string.tip_copytoartboards_anchor)
+      group.leftStaticText(undefined, R.string.anchor)
+      anchorList = group.dropDownList(SIZE_INPUT, listAnchors()).also(function(it) {
+        it.selection = config.getInt("anchor")
       })
       group.enabled = Collections.any(document.artboards, function(it) {
         return !isEqualRounded(it.artboardRect.getWidth(), activeArtboardRect.getWidth()) ||
@@ -70,12 +73,16 @@ if (proceed) {
       Collections.forEachReversed(readOnlySelection, function(item, itemIndex) {
         var relativePosition = relativePositions[itemIndex]
         var x, y
-        if (anchorList.selection.text.endsWith("Left")) {
+        if (anchorList.selection.text === getString(R.string.top_left) ||
+          anchorList.selection.text === getString(R.string.left) ||
+          anchorList.selection.text === getString(R.string.bottom_left)) {
           x = artboardRect.getLeft() + relativePosition.getLeft()
         } else {
           x = artboardRect.getRight() - relativePosition.getRight()
         }
-        if (anchorList.selection.text.startsWith("Top")) {
+        if (anchorList.selection.text === getString(R.string.top_left) ||
+          anchorList.selection.text === getString(R.string.top) ||
+          anchorList.selection.text === getString(R.string.top_right)) {
           y = artboardRect.getTop() + relativePosition.getTop()
         } else {
           y = artboardRect.getBottom() - relativePosition.getBottom()
@@ -85,7 +92,7 @@ if (proceed) {
       })
     })
 
-    config.setString("anchor", anchorList.selection.text)
+    config.setInt("anchor", anchorList.selection.index)
   })
   dialog.show()
 }

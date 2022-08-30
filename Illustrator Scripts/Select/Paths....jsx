@@ -4,13 +4,14 @@
 #target Illustrator
 #include "../.lib/commons.js"
 
-var YES_OR_NO = ["Yes", "No"]
+function listYesNo() { return [R.string.yes, R.string.no] }
+
 var SIZE_INPUT = [110, 21]
 
 check(Collections.isNotEmpty(document.pathItems), "No paths in this document")
 var isFilterMode = Collections.isNotEmpty(selection)
 
-var dialog = new Dialog("Select Paths", "selecting-items/#select-paths")
+var dialog = new Dialog(R.string.select_paths, "selecting-items/#select-paths")
 var fillColorList, fillOverprintList
 var strokeColorList, strokeWeightEdit, strokeDashedList, strokeOverprintList
 var dimensionPanel
@@ -22,65 +23,65 @@ dialog.hgroup(function(main) {
   main.alignChildren = "fill"
   main.vgroup(function(topGroup) {
     topGroup.alignChildren = "fill"
-    topGroup.vpanel("Fill", function(panel) {
+    topGroup.vpanel(R.string.fill, function(panel) {
       panel.alignChildren = "right"
       panel.hgroup(function(group) {
-        group.tooltips("Fill color")
-        group.staticText(undefined, "Color:").also(JUSTIFY_RIGHT)
-        fillColorList = group.dropDownList(SIZE_INPUT, COLORS)
+        group.tooltips(R.string.tip_selectpaths_fillcolor)
+        group.leftStaticText(undefined, R.string.color)
+        fillColorList = group.dropDownList(SIZE_INPUT, Colors.list())
       })
       panel.hgroup(function(group) {
-        group.tooltips("Will art beneath a filled object be overprinted?")
-        group.staticText(undefined, "Overprint:").also(JUSTIFY_RIGHT)
-        fillOverprintList = group.dropDownList(SIZE_INPUT, YES_OR_NO)
+        group.tooltips(R.string.tip_selectpaths_filloverprint)
+        group.leftStaticText(undefined, R.string.overprint)
+        fillOverprintList = group.dropDownList(SIZE_INPUT, listYesNo())
       })
     })
-    topGroup.vpanel("Stroke", function(panel) {
+    topGroup.vpanel(R.string.stroke, function(panel) {
       panel.alignChildren = "right"
       panel.hgroup(function(group) {
-        group.tooltips("Stroke color")
-        group.staticText(undefined, "Color:").also(JUSTIFY_RIGHT)
-        strokeColorList = group.dropDownList(SIZE_INPUT, COLORS)
+        group.tooltips(R.string.tip_selectpaths_strokecolor)
+        group.leftStaticText(undefined, R.string.color)
+        strokeColorList = group.dropDownList(SIZE_INPUT, Colors.list())
       })
       panel.hgroup(function(group) {
-        group.tooltips("Width of stroke")
-        group.staticText(undefined, "Weight:").also(JUSTIFY_RIGHT)
+        group.tooltips(R.string.tip_selectpaths_strokeweight)
+        group.leftStaticText(undefined, R.string.weight)
         strokeWeightEdit = group.editText(SIZE_INPUT).also(function(it) {
           it.validateUnits()
           it.activate()
         })
       })
       panel.hgroup(function(group) {
-        group.tooltips("Is the stroke dashed?")
-        group.staticText(undefined, "Dashed:").also(JUSTIFY_RIGHT)
-        strokeDashedList = group.dropDownList(SIZE_INPUT, YES_OR_NO)
+        group.tooltips(R.string.tip_selectpaths_strokedashed)
+        group.leftStaticText(undefined, R.string.dashed)
+        strokeDashedList = group.dropDownList(SIZE_INPUT, listYesNo())
       })
       panel.hgroup(function(group) {
-        group.tooltips("Will art beneath a stroked object be overprinted?")
-        group.staticText(undefined, "Overprint:").also(JUSTIFY_RIGHT)
-        strokeOverprintList = group.dropDownList(SIZE_INPUT, YES_OR_NO)
+        group.tooltips(R.string.tip_selectpaths_strokeoverprint)
+        group.leftStaticText(undefined, R.string.overprint)
+        strokeOverprintList = group.dropDownList(SIZE_INPUT, listYesNo())
       })
     })
   })
   main.vgroup(function(topGroup) {
     topGroup.alignChildren = "fill"
     dimensionPanel = new SelectDimensionPanel(topGroup, SIZE_INPUT)
-    topGroup.vpanel("Others", function(panel) {
+    topGroup.vpanel(R.string.others, function(panel) {
       panel.alignChildren = "right"
       panel.hgroup(function(group) {
-        group.tooltips("Should this be used as a clipping path?")
-        group.staticText(undefined, "Clipping:").also(JUSTIFY_RIGHT)
-        clippingList = group.dropDownList(SIZE_INPUT, YES_OR_NO)
+        group.tooltips(R.string.tip_selectpaths_clipping)
+        group.leftStaticText(undefined, R.string.clipping)
+        clippingList = group.dropDownList(SIZE_INPUT, listYesNo())
       })
       panel.hgroup(function(group) {
-        group.tooltips("Is this path closed?")
-        group.staticText(undefined, "Closed:").also(JUSTIFY_RIGHT)
-        closedList = group.dropDownList(SIZE_INPUT, YES_OR_NO)
+        group.tooltips(R.string.tip_selectpaths_closed)
+        group.leftStaticText(undefined, R.string.closed)
+        closedList = group.dropDownList(SIZE_INPUT, listYesNo())
       })
       panel.hgroup(function(group) {
-        group.tooltips("Is this path a guide object?")
-        group.staticText(undefined, "Guides:").also(JUSTIFY_RIGHT)
-        guidesList = group.dropDownList(SIZE_INPUT, YES_OR_NO)
+        group.tooltips(R.string.tip_selectpaths_guides)
+        group.leftStaticText(undefined, R.string.guides)
+        guidesList = group.dropDownList(SIZE_INPUT, listYesNo())
       })
     })
     if (isFilterMode) {
@@ -94,16 +95,16 @@ dialog.hgroup(function(main) {
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
   var fillColor = fillColorList.hasSelection() ? parseColor(fillColorList.selection.text) : undefined
-  var fillOverprint = fillOverprintList.hasSelection() ? fillOverprintList.selection.text === "Yes" : undefined
+  var fillOverprint = fillOverprintList.hasSelection() ? fillOverprintList.selection.text === getString(R.string.yes) : undefined
   var strokeColor = strokeColorList.hasSelection() ? parseColor(strokeColorList.selection.text) : undefined
   var strokeWeight = parseUnits(strokeWeightEdit.text)
-  var strokeDashed = strokeDashedList.hasSelection() ? strokeDashedList.selection.text === "Yes" : undefined
-  var strokeOverprint = strokeOverprintList.hasSelection() ? strokeOverprintList.selection.text === "Yes" : undefined
+  var strokeDashed = strokeDashedList.hasSelection() ? strokeDashedList.selection.text === getString(R.string.yes) : undefined
+  var strokeOverprint = strokeOverprintList.hasSelection() ? strokeOverprintList.selection.text === getString(R.string.yes) : undefined
   var width = dimensionPanel.getWidth()
   var height = dimensionPanel.getHeight()
-  var clipping = clippingList.hasSelection() ? clippingList.selection.text === "Yes" : undefined
-  var closed = closedList.hasSelection() ? closedList.selection.text === "Yes" : undefined
-  var guides = guidesList.hasSelection() ? guidesList.selection.text === "Yes" : undefined
+  var clipping = clippingList.hasSelection() ? clippingList.selection.text === getString(R.string.yes) : undefined
+  var closed = closedList.hasSelection() ? closedList.selection.text === getString(R.string.yes) : undefined
+  var guides = guidesList.hasSelection() ? guidesList.selection.text === getString(R.string.yes) : undefined
   selectAll(["PathItem"], function(item) {
     if (width !== undefined && parseInt(width) !== parseInt(item.width)) return false
     if (height !== undefined && parseInt(height) !== parseInt(item.height)) return false

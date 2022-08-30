@@ -1,13 +1,13 @@
 initTest($)
 
 test("parseColor", function() {
-  var cyan = parseColor("Cyan")
+  var cyan = parseColor(getString(R.string.cyan))
   assertTrue(100, cyan.cyan)
-  var magenta = parseColor("Magenta")
+  var magenta = parseColor(getString(R.string.magenta))
   assertTrue(100, magenta.magenta)
-  var yellow = parseColor("Yellow")
+  var yellow = parseColor(getString(R.string.yellow))
   assertTrue(100, yellow.yellow)
-  var black = parseColor("Black")
+  var black = parseColor(getString(R.string.black))
   assertTrue(100, black.black)
 })
 

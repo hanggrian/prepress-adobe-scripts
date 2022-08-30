@@ -9,7 +9,7 @@
 #target Photoshop
 #include "../.lib/commons.js"
 
-var dialog = new Dialog("Add Bleed to Images", "add-bleed-to-images/")
+var dialog = new Dialog(R.string.add_bleed_to_images, "add-bleed-to-images/")
 var lengthEdit
 var anchorGroup
 var flattenImageCheck, guidesMultiRadioGroup, selectBleedCheck, correctionEdit
@@ -18,8 +18,8 @@ var config = configs.resolve("images/add_bleed")
 dialog.vgroup(function(main) {
   main.alignChildren = "fill"
   main.hgroup(function(group) {
-    group.tooltips("Bleed are distributed around image")
-    group.staticText([120, 21], "Length:").also(JUSTIFY_RIGHT)
+    group.tooltips(R.string.tip_addbleedtoimages_bleed)
+    group.leftStaticText([120, 21], R.string.length)
     lengthEdit = group.editText([200, 21], config.getString("length", "2.5 mm")).also(function(it) {
       it.validateUnits()
       it.activate()
@@ -27,23 +27,23 @@ dialog.vgroup(function(main) {
   })
   main.hgroup(function(topGroup) {
     topGroup.alignChildren = "fill"
-    topGroup.vpanel("Anchor", function(panel) {
+    topGroup.vpanel(R.string.anchor, function(panel) {
       anchorGroup = new AnchorGroup(panel, true)
     })
-    topGroup.vpanel("Options", function(group) {
+    topGroup.vpanel(R.string.options, function(group) {
       group.alignChildren = "fill"
-      flattenImageCheck = group.checkBox(undefined, "Flatten Image").also(function(it) {
-        it.tooltip("Layers will be flattened")
+      flattenImageCheck = group.checkBox(undefined, R.string.flatten_image).also(function(it) {
+        it.tooltip(R.string.tip_addbleedtoimages_flatten)
         it.select()
       })
-      guidesMultiRadioGroup = new MultiRadioGroup(group, "Use Guides", ["Append", "Replace"]).also(function(it) {
-        it.tooltips("Guides will mark where bleed are added")
+      guidesMultiRadioGroup = new MultiRadioGroup(group, R.string.use_guides, [R.string.append, R.string.replace]).also(function(it) {
+        it.tooltips(R.string.tip_addbleedtoimages_guides)
         it.check.select()
         it.check.onClick()
       })
       group.hgroup(function(innerGroup) {
-        innerGroup.tooltips("Select bleed with x correction")
-        selectBleedCheck = innerGroup.checkBox(undefined, "Select Bleed with").also(function(it) {
+        innerGroup.tooltips(R.string.tip_addbleedtoimages_select)
+        selectBleedCheck = innerGroup.checkBox(undefined, R.string.message_addbleedtoimages_select).also(function(it) {
           it.onClick = function() {
             correctionEdit.enabled = it.value
             if (it.value) {
@@ -57,7 +57,7 @@ dialog.vgroup(function(main) {
           it.validateUnits()
           it.enabled = false
         })
-        innerGroup.staticText(undefined, "Correction")
+        innerGroup.staticText(undefined, R.string.correction)
       })
     })
   })
@@ -74,7 +74,7 @@ dialog.setYesButton("All", function() {
   var bleed = new UnitValue(lengthEdit.text)
   var anchor = anchorGroup.getAnchorPosition()
   var correction = parseUnits(correctionEdit.text)
-  var progress = new ProgressDialog(app.documents.length, "Adding bleed")
+  var progress = new ProgressDialog(app.documents.length, R.string.adding_bleed)
 
   Collections.forEach(app.documents, function(document) {
     progress.increment()
@@ -114,9 +114,9 @@ function process(document, bleed, anchor, correction) {
   }
 
   if (guidesMultiRadioGroup.isSelected()) {
-    if (guidesMultiRadioGroup.getSelectedRadioText() === "Replace") {
+    if (guidesMultiRadioGroup.getSelectedRadioIndex() === 1) {
       while (document.guides.length > 0) { // TODO: find out why forEach only clearing parts
-        Collections.first(document.guides).remove()
+        document.guides[0].remove()
       }
     }
     guideLeft = document.guides.add(Direction.VERTICAL, 0)

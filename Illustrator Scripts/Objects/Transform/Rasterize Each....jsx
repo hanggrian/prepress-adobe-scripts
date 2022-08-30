@@ -6,7 +6,7 @@ var SIZE_INPUT = [200, 21]
 
 checkHasSelection()
 
-var dialog = new Dialog("Rasterize Each", "resizing-rasterizing-each/#rasterize-each")
+var dialog = new Dialog(R.string.rasterize_each, "resizing-rasterizing-each/#rasterize-each")
 var prefill = Collections.first(selection)
 var colorModelList, resolutionEdit
 var backgroundPanel, backgroundWhiteRadio, backgroundTransparentRadio
@@ -19,15 +19,15 @@ dialog.vgroup(function(main) {
   main.vgroup(function(topGroup) {
     topGroup.alignChildren = "right"
     topGroup.hgroup(function(group) {
-      group.tooltips("The color model for the rasterization")
-      group.staticText(undefined, "Color Model:").also(JUSTIFY_RIGHT)
+      group.tooltips(R.string.tip_rasterizeeach_colormodel)
+      group.leftStaticText(undefined, R.string.color_model)
       colorModelList = group.dropDownList(SIZE_INPUT, COLOR_MODELS).also(function(it) {
-        it.selectText("Default")
+        it.selection = 0
       })
     })
     topGroup.hgroup(function(group) {
-      group.tooltips("The rasterization resolution in dots-per-inch (dpi)")
-      group.staticText(undefined, "Resolution:").also(JUSTIFY_RIGHT)
+      group.tooltips(R.string.tip_rasterizeeach_resolusi)
+      group.leftStaticText(undefined, R.string.resolution)
       resolutionEdit = group.editText(SIZE_INPUT, "300").also(function(it) {
         it.validateDigits()
         it.activate()
@@ -38,49 +38,49 @@ dialog.vgroup(function(main) {
     topGroup.alignChildren = "fill"
     topGroup.vgroup(function(innerGroup) {
       innerGroup.alignChildren = "fill"
-      backgroundPanel = innerGroup.vpanel("Background", function(panel) {
+      backgroundPanel = innerGroup.vpanel(R.string.background, function(panel) {
         panel.alignChildren = "fill"
-        panel.tooltips("Should the resulting image use transparency")
-        backgroundWhiteRadio = panel.radioButton(undefined, "White")
-        backgroundTransparentRadio = panel.radioButton(undefined, "Transparent")
-        panel.selectRadioText(config.getString("background", "White"))
+        panel.tooltips(R.string.tip_rasterizeeach_background)
+        backgroundWhiteRadio = panel.radioButton(undefined, R.string.white)
+        backgroundTransparentRadio = panel.radioButton(undefined, R.string.transparent)
+        panel.selectRadioIndex(config.getInt("background"))
       })
-      antiAliasingPanel = innerGroup.vpanel("Anti-Aliasing", function(panel) {
+      antiAliasingPanel = innerGroup.vpanel(R.string.anti_aliasing, function(panel) {
         panel.alignChildren = "fill"
-        panel.tooltips("The type of antialiasing method")
-        antiAliasingNoneRadio = panel.radioButton(undefined, "None")
-        antiAliasingArtRadio = panel.radioButton(undefined, "Art Optimized")
-        antiAliasingTypeRadio = panel.radioButton(undefined, "Type Optimized")
-        panel.selectRadioText(config.getString("anti_aliasing", "Art Optimized"))
+        panel.tooltips(R.string.tip_rasterizeeach_antialiasing)
+        antiAliasingNoneRadio = panel.radioButton(undefined, R.string.none)
+        antiAliasingArtRadio = panel.radioButton(undefined, R.string.art_optimized)
+        antiAliasingTypeRadio = panel.radioButton(undefined, R.string.type_optimized)
+        panel.selectRadioIndex(config.getInt("anti_aliasing"))
       })
     })
     topGroup.vpanel("Options", function(panel) {
       panel.alignChildren = "fill"
-      backgroundBlackCheck = panel.checkBox(undefined, "Against Black Background").also(function(it) {
-        it.tooltip("Should rasterize against a black background instead of white")
+      backgroundBlackCheck = panel.checkBox(undefined, R.string.against_black_background).also(function(it) {
+        it.tooltip(R.string.tip_rasterizeeach_option1)
         it.value = config.getBoolean("option1")
       })
-      clippingMaskCheck = panel.checkBox(undefined, "Create Clipping Mask").also(function(it) {
-        it.tooltip("Should a clipping mask be created for the resulting image")
+      clippingMaskCheck = panel.checkBox(undefined, R.string.create_clipping_mask).also(function(it) {
+        it.tooltip(R.string.tip_rasterizeeach_option2)
         it.value = config.getBoolean("option2")
       })
-      convertSpotColorsCheck = panel.checkBox(undefined, "Convert Spot Colors").also(function(it) {
-        it.tooltip("Whether to convert all spot colors to process colors in the resulting image")
+      convertSpotColorsCheck = panel.checkBox(undefined, R.string.convert_spot_colors).also(function(it) {
+        it.tooltip(R.string.tip_rasterizeeach_option3)
         it.value = config.getBoolean("option3")
       })
-      convertTextToOutlinesCheck = panel.checkBox(undefined, "Convert Text to Outlines").also(function(it) {
-        it.tooltip("Should all text be converted to outlines before rasterization")
+      convertTextToOutlinesCheck = panel.checkBox(undefined, R.string.convert_text_to_outlines).also(function(it) {
+        it.tooltip(R.string.tip_rasterizeeach_option4)
         it.value = config.getBoolean("option4")
       })
-      includeLayersCheck = panel.checkBox(undefined, "Include Layers").also(function(it) {
-        it.tooltip("Should the resulting image incorporates the layer attributes (such as opacity and blend mode)")
+      includeLayersCheck = panel.checkBox(undefined, R.string.include_layers).also(function(it) {
+        it.tooltip(R.string.tip_rasterizeeach_option5)
         it.value = config.getBoolean("option5")
       })
       panel.hgroup(function(group) {
-        group.tooltips("The amount of white space (in points) to be added around the object during rasterization")
-        group.staticText(undefined, "Add")
+        group.tooltips(R.string.tip_rasterizeeach_aroundobject)
+        group.staticText(undefined, R.string.add)
         paddingEdit = group.editText([70, 21], unitsOf("0 mm")).also(VALIDATE_UNITS)
-        group.staticText(undefined, "Around Object")
+        group.staticText(undefined, R.string.around_object)
       })
     })
   })
@@ -143,8 +143,8 @@ dialog.setDefaultButton(undefined, function() {
   }
   selection = selectQueues
 
-  config.setString("background", backgroundPanel.getSelectedRadioText())
-  config.setString("anti_aliasing", antiAliasingPanel.getSelectedRadioText())
+  config.setInt("background", backgroundPanel.getSelectedRadioIndex())
+  config.setInt("anti_aliasing", antiAliasingPanel.getSelectedRadioIndex())
   config.setBoolean("option1", backgroundBlackCheck.value)
   config.setBoolean("option2", clippingMaskCheck.value)
   config.setBoolean("option3", convertSpotColorsCheck.value)

@@ -1,19 +1,22 @@
-var COLORS = [
-  ["Registration", "color_registration"],
-  ["White", "color_white"],
-  "-",
-  ["Cyan", "color_cyan"],
-  ["Magenta", "color_magenta"],
-  ["Yellow", "color_yellow"],
-  ["Black", "color_black"]
-]
-
-var COLOR_WHITE = new CMYKColor()
-var COLOR_CYAN = new CMYKColor().also(function(it) { it.cyan = 100 })
-var COLOR_MAGENTA = new CMYKColor().also(function(it) { it.magenta = 100 })
-var COLOR_YELLOW = new CMYKColor().also(function(it) { it.yellow = 100 })
-var COLOR_BLACK = new CMYKColor().also(function(it) { it.black = 100 })
-var COLOR_NONE = new NoColor()
+var Colors = {
+  list: function () {
+    return [
+      [R.string.registration, "color_registration"],
+      [R.string.white, "color_white"],
+      "-",
+      [R.string.cyan, "color_cyan"],
+      [R.string.magenta, "color_magenta"],
+      [R.string.yellow, "color_yellow"],
+      [R.string.black, "color_black"]
+    ]
+  },
+  WHITE: new CMYKColor(),
+  CYAN: new CMYKColor().also(function (it) { it.cyan = 100 }),
+  MAGENTA: new CMYKColor().also(function (it) { it.magenta = 100 }),
+  YELLOW: new CMYKColor().also(function (it) { it.yellow = 100 }),
+  BLACK: new CMYKColor().also(function (it) { it.black = 100 }),
+  NONE: new NoColor()
+}
 
 /**
  * Converts text to color.
@@ -22,18 +25,18 @@ var COLOR_NONE = new NoColor()
  */
 function parseColor(text) {
   switch (text.trim()) {
-    case "Registration":
+    case getString(R.string.registration):
       return getRegistrationColor()
-    case "White":
-      return COLOR_WHITE
-    case "Cyan":
-      return COLOR_CYAN
-    case "Magenta":
-      return COLOR_MAGENTA
-    case "Yellow":
-      return COLOR_YELLOW
-    case "Black":
-      return COLOR_BLACK
+    case getString(R.string.white):
+      return Colors.WHITE
+    case getString(R.string.cyan):
+      return Colors.CYAN
+    case getString(R.string.magenta):
+      return Colors.MAGENTA
+    case getString(R.string.yellow):
+      return Colors.YELLOW
+    case getString(R.string.black):
+      return Colors.BLACK
     default:
       return undefined
   }

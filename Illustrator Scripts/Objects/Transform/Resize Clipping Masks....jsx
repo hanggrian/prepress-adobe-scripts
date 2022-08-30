@@ -6,17 +6,17 @@ var SIZE_INPUT = [100, 21]
 checkHasSelection()
 check(Collections.anyItem(selection, function(it) { return it.clipping }), "No clipping paths in this selection")
 
-var dialog = new Dialog("Resize Clipping Masks")
+var dialog = new Dialog(R.string.resize_clipping_masks)
 var widthFromEdit, widthToEdit, heightFromEdit, heightToEdit
 var documentOriginCheck, anchorGroup
 
 dialog.hgroup(function(main) {
   main.alignChildren = "fill"
   var prefill = Collections.firstItem(selection, function(it) { return it.clipping })
-  main.vpanel("Dimension", function(panel) {
+  main.vpanel(R.string.dimension, function(panel) {
     panel.alignChildren = "right"
     panel.hgroup(function(group) {
-      group.staticText(undefined, "Width:").also(JUSTIFY_RIGHT)
+      group.leftStaticText(undefined, R.string.width)
       widthFromEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitName, 2)).also(function(it) {
         it.validateUnits()
         it.activate()
@@ -25,16 +25,15 @@ dialog.hgroup(function(main) {
       widthToEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitName, 2)).also(VALIDATE_UNITS)
     })
     panel.hgroup(function(group) {
-      group.staticText(undefined, "Height:").also(JUSTIFY_RIGHT)
+      group.leftStaticText(undefined, R.string.height)
       heightFromEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitName, 2)).also(VALIDATE_UNITS)
       group.staticText(undefined, "to")
       heightToEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitName, 2)).also(VALIDATE_UNITS)
     })
   })
-  main.vpanel("Anchor", function(panel) {
+  main.vpanel(R.string.anchor, function(panel) {
     panel.alignChildren = "fill"
-    documentOriginCheck = panel.checkBox(undefined, "Document Origin").also(function(it) {
-      it.tooltip("Use current reference point preference")
+    documentOriginCheck = new DocumentOriginCheck(panel).also(function(it) {
       it.onClick = function() {
         anchorGroup.enabled = !it.value
       }
@@ -54,7 +53,7 @@ dialog.setDefaultButton(undefined, function() {
       parseInt(it.width) === parseInt(widthFrom) &&
       parseInt(it.height) === parseInt(heightFrom)
   })
-  var progress = new ProgressDialog(clippingPaths.length, "Resizing clipping mask")
+  var progress = new ProgressDialog(clippingPaths.length, R.string.resizing_clipping_masks)
 
   Collections.forEach(clippingPaths, function(clippingPath, i) {
     var clippingPath = clippingPaths[i]

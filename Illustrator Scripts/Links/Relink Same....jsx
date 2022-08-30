@@ -8,7 +8,7 @@ checkHasSelection()
 var items = Collections.filterItem(selection, PREDICATE_LINKS)
 check(Collections.isNotEmpty(items), "No links found in selection")
 
-var dialog = new Dialog("Relink Same", "relinking-files/#relink-same")
+var dialog = new Dialog(R.string.relink_same, "relinking-files/#relink-same")
 var pdfPanel, pageEdit, keepSizeCheck
 var config = configs.resolve("links/relink_same")
 
@@ -23,8 +23,8 @@ if (file !== null) {
     if (file.isPdf()) {
       pdfPanel = new OpenPDFPanel(main, SIZE_INPUT).also(function(panel) {
         panel.hgroup(function(group) {
-          group.tooltips("Which page should be used when opening a multipage document")
-          group.staticText(undefined, "Page:").also(JUSTIFY_RIGHT)
+          group.tooltips(R.string.tip_relink_pages)
+          group.leftStaticText(undefined, R.string.pages)
           pageEdit = group.editText(SIZE_INPUT, "1").also(function(it) {
             it.validateDigits()
             it.activate()
@@ -49,7 +49,7 @@ if (file !== null) {
 
     var progress = new ProgressDialog(items.length)
     Collections.forEach(items, function(item, i) {
-      progress.increment("Linking item %d", i + 1)
+      progress.increment(R.string.progress_relink, i + 1)
       print(i + ". ")
       relink(item, file)
       println("Done.")
@@ -67,7 +67,7 @@ function relink(item, file) {
   var position = item.position
   if (file.isPdf() && Items.isLinkExists(item) && item.file.isPdf()) {
     print("Appling PDF fix, ")
-    item.file = Resources.getImage("relink_fix")
+    item.file = getImage("relink_fix")
   }
   item.file = file
   if (keepSizeCheck.value) {

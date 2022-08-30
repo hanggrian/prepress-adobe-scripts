@@ -12,8 +12,8 @@ function NUpOptionsGroup(parent, showFolding, showRotate, showDuplex, showStack)
 
   self.alignment = "right"
   if (showFolding !== undefined ? showFolding : true) {
-    self.foldingCheck = self.checkBox(undefined, "Folding Booklet").also(function(it) {
-      it.tooltip("Should the page collated to folding booklet?")
+    self.foldingCheck = self.checkBox(undefined, R.string.folding_booklet).also(function(it) {
+      it.tooltip(R.string.tip_nup_foldingbooklet)
       it.onClick = function() {
         if (self.rotateCheck !== undefined) self.rotateCheck.enabled = !it.value
         if (self.duplexCheck !== undefined) self.duplexCheck.enabled = !it.value
@@ -22,18 +22,18 @@ function NUpOptionsGroup(parent, showFolding, showRotate, showDuplex, showStack)
     })
   }
   if (showRotate !== undefined ? showRotate : true) {
-    self.rotateCheck = self.checkBox(undefined, "Rotate Pages").also(function(it) {
-      it.tooltip("Should the page be rotated?")
+    self.rotateCheck = self.checkBox(undefined, R.string.rotate_pages).also(function(it) {
+      it.tooltip(R.string.tip_nup_rotatepages)
     })
   }
   if (showDuplex !== undefined ? showDuplex : true) {
-    self.duplexCheck = self.checkBox(undefined, "Duplex Printing").also(function(it) {
-      it.tooltip("Should the page be printed on both sides?")
+    self.duplexCheck = self.checkBox(undefined, R.string.duplex_printing).also(function(it) {
+      it.tooltip(R.string.tip_nup_duplexprinting)
     })
   }
   if (showStack !== undefined ? showStack : true) {
-    self.stackCheck = self.checkBox(undefined, "Cut Stack").also(function(it) {
-      it.tooltip("Should the pages stacked on top of each other?")
+    self.stackCheck = self.checkBox(undefined, R.string.cut_stack).also(function(it) {
+      it.tooltip(R.string.tip_nup_cutstack)
     })
   }
 

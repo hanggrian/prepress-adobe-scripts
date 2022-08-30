@@ -15,7 +15,7 @@ var placedCount = 0
 var pluginCount = 0
 var rasterCount = 0
 var symbolCount = 0
-var textFrameCount = 0
+var textCount = 0
 
 Collections.forEachItem(selection, function(it) {
   switch (it.typename) {
@@ -50,39 +50,36 @@ Collections.forEachItem(selection, function(it) {
       symbolCount++
       break;
     case "TextFrame":
-      textFrameCount++
+      textCount++
       break;
   }
 })
 
-var message = "There are "
+var message = getString(R.string.message_count1)
 var prefix = ""
 
 if (selection.length !== maxOf(compoundPathCount, graphCount, legacyTextCount, meshCount,
-  nonNativeCount, pathCount, placedCount, pluginCount, rasterCount, symbolCount, textFrameCount)) {
-  message += selection.length + " items, containing:"
+  nonNativeCount, pathCount, placedCount, pluginCount, rasterCount, symbolCount, textCount)) {
+  message += selection.length + getString(R.string.message_count2)
   prefix = "\n"
 }
-message += getItemLine(prefix, compoundPathCount, "compound path")
-message += getItemLine(prefix, graphCount, "graph")
-message += getItemLine(prefix, legacyTextCount, "legacy text")
-message += getItemLine(prefix, meshCount, "mesh")
-message += getItemLine(prefix, nonNativeCount, "non-native")
-message += getItemLine(prefix, pathCount, "path")
-message += getItemLine(prefix, placedCount, "link")
-message += getItemLine(prefix, pluginCount, "plugin")
-message += getItemLine(prefix, rasterCount, "raster")
-message += getItemLine(prefix, symbolCount, "symbol")
-message += getItemLine(prefix, textFrameCount, "text frame")
-alert(message, "Count Objects")
+message += getItemLine(prefix, compoundPathCount, R.plurals.compound_path)
+message += getItemLine(prefix, graphCount, R.plurals.graph)
+message += getItemLine(prefix, legacyTextCount, R.plurals.legacy_text)
+message += getItemLine(prefix, meshCount, R.plurals.mesh)
+message += getItemLine(prefix, nonNativeCount, R.plurals.non_native)
+message += getItemLine(prefix, pathCount, R.plurals.path)
+message += getItemLine(prefix, placedCount, R.plurals.link)
+message += getItemLine(prefix, pluginCount, R.plurals.plugin)
+message += getItemLine(prefix, rasterCount, R.plurals.raster)
+message += getItemLine(prefix, symbolCount, R.plurals.symbol)
+message += getItemLine(prefix, textCount, R.plurals.text)
+Windows.alert(message, R.string.count_objects)
 
-function getItemLine(prefix, count, suffix) {
+function getItemLine(prefix, count, pluralId) {
   if (count === 0) {
     return ""
   }
-  var line = "%s%d %s".format(prefix, count, suffix)
-  if (count > 1) {
-    line += suffix.endsWith("sh") ? "es" : "s"
-  }
+  var line = "%s%d %s".format(prefix, count, getPlural(pluralId, count))
   return line + "."
 }
