@@ -5,20 +5,6 @@ initTest($)
 var window = new Window("dialog", "Test")
 var root = window.add("tabbedpanel")
 
-test("tooltips", function() {
-  var parent1 = root.htab()
-  parent1.tooltips("Description")
-  assertEquals("Description", parent1.helpTips)
-
-  var parent2 = root.vtab()
-  parent2.tooltips("Description")
-  assertEquals("Description", parent2.helpTips)
-
-  var parent3 = root.stab()
-  parent3.tooltips("Description")
-  assertEquals("Description", parent3.helpTips)
-})
-
 test("tabs", function() {
   var parent1 = root.htab("Page")
   // assertEquals("Page", parent1.text)

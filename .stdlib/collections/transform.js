@@ -12,9 +12,9 @@
  */
 Collections.map = function(collection, transform) {
   var result = []
-  for (var i = 0; i < collection.length; i++) {
-    result.push(transform(collection[i], i))
-  }
+  Collections.forEach(collection, function(element, i) {
+    result.push(transform(element, i))
+  })
   return result
 }
 
@@ -27,10 +27,10 @@ Collections.map = function(collection, transform) {
  */
 Collections.flatMap = function(collection, transform) {
   var result = []
-  for (var i = 0; i < collection.length; i++) {
-    for (var j = 0; j < collection[i].length; j++) {
-      result.push(transform(collection[i][j]))
-    }
-  }
+  Collections.forEach(collection, function(collection2) {
+    Collections.forEach(collection2, function(element) {
+      result.push(transform(element))
+    })
+  })
   return result
 }

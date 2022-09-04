@@ -20,7 +20,7 @@ function OpenDocumentPanel(parent) {
 
   self.alignChildren = "right"
   self.hgroup(function(group) {
-    group.tooltips("The color mode and resolution for the new document")
+    group.helpTips = "The color mode and resolution for the new document"
     group.staticText(undefined, "Color Mode:", JUSTIFY_RIGHT)
     self.modeList = group.dropDownList(SIZE_DOCUMENT_INPUT, OPEN_DOCUMENTMODES, function(it) {
       it.selectText("CMYK")
@@ -30,19 +30,19 @@ function OpenDocumentPanel(parent) {
     })
   })
   self.hgroup(function(group) {
-    group.tooltips("The resolution for the new document")
+    group.helpTips = "The resolution for the new document"
     group.staticText(undefined, "Resolution:", JUSTIFY_RIGHT)
     self.resolutionEdit = group.editText(SIZE_DOCUMENT_INPUTMAX, "300")
   })
   self.hgroup(function(group) {
-    group.tooltips("The units for the new document")
+    group.helpTips = "The units for the new document"
     group.staticText(undefined, "Units:", JUSTIFY_RIGHT)
-    self.unitsList = group.dropDownList(SIZE_DOCUMENT_INPUTMAX, Units.list(), function(it) {
+    self.unitsList = group.dropDownList(SIZE_DOCUMENT_INPUTMAX, UnitType.list(), function(it) {
       it.selectText("Millimeters")
     })
   })
   self.hgroup(function(group) {
-    group.tooltips("The initial fill of the document")
+    group.helpTips = "The initial fill of the document"
     group.staticText(undefined, "Background:", JUSTIFY_RIGHT)
     self.backgrounTransparentRadio = group.radioButton(undefined, "Transparent").also(SELECTED)
     self.backgrounWhiteRadio = group.radioButton(undefined, "White")

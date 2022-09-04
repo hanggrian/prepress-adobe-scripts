@@ -15,13 +15,21 @@ Preferences.prototype.getPDFCrop = function() { return this.PDFFileOptions.pDFCr
 
 Preferences.prototype.setPSDLayerComp = function(layerComp) { this.photoshopFileOptions.layerComp = layerComp }
 Preferences.prototype.getPSDLayerComp = function() { return this.photoshopFileOptions.layerComp }
-Preferences.prototype.setPSDPreserveHiddenLayers = function(preserveHiddenLayers) { this.photoshopFileOptions.preserveHiddenLayers = preserveHiddenLayers }
+Preferences.prototype.setPSDPreserveHiddenLayers = function(preserveHiddenLayers) {
+  this.photoshopFileOptions.preserveHiddenLayers = preserveHiddenLayers
+}
 Preferences.prototype.getPSDPreserveHiddenLayers = function() { return this.photoshopFileOptions.preserveHiddenLayers }
-Preferences.prototype.setPSDPreserveImageMaps = function(preserveImageMaps) { this.photoshopFileOptions.preserveImageMaps = preserveImageMaps }
+Preferences.prototype.setPSDPreserveImageMaps = function(preserveImageMaps) {
+  this.photoshopFileOptions.preserveImageMaps = preserveImageMaps
+}
 Preferences.prototype.getPSDPreserveImageMaps = function() { return this.photoshopFileOptions.preserveImageMaps }
-Preferences.prototype.setPSDPreserveLayers = function(preserveLayers) { this.photoshopFileOptions.preserveLayers = preserveLayers }
+Preferences.prototype.setPSDPreserveLayers = function(preserveLayers) {
+  this.photoshopFileOptions.preserveLayers = preserveLayers
+}
 Preferences.prototype.getPSDPreserveLayers = function() { return this.photoshopFileOptions.preserveLayers }
-Preferences.prototype.setPSDPreserveSlices = function(preserveSlices) { this.photoshopFileOptions.preserveSlices = preserveSlices }
+Preferences.prototype.setPSDPreserveSlices = function(preserveSlices) {
+  this.photoshopFileOptions.preserveSlices = preserveSlices
+}
 Preferences.prototype.getPSDPreserveSlices = function() { return this.photoshopFileOptions.preserveSlices }
 
 /** Global access to preferences wrapper. */
@@ -48,7 +56,7 @@ function Configs(path) {
    */
   this.getBoolean = function(key) {
     var value = preferences.getBooleanPreference(prefix + key)
-    println("Get bool preference `%s`: `%s`.", key, value)
+    println("Get bool preference '%s': '%s'.", key, value)
     return value
   }
 
@@ -59,7 +67,7 @@ function Configs(path) {
    */
   this.getInt = function(key) {
     var value = preferences.getIntegerPreference(prefix + key)
-    println("Get int preference `%s`: `%d`.", key, value)
+    println("Get int preference '%s': '%d'.", key, value)
     return value
   }
 
@@ -70,7 +78,7 @@ function Configs(path) {
    */
   this.getNumber = function(key) {
     var value = preferences.getRealPreference(prefix + key)
-    println("Get num preference `%s`: `%d`.", key, value)
+    println("Get num preference '%s': '%d'.", key, value)
     return value
   }
 
@@ -81,13 +89,13 @@ function Configs(path) {
    * @returns {String}
    */
   this.getString = function(key, defaultValue) {
-    print("Get str preference `%s`: ", key)
+    print("Get str preference '%s': ", key)
     var value = preferences.getStringPreference(prefix + key)
     if (value === "") {
-      println("not found, use default `%s`.", defaultValue)
+      println("not found, use default '%s'.", defaultValue)
       return defaultValue
     }
-    println("`%s`.", value)
+    println("'%s'.", value)
     return value
   }
 
@@ -99,7 +107,7 @@ function Configs(path) {
   this.setBoolean = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     preferences.setBooleanPreference(prefix + key, actualValue)
-    println("Set bool preference `%s`: `%d`.", key, actualValue)
+    println("Set bool preference '%s': '%d'.", key, actualValue)
   }
 
   /**
@@ -110,7 +118,7 @@ function Configs(path) {
   this.setInt = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     preferences.setIntegerPreference(prefix + key, actualValue)
-    println("Set int preference `%s`: `%d`.", key, actualValue)
+    println("Set int preference '%s': '%d'.", key, actualValue)
   }
 
   /**
@@ -121,7 +129,7 @@ function Configs(path) {
   this.setNumber = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     preferences.setRealPreference(prefix + key, actualValue)
-    println("Set num preference `%s`: `%d`.", key, actualValue)
+    println("Set num preference '%s': '%d'.", key, actualValue)
   }
 
   /**
@@ -132,7 +140,7 @@ function Configs(path) {
   this.setString = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     preferences.setStringPreference(prefix + key, actualValue)
-    println("Set str preference `%s`: `%s`.", key, actualValue)
+    println("Set str preference '%s': '%s'.", key, actualValue)
   }
 
   /**
@@ -141,6 +149,6 @@ function Configs(path) {
    */
   this.remove = function(key) {
     preferences.removePreference(prefix + key)
-    println("Remove preference `%s`.", key)
+    println("Remove preference '%s'.", key)
   }
 }

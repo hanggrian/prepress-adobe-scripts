@@ -1,11 +1,12 @@
 {
-    "version": "1.0.0",
-    "configurations": [
-        {
-            "type": "extendscript-debug",
-            "request": "launch",
-            "name": "Prepress Adobe Scripts",
-            "script": "${workspaceFolder}/codegen/generate.jsx"
-        }
-    ]
+  "version": "1.0.0",
+  "configurations": [
+    {
+      "type": "extendscript-debug",
+      "request": "launch",
+      "name": "Prepress Adobe Scripts",
+      "script": "${workspaceFolder}/Illustrator Scripts/Impose/Saddle-Stitch....jsx",
+      // "script": "${workspaceFolder}/Photoshop Scripts/Images/Add Bleed....jsx"
+    }
+  ]
 }

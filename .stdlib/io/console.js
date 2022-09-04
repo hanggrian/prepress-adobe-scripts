@@ -13,7 +13,8 @@ function print() {
     $.write()
     return
   }
-  $.write(Collections.first(arguments).formatArr(Array.prototype.slice.call(arguments, 1)))
+  var format = Array.prototype.shift.call(arguments)
+  $.write(Internals.formatString(format, arguments))
 }
 
 /**
@@ -25,5 +26,6 @@ function println() {
     $.writeln()
     return
   }
-  $.writeln(Collections.first(arguments).formatArr(Array.prototype.slice.call(arguments, 1)))
+  var format = Array.prototype.shift.call(arguments)
+  $.writeln(Internals.formatString(format, arguments))
 }

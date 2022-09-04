@@ -4,11 +4,12 @@
 </javascriptresource>
 */
 
+
 /**
- * Set tooltip to this parent.
+ * Set tooltip to all children.
  * @param {String|Object} text tips to display.
  */
-Group.prototype.tooltips = function(text) { Internals.setTooltips(this, Internals.stringOrResources(text)) }
+Group.prototype.setHelpTips = function(tips) { Internals.setHelpTips(this, tips) }
 
 /**
  * Add horizontal parent to group.
@@ -16,7 +17,7 @@ Group.prototype.tooltips = function(text) { Internals.setTooltips(this, Internal
  * @returns {Group}
  */
 Group.prototype.hgroup = function(configuration) {
-  return _group(this, "row", configuration)
+  return Internals.addGroup(this, "row", configuration)
 }
 
 /**
@@ -25,7 +26,7 @@ Group.prototype.hgroup = function(configuration) {
  * @returns {Group}
  */
 Panel.prototype.hgroup = function(configuration) {
-  return _group(this, "row", configuration)
+  return Internals.addGroup(this, "row", configuration)
 }
 
 /**
@@ -34,7 +35,7 @@ Panel.prototype.hgroup = function(configuration) {
  * @returns {Group}
  */
 Group.prototype.vgroup = function(configuration) {
-  return _group(this, "column", configuration)
+  return Internals.addGroup(this, "column", configuration)
 }
 
 /**
@@ -43,7 +44,7 @@ Group.prototype.vgroup = function(configuration) {
  * @returns {Group}
  */
 Panel.prototype.vgroup = function(configuration) {
-  return _group(this, "column", configuration)
+  return Internals.addGroup(this, "column", configuration)
 }
 
 /**
@@ -52,7 +53,7 @@ Panel.prototype.vgroup = function(configuration) {
  * @returns {Group}
  */
 Group.prototype.sgroup = function(configuration) {
-  return _group(this, "stack", configuration)
+  return Internals.addGroup(this, "stack", configuration)
 }
 
 /**
@@ -61,15 +62,12 @@ Group.prototype.sgroup = function(configuration) {
  * @returns {Group}
  */
 Panel.prototype.sgroup = function(configuration) {
-  return _group(this, "stack", configuration)
+  return Internals.addGroup(this, "stack", configuration)
 }
 
-function _group(root, orientation, configuration) {
+Internals.addGroup = function(root, orientation, configuration) {
   var parent = root.add("group")
   parent.orientation = orientation
-  if (root.helpTips !== undefined) {
-    Internals.setTooltips(parent, root.helpTips)
-  }
   if (configuration !== undefined) {
     configuration(parent)
   }
@@ -86,6 +84,4 @@ Group.prototype.getSelectedRadioIndex = function() { return Internals.getSelecte
  * Select radio button of this group.
  * @param {String|Object} text existing text of any RadioButton, throws error if not found.
  */
-Group.prototype.selectRadioIndex = function(index) {
-  return Internals.selectRadioIndex(this, index)
-}
+Group.prototype.selectRadioIndex = function(index) { Internals.selectRadioIndex(this, index) }

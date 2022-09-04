@@ -17,7 +17,7 @@ var FILE_PSD = ["psd", "psb", "pdd"]
 var FILE_TIFF = ["tif", "tiff"]
 var SIZE_INPUT = [150, 21]
 
-check(Collections.isNotEmpty(document.placedItems), "No links in this document")
+check(Collections.isNotEmpty(document.placedItems), getString(R.string.error_notypes_document, R.plurals.link.plural))
 var isFilterMode = Collections.isNotEmpty(selection)
 
 var dialog = new Dialog(R.string.select_links, "selecting-items/#select-links")
@@ -30,17 +30,17 @@ dialog.vgroup(function(main) {
   main.alignChildren = "fill"
   dimensionPanel = new SelectDimensionPanel(main, SIZE_INPUT)
   main.vpanel(R.string.file_types, function(panel) {
-    panel.tooltips(R.string.tip_selectlinks_filetypes)
+    panel.helpTips = R.string.tip_selectlinks_filetypes
     panel.alignChildren = "fill"
-    aiCheck = panel.checkBox(undefined, getTypeString("Adobe Illustrator", FILE_AI))
-    pdfCheck = panel.checkBox(undefined, getTypeString("Adobe PDF", FILE_PDF))
-    bmpCheck = panel.checkBox(undefined, getTypeString("BMP", FILE_BMP))
-    gifCheck = panel.checkBox(undefined, getTypeString("GIF89a", FILE_GIF))
-    jpegCheck = panel.checkBox(undefined, getTypeString("JPEG", FILE_JPEG))
-    jpeg2000Check = panel.checkBox(undefined, getTypeString("JPEG2000", FILE_JPEG2000))
-    pngCheck = panel.checkBox(undefined, getTypeString("PNG", FILE_PNG))
-    psdCheck = panel.checkBox(undefined, getTypeString("Photoshop", FILE_PSD))
-    tiffCheck = panel.checkBox(undefined, getTypeString("TIFF", FILE_TIFF))
+    aiCheck = panel.checkBox(undefined, getTypeString("Adobe Illustrator", FileType.ADOBE_ILLUSTRATOR))
+    pdfCheck = panel.checkBox(undefined, getTypeString("Adobe PDF", FileType.ADOBE_PDF))
+    bmpCheck = panel.checkBox(undefined, getTypeString("BMP", FileType.BMP))
+    gifCheck = panel.checkBox(undefined, getTypeString("GIF89a", FileType.GIF89a))
+    jpegCheck = panel.checkBox(undefined, getTypeString("JPEG", FileType.JPEG))
+    jpeg2000Check = panel.checkBox(undefined, getTypeString("JPEG2000", FileType.JPEG2000))
+    pngCheck = panel.checkBox(undefined, getTypeString("PNG", FileType.PNG))
+    psdCheck = panel.checkBox(undefined, getTypeString("Photoshop", FileType.PHOTOSHOP))
+    tiffCheck = panel.checkBox(undefined, getTypeString("TIFF", FileType.TIFF))
   })
   if (isFilterMode) {
     recursiveCheck = new RecursiveCheck(main).also(function(it) {
@@ -73,11 +73,11 @@ dialog.setDefaultButton(undefined, function() {
 })
 dialog.show()
 
-function getTypeString(prefix, suffix) {
+function getTypeString(prefix, fileType) {
   var s = ""
-  Collections.forEach(suffix, function(it, i) {
+  Collections.forEach(fileType.extensions, function(it, i) {
     s += it
-    if (i != Collections.lastIndex(suffix)) {
+    if (i != Collections.lastIndex(fileType.extensions)) {
       s += ", "
     }
   })

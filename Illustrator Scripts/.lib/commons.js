@@ -2,7 +2,7 @@
 
 #include "commons-preconditions.js"
 
-check(app.documents.length > 0, "No active document")
+check(app.documents.length > 0, R.string.error_commons)
 
 var document = app.activeDocument
 

@@ -1,20 +1,18 @@
 #target Illustrator
 #include "../.lib/commons.js"
 
-function listAnchors() {
-  return [
-    [R.string.top_left, "ic_arrow_topleft"],
-    [R.string.top_right, "ic_arrow_topright"],
-    [R.string.bottom_left, "ic_arrow_bottomleft"],
-    [R.string.bottom_right, "ic_arrow_bottomright"]
-  ]
-}
+var Anchor = Enums.of({
+  TOP_LEFT: { name: R.string.top_left, image: "ic_arrow_topleft" },
+  TOP_RIGHT: { name: R.string.top_right, image: "ic_arrow_topright" },
+  BOTTOM_LEFT: { name: R.string.bottom_left, image: "ic_arrow_bottomleft" },
+  BOTTOM_RIGHT: { name: R.string.bottom_right, image: "ic_arrow_bottomright" }
+}, true)
 
 var SIZE_INPUT = [150, 21]
 
 checkHasSelection()
+checkMultipleArtboards()
 
-check(document.artboards.length > 1, "No other artboards")
 var activeArtboardIndex = document.artboards.getActiveArtboardIndex()
 var activeArtboard = document.artboards[activeArtboardIndex]
 var activeArtboardRect = activeArtboard.artboardRect
@@ -41,7 +39,7 @@ if (proceed) {
   dialog.vgroup(function(main) {
     main.alignChildren = "right"
     main.hgroup(function(group) {
-      group.tooltips(R.string.tip_copytoartboards_artboards)
+      group.helpTips = R.string.tip_copytoartboards_artboards
       group.leftStaticText(undefined, R.string.artboards)
       rangeGroup = new RangeGroup(group, SIZE_INPUT).also(function(it) {
         it.maxRange = document.artboards.length
@@ -50,19 +48,16 @@ if (proceed) {
       })
     })
     main.hgroup(function(group) {
-      group.tooltips(R.string.tip_copytoartboards_anchor)
+      group.helpTips = R.string.tip_copytoartboards_anchor
       group.leftStaticText(undefined, R.string.anchor)
-      anchorList = group.dropDownList(SIZE_INPUT, listAnchors()).also(function(it) {
+      anchorList = group.dropDownList(SIZE_INPUT, Anchor.list()).also(function(it) {
         it.selection = config.getInt("anchor")
-      })
-      group.enabled = Collections.any(document.artboards, function(it) {
-        return !isEqualRounded(it.artboardRect.getWidth(), activeArtboardRect.getWidth()) ||
-          !isEqualRounded(it.artboardRect.getHeight(), activeArtboardRect.getHeight())
       })
     })
   })
   dialog.setCancelButton()
   dialog.setDefaultButton(undefined, function() {
+    var anchor = Anchor.valueOf(anchorList.selection)
     var readOnlySelection = selection
     Collections.forEach(document.artboards, function(artboard, artboardIndex) {
       if (artboardIndex === activeArtboardIndex || !rangeGroup.includes(artboardIndex)) {
@@ -73,16 +68,12 @@ if (proceed) {
       Collections.forEachReversed(readOnlySelection, function(item, itemIndex) {
         var relativePosition = relativePositions[itemIndex]
         var x, y
-        if (anchorList.selection.text === getString(R.string.top_left) ||
-          anchorList.selection.text === getString(R.string.left) ||
-          anchorList.selection.text === getString(R.string.bottom_left)) {
+        if (anchor === Anchor.TOP_LEFT || anchor === Anchor.BOTTOM_LEFT) {
           x = artboardRect.getLeft() + relativePosition.getLeft()
         } else {
           x = artboardRect.getRight() - relativePosition.getRight()
         }
-        if (anchorList.selection.text === getString(R.string.top_left) ||
-          anchorList.selection.text === getString(R.string.top) ||
-          anchorList.selection.text === getString(R.string.top_right)) {
+        if (anchor === Anchor.TOP_LEFT || anchor === Anchor.TOP_RIGHT) {
           y = artboardRect.getTop() + relativePosition.getTop()
         } else {
           y = artboardRect.getBottom() - relativePosition.getBottom()

@@ -45,7 +45,7 @@ function RangeGroup(parent, inputSize) {
   self.getStart = function() {
     var start = parseInt(self.getStartText()) - 1
     if (start < self.minRange) {
-      errorWithAlert("Start range cannot be less than " + self.minRange)
+      error("Start range cannot be less than " + self.minRange, undefined, true)
     }
     return start
   }
@@ -57,7 +57,7 @@ function RangeGroup(parent, inputSize) {
   self.getEnd = function() {
     var end = parseInt(self.getEndText()) - 1
     if (end > self.maxRange) {
-      errorWithAlert("End range cannot be more than " + self.maxRange)
+      error("End range cannot be more than " + self.maxRange, undefined, true)
     }
     return end
   }
@@ -96,7 +96,7 @@ function RangeGroup(parent, inputSize) {
 
   function checkValidity() {
     if (parseInt(self.startEdit.text) > parseInt(self.endEdit.text)) {
-      errorWithAlert("Invalid range")
+      error("Invalid range")
     }
   }
 

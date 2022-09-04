@@ -4,9 +4,6 @@
 </javascriptresource>
 */
 
-var _stdresDir, _resDir
-var _resLight, _resLang
-
 // replacement of JSON files in resources because JSON parsing isn't officialy supported by ExtendScript
 var R = {}
 
@@ -16,21 +13,21 @@ var R = {}
  * @returns {File}
  */
 function getImage(name) {
-  if (_resLight === undefined) {
-    _resLight = configs.getInt("theme")
+  if (App.RES_DARK === undefined) {
+    App.RES_DARK = configs.getBoolean("theme_dark")
   }
   var file
-  if (_resLight === 1) {
-    file = Resources.get("image-light/" + name + ".png")
-    if (file !== undefined && file.exists) {
+  if (!App.RES_DARK) {
+    file = App.getResource("image-light/" + name + ".png")
+    if (file !== undefined) {
       return file
     }
   }
-  file = Resources.get("image/" + name + ".png")
-  if (file !== undefined && file.exists) {
+  file = App.getResource("image/" + name + ".png")
+  if (file !== undefined) {
     return file
   }
-  return undefined
+  error("Image %s not found".format(name))
 }
 
 /**
@@ -38,13 +35,11 @@ function getImage(name) {
  * @returns {String}
  */
 function getString() {
-  if (_resLang === undefined) {
-    _resLang = configs.getString("language", "English")
+  if (App.RES_LANG === undefined) {
+    App.RES_LANG = configs.getString("language_code", Language.EN.code)
   }
-  var langCode = Internals.getLanguageCode(_resLang)
-  var string = Array.prototype.shift.call(arguments)
-  string = string[langCode] !== undefined ? string[langCode] : string.en
-  return Internals.formatString(string, arguments)
+  var format = Array.prototype.shift.call(arguments)
+  return Internals.formatString(format[App.RES_LANG], arguments)
 }
 
 /**
@@ -52,14 +47,12 @@ function getString() {
  * @returns {String}
  */
 function getPlural() {
-  if (_resLang === undefined) {
-    _resLang = configs.getString("language", "English")
+  if (App.RES_LANG === undefined) {
+    App.RES_LANG = configs.getString("language_code", Language.EN.code)
   }
-  var langCode = Internals.getLanguageCode(_resLang)
-  var string = Array.prototype.shift.call(arguments)
-  var quantityCode = Array.prototype.shift.call(arguments) <= 1 ? "single" : "plural"
-  string = string[langCode] !== undefined ? string[langCode][quantityCode] : string.en[quantityCode]
-  return Internals.formatString(string, arguments)
+  var format = Array.prototype.shift.call(arguments)
+  var quantityQualifier = Array.prototype.shift.call(arguments) <= 1 ? "single" : "plural"
+  return Internals.formatString(format[quantityQualifier][App.RES_LANG], arguments)
 }
 
 /**
@@ -67,29 +60,4 @@ function getPlural() {
  * @param {String} name file name without extension.
  * @returns {File}
  */
-function getScript(name) {
-  return Resources.get("scripts/" + name + (OS_MAC ? ".command" : ".cmd"))
-}
-
-var Resources = {
-  /**
-   * Refer to a file from resources directories.
-   * @param {String} fullName file name with folder path (if any) and extension.
-   * @returns {File}
-   */
-  get: function(fullName) {
-    if (_stdresDir === undefined) {
-      _stdresDir = new File(PATH_STDLIB + "/../.stdres")
-      _resDir = new File(PATH_LIB + "/../.res")
-    }
-    var file = new File(_resDir + "/" + fullName)
-    if (file.exists) {
-      return file
-    }
-    file = new File(_stdresDir + "/" + fullName)
-    if (file.exists) {
-      return file
-    }
-    return undefined
-  }
-}
+function getScript(name) { return App.getResource("script/" + name + (App.OS_MAC ? ".command" : ".cmd")) }

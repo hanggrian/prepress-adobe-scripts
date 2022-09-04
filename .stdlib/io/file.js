@@ -1,6 +1,6 @@
 /*
 <javascriptresource>
-  <menu>hide</menu>
+<menu>hide</menu>
 </javascriptresource>
 */
 
@@ -34,6 +34,11 @@ File.prototype.isPdf = function() { return this.getExtension().let(function(it) 
  * @returns {String}
  */
 File.prototype.readText = function() { return this.use("r", function(it) { return it.read() }) }
+
+/**
+ * Writes string content to file.
+ */
+File.prototype.writeText = function(text) { this.use("w", function(it) { it.write(text) }) }
 
 /**
  * Executes the given block function on this resource and then closes it down.

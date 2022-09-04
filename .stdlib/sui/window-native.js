@@ -1,14 +1,19 @@
+/*
+<javascriptresource>
+<menu>hide</menu>
+</javascriptresource>
+*/
+
 var Windows = {
   /**
-   * Show native alerts with values from resources.
+   * Show alert with values from resources.
+   * The message are always suffixed with period, just like when throwing `Error`.
    * @param {String|Object} message alert message.
    * @param {String|Object} title alert title, may be null.
-   * @param {Boolean} isError whether or not this is an error alert.
+   * @param {Boolean} isError should the error logo be displayed?
    */
   alert: function(message, title, isError) {
-    message = Internals.stringOrResources(message)
-    if (message !== undefined && !message.endsWith(".") && !message.endsWith("?")) message += "."
-    alert(message, Internals.stringOrResources(title), isError)
+    alert(Internals.textOrResource(message) + ".", Internals.textOrResource(title), isError)
   },
 
   /**
@@ -19,8 +24,6 @@ var Windows = {
    * @returns {Boolean}
    */
   confirm: function(message, title, noAsDefault) {
-    message = Internals.stringOrResources(message)
-    if (message !== undefined && !message.endsWith(".") && !message.endsWith("?")) message += "?"
-    return confirm(message, noAsDefault, Internals.stringOrResources(title))
+    return confirm(Internals.textOrResource(message), noAsDefault, Internals.textOrResource(title))
   }
 }

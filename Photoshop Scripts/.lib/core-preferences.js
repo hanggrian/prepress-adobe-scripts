@@ -37,9 +37,9 @@ function Configs(path) {
    */
   this.getBoolean = function(key, defaultValue) {
     var actualKey = app.stringIDToTypeID(key)
-    print("Get bool preference `%s`: ", actualKey)
+    print("Get bool preference '%s': ", actualKey)
     if (!descriptor.hasKey(actualKey)) {
-      println("not found, use default `%s`.", defaultValue)
+      println("not found, use default '%s'.", defaultValue)
       return defaultValue
     }
     var value = descriptor.getBoolean(actualKey)
@@ -55,13 +55,13 @@ function Configs(path) {
    */
   this.getInt = function(key, defaultValue) {
     var actualKey = app.stringIDToTypeID(key)
-    print("Get int preference `%s`: ", actualKey)
+    print("Get int preference '%s': ", actualKey)
     if (!descriptor.hasKey(actualKey)) {
-      println("not found, use default `%s`.", defaultValue)
+      println("not found, use default '%s'.", defaultValue)
       return defaultValue
     }
     var value = descriptor.getInteger(actualKey)
-    println("`%s`.", value)
+    println("'%s'.", value)
     return value
   }
 
@@ -73,13 +73,13 @@ function Configs(path) {
    */
   this.getDouble = function(key, defaultValue) {
     var actualKey = app.stringIDToTypeID(key)
-    print("Get dbl preference `%s`: ", actualKey)
+    print("Get dbl preference '%s': ", actualKey)
     if (!descriptor.hasKey(actualKey)) {
-      println("not found, use default `%s`.", defaultValue)
+      println("not found, use default '%s'.", defaultValue)
       return defaultValue
     }
     var value = descriptor.getDouble(actualKey)
-    println("`%s`.", value)
+    println("'%s'.", value)
     return value
   }
 
@@ -91,13 +91,13 @@ function Configs(path) {
    */
   this.getString = function(key, defaultValue) {
     var actualKey = app.stringIDToTypeID(key)
-    print("Get str preference `%s`: ", actualKey)
+    print("Get str preference '%s': ", actualKey)
     if (!descriptor.hasKey(actualKey)) {
-      println("not found, use default `%s`.", defaultValue)
+      println("not found, use default '%s'.", defaultValue)
       return defaultValue
     }
     var value = descriptor.getString(actualKey)
-    println("`%s`.", value)
+    println("'%s'.", value)
     return value
   }
 
@@ -128,7 +128,7 @@ function Configs(path) {
     this.setBoolean = function(key, value) {
       var actualValue = value instanceof Function ? value() : value
       descriptor.putBoolean(app.stringIDToTypeID(key), actualValue)
-      println("Set bool preference `%s`: `%s`.", key, actualValue)
+      println("Set bool preference '%s': '%s'.", key, actualValue)
     }
 
     /**
@@ -139,7 +139,7 @@ function Configs(path) {
     this.setInt = function(key, value) {
       var actualValue = value instanceof Function ? value() : value
       descriptor.putInteger(app.stringIDToTypeID(key), actualValue)
-      println("Set int preference `%s`: `%s`.", key, actualValue)
+      println("Set int preference '%s': '%s'.", key, actualValue)
     }
 
     /**
@@ -150,7 +150,7 @@ function Configs(path) {
     this.setDouble = function(key, value) {
       var actualValue = value instanceof Function ? value() : value
       descriptor.putDouble(app.stringIDToTypeID(key), actualValue)
-      println("Set dbl preference `%s`: `%s`.", key, actualValue)
+      println("Set dbl preference '%s': '%s'.", key, actualValue)
     }
 
     /**
@@ -161,7 +161,7 @@ function Configs(path) {
     this.setString = function(key, value) {
       var actualValue = value instanceof Function ? value() : value
       descriptor.putString(app.stringIDToTypeID(key), actualValue)
-      println("Set str preference `%s`: `%s`.", key, actualValue)
+      println("Set str preference '%s': '%s'.", key, actualValue)
     }
 
     /**
@@ -170,7 +170,7 @@ function Configs(path) {
      */
     this.remove = function(key) {
       descriptor.erase(app.stringIDToTypeID(key))
-      println("Remove preference `%s`.", key)
+      println("Remove preference '%s'.", key)
     }
 
     /** Confirm all the changes to this editor. */

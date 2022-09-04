@@ -1,14 +1,12 @@
 #target Illustrator
 #include "../.lib/commons.js"
 
-function listDirections() {
-  return [
-    [R.string.top, "ic_arrow_top"],
-    [R.string.right, "ic_arrow_right"],
-    [R.string.bottom, "ic_arrow_bottom"],
-    [R.string.left, "ic_arrow_left"]
-  ]
-}
+var Direction = Enums.of({
+  TOP: { name: R.string.top, image: "ic_arrow_top" },
+  RIGHT: { name: R.string.right, image: "ic_arrow_right" },
+  BOTTOM: { name: R.string.bottom, image: "ic_arrow_bottom" },
+  LEFT: { name: R.string.left, image: "ic_arrow_left" }
+}, true)
 
 var SIZE_INPUT = [110, 21]
 var SIZE_LABEL_TAB = [70, 21] // can't align right on tabbed panel
@@ -31,7 +29,7 @@ dialog.hgroup(function(main) {
     topGroup.vpanel(R.string.flap, function(panel) {
       panel.alignChildren = "right"
       panel.hgroup(function(group) {
-        group.tooltips(R.string.tip_addflapdieline_length)
+        group.helpTips = R.string.tip_addflapdieline_length
         group.leftStaticText(undefined, R.string.length)
         lengthEdit = group.editText(SIZE_INPUT, config.getString("length", "20 mm")).also(function(it) {
           it.validateUnits()
@@ -39,21 +37,21 @@ dialog.hgroup(function(main) {
         })
       })
       panel.hgroup(function(group) {
-        group.tooltips(R.string.tip_addflapdieline_weight)
+        group.helpTips = R.string.tip_addflapdieline_weight
         group.leftStaticText(undefined, R.string.weight)
         weightEdit = group.editText(SIZE_INPUT, config.getString("weight", "1 pt")).also(VALIDATE_UNITS)
       })
       panel.hgroup(function(group) {
-        group.tooltips(R.string.tip_addflapdieline_color)
+        group.helpTips = R.string.tip_addflapdieline_color
         group.leftStaticText(undefined, R.string.color)
-        colorList = group.dropDownList(SIZE_INPUT, Colors.list()).also(function(it) {
+        colorList = group.dropDownList(SIZE_INPUT, Color2.list()).also(function(it) {
           it.selection = config.getInt("color")
         })
       })
       panel.hgroup(function(group) {
-        group.tooltips(R.string.tip_addflapdieline_direction)
+        group.helpTips = R.string.tip_addflapdieline_direction
         group.leftStaticText(undefined, R.string.direction)
-        directionList = group.dropDownList(SIZE_INPUT, listDirections()).also(function(it) {
+        directionList = group.dropDownList(SIZE_INPUT, Direction.list()).also(function(it) {
           it.selection = config.getInt("direction")
         })
       })
@@ -63,12 +61,12 @@ dialog.hgroup(function(main) {
     panel.preferredSize = [200, 0]
     panel.vtab(R.string.glue_flap, function(tab) {
       tab.hgroup(function(group) {
-        group.tooltips(R.string.tip_addflapdieline_glueflap_shear)
+        group.helpTips = R.string.tip_addflapdieline_glueflap_shear
         group.leftStaticText(SIZE_LABEL_TAB, R.string.shear)
         glueShearEdit = group.editText(SIZE_INPUT, "5 mm").also(VALIDATE_UNITS)
       })
       tab.hgroup(function(group) {
-        group.tooltips(R.string.tip_addflapdieline_glueflap_scratches)
+        group.helpTips = R.string.tip_addflapdieline_glueflap_scratches
         group.leftStaticText(SIZE_LABEL_TAB, R.string.scratches)
         glueScratchEdit = group.editText(SIZE_INPUT, "0 mm").also(function(it) {
           it.validateUnits()
@@ -78,24 +76,24 @@ dialog.hgroup(function(main) {
     })
     /* tabbedPanel.vtab(R.string.tuck_flap, function(tab) {
       tab.hgroup(function(group) {
-        group.tooltips(R.string.tip_addflapdieline_tuckflap_curve)
+        group.helpTips = R.string.tip_addflapdieline_tuckflap_curve
         group.leftStaticText(SIZE_LABEL_TAB, R.string.curve)
         tuckSliderGroup = new SliderGroup(group, SIZE_EDIT, 2, 0, 4, 25)
       })
       tab.hgroup(function(group) {
-        group.tooltips(R.string.tip_addflapdieline_tuckflap_distance)
+        group.helpTips = R.string.tip_addflapdieline_tuckflap_distance
         group.leftStaticText(SIZE_LABEL_TAB, R.string.distance)
         tuckDistanceEdit = group.editText(SIZE_EDIT, "0 mm").also(VALIDATE_UNITS)
       })
     }) */
     panel.vtab(R.string.dust_flap, function(tab) {
       tab.hgroup(function(group) {
-        group.tooltips(R.string.tip_addflapdieline_dustflap_shoulder)
+        group.helpTips = R.string.tip_addflapdieline_dustflap_shoulder
         group.leftStaticText(SIZE_LABEL_TAB, R.string.shoulder)
         dustShoulderEdit = group.editText(SIZE_INPUT, "5 mm").also(VALIDATE_UNITS)
       })
       tab.hgroup(function(group) {
-        group.tooltips(R.string.tip_addflapdieline_dustflap_distance)
+        group.helpTips = R.string.tip_addflapdieline_dustflap_distance
         group.leftStaticText(SIZE_LABEL_TAB, R.string.distance)
         dustDistanceEdit = group.editText(SIZE_INPUT, "0 mm").also(VALIDATE_UNITS)
       })
@@ -119,20 +117,21 @@ dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
   var length = parseUnits(lengthEdit.text)
   var weight = parseUnits(weightEdit.text)
-  var color = parseColor(colorList.selection.text)
+  var color = Color2.valueOf(colorList.selection)
+  var direction = Direction.valueOf(directionList.selection)
 
   var pathItem = layer.pathItems.add()
   pathItem.filled = false
   pathItem.strokeDashes = []
-  pathItem.strokeColor = color
+  pathItem.strokeColor = color.getValue()
   pathItem.strokeWidth = weight
 
   if (currentTab === getString(R.string.glue_flap)) {
-    processGlue(pathItem, length)
+    processGlue(pathItem, length, direction)
   } else if (currentTab === getString(R.string.tuck_flap)) {
-    processTuck(pathItem, length)
+    processTuck(pathItem, length, direction)
   } else {
-    processDust(pathItem, length)
+    processDust(pathItem, length, direction)
   }
   selection = [pathItem]
 
@@ -143,22 +142,22 @@ dialog.setDefaultButton(undefined, function() {
 })
 dialog.show()
 
-function processGlue(pathItem, length) {
+function processGlue(pathItem, length, direction) {
   var glueShear = parseUnits(glueShearEdit.text)
   var glueScratch = parseUnits(glueScratchEdit.text)
   var positions = []
   Collections.first(selection).geometricBounds.run(function(it) {
-    if (directionList.selection.text === getString(R.string.left)) {
+    if (direction === Direction.LEFT) {
       positions.push([it.getLeft(), it.getTop()])
       positions.push([it.getLeft() - length, it.getTop() - glueShear])
       positions.push([it.getLeft() - length, it.getBottom() + glueShear])
       positions.push([it.getLeft(), it.getBottom()])
-    } else if (directionList.selection.text === getString(R.string.top)) {
+    } else if (direction === Direction.TOP) {
       positions.push([it.getLeft(), it.getTop()])
       positions.push([it.getLeft() + glueShear, it.getTop() + length])
       positions.push([it.getRight() - glueShear, it.getTop() + length])
       positions.push([it.getRight(), it.getTop()])
-    } else if (directionList.selection.text === getString(R.string.right)) {
+    } else if (direction === Direction.RIGHT) {
       positions.push([it.getRight(), it.getTop()])
       positions.push([it.getRight() + length, it.getTop() - glueShear])
       positions.push([it.getRight() + length, it.getBottom() + glueShear])
@@ -174,21 +173,21 @@ function processGlue(pathItem, length) {
   pathItem.setEntirePath(positions)
 }
 
-function processTuck(pathItem, length) {
+function processTuck(pathItem, length, direction) {
   var tuckCurve = parseInt(tuckCurveEdit.text) * length / 100
   var tuckStart = length - tuckCurve
   var tuckDistance = parseUnits(tuckDistanceEdit.text)
   var positions = []
   Collections.first(selection).geometricBounds.run(function(it) {
-    if (directionList.selection.text === getString(R.string.left)) {
+    if (direction === Direction.LEFT) {
       positions.push([it.getLeft(), it.getTop() - tuckDistance])
       positions.push([it.getLeft() - tuckStart, it.getTop() - tuckDistance])
       positions.push([it.getLeft() - length, it.getTop() - tuckCurve - tuckDistance])
       positions.push([it.getLeft() - length, it.getBottom() + tuckCurve + tuckDistance])
       positions.push([it.getLeft() - tuckStart, it.getBottom() + tuckDistance])
       positions.push([it.getLeft(), it.getBottom() + tuckDistance])
-    } else if (directionList.selection.text === getString(R.string.top)) {
-    } else if (directionList.selection.text === getString(R.string.right)) {
+    } else if (direction === Direction.TOP) {
+    } else if (direction === Direction.RIGHT) {
     } else {
     }
   })
@@ -201,12 +200,12 @@ function processTuck(pathItem, length) {
   })
 }
 
-function processDust(pathItem, length) {
+function processDust(pathItem, length, direction) {
   var dustShoulder = parseUnits(dustShoulderEdit.text)
   var dustDistance = parseUnits(dustDistanceEdit.text)
   var positions = []
   Collections.first(selection).geometricBounds.run(function(it) {
-    if (directionList.selection.text === getString(R.string.left)) {
+    if (direction === Direction.LEFT) {
       positions.push([it.getLeft(), it.getTop()])
       positions.push([it.getLeft() - dustDistance, it.getTop() - dustDistance])
       positions.push([it.getLeft() - length, it.getTop() - dustDistance])
@@ -214,7 +213,7 @@ function processDust(pathItem, length) {
       positions.push([it.getLeft() - dustShoulder * 1.5, it.getBottom() + dustShoulder / 2])
       positions.push([it.getLeft() - dustShoulder, it.getBottom()])
       positions.push([it.getLeft(), it.getBottom()])
-    } else if (directionList.selection.text === getString(R.string.top)) {
+    } else if (direction === Direction.TOP) {
       positions.push([it.getLeft(), it.getTop()])
       positions.push([it.getLeft() + dustDistance, it.getTop() + dustDistance])
       positions.push([it.getLeft() + dustDistance, it.getTop() + length])
@@ -222,7 +221,7 @@ function processDust(pathItem, length) {
       positions.push([it.getRight() - dustShoulder / 2, it.getTop() + dustShoulder * 1.5])
       positions.push([it.getRight(), it.getTop() + dustShoulder])
       positions.push([it.getRight(), it.getTop()])
-    } else if (directionList.selection.text === getString(R.string.right)) {
+    } else if (direction === Direction.RIGHT) {
       positions.push([it.getRight(), it.getTop()])
       positions.push([it.getRight() + dustDistance, it.getTop() - dustDistance])
       positions.push([it.getRight() + length, it.getTop() - dustDistance])

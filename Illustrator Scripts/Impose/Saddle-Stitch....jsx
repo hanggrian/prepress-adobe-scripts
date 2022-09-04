@@ -7,10 +7,7 @@ var dialog = new Dialog(R.string.impose_saddle_stitch, "imposing-layout/#saddle-
 var pdfPanel, pagesPanel, documentPanel
 var rtlCheck
 
-var files = FilePicker.openFile(dialog.getTitle(), [
-  FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
-  FILTERS_BMP, FILTERS_GIF89a, FILTERS_JPEG, FILTERS_JPEG2000, FILTERS_PNG, FILTERS_PHOTOSHOP, FILTERS_TIFF
-], true)
+var files = FilePicker.openFile(dialog.getTitle(), FileType.values(), true)
 
 if (files !== null && Collections.isNotEmpty(files)) {
   var collection = new FileCollection(files)
@@ -35,7 +32,7 @@ if (files !== null && Collections.isNotEmpty(files)) {
     })
     main.hgroup(function(group) {
       rtlCheck = group.checkBox(undefined, R.string.right_to_left).also(function(it) {
-        it.tooltip(R.string.tip_impose_rtl)
+        it.helpTip = R.string.tip_impose_rtl
       })
     })
   })
@@ -50,9 +47,10 @@ if (files !== null && Collections.isNotEmpty(files)) {
     var bleed = pagesPanel.getBleed()
 
     if (pages % 4 !== 0) {
-      errorWithAlert("Pages must be divisible by 4")
+      Windows.alert(getString(R.string.error_impose, 4), dialog.getTitle(), true)
+      return true
     }
-    var document = documentPanel.open(getString(R.string.impose_saddle_stitch),
+    var document = documentPanel.open(dialog.getTitle(),
       artboards,
       width * 2,
       height,

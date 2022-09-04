@@ -3,12 +3,6 @@ initTest($)
 var window = new Window("dialog", "Test")
 var root = window.add("group")
 
-test("tooltip", function() {
-  var child = root.editText()
-  child.tooltip("Description")
-  assertEquals("Description.", child.helpTip)
-})
-
 test("activate", function() {
   var child = root.editText()
   assertFalse(child.active)

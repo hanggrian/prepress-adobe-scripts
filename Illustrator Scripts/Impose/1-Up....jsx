@@ -7,10 +7,7 @@ var dialog = new Dialog(getString(R.string.impose_n_up, 1), "imposing-layout/#n-
 var pdfPanel, pagesPanel, documentPanel
 var nupGroup
 
-var files = FilePicker.openFile(dialog.getTitle(), [
-  FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
-  FILTERS_BMP, FILTERS_GIF89a, FILTERS_JPEG, FILTERS_JPEG2000, FILTERS_PNG, FILTERS_PHOTOSHOP, FILTERS_TIFF
-], true)
+var files = FilePicker.openFile(dialog.getTitle(), FileType.values(), true)
 
 if (files !== null && Collections.isNotEmpty(files)) {
   var collection = new FileCollection(files)
@@ -46,7 +43,7 @@ if (files !== null && Collections.isNotEmpty(files)) {
     var rotatedWidth = !nupGroup.isRotate() ? width : height
     var rotatedHeight = !nupGroup.isRotate() ? height : width
 
-    var document = documentPanel.open(getString(R.string.impose_n_up, 1),
+    var document = documentPanel.open(dialog.getTitle(),
       artboards,
       rotatedWidth,
       rotatedHeight,

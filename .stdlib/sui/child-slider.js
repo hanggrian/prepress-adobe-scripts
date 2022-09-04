@@ -5,12 +5,6 @@
 */
 
 /**
- * Set tooltip to this children.
- * @param {String|Object} text tips to display.
- */
-Slider.prototype.tooltip = function(text) { Internals.setTooltip(this, Internals.stringOrResources(text)) }
-
-/**
  * Add children to group.
  * @param {Array} size optional size or bounds.
  * @param {Number} current current value.
@@ -20,7 +14,7 @@ Slider.prototype.tooltip = function(text) { Internals.setTooltip(this, Internals
  * @returns {Slider}
  */
 Group.prototype.slider = function(size, current, start, end, properties) {
-  return _slider(this, size, current, start, end, properties)
+  return Internals.addSlider(this, size, current, start, end, properties)
 }
 
 /**
@@ -33,13 +27,13 @@ Group.prototype.slider = function(size, current, start, end, properties) {
  * @returns {Slider}
  */
 Panel.prototype.slider = function(size, current, start, end, properties) {
-  return _slider(this, size, current, start, end, properties)
+  return Internals.addSlider(this, size, current, start, end, properties)
 }
 
-function _slider(root, size, current, start, end, properties) {
+Internals.addSlider = function(root, size, current, start, end, properties) {
   var child = root.add("slider", Internals.sizeOrBounds(size), current, start, end, properties)
   if (root.helpTips !== undefined) {
-    Internals.setTooltip(child, root.helpTips)
+    child.helpTip = root.helpTips
   }
   return child
 }

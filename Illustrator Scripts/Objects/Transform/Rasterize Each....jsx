@@ -19,14 +19,14 @@ dialog.vgroup(function(main) {
   main.vgroup(function(topGroup) {
     topGroup.alignChildren = "right"
     topGroup.hgroup(function(group) {
-      group.tooltips(R.string.tip_rasterizeeach_colormodel)
+      group.helpTips = R.string.tip_rasterizeeach_colormodel
       group.leftStaticText(undefined, R.string.color_model)
       colorModelList = group.dropDownList(SIZE_INPUT, COLOR_MODELS).also(function(it) {
         it.selection = 0
       })
     })
     topGroup.hgroup(function(group) {
-      group.tooltips(R.string.tip_rasterizeeach_resolusi)
+      group.helpTips = R.string.tip_rasterizeeach_resolusi
       group.leftStaticText(undefined, R.string.resolution)
       resolutionEdit = group.editText(SIZE_INPUT, "300").also(function(it) {
         it.validateDigits()
@@ -40,14 +40,14 @@ dialog.vgroup(function(main) {
       innerGroup.alignChildren = "fill"
       backgroundPanel = innerGroup.vpanel(R.string.background, function(panel) {
         panel.alignChildren = "fill"
-        panel.tooltips(R.string.tip_rasterizeeach_background)
+        panel.helpTips = R.string.tip_rasterizeeach_background
         backgroundWhiteRadio = panel.radioButton(undefined, R.string.white)
         backgroundTransparentRadio = panel.radioButton(undefined, R.string.transparent)
         panel.selectRadioIndex(config.getInt("background"))
       })
       antiAliasingPanel = innerGroup.vpanel(R.string.anti_aliasing, function(panel) {
         panel.alignChildren = "fill"
-        panel.tooltips(R.string.tip_rasterizeeach_antialiasing)
+        panel.helpTips = R.string.tip_rasterizeeach_antialiasing
         antiAliasingNoneRadio = panel.radioButton(undefined, R.string.none)
         antiAliasingArtRadio = panel.radioButton(undefined, R.string.art_optimized)
         antiAliasingTypeRadio = panel.radioButton(undefined, R.string.type_optimized)
@@ -57,27 +57,27 @@ dialog.vgroup(function(main) {
     topGroup.vpanel("Options", function(panel) {
       panel.alignChildren = "fill"
       backgroundBlackCheck = panel.checkBox(undefined, R.string.against_black_background).also(function(it) {
-        it.tooltip(R.string.tip_rasterizeeach_option1)
+        it.helpTip = R.string.tip_rasterizeeach_option1
         it.value = config.getBoolean("option1")
       })
       clippingMaskCheck = panel.checkBox(undefined, R.string.create_clipping_mask).also(function(it) {
-        it.tooltip(R.string.tip_rasterizeeach_option2)
+        it.helpTip = R.string.tip_rasterizeeach_option2
         it.value = config.getBoolean("option2")
       })
       convertSpotColorsCheck = panel.checkBox(undefined, R.string.convert_spot_colors).also(function(it) {
-        it.tooltip(R.string.tip_rasterizeeach_option3)
+        it.helpTip = R.string.tip_rasterizeeach_option3
         it.value = config.getBoolean("option3")
       })
       convertTextToOutlinesCheck = panel.checkBox(undefined, R.string.convert_text_to_outlines).also(function(it) {
-        it.tooltip(R.string.tip_rasterizeeach_option4)
+        it.helpTip = R.string.tip_rasterizeeach_option4
         it.value = config.getBoolean("option4")
       })
       includeLayersCheck = panel.checkBox(undefined, R.string.include_layers).also(function(it) {
-        it.tooltip(R.string.tip_rasterizeeach_option5)
+        it.helpTip = R.string.tip_rasterizeeach_option5
         it.value = config.getBoolean("option5")
       })
       panel.hgroup(function(group) {
-        group.tooltips(R.string.tip_rasterizeeach_aroundobject)
+        group.helpTips = R.string.tip_rasterizeeach_aroundobject
         group.staticText(undefined, R.string.add)
         paddingEdit = group.editText([70, 21], unitsOf("0 mm")).also(VALIDATE_UNITS)
         group.staticText(undefined, R.string.around_object)

@@ -18,7 +18,7 @@ dialog.vgroup(function(main) {
     topGroup.alignChildren = "right"
     topGroup.hgroup(function(group) {
       group.alignChildren = "bottom"
-      group.tooltips(R.string.tip_resizeeach_width)
+      group.helpTips = R.string.tip_resizeeach_width
       group.leftStaticText(undefined, R.string.width)
       widthEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitName, 2)).also(function(it) {
         it.validateUnits()
@@ -33,7 +33,7 @@ dialog.vgroup(function(main) {
     })
     topGroup.hgroup(function(group) {
       group.alignChildren = "bottom"
-      group.tooltips(R.string.tip_resizeeach_height)
+      group.helpTips = R.string.tip_resizeeach_height
       group.leftStaticText(undefined, R.string.height)
       heightEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitName, 2)).also(VALIDATE_UNITS)
       heightCheck = group.checkBox().also(function(it) {
@@ -49,19 +49,19 @@ dialog.vgroup(function(main) {
     group.vpanel(R.string.change, function(panel) {
       panel.alignChildren = "fill"
       changePositionsCheck = panel.checkBox(undefined, R.string.positions).also(function(it) {
-        it.tooltip(R.string.tip_resizeeach_option1)
+        it.helpTip = R.string.tip_resizeeach_option1
         it.value = config.getBoolean("option1")
       })
       changeFillPatternsCheck = panel.checkBox(undefined, R.string.fill_patterns).also(function(it) {
-        it.tooltip(R.string.tip_resizeeach_option2)
+        it.helpTip = R.string.tip_resizeeach_option2
         it.value = config.getBoolean("option2")
       })
       changeFillGradientsCheck = panel.checkBox(undefined, R.string.fill_gradients).also(function(it) {
-        it.tooltip(R.string.tip_resizeeach_option3)
+        it.helpTip = R.string.tip_resizeeach_option3
         it.value = config.getBoolean("option3")
       })
       changeStrokePatternsCheck = panel.checkBox(undefined, R.string.stroke_patterns).also(function(it) {
-        it.tooltip(R.string.tip_resizeeach_option4)
+        it.helpTip = R.string.tip_resizeeach_option4
         it.value = config.getBoolean("option4")
       })
     })

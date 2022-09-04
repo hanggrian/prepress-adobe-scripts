@@ -18,7 +18,7 @@ function ProgressDialog(stop, status) {
 
   this.texts = window.add("group").also(function(group) {
     group.orientation = "row"
-    self.statusText = group.staticText([325, 21], (Internals.stringOrResources(status) || "Please wait") + "...")
+    self.statusText = group.staticText([325, 21], (status || "Please wait") + "...")
       .also(function(it) { it.justify = "left" })
     self.countText = group.staticText([75, 21], "0/" + stop).also(function(it) { it.justify = "right" })
   })
@@ -27,8 +27,8 @@ function ProgressDialog(stop, status) {
   /** Add progression to dialog with optional status. */
   this.increment = function() {
     if (Collections.isNotEmpty(arguments)) {
-      var format = Internals.stringOrResources(Collections.first(arguments))
-      self.statusText.text = format.formatArr(Array.prototype.slice.call(arguments, 1)) + "..."
+      self.statusText.text = Array.prototype.shift.call(arguments)
+      self.statusText.text = Internals.formatString(self.statusText.text, arguments) + "..."
     }
     self.progressBar.value++
     self.countText.text = self.progressBar.value + "/" + stop

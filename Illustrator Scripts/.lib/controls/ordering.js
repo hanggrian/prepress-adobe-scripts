@@ -1,32 +1,31 @@
-var OrderBy = {
-  layers: function() {
-    return [
-      [R.string.default, "ic_order_layer_default"],
-      [R.string.reversed, "ic_order_layer_reversed"]
-    ]
+var Ordering = Enums.of({
+  LAYER_DEFAULT: { name: R.string.default, image: "ic_order_layer_default" },
+  LAYER_REVERSED: { name: R.string.reversed, image: "ic_order_layer_reversed" },
+  NAME_ASCENDING: { name: R.string.ascending, image: "ic_order_name_ascending" },
+  NAME_DESCENDING: { name: R.string.descending, image: "ic_order_name_descending" },
+  POSITION_HORIZONTAL: { name: R.string.horizontal, image: "ic_order_position_horizontal" },
+  POSITION_VERTICAL: { name: R.string.vertical, image: "ic_order_position_vertical" },
+  POSITION_HORIZONTALRTL: { name: R.string.horizontal_rtl, image: "ic_order_position_horizontalrtl" },
+  POSITION_VERTICALRTL: { name: R.string.vertical_rtl, image: "ic_order_position_verticalrtl" },
+
+  layerValues: function() { return [this.LAYER_DEFAULT, this.LAYER_REVERSED] },
+  nameValues: function() { return [this.NAME_ASCENDING, this.NAME_DESCENDING] },
+  positionValues: function() {
+    return [this.POSITION_HORIZONTAL, this.POSITION_VERTICAL, this.POSITION_HORIZONTALRTL, this.POSITION_VERTICALRTL]
   },
-  names: function() {
-    return [
-      [R.string.ascending, "ic_order_name_ascending"],
-      [R.string.descending, "ic_order_name_descending"]
-    ]
-  },
-  positions: function() {
-    return [
-      [R.string.horizontal, "ic_order_position_horizontal"],
-      [R.string.vertical, "ic_order_position_vertical"],
-      [R.string.horizontal_rtl, "ic_order_position_horizontalrtl"],
-      [R.string.vertical_rtl, "ic_order_position_verticalrtl"]
-    ]
+  layerList: function() { return Collections.map(this.layerValues(), function(it) { return [it.name, it.image] }) },
+  nameList: function() { return Collections.map(this.nameValues(), function(it) { return [it.name, it.image] }) },
+  positionList: function() {
+    return Collections.map(this.positionValues(), function(it) { return [it.name, it.image] })
   }
-}
+}, true)
 
 /**
  * DropDownList of ordering choices.
  * @param {Group|Panel|Window} parent holder of this control.
  * @param {Array} ordersCollection ordering options.
  */
-function OrderByList(parent, ordersCollection) {
+function OrderingList(parent, ordersCollection) {
   var orders = []
   Collections.forEach(checkNotNull(ordersCollection), function(it, i) {
     orders = orders.concat(it)
@@ -36,7 +35,7 @@ function OrderByList(parent, ordersCollection) {
   })
 
   var self = parent.dropDownList(undefined, orders).also(function(it) {
-    it.tooltip(R.string.tip_orderby)
+    it.helpTip = R.string.tip_orderby
     it.title = getString(R.string.order_by) + ":"
   })
 
@@ -47,29 +46,29 @@ function OrderByList(parent, ordersCollection) {
    * @returns
    */
   self.forEach = function(collection, action) {
-    var imageName = self.selection.image.name.substringBefore(".png")
-    if (imageName === "ic_order_layer_default") {
+    var ordering = Ordering.valueOf(self.selection)
+    if (ordering === Ordering.LAYER_DEFAULT) {
       Collections.forEach(collection, action)
       return
-    } else if (imageName === "ic_order_layer_reversed") {
+    } else if (ordering === Ordering.LAYER_REVERSED) {
       Collections.forEachReversed(collection, action)
       return
     }
     var sortedCollection = Collections.map(collection, function(it) { return it })
-    if (imageName === "ic_order_name_ascending") {
+    if (ordering === Ordering.NAME_ASCENDING) {
       sortedCollection.sort(sortAscending)
-    } else if (imageName === "ic_order_name_descending") {
+    } else if (ordering === Ordering.NAME_DESCENDING) {
       sortedCollection.sort(sortDescending)
-    } else if (imageName === "ic_order_position_horizontal") {
+    } else if (ordering === Ordering.POSITION_HORIZONTAL) {
       sortedCollection.sort(sortHorizontal)
-    } else if (imageName === "ic_order_position_vertical") {
+    } else if (ordering === Ordering.POSITION_VERTICAL) {
       sortedCollection.sort(sortVertical)
-    } else if (imageName === "ic_order_position_horizontalrtl") {
+    } else if (ordering === Ordering.POSITION_HORIZONTALRTL) {
       sortedCollection.sort(sortHorizontalRtl)
-    } else if (imageName === "ic_order_position_verticalrtl") {
+    } else if (ordering === Ordering.POSITION_VERTICALRTL) {
       sortedCollection.sort(sortVerticalRtl)
     } else {
-      errorWithAlert("Ordering error")
+      error("Ordering error")
     }
     Collections.forEach(sortedCollection, action)
   }

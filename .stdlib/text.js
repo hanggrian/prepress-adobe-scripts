@@ -112,9 +112,3 @@ String.prototype.trim = function() { return this.trimStart().trimEnd() }
  * @returns {String}
  */
 String.prototype.format = function() { return Internals.formatString(this, arguments) }
-
-/**
- * Returns a formatted string using array argument.
- * @returns {String}
- */
-String.prototype.formatArr = function(arr) { return Internals.formatString(this, arr) }

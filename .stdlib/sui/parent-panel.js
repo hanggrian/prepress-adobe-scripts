@@ -5,10 +5,10 @@
 */
 
 /**
- * Set tooltip to this parent.
+ * Set tooltip to all children.
  * @param {String|Object} text tips to display.
  */
-Panel.prototype.tooltips = function(text) { Internals.setTooltips(this, Internals.stringOrResources(text)) }
+Panel.prototype.setHelpTips = function(tips) { Internals.setHelpTips(this, tips) }
 
 /**
  * Add horizontal parent to group.
@@ -17,7 +17,7 @@ Panel.prototype.tooltips = function(text) { Internals.setTooltips(this, Internal
  * @returns {Panel}
  */
 Group.prototype.hpanel = function(text, configuration) {
-  return _panel(this, "row", text, configuration)
+  return Internals.addPanel(this, "row", text, configuration)
 }
 
 /**
@@ -27,7 +27,7 @@ Group.prototype.hpanel = function(text, configuration) {
  * @returns {Panel}
  */
 Panel.prototype.hpanel = function(text, configuration) {
-  return _panel(this, "row", text, configuration)
+  return Internals.addPanel(this, "row", text, configuration)
 }
 
 /**
@@ -37,7 +37,7 @@ Panel.prototype.hpanel = function(text, configuration) {
  * @returns {Panel}
  */
 Group.prototype.vpanel = function(text, configuration) {
-  return _panel(this, "column", text, configuration)
+  return Internals.addPanel(this, "column", text, configuration)
 }
 
 /**
@@ -47,7 +47,7 @@ Group.prototype.vpanel = function(text, configuration) {
  * @returns {Panel}
  */
 Panel.prototype.vpanel = function(text, configuration) {
-  return _panel(this, "column", text, configuration)
+  return Internals.addPanel(this, "column", text, configuration)
 }
 
 /**
@@ -57,7 +57,7 @@ Panel.prototype.vpanel = function(text, configuration) {
  * @returns {Panel}
  */
 Group.prototype.spanel = function(text, configuration) {
-  return _panel(this, "stack", text, configuration)
+  return Internals.addPanel(this, "stack", text, configuration)
 }
 
 /**
@@ -67,15 +67,12 @@ Group.prototype.spanel = function(text, configuration) {
  * @returns {Panel}
  */
 Panel.prototype.spanel = function(text, configuration) {
-  return _panel(this, "stack", text, configuration)
+  return Internals.addPanel(this, "stack", text, configuration)
 }
 
-function _panel(root, orientation, text, configuration) {
-  var parent = root.add("panel", undefined, Internals.stringOrResources(text))
+Internals.addPanel = function(root, orientation, text, configuration) {
+  var parent = root.add("panel", undefined, text)
   parent.orientation = orientation
-  if (root.helpTips !== undefined) {
-    Internals.setTooltips(parent, root.helpTips)
-  }
   if (text !== undefined) {
     // default margin is [15, 10, 15, 10], but this margin is unsufficient when title is present
     parent.margins = [15, 15, 15, 10]
@@ -96,6 +93,4 @@ Panel.prototype.getSelectedRadioIndex = function() { return Internals.getSelecte
  * Select radio button of this group.
  * @param {String|Object} text existing text of any RadioButton, throws error if not found.
  */
-Panel.prototype.selectRadioIndex = function(index) {
-  return Internals.selectRadioIndex(this, index)
-}
+Panel.prototype.selectRadioIndex = function(index) { Internals.selectRadioIndex(this, index) }

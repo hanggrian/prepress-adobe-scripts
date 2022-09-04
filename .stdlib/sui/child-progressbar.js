@@ -5,12 +5,6 @@
 */
 
 /**
- * Set tooltip to this children.
- * @param {String|Object} text tips to display.
- */
-Progressbar.prototype.tooltip = function(text) { Internals.setTooltip(this, Internals.stringOrResources(text)) }
-
-/**
  * Add children to group.
  * @param {Array} size optional size or bounds.
  * @param {Number} start min value.
@@ -19,7 +13,7 @@ Progressbar.prototype.tooltip = function(text) { Internals.setTooltip(this, Inte
  * @returns {Progressbar}
  */
 Group.prototype.progressBar = function(size, start, end, properties) {
-  return _progressBar(this, size, start, end, properties)
+  return Internals.addProgressBar(this, size, start, end, properties)
 }
 
 /**
@@ -31,13 +25,13 @@ Group.prototype.progressBar = function(size, start, end, properties) {
  * @returns {Progressbar}
  */
 Panel.prototype.progressBar = function(size, start, end, properties) {
-  return _progressBar(this, size, start, end, properties)
+  return Internals.addProgressBar(this, size, start, end, properties)
 }
 
-function _progressBar(root, size, start, end, properties) {
+Internals.addProgressBar = function(root, size, start, end, properties) {
   var child = root.add("progressbar", Internals.sizeOrBounds(size), start, end, properties)
   if (root.helpTips !== undefined) {
-    Internals.setTooltip(child, root.helpTips)
+    child.helpTip = root.helpTips
   }
   return child
 }

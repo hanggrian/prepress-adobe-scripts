@@ -32,7 +32,7 @@ if (files !== null && Collections.isNotEmpty(files)) {
 
   /* dialog.main.vpanel("Split Options", function(panel) {
       panel.hgroup(function(group) {
-          group.tooltips("Divide image horizontally/vertically")
+          group.helpTips = "Divide image horizontally/vertically"
           group.staticText(SIZE_TEXT, "Direction:").also(JUSTIFY_RIGHT)
           group.vgroup(function(group2) {
               group2.alignChildren = "left"
@@ -41,7 +41,7 @@ if (files !== null && Collections.isNotEmpty(files)) {
           })
       })
       panel.hgroup(function(group) {
-          group.tooltips("Total number of divison")
+          group.helpTips = "Total number of divison"
           group.staticText(SIZE_TEXT, "Parts:").also(JUSTIFY_RIGHT)
           partsEdit = group.editText(SIZE_EDIT, "2").also(function(it) {
               it.validateDigits()

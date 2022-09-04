@@ -7,10 +7,7 @@ var dialog = new Dialog(getString(R.string.impose_n_up, 8), "imposing-layout/#n-
 var pdfPanel, pagesPanel, documentPanel
 var nupGroup
 
-var files = FilePicker.openFile(dialog.getTitle(), [
-  FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
-  FILTERS_BMP, FILTERS_GIF89a, FILTERS_JPEG, FILTERS_JPEG2000, FILTERS_PNG, FILTERS_PHOTOSHOP, FILTERS_TIFF
-], true)
+var files = FilePicker.openFile(dialog.getTitle(), FileType.values(), true)
 
 if (files !== null && Collections.isNotEmpty(files)) {
   var collection = new FileCollection(files)
@@ -48,9 +45,10 @@ if (files !== null && Collections.isNotEmpty(files)) {
 
     var pagesDivisor = nupGroup.isDuplex() ? 8 : 16
     if (pages % pagesDivisor !== 0) {
-      errorWithAlert("Pages must be divisible by " + pagesDivisor)
+      Windows.alert(getString(R.string.error_impose, pagesDivisor), dialog.getTitle(), true)
+      return true
     }
-    var document = documentPanel.open(getString(R.string.impose_n_up, 8),
+    var document = documentPanel.open(dialog.getTitle(),
       artboards,
       (rotatedWidth + bleed * 2) * 4,
       (rotatedHeight + bleed * 2) * 2,

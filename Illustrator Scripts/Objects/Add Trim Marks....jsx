@@ -20,7 +20,7 @@ dialog.vgroup(function(main) {
     topGroup.vpanel(R.string.trim_marks, function(panel) {
       panel.alignChildren = "right"
       panel.hgroup(function(group) {
-        group.tooltips(R.string.tip_addtrimmarks_offset)
+        group.helpTips = R.string.tip_addtrimmarks_offset
         group.leftStaticText(undefined, R.string.offset)
         offsetEdit = group.editText(SIZE_INPUT, config.getString("offset", "2.5 mm")).also(function(it) {
           it.validateUnits()
@@ -28,19 +28,19 @@ dialog.vgroup(function(main) {
         })
       })
       panel.hgroup(function(group) {
-        group.tooltips(R.string.tip_addtrimmarks_length)
+        group.helpTips = R.string.tip_addtrimmarks_length
         group.leftStaticText(undefined, R.string.length)
         lengthEdit = group.editText(SIZE_INPUT, config.getString("length", "2.5 mm")).also(VALIDATE_UNITS)
       })
       panel.hgroup(function(group) {
-        group.tooltips(R.string.tip_addtrimmarks_weight)
+        group.helpTips = R.string.tip_addtrimmarks_weight
         group.leftStaticText(undefined, R.string.weight)
         weightEdit = group.editText(SIZE_INPUT, config.getString("weight", "0.3 pt")).also(VALIDATE_UNITS) // the same value used in `Object > Create Trim Marks`
       })
       panel.hgroup(function(group) {
-        group.tooltips(R.string.tip_addtrimmarks_color)
+        group.helpTips = R.string.tip_addtrimmarks_color
         group.leftStaticText(undefined, R.string.color)
-        colorList = group.dropDownList(SIZE_INPUT, Colors.list()).also(function(it) {
+        colorList = group.dropDownList(SIZE_INPUT, Color2.list()).also(function(it) {
           it.selection = config.getInt("color")
         })
       })
@@ -50,36 +50,36 @@ dialog.vgroup(function(main) {
         group.staticText(SIZE_CHECK)
         topLeftCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip(R.string.top)
+          it.helpTip = R.string.top
         })
         topCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip(R.string.top)
+          it.helpTip = R.string.top
           it.visible = false
         })
         topRightCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip(R.string.top)
+          it.helpTip = R.string.top
         })
         group.staticText(SIZE_CHECK)
       })
       panel.hgroup(function(group) {
         leftTopCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip(R.string.left)
+          it.helpTip = R.string.left
         })
         group.image(SIZE_CHECK, "ic_arrow_topleft")
         group.image(SIZE_CHECK, "ic_arrow_top")
         group.image(SIZE_CHECK, "ic_arrow_topright")
         rightTopCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip(R.string.right)
+          it.helpTip = R.string.right
         })
       })
       panel.hgroup(function(group) {
         leftCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip(R.string.left)
+          it.helpTip = R.string.left
           it.visible = false
         })
         group.image(SIZE_CHECK, "ic_arrow_left")
@@ -87,37 +87,37 @@ dialog.vgroup(function(main) {
         group.image(SIZE_CHECK, "ic_arrow_right")
         rightCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip(R.string.right)
+          it.helpTip = R.string.right
           it.visible = false
         })
       })
       panel.hgroup(function(group) {
         leftBottomCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip(R.string.left)
+          it.helpTip = R.string.left
         })
         group.image(SIZE_CHECK, "ic_arrow_bottomleft")
         group.image(SIZE_CHECK, "ic_arrow_bottom")
         group.image(SIZE_CHECK, "ic_arrow_bottomright")
         rightBottomCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip(R.string.right)
+          it.helpTip = R.string.right
         })
       })
       panel.hgroup(function(group) {
         group.staticText(SIZE_CHECK)
         bottomLeftCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip(R.string.bottom)
+          it.helpTip = R.string.bottom
         })
         bottomCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip(R.string.bottom)
+          it.helpTip = R.string.bottom
           it.visible = false
         })
         bottomRightCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
-          it.tooltip(R.string.bottom)
+          it.helpTip = R.string.bottom
         })
         group.staticText(SIZE_CHECK)
       })
@@ -125,7 +125,7 @@ dialog.vgroup(function(main) {
   })
   multipleMultiRadioGroup = new MultiRadioGroup(main, R.string.multiple_target,
     [R.string.default, R.string.recursive]).also(function(it) {
-    it.tooltips(R.string.tip_addtrimmarks_multipletarget)
+    it.setHelpTips(R.string.tip_addtrimmarks_multipletarget)
     it.checkOnClick = function() {
       topLeftCheck.visible = !it.isSelected()
       topRightCheck.visible = !it.isSelected()
@@ -147,9 +147,9 @@ dialog.setDefaultButton(undefined, function() {
   var offset = parseUnits(offsetEdit.text)
   var length = parseUnits(lengthEdit.text)
   var weight = parseUnits(weightEdit.text)
-  var color = parseColor(colorList.selection.text)
+  var color = Color2.valueOf(colorList.selection)
   var maxBounds = Items.getMaxBounds(selection)
-  multipleMultiRadioGroup.isSelected()
+  selection = multipleMultiRadioGroup.isSelected()
     ? processMultiple(offset, length, weight, color, maxBounds)
     : processSingle(offset, length, weight, color, maxBounds)
 
@@ -348,7 +348,7 @@ function createTrimMark(weight, color, suffixName, fromX, fromY, toX, toY) {
   path.name = "Trim" + suffixName
   path.filled = false
   path.strokeDashes = []
-  path.strokeColor = color
+  path.strokeColor = color.getValue()
   path.strokeWidth = weight
   path.setEntirePath([[fromX, fromY], [toX, toY]])
   return path

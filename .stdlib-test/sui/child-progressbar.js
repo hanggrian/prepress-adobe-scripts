@@ -3,12 +3,6 @@ initTest($)
 var window = new Window("dialog", "Test")
 var root = window.add("group")
 
-test("tooltip", function() {
-  var child = root.progressBar()
-  child.tooltip("Description")
-  assertEquals("Description.", child.helpTip)
-})
-
 test("progressBar", function() {
   var child = root.progressBar([100, 50], 1, 10, { key: "value" })
   assertEquals(100, child.bounds.width)

@@ -3,12 +3,6 @@ initTest($)
 var window = new Window("dialog", "Test")
 var root = window.add("group")
 
-test("tooltip", function() {
-  var child = root.listBox()
-  child.tooltip("Description")
-  assertEquals("Description.", child.helpTip)
-})
-
 test("hasSelection", function() {
   var child = root.listBox(undefined, ["Apple", "Orange"])
   assertFalse(child.hasSelection())

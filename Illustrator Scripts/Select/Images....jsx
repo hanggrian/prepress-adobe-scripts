@@ -4,13 +4,11 @@
 #target Illustrator
 #include "../.lib/commons.js"
 
-function listYesNo() { return [R.string.yes, R.string.no] }
 var COLOR_SPACES = ["Grayscale", "RGB", "CMYK", "LAB", "Separations", "DeviceN", "Indexed"]
 var STATUSES = ["No Data", "Data from File", "Data Modified"]
-
 var SIZE_INPUT = [100, 21]
 
-check(Collections.isNotEmpty(document.rasterItems), "No images in this document")
+check(Collections.isNotEmpty(document.rasterItems), getString(R.string.error_notypes_document, R.plurals.raster.plural))
 var isFilterMode = Collections.isNotEmpty(selection)
 
 var dialog = new Dialog(R.string.select_images, "selecting-items/#select-images")
@@ -28,19 +26,19 @@ dialog.hgroup(function(main) {
     topGroup.vpanel(R.string.image, function(panel) {
       panel.alignChildren = "right"
       panel.hgroup(function(group) {
-        group.tooltips(R.string.tip_selectimage_colorspace)
+        group.helpTips = R.string.tip_selectimage_colorspace
         group.leftStaticText(undefined, R.string.color_space)
         colorSpaceList = group.dropDownList(SIZE_INPUT, COLOR_SPACES)
       })
       panel.hgroup(function(group) {
-        group.tooltips(R.string.tip_selectimage_bitsperchannel)
+        group.helpTips = R.string.tip_selectimage_bitsperchannel
         group.leftStaticText(undefined, R.string.bits_per_channel)
         bitsEdit = group.editText(SIZE_INPUT).also(VALIDATE_DIGITS)
       })
       panel.hgroup(function(group) {
-        group.tooltips(R.string.tip_selectimage_transparent)
+        group.helpTips = R.string.tip_selectimage_transparent
         group.leftStaticText(undefined, R.string.transparent)
-        transparentList = group.dropDownList(SIZE_INPUT, listYesNo())
+        transparentList = group.dropDownList(SIZE_INPUT, SelectOption.list())
       })
     })
   })
@@ -49,17 +47,17 @@ dialog.hgroup(function(main) {
     topGroup.vpanel(R.string.others, function(panel) {
       panel.alignChildren = "right"
       panel.hgroup(function(group) {
-        group.tooltips(R.string.tip_selectimage_embedded)
+        group.helpTips = R.string.tip_selectimage_embedded
         group.leftStaticText(undefined, R.string.embedded)
-        embeddedList = group.dropDownList(SIZE_INPUT, listYesNo())
+        embeddedList = group.dropDownList(SIZE_INPUT, SelectOption.list())
       })
       panel.hgroup(function(group) {
-        group.tooltips(R.string.tip_selectimage_overprint)
+        group.helpTips = R.string.tip_selectimage_overprint
         group.leftStaticText(undefined, R.string.overprint)
-        overprintList = group.dropDownList(SIZE_INPUT, listYesNo())
+        overprintList = group.dropDownList(SIZE_INPUT, SelectOption.list())
       })
       panel.hgroup(function(group) {
-        group.tooltips(R.string.tip_selectimage_status)
+        group.helpTips = R.string.tip_selectimage_status
         group.leftStaticText(undefined, R.string.status)
         statusList = group.dropDownList(SIZE_INPUT, STATUSES)
       })
@@ -95,9 +93,9 @@ dialog.setDefaultButton(undefined, function() {
     }
   }
   var bits = parseInt(bitsEdit.text) || 0
-  var transparent = transparentList.hasSelection() ? transparentList.selection.text === getString(R.string.yes) : undefined
-  var embedded = embeddedList.hasSelection() ? embeddedList.selection.text === getString(R.string.yes) : undefined
-  var overprint = overprintList.hasSelection() ? overprintList.selection.text === getString(R.string.yes) : undefined
+  var transparent = transparentList.hasSelection() ? SelectOption.isYes(transparentList.selection) : undefined
+  var embedded = embeddedList.hasSelection() ? SelectOption.isYes(embeddedList.selection) : undefined
+  var overprint = overprintList.hasSelection() ? SelectOption.isYes(overprintList.selection) : undefined
   var status
   if (statusList.hasSelection()) {
     if (statusList.selection.text === "No Data") {

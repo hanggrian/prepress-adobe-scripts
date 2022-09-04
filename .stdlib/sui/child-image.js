@@ -5,12 +5,6 @@
 */
 
 /**
- * Set tooltip to this children.
- * @param {String|Object} text tips to display.
- */
-Image.prototype.tooltip = function(text) { Internals.setTooltip(this, Internals.stringOrResources(text)) }
-
-/**
  * Add children to group.
  * @param {Array} size optional size or bounds.
  * @param {String} file optional image source.
@@ -18,7 +12,7 @@ Image.prototype.tooltip = function(text) { Internals.setTooltip(this, Internals.
  * @returns {Image}
  */
 Group.prototype.image = function(size, file, properties) {
-  return _image(this, size, file, properties)
+  return Internals.addImage(this, size, file, properties)
 }
 
 /**
@@ -29,13 +23,13 @@ Group.prototype.image = function(size, file, properties) {
  * @returns {Image}
  */
 Panel.prototype.image = function(size, file, properties) {
-  return _image(this, size, file, properties)
+  return Internals.addImage(this, size, file, properties)
 }
 
-function _image(root, size, file, properties) {
-  var child = root.add("image", Internals.sizeOrBounds(size), Internals.imageOrResources(file), properties)
+Internals.addImage = function(root, size, file, properties) {
+  var child = root.add("image", Internals.sizeOrBounds(size), Internals.imageOrResource(file), properties)
   if (root.helpTips !== undefined) {
-    Internals.setTooltip(child, root.helpTips)
+    child.helpTip = root.helpTips
   }
   return child
 }

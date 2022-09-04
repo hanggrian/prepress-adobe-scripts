@@ -5,24 +5,24 @@ var PREDICATE_LINKS = function(it) { return it.typename === "PlacedItem" && Item
 var SIZE_INPUT = [120, 21]
 
 checkHasSelection()
-check(Collections.anyItem(selection, PREDICATE_LINKS), "No PDF links found in selection")
+check(Collections.anyItem(selection, PREDICATE_LINKS), R.string.error_changepage)
 
 var dialog = new Dialog(R.string.change_page, "relinking-files/#change-page")
-var pdfPanel, rangeGroup, orderByList, recursiveCheck, keepSizeCheck
+var pdfPanel, rangeGroup, orderingList, recursiveCheck, keepSizeCheck
 var config = configs.resolve("links/change_page")
 
 dialog.vgroup(function(main) {
   main.alignChildren = "fill"
   pdfPanel = new OpenPDFPanel(main, SIZE_INPUT).also(function(panel) {
     panel.hgroup(function(group) {
-      group.tooltips(R.string.tip_relink_pages)
+      group.helpTips = R.string.tip_relink_pages
       group.leftStaticText(undefined, R.string.pages)
       rangeGroup = new RangeGroup(group, SIZE_INPUT).also(function(it) {
         it.startEdit.activate()
       })
     })
   })
-  orderByList = new OrderByList(main, [OrderBy.layers(), OrderBy.positions()]).also(function(it) {
+  orderingList = new OrderingList(main, [Ordering.layerList(), Ordering.positionList()]).also(function(it) {
     it.alignment = "right"
     it.selection = config.getInt("order")
   })
@@ -43,7 +43,7 @@ dialog.setDefaultButton(undefined, function() {
   var source = recursiveCheck.value ? Collections.filterItem(selection, PREDICATE_LINKS) : selection
   var progress = new ProgressDialog(source.length)
 
-  orderByList.forEach(source, function(item, i) {
+  orderingList.forEach(source, function(item, i) {
     progress.increment(R.string.progress_relink, i + 1)
     print("Item %d page %d.".format(i, current))
     preferences.setPDFPage(current)
@@ -64,7 +64,7 @@ dialog.setDefaultButton(undefined, function() {
   })
   selection = source
 
-  config.setInt("order", orderByList.selection.index)
+  config.setInt("order", orderingList.selection.index)
   config.setBoolean("recursive", recursiveCheck.value)
   config.setBoolean("keep_size", keepSizeCheck.value)
 })

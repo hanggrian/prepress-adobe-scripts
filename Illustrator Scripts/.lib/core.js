@@ -1,93 +1,78 @@
 #include "../../.stdlib/stdlib.js"
 
+#include "core-resources.js"
+
 #include "controls/checks.js"
 #include "controls/nup-options.js"
 #include "controls/open-options.js"
-#include "controls/order-by.js"
+#include "controls/ordering.js"
 #include "controls/range.js"
 #include "controls/select-options.js"
 #include "controls/slider.js"
-
 #include "pager/eight-up.js"
 #include "pager/four-up.js"
 #include "pager/one-up.js"
 #include "pager/saddle-stitch.js"
 #include "pager/two-up.js"
-
 #include "core-collections.js"
 #include "core-colors.js"
 #include "core-files.js"
+#include "core-items.js"
 #include "core-preconditions.js"
 #include "core-preferences.js"
-#include "core-resources.js"
 #include "core-units.js"
 
-var PATH_LIB = new File($.fileName).path
+App.PATH_LIB = new File($.fileName).path
 
-var Items = {
-  /**
-   * Returns item name in the layer, or typename if it is unnamed.
-   * @param {PageItem} item any type of item.
-   * @returns {String}
-   */
-  getName: function(item) {
-    return item.name !== undefined && item.name.isNotBlank() ? item.name : item.typename
+Language.set(Language.valueOfCode(configs.getString("language_code", Language.EN.code)))
+
+/**
+ * @param {String} name imposition type.
+ * @param {Object} pager object responsible for iterating pages each artboard.
+ */
+var Imposition = Enums.of({
+  ONE_UP: {
+    name: getString(R.string.n_up, 1),
+    getPager: function(document, start) { return new OneUpPager(document, start) }
   },
-
-  /**
-   * Returns the clipping path of this clip group, or the item itself if this is not a clip group.
-   * @param {PageItem} item any type of item.
-   * @returns {PathItem|CompoundPathItem}
-   */
-  getClippingItem: function(item) {
-    if (item.typename === "GroupItem" && item.clipped) {
-      return Collections.first(item.pathItems, function(it) { return it.clipping })
+  TWO_UP: {
+    name: getString(R.string.n_up, 2),
+    getPager: function(document, start, isDuplex, isStack) {
+      if (!isDuplex) {
+        return !isStack ? new TwoUpSimplexPager(document, start) : new TwoUpSimplexStackPager(document, start)
+      } else {
+        return !isStack ? new TwoUpDuplexPager(document, start) : new TwoUpDuplexStackPager(document, start)
+      }
     }
-    return item
   },
-
-  /**
-   * Returns bounds covering all items.
-   * @param {Array|Object} items array or array-like objects containing any type of item.
-   * @returns {Array}
-   */
-  getMaxBounds: function(items) {
-    var maxStartX, maxStartY, maxEndX, maxEndY
-    Collections.forEach(items, function(item) {
-      var clippingItem = Items.getClippingItem(item)
-      var width = clippingItem.width
-      var height = clippingItem.height
-      var itemStartX = clippingItem.position.getLeft()
-      var itemStartY = clippingItem.position.getTop()
-      var itemEndX = itemStartX + width
-      var itemEndY = itemStartY - height
-      if (maxStartX === undefined || itemStartX < maxStartX) {
-        maxStartX = itemStartX
+  FOUR_UP: {
+    name: getString(R.string.n_up, 4),
+    getPager: function(document, start, isFolding, isDuplex, isStack) {
+      if (isFolding) {
+        return new FourUpFoldingPager(document, start)
       }
-      if (maxStartY === undefined || itemStartY > maxStartY) {
-        maxStartY = itemStartY
+      if (!isDuplex) {
+        return !isStack ? new FourUpSimplexPager(document, start) : new FourUpSimplexStackPager(document, start)
+      } else {
+        return !isStack ? new FourUpDuplexPager(document, start) : new FourUpDuplexStackPager(document, start)
       }
-      if (maxEndX === undefined || itemEndX > maxEndX) {
-        maxEndX = itemEndX
-      }
-      if (maxEndY === undefined || itemEndY < maxEndY) {
-        maxEndY = itemEndY
-      }
-    })
-    return [maxStartX, maxStartY, maxEndX, maxEndY]
-  },
-
-  /**
-   * Returns true if the file associated with this PlacedItem is not missing.
-   * @param {PlacedItem} item a link.
-   * @returns {Boolean}
-   */
-  isLinkExists: function(item) {
-    checkTypename(item, "PlacedItem")
-    try {
-      return item.file.exists
-    } catch (e) {
-      return false
     }
+  },
+  EIGHT_UP: {
+    name: getString(R.string.n_up, 8),
+    getPager: function(document, start, isFolding, isDuplex, isStack) {
+      if (isFolding) {
+        return new EightUpFoldingPager(document, start)
+      }
+      if (!isDuplex) {
+        return !isStack ? new EightUpSimplexPager(document, start) : new EightUpSimplexStackPager(document, start)
+      } else {
+        return !isStack ? new EightUpDuplexPager(document, start) : new EightUpDuplexStackPager(document, start)
+      }
+    }
+  },
+  SADDLE_STITCH: {
+    name: R.string.saddle_stitch,
+    getPager: function(document, start, end, isRtl) { return new SaddleStitchPager(document, start, end, isRtl) }
   }
-}
+})

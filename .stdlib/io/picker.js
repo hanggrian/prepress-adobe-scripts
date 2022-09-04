@@ -4,15 +4,17 @@
 </javascriptresource>
 */
 
-var FILTERS_ADOBE_ILLUSTRATOR = ["Adobe Illustrator", "ai"]
-var FILTERS_ADOBE_PDF = ["Adobe PDF", "pdf"]
-var FILTERS_BMP = ["BMP", "bmp"]
-var FILTERS_GIF89a = ["GIF89a", "gif"]
-var FILTERS_JPEG = ["JPEG", "jpg", "jpe", "jpeg"]
-var FILTERS_JPEG2000 = ["JPEG2000", "jpf", "jpx", "jp2", "j2k", "j2c", "jpc"]
-var FILTERS_PNG = ["PNG", "png", "pns"]
-var FILTERS_PHOTOSHOP = ["Photoshop", "psd", "psb", "pdd"]
-var FILTERS_TIFF = ["TIFF", "tif", "tiff"]
+var FileType = Enums.of({
+  ADOBE_ILLUSTRATOR: { name: "Adobe Illustrator", extensions: ["ai"] },
+  ADOBE_PDF: { name: "Adobe PDF", extensions: ["pdf"] },
+  BMP: { name: "BMP", extensions: ["bmp"] },
+  GIF89a: { name: "GIF89a", extensions: ["gif"] },
+  JPEG: { name: "JPEG", extensions: ["jpg", "jpe", "jpeg"] },
+  JPEG2000: { name: "JPEG2000", extensions: ["jpf", "jpx", "jp2", "j2k", "j2c", "jpc"] },
+  PNG: { name: "PNG", extensions: ["png", "pns"] },
+  PHOTOSHOP: { name: "Photoshop", extensions: ["psd", "psb", "pdd"] },
+  TIFF: { name: "TIFF", extensions: ["tif", "tiff"] }
+})
 
 var FilePicker = {
   /**
@@ -30,7 +32,7 @@ var FilePicker = {
    * @returns {File}
    */
   openFile: function(prompt, filters, multiSelect) {
-    return File.openDialog(prompt, Internals.convertFileFilters(filters), multiSelect || false)
+    return File.openDialog(prompt, Internals.getFileFilters(filters), multiSelect || false)
   },
 
   /**
@@ -39,7 +41,5 @@ var FilePicker = {
    * @param {Array} filters e.g.: [["Illustrator", "ai"], ["Photoshop", "psd", "psb", "pdd"]].
    * @returns {File}
    */
-  saveFile: function(prompt, filters) {
-    return File.saveDialog(prompt, Internals.convertFileFilters(filters))
-  }
+  saveFile: function(prompt, filters) { return File.saveDialog(prompt, Internals.getFileFilters(filters)) }
 }

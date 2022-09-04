@@ -4,4 +4,4 @@
 #include "core-colors.js"
 #include "core-units.js"
 
-alert("All tests completed.")
+Windows.alert("All tests completed")

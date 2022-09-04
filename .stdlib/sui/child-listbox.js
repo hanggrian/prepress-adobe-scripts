@@ -16,14 +16,8 @@ ListBox.prototype.hasSelection = function() { return this.selection !== null }
  */
 ListBox.prototype.selectText = function(text) {
   this.selection = Collections.indexOf(
-    Collections.map(this.items, function(it) { return it.text }), Internals.stringOrResources(text))
+    Collections.map(this.items, function(it) { return it.text }), text)
 }
-
-/**
- * Set tooltip to this children.
- * @param {String|Object} text tips to display.
- */
-ListBox.prototype.tooltip = function(text) { Internals.setTooltip(this, Internals.stringOrResources(text)) }
 
 /**
  * Add children to group.
@@ -33,7 +27,7 @@ ListBox.prototype.tooltip = function(text) { Internals.setTooltip(this, Internal
  * @returns {ListBox}
  */
 Group.prototype.listBox = function(size, items, properties) {
-  return _listBox(this, size, items, properties)
+  return Internals.addListBox(this, size, items, properties)
 }
 
 /**
@@ -44,10 +38,10 @@ Group.prototype.listBox = function(size, items, properties) {
  * @returns {ListBox}
  */
 Panel.prototype.listBox = function(size, items, properties) {
-  return _listBox(this, size, items, properties)
+  return Internals.addListBox(this, size, items, properties)
 }
 
-function _listBox(root, size, items, properties) {
+Internals.addListBox = function(root, size, items, properties) {
   var itemTexts, itemFiles
   Internals.splitListItems(items).run(function(it) {
     itemTexts = it[0]
@@ -62,7 +56,7 @@ function _listBox(root, size, items, properties) {
     })
   }
   if (root.helpTips !== undefined) {
-    Internals.setTooltip(child, root.helpTips)
+    child.helpTip = root.helpTips
   }
   return child
 }

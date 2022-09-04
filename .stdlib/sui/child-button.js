@@ -1,14 +1,8 @@
 /*
 <javascriptresource>
-  <menu>hide</menu>
+<menu>hide</menu>
 </javascriptresource>
 */
-
-/**
- * Set tooltip to this children.
- * @param {String|Object} text tips to display.
- */
-Button.prototype.tooltip = function(text) { Internals.setTooltip(this, Internals.stringOrResources(text)) }
 
 /**
  * Add children to group.
@@ -18,7 +12,7 @@ Button.prototype.tooltip = function(text) { Internals.setTooltip(this, Internals
  * @returns {Button}
  */
 Group.prototype.button = function(size, text, properties) {
-  return _button(this, size, text, properties)
+  return Internals.addButton(this, size, text, properties)
 }
 
 /**
@@ -29,13 +23,13 @@ Group.prototype.button = function(size, text, properties) {
  * @returns {Button}
  */
 Panel.prototype.button = function(size, text, properties) {
-  return _button(this, size, text, properties)
+  return Internals.addButton(this, size, text, properties)
 }
 
-function _button(root, size, text, properties) {
-  var child = root.add("button", Internals.sizeOrBounds(size), Internals.stringOrResources(text), properties)
+Internals.addButton = function(root, size, text, properties) {
+  var child = root.add("button", Internals.sizeOrBounds(size), text, properties)
   if (root.helpTips !== undefined) {
-    Internals.setTooltip(child, root.helpTips)
+    child.helpTip = root.helpTips
   }
   return child
 }

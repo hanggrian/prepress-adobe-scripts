@@ -6,16 +6,13 @@ var SIZE_INPUT = [120, 21]
 
 checkHasSelection()
 var items = Collections.filterItem(selection, PREDICATE_LINKS)
-check(Collections.isNotEmpty(items), "No links found in selection")
+check(Collections.isNotEmpty(items), getString(R.string.error_notypes_document, R.plurals.link.plural))
 
 var dialog = new Dialog(R.string.relink_same, "relinking-files/#relink-same")
 var pdfPanel, pageEdit, keepSizeCheck
 var config = configs.resolve("links/relink_same")
 
-var file = FilePicker.openFile(dialog.getTitle(), [
-  FILTERS_ADOBE_ILLUSTRATOR, FILTERS_ADOBE_PDF,
-  FILTERS_BMP, FILTERS_GIF89a, FILTERS_JPEG, FILTERS_JPEG2000, FILTERS_PNG, FILTERS_PHOTOSHOP, FILTERS_TIFF
-])
+var file = FilePicker.openFile(dialog.getTitle(), FileType.values())
 
 if (file !== null) {
   dialog.vgroup(function(main) {
@@ -23,7 +20,7 @@ if (file !== null) {
     if (file.isPdf()) {
       pdfPanel = new OpenPDFPanel(main, SIZE_INPUT).also(function(panel) {
         panel.hgroup(function(group) {
-          group.tooltips(R.string.tip_relink_pages)
+          group.helpTips = R.string.tip_relink_pages
           group.leftStaticText(undefined, R.string.pages)
           pageEdit = group.editText(SIZE_INPUT, "1").also(function(it) {
             it.validateDigits()

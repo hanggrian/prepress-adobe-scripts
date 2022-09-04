@@ -14,7 +14,7 @@ function Dialog(title, helpUrlSuffix) {
   var prepared = false
   this.defaultButton, this.yesButton, this.cancelButton, this.helpButton, this.helpIconButton
 
-  var window = new Window("dialog", Internals.stringOrResources(title))
+  var window = new Window("dialog", title)
   window.orientation = "column"
 
   this.main = window.add("group")
@@ -44,7 +44,7 @@ function Dialog(title, helpUrlSuffix) {
    * Sets native window title.
    * @param {String|Object} title window title.
    */
-  this.setTitle = function(title) { window.text = Internals.stringOrResources(title) }
+  this.setTitle = function(title) { window.text = title }
 
   /**
    * Set main layout to horizontal.
@@ -75,7 +75,7 @@ function Dialog(title, helpUrlSuffix) {
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
   this.setDefaultButton = function(text, action, disabled) {
-    defaultButtonText = Internals.stringOrResources(text) || "OK"
+    defaultButtonText = text || "OK"
     defaultButtonAction = action
     defaultButtonDisabled = disabled
   }
@@ -87,7 +87,7 @@ function Dialog(title, helpUrlSuffix) {
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
   this.setYesButton = function(text, action, disabled) {
-    yesButtonText = Internals.stringOrResources(text) || getString(R.string.yes)
+    yesButtonText = text || getString(R.string.yes)
     yesButtonAction = action
     yesButtonDisabled = disabled
   }
@@ -99,7 +99,7 @@ function Dialog(title, helpUrlSuffix) {
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
   this.setCancelButton = function(text, action, disabled) {
-    cancelButtonText = Internals.stringOrResources(text) || getString(R.string.cancel)
+    cancelButtonText = text || getString(R.string.cancel)
     cancelButtonAction = action
     cancelButtonDisabled = disabled
   }
@@ -111,7 +111,7 @@ function Dialog(title, helpUrlSuffix) {
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
   this.setHelpButton = function(text, action, disabled) {
-    helpButtonText = Internals.stringOrResources(text) || getString(R.string.help)
+    helpButtonText = text || getString(R.string.help)
     helpButtonAction = action
     helpButtonDisabled = disabled
   }
@@ -122,12 +122,14 @@ function Dialog(title, helpUrlSuffix) {
     }
     if (helpUrlSuffix !== undefined) {
       self.helpIconButton = self.leftButtons.iconButton(undefined, "ic_help", { style: "toolbutton" }).also(function(it) {
-        it.tooltip("What's this?")
-        it.onClick = function() { openURL(URL_WEBSITE + helpUrlSuffix) }
+        it.helpTip = R.string.tip_whatsthis
+        it.onClick = function() {
+          App.openUrl(App.URL_WEBSITE + helpUrlSuffix)
+        }
       })
     }
     self.helpButton = appendButton(self.leftButtons, helpButtonText, helpButtonAction, helpButtonDisabled)
-    if (OS_MAC) {
+    if (App.OS_MAC) {
       self.yesButton = appendButton(self.rightButtons, yesButtonText, yesButtonAction, yesButtonDisabled)
       self.cancelButton = appendButton(self.rightButtons, cancelButtonText, cancelButtonAction, cancelButtonDisabled, { name: "cancel" })
       self.defaultButton = appendButton(self.rightButtons, defaultButtonText, defaultButtonAction, defaultButtonDisabled, { name: "ok" })
@@ -175,9 +177,12 @@ function Dialog(title, helpUrlSuffix) {
         it.enabled = false
       }
       it.onClick = function() {
-        self.close()
+        var consume
         if (action !== undefined) {
-          action()
+          consume = action()
+        }
+        if (consume === undefined || !consume) {
+          self.close()
         }
       }
     })

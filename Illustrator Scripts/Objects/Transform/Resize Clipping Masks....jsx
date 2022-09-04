@@ -4,7 +4,8 @@
 var SIZE_INPUT = [100, 21]
 
 checkHasSelection()
-check(Collections.anyItem(selection, function(it) { return it.clipping }), "No clipping paths in this selection")
+check(Collections.anyItem(selection, function(it) { return it.clipping }),
+  getString(R.string.error_notypes_selection, R.plurals.clipping_mask.plural))
 
 var dialog = new Dialog(R.string.resize_clipping_masks)
 var widthFromEdit, widthToEdit, heightFromEdit, heightToEdit

@@ -5,6 +5,6 @@
  * @returns {Object}
  */
 function checkTypename(item, typename) {
-  check(item.typename === typename, "Expected item to be " + typename)
+  check(item.typename === typename, getString(R.string.error_preconditions_typename, typename))
   return item
 }

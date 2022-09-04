@@ -87,8 +87,3 @@ test("format", function() {
   var s = "Hi, my name is %s, I'm a %s."
   assertEquals("Hi, my name is Hendra, I'm a Potato.", s.format("Hendra", "Potato"))
 })
-
-test("formatArr", function() {
-  var s = "Hi, my name is %s, I'm a %s."
-  assertEquals("Hi, my name is Hendra, I'm a Potato.", s.formatArr(["Hendra", "Potato"]))
-})

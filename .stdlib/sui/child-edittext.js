@@ -56,12 +56,6 @@ var VALIDATE_UNITS = function(editText) { editText.validateUnits() }
 EditText.prototype.activate = function() { if (!this.active) this.active = true }
 
 /**
- * Set tooltip to this children.
- * @param {String|Object} text tips to display.
- */
-EditText.prototype.tooltip = function(text) { Internals.setTooltip(this, Internals.stringOrResources(text)) }
-
-/**
  * Add children to group.
  * @param {Array} size optional size or bounds.
  * @param {String|Object} text optional control text.
@@ -69,7 +63,7 @@ EditText.prototype.tooltip = function(text) { Internals.setTooltip(this, Interna
  * @returns {EditText}
  */
 Group.prototype.editText = function(size, text, properties) {
-  return _editText(this, size, text, properties)
+  return Internals.addEditText(this, size, text, properties)
 }
 
 /**
@@ -80,13 +74,13 @@ Group.prototype.editText = function(size, text, properties) {
  * @returns {EditText}
  */
 Panel.prototype.editText = function(size, text, properties) {
-  return _editText(this, size, text, properties)
+  return Internals.addEditText(this, size, text, properties)
 }
 
-function _editText(root, size, text, properties) {
-  var child = root.add("edittext", Internals.sizeOrBounds(size), Internals.stringOrResources(text), properties)
+Internals.addEditText = function(root, size, text, properties) {
+  var child = root.add("edittext", Internals.sizeOrBounds(size), text, properties)
   if (root.helpTips !== undefined) {
-    Internals.setTooltip(child, root.helpTips)
+    child.helpTip = root.helpTips
   }
   return child
 }

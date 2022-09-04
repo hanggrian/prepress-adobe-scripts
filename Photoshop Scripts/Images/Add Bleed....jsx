@@ -18,7 +18,7 @@ var config = configs.resolve("images/add_bleed")
 dialog.vgroup(function(main) {
   main.alignChildren = "fill"
   main.hgroup(function(group) {
-    group.tooltips(R.string.tip_addbleedtoimages_bleed)
+    group.helpTips = R.string.tip_addbleedtoimages_bleed
     group.leftStaticText([120, 21], R.string.length)
     lengthEdit = group.editText([200, 21], config.getString("length", "2.5 mm")).also(function(it) {
       it.validateUnits()
@@ -33,16 +33,17 @@ dialog.vgroup(function(main) {
     topGroup.vpanel(R.string.options, function(group) {
       group.alignChildren = "fill"
       flattenImageCheck = group.checkBox(undefined, R.string.flatten_image).also(function(it) {
-        it.tooltip(R.string.tip_addbleedtoimages_flatten)
+        it.helpTip = R.string.tip_addbleedtoimages_flatten
         it.select()
       })
-      guidesMultiRadioGroup = new MultiRadioGroup(group, R.string.use_guides, [R.string.append, R.string.replace]).also(function(it) {
-        it.tooltips(R.string.tip_addbleedtoimages_guides)
+      guidesMultiRadioGroup = new MultiRadioGroup(group, R.string.use_guides,
+        [R.string.append, R.string.replace]).also(function(it) {
+        it.setHelpTips(R.string.tip_addbleedtoimages_guides)
         it.check.select()
         it.check.onClick()
       })
       group.hgroup(function(innerGroup) {
-        innerGroup.tooltips(R.string.tip_addbleedtoimages_select)
+        innerGroup.helpTips = R.string.tip_addbleedtoimages_select
         selectBleedCheck = innerGroup.checkBox(undefined, R.string.message_addbleedtoimages_select).also(function(it) {
           it.onClick = function() {
             correctionEdit.enabled = it.value

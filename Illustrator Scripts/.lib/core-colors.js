@@ -1,52 +1,35 @@
-var Colors = {
-  list: function () {
-    return [
-      [R.string.registration, "color_registration"],
-      [R.string.white, "color_white"],
-      "-",
-      [R.string.cyan, "color_cyan"],
-      [R.string.magenta, "color_magenta"],
-      [R.string.yellow, "color_yellow"],
-      [R.string.black, "color_black"]
-    ]
+var Color2 = Enums.of({
+  REGISTRATION: {
+    name: R.string.registration,
+    image: "color_registration",
+    getValue: function () { return document.swatches["[registration]"].color }
   },
-  WHITE: new CMYKColor(),
-  CYAN: new CMYKColor().also(function (it) { it.cyan = 100 }),
-  MAGENTA: new CMYKColor().also(function (it) { it.magenta = 100 }),
-  YELLOW: new CMYKColor().also(function (it) { it.yellow = 100 }),
-  BLACK: new CMYKColor().also(function (it) { it.black = 100 }),
-  NONE: new NoColor()
-}
-
-/**
- * Converts text to color.
- * @param {String} text text to convert.
- * @returns {CMYKColor}
- */
-function parseColor(text) {
-  switch (text.trim()) {
-    case getString(R.string.registration):
-      return getRegistrationColor()
-    case getString(R.string.white):
-      return Colors.WHITE
-    case getString(R.string.cyan):
-      return Colors.CYAN
-    case getString(R.string.magenta):
-      return Colors.MAGENTA
-    case getString(R.string.yellow):
-      return Colors.YELLOW
-    case getString(R.string.black):
-      return Colors.BLACK
-    default:
-      return undefined
+  WHITE: {
+    name: R.string.white,
+    image: "color_white",
+    getValue: function () { return new CMYKColor() }
+  },
+  CYAN: {
+    name: R.string.cyan,
+    image: "color_cyan",
+    getValue: function () { return new CMYKColor().also(function (it) { it.cyan = 100 }) }
+  },
+  MAGENTA: {
+    name: R.string.magenta,
+    image: "color_magenta",
+    getValue: function () { return new CMYKColor().also(function (it) { it.magenta = 100 }) }
+  },
+  YELLOW: {
+    name: R.string.yellow,
+    image: "color_yellow",
+    getValue: function () { return new CMYKColor().also(function (it) { it.yellow = 100 }) }
+  },
+  BLACK: {
+    name: R.string.black,
+    image: "color_black",
+    getValue: function () { return new CMYKColor().also(function (it) { it.black = 100 }) }
   }
-}
-
-/**
- * Refer to current swatch to obtain registration color.
- * @returns {SpotColor}
- */
-function getRegistrationColor() { return document.swatches["[registration]"].color }
+}, true, [1])
 
 /**
  * Returns true if both CMYK colors are equal.

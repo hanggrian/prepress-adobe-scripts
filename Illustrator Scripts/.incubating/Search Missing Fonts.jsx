@@ -7,12 +7,12 @@
 checkHasSelection()
 
 var items = Collections.filterItem(selection, function (it) { return it.typename === "TextFrame" })
-check(Collections.isNotEmpty(items), "No types found in selection")
+check(Collections.isNotEmpty(items), getString(R.string.error_notypes_selection, R.plurals.text.plural))
 
-alert(textFonts.first())
+Windows.alert(textFonts.first())
 var fonts = Collections.distinct(
   Collections.filter(
     Collections.map(items, function (item) { return item.textRange.characterAttributes.textFont }),
     function (font) { return textFonts.contains(font) }))
 
-alert(fonts)
+    Windows.alert(fonts)

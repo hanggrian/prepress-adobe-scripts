@@ -1,3 +1,10 @@
+var SelectOption = Enums.of({
+  YES: { name: R.string.yes },
+  NO: { name: R.string.no },
+
+  isYes: function(name) { return this.valueOf(name) === this.YES }
+})
+
 /**
  * Panel of width and height inputs.
  * @param {Group|Panel|Window} parent holder of this control.
@@ -9,12 +16,12 @@ function SelectDimensionPanel(parent, inputSize) {
 
   self.alignChildren = "right"
   self.hgroup(function(group) {
-    group.tooltips("Selected object's width")
+    group.helpTips = "Selected object's width"
     group.leftStaticText(undefined, R.string.width)
     self.widthEdit = group.editText(inputSize).also(VALIDATE_UNITS)
   })
   self.hgroup(function(group) {
-    group.tooltips("Selected object's height")
+    group.helpTips = "Selected object's height"
     group.leftStaticText(undefined, R.string.height)
     self.heightEdit = group.editText(inputSize).also(VALIDATE_UNITS)
   })

@@ -5,6 +5,4 @@
 */
 
 /** Assert that document is currently saved. */
-function checkSaved() {
-  check(document.saved, "Save the document before proceeding")
-}
+function checkSaved() { check(document.saved, R.string.error_preconditions_saved) }

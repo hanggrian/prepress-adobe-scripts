@@ -4,6 +4,12 @@
 // * `unitName` are the suffix. (e.g. : `pt`, `mm`)
 // * `unitFullName` are the full form name. (e.g.: `Points`, `Millimeters`)
 
+UnitType.PIXELS.rulerUnits = RulerUnits.Pixels
+UnitType.POINTS.rulerUnits = RulerUnits.Points
+UnitType.INCHES.rulerUnits = RulerUnits.Inches
+UnitType.MILLIMETERS.rulerUnits = RulerUnits.Millimeters
+UnitType.CENTIMETERS.rulerUnits = RulerUnits.Centimeters
+
 /**
  * Build string based on unit value, name and optional fraction.
  * @param {Number} unitValue unit value in pt.
@@ -31,26 +37,4 @@ function parseUnits(units) {
     return undefined
   }
   return units.isNumeric() ? parseFloat(units) : UnitValue(units).as("pt")
-}
-
-/**
- * Converts text to ruler unit.
- * @param {String} unitFullName as listed in `UNITS`.
- * @returns {RulerUnits}
- */
-function parseRulerUnits(unitFullName) {
-  switch (unitFullName.trim()) {
-    case getString(R.string.pixels):
-      return RulerUnits.Pixels
-    case getString(R.string.points):
-      return RulerUnits.Points
-    case getString(R.string.inches):
-      return RulerUnits.Inches
-    case getString(R.string.millimeters):
-      return RulerUnits.Millimeters
-    case getString(R.string.centimeters):
-      return RulerUnits.Centimeters
-    default:
-      errorWithAlert("Unsupported units")
-  }
 }

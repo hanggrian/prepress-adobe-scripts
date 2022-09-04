@@ -1,28 +1,28 @@
 initTest($)
 
-test("getNameWithoutExtension", function() {
-  var fileA = new File("apple.png")
-  var fileB = new File("apple.png")
-  var fileC = new File("orange.png")
-  assertTrue(fileA.equalTo(fileB))
-  assertFalse(fileA.equalTo(fileC))
+test("equalTo", function() {
+  var apple1 = new File("apple.png")
+  var apple2 = new File("apple.png")
+  var orange = new File("orange.png")
+  assertTrue(apple1.equalTo(apple2))
+  assertFalse(apple1.equalTo(orange))
 })
 
 test("getNameWithoutExtension", function() {
-  var file = new File("apple.png")
-  assertEquals("apple", file.getNameWithoutExtension())
-  assertNotEquals("png", file.getNameWithoutExtension())
+  var apple = new File("apple.png")
+  assertEquals("apple", apple.getNameWithoutExtension())
+  assertNotEquals("png", apple.getNameWithoutExtension())
 })
 
 test("getExtension", function() {
-  var file = new File("apple.png")
-  assertNotEquals("apple", file.getExtension())
-  assertEquals("png", file.getExtension())
+  var apple = new File("apple.png")
+  assertNotEquals("apple", apple.getExtension())
+  assertEquals("png", apple.getExtension())
 })
 
 test("isPdf", function() {
-  var filePng = new File("apple.png")
-  var filePdf = new File("document.pdf")
-  assertFalse(filePng.isPdf())
-  assertTrue(filePdf.isPdf())
+  var apple = new File("apple.png")
+  var document = new File("document.pdf")
+  assertFalse(apple.isPdf())
+  assertTrue(document.isPdf())
 })

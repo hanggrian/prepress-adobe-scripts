@@ -3,16 +3,6 @@ initTest($)
 var window = new Window("dialog", "Test")
 var root = window.add("group")
 
-test("tooltip", function() {
-  var child1 = root.checkBox()
-  child1.tooltip("Description")
-  assertEquals("Description.", child1.helpTip)
-
-  var child2 = root.radioButton()
-  child2.tooltip("Description")
-  assertEquals("Description.", child2.helpTip)
-})
-
 test("toggles", function() {
   var child1 = root.checkBox([100, 50], "Option", { key: "value" })
   assertEquals(100, child1.bounds.width)

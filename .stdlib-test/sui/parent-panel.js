@@ -3,18 +3,13 @@ initTest($)
 var window = new Window("dialog", "Test")
 var root = window.add("group")
 
-test("tooltips", function() {
-  var parent1 = root.hpanel()
-  parent1.tooltips("Description")
-  assertEquals("Description", parent1.helpTips)
-
-  var parent2 = root.vpanel()
-  parent2.tooltips("Description")
-  assertEquals("Description", parent2.helpTips)
-
-  var parent3 = root.spanel()
-  parent3.tooltips("Description")
-  assertEquals("Description", parent3.helpTips)
+test("setHelpTips", function() {
+  var parent = root.hpanel()
+  parent.staticText(undefined, "Label")
+  parent.editText(undefined, "Input")
+  parent.setHelpTips("Description")
+  assertEquals("Description", parent.children[0].helpTip)
+  assertEquals("Description", parent.children[1].helpTip)
 })
 
 test("panels", function() {

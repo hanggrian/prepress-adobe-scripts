@@ -23,15 +23,15 @@ function AnchorGroup(parent, isPsd) {
       group.spacing = 0
     }
     self.topLeftRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
-      it.tooltip(R.string.top_left)
+      it.helpTip = R.string.top_left
       registerRadioClick(it)
     })
     self.topRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
-      it.tooltip(R.string.top)
+      it.helpTip = R.string.top
       registerRadioClick(it)
     })
     self.topRightRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
-      it.tooltip(R.string.top_right)
+      it.helpTip = R.string.top_right
       registerRadioClick(it)
     })
   })
@@ -40,16 +40,16 @@ function AnchorGroup(parent, isPsd) {
       group.spacing = 0
     }
     self.leftRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
-      it.tooltip(R.string.left)
+      it.helpTip = R.string.left
       registerRadioClick(it)
     })
     self.centerRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
-      it.tooltip(R.string.center)
+      it.helpTip = R.string.center
       it.select()
       registerRadioClick(it)
     })
     self.rightRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
-      it.tooltip(R.string.right)
+      it.helpTip = R.string.right
       registerRadioClick(it)
     })
   })
@@ -58,15 +58,15 @@ function AnchorGroup(parent, isPsd) {
       group.spacing = 0
     }
     self.bottomLeftRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
-      it.tooltip(R.string.bottom_left)
+      it.helpTip = R.string.bottom_left
       registerRadioClick(it)
     })
     self.bottomRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
-      it.tooltip(R.string.bottom)
+      it.helpTip = R.string.bottom
       registerRadioClick(it)
     })
     self.bottomRightRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
-      it.tooltip(R.string.bottom_right)
+      it.helpTip = R.string.bottom_right
       registerRadioClick(it)
     })
   })

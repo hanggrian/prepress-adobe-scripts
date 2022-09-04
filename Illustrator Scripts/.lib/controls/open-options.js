@@ -2,30 +2,32 @@ var SIZE_DOCUMENT_INPUT = [120, 21]
 var SIZE_DOCUMENT_INPUT2 = [70, 21]
 var SIZE_DOCUMENT_INPUTMAX = [120 + 70 + 10, 21]
 
-var OpenPages = {
-  PDF_BOXES: ["Bounding", "-", "Art", "Crop", "Trim", "Bleed", "Media"]
-}
-var OpenDocuments = {
-  COLOR_MODES: ["RGB", "CMYK"],
-  listResolutions: function() {
-    return [
-      R.string.screen,
-      R.string.medium,
-      R.string.high
-    ]
-  },
-  listLayouts: function() {
-    return [
-      R.string.grid_by_row,
-      R.string.grid_by_column,
-      R.string.row,
-      R.string.column,
-      R.string.rtl_grid_by_row,
-      R.string.rtl_grid_by_column,
-      R.string.rtl_row
-    ]
-  }
-}
+var PDFCrop = Enums.of({
+  BOUNDING: { name: "Bounding", pdfBoxType: PDFBoxType.PDFBOUNDINGBOX },
+  ART: { name: "Art", pdfBoxType: PDFBoxType.PDFARTBOX },
+  CROP: { name: "Crop", pdfBoxType: PDFBoxType.PDFCROPBOX },
+  TRIM: { name: "Trim", pdfBoxType: PDFBoxType.PDFTRIMBOX },
+  BLEED: { name: "Bleed", pdfBoxType: PDFBoxType.PDFBLEEDBOX },
+  MEDIA: { name: "Media", pdfBoxType: PDFBoxType.PDFMEDIABOX }
+}, false, [0])
+var DocumentColor = Enums.of({
+  RGB: { name: "RGB", colorMode: DocumentColorSpace.RGB },
+  CMYK: { name: "CMYK", colorMode: DocumentColorSpace.CMYK }
+})
+var DocumentResolution = Enums.of({
+  SCREEN: { name: R.string.screen, rasterResolution: DocumentRasterResolution.ScreenResolution },
+  MEDIUM: { name: R.string.medium, rasterResolution: DocumentRasterResolution.MediumResolution },
+  HIGH: { name: R.string.high, rasterResolution: DocumentRasterResolution.HighResolution }
+})
+var DocumentLayout = Enums.of({
+  GRID_BY_ROW: { name: R.string.grid_by_row, artboardLayout: DocumentArtboardLayout.GridByRow },
+  GRID_BY_COLUMN: { name: R.string.grid_by_column, artboardLayout: DocumentArtboardLayout.GridByCol },
+  ROW: { name: R.string.row, artboardLayout: DocumentArtboardLayout.Row },
+  COLUMN: { name: R.string.column, artboardLayout: DocumentArtboardLayout.Column },
+  RTL_GRID_BY_ROW: { name: R.string.rtl_grid_by_row, artboardLayout: DocumentArtboardLayout.RLGridByRow },
+  RTL_GRID_BY_COLUMN: { name: R.string.rtl_grid_by_column, artboardLayout: DocumentArtboardLayout.RLGridByCol },
+  RTL_ROW: { name: R.string.rtl_row, artboardLayout: DocumentArtboardLayout.RLRow }
+})
 
 /**
  * PDF placing option panel.
@@ -39,9 +41,9 @@ function OpenPDFPanel(parent, inputSize) {
   self.alignChildren = "right"
   self.alignment = "fill"
   self.hgroup(function(group) {
-    group.tooltips(R.string.tip_cropto)
+    group.helpTips = R.string.tip_cropto
     group.leftStaticText(undefined, R.string.crop_to)
-    self.boxTypeList = group.dropDownList(inputSize, OpenPages.PDF_BOXES).also(function(it) {
+    self.boxTypeList = group.dropDownList(inputSize, PDFCrop.list()).also(function(it) {
       if (preferences.getPDFCrop() === PDFBoxType.PDFARTBOX) {
         it.selection = 2
       } else if (preferences.getPDFCrop() === PDFBoxType.PDFCROPBOX) {
@@ -56,15 +58,16 @@ function OpenPDFPanel(parent, inputSize) {
         it.selection = 0
       }
       it.onChange = function() {
-        if (self.boxTypeList.selection.text === "Art") {
+        var pdfOption = PDFCrop.valueOf(self.boxTypeList.selection)
+        if (pdfOption === PDFCrop.ART) {
           preferences.setPDFCrop(PDFBoxType.PDFARTBOX)
-        } else if (self.boxTypeList.selection.text === "Crop") {
+        } else if (pdfOption ===  PDFCrop.CROP) {
           preferences.setPDFCrop(PDFBoxType.PDFCROPBOX)
-        } else if (self.boxTypeList.selection.text === "Trim") {
+        } else if (pdfOption === PDFCrop.TRIM) {
           preferences.setPDFCrop(PDFBoxType.PDFTRIMBOX)
-        } else if (self.boxTypeList.selection.text === "Bleed") {
+        } else if (pdfOption === PDFCrop.BLEED) {
           preferences.setPDFCrop(PDFBoxType.PDFBLEEDBOX)
-        } else if (self.boxTypeList.selection.text === "Media") {
+        } else if (pdfOption === PDFCrop.MEDIA) {
           preferences.setPDFCrop(PDFBoxType.PDFMEDIABOX)
         } else {
           preferences.setPDFCrop(PDFBoxType.PDFBOUNDINGBOX)
@@ -87,22 +90,22 @@ function OpenPagesPanel(parent, inputSize) {
   self.alignChildren = "right"
   self.alignment = "fill"
   self.hgroup(function(group) {
-    group.tooltips(R.string.tip_openpages_pages)
+    group.helpTips = R.string.tip_openpages_pages
     group.leftStaticText(undefined, R.string.pages)
     self.rangeGroup = new RangeGroup(group, inputSize)
   })
   self.hgroup(function(group) {
-    group.tooltips(R.string.tip_openpages_width)
+    group.helpTips = R.string.tip_openpages_width
     group.leftStaticText(undefined, R.string.width)
     self.widthEdit = group.editText(inputSize, "210 mm").also(VALIDATE_UNITS)
   })
   self.hgroup(function(group) {
-    group.tooltips(R.string.tip_openpages_height)
+    group.helpTips = R.string.tip_openpages_height
     group.leftStaticText(undefined, R.string.height)
     self.heightEdit = group.editText(inputSize, "297 mm").also(VALIDATE_UNITS)
   })
   self.hgroup(function(group) {
-    group.tooltips(R.string.tip_openpages_bleed)
+    group.helpTips = R.string.tip_openpages_bleed
     group.leftStaticText(undefined, R.string.bleed)
     self.bleedEdit = group.editText(inputSize, "0 mm").also(VALIDATE_UNITS)
   })
@@ -142,38 +145,38 @@ function OpenDocumentPanel(parent) {
   self.alignChildren = "right"
   self.alignment = "fill"
   self.hgroup(function(group) {
-    group.tooltips(R.string.tip_opendocuments_colormode)
+    group.helpTips = R.string.tip_opendocuments_colormode
     group.leftStaticText(undefined, R.string.color_mode)
-    self.modeList = group.dropDownList(SIZE_DOCUMENT_INPUT, OpenDocuments.COLOR_MODES).also(function(it) {
+    self.modeList = group.dropDownList(SIZE_DOCUMENT_INPUT, DocumentColor.list()).also(function(it) {
       it.selection = 1
     })
-    self.resolutionList = group.dropDownList(SIZE_DOCUMENT_INPUT2, OpenDocuments.listResolutions()).also(function(it) {
+    self.resolutionList = group.dropDownList(SIZE_DOCUMENT_INPUT2, DocumentResolution.list()).also(function(it) {
       it.selection = 2
     })
   })
   self.hgroup(function(group) {
-    group.tooltips(R.string.tip_opendocuments_layout)
+    group.helpTips = R.string.tip_opendocuments_layout
     group.leftStaticText(undefined, R.string.layout)
-    self.layoutList = group.dropDownList(SIZE_DOCUMENT_INPUT, OpenDocuments.listLayouts()).also(function(it) {
+    self.layoutList = group.dropDownList(SIZE_DOCUMENT_INPUT, DocumentLayout.list()).also(function(it) {
       it.selection = 0
     })
     self.rowsOrColsEdit = group.editText(SIZE_DOCUMENT_INPUT2, "2").also(VALIDATE_DIGITS)
   })
   self.hgroup(function(group) {
-    group.tooltips(R.string.tip_opendocuments_units)
+    group.helpTips = R.string.tip_opendocuments_units
     group.leftStaticText(undefined, R.string.units)
-    self.unitsList = group.dropDownList(SIZE_DOCUMENT_INPUTMAX, Units.list()).also(function(it) {
+    self.unitsList = group.dropDownList(SIZE_DOCUMENT_INPUTMAX, UnitType.list()).also(function(it) {
       it.selection = 3
     })
   })
   self.hgroup(function(group) {
-    group.tooltips(R.string.tip_opendocuments_spacing)
+    group.helpTips = R.string.tip_opendocuments_spacing
     group.leftStaticText(undefined, R.string.spacing)
     self.spacingEdit = group.editText(SIZE_DOCUMENT_INPUTMAX, "10 mm").also(VALIDATE_UNITS)
   })
   self.hgroup(function(group) {
     group.alignChildren = "bottom"
-    group.tooltips(R.string.tip_opendocuments_previewmode)
+    group.helpTips = R.string.tip_opendocuments_previewmode
     group.leftStaticText(undefined, R.string.preview_mode)
     self.previewDefaultRadio = group.radioButton(undefined, "Default").also(SELECTED)
     self.previewPixelRadio = group.radioButton(undefined, "Pixel")
@@ -199,50 +202,11 @@ function OpenDocumentPanel(parent) {
         preset.documentBleedLink = true
         preset.documentBleedOffset = [bleed, bleed, bleed, bleed]
       }
-      switch (self.modeList.selection.index) {
-        case 0:
-          preset.colorMode = DocumentColorSpace.RGB
-          break;
-        default:
-          preset.colorMode = DocumentColorSpace.CMYK
-          break;
-      }
-      switch (self.resolutionList.selection.index) {
-        case 0:
-          preset.rasterResolution = DocumentRasterResolution.ScreenResolution
-          break;
-        case 1:
-          preset.rasterResolution = DocumentRasterResolution.MediumResolution
-          break;
-        default:
-          preset.rasterResolution = DocumentRasterResolution.HighResolution
-          break;
-      }
-      switch (self.layoutList.selection.index) {
-        case 0:
-          preset.artboardLayout = DocumentArtboardLayout.GridByRow
-          break;
-        case 1:
-          preset.artboardLayout = DocumentArtboardLayout.GridByCol
-          break;
-        case 2:
-          preset.artboardLayout = DocumentArtboardLayout.Row
-          break;
-        case 3:
-          preset.artboardLayout = DocumentArtboardLayout.Column
-          break;
-        case 4:
-          preset.artboardLayout = DocumentArtboardLayout.RLGridByRow
-          break;
-        case 5:
-          preset.artboardLayout = DocumentArtboardLayout.RLGridByCol
-          break;
-        default:
-          preset.artboardLayout = DocumentArtboardLayout.RLRow
-          break;
-      }
+      preset.colorMode = DocumentColor.valueOf(self.modeList.selection).colorMode
+      preset.rasterResolution = DocumentResolution.valueOf(self.resolutionList.selection).rasterResolution
+      preset.artboardLayout = DocumentLayout.valueOf(self.layoutList.selection).artboardLayout
       preset.artboardRowsOrCols = parseInt(self.rowsOrColsEdit.text)
-      preset.units = parseRulerUnits(self.unitsList.selection.text)
+      preset.units = UnitType.valueOf(self.unitsList.selection).rulerUnits
       preset.artboardSpacing = parseUnits(self.spacingEdit.text)
       if (self.previewDefaultRadio.value) {
         preset.previewMode = DocumentPreviewMode.DefaultPreview

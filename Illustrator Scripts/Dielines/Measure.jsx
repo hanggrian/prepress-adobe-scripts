@@ -6,8 +6,10 @@
 
 checkHasSelection()
 
-var items = Collections.filterItem(selection, function(it) { return it.typename === "PathItem" || it.typename === "CompoundPathItem" })
-check(Collections.isNotEmpty(items), "No paths found in selection")
+var items = Collections.filterItem(selection, function(it) {
+  return it.typename === "PathItem" || it.typename === "CompoundPathItem"
+})
+check(Collections.isNotEmpty(items), getString(R.string.error_notypes_document, R.plurals.path.plural))
 
 var count = 0
 var distance = 0
@@ -38,14 +40,14 @@ if (filledCount > 0) {
 if (registrationCount > 0) {
   message += getString(R.string.message_measuredielines4, registrationCount)
 }
-Windows.alert(message, R.string.measure_dielines)
+alert(message, getString(R.string.measure_dielines))
 
 function increment(item) {
   if (item.filled) {
     filledCount++
     return // dielines usually aren"t filled
   }
-  if (isColorEqual(item.strokeColor, getRegistrationColor())) {
+  if (isColorEqual(item.strokeColor, Color2.REGISTRATION.getValue())) {
     registrationCount++
     return // dielines" color usually aren"t registration
   }

@@ -1,52 +1,54 @@
 initTest($)
 
 test("indexOf", function() {
-  var a = [1, 2, 3]
-  assertEquals(1, Collections.indexOf(a, 2))
+  var fruits = ["Apple", "Orange", "Banana"]
+  assertEquals(1, Collections.indexOf(fruits, "Orange"))
 })
 
 test("lastIndex", function() {
-  var a = [1, 2, 3]
-  assertEquals(2, Collections.lastIndex(a))
+  var fruits = ["Apple", "Orange", "Banana"]
+  assertEquals(2, Collections.lastIndex(fruits))
 })
 
 test("isEmpty", function() {
-  var a = [1, 2, 3]
+  var fruits = ["Apple", "Orange", "Banana"]
   assertTrue(Collections.isEmpty([]))
-  assertFalse(Collections.isEmpty(a))
+  assertFalse(Collections.isEmpty(fruits))
 })
 
 test("isNotEmpty", function() {
-  var a = [1, 2, 3]
+  var fruits = ["Apple", "Orange", "Banana"]
   assertFalse(Collections.isNotEmpty([]))
-  assertTrue(Collections.isNotEmpty(a))
+  assertTrue(Collections.isNotEmpty(fruits))
 })
 
 test("contains", function() {
-  var a = [1, 2, 3]
-  assertTrue(Collections.contains(a, 2))
-  assertFalse(Collections.contains(a, 4))
+  var fruits = ["Apple", "Orange", "Banana"]
+  assertTrue(Collections.contains(fruits, "Orange"))
+  assertFalse(Collections.contains(fruits, "Lemon"))
 })
 
 test("distinct", function() {
-  var a = Collections.distinct([1, 2, 2, 3, 3, 3])
-  assertEquals(1, a[0])
-  assertEquals(2, a[1])
-  assertEquals(3, a[2])
+  var fruits = Collections.distinct(["Apple", "Orange", "Orange", "Banana", "Banana", "Banana"])
+  assertEquals("Apple", fruits[0])
+  assertEquals("Orange", fruits[1])
+  assertEquals("Banana", fruits[2])
 })
 
 test("forEach", function() {
-  var a = [1, 2, 3]
+  var fruits = ["Apple", "Orange", "Banana"]
   var result = []
-  Collections.forEach(a, function(it) { result.push(it) })
-  assertEquals(1, result[0])
-  assertEquals(3, result[2])
+  Collections.forEach(fruits, function(it) { result.push(it) })
+  assertEquals("Apple", result[0])
+  assertEquals("Orange", result[1])
+  assertEquals("Banana", result[2])
 })
 
 test("forEachReversed", function() {
-  var a = [1, 2, 3]
+  var fruits = ["Apple", "Orange", "Banana"]
   var result = []
-  Collections.forEachReversed(a, function(it) { result.push(it) })
-  assertEquals(3, result[0])
-  assertEquals(1, result[2])
+  Collections.forEachReversed(fruits, function(it) { result.push(it) })
+  assertEquals("Banana", result[0])
+  assertEquals("Orange", result[1])
+  assertEquals("Apple", result[2])
 })

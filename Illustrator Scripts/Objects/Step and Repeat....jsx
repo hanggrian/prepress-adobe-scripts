@@ -14,7 +14,7 @@ var config = configs.resolve("objects/step_and_repeat")
 var bounds = Items.getMaxBounds(selection)
 dialog.vgroup(function(main) {
   main.hgroup(function(group) {
-    group.tooltips(R.string.tip_stepandrepeat_copies)
+    group.helpTips = R.string.tip_stepandrepeat_copies
     group.leftStaticText(undefined, R.string.copies)
     horizontalEdit = group.editText(SIZE_INPUT, config.getInt("horizontal").toString()).also(function(it) {
       it.validateDigits()
@@ -26,17 +26,19 @@ dialog.vgroup(function(main) {
   main.vpanel(R.string.move, function(panel) {
     panel.alignChildren = "right"
     panel.hgroup(function(group) {
-      group.tooltips(R.string.tip_stepandrepeat_horizontal)
+      group.helpTips = R.string.tip_stepandrepeat_horizontal
       group.leftStaticText(undefined, R.string.horizontal)
-      moveHorizontalEdit = group.editText(SIZE_INPUT_MOVE, formatUnits(bounds.getWidth(), unitName, 2)).also(VALIDATE_UNITS)
+      moveHorizontalEdit = group.editText(SIZE_INPUT_MOVE, formatUnits(bounds.getWidth(), unitName, 2))
+        .also(VALIDATE_UNITS)
     })
     panel.hgroup(function(group) {
-      group.tooltips(R.string.tip_stepandrepeat_vertical)
+      group.helpTips = R.string.tip_stepandrepeat_vertical
       group.leftStaticText(undefined, R.string.vertical)
-      moveVerticalEdit = group.editText(SIZE_INPUT_MOVE, formatUnits(bounds.getHeight(), unitName, 2)).also(VALIDATE_UNITS)
+      moveVerticalEdit = group.editText(SIZE_INPUT_MOVE, formatUnits(bounds.getHeight(), unitName, 2))
+        .also(VALIDATE_UNITS)
     })
     moveRelativeCheck = panel.checkBox(undefined, R.string.relative_position).also(function(it) {
-      it.tooltip(R.string.tip_stepandrepeat_relativeposition)
+      it.helpTip = R.string.tip_stepandrepeat_relativeposition
       it.onClick = function() {
         if (it.value) {
           moveHorizontalEdit.text = "0 " + unitName
@@ -58,8 +60,8 @@ dialog.setDefaultButton(undefined, function() {
   var moveVertical = parseUnits(moveVerticalEdit.text)
 
   if (horizontal < 1 || vertical < 1) {
-    errorWithAlert(getString(R.string.error_stepandrepeat))
-    return
+    Windows.alert(R.string.error_stepandrepeat, dialog.getTitle(), true)
+    return true
   }
 
   var readOnlySelection = selection
@@ -87,7 +89,8 @@ dialog.setDefaultButton(undefined, function() {
       Collections.forEachReversed(readOnlySelection, function(item) {
         var x = bounds.getLeft() - (bounds.getLeft() - item.position.getLeft())
         var y = bounds.getTop() - (bounds.getTop() - item.position.getTop())
-        item.duplicate(layer, ElementPlacement.PLACEATBEGINNING).position = [x + h * finalMoveHorizontal, y - v * finalMoveVertical]
+        item.duplicate(layer, ElementPlacement.PLACEATBEGINNING).position =
+          [x + h * finalMoveHorizontal, y - v * finalMoveVertical]
       })
     }
     println()

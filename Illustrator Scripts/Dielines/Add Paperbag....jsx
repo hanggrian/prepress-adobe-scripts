@@ -15,7 +15,7 @@ dialog.hgroup(function(main) {
       panel.alignChildren = "right"
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
-          group.tooltips(R.string.tip_addpaperbagdielines_width)
+          group.helpTips = R.string.tip_addpaperbagdielines_width
           group.leftStaticText(undefined, R.string.width)
           widthEdit = group.editText(SIZE_EDIT, config.getString("width", "210 mm")).also(function(it) {
             it.validateUnits()
@@ -23,38 +23,38 @@ dialog.hgroup(function(main) {
           })
         })
         midGroup.hgroup(function(group) {
-          group.tooltips(R.string.tip_addpaperbagdielines_height)
+          group.helpTips = R.string.tip_addpaperbagdielines_height
           group.leftStaticText(SIZE_TEXT_DIVIDER, R.string.height)
           heightEdit = group.editText(SIZE_EDIT, config.getString("height", "297 mm")).also(VALIDATE_UNITS)
         })
       })
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
-          group.tooltips(R.string.tip_addpaperbagdielines_depth)
+          group.helpTips = R.string.tip_addpaperbagdielines_depth
           group.leftStaticText(undefined, R.string.depth)
           depthEdit = group.editText(SIZE_EDIT, config.getString("depth", "100 mm")).also(VALIDATE_UNITS)
         })
       })
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
-          group.tooltips(R.string.tip_addpaperbagdielines_upper)
+          group.helpTips = R.string.tip_addpaperbagdielines_upper
           group.leftStaticText(undefined, R.string.upper)
           upperEdit = group.editText(SIZE_EDIT, config.getString("upper", "30 mm")).also(VALIDATE_UNITS)
         })
         midGroup.hgroup(function(group) {
-          group.tooltips(R.string.tip_addpaperbagdielines_lower)
+          group.helpTips = R.string.tip_addpaperbagdielines_lower
           group.leftStaticText(SIZE_TEXT_DIVIDER, R.string.lower)
           lowerEdit = group.editText(SIZE_EDIT, config.getString("lower", "60 mm")).also(VALIDATE_UNITS)
         })
       })
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
-          group.tooltips(R.string.tip_addpaperbagdielines_glue)
+          group.helpTips = R.string.tip_addpaperbagdielines_glue
           group.leftStaticText(undefined, R.string.glue)
           glueLengthEdit = group.editText(SIZE_EDIT, config.getString("glue_length", "20 mm")).also(VALIDATE_UNITS)
         })
         midGroup.hgroup(function(group) {
-          group.tooltips(R.string.tip_addpaperbagdielines_shear)
+          group.helpTips = R.string.tip_addpaperbagdielines_shear
           group.leftStaticText(SIZE_TEXT_DIVIDER, R.string.shear)
           glueShearEdit = group.editText(SIZE_EDIT, config.getString("glue_shear", "5 mm")).also(VALIDATE_UNITS)
         })
@@ -63,14 +63,14 @@ dialog.hgroup(function(main) {
     topGroup.vpanel(R.string.stroke, function(panel) {
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
-          group.tooltips(R.string.tip_addpaperbagdielines_strokeweight)
+          group.helpTips = R.string.tip_addpaperbagdielines_strokeweight
           group.leftStaticText(undefined, R.string.weight)
           strokeWeightEdit = group.editText(SIZE_EDIT, config.getString("stroke_weight", "1 pt")).also(VALIDATE_UNITS)
         })
         midGroup.hgroup(function(group) {
-          group.tooltips(R.string.tip_addpaperbagdielines_strokecolor)
+          group.helpTips = R.string.tip_addpaperbagdielines_strokecolor
           group.leftStaticText(SIZE_TEXT_DIVIDER, R.string.color)
-          strokeColorList = group.dropDownList(SIZE_EDIT, Colors.list()).also(function(it) {
+          strokeColorList = group.dropDownList(SIZE_EDIT, Color2.list()).also(function(it) {
             it.selection = config.getInt("stroke_color")
           })
         })
@@ -92,7 +92,7 @@ function process(isFull) {
   var glueLength = parseUnits(glueLengthEdit.text)
   var glueShear = parseUnits(glueShearEdit.text)
   var weight = parseUnits(strokeWeightEdit.text)
-  var color = parseColor(strokeColorList.selection.text)
+  var color = Color2.valueOf(strokeColorList.selection)
 
   var paths = []
   var leftMost, topMost, bottomMost, rightMost
@@ -200,7 +200,7 @@ function createLine(weight, color, positions) {
   var path = layer.pathItems.add()
   path.filled = false
   path.strokeDashes = []
-  path.strokeColor = color
+  path.strokeColor = color.getValue()
   path.strokeWidth = weight
   path.setEntirePath(positions)
   path.closed = true
@@ -211,7 +211,7 @@ function createDash(weight, color, positions) {
   var path = layer.pathItems.add()
   path.filled = false
   path.strokeDashes = [12]
-  path.strokeColor = color
+  path.strokeColor = color.getValue()
   path.strokeWidth = weight
   path.setEntirePath(positions)
   return path

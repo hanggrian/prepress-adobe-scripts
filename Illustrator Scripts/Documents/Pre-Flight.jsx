@@ -34,7 +34,7 @@ Collections.forEach(app.documents, function(document) {
   if (errorCount > 0) {
     allOkay = false
     document.activate()
-    Windows.alert(result.trim(), R.string.pre_flight, true)
+    alert(result.trim(), getString(R.string.pre_flight), true)
   }
 })
 if (allOkay) {

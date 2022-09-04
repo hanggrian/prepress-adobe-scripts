@@ -93,10 +93,10 @@ Collections.all = function(collection, predicate) {
  */
 Collections.filter = function(collection, predicate) {
   var result = []
-  for (var i = 0; i < collection.length; i++) {
-    if (predicate(collection[i], i)) {
-      result.push(collection[i])
+  Collections.forEach(collection, function(element, i) {
+    if (predicate(element, i)) {
+      result.push(element)
     }
-  }
+  })
   return result
 }
