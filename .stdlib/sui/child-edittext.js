@@ -53,7 +53,13 @@ var VALIDATE_DIGITS = function(editText) { editText.validateDigits() }
 var VALIDATE_UNITS = function(editText) { editText.validateUnits() }
 
 /** Focus on this edit text. */
-EditText.prototype.activate = function() { if (!this.active) this.active = true }
+EditText.prototype.activate = function() {
+  // In Illustrator on Windows, this process is skipped because activating control will mess up app focus.
+  if (!Scripts.OS_MAC && Scripts.APP_AI) {
+    return
+  }
+  this.active = true
+}
 
 /**
  * Add children to group.

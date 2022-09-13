@@ -5,7 +5,6 @@
 */
 
 /**
- * @param {String} name type of UnitValue.
  * @param {RulerUnits} rulerUnits enum used in Illustrator.
  * @param {Units} units enum used in Photoshop.
  */

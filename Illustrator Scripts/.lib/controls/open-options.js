@@ -2,6 +2,9 @@ var SIZE_DOCUMENT_INPUT = [120, 21]
 var SIZE_DOCUMENT_INPUT2 = [70, 21]
 var SIZE_DOCUMENT_INPUTMAX = [120 + 70 + 10, 21]
 
+/**
+ * @param {PDFBoxType} pdfBoxType determine how to crop newly placed PDF.
+ */
 var PDFCrop = Enums.of({
   BOUNDING: { name: "Bounding", pdfBoxType: PDFBoxType.PDFBOUNDINGBOX },
   ART: { name: "Art", pdfBoxType: PDFBoxType.PDFARTBOX },
@@ -9,16 +12,28 @@ var PDFCrop = Enums.of({
   TRIM: { name: "Trim", pdfBoxType: PDFBoxType.PDFTRIMBOX },
   BLEED: { name: "Bleed", pdfBoxType: PDFBoxType.PDFBLEEDBOX },
   MEDIA: { name: "Media", pdfBoxType: PDFBoxType.PDFMEDIABOX }
-}, false, [0])
+}, [0])
+
+/**
+ * @param {DocumentColorSpace} colorMode used to determine new document's color space.
+ */
 var DocumentColor = Enums.of({
   RGB: { name: "RGB", colorMode: DocumentColorSpace.RGB },
   CMYK: { name: "CMYK", colorMode: DocumentColorSpace.CMYK }
 })
+
+/**
+ * @param {DocumentRasterResolution} rasterResolution used to determine new document's resolution.
+ */
 var DocumentResolution = Enums.of({
   SCREEN: { name: R.string.screen, rasterResolution: DocumentRasterResolution.ScreenResolution },
   MEDIUM: { name: R.string.medium, rasterResolution: DocumentRasterResolution.MediumResolution },
   HIGH: { name: R.string.high, rasterResolution: DocumentRasterResolution.HighResolution }
 })
+
+/**
+ * @param {DocumentArtboardLayout} artboardLayout used to determine new document's artboard layout.
+ */
 var DocumentLayout = Enums.of({
   GRID_BY_ROW: { name: R.string.grid_by_row, artboardLayout: DocumentArtboardLayout.GridByRow },
   GRID_BY_COLUMN: { name: R.string.grid_by_column, artboardLayout: DocumentArtboardLayout.GridByCol },

@@ -28,7 +28,7 @@ dialog.vgroup(function(main) {
   main.hgroup(function(topGroup) {
     topGroup.alignChildren = "fill"
     topGroup.vpanel(R.string.anchor, function(panel) {
-      anchorGroup = new AnchorGroup(panel, true)
+      anchorGroup = new AnchorGroup(panel)
     })
     topGroup.vpanel(R.string.options, function(group) {
       group.alignChildren = "fill"

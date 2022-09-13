@@ -6,7 +6,7 @@ var Anchor = Enums.of({
   TOP_RIGHT: { name: R.string.top_right, image: "ic_arrow_topright" },
   BOTTOM_LEFT: { name: R.string.bottom_left, image: "ic_arrow_bottomleft" },
   BOTTOM_RIGHT: { name: R.string.bottom_right, image: "ic_arrow_bottomright" }
-}, true)
+})
 
 var SIZE_INPUT = [150, 21]
 

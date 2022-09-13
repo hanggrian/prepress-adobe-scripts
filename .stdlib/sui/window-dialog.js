@@ -124,12 +124,12 @@ function Dialog(title, helpUrlSuffix) {
       self.helpIconButton = self.leftButtons.iconButton(undefined, "ic_help", { style: "toolbutton" }).also(function(it) {
         it.helpTip = R.string.tip_whatsthis
         it.onClick = function() {
-          App.openUrl(App.URL_WEBSITE + helpUrlSuffix)
+          Scripts.openUrl(Scripts.URL_WEBSITE + helpUrlSuffix)
         }
       })
     }
     self.helpButton = appendButton(self.leftButtons, helpButtonText, helpButtonAction, helpButtonDisabled)
-    if (App.OS_MAC) {
+    if (Scripts.OS_MAC) {
       self.yesButton = appendButton(self.rightButtons, yesButtonText, yesButtonAction, yesButtonDisabled)
       self.cancelButton = appendButton(self.rightButtons, cancelButtonText, cancelButtonAction, cancelButtonDisabled, { name: "cancel" })
       self.defaultButton = appendButton(self.rightButtons, defaultButtonText, defaultButtonAction, defaultButtonDisabled, { name: "ok" })

@@ -8,22 +8,24 @@ var Enums = {
   /**
    * Give Java-like methods namely `values` and `valueOf` for enumeration.
    * There is also `list` for displaying `ListItem` in `DropDownList` or `ListBox`.
-   * @param {Object} object actual enum, every item must contain property `name`.
-   * @param {*} withImage whether or not enum item contain property `image`.
-   * @param {*} separatorIndices ListItem separator.
+   * Every enumeration field must contain property `name` and optionally `image`.
+   * @param {Object} object JSON object.
+   * @param {Array} separatorIndices array of numbers indicating where ListItem separator should be.
    * @returns
    */
-  of: function(object, withImage, separatorIndices) {
-    if (withImage === undefined) {
-      withImage = false
-    }
+  of: function(object, separatorIndices) {
     if (separatorIndices === undefined) {
       separatorIndices = []
     }
     var fields = []
+    var withImage = undefined
     for (var key in object) {
       if (key.toUpperCase() === key) {
-        fields.push(object[key])
+        var field = object[key]
+        fields.push(field)
+        if (withImage === undefined) {
+          withImage = field.image !== undefined
+        }
       }
     }
     object.values = function() { return fields }

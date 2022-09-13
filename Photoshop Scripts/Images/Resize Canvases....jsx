@@ -33,7 +33,7 @@ dialog.hgroup(function(main) {
     })
   })
   main.vpanel(R.string.anchor, function(panel) {
-    anchorGroup = new AnchorGroup(panel, true)
+    anchorGroup = new AnchorGroup(panel)
   })
 })
 dialog.setCancelButton()

@@ -18,7 +18,7 @@ var Ordering = Enums.of({
   positionList: function() {
     return Collections.map(this.positionValues(), function(it) { return [it.name, it.image] })
   }
-}, true)
+})
 
 /**
  * DropDownList of ordering choices.

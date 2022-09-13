@@ -68,7 +68,7 @@ var Collections = {
    */
   distinct: function(collection) {
     var distinct = []
-    Collections.forEach(collection, function(element) {
+    this.forEach(collection, function(element) {
       if (!Collections.contains(distinct, element)) {
         distinct.push(element)
       }
@@ -93,7 +93,7 @@ var Collections = {
    * @param {Function} action runnable to execute.
    */
   forEachReversed: function(collection, action) {
-    for (var i = Collections.lastIndex(collection); i >= 0; i--) {
+    for (var i = this.lastIndex(collection); i >= 0; i--) {
       action(collection[i], i)
     }
   }

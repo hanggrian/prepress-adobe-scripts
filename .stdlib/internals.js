@@ -8,7 +8,7 @@ var Internals = {
 
   getFileFilters: function(fileTypes) {
     var filters
-    if (App.OS_MAC) {
+    if (Scripts.OS_MAC) {
       // in macOS, filters are predicate, returning true for selectable file
       filters = function(file) {
         if (file instanceof Folder) {  // required to go through directory

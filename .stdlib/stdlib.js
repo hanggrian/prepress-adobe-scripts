@@ -47,12 +47,11 @@
 #include "units.js"
 
 var Theme = Enums.of({
-  DARK: { name: "Dark" },
-  LIGHT: { name: "Light" }
+  DARK: { name: R.string.dark },
+  LIGHT: { name: R.string.light }
 })
 
 /**
- * @param {String} name country name.
  * @param {String} code 2 letter ISO code.
  */
 var Language = Enums.of({
@@ -71,7 +70,7 @@ var Language = Enums.of({
   }
 })
 
-var App = {
+var Scripts = {
   PATH_STDLIB: new File($.fileName).path,
   PATH_LIB: undefined,
   PATH_STDRES: undefined,
@@ -81,6 +80,7 @@ var App = {
   RES_LANG: undefined,
 
   OS_MAC: $.os.toLowerCase().indexOf("mac") >= 0,
+  APP_AI: app.name === "Adobe Illustrator",
 
   URL_GITHUB: "https://github.com/hendraanggrian/prepress-adobe-scripts/",
   URL_WEBSITE: "https://hendraanggrian.github.io/prepress-adobe-scripts/",
@@ -91,15 +91,15 @@ var App = {
    * @returns {File}
    */
   getResource: function(fullName) {
-    if (App.PATH_STDRES === undefined) {
-      App.PATH_STDRES = new File(App.PATH_STDLIB + "/../.stdres")
-      App.PATH_RES = new File(App.PATH_LIB + "/../.res")
+    if (this.PATH_STDRES === undefined) {
+      this.PATH_STDRES = new File(this.PATH_STDLIB + "/../.stdres")
+      this.PATH_RES = new File(this.PATH_LIB + "/../.res")
     }
-    var file = new File(App.PATH_RES + "/" + fullName)
+    var file = new File(this.PATH_RES + "/" + fullName)
     if (file.exists) {
       return file
     }
-    file = new File(App.PATH_STDRES + "/" + fullName)
+    file = new File(this.PATH_STDRES + "/" + fullName)
     if (file.exists) {
       return file
     }

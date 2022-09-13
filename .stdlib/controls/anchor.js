@@ -9,15 +9,14 @@ var SIZE_ANCHOR_RADIO = [15, 15]
 /**
  * 3 groups with 3 radio buttons each representing anchor position.
  * @param {Group|Panel|Window} parent holder of this control.
- * @param {Boolean} isPsd attempt to normalize appearance between suite.
  */
-function AnchorGroup(parent, isPsd) {
+function AnchorGroup(parent) {
   var self = parent.vgroup()
   self.topLeftRadio, self.topRadio, self.topRightRadio
   self.leftRadio, self.centerRadio, self.rightRadio
   self.bottomLeftRadio, self.bottomRadio, self.bottomRightRadio
 
-  isPsd = isPsd === undefined ? false : true
+  isPsd = Scripts.APP_AI ? false : true
   self.hgroup(function(group) {
     if (isPsd) {
       group.spacing = 0

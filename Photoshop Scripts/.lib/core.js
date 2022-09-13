@@ -11,6 +11,6 @@
 #include "core-preferences.js"
 #include "core-units.js"
 
-App.PATH_LIB = new File($.fileName).path
+Scripts.PATH_LIB = new File($.fileName).path
 
 Language.set(Language.valueOfCode(configs.getString("language_code", Language.EN.code)))

@@ -4,6 +4,9 @@
 </javascriptresource>
 */
 
+/**
+ * @param {Array} extension file extensions that can be categorized as this file type.
+ */
 var FileType = Enums.of({
   ADOBE_ILLUSTRATOR: { name: "Adobe Illustrator", extensions: ["ai"] },
   ADOBE_PDF: { name: "Adobe PDF", extensions: ["pdf"] },

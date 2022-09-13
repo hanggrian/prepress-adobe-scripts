@@ -6,7 +6,7 @@ var Direction = Enums.of({
   RIGHT: { name: R.string.right, image: "ic_arrow_right" },
   BOTTOM: { name: R.string.bottom, image: "ic_arrow_bottom" },
   LEFT: { name: R.string.left, image: "ic_arrow_left" }
-}, true)
+})
 
 var SIZE_INPUT = [110, 21]
 var SIZE_LABEL_TAB = [70, 21] // can't align right on tabbed panel

@@ -27,7 +27,3 @@ test("isEqualRounded", function() {
   assertTrue(isEqualRounded(1.1, 1))
   assertFalse(isEqualRounded(1.6, 1))
 })
-
-test("maxOf", function() {
-  assertEquals(3, maxOf(1, 2, 3))
-})

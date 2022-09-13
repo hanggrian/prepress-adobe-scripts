@@ -7,6 +7,9 @@ test("activate", function() {
   var child = root.editText()
   assertFalse(child.active)
   child.activate()
+  if (!Scripts.OS_MAC && Scripts.APP_AI) {
+    return
+  }
   assertTrue(child.active)
 })
 

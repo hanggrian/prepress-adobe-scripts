@@ -13,7 +13,7 @@ check(Collections.isNotEmpty(items), getString(R.string.error_notypes_document, 
 
 var count = 0
 var distance = 0
-var filledCount = 0, registrationCount = 0
+var clippingCount = 0, filledCount = 0, registrationCount = 0
 
 Collections.forEachItem(items, function(item) {
   switch (item.typename) {
@@ -34,22 +34,32 @@ if (count + distance === 0) {
 } else {
   message += getString(R.string.message_measuredielines2, count, formatUnits(distance, unitName, 2))
 }
+if (clippingCount > 0) {
+  message += getString(R.string.message_measuredielines3, clippingCount)
+}
 if (filledCount > 0) {
-  message += getString(R.string.message_measuredielines3, filledCount)
+  message += getString(R.string.message_measuredielines4, filledCount)
 }
 if (registrationCount > 0) {
-  message += getString(R.string.message_measuredielines4, registrationCount)
+  message += getString(R.string.message_measuredielines5, registrationCount)
 }
 alert(message, getString(R.string.measure_dielines))
 
 function increment(item) {
+  // dielines usually aren't used as clipping
+  if (item.clipping) {
+    clippingCount++
+    return
+  }
+  // dielines usually aren't filled
   if (item.filled) {
     filledCount++
-    return // dielines usually aren"t filled
+    return
   }
-  if (isColorEqual(item.strokeColor, Color2.REGISTRATION.getValue())) {
+  // dielines' stroke color usually aren't registration
+  if (item.stroked && isColorEqual(item.strokeColor, Color2.REGISTRATION.getValue())) {
     registrationCount++
-    return // dielines" color usually aren"t registration
+    return
   }
   count++
   distance += item.length

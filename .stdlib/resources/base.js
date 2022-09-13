@@ -13,17 +13,17 @@ var R = {}
  * @returns {File}
  */
 function getImage(name) {
-  if (App.RES_DARK === undefined) {
-    App.RES_DARK = configs.getBoolean("theme_dark")
+  if (Scripts.RES_DARK === undefined) {
+    Scripts.RES_DARK = configs.getBoolean("theme_dark")
   }
   var file
-  if (!App.RES_DARK) {
-    file = App.getResource("image-light/" + name + ".png")
+  if (!Scripts.RES_DARK) {
+    file = Scripts.getResource("image-light/" + name + ".png")
     if (file !== undefined) {
       return file
     }
   }
-  file = App.getResource("image/" + name + ".png")
+  file = Scripts.getResource("image/" + name + ".png")
   if (file !== undefined) {
     return file
   }
@@ -35,11 +35,11 @@ function getImage(name) {
  * @returns {String}
  */
 function getString() {
-  if (App.RES_LANG === undefined) {
-    App.RES_LANG = configs.getString("language_code", Language.EN.code)
+  if (Scripts.RES_LANG === undefined) {
+    Scripts.RES_LANG = configs.getString("language_code", Language.EN.code)
   }
   var format = Array.prototype.shift.call(arguments)
-  return Internals.formatString(format[App.RES_LANG], arguments)
+  return Internals.formatString(format[Scripts.RES_LANG], arguments)
 }
 
 /**
@@ -47,12 +47,12 @@ function getString() {
  * @returns {String}
  */
 function getPlural() {
-  if (App.RES_LANG === undefined) {
-    App.RES_LANG = configs.getString("language_code", Language.EN.code)
+  if (Scripts.RES_LANG === undefined) {
+    Scripts.RES_LANG = configs.getString("language_code", Language.EN.code)
   }
   var format = Array.prototype.shift.call(arguments)
   var quantityQualifier = Array.prototype.shift.call(arguments) <= 1 ? "single" : "plural"
-  return Internals.formatString(format[quantityQualifier][App.RES_LANG], arguments)
+  return Internals.formatString(format[quantityQualifier][Scripts.RES_LANG], arguments)
 }
 
 /**
@@ -60,4 +60,4 @@ function getPlural() {
  * @param {String} name file name without extension.
  * @returns {File}
  */
-function getScript(name) { return App.getResource("script/" + name + (App.OS_MAC ? ".command" : ".cmd")) }
+function getScript(name) { return Scripts.getResource("script/" + name + (Scripts.OS_MAC ? ".command" : ".cmd")) }

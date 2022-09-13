@@ -58,8 +58,8 @@ Collections.forEachItem(selection, function(it) {
 var message = getString(R.string.message_count1)
 var prefix = ""
 
-if (selection.length !== maxOf(compoundPathCount, graphCount, legacyTextCount, meshCount,
-  nonNativeCount, pathCount, placedCount, pluginCount, rasterCount, symbolCount, textCount)) {
+if (selection.length !== compoundPathCount + graphCount + legacyTextCount + meshCount +
+  nonNativeCount + pathCount + placedCount + pluginCount + rasterCount + symbolCount + textCount) {
   message += selection.length + getString(R.string.message_count2)
   prefix = "\n"
 }

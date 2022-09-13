@@ -39,20 +39,3 @@ Number.prototype.round = function() { return Math.round(this) }
  * @returns {Boolean}
  */
 function isEqualRounded(number1, number2) { return number1.round() === number2.round() }
-
-/**
- * Returns max number of `arguments`.
- * @returns {Number}
- */
-function maxOf() {
-  if (Collections.isEmpty(arguments)) {
-    return
-  }
-  var max = arguments[0]
-  for (var i = 1; i < arguments.length; i++) {
-    if (max < arguments[i]) {
-      max = arguments[i]
-    }
-  }
-  return max
-}

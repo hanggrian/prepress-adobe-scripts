@@ -22,21 +22,20 @@
 #include "core-preferences.js"
 #include "core-units.js"
 
-App.PATH_LIB = new File($.fileName).path
+Scripts.PATH_LIB = new File($.fileName).path
 
 Language.set(Language.valueOfCode(configs.getString("language_code", Language.EN.code)))
 
 /**
- * @param {String} name imposition type.
  * @param {Object} pager object responsible for iterating pages each artboard.
  */
 var Imposition = Enums.of({
   ONE_UP: {
-    name: getString(R.string.n_up, 1),
+    name: getString(R.string.D_up, 1),
     getPager: function(document, start) { return new OneUpPager(document, start) }
   },
   TWO_UP: {
-    name: getString(R.string.n_up, 2),
+    name: getString(R.string.D_up, 2),
     getPager: function(document, start, isDuplex, isStack) {
       if (!isDuplex) {
         return !isStack ? new TwoUpSimplexPager(document, start) : new TwoUpSimplexStackPager(document, start)
@@ -46,7 +45,7 @@ var Imposition = Enums.of({
     }
   },
   FOUR_UP: {
-    name: getString(R.string.n_up, 4),
+    name: getString(R.string.D_up, 4),
     getPager: function(document, start, isFolding, isDuplex, isStack) {
       if (isFolding) {
         return new FourUpFoldingPager(document, start)
@@ -59,7 +58,7 @@ var Imposition = Enums.of({
     }
   },
   EIGHT_UP: {
-    name: getString(R.string.n_up, 8),
+    name: getString(R.string.D_up, 8),
     getPager: function(document, start, isFolding, isDuplex, isStack) {
       if (isFolding) {
         return new EightUpFoldingPager(document, start)

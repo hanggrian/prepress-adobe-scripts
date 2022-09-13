@@ -10,7 +10,7 @@
 var dialog = new Dialog(R.string.about_scripts)
 var aboutPanel
 
-var clientDate = parseDate(App.getResource("VERSION").readText())
+var clientDate = parseDate(Scripts.getResource("VERSION").readText())
 
 dialog.vgroup(function(main) {
   main.hgroup(function(group) {
@@ -43,5 +43,8 @@ dialog.vgroup(function(main) {
   })
 })
 dialog.setCancelButton(R.string.close) // because there is no default button
-dialog.setHelpButton(R.string.visit_github, function() { App.openUrl(App.URL_GITHUB) })
+dialog.setHelpButton(R.string.visit_github, function() {
+  Scripts.openUrl(Scripts.URL_GITHUB)
+  return true
+})
 dialog.show()

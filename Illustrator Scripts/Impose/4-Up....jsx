@@ -3,7 +3,7 @@
 
 var SIZE_INPUT = [100, 21]
 
-var dialog = new Dialog(getString(R.string.impose_n_up, 4), "imposing-layout/#n-up")
+var dialog = new Dialog(getString(R.string.impose_D_up, 4), "imposing-layout/#n-up")
 var pdfPanel, pagesPanel, documentPanel
 var nupGroup
 

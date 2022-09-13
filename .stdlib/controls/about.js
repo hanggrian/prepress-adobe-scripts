@@ -73,13 +73,13 @@ function AboutPanel(parent, clientDate) {
         it.maximumSize.height = 21
         it.enabled = false
         it.onClick = function() {
-          App.openUrl(App.URL_GITHUB + "/archive/refs/heads/main.zip")
+          Scripts.openUrl(Scripts.URL_GITHUB + "/archive/refs/heads/main.zip")
         }
       })
     })
   })
   self.licensingTab = self.vtab(R.string.licensing, function(tab) {
-    tab.editText(SIZE_ABOUT_TAB, App.getResource("LICENSE").readText(),
+    tab.editText(SIZE_ABOUT_TAB, Scripts.getResource("LICENSE").readText(),
       { multiline: true, readonly: true, scrollable: true })
   })
 
