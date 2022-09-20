@@ -54,7 +54,7 @@ var VALIDATE_UNITS = function(editText) { editText.validateUnits() }
 
 /** Focus on this edit text. */
 EditText.prototype.activate = function() {
-  // In Illustrator on Windows, this process is skipped because activating control will mess up app focus.
+  // in Illustrator on Windows, this process is skipped because activating control will mess up app focus
   if (!Scripts.OS_MAC && Scripts.APP_AI) {
     return
   }
@@ -66,7 +66,7 @@ EditText.prototype.activate = function() {
  * @param {Array} size optional size or bounds.
  * @param {String|Object} text optional control text.
  * @param {Object} properties optional extra properties.
- * @returns {EditText}
+ * @return {EditText}
  */
 Group.prototype.editText = function(size, text, properties) {
   return Internals.addEditText(this, size, text, properties)
@@ -77,7 +77,7 @@ Group.prototype.editText = function(size, text, properties) {
  * @param {Array} size optional size or bounds.
  * @param {String|Object} text optional control text.
  * @param {Object} properties optional extra properties.
- * @returns {EditText}
+ * @return {EditText}
  */
 Panel.prototype.editText = function(size, text, properties) {
   return Internals.addEditText(this, size, text, properties)

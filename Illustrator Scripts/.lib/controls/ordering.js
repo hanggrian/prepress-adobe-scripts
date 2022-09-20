@@ -1,4 +1,4 @@
-var Ordering = Enums.of({
+var Ordering = new Enum({
   LAYER_DEFAULT: { name: R.string.default, image: "ic_order_layer_default" },
   LAYER_REVERSED: { name: R.string.reversed, image: "ic_order_layer_reversed" },
   NAME_ASCENDING: { name: R.string.ascending, image: "ic_order_name_ascending" },
@@ -40,42 +40,23 @@ function OrderingList(parent, ordersCollection) {
   })
 
   /**
-   * Iterate collection using selected ordering.
-   * @param {Array} collection source elements.
-   * @param {Function} action runnable of element as parameter.
-   * @returns
+   * Get a comparator for `Array.sort`.
+   * @return {Function}
    */
-  self.forEach = function(collection, action) {
+  self.getComparator = function() {
     var ordering = Ordering.valueOf(self.selection)
-    if (ordering === Ordering.LAYER_DEFAULT) {
-      Collections.forEach(collection, action)
-      return
-    } else if (ordering === Ordering.LAYER_REVERSED) {
-      Collections.forEachReversed(collection, action)
-      return
-    }
-    var sortedCollection = Collections.map(collection, function(it) { return it })
-    if (ordering === Ordering.NAME_ASCENDING) {
-      sortedCollection.sort(sortAscending)
-    } else if (ordering === Ordering.NAME_DESCENDING) {
-      sortedCollection.sort(sortDescending)
-    } else if (ordering === Ordering.POSITION_HORIZONTAL) {
-      sortedCollection.sort(sortHorizontal)
-    } else if (ordering === Ordering.POSITION_VERTICAL) {
-      sortedCollection.sort(sortVertical)
-    } else if (ordering === Ordering.POSITION_HORIZONTALRTL) {
-      sortedCollection.sort(sortHorizontalRtl)
-    } else if (ordering === Ordering.POSITION_VERTICALRTL) {
-      sortedCollection.sort(sortVerticalRtl)
-    } else {
-      error("Ordering error")
-    }
-    Collections.forEach(sortedCollection, action)
+    if (ordering === Ordering.LAYER_DEFAULT) return function() { return 1 }
+    else if (ordering === Ordering.LAYER_REVERSED) return function() { return -1 }
+    else if (ordering === Ordering.NAME_ASCENDING) return sortAscending
+    else if (ordering === Ordering.NAME_DESCENDING) return sortDescending
+    else if (ordering === Ordering.POSITION_HORIZONTAL) return sortHorizontal
+    else if (ordering === Ordering.POSITION_VERTICAL) return sortVertical
+    else if (ordering === Ordering.POSITION_HORIZONTALRTL) return sortHorizontalRtl
+    else if (ordering === Ordering.POSITION_VERTICALRTL) return sortVerticalRtl
+    else error("Ordering error")
   }
 
-  function getBounds(item) {
-    return item.typename === "Artboard" ? item.artboardRect : item.geometricBounds
-  }
+  function getRectangle(item) { return item.typename === "Artboard" ? item.artboardRect : item.geometricBounds }
 
   function sortAscending(a, b) {
     if (a.name > b.name) {
@@ -96,10 +77,10 @@ function OrderingList(parent, ordersCollection) {
   }
 
   function sortHorizontal(a, b) {
-    var aX = getBounds(a).getLeft().floor()
-    var aY = getBounds(a).getTop().floor()
-    var bX = getBounds(b).getLeft().floor()
-    var bY = getBounds(b).getTop().floor()
+    var aX = getRectangle(a).getLeft().floor()
+    var aY = getRectangle(a).getTop().floor()
+    var bX = getRectangle(b).getLeft().floor()
+    var bY = getRectangle(b).getTop().floor()
     if (aY < bY) {
       return 1
     } else if (aY > bY) {
@@ -114,10 +95,10 @@ function OrderingList(parent, ordersCollection) {
   }
 
   function sortVertical(a, b) {
-    var aX = getBounds(a).getLeft().floor()
-    var aY = getBounds(a).getTop().floor()
-    var bX = getBounds(b).getLeft().floor()
-    var bY = getBounds(b).getTop().floor()
+    var aX = getRectangle(a).getLeft().floor()
+    var aY = getRectangle(a).getTop().floor()
+    var bX = getRectangle(b).getLeft().floor()
+    var bY = getRectangle(b).getTop().floor()
     if (aX > bX) {
       return 1
     } else if (aX < bX) {
@@ -132,10 +113,10 @@ function OrderingList(parent, ordersCollection) {
   }
 
   function sortHorizontalRtl(a, b) {
-    var aX = getBounds(a).getLeft().floor()
-    var aY = getBounds(a).getTop().floor()
-    var bX = getBounds(b).getLeft().floor()
-    var bY = getBounds(b).getTop().floor()
+    var aX = getRectangle(a).getLeft().floor()
+    var aY = getRectangle(a).getTop().floor()
+    var bX = getRectangle(b).getLeft().floor()
+    var bY = getRectangle(b).getTop().floor()
     if (aY < bY) {
       return 1
     } else if (aY > bY) {
@@ -150,10 +131,10 @@ function OrderingList(parent, ordersCollection) {
   }
 
   function sortVerticalRtl(a, b) {
-    var aX = getBounds(a).getLeft().floor()
-    var aY = getBounds(a).getTop().floor()
-    var bX = getBounds(b).getLeft().floor()
-    var bY = getBounds(b).getTop().floor()
+    var aX = getRectangle(a).getLeft().floor()
+    var aY = getRectangle(a).getTop().floor()
+    var bX = getRectangle(b).getLeft().floor()
+    var bY = getRectangle(b).getTop().floor()
     if (aX > bX) {
       return -1
     } else if (aX < bX) {

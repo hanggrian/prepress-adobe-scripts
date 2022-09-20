@@ -1,7 +1,7 @@
 #target Illustrator
 #include "../.lib/commons.js"
 
-var Rounding = Enums.of({
+var Rounding = new Enum({
   NONE: { name: R.string.none, action: function(it) { return it } },
   ROUND: { name: R.string.round, action: Math.round },
   FLOOR: { name: R.string.floor, action: Math.floor },

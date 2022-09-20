@@ -48,7 +48,7 @@ dialog.setYesButton(R.string.all, function() {
   var width = new UnitValue(widthEdit.text)
   var height = new UnitValue(heightEdit.text)
   var anchor = anchorGroup.getAnchorPosition()
-  var progress = new ProgressDialog(app.documents.length, R.string.resizing)
+  var progress = new ProgressPalette(app.documents.length, R.string.resizing)
 
   Collections.forEach(app.documents, function(document) {
     progress.increment()

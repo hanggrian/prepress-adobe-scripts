@@ -9,7 +9,7 @@
  * @param {Array} size optional size or bounds.
  * @param {String|Object} text optional control text.
  * @param {Object} properties optional extra properties.
- * @returns {StaticText}
+ * @return {StaticText}
  */
 Group.prototype.leftStaticText = function(size, text, properties) {
   var child = Internals.addStaticText(this, size, text, properties)
@@ -23,7 +23,7 @@ Group.prototype.leftStaticText = function(size, text, properties) {
  * @param {Array} size optional size or bounds.
  * @param {String|Object} text optional control text.
  * @param {Object} properties optional extra properties.
- * @returns {StaticText}
+ * @return {StaticText}
  */
 Panel.prototype.leftStaticText = function(size, text, properties) {
   var child = Internals.addStaticText(this, size, text, properties)
@@ -37,7 +37,7 @@ Panel.prototype.leftStaticText = function(size, text, properties) {
  * @param {Array} size optional size or bounds.
  * @param {String|Object} text optional control text.
  * @param {Object} properties optional extra properties.
- * @returns {StaticText}
+ * @return {StaticText}
  */
 Group.prototype.staticText = function(size, text, properties) {
   return Internals.addStaticText(this, size, text, properties)
@@ -48,7 +48,7 @@ Group.prototype.staticText = function(size, text, properties) {
  * @param {Array} size optional size or bounds.
  * @param {String|Object} text optional control text.
  * @param {Object} properties optional extra properties.
- * @returns {StaticText}
+ * @return {StaticText}
  */
 Panel.prototype.staticText = function(size, text, properties) {
   return Internals.addStaticText(this, size, text, properties)

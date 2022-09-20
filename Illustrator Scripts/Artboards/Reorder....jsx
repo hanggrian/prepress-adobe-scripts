@@ -16,7 +16,8 @@ dialog.vgroup(function(main) {
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
   var properties = []
-  orderingList.forEach(document.artboards, function(it) {
+  var sortedArtboards = Collections.copyOf(document.artboards).sort(orderingList.getComparator())
+  Collections.forEach(sortedArtboards, function(it) {
     properties.push(Properties.copy(it))
   })
   Collections.forEach(document.artboards, function(it, i) {

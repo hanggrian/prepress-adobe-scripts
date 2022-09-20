@@ -59,6 +59,7 @@
 "error_preconditions_multipleselection","Single selection is not supported","Seleksi tunggal tidak didukung"
 "error_preconditions_singleselection","Multiple selection is not supported","Seleksi ganda tidak didukung"
 "error_preconditions_typename","Expected item type to be %s","Jenis barang yang diharapkan adalah %s"
+"error_range","Invalid range","Rentang tidak valid"
 "error_rearrange","Objects to arrange must be connected to each other","Objek untuk mengatur harus terhubung satu sama lain"
 "error_stepandrepeat","Minimal value is 1x1","Nilai minimal adalah 1x1"
 "file_types","File Types","Jenis File"

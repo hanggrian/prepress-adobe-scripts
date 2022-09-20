@@ -6,9 +6,9 @@
 
 /**
  * Returns an array containing the results of applying the given transform function.
- * @param {Array|Object} collection array or array-like objects.
+ * @param {Array|Object} collection array or array-like object.
  * @param {Function} transform runnable with return value.
- * @returns {Array}
+ * @return {Array}
  */
 Collections.map = function(collection, transform) {
   var result = []
@@ -21,9 +21,9 @@ Collections.map = function(collection, transform) {
 /**
  * Returns a single sequence of all elements from results of
  * transform function being invoked on each element of original sequence.
- * @param {Array|Object} collection array or array-like objects.
+ * @param {Array|Object} collection array or array-like object.
  * @param {Function} transform runnable with return value.
- * @returns {Array}
+ * @return {Array}
  */
 Collections.flatMap = function(collection, transform) {
   var result = []

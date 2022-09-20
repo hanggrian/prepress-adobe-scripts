@@ -12,7 +12,7 @@ var dialog = new Dialog(R.string.relink_same, "relinking-files/#relink-same")
 var pdfPanel, pageEdit, keepSizeCheck
 var config = configs.resolve("links/relink_same")
 
-var file = FilePicker.openFile(dialog.getTitle(), FileType.values())
+var file = FilePicker.openFile(dialog.text, FileType.values())
 
 if (file !== null) {
   dialog.vgroup(function(main) {
@@ -44,7 +44,7 @@ if (file !== null) {
       preferences.setPDFPage(page)
     }
 
-    var progress = new ProgressDialog(items.length)
+    var progress = new ProgressPalette(items.length)
     Collections.forEach(items, function(item, i) {
       progress.increment(R.string.progress_relink, i + 1)
       print(i + ". ")

@@ -22,7 +22,7 @@ function RangeGroup(parent, inputSize) {
 
   /**
    * Returns start input as text, throws error if range is invalid.
-   * @returns {String}
+   * @return {String}
    */
   self.getStartText = function() {
     checkValidity()
@@ -31,7 +31,7 @@ function RangeGroup(parent, inputSize) {
 
   /**
    * Returns end input as text, throws error if range is invalid.
-   * @returns {String}
+   * @return {String}
    */
   self.getEndText = function() {
     checkValidity()
@@ -40,7 +40,7 @@ function RangeGroup(parent, inputSize) {
 
   /**
    * Returns start input, shows error alert if range is invalid,
-   * @returns {Number}
+   * @return {Number}
    */
   self.getStart = function() {
     var start = parseInt(self.getStartText()) - 1
@@ -52,7 +52,7 @@ function RangeGroup(parent, inputSize) {
 
   /**
    * Returns end input, shows error alert if range is invalid,
-   * @returns {Number}
+   * @return {Number}
    */
   self.getEnd = function() {
     var end = parseInt(self.getEndText()) - 1
@@ -64,7 +64,7 @@ function RangeGroup(parent, inputSize) {
 
   /**
    * Returns range distance, throws error if range is invalid.
-   * @returns {Number}
+   * @return {Number}
    */
   self.getLength = function() {
     checkValidity()
@@ -74,7 +74,7 @@ function RangeGroup(parent, inputSize) {
   /**
    * Returns true if `input` is in within range, throws error if range is invalid.
    * @param {Number} input expected to be more than start and less than end.
-   * @returns {Boolean}
+   * @return {Boolean}
    */
   self.includes = function(input) {
     checkValidity()
@@ -82,23 +82,21 @@ function RangeGroup(parent, inputSize) {
   }
 
   /**
-   * Iterate from start to end input.
-   * @param {Function} action runnable with current index as parameter.
+   * Creates an array containing starting number until ending number.
+   * @return {Array}
    */
-  self.forEach = function(action) {
+  self.toArray = function(action) {
     checkValidity()
-    var start = self.getStart()
-    var end = start + self.getLength() // necessary to call `getLength` instead of `getEnd` to check range
-    for (var i = start; i < end; i++) {
-      action(i)
+    var result = []
+    var from = self.getStart()
+    var to = from + self.getLength() // necessary to call `getLength` instead of `getEnd` to check range
+    for (var i = from; i < to; i++) {
+      result.push(i)
     }
+    return result
   }
 
-  function checkValidity() {
-    if (parseInt(self.startEdit.text) > parseInt(self.endEdit.text)) {
-      error("Invalid range")
-    }
-  }
+  function checkValidity() { check(parseInt(self.startEdit.text) <= parseInt(self.endEdit.text), R.string.error_range) }
 
   return self
 }

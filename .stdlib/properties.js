@@ -12,8 +12,8 @@ var Properties = {
    * @param {Object} source object with properties.
    */
   copy: function(source) {
-    var props = { }, key
-    for (key in source) {
+    var props = { }
+    for (var key in source) {
       try {
         props[key] = source[key]
       } catch (e) {
@@ -28,8 +28,7 @@ var Properties = {
    * @param {Object} target any object.
    */
   paste: function(source, target) {
-    var key
-    for (key in source) {
+    for (var key in source) {
       target[key] = source[key]
     }
   }

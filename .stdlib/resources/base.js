@@ -5,12 +5,12 @@
 */
 
 // replacement of JSON files in resources because JSON parsing isn't officialy supported by ExtendScript
-var R = {}
+var R = { }
 
 /**
  * Refer to png file, which can be dark or light theme.
  * @param {String} name file name without extension.
- * @returns {File}
+ * @return {File}
  */
 function getImage(name) {
   if (Scripts.RES_DARK === undefined) {
@@ -32,7 +32,7 @@ function getImage(name) {
 
 /**
  * Refer to string value from JSON object, which can be specific language.
- * @returns {String}
+ * @return {String}
  */
 function getString() {
   if (Scripts.RES_LANG === undefined) {
@@ -44,7 +44,7 @@ function getString() {
 
 /**
  * Refer to plural string value from JSON object, which can be specific language.
- * @returns {String}
+ * @return {String}
  */
 function getPlural() {
   if (Scripts.RES_LANG === undefined) {
@@ -58,6 +58,6 @@ function getPlural() {
 /**
  * Refer to script file and tell OS to execute it.
  * @param {String} name file name without extension.
- * @returns {File}
+ * @return {File}
  */
 function getScript(name) { return Scripts.getResource("script/" + name + (Scripts.OS_MAC ? ".command" : ".cmd")) }

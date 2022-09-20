@@ -13,7 +13,7 @@ var pdfPanel, rangeGroup, orderingList, recursiveCheck, keepSizeCheck
 var collection
 var config = configs.resolve("links/relink_multipage")
 
-var files = FilePicker.openFile(dialog.getTitle(), FileType.values(), true)
+var files = FilePicker.openFile(dialog.text, FileType.values(), true)
 
 if (files !== null && Collections.isNotEmpty(files)) {
   collection = new FileCollection(files)
@@ -53,9 +53,10 @@ if (files !== null && Collections.isNotEmpty(files)) {
     var current = rangeGroup.getStart()
     var end = rangeGroup.getEnd()
     var source = recursiveCheck.value ? Collections.filterItem(selection, PREDICATE_LINKS) : selection
-    var progress = new ProgressDialog(source.length)
+    var progress = new ProgressPalette(source.length)
 
-    orderingList.forEach(source, function(item, i) {
+    source.sort(orderingList.getComparator())
+    Collections.forEach(source, function(item, i) {
       progress.increment(R.string.progress_relink, i + 1)
       print("Item %d page %d.".format(i, current))
       var file = collection.get(current)

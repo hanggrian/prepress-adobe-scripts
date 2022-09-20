@@ -41,9 +41,10 @@ dialog.setDefaultButton(undefined, function() {
   var current = rangeGroup.getStart()
   var end = rangeGroup.getEnd()
   var source = recursiveCheck.value ? Collections.filterItem(selection, PREDICATE_LINKS) : selection
-  var progress = new ProgressDialog(source.length)
+  var progress = new ProgressPalette(source.length)
 
-  orderingList.forEach(source, function(item, i) {
+  source.sort(orderingList.getComparator())
+  Collections.forEach(source, function(item, i) {
     progress.increment(R.string.progress_relink, i + 1)
     print("Item %d page %d.".format(i, current))
     preferences.setPDFPage(current)

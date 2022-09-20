@@ -39,25 +39,25 @@ function NUpOptionsGroup(parent, showFolding, showRotate, showDuplex, showStack)
 
   /**
    * Returns true if rotate checkbox is selected.
-   * @returns {Boolean}
+   * @return {Boolean}
    */
   self.isFolding = function() { return self.foldingCheck.value }
 
   /**
    * Returns true if rotate checkbox is selected.
-   * @returns {Boolean}
+   * @return {Boolean}
    */
   self.isRotate = function() { return self.rotateCheck.value }
 
   /**
    * Returns true if duplex checkbox is selected.
-   * @returns {Boolean}
+   * @return {Boolean}
    */
   self.isDuplex = function() { return self.duplexCheck.value }
 
   /**
    * Returns true if cut-stack checkbox is selected.
-   * @returns {Boolean}
+   * @return {Boolean}
    */
   self.isStack = function() { return self.stackCheck.value }
 

@@ -72,9 +72,7 @@ function AboutPanel(parent, clientDate) {
       self.updatesDownloadButton = group.button(undefined, R.string.download).also(function(it) {
         it.maximumSize.height = 21
         it.enabled = false
-        it.onClick = function() {
-          Scripts.openUrl(Scripts.URL_GITHUB + "/archive/refs/heads/main.zip")
-        }
+        it.onClick = function() { Scripts.openUrl(Scripts.URL_GITHUB + "/archive/refs/heads/main.zip") }
       })
     })
   })

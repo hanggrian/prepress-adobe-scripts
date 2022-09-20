@@ -75,7 +75,7 @@ dialog.setYesButton("All", function() {
   var bleed = new UnitValue(lengthEdit.text)
   var anchor = anchorGroup.getAnchorPosition()
   var correction = parseUnits(correctionEdit.text)
-  var progress = new ProgressDialog(app.documents.length, R.string.adding_bleed)
+  var progress = new ProgressPalette(app.documents.length, R.string.adding_bleed)
 
   Collections.forEach(app.documents, function(document) {
     progress.increment()

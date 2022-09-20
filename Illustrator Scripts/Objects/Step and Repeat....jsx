@@ -60,7 +60,7 @@ dialog.setDefaultButton(undefined, function() {
   var moveVertical = parseUnits(moveVerticalEdit.text)
 
   if (horizontal < 1 || vertical < 1) {
-    Windows.alert(R.string.error_stepandrepeat, dialog.getTitle(), true)
+    Windows.alert(R.string.error_stepandrepeat, dialog.text, true)
     return true
   }
 

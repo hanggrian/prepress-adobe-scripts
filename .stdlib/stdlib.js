@@ -33,10 +33,9 @@
 #include "sui/parent-panel.js"
 #include "sui/parent-tab.js"
 #include "sui/parent-tabbedpanel.js"
-#include "sui/window-alert.js"
+#include "sui/window-builtin.js"
 #include "sui/window-dialog.js"
-#include "sui/window-native.js"
-#include "sui/window-progress.js"
+#include "sui/window-palette.js"
 #include "geometry.js"
 #include "math.js"
 #include "preconditions.js"
@@ -46,7 +45,7 @@
 #include "time.js"
 #include "units.js"
 
-var Theme = Enums.of({
+var Theme = new Enum({
   DARK: { name: R.string.dark },
   LIGHT: { name: R.string.light }
 })
@@ -54,7 +53,7 @@ var Theme = Enums.of({
 /**
  * @param {String} code 2 letter ISO code.
  */
-var Language = Enums.of({
+var Language = new Enum({
   EN: { name: "English", code: "en" },
   ID: { name: "Indonesia", code: "id" },
 

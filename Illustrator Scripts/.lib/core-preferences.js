@@ -45,14 +45,14 @@ function Configs(path) {
   /**
    * Create another instance of preferences using current path suffixed with `relative` path.
    * @param {String} relative relative file path.
-   * @returns {Boolean}
+   * @return {Boolean}
    */
   this.resolve = function(relative) { return new Configs(prefix + relative) }
 
   /**
    * Get boolean value from this preferences, returning true if not present.
    * @param {String} key preference's key.
-   * @returns {Boolean}
+   * @return {Boolean}
    */
   this.getBoolean = function(key) {
     var value = preferences.getBooleanPreference(prefix + key)
@@ -63,7 +63,7 @@ function Configs(path) {
   /**
    * Get int value from this preferences, returning default if not present.
    * @param {String} key preference's key.
-   * @returns {Number}
+   * @return {Number}
    */
   this.getInt = function(key) {
     var value = preferences.getIntegerPreference(prefix + key)
@@ -74,7 +74,7 @@ function Configs(path) {
   /**
    * Get number value from this preferences, returning 0 if not present.
    * @param {String} key preference's key.
-   * @returns {Number}
+   * @return {Number}
    */
   this.getNumber = function(key) {
     var value = preferences.getRealPreference(prefix + key)
@@ -86,7 +86,7 @@ function Configs(path) {
    * Get string value from this preferences, returning default if not present.
    * @param {String} key preference's key.
    * @param {String} defaultValue value to use when preference is not found.
-   * @returns {String}
+   * @return {String}
    */
   this.getString = function(key, defaultValue) {
     print("Get str preference '%s': ", key)

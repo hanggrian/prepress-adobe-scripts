@@ -15,7 +15,7 @@ UnitType.CENTIMETERS.rulerUnits = RulerUnits.Centimeters
  * @param {Number} unitValue unit value in pt.
  * @param {Number} unitName expected conversion, e.g: cm, mm, etc.
  * @param {Number} fraction max decimal place, may be undefined.
- * @returns {String}
+ * @return {String}
  */
 function formatUnits(unitValue, unitName, fraction) {
   checkNotNull(unitValue)
@@ -28,7 +28,7 @@ function formatUnits(unitValue, unitName, fraction) {
 /**
  * Converts units to unit value in points.
  * @param {String} units units to convert.
- * @returns {Number}
+ * @return {Number}
  */
 function parseUnits(units) {
   checkNotNull(units)

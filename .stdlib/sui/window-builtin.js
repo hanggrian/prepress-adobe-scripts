@@ -20,8 +20,8 @@ var Windows = {
    * Show native confirmation alerts with values from resources.
    * @param {String|Object} message alert message.
    * @param {String|Object} title alert title, may be null.
-   * @param {Boolean} noAsDefault when true, the No button is the default choice,.
-   * @returns {Boolean}
+   * @param {Boolean} noAsDefault when true, the No button is the default choice.
+   * @return {Boolean}
    */
   confirm: function(message, title, noAsDefault) {
     return confirm(Internals.textOrResource(message), noAsDefault, Internals.textOrResource(title))

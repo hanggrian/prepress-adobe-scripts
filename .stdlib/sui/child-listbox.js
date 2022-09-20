@@ -6,7 +6,7 @@
 
 /**
  * Returns true if this list has a selection.
- * @returns {Boolean}
+ * @return {Boolean}
  */
 ListBox.prototype.hasSelection = function() { return this.selection !== null }
 
@@ -24,7 +24,7 @@ ListBox.prototype.selectText = function(text) {
  * @param {Array} size optional size or bounds.
  * @param {Array} items optional list items.
  * @param {Object} properties optional extra properties.
- * @returns {ListBox}
+ * @return {ListBox}
  */
 Group.prototype.listBox = function(size, items, properties) {
   return Internals.addListBox(this, size, items, properties)
@@ -35,7 +35,7 @@ Group.prototype.listBox = function(size, items, properties) {
  * @param {Array} size optional size or bounds.
  * @param {Array} items optional list items.
  * @param {Object} properties optional extra properties.
- * @returns {ListBox}
+ * @return {ListBox}
  */
 Panel.prototype.listBox = function(size, items, properties) {
   return Internals.addListBox(this, size, items, properties)

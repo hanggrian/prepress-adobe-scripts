@@ -28,13 +28,6 @@ test("contains", function() {
   assertFalse(Collections.contains(fruits, "Lemon"))
 })
 
-test("distinct", function() {
-  var fruits = Collections.distinct(["Apple", "Orange", "Orange", "Banana", "Banana", "Banana"])
-  assertEquals("Apple", fruits[0])
-  assertEquals("Orange", fruits[1])
-  assertEquals("Banana", fruits[2])
-})
-
 test("forEach", function() {
   var fruits = ["Apple", "Orange", "Banana"]
   var result = []
@@ -51,4 +44,18 @@ test("forEachReversed", function() {
   assertEquals("Banana", result[0])
   assertEquals("Orange", result[1])
   assertEquals("Apple", result[2])
+})
+
+test("distinct", function() {
+  var fruits = Collections.distinct(["Apple", "Orange", "Orange", "Banana", "Banana", "Banana"])
+  assertEquals("Apple", fruits[0])
+  assertEquals("Orange", fruits[1])
+  assertEquals("Banana", fruits[2])
+})
+
+test("copyOf", function() {
+  var fruits = Collections.copyOf(["Apple", "Orange", "Banana"])
+  assertEquals("Apple", fruits[0])
+  assertEquals("Orange", fruits[1])
+  assertEquals("Banana", fruits[2])
 })

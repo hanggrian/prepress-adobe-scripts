@@ -7,7 +7,7 @@ var dialog = new Dialog(getString(R.string.impose_D_up, 8), "imposing-layout/#n-
 var pdfPanel, pagesPanel, documentPanel
 var nupGroup
 
-var files = FilePicker.openFile(dialog.getTitle(), FileType.values(), true)
+var files = FilePicker.openFile(dialog.text, FileType.values(), true)
 
 if (files !== null && Collections.isNotEmpty(files)) {
   var collection = new FileCollection(files)
@@ -45,10 +45,10 @@ if (files !== null && Collections.isNotEmpty(files)) {
 
     var pagesDivisor = nupGroup.isDuplex() ? 8 : 16
     if (pages % pagesDivisor !== 0) {
-      Windows.alert(getString(R.string.error_impose, pagesDivisor), dialog.getTitle(), true)
+      Windows.alert(getString(R.string.error_impose, pagesDivisor), dialog.text, true)
       return true
     }
-    var document = documentPanel.open(dialog.getTitle(),
+    var document = documentPanel.open(dialog.text,
       artboards,
       (rotatedWidth + bleed * 2) * 4,
       (rotatedHeight + bleed * 2) * 2,
@@ -65,7 +65,7 @@ if (files !== null && Collections.isNotEmpty(files)) {
           ? new EightUpSimplexStackPager(document, start)
           : new EightUpDuplexStackPager(document, start))
     }
-    var progress = new ProgressDialog(artboards, R.string.imposing)
+    var progress = new ProgressPalette(artboards, R.string.imposing)
 
     pager.forEachArtboard(function(artboard,
       top1, top2, top3, top4, bottom1, bottom2, bottom3, bottom4) {

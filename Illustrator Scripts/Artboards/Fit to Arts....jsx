@@ -14,7 +14,7 @@ dialog.hgroup(function(main) {
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
   var temp = selection // preserve selection
-  rangeGroup.forEach(function(i) {
+  Collections.forEach(rangeGroup.toArray(), function(i) {
     document.artboards.setActiveArtboardIndex(i)
     document.selectObjectsOnActiveArtboard(i)
     document.fitArtboardToSelectedArt(i)

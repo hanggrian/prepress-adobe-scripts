@@ -13,7 +13,7 @@ var SIZE_EDIT = [100, 21]
 var dialog = new Dialog("Open Splitted")
 var documentPanel
 
-var files = FilePicker.openFile(dialog.getTitle(), [
+var files = FilePicker.openFile(dialog.text, [
   ["Adobe Illustrator", "AI"],
   ["Adobe PDF", "PDF"],
   ["BMP", "BMP"],

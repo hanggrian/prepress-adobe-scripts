@@ -9,7 +9,7 @@
  * @param {Array} size optional size or bounds.
  * @param {String|Object} text optional control text.
  * @param {Object} properties optional extra properties.
- * @returns {Button}
+ * @return {Button}
  */
 Group.prototype.button = function(size, text, properties) {
   return Internals.addButton(this, size, text, properties)
@@ -20,7 +20,7 @@ Group.prototype.button = function(size, text, properties) {
  * @param {Array} size optional size or bounds.
  * @param {String|Object} text optional control text.
  * @param {Object} properties optional extra properties.
- * @returns {Button}
+ * @return {Button}
  */
 Panel.prototype.button = function(size, text, properties) {
   return Internals.addButton(this, size, text, properties)

@@ -45,9 +45,7 @@ dialog.vgroup(function(main) {
         stopsAtCheck = group.checkBox(undefined, getString(R.string.stops_at) + ":").also(function(it) {
           it.justify = "right"
           it.value = config.getBoolean("stop_enabled")
-          it.onClick = function() {
-            stopsAtList.enabled = stopsAtCheck.value
-          }
+          it.onClick = function() { stopsAtList.enabled = stopsAtCheck.value }
         })
         stopsAtList = group.dropDownList(SIZE_INPUT, ALPHABETS).also(function(it) {
           it.enabled = stopsAtCheck.value
@@ -84,7 +82,9 @@ dialog.setDefaultButton(undefined, function() {
   }
   var prefix = prefixEdit.text
   var suffix = suffixEdit.text
-  orderingList.forEach(items, function(item, i) {
+
+  items.sort(orderingList.getComparator())
+  Collections.forEach(items, function(item, i) {
     var s = pad(startsAt, digits)
     if (stopsAtCheck.value) {
       s += ALPHABETS[stopsCount]

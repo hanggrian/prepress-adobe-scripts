@@ -4,13 +4,13 @@
 #target Illustrator
 #include "../.lib/commons.js"
 
-var Kind = Enums.of({
+var Kind = new Enum({
   POINT_TEXT: { name: R.string.point_text, textType: TextType.POINTTEXT },
   AREA_TEXT: { name: R.string.area_text, textType: TextType.AREATEXT },
   PATH_TEXT: { name: R.string.path_text, textType: TextType.PATHTEXT }
 })
 
-var Orientation = Enums.of({
+var Orientation = new Enum({
   HORIZONTAL: { name: R.string.horizontal, textOrientation: TextOrientation.HORIZONTAL },
   VERTICAL: { name: R.string.vertical, textOrientation: TextOrientation.VERTICAL }
 })

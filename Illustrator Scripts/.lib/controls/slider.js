@@ -17,19 +17,15 @@ function SliderGroup(parent, inputSize, current, start, end, scale) {
 
   self.edit = self.editText([40, inputSize[1]], current * scale).also(function(it) {
     it.validateDigits()
-    it.onChanging = function() {
-      self.slider.value = new Number(it.text) / scale
-    }
+    it.onChanging = function() { self.slider.value = new Number(it.text) / scale }
   })
   self.slider = self.slider([inputSize[0] - 40 - 10, inputSize[1]], current, start, end).also(function(it) {
-    it.onChanging = function() {
-      self.edit.text = parseInt(it.value) * scale
-    }
+    it.onChanging = function() { self.edit.text = parseInt(it.value) * scale }
   })
 
   /**
    * Returns EditText value, or slider's current point if empty.
-   * @returns {Number}
+   * @return {Number}
    */
   self.getValue = function() { return parseInt(self.edit.value) || current }
 

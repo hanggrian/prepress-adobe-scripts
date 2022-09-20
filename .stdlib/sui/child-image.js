@@ -9,7 +9,7 @@
  * @param {Array} size optional size or bounds.
  * @param {String} file optional image source.
  * @param {Object} properties optional extra properties.
- * @returns {Image}
+ * @return {Image}
  */
 Group.prototype.image = function(size, file, properties) {
   return Internals.addImage(this, size, file, properties)
@@ -20,7 +20,7 @@ Group.prototype.image = function(size, file, properties) {
  * @param {Array} size optional size or bounds.
  * @param {String} file optional image source.
  * @param {Object} properties optional extra properties.
- * @returns {Image}
+ * @return {Image}
  */
 Panel.prototype.image = function(size, file, properties) {
   return Internals.addImage(this, size, file, properties)

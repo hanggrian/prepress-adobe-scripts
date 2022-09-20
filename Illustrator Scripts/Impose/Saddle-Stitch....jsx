@@ -7,7 +7,7 @@ var dialog = new Dialog(R.string.impose_saddle_stitch, "imposing-layout/#saddle-
 var pdfPanel, pagesPanel, documentPanel
 var rtlCheck
 
-var files = FilePicker.openFile(dialog.getTitle(), FileType.values(), true)
+var files = FilePicker.openFile(dialog.text, FileType.values(), true)
 
 if (files !== null && Collections.isNotEmpty(files)) {
   var collection = new FileCollection(files)
@@ -47,16 +47,16 @@ if (files !== null && Collections.isNotEmpty(files)) {
     var bleed = pagesPanel.getBleed()
 
     if (pages % 4 !== 0) {
-      Windows.alert(getString(R.string.error_impose, 4), dialog.getTitle(), true)
+      Windows.alert(getString(R.string.error_impose, 4), dialog.text, true)
       return true
     }
-    var document = documentPanel.open(dialog.getTitle(),
+    var document = documentPanel.open(dialog.text,
       artboards,
       width * 2,
       height,
       bleed)
     var pager = new SaddleStitchPager(document, start, end, rtlCheck.value)
-    var progress = new ProgressDialog(artboards, R.string.imposing)
+    var progress = new ProgressPalette(artboards, R.string.imposing)
 
     pager.forEachArtboard(function(artboard,
       leftIndex, rightIndex) {

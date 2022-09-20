@@ -1,4 +1,4 @@
-var SelectOption = Enums.of({
+var SelectOption = new Enum({
   YES: { name: R.string.yes },
   NO: { name: R.string.no },
 
@@ -28,13 +28,13 @@ function SelectDimensionPanel(parent, inputSize) {
 
   /**
    * Returns width input.
-   * @returns {Number}
+   * @return {Number}
    */
   self.getWidth = function() { return parseUnits(self.widthEdit.text) }
 
   /**
    * Returns height input.
-   * @returns {Number}
+   * @return {Number}
    */
   self.getHeight = function() { return parseUnits(self.heightEdit.text) }
 

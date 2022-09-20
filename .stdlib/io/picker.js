@@ -7,7 +7,7 @@
 /**
  * @param {Array} extension file extensions that can be categorized as this file type.
  */
-var FileType = Enums.of({
+var FileType = new Enum({
   ADOBE_ILLUSTRATOR: { name: "Adobe Illustrator", extensions: ["ai"] },
   ADOBE_PDF: { name: "Adobe PDF", extensions: ["pdf"] },
   BMP: { name: "BMP", extensions: ["bmp"] },
@@ -23,7 +23,7 @@ var FilePicker = {
   /**
    * Pick a folder to select.
    * @param {String} prompt title of the picker.
-   * @returns {Folder}
+   * @return {Folder}
    */
   selectFolder: function(prompt) { return Folder.selectDialog(prompt) },
 
@@ -32,7 +32,7 @@ var FilePicker = {
    * @param {String} prompt title of the picker.
    * @param {Array} filters e.g.: [["Illustrator", "ai"], ["Photoshop", "psd", "psb", "pdd"]].
    * @param {Array} multiSelect set to true to pick multiple items, default is false.
-   * @returns {File}
+   * @return {File}
    */
   openFile: function(prompt, filters, multiSelect) {
     return File.openDialog(prompt, Internals.getFileFilters(filters), multiSelect || false)
@@ -42,7 +42,7 @@ var FilePicker = {
    * Pick single file to save.
    * @param {String} prompt title of the picker.
    * @param {Array} filters e.g.: [["Illustrator", "ai"], ["Photoshop", "psd", "psb", "pdd"]].
-   * @returns {File}
+   * @return {File}
    */
   saveFile: function(prompt, filters) { return File.saveDialog(prompt, Internals.getFileFilters(filters)) }
 }

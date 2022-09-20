@@ -14,7 +14,7 @@ Panel.prototype.setHelpTips = function(tips) { Internals.setHelpTips(this, tips)
  * Add horizontal parent to group.
  * @param {String|Object} text parent title.
  * @param {Function} configuration runnable with this parent as parameter.
- * @returns {Panel}
+ * @return {Panel}
  */
 Group.prototype.hpanel = function(text, configuration) {
   return Internals.addPanel(this, "row", text, configuration)
@@ -24,7 +24,7 @@ Group.prototype.hpanel = function(text, configuration) {
  * Add horizontal parent to panel.
  * @param {String|Object} text parent title.
  * @param {Function} configuration runnable with this parent as parameter.
- * @returns {Panel}
+ * @return {Panel}
  */
 Panel.prototype.hpanel = function(text, configuration) {
   return Internals.addPanel(this, "row", text, configuration)
@@ -34,7 +34,7 @@ Panel.prototype.hpanel = function(text, configuration) {
  * Add vertical parent to group.
  * @param {String|Object} text parent title.
  * @param {Function} configuration runnable with this parent as parameter.
- * @returns {Panel}
+ * @return {Panel}
  */
 Group.prototype.vpanel = function(text, configuration) {
   return Internals.addPanel(this, "column", text, configuration)
@@ -44,7 +44,7 @@ Group.prototype.vpanel = function(text, configuration) {
  * Add vertical parent to panel.
  * @param {String|Object} text parent title.
  * @param {Function} configuration runnable with this parent as parameter.
- * @returns {Panel}
+ * @return {Panel}
  */
 Panel.prototype.vpanel = function(text, configuration) {
   return Internals.addPanel(this, "column", text, configuration)
@@ -54,7 +54,7 @@ Panel.prototype.vpanel = function(text, configuration) {
  * Add stack parent to group.
  * @param {String|Object} text parent title.
  * @param {Function} configuration runnable with this parent as parameter.
- * @returns {Panel}
+ * @return {Panel}
  */
 Group.prototype.spanel = function(text, configuration) {
   return Internals.addPanel(this, "stack", text, configuration)
@@ -64,7 +64,7 @@ Group.prototype.spanel = function(text, configuration) {
  * Add stack parent to panel.
  * @param {String|Object} text parent title.
  * @param {Function} configuration runnable with this parent as parameter.
- * @returns {Panel}
+ * @return {Panel}
  */
 Panel.prototype.spanel = function(text, configuration) {
   return Internals.addPanel(this, "stack", text, configuration)
@@ -85,7 +85,7 @@ Internals.addPanel = function(root, orientation, text, configuration) {
 
 /**
  * Returns selected radio index of this group.
- * @returns {Number}
+ * @return {Number}
  */
 Panel.prototype.getSelectedRadioIndex = function() { return Internals.getSelectedRadioIndex(this) }
 

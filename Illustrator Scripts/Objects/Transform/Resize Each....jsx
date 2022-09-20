@@ -26,9 +26,7 @@ dialog.vgroup(function(main) {
       })
       widthCheck = group.checkBox().also(function(it) {
         it.select()
-        it.onClick = function() {
-          widthEdit.enabled = it.value
-        }
+        it.onClick = function() { widthEdit.enabled = it.value }
       })
     })
     topGroup.hgroup(function(group) {
@@ -38,9 +36,7 @@ dialog.vgroup(function(main) {
       heightEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitName, 2)).also(VALIDATE_UNITS)
       heightCheck = group.checkBox().also(function(it) {
         it.select()
-        it.onClick = function() {
-          heightEdit.enabled = it.value
-        }
+        it.onClick = function() { heightEdit.enabled = it.value }
       })
     })
   })
@@ -68,9 +64,7 @@ dialog.vgroup(function(main) {
     group.vpanel(R.string.anchor, function(panel) {
       panel.alignChildren = "fill"
       documentOriginCheck = new DocumentOriginCheck(panel).also(function(it) {
-        it.onClick = function() {
-          anchorGroup.enabled = !it.value
-        }
+        it.onClick = function() { anchorGroup.enabled = !it.value }
       })
       anchorGroup = new AnchorGroup(panel)
     })

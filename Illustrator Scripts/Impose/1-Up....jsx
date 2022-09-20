@@ -7,7 +7,7 @@ var dialog = new Dialog(getString(R.string.impose_D_up, 1), "imposing-layout/#n-
 var pdfPanel, pagesPanel, documentPanel
 var nupGroup
 
-var files = FilePicker.openFile(dialog.getTitle(), FileType.values(), true)
+var files = FilePicker.openFile(dialog.text, FileType.values(), true)
 
 if (files !== null && Collections.isNotEmpty(files)) {
   var collection = new FileCollection(files)
@@ -43,13 +43,13 @@ if (files !== null && Collections.isNotEmpty(files)) {
     var rotatedWidth = !nupGroup.isRotate() ? width : height
     var rotatedHeight = !nupGroup.isRotate() ? height : width
 
-    var document = documentPanel.open(dialog.getTitle(),
+    var document = documentPanel.open(dialog.text,
       artboards,
       rotatedWidth,
       rotatedHeight,
       bleed)
     var pager = new OneUpPager(document, start)
-    var progress = new ProgressDialog(artboards, R.string.imposing)
+    var progress = new ProgressPalette(artboards, R.string.imposing)
 
     pager.forEachArtboard(function(artboard, index) {
       progress.increment()

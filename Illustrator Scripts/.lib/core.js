@@ -29,7 +29,7 @@ Language.set(Language.valueOfCode(configs.getString("language_code", Language.EN
 /**
  * @param {Object} pager object responsible for iterating pages each artboard.
  */
-var Imposition = Enums.of({
+var Imposition = new Enum({
   ONE_UP: {
     name: getString(R.string.D_up, 1),
     getPager: function(document, start) { return new OneUpPager(document, start) }

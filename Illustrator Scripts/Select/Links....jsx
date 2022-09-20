@@ -6,15 +6,6 @@
 #target Illustrator
 #include "../.lib/commons.js"
 
-var FILE_AI = ["ai"]
-var FILE_PDF = ["pdf"]
-var FILE_BMP = ["bmp"]
-var FILE_GIF = ["gif"]
-var FILE_JPEG = ["jpg", "jpe", "jpeg"]
-var FILE_JPEG2000 = ["jpf", "jpx", "jp2", "j2k", "j2c", "jpc"]
-var FILE_PNG = ["png", "pns"]
-var FILE_PSD = ["psd", "psb", "pdd"]
-var FILE_TIFF = ["tif", "tiff"]
 var SIZE_INPUT = [150, 21]
 
 check(Collections.isNotEmpty(document.placedItems), getString(R.string.error_notypes_document, R.plurals.link.plural))
@@ -57,15 +48,15 @@ dialog.setDefaultButton(undefined, function() {
     if (width !== undefined && parseInt(width) !== parseInt(item.width)) return false
     if (height !== undefined && parseInt(height) !== parseInt(item.height)) return false
     var extension = Items.isLinkExists(item) && item.file.name.split(".").pop()
-    if (aiCheck.value && !Collections.contains(FILE_AI, extension)) return false
-    if (pdfCheck.value && !Collections.contains(FILE_PDF, extension)) return false
-    if (bmpCheck.value && !Collections.contains(FILE_BMP, extension)) return false
-    if (gifCheck.value && !Collections.contains(FILE_GIF, extension)) return false
-    if (jpegCheck.value && !Collections.contains(FILE_JPEG, extension)) return false
-    if (jpeg2000Check.value && !Collections.contains(FILE_JPEG2000, extension)) return false
-    if (pngCheck.value && !Collections.contains(FILE_PNG, extension)) return false
-    if (psdCheck.value && !Collections.contains(FILE_PSD, extension)) return false
-    if (tiffCheck.value && !Collections.contains(FILE_TIFF, extension)) return false
+    if (aiCheck.value && !Collections.contains(FileType.ADOBE_ILLUSTRATOR.extensions, extension)) return false
+    if (pdfCheck.value && !Collections.contains(FileType.ADOBE_PDF.extensions, extension)) return false
+    if (bmpCheck.value && !Collections.contains(FileType.BMP.extensions, extension)) return false
+    if (gifCheck.value && !Collections.contains(FileType.GIF89a.extensions, extension)) return false
+    if (jpegCheck.value && !Collections.contains(FileType.JPEG.extensions, extension)) return false
+    if (jpeg2000Check.value && !Collections.contains(FileType.JPEG2000.extensions, extension)) return false
+    if (pngCheck.value && !Collections.contains(FileType.PNG.extensions, extension)) return false
+    if (psdCheck.value && !Collections.contains(FileType.PHOTOSHOP.extensions, extension)) return false
+    if (tiffCheck.value && !Collections.contains(FileType.TIFF.extensions, extension)) return false
     return true
   }, isFilterMode && recursiveCheck.value)
 

@@ -35,9 +35,7 @@ dialog.hgroup(function(main) {
   main.vpanel(R.string.anchor, function(panel) {
     panel.alignChildren = "fill"
     documentOriginCheck = new DocumentOriginCheck(panel).also(function(it) {
-      it.onClick = function() {
-        anchorGroup.enabled = !it.value
-      }
+      it.onClick = function() { anchorGroup.enabled = !it.value }
     })
     anchorGroup = new AnchorGroup(panel)
   })
@@ -54,7 +52,7 @@ dialog.setDefaultButton(undefined, function() {
       parseInt(it.width) === parseInt(widthFrom) &&
       parseInt(it.height) === parseInt(heightFrom)
   })
-  var progress = new ProgressDialog(clippingPaths.length, R.string.resizing_clipping_masks)
+  var progress = new ProgressPalette(clippingPaths.length, R.string.resizing_clipping_masks)
 
   Collections.forEach(clippingPaths, function(clippingPath, i) {
     var clippingPath = clippingPaths[i]

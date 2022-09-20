@@ -25,7 +25,7 @@ function Configs(path) {
   /**
    * Create another instance of preferences using current path suffixed with `relative` path.
    * @param {String} relative relative file path.
-   * @returns {Boolean}
+   * @return {Boolean}
    */
   this.resolve = function(relative) { return new Configs(path + "/" + relative) }
 
@@ -33,7 +33,7 @@ function Configs(path) {
    * Get boolean value from this preferences, returning default if not present.
    * @param {String} key preference's key.
    * @param {Boolean} defaultValue value to use when preference is not found.
-   * @returns {Boolean}
+   * @return {Boolean}
    */
   this.getBoolean = function(key, defaultValue) {
     var actualKey = app.stringIDToTypeID(key)
@@ -51,7 +51,7 @@ function Configs(path) {
    * Get integer value from this preferences, returning default if not present.
    * @param {String} key preference's key.
    * @param {Boolean} defaultValue value to use when preference is not found.
-   * @returns {Number}
+   * @return {Number}
    */
   this.getInt = function(key, defaultValue) {
     var actualKey = app.stringIDToTypeID(key)
@@ -69,7 +69,7 @@ function Configs(path) {
    * Get double value from this preferences, returning default if not present.
    * @param {String} key preference's key.
    * @param {Boolean} defaultValue value to use when preference is not found.
-   * @returns {Number}
+   * @return {Number}
    */
   this.getDouble = function(key, defaultValue) {
     var actualKey = app.stringIDToTypeID(key)
@@ -87,7 +87,7 @@ function Configs(path) {
    * Get string value from this preferences, returning default if not present.
    * @param {String} key preference's key.
    * @param {String} defaultValue value to use when preference is not found.
-   * @returns {String}
+   * @return {String}
    */
   this.getString = function(key, defaultValue) {
     var actualKey = app.stringIDToTypeID(key)

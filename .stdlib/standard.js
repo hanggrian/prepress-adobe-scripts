@@ -21,7 +21,7 @@ Object.prototype.run = function(block) {
 /**
  * Calls the specified function `block` with `this` value as its argument and returns `this` value.
  * @param {Function} block runnable with receiver object as parameter.
- * @returns {*}
+ * @return {*}
  */
 Object.prototype.also = function(block) {
   block(this)
@@ -31,7 +31,7 @@ Object.prototype.also = function(block) {
 /**
  * Calls the specified function `block` with `this` value as its argument and returns its result.
  * @param {Function} block runnable with receiver object as parameter.
- * @returns {*}
+ * @return {*}
  */
 Object.prototype.let = function(block) {
   return block(this)
@@ -40,7 +40,7 @@ Object.prototype.let = function(block) {
 /**
  * Returns `this` value if it satisfies the given `predicate` or `null`, if it doesn't.
  * @param {Function} predicate runnable with receiver object as parameter and boolean return value.
- * @returns {Boolean}
+ * @return {Boolean}
  */
 Object.prototype.takeIf = function(predicate) {
   return predicate(this) ? this : null
@@ -49,7 +49,7 @@ Object.prototype.takeIf = function(predicate) {
 /**
  * Returns `this` value if it _does not_ satisfy the given `predicate` or `null`, if it does.
  * @param {Function} predicate runnable with receiver object as parameter and boolean return value.
- * @returns {Boolean}
+ * @return {Boolean}
  */
 Object.prototype.takeUnless = function(predicate) {
   return !predicate(this) ? this : null

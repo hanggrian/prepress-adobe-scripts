@@ -7,7 +7,7 @@
 /**
  * E.g.: 2022-07-20T07:09:04Z
  * @param {String} date date to convert.
- * @returns {Date}
+ * @return {Date}
  */
 function parseDate(date) {
   date = date.trim().substring(0, 10).split("-")
@@ -20,7 +20,7 @@ function parseDate(date) {
 /**
  * Format this date to a string.
  * E.g.: 2011-10-05
- * @returns {String}
+ * @return {String}
  */
 Date.prototype.toISOString = function() {
   var year = this.getFullYear()

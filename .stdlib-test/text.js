@@ -1,5 +1,30 @@
 initTest($)
 
+test("isUpperCase", function() {
+  var s = "HELLO WORLD"
+  assertTrue(s.isUpperCase())
+})
+
+test("isLowerCase", function() {
+  var s = "hello world"
+  assertTrue(s.isLowerCase())
+})
+
+test("trimStart", function() {
+  var s = "  Hello World  "
+  assertEquals("Hello World  ", s.trimStart())
+})
+
+test("trimEnd", function() {
+  var s = "  Hello World  "
+  assertEquals("  Hello World", s.trimEnd())
+})
+
+test("trim", function() {
+  var s = "  Hello World  "
+  assertEquals("Hello World", s.trim())
+})
+
 test("isEmpty", function() {
   assertTrue("".isEmpty())
   assertFalse("Hello World".isEmpty())
@@ -18,24 +43,6 @@ test("isBlank", function() {
 test("isNotBlank", function() {
   assertTrue("Hello World".isNotBlank())
   assertFalse(" ".isNotBlank())
-})
-
-test("includes", function() {
-  var s = "Hello World"
-  assertTrue(s.includes("Hello"))
-  assertFalse(s.includes("Helloo"))
-})
-
-test("startsWith", function() {
-  var s = "Hello World"
-  assertTrue(s.startsWith("Hello"))
-  assertFalse(s.startsWith("World"))
-})
-
-test("endsWith", function() {
-  var s = "Hello World"
-  assertFalse(s.endsWith("Hello"))
-  assertTrue(s.endsWith("World"))
 })
 
 test("substringBefore", function() {
@@ -62,25 +69,28 @@ test("substringAfterLast", function() {
   assertEquals("", s.substringAfterLast("World"))
 })
 
+test("startsWith", function() {
+  var s = "Hello World"
+  assertTrue(s.startsWith("Hello"))
+  assertFalse(s.startsWith("World"))
+})
+
+test("endsWith", function() {
+  var s = "Hello World"
+  assertFalse(s.endsWith("Hello"))
+  assertTrue(s.endsWith("World"))
+})
+
+test("includes", function() {
+  var s = "Hello World"
+  assertTrue(s.includes("Hello"))
+  assertFalse(s.includes("Helloo"))
+})
+
 test("isNumeric", function() {
   assertTrue("123".isNumeric())
   assertTrue("123.02".isNumeric())
   assertFalse("Hello World".isNumeric())
-})
-
-test("trimStart", function() {
-  var s = "  Hello World  "
-  assertEquals("Hello World  ", s.trimStart())
-})
-
-test("trimEnd", function() {
-  var s = "  Hello World  "
-  assertEquals("  Hello World", s.trimEnd())
-})
-
-test("trim", function() {
-  var s = "  Hello World  "
-  assertEquals("Hello World", s.trim())
 })
 
 test("format", function() {

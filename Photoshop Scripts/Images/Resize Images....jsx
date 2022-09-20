@@ -9,7 +9,7 @@
 #target Photoshop
 #include "../.lib/commons.js"
 
-var Resample = Enums.of({
+var Resample = new Enum({
   BICUBIC: { name: R.string.bicubic, resampleMethod: ResampleMethod.BICUBIC },
   BICUBIC_SHARPER: { name: R.string.bicubic_sharper, resampleMethod: ResampleMethod.BICUBICSHARPER },
   BICUBIC_SMOOTHER: { name: R.string.bicubic_smoother, resampleMethod: ResampleMethod.BICUBICSMOOTHER },
@@ -65,7 +65,7 @@ dialog.setYesButton(R.string.all, function() {
   var height = new UnitValue(heightEdit.text)
   var resolution = parseInt(resolutionEdit.text)
   var method = Resample.valueOf(resampleList.selection)
-  var progress = new ProgressDialog(app.documents.length, R.string.resizing)
+  var progress = new ProgressPalette(app.documents.length, R.string.resizing)
 
   Collections.forEach(app.documents, function(document) {
     progress.increment()

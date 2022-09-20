@@ -6,9 +6,9 @@
 
 /**
  * First item of this collection, or given predicate when defined.
- * @param {Array|Object} collection array or array-like objects.
+ * @param {Array|Object} collection array or array-like object.
  * @param {Function} predicate optional consumer.
- * @returns {Object}
+ * @return {Object}
  */
 Collections.first = function(collection, predicate) {
   if (predicate === undefined) {
@@ -24,9 +24,9 @@ Collections.first = function(collection, predicate) {
 
 /**
  * Last item of this collection, or given predicate when defined.
- * @param {Array|Object} collection array or array-like objects.
+ * @param {Array|Object} collection array or array-like object.
  * @param {Function} predicate optional consumer.
- * @returns {Object}
+ * @return {Object}
  */
 Collections.last = function(collection, predicate) {
   if (predicate === undefined) {
@@ -42,9 +42,9 @@ Collections.last = function(collection, predicate) {
 
 /**
  * Returns true if the collection has no elements matching predicate.
- * @param {Array|Object} collection array or array-like objects.
+ * @param {Array|Object} collection array or array-like object.
  * @param {Function} predicate runnable with return value.
- * @returns {Boolean}
+ * @return {Boolean}
  */
 Collections.none = function(collection, predicate) {
   for (var i = 0; i < collection.length; i++) {
@@ -57,9 +57,9 @@ Collections.none = function(collection, predicate) {
 
 /**
  * Returns true if collection has at least one element matching predicate.
- * @param {Array|Object} collection array or array-like objects.
+ * @param {Array|Object} collection array or array-like object.
  * @param {Function} predicate runnable with return value.
- * @returns {Boolean}
+ * @return {Boolean}
  */
 Collections.any = function(collection, predicate) {
   for (var i = 0; i < collection.length; i++) {
@@ -72,9 +72,9 @@ Collections.any = function(collection, predicate) {
 
 /**
  * Returns true if all elements in this collection match the predicate.
- * @param {Array|Object} collection array or array-like objects.
+ * @param {Array|Object} collection array or array-like object.
  * @param {Function} predicate runnable with return value.
- * @returns {Boolean}
+ * @return {Boolean}
  */
 Collections.all = function(collection, predicate) {
   for (var i = 0; i < collection.length; i++) {
@@ -87,9 +87,9 @@ Collections.all = function(collection, predicate) {
 
 /**
  * Returns a list containing only elements matching the given predicate.
- * @param {Array|Object} collection array or array-like objects.
+ * @param {Array|Object} collection array or array-like object.
  * @param {Function} predicate runnable with return value.
- * @returns {Array}
+ * @return {Array}
  */
 Collections.filter = function(collection, predicate) {
   var result = []

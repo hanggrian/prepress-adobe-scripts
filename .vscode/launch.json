@@ -5,8 +5,8 @@
       "type": "extendscript-debug",
       "request": "launch",
       "name": "Prepress Adobe Scripts",
-      "script": "${workspaceFolder}/Illustrator Scripts/Dielines/Measure.jsx",
-      // "script": "${workspaceFolder}/Photoshop Scripts/Images/Add Bleed....jsx"
+      "hostAppSpecifier": "illustrator", "script": "${workspaceFolder}/Illustrator Scripts/Dielines/Measure.jsx",
+      // "hostAppSpecifier": "photoshop", "script": "${workspaceFolder}/Photoshop Scripts/Documents/Pre-Flight.jsx"
     }
   ]
 }

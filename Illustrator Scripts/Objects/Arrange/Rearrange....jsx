@@ -20,8 +20,9 @@ dialog.vgroup(function(main) {
 })
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
+  var sortedSelection = Collections.copyOf(selection).sort(orderingList.getComparator())
   // the idea is to keep pusing item to bottommost
-  orderingList.forEach(selection, function(it) {
+  Collections.forEach(sortedSelection, function(it) {
     var times = it.absoluteZOrderPosition - Collections.last(initialPositions)
     println("Moving %s %d times.", Items.getName(it), times)
     repeat(times, function() {

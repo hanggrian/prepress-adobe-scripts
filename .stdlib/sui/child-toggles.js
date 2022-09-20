@@ -17,7 +17,7 @@ RadioButton.prototype.select = function() { if (!this.value) this.value = true }
  * @param {Array} size optional size or bounds.
  * @param {String|Object} text optional control text.
  * @param {Object} properties optional extra properties.
- * @returns {CheckBox}
+ * @return {CheckBox}
  */
 Group.prototype.checkBox = function(size, text, properties) {
   return Internals.addCheckBox(this, size, text, properties)
@@ -28,7 +28,7 @@ Group.prototype.checkBox = function(size, text, properties) {
  * @param {Array} size optional size or bounds.
  * @param {String|Object} text optional control text.
  * @param {Object} properties optional extra properties.
- * @returns {CheckBox}
+ * @return {CheckBox}
  */
 Panel.prototype.checkBox = function(size, text, properties) {
   return Internals.addCheckBox(this, size, text, properties)
@@ -47,7 +47,7 @@ Internals.addCheckBox = function(root, size, text, properties) {
  * @param {Array} size optional size or bounds.
  * @param {String|Object} text optional control text.
  * @param {Object} properties optional extra properties.
- * @returns {RadioButton}
+ * @return {RadioButton}
  */
 Group.prototype.radioButton = function(size, text, properties) {
   return Internals.addRadioButton(this, size, text, properties)
@@ -58,7 +58,7 @@ Group.prototype.radioButton = function(size, text, properties) {
  * @param {Array} size optional size or bounds.
  * @param {String|Object} text optional control text.
  * @param {Object} properties optional extra properties.
- * @returns {RadioButton}
+ * @return {RadioButton}
  */
 Panel.prototype.radioButton = function(size, text, properties) {
   return Internals.addRadioButton(this, size, text, properties)

@@ -1,7 +1,7 @@
 /**
  * @param {Function} getValue callable to return `CMYKColor`.
  */
-var Color2 = Enums.of({
+var Color2 = new Enum({
   REGISTRATION: {
     name: R.string.registration,
     image: "color_registration",
@@ -36,10 +36,10 @@ var Color2 = Enums.of({
 
 /**
  * Returns true if both CMYK colors are equal.
- * Avoid prototype function since `Color` may be `CMYKColor` or `SpotColor` (Registration).
+ * Avoid prototype function since `Color` may be `CMYKColor`, `RGBColor` or `SpotColor`.
  * @param {CMYKColor} colorA first color.
  * @param {CMYKColor} colorB second color.
- * @returns {Boolean}
+ * @return {Boolean}
  */
 function isColorEqual(colorA, colorB) {
   println("Comparing color cyan=[%d,%d] magenta=[%d,%d] yellow=[%d,%d] black=[%d,%d]",

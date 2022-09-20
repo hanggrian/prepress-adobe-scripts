@@ -14,7 +14,7 @@ Group.prototype.setHelpTips = function(tips) { Internals.setHelpTips(this, tips)
 /**
  * Add horizontal parent to group.
  * @param {Function} configuration runnable with this parent as parameter.
- * @returns {Group}
+ * @return {Group}
  */
 Group.prototype.hgroup = function(configuration) {
   return Internals.addGroup(this, "row", configuration)
@@ -23,7 +23,7 @@ Group.prototype.hgroup = function(configuration) {
 /**
  * Add horizontal parent to panel.
  * @param {Function} configuration runnable with this parent as parameter.
- * @returns {Group}
+ * @return {Group}
  */
 Panel.prototype.hgroup = function(configuration) {
   return Internals.addGroup(this, "row", configuration)
@@ -32,7 +32,7 @@ Panel.prototype.hgroup = function(configuration) {
 /**
  * Add vertical parent to group.
  * @param {Function} configuration runnable with this parent as parameter.
- * @returns {Group}
+ * @return {Group}
  */
 Group.prototype.vgroup = function(configuration) {
   return Internals.addGroup(this, "column", configuration)
@@ -41,7 +41,7 @@ Group.prototype.vgroup = function(configuration) {
 /**
  * Add vertical parent to panel.
  * @param {Function} configuration runnable with this parent as parameter.
- * @returns {Group}
+ * @return {Group}
  */
 Panel.prototype.vgroup = function(configuration) {
   return Internals.addGroup(this, "column", configuration)
@@ -50,7 +50,7 @@ Panel.prototype.vgroup = function(configuration) {
 /**
  * Add stack parent to group.
  * @param {Function} configuration runnable with this parent as parameter.
- * @returns {Group}
+ * @return {Group}
  */
 Group.prototype.sgroup = function(configuration) {
   return Internals.addGroup(this, "stack", configuration)
@@ -59,7 +59,7 @@ Group.prototype.sgroup = function(configuration) {
 /**
  * Add stack parent to panel.
  * @param {Function} configuration runnable with this parent as parameter.
- * @returns {Group}
+ * @return {Group}
  */
 Panel.prototype.sgroup = function(configuration) {
   return Internals.addGroup(this, "stack", configuration)
@@ -76,7 +76,7 @@ Internals.addGroup = function(root, orientation, configuration) {
 
 /**
  * Returns selected radio index of this group.
- * @returns {Number}
+ * @return {Number}
  */
 Group.prototype.getSelectedRadioIndex = function() { return Internals.getSelectedRadioIndex(this) }
 

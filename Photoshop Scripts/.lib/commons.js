@@ -35,6 +35,6 @@ switch (app.preferences.rulerUnits) {
 
 /**
  * Recalibrate unit text (e.g: "20 mm") to current document's units.
- * @returns {String}
+ * @return {String}
  */
 function unitsOf(input) { return UnitValue(input).as(unitName) + " " + unitName }

@@ -81,7 +81,7 @@ patch_preset() {
 }
 
 # SOURCE_ROOT doesn't end with slash
-readonly SOURCE_ROOT="$(cd $(dirname $0) && pwd)"
+readonly SOURCE_ROOT="$(cd "$(dirname "$0")" && pwd)"
 
 # Check OS
 if [[ "$(uname)" != Darwin ]]; then die "Unsupported OS."; fi

@@ -1,7 +1,7 @@
 #target Illustrator
 #include "../.lib/commons.js"
 
-var Direction = Enums.of({
+var Direction = new Enum({
   TOP: { name: R.string.top, image: "ic_arrow_top" },
   RIGHT: { name: R.string.right, image: "ic_arrow_right" },
   BOTTOM: { name: R.string.bottom, image: "ic_arrow_bottom" },
@@ -192,7 +192,7 @@ function processTuck(pathItem, length, direction) {
     }
   })
   pathItem.name = "FlapTUCK"
-  positions.forEach(function(it) {
+  Collections.forEach(positions, function(it) {
     var point = pathItem.pathPoints.add()
     point.anchor = it
     point.leftDirection = it

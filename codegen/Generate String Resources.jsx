@@ -1,5 +1,4 @@
 // Run this script on any Adobe app to generate string resources in form of JavaScript sources.
-// Because generated files are CRLF, they may not be formatted correctly when viewed in GitHub.
 
 #include "../.stdlib/stdlib.js"
 #include "lib/rules.js"

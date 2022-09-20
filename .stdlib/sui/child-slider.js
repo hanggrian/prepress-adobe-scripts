@@ -11,7 +11,7 @@
  * @param {Number} start min value.
  * @param {Number} end max value.
  * @param {Object} properties optional extra properties.
- * @returns {Slider}
+ * @return {Slider}
  */
 Group.prototype.slider = function(size, current, start, end, properties) {
   return Internals.addSlider(this, size, current, start, end, properties)
@@ -24,7 +24,7 @@ Group.prototype.slider = function(size, current, start, end, properties) {
  * @param {Number} start min value.
  * @param {Number} end max value.
  * @param {Object} properties optional extra properties.
- * @returns {Slider}
+ * @return {Slider}
  */
 Panel.prototype.slider = function(size, current, start, end, properties) {
   return Internals.addSlider(this, size, current, start, end, properties)

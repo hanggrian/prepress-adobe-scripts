@@ -14,7 +14,7 @@ function FileCollection(files) {
   /**
    * Returns image file or PDF file with specific page.
    * @param {Number} index index at which to retrieve file or PDF page.
-   * @returns {File}
+   * @return {File}
    */
   this.get = function(index) {
     var file = self.isSinglePDF ? Collections.first(files) : files[index]

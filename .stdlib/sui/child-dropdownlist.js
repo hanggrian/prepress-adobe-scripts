@@ -6,7 +6,7 @@
 
 /**
  * Returns true if this list has a selection.
- * @returns {Boolean}
+ * @return {Boolean}
  */
 DropDownList.prototype.hasSelection = function() { return this.selection !== null }
 
@@ -24,7 +24,7 @@ DropDownList.prototype.selectText = function(text) {
  * @param {Array} size optional size or bounds.
  * @param {Array} items optional list items.
  * @param {Object} properties optional extra properties.
- * @returns {DropDownList}
+ * @return {DropDownList}
  */
 Group.prototype.dropDownList = function(size, items, properties) {
   return Internals.addDropDownList(this, size, items, properties)
@@ -35,7 +35,7 @@ Group.prototype.dropDownList = function(size, items, properties) {
  * @param {Array} size optional size or bounds.
  * @param {Array} items optional list items.
  * @param {Object} properties optional extra properties.
- * @returns {DropDownList}
+ * @return {DropDownList}
  */
 Panel.prototype.dropDownList = function(size, items, properties) {
   return Internals.addDropDownList(this, size, items, properties)

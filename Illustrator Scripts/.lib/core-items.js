@@ -2,7 +2,7 @@ var Items = {
   /**
    * Returns item name in the layer, or typename if it is unnamed.
    * @param {PageItem} item any type of item.
-   * @returns {String}
+   * @return {String}
    */
   getName: function(item) {
     return item.name !== undefined && item.name.isNotBlank() ? item.name : item.typename
@@ -11,7 +11,7 @@ var Items = {
   /**
    * Returns the clipping path of this clip group, or the item itself if this is not a clip group.
    * @param {PageItem} item any type of item.
-   * @returns {PathItem|CompoundPathItem}
+   * @return {PathItem|CompoundPathItem}
    */
   getClippingItem: function(item) {
     if (item.typename === "GroupItem" && item.clipped) {
@@ -23,7 +23,7 @@ var Items = {
   /**
    * Returns bounds covering all items.
    * @param {Array|Object} items array or array-like objects containing any type of item.
-   * @returns {Array}
+   * @return {Array}
    */
   getMaxBounds: function(items) {
     var maxStartX, maxStartY, maxEndX, maxEndY
@@ -54,7 +54,7 @@ var Items = {
   /**
    * Returns true if the file associated with this PlacedItem is not missing.
    * @param {PlacedItem} item a link.
-   * @returns {Boolean}
+   * @return {Boolean}
    */
   isLinkExists: function(item) {
     checkTypename(item, "PlacedItem")

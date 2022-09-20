@@ -19,7 +19,7 @@ function check(requirement, errorMessage) {
 /**
  * Asserts that a value is null.
  * @param {Object} value expected to be `undefined` or `null`.
- * @returns {Object}
+ * @return {Object}
  */
 function checkNull(value) {
   check(value === undefined || value === null, "Expected value to be null")
@@ -29,7 +29,7 @@ function checkNull(value) {
 /**
  * Asserts that a value is not null.
  * @param {Object} value expected to be not `undefined` and not `null`.
- * @returns {Object}
+ * @return {Object}
  */
 function checkNotNull(value) {
   check(value !== undefined && value !== null, "Expected value to be not null")

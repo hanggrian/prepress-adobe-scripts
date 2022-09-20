@@ -9,7 +9,7 @@
  * @param {Array} size optional size or bounds.
  * @param {String} file optional image source.
  * @param {Object} properties optional extra properties.
- * @returns {IconButton}
+ * @return {IconButton}
  */
 Group.prototype.iconButton = function(size, file, properties) {
   return Internals.addIconButton(this, size, file, properties)
@@ -20,7 +20,7 @@ Group.prototype.iconButton = function(size, file, properties) {
  * @param {Array} size optional size or bounds.
  * @param {String} file optional image source.
  * @param {Object} properties optional extra properties.
- * @returns {IconButton}
+ * @return {IconButton}
  */
 Panel.prototype.iconButton = function(size, file, properties) {
   return Internals.addIconButton(this, size, file, properties)

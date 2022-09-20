@@ -5,7 +5,7 @@ var SIZE_DOCUMENT_INPUTMAX = [120 + 70 + 10, 21]
 /**
  * @param {PDFBoxType} pdfBoxType determine how to crop newly placed PDF.
  */
-var PDFCrop = Enums.of({
+var PDFCrop = new Enum({
   BOUNDING: { name: "Bounding", pdfBoxType: PDFBoxType.PDFBOUNDINGBOX },
   ART: { name: "Art", pdfBoxType: PDFBoxType.PDFARTBOX },
   CROP: { name: "Crop", pdfBoxType: PDFBoxType.PDFCROPBOX },
@@ -17,7 +17,7 @@ var PDFCrop = Enums.of({
 /**
  * @param {DocumentColorSpace} colorMode used to determine new document's color space.
  */
-var DocumentColor = Enums.of({
+var DocumentColor = new Enum({
   RGB: { name: "RGB", colorMode: DocumentColorSpace.RGB },
   CMYK: { name: "CMYK", colorMode: DocumentColorSpace.CMYK }
 })
@@ -25,7 +25,7 @@ var DocumentColor = Enums.of({
 /**
  * @param {DocumentRasterResolution} rasterResolution used to determine new document's resolution.
  */
-var DocumentResolution = Enums.of({
+var DocumentResolution = new Enum({
   SCREEN: { name: R.string.screen, rasterResolution: DocumentRasterResolution.ScreenResolution },
   MEDIUM: { name: R.string.medium, rasterResolution: DocumentRasterResolution.MediumResolution },
   HIGH: { name: R.string.high, rasterResolution: DocumentRasterResolution.HighResolution }
@@ -34,7 +34,7 @@ var DocumentResolution = Enums.of({
 /**
  * @param {DocumentArtboardLayout} artboardLayout used to determine new document's artboard layout.
  */
-var DocumentLayout = Enums.of({
+var DocumentLayout = new Enum({
   GRID_BY_ROW: { name: R.string.grid_by_row, artboardLayout: DocumentArtboardLayout.GridByRow },
   GRID_BY_COLUMN: { name: R.string.grid_by_column, artboardLayout: DocumentArtboardLayout.GridByCol },
   ROW: { name: R.string.row, artboardLayout: DocumentArtboardLayout.Row },
@@ -127,19 +127,19 @@ function OpenPagesPanel(parent, inputSize) {
 
   /**
    * Returns width input.
-   * @returns {Number}
+   * @return {Number}
    */
   self.getWidth = function() { return parseUnits(self.widthEdit.text) }
 
   /**
    * Returns height input.
-   * @returns {Number}
+   * @return {Number}
    */
   self.getHeight = function() { return parseUnits(self.heightEdit.text) }
 
   /**
    * Returns bleed input.
-   * @returns {Number}
+   * @return {Number}
    */
   self.getBleed = function() { return parseUnits(self.bleedEdit.text) }
 
@@ -205,7 +205,7 @@ function OpenDocumentPanel(parent) {
    * @param {Number} width each artboard's width.
    * @param {Number} height each artboard's height.
    * @param {Number} bleed document's bleed.
-   * @returns
+   * @return {Document}
    */
   self.open = function(title, pages, width, height, bleed) {
     return app.documents.addDocument(DocumentPresetType.Print, new DocumentPreset().also(function(preset) {

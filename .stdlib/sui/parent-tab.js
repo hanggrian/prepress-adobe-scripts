@@ -8,7 +8,7 @@
  * Add horizontal parent to tabbed panel.
  * @param {String|Object} text parent title.
  * @param {Function} configuration runnable with this parent as parameter.
- * @returns {Tab}
+ * @return {Tab}
  */
 Panel.prototype.htab = function(text, configuration) {
   return Internals.addTab(this, "row", text, configuration)
@@ -18,7 +18,7 @@ Panel.prototype.htab = function(text, configuration) {
  * Add vertical parent to tabbed panel.
  * @param {String|Object} text parent title.
  * @param {Function} configuration runnable with this parent as parameter.
- * @returns {Tab}
+ * @return {Tab}
  */
 Panel.prototype.vtab = function(text, configuration) {
   return Internals.addTab(this, "column", text, configuration)
@@ -28,7 +28,7 @@ Panel.prototype.vtab = function(text, configuration) {
  * Add stack parent to tabbed panel.
  * @param {String|Object} text parent title.
  * @param {Function} configuration runnable with this parent as parameter.
- * @returns {Tab}
+ * @return {Tab}
  */
 Panel.prototype.stab = function(text, configuration) {
   return Internals.addTab(this, "stack", text, configuration)

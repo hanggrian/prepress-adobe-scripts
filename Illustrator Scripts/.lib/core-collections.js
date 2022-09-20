@@ -2,7 +2,7 @@
 
 /**
  * Iterate each element of this collection.
- * @param {Array|Object} items array or array-like objects.
+ * @param {Array|Object} items array or array-like object.
  * @param {Function} action runnable to execute.
  */
 Collections.forEachItem = function(items, action) {
@@ -17,7 +17,7 @@ Collections.forEachItem = function(items, action) {
 
 /**
  * Iterate each element of this collection as reversed.
- * @param {Array|Object} items array or array-like objects.
+ * @param {Array|Object} items array or array-like object.
  * @param {Function} action runnable to execute.
  */
 Collections.forEachItemReversed = function(items, action) {
@@ -32,9 +32,9 @@ Collections.forEachItemReversed = function(items, action) {
 
 /**
  * First item of this collection, or given predicate when defined.
- * @param {Array|Object} items array or array-like objects.
+ * @param {Array|Object} items array or array-like object.
  * @param {Function} predicate optional consumer.
- * @returns {Object}
+ * @return {Object}
  */
 Collections.firstItem = function(items, predicate) {
   for (var i = 0; i < items.length; i++) {
@@ -49,9 +49,9 @@ Collections.firstItem = function(items, predicate) {
 
 /**
  * Last item of this collection, or given predicate when defined.
- * @param {Array|Object} items array or array-like objects.
+ * @param {Array|Object} items array or array-like object.
  * @param {Function} predicate optional consumer.
- * @returns {Object}
+ * @return {Object}
  */
 Collections.lastItem = function(items, predicate) {
   for (var i = Collections.lastIndex(this); i >= 0; i--) {
@@ -69,9 +69,9 @@ Collections.lastItem = function(items, predicate) {
 
 /**
  * Returns true if the collection has no elements matching predicate.
- * @param {Array|Object} items array or array-like objects.
+ * @param {Array|Object} items array or array-like object.
  * @param {Function} predicate runnable with return value.
- * @returns {Boolean}
+ * @return {Boolean}
  */
 Collections.noneItem = function(items, predicate) {
   for (var i = 0; i < items.length; i++) {
@@ -88,9 +88,9 @@ Collections.noneItem = function(items, predicate) {
 
 /**
  * Returns true if collection has at least one element matching predicate.
- * @param {Array|Object} items array or array-like objects.
+ * @param {Array|Object} items array or array-like object.
  * @param {Function} predicate runnable with return value.
- * @returns {Boolean}
+ * @return {Boolean}
  */
 Collections.anyItem = function(items, predicate) {
   for (var i = 0; i < items.length; i++) {
@@ -107,9 +107,9 @@ Collections.anyItem = function(items, predicate) {
 
 /**
  * Returns true if all elements in this collection match the predicate.
- * @param {Array|Object} items array or array-like objects.
+ * @param {Array|Object} items array or array-like object.
  * @param {Function} predicate runnable with return value.
- * @returns {Boolean}
+ * @return {Boolean}
  */
 Collections.allItem = function(items, predicate) {
   for (var i = 0; i < items.length; i++) {
@@ -126,9 +126,9 @@ Collections.allItem = function(items, predicate) {
 
 /**
  * Returns a list containing only elements matching the given predicate.
- * @param {Array|Object} items array or array-like objects.
+ * @param {Array|Object} items array or array-like object.
  * @param {Function} predicate runnable with return value.
- * @returns {Array}
+ * @return {Array}
  */
 Collections.filterItem = function(items, predicate) {
   var result = []
@@ -150,9 +150,9 @@ function _filterItem(items, predicate, result) {
 
 /**
  * Returns an array containing the results of applying the given transform function.
- * @param {Array|Object} items array or array-like objects.
+ * @param {Array|Object} items array or array-like object.
  * @param {Function} transform runnable with return value.
- * @returns {Array}
+ * @return {Array}
  */
 Collections.mapItem = function(items, transform) {
   var result = []
