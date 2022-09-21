@@ -2,9 +2,9 @@
 layout: post
 title: "Selecting Items"
 author: ai
-categories: [ Illustrator Scripts ]
-tags: [ general ]
-image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_select_all.png
+categories: [Illustrator Scripts]
+tags: [general]
+image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/ai_select_all.png
 ---
 
 `Select` sub-directories contain several scripts to manipulate selection, all of which works under 2 scenarios:
@@ -13,30 +13,30 @@ image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/scree
 
 ## Select All
 
-![Select all items.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_select_all.png)
+![Select all items.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/ai_select_all.png)
 
 Select multiple item types.
 
 ## Select Paths
 
-![Select path items.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_select_paths.png)
+![Select path items.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/ai_select_paths.png)
 
 Find paths based on their dimensions, colors, and additional properties.
 
 ## Select Types
 
-![Select text items.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_select_types.png)
+![Select text items.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/ai_select_types.png)
 
 Find texts based on their contents, fonts, colors and additional properties.
 
 ## Select Links
 
-![Select placed items.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_select_links.png)
+![Select placed items.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/ai_select_links.png)
 
 Find links based on their dimensions and file types.
 
 ## Select Images
 
-![Select raster items.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_select_images.png)
+![Select raster items.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/ai_select_images.png)
 
 Find images based on their dimensions and additional properties.

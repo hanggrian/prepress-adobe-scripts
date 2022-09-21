@@ -2,14 +2,14 @@
 layout: post
 title: "Adding and Measuring Dielines"
 author: ai
-categories: [ Illustrator Scripts ]
-tags: [ prepress ]
-image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_dielines_addpaperbag.png
+categories: [Illustrator Scripts]
+tags: [prepress]
+image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/ai_dielines_addpaperbag.png
 ---
 
 ## Measure Dielines
 
-![Measure dielines of paths.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_dielines_measure.png)
+![Measure dielines of paths.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/ai_dielines_measure.png)
 
 Combine the length of all selected paths, excluding:
 - Paths with any fill color, usually dielines are just simple lines.
@@ -17,7 +17,7 @@ Combine the length of all selected paths, excluding:
 
 ## Add Flap Dieline
 
-![Add flap dieline to item.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_dielines_addflap.png)
+![Add flap dieline to item.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/ai_dielines_addflap.png)
 
 Flaps are common parts of product packaging dielines.
 
@@ -25,7 +25,7 @@ Flaps are common parts of product packaging dielines.
 
 ## Add Paperbag Dielines
 
-![Add paperbag dielines to document.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_dielines_addpaperbag.png)
+![Add paperbag dielines to document.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/ai_dielines_addpaperbag.png)
 
 Pretty self-explanatory.
 

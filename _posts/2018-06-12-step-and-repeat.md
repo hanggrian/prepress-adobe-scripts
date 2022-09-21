@@ -2,9 +2,9 @@
 layout: post
 title: "Step and Repeat"
 author: ai
-categories: [ Illustrator Scripts ]
-tags: [ general ]
-image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_objects_stepandrepeat.png
+categories: [Illustrator Scripts]
+tags: [general]
+image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/ai_objects_stepandrepeat.png
 ---
 
 Duplicating items given the horizontal and vertical values.

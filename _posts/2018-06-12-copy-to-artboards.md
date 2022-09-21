@@ -2,9 +2,9 @@
 layout: post
 title: "Copy to Artboards"
 author: ai
-categories: [ Illustrator Scripts ]
-tags: [ general ]
-image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_objects_copytoartboards.png
+categories: [Illustrator Scripts]
+tags: [general]
+image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/ai_objects_copytoartboards.png
 ---
 
 Duplicate items in active artboard to other artboards within range.

@@ -2,16 +2,16 @@
 layout: post
 title: "Retyping Texts"
 author: ai
-categories: [ Illustrator Scripts ]
-tags: [ general, prepress ]
-image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_types_numerize.png
+categories: [Illustrator Scripts]
+tags: [general, prepress]
+image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/ai_types_numerize.png
 ---
 
 Change content of selected texts.
 
 ## Retype
 
-![Retype texts.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_types_retype.png)
+![Retype texts.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/ai_types_retype.png)
 
 Retype the same content to all texts.
 
@@ -19,7 +19,7 @@ Texts with multiple fonts are not yet supported, as the rest of characters will 
 
 ## Numerize
 
-![Numerize texts.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_types_numerize.png)
+![Numerize texts.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/ai_types_numerize.png)
 
 Iterate all texts and change the content to current index.
 There are `Digits` and `Stops at` configuration which are optional and can be left empty.

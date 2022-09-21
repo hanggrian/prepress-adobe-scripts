@@ -2,9 +2,9 @@
 layout: post
 title: "Imposing Layout"
 author: ai
-categories: [ Illustrator Scripts ]
-tags: [ prepress ]
-image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_impose_saddlestitch.png
+categories: [Illustrator Scripts]
+tags: [prepress]
+image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/ai_impose_saddlestitch.png
 ---
 
 Imposition is one of the most repetitive tasks in digital prepression.
@@ -15,7 +15,7 @@ this open-source script eliminates the need to use anything other than Illustrat
 
 ## N-Up
 
-![Impose N-up layout.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_impose_nup.png)
+![Impose N-up layout.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/ai_impose_nup.png)
 
 Supporting 1, 2, 4, or 8 pages per artboard. N-Up imposition supports `Duplex Printing` and `Cut Stack` layout.
 
@@ -41,7 +41,7 @@ So that the stacking process can be done with the whole layout as opposed to ind
 
 ## Saddle Stitch
 
-![Impose saddle-stitch layout.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_impose_saddlestitch.png)
+![Impose saddle-stitch layout.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/ai_impose_saddlestitch.png)
 
 Saddle stitching is a very popular book binding process where papers are stapled together to the spine of the book.
 

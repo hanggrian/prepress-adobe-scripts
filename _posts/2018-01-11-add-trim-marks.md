@@ -2,9 +2,9 @@
 layout: post
 title: "Add Trim Marks"
 author: ai
-categories: [ Illustrator Scripts ]
-tags: [ prepress ]
-image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/ai_objects_addtrimmarks.png
+categories: [Illustrator Scripts]
+tags: [prepress]
+image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/ai_objects_addtrimmarks.png
 featured: true
 hidden: true
 ---

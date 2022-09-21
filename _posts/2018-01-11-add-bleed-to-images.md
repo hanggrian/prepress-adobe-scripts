@@ -2,9 +2,9 @@
 layout: post
 title: "Add Bleed to Images"
 author: psd
-categories: [ Photoshop Scripts ]
-tags: [ prepress ]
-image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screens/psd_images_addbleedtoimages.png
+categories: [Photoshop Scripts]
+tags: [prepress]
+image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/psd_images_addbleedtoimages.png
 featured: true
 hidden: true
 ---
