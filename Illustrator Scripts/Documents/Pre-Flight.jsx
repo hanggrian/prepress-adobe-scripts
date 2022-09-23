@@ -1,5 +1,3 @@
-// Quality check all tabs.
-
 #target Illustrator
 #include "../.lib/commons.js"
 

@@ -1,4 +1,3 @@
-// Measure length of all selected path items.
 // TODO: avoid duplicate paths in the same position and length.
 
 #target Illustrator
@@ -57,7 +56,7 @@ function increment(item) {
     return
   }
   // dielines' stroke color usually aren't registration
-  if (item.stroked && isColorEqual(item.strokeColor, Color2.REGISTRATION.getValue())) {
+  if (item.stroked && isColorEqual(item.strokeColor, Color2.REGISTRATION.get())) {
     registrationCount++
     return
   }

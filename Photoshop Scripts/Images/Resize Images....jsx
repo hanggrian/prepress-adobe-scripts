@@ -10,12 +10,12 @@
 #include "../.lib/commons.js"
 
 var Resample = new Enum({
-  BICUBIC: { name: R.string.bicubic, resampleMethod: ResampleMethod.BICUBIC },
-  BICUBIC_SHARPER: { name: R.string.bicubic_sharper, resampleMethod: ResampleMethod.BICUBICSHARPER },
-  BICUBIC_SMOOTHER: { name: R.string.bicubic_smoother, resampleMethod: ResampleMethod.BICUBICSMOOTHER },
-  BILINEAR: { name: R.string.bilinear, resampleMethod: ResampleMethod.BILINEAR },
-  NEAREST_NEIGHBOR: { name: R.string.nearest_neighbor, resampleMethod: ResampleMethod.NEARESTNEIGHBOR },
-  NONE: { name: R.string.string, resampleMethod: ResampleMethod.NONE }
+  BICUBIC: { name: R.string.bicubic, value: ResampleMethod.BICUBIC },
+  BICUBIC_SHARPER: { name: R.string.bicubic_sharper, value: ResampleMethod.BICUBICSHARPER },
+  BICUBIC_SMOOTHER: { name: R.string.bicubic_smoother, value: ResampleMethod.BICUBICSMOOTHER },
+  BILINEAR: { name: R.string.bilinear, value: ResampleMethod.BILINEAR },
+  NEAREST_NEIGHBOR: { name: R.string.nearest_neighbor, value: ResampleMethod.NEARESTNEIGHBOR },
+  NONE: { name: R.string.string, value: ResampleMethod.NONE }
 })
 
 var SIZE_INPUT = [180, 21]
@@ -26,7 +26,6 @@ var widthEdit, heightEdit, resolutionEdit, resampleList
 dialog.vgroup(function(main) {
   main.alignChildren = "right"
   main.hgroup(function(group) {
-    group.helpTips = R.string.tip_resizeimages_width
     group.leftStaticText(undefined, R.string.width)
     widthEdit = group.editText(SIZE_INPUT, formatUnits(document.width, unitName, 2)).also(function(it) {
       it.validateUnits()
@@ -34,7 +33,6 @@ dialog.vgroup(function(main) {
     })
   })
   main.hgroup(function(group) {
-    group.helpTips = R.string.tip_resizeimages_height
     group.leftStaticText(undefined, R.string.height)
     heightEdit = group.editText(SIZE_INPUT, formatUnits(document.height, unitName, 2)).also(VALIDATE_UNITS)
   })
@@ -76,5 +74,5 @@ dialog.show()
 
 function process(document, width, height, resolution, method) {
   app.activeDocument = document
-  document.resizeImage(width, height, resolution, method.resampleMethod)
+  document.resizeImage(width, height, resolution, method.value)
 }

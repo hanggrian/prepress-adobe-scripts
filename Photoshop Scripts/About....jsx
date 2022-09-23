@@ -20,26 +20,26 @@ dialog.vgroup(function(main) {
       { multiline: true })
   })
   aboutPanel = new AboutPanel(main, clientDate).also(function(panel) {
-    panel.preferencesThemeList.onChange = function() {
+    panel.preferencesThemeList.addChangeListener(function() {
       configs.edit(function(editor) {
         editor.setBoolean("theme_dark", panel.preferencesThemeList.selection.index === 0)
       })
-    }
-    panel.preferencesLanguageList.onChange = function() {
+    })
+    panel.preferencesLanguageList.addChangeListener(function() {
       configs.edit(function(editor) {
         var language = Language.valueOf(panel.preferencesLanguageList.selection)
         editor.setString("language_code", language.code)
       })
       Language.set(language)
-    }
-    panel.preferencesClearButton.onClick = function() {
+    })
+    panel.preferencesClearButton.addClickListener(function() {
       configs.edit(function(editor) {
         editor.remove("theme_dark")
         editor.remove("language_code")
       })
       configs.resolve("images/add_bleed").edit(function(editor) { editor.remove("length") })
       Windows.alert(R.string.done, R.string.about_scripts)
-    }
+    })
   })
 })
 dialog.setCancelButton(R.string.close) // because there is no default button

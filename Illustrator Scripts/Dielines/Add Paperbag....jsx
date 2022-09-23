@@ -200,7 +200,7 @@ function createLine(weight, color, positions) {
   var path = layer.pathItems.add()
   path.filled = false
   path.strokeDashes = []
-  path.strokeColor = color.getValue()
+  path.strokeColor = color.get()
   path.strokeWidth = weight
   path.setEntirePath(positions)
   path.closed = true
@@ -211,7 +211,7 @@ function createDash(weight, color, positions) {
   var path = layer.pathItems.add()
   path.filled = false
   path.strokeDashes = [12]
-  path.strokeColor = color.getValue()
+  path.strokeColor = color.get()
   path.strokeWidth = weight
   path.setEntirePath(positions)
   return path

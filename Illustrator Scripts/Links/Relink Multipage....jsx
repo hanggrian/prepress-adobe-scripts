@@ -13,7 +13,7 @@ var pdfPanel, rangeGroup, orderingList, recursiveCheck, keepSizeCheck
 var collection
 var config = configs.resolve("links/relink_multipage")
 
-var files = FilePicker.openFile(dialog.text, FileType.values(), true)
+var files = FilePicker.openFile(dialog.text, FileExtension.values(), true)
 
 if (files !== null && Collections.isNotEmpty(files)) {
   collection = new FileCollection(files)

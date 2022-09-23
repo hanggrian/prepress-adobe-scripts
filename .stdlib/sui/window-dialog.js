@@ -51,7 +51,7 @@ function Dialog(title, helpUrlSuffix) {
       if (helpUrlSuffix !== undefined) {
         self.helpIconButton = leftButtons.iconButton(undefined, "ic_help", { style: "toolbutton" }).also(function(it) {
           it.helpTip = R.string.tip_whatsthis
-          it.onClick = function() { Scripts.openUrl(Scripts.URL_WEBSITE + helpUrlSuffix) }
+          it.addClickListener(function() { Scripts.openUrl(Scripts.URL_WEBSITE + helpUrlSuffix) })
         })
       }
       helpButtonContainer = leftButtons.sgroup()
@@ -98,9 +98,9 @@ function Dialog(title, helpUrlSuffix) {
    * @param {Function} action nullable button click listener.
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
-  self.setDefaultButton = function(text, action, disabled) {
-    self.defaultButton = appendButton(defaultButtonContainer, text || "OK",
-      action, disabled, { name: "ok" })
+  self.setDefaultButton = function(text, action) {
+    self.defaultButton = appendButton(defaultButtonContainer, text || "OK", action,
+      { name: "ok" })
     if (self.buttonActivateDefault) {
       // skip Illustrator on Windows, see `child-edittext` for more
       if (!Scripts.OS_MAC && Scripts.APP_AI) {
@@ -116,9 +116,8 @@ function Dialog(title, helpUrlSuffix) {
    * @param {Function} action nullable button click listener.
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
-  self.setYesButton = function(text, action, disabled) {
-    self.yesButton = appendButton(yesButtonContainer, text || getString(R.string.yes),
-      action, disabled)
+  self.setYesButton = function(text, action) {
+    self.yesButton = appendButton(yesButtonContainer, text || getString(R.string.yes), action)
   }
 
   /**
@@ -127,9 +126,9 @@ function Dialog(title, helpUrlSuffix) {
    * @param {Function} action nullable button click listener.
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
-  self.setCancelButton = function(text, action, disabled) {
-    self.cancelButton = appendButton(cancelButtonContainer, text || getString(R.string.cancel),
-      action, disabled, { name: "cancel" })
+  self.setCancelButton = function(text, action) {
+    self.cancelButton = appendButton(cancelButtonContainer, text || getString(R.string.cancel), action,
+      { name: "cancel" })
   }
 
   /**
@@ -138,9 +137,8 @@ function Dialog(title, helpUrlSuffix) {
    * @param {Function} action nullable button click listener.
    * @param {Boolean} disabled nullable first state, set true to disable upon creation.
    */
-  self.setHelpButton = function(text, action, disabled) {
-    self.helpButton = appendButton(helpButtonContainer, text || getString(R.string.help),
-      action, disabled)
+  self.setHelpButton = function(text, action) {
+    self.helpButton = appendButton(helpButtonContainer, text || getString(R.string.help), action)
   }
 
   /** In `AlertDialog`, max button height is shrinked. */
@@ -149,7 +147,7 @@ function Dialog(title, helpUrlSuffix) {
   /** In `AlertDialog`, deefault button is activated. */
   self.buttonActivateDefault = false
 
-  function appendButton(group, text, action, disabled, properties) {
+  function appendButton(group, text, action, properties) {
     if (text === undefined) {
       return undefined
     }
@@ -157,10 +155,7 @@ function Dialog(title, helpUrlSuffix) {
       if (self.buttonMaxHeight !== undefined) {
         it.maximumSize.height = self.buttonMaxHeight
       }
-      if (disabled !== undefined && disabled) {
-        it.enabled = false
-      }
-      it.onClick = function() {
+      it.addClickListener(function() {
         var consume
         if (action !== undefined) {
           consume = action()
@@ -168,7 +163,7 @@ function Dialog(title, helpUrlSuffix) {
         if (consume === undefined || !consume) {
           self.close()
         }
-      }
+      })
     })
   }
 

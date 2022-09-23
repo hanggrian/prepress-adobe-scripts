@@ -35,7 +35,7 @@ dialog.hgroup(function(main) {
   main.vpanel(R.string.anchor, function(panel) {
     panel.alignChildren = "fill"
     documentOriginCheck = new DocumentOriginCheck(panel).also(function(it) {
-      it.onClick = function() { anchorGroup.enabled = !it.value }
+      it.addClickListener(function() { anchorGroup.enabled = !it.value })
     })
     anchorGroup = new AnchorGroup(panel)
   })

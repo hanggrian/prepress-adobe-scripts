@@ -4,7 +4,7 @@
 checkHasSelection()
 
 var SIZE_INPUT = [110, 21]
-var SIZE_CHECK = [15, 15]
+var SIZE_CHECK = [15, 15] // usually 14, but use 15 to stretch the size equalling left panel
 
 var dialog = new Dialog(R.string.add_trim_marks, "add-trim-marks/")
 var offsetEdit, lengthEdit, weightEdit, colorList
@@ -126,7 +126,7 @@ dialog.vgroup(function(main) {
   multipleMultiRadioGroup = new MultiRadioGroup(main, R.string.multiple_target,
     [R.string.default, R.string.recursive]).also(function(it) {
     it.setHelpTips(R.string.tip_addtrimmarks_multipletarget)
-    it.checkOnClick = function() {
+    it.check.addClickListener(function() {
       topLeftCheck.visible = !it.isSelected()
       topRightCheck.visible = !it.isSelected()
       leftTopCheck.visible = !it.isSelected()
@@ -139,7 +139,7 @@ dialog.vgroup(function(main) {
       topCheck.visible = it.isSelected()
       rightCheck.visible = it.isSelected()
       bottomCheck.visible = it.isSelected()
-    }
+    })
   })
 })
 dialog.setCancelButton()
@@ -348,7 +348,7 @@ function createTrimMark(weight, color, suffixName, fromX, fromY, toX, toY) {
   path.name = "Trim" + suffixName
   path.filled = false
   path.strokeDashes = []
-  path.strokeColor = color.getValue()
+  path.strokeColor = color.get()
   path.strokeWidth = weight
   path.setEntirePath([[fromX, fromY], [toX, toY]])
   return path

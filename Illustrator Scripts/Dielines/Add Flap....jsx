@@ -98,7 +98,7 @@ dialog.hgroup(function(main) {
         dustDistanceEdit = group.editText(SIZE_INPUT, "0 mm").also(VALIDATE_UNITS)
       })
     })
-    panel.onChange = function() {
+    panel.addChangeListener(function() {
       if (panel.selection === null) {
         return
       }
@@ -110,7 +110,7 @@ dialog.hgroup(function(main) {
       } else {
         dustShoulderEdit.activate()
       }
-    }
+    })
   })
 })
 dialog.setCancelButton()
@@ -123,7 +123,7 @@ dialog.setDefaultButton(undefined, function() {
   var pathItem = layer.pathItems.add()
   pathItem.filled = false
   pathItem.strokeDashes = []
-  pathItem.strokeColor = color.getValue()
+  pathItem.strokeColor = color.get()
   pathItem.strokeWidth = weight
 
   if (currentTab === getString(R.string.glue_flap)) {

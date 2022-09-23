@@ -193,7 +193,7 @@ function AnchorGroup(parent) {
   }
 
   function registerRadioClick(radio) {
-    radio.onClick = function() {
+    radio.addClickListener(function() {
       if (radio != self.topLeftRadio) self.topLeftRadio.value = false
       if (radio != self.topRadio) self.topRadio.value = false
       if (radio != self.topRightRadio) self.topRightRadio.value = false
@@ -203,7 +203,7 @@ function AnchorGroup(parent) {
       if (radio != self.bottomLeftRadio) self.bottomLeftRadio.value = false
       if (radio != self.bottomRadio) self.bottomRadio.value = false
       if (radio != self.bottomRightRadio) self.bottomRightRadio.value = false
-    }
+    })
   }
 
   return self

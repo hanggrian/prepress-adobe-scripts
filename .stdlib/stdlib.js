@@ -50,14 +50,11 @@ var Theme = new Enum({
   LIGHT: { name: R.string.light }
 })
 
-/**
- * @param {String} code 2 letter ISO code.
- */
 var Language = new Enum({
   EN: { name: "English", code: "en" },
   ID: { name: "Indonesia", code: "id" },
 
-  valueOfCode: function(code) { return Collections.first(this.values(), function(it) { return it.code == code }) },
+  valueOfCode: function(code) { return Collections.first(Language.values(), function(it) { return it.code == code }) },
 
   /**
    * Change scripts' localization.
@@ -90,15 +87,15 @@ var Scripts = {
    * @returns {File}
    */
   getResource: function(fullName) {
-    if (this.PATH_STDRES === undefined) {
-      this.PATH_STDRES = new File(this.PATH_STDLIB + "/../.stdres")
-      this.PATH_RES = new File(this.PATH_LIB + "/../.res")
+    if (Scripts.PATH_STDRES === undefined) {
+      Scripts.PATH_STDRES = new File(Scripts.PATH_STDLIB + "/../.stdres")
+      Scripts.PATH_RES = new File(Scripts.PATH_LIB + "/../.res")
     }
-    var file = new File(this.PATH_RES + "/" + fullName)
+    var file = new File(Scripts.PATH_RES + "/" + fullName)
     if (file.exists) {
       return file
     }
-    file = new File(this.PATH_STDRES + "/" + fullName)
+    file = new File(Scripts.PATH_STDRES + "/" + fullName)
     if (file.exists) {
       return file
     }

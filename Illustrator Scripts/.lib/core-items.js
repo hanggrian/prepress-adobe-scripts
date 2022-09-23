@@ -63,5 +63,20 @@ var Items = {
     } catch (e) {
       return false
     }
+  },
+
+  /**
+   * Add a rectangle guide around item, the size and position of the item must already be set for this to work.
+   * @param {PageItem} item any item.
+   * @param {Number} bleed length of individual bleed.
+   * @return {PathItem}
+   */
+  addBleedGuide: function(document, item, bleed) {
+    var guide = document.pathItems.rectangle(
+      item.position.getTop() - bleed, item.position.getLeft() + bleed,
+      item.width - bleed * 2, item.height - bleed * 2)
+    guide.filled = false
+    guide.guides = true
+    return guide
   }
 }

@@ -45,7 +45,7 @@ dialog.vgroup(function(main) {
         stopsAtCheck = group.checkBox(undefined, getString(R.string.stops_at) + ":").also(function(it) {
           it.justify = "right"
           it.value = config.getBoolean("stop_enabled")
-          it.onClick = function() { stopsAtList.enabled = stopsAtCheck.value }
+          it.addClickListener(function() { stopsAtList.enabled = stopsAtCheck.value })
         })
         stopsAtList = group.dropDownList(SIZE_INPUT, ALPHABETS).also(function(it) {
           it.enabled = stopsAtCheck.value

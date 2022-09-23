@@ -2,7 +2,7 @@ var SelectOption = new Enum({
   YES: { name: R.string.yes },
   NO: { name: R.string.no },
 
-  isYes: function(name) { return this.valueOf(name) === this.YES }
+  isYes: function(name) { return SelectOption.valueOf(name) === SelectOption.YES }
 })
 
 /**

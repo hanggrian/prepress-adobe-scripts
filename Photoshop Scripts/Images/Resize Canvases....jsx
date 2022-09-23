@@ -19,7 +19,6 @@ dialog.hgroup(function(main) {
   main.vpanel(R.string.canvas, function(panel) {
     panel.alignChildren = "right"
     panel.hgroup(function(group) {
-      group.helpTips = R.string.tip_resizecanvases_width
       group.leftStaticText(undefined, R.string.width)
       widthEdit = group.editText(SIZE_INPUT, formatUnits(document.width, unitName, 2)).also(function(it) {
         it.validateUnits()
@@ -27,7 +26,6 @@ dialog.hgroup(function(main) {
       })
     })
     panel.hgroup(function(group) {
-      group.helpTips = R.string.tip_resizecanvases_height
       group.leftStaticText(undefined, R.string.height)
       heightEdit = group.editText(SIZE_INPUT, formatUnits(document.height, unitName, 2)).also(VALIDATE_UNITS)
     })

@@ -1,36 +1,33 @@
-/**
- * @param {Function} getValue callable to return `CMYKColor`.
- */
 var Color2 = new Enum({
   REGISTRATION: {
     name: R.string.registration,
     image: "color_registration",
-    getValue: function() { return document.swatches["[registration]"].color }
+    get: function() { return document.swatches["[registration]"].color }
   },
   WHITE: {
     name: R.string.white,
     image: "color_white",
-    getValue: function() { return new CMYKColor() }
+    get: function() { return new CMYKColor() }
   },
   CYAN: {
     name: R.string.cyan,
     image: "color_cyan",
-    getValue: function() { return new CMYKColor().also(function (it) { it.cyan = 100 }) }
+    get: function() { return new CMYKColor().also(function (it) { it.cyan = 100 }) }
   },
   MAGENTA: {
     name: R.string.magenta,
     image: "color_magenta",
-    getValue: function() { return new CMYKColor().also(function (it) { it.magenta = 100 }) }
+    get: function() { return new CMYKColor().also(function (it) { it.magenta = 100 }) }
   },
   YELLOW: {
     name: R.string.yellow,
     image: "color_yellow",
-    getValue: function() { return new CMYKColor().also(function (it) { it.yellow = 100 }) }
+    get: function() { return new CMYKColor().also(function (it) { it.yellow = 100 }) }
   },
   BLACK: {
     name: R.string.black,
     image: "color_black",
-    getValue: function() { return new CMYKColor().also(function (it) { it.black = 100 }) }
+    get: function() { return new CMYKColor().also(function (it) { it.black = 100 }) }
   }
 }, [1])
 

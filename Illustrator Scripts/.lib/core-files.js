@@ -5,18 +5,18 @@
 function FileCollection(files) {
   var self = this
 
-  this.isSinglePDF = files.length === 1 && Collections.first(files).isPdf()
+  self.isSinglePDF = files.length === 1 && Collections.first(files).isPdf()
 
-  this.hasPDF = Collections.any(files, function(it) { return it.isPdf() })
+  self.hasPDF = Collections.any(files, function(it) { return it.isPdf() })
 
-  this.length = files.length
+  self.length = files.length
 
   /**
    * Returns image file or PDF file with specific page.
    * @param {Number} index index at which to retrieve file or PDF page.
    * @return {File}
    */
-  this.get = function(index) {
+  self.get = function(index) {
     var file = self.isSinglePDF ? Collections.first(files) : files[index]
     if (self.isSinglePDF) {
       preferences.setPDFPage(index)

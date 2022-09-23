@@ -12,7 +12,7 @@ var dialog = new Dialog(R.string.relink_same, "relinking-files/#relink-same")
 var pdfPanel, pageEdit, keepSizeCheck
 var config = configs.resolve("links/relink_same")
 
-var file = FilePicker.openFile(dialog.text, FileType.values())
+var file = FilePicker.openFile(dialog.text, FileExtension.values())
 
 if (file !== null) {
   dialog.vgroup(function(main) {

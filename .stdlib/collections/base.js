@@ -78,7 +78,7 @@ var Collections = {
    * @param {Function} action runnable to execute.
    */
   forEachReversed: function(collection, action) {
-    for (var i = this.lastIndex(collection); i >= 0; i--) {
+    for (var i = Collections.lastIndex(collection); i >= 0; i--) {
       action(collection[i], i)
     }
   },
@@ -90,7 +90,7 @@ var Collections = {
    */
   distinct: function(collection) {
     var result = []
-    this.forEach(collection, function(element) {
+    Collections.forEach(collection, function(element) {
       if (!Collections.contains(result, element)) {
         result.push(element)
       }
@@ -105,7 +105,7 @@ var Collections = {
    */
   copyOf: function(collection) {
     var result = []
-    this.forEach(collection, function(element) {
+    Collections.forEach(collection, function(element) {
       result.push(element)
     })
     return result

@@ -5,14 +5,14 @@
 #include "../.lib/commons.js"
 
 var Kind = new Enum({
-  POINT_TEXT: { name: R.string.point_text, textType: TextType.POINTTEXT },
-  AREA_TEXT: { name: R.string.area_text, textType: TextType.AREATEXT },
-  PATH_TEXT: { name: R.string.path_text, textType: TextType.PATHTEXT }
+  POINT_TEXT: { name: R.string.point_text, value: TextType.POINTTEXT },
+  AREA_TEXT: { name: R.string.area_text, value: TextType.AREATEXT },
+  PATH_TEXT: { name: R.string.path_text, value: TextType.PATHTEXT }
 })
 
 var Orientation = new Enum({
-  HORIZONTAL: { name: R.string.horizontal, textOrientation: TextOrientation.HORIZONTAL },
-  VERTICAL: { name: R.string.vertical, textOrientation: TextOrientation.VERTICAL }
+  HORIZONTAL: { name: R.string.horizontal, value: TextOrientation.HORIZONTAL },
+  VERTICAL: { name: R.string.vertical, value: TextOrientation.VERTICAL }
 })
 
 var SIZE_INPUT_LEFT = [100, 21]
@@ -128,10 +128,10 @@ dialog.setDefaultButton(undefined, function() {
     if (fontSize !== undefined && parseInt(fontSize) !== parseInt(attr.size)) return false
     if (italic !== undefined && italic !== attr.italics) return false
     if (underline !== undefined && underline !== attr.underline) return false
-    if (fillColor !== undefined && !isColorEqual(fillColor.getValue(), attr.fillColor)) return false
-    if (strokeColor !== undefined && !isColorEqual(strokeColor.getValue(), attr.strokeColor)) return false
-    if (kind !== undefined && kind.textType !== item.kind) return false
-    if (orientation !== undefined && orientation.textOrientation !== item.orientation) return false
+    if (fillColor !== undefined && !isColorEqual(fillColor.get(), attr.fillColor)) return false
+    if (strokeColor !== undefined && !isColorEqual(strokeColor.get(), attr.strokeColor)) return false
+    if (kind !== undefined && kind.value !== item.kind) return false
+    if (orientation !== undefined && orientation.value !== item.orientation) return false
     return true
   }, isFilterMode && recursiveCheck.value)
 

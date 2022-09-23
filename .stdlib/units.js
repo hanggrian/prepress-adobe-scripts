@@ -4,10 +4,6 @@
 </javascriptresource>
 */
 
-/**
- * @param {RulerUnits} rulerUnits enum used in Illustrator.
- * @param {Units} units enum used in Photoshop.
- */
 var UnitType = new Enum({
   PIXELS: { name: R.string.pixels, rulerUnits: undefined, units: undefined },
   POINTS: { name: R.string.points, rulerUnits: undefined, units: undefined },

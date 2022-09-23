@@ -2,10 +2,10 @@
 #include "../.lib/commons.js"
 
 var Rounding = new Enum({
-  NONE: { name: R.string.none, action: function(it) { return it } },
-  ROUND: { name: R.string.round, action: Math.round },
-  FLOOR: { name: R.string.floor, action: Math.floor },
-  CEIL: { name: R.string.ceil, action: Math.ceil }
+  NONE: { name: R.string.none, round: function(it) { return it } },
+  ROUND: { name: R.string.round, round: Math.round },
+  FLOOR: { name: R.string.floor, round: Math.floor },
+  CEIL: { name: R.string.ceil, round: Math.ceil }
 })
 
 var SIZE_LABEL = [80, 21] // manual sizing because content is changable
@@ -27,11 +27,11 @@ dialog.vgroup(function(main) {
     group.helpTips = R.string.tip_resizeglyph_dimension
     group.leftStaticText(SIZE_LABEL, R.string.dimension)
     dimensionWidthRadio = group.radioButton(undefined, R.string.width).also(function(it) {
-      it.onClick = changeDimensionText
+      it.addClickListener(changeDimensionText)
       it.select()
     })
     dimensionHeightRadio = group.radioButton(undefined, R.string.height).also(function(it) {
-      it.onClick = changeDimensionText
+      it.addClickListener(changeDimensionText)
     })
   })
   main.hgroup(function(group) {
@@ -61,7 +61,7 @@ dialog.setDefaultButton(undefined, function() {
   var targetDimension = parseUnits(dimensionSizeEdit.text)
   var targetFont = currentFont * targetDimension / currentDimension
   var rounding = Rounding.valueOf(roundingList.selection)
-  targetFont = rounding.action(targetFont)
+  targetFont = rounding.round(targetFont)
   item.textRange.characterAttributes.size = targetFont
 })
 dialog.show()

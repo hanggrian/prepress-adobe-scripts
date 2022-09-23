@@ -13,9 +13,9 @@ function RangeGroup(parent, inputSize) {
   inputSize = [inputSize[0] / 2 - 13, inputSize[1]]
   self.startEdit = self.editText(inputSize, "1").also(function(it) {
     it.validateDigits()
-    it.onChange = function() {
+    it.addChangeListener(function() {
       self.endEdit.text = self.startEdit.text
-    }
+    })
   })
   self.staticText(undefined, "–") // use en dash
   self.endEdit = self.editText(inputSize, "1").also(VALIDATE_DIGITS)
@@ -85,7 +85,7 @@ function RangeGroup(parent, inputSize) {
    * Creates an array containing starting number until ending number.
    * @return {Array}
    */
-  self.toArray = function(action) {
+  self.toArray = function() {
     checkValidity()
     var result = []
     var from = self.getStart()

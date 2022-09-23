@@ -1,47 +1,48 @@
 var SIZE_DOCUMENT_INPUT = [120, 21]
-var SIZE_DOCUMENT_INPUT2 = [70, 21]
-var SIZE_DOCUMENT_INPUTMAX = [120 + 70 + 10, 21]
+var SIZE_DOCUMENT_INPUT2 = [80, 21]
+var SIZE_DOCUMENT_CHECK = [70, 14]
 
-/**
- * @param {PDFBoxType} pdfBoxType determine how to crop newly placed PDF.
- */
 var PDFCrop = new Enum({
-  BOUNDING: { name: "Bounding", pdfBoxType: PDFBoxType.PDFBOUNDINGBOX },
-  ART: { name: "Art", pdfBoxType: PDFBoxType.PDFARTBOX },
-  CROP: { name: "Crop", pdfBoxType: PDFBoxType.PDFCROPBOX },
-  TRIM: { name: "Trim", pdfBoxType: PDFBoxType.PDFTRIMBOX },
-  BLEED: { name: "Bleed", pdfBoxType: PDFBoxType.PDFBLEEDBOX },
-  MEDIA: { name: "Media", pdfBoxType: PDFBoxType.PDFMEDIABOX }
+  BOUNDING: { name: "Bounding", value: PDFBoxType.PDFBOUNDINGBOX },
+  ART: { name: "Art", value: PDFBoxType.PDFARTBOX },
+  CROP: { name: "Crop", value: PDFBoxType.PDFCROPBOX },
+  TRIM: { name: "Trim", value: PDFBoxType.PDFTRIMBOX },
+  BLEED: { name: "Bleed", value: PDFBoxType.PDFBLEEDBOX },
+  MEDIA: { name: "Media", value: PDFBoxType.PDFMEDIABOX }
 }, [0])
 
-/**
- * @param {DocumentColorSpace} colorMode used to determine new document's color space.
- */
+var DocumentPreset2 = new Enum({
+  MOBILE: { name: "Mobile", value: DocumentPresetType.Mobile },
+  WEB: { name: "Web", value: DocumentPresetType.Web },
+  PRINT: { name: "Print", value: DocumentPresetType.Print },
+  VIDEO: { name: "Video", value: DocumentPresetType.Video }
+})
+
 var DocumentColor = new Enum({
-  RGB: { name: "RGB", colorMode: DocumentColorSpace.RGB },
-  CMYK: { name: "CMYK", colorMode: DocumentColorSpace.CMYK }
+  RGB: { name: "RGB", value: DocumentColorSpace.RGB },
+  CMYK: { name: "CMYK", value: DocumentColorSpace.CMYK }
 })
 
-/**
- * @param {DocumentRasterResolution} rasterResolution used to determine new document's resolution.
- */
 var DocumentResolution = new Enum({
-  SCREEN: { name: R.string.screen, rasterResolution: DocumentRasterResolution.ScreenResolution },
-  MEDIUM: { name: R.string.medium, rasterResolution: DocumentRasterResolution.MediumResolution },
-  HIGH: { name: R.string.high, rasterResolution: DocumentRasterResolution.HighResolution }
+  SCREEN: { name: R.string.screen, value: DocumentRasterResolution.ScreenResolution },
+  MEDIUM: { name: R.string.medium, value: DocumentRasterResolution.MediumResolution },
+  HIGH: { name: R.string.high, value: DocumentRasterResolution.HighResolution }
 })
 
-/**
- * @param {DocumentArtboardLayout} artboardLayout used to determine new document's artboard layout.
- */
 var DocumentLayout = new Enum({
-  GRID_BY_ROW: { name: R.string.grid_by_row, artboardLayout: DocumentArtboardLayout.GridByRow },
-  GRID_BY_COLUMN: { name: R.string.grid_by_column, artboardLayout: DocumentArtboardLayout.GridByCol },
-  ROW: { name: R.string.row, artboardLayout: DocumentArtboardLayout.Row },
-  COLUMN: { name: R.string.column, artboardLayout: DocumentArtboardLayout.Column },
-  RTL_GRID_BY_ROW: { name: R.string.rtl_grid_by_row, artboardLayout: DocumentArtboardLayout.RLGridByRow },
-  RTL_GRID_BY_COLUMN: { name: R.string.rtl_grid_by_column, artboardLayout: DocumentArtboardLayout.RLGridByCol },
-  RTL_ROW: { name: R.string.rtl_row, artboardLayout: DocumentArtboardLayout.RLRow }
+  GRID_BY_ROW: { name: R.string.grid_by_row, value: DocumentArtboardLayout.GridByRow },
+  GRID_BY_COLUMN: { name: R.string.grid_by_column, value: DocumentArtboardLayout.GridByCol },
+  ROW: { name: R.string.row, value: DocumentArtboardLayout.Row },
+  COLUMN: { name: R.string.column, value: DocumentArtboardLayout.Column },
+  RTL_GRID_BY_ROW: { name: R.string.rtl_grid_by_row, value: DocumentArtboardLayout.RLGridByRow },
+  RTL_GRID_BY_COLUMN: { name: R.string.rtl_grid_by_column, value: DocumentArtboardLayout.RLGridByCol },
+  RTL_ROW: { name: R.string.rtl_row, value: DocumentArtboardLayout.RLRow }
+})
+
+var DocumentPreview = new Enum({
+  DEFAULT: { name: "Default", value: DocumentPreviewMode.DefaultPreview },
+  PIXEL: { name: "Pixel", value: DocumentPreviewMode.PixelPreview },
+  OVERPRINT: { name: "Overprint", value: DocumentPreviewMode.OverprintPreview }
 })
 
 /**
@@ -72,22 +73,9 @@ function OpenPDFPanel(parent, inputSize) {
       } else {
         it.selection = 0
       }
-      it.onChange = function() {
-        var pdfOption = PDFCrop.valueOf(self.boxTypeList.selection)
-        if (pdfOption === PDFCrop.ART) {
-          preferences.setPDFCrop(PDFBoxType.PDFARTBOX)
-        } else if (pdfOption ===  PDFCrop.CROP) {
-          preferences.setPDFCrop(PDFBoxType.PDFCROPBOX)
-        } else if (pdfOption === PDFCrop.TRIM) {
-          preferences.setPDFCrop(PDFBoxType.PDFTRIMBOX)
-        } else if (pdfOption === PDFCrop.BLEED) {
-          preferences.setPDFCrop(PDFBoxType.PDFBLEEDBOX)
-        } else if (pdfOption === PDFCrop.MEDIA) {
-          preferences.setPDFCrop(PDFBoxType.PDFMEDIABOX)
-        } else {
-          preferences.setPDFCrop(PDFBoxType.PDFBOUNDINGBOX)
-        }
-      }
+      it.addChangeListener(function() {
+        preferences.setPDFCrop(PDFCrop.valueOf(self.boxTypeList.selection).value)
+      })
     })
   })
   return self
@@ -110,12 +98,10 @@ function OpenPagesPanel(parent, inputSize) {
     self.rangeGroup = new RangeGroup(group, inputSize)
   })
   self.hgroup(function(group) {
-    group.helpTips = R.string.tip_openpages_width
     group.leftStaticText(undefined, R.string.width)
     self.widthEdit = group.editText(inputSize, "210 mm").also(VALIDATE_UNITS)
   })
   self.hgroup(function(group) {
-    group.helpTips = R.string.tip_openpages_height
     group.leftStaticText(undefined, R.string.height)
     self.heightEdit = group.editText(inputSize, "297 mm").also(VALIDATE_UNITS)
   })
@@ -126,13 +112,13 @@ function OpenPagesPanel(parent, inputSize) {
   })
 
   /**
-   * Returns width input.
+   * Returns width input added with horizontal bleed.
    * @return {Number}
    */
   self.getWidth = function() { return parseUnits(self.widthEdit.text) }
 
   /**
-   * Returns height input.
+   * Returns height input added with vertical bleed.
    * @return {Number}
    */
   self.getHeight = function() { return parseUnits(self.heightEdit.text) }
@@ -152,84 +138,125 @@ function OpenPagesPanel(parent, inputSize) {
  */
 function OpenDocumentPanel(parent) {
   var self = parent.vpanel(R.string.document)
-  self.modeList, self.resolutionList
-  self.layoutList, self.rowsOrColsEdit, self.unitsList
-  self.spacingEdit
-  self.previewDefaultRadio, self.previewPixelRadio, self.previewOverprintRadio
+  self.widthEdit, self.heightEdit, self.unitsList, self.layoutList, self.previewModeList
+  self.presetTypeList, self.colorModeList, self.resolutionList, self.columnEdit, self.spacingEdit
 
   self.alignChildren = "right"
   self.alignment = "fill"
-  self.hgroup(function(group) {
-    group.helpTips = R.string.tip_opendocuments_colormode
-    group.leftStaticText(undefined, R.string.color_mode)
-    self.modeList = group.dropDownList(SIZE_DOCUMENT_INPUT, DocumentColor.list()).also(function(it) {
-      it.selection = 1
+
+  self.hgroup(function(rootGroup) {
+    rootGroup.vgroup(function(topGroup) {
+      topGroup.alignChildren = "right"
+      topGroup.hgroup(function(group) {
+        group.leftStaticText(undefined, R.string.width)
+        self.widthEdit = group.editText(SIZE_DOCUMENT_INPUT, "0 mm").also(VALIDATE_UNITS)
+      })
+      topGroup.hgroup(function(group) {
+        group.leftStaticText(undefined, R.string.height)
+        self.heightEdit = group.editText(SIZE_DOCUMENT_INPUT, "0 mm").also(VALIDATE_UNITS)
+      })
+      topGroup.hgroup(function(group) {
+        group.helpTips = R.string.tip_opendocuments_units
+        group.leftStaticText(undefined, R.string.units)
+        self.unitsList = group.dropDownList(SIZE_DOCUMENT_INPUT, UnitType.list()).also(function(it) {
+          it.selection = 3
+        })
+      })
+      topGroup.hgroup(function(group) {
+        group.helpTips = R.string.tip_opendocuments_layout
+        group.leftStaticText(undefined, R.string.layout)
+        self.layoutList = group.dropDownList(SIZE_DOCUMENT_INPUT, DocumentLayout.list()).also(function(it) {
+          it.selection = 0
+        })
+      })
+      topGroup.hgroup(function(group) {
+        group.helpTips = R.string.tip_opendocuments_previewmode
+        group.leftStaticText(undefined, R.string.preview_mode)
+        self.previewModeList = group.dropDownList(SIZE_DOCUMENT_INPUT, DocumentPreview.list()).also(function(it) {
+          it.selection = 0
+        })
+      })
     })
-    self.resolutionList = group.dropDownList(SIZE_DOCUMENT_INPUT2, DocumentResolution.list()).also(function(it) {
-      it.selection = 2
+    rootGroup.vgroup(function(topGroup) {
+      topGroup.alignChildren = "right"
+      topGroup.hgroup(function(group) {
+        group.helpTips = R.string.tip_opendocuments_preset
+        group.leftStaticText(undefined, R.string.preset_type)
+        self.presetTypeList = group.dropDownList(SIZE_DOCUMENT_INPUT2, DocumentPreset2.list()).also(function(it) {
+          it.selection = 2
+        })
+      })
+      topGroup.hgroup(function(group) {
+        group.helpTips = R.string.tip_opendocuments_colormode
+        group.leftStaticText(undefined, R.string.color_mode)
+        self.colorModeList = group.dropDownList(SIZE_DOCUMENT_INPUT2, DocumentColor.list()).also(function(it) {
+          it.selection = 1
+        })
+      })
+      topGroup.hgroup(function(group) {
+        group.helpTips = R.string.tip_opendocuments_resolution
+        group.leftStaticText(undefined, R.string.resolution)
+        self.resolutionList = group.dropDownList(SIZE_DOCUMENT_INPUT2, DocumentResolution.list()).also(function(it) {
+          it.selection = 2
+        })
+      })
+      topGroup.hgroup(function(group) {
+        group.helpTips = R.string.tip_opendocuments_column
+        group.leftStaticText(undefined, R.string.column)
+        self.columnEdit = group.editText(SIZE_DOCUMENT_INPUT2, "2").also(VALIDATE_DIGITS)
+      })
+      topGroup.hgroup(function(group) {
+        group.helpTips = R.string.tip_opendocuments_spacing
+        group.leftStaticText(undefined, R.string.spacing)
+        self.spacingEdit = group.editText(SIZE_DOCUMENT_INPUT2, "10 mm").also(VALIDATE_UNITS)
+      })
     })
   })
-  self.hgroup(function(group) {
-    group.helpTips = R.string.tip_opendocuments_layout
-    group.leftStaticText(undefined, R.string.layout)
-    self.layoutList = group.dropDownList(SIZE_DOCUMENT_INPUT, DocumentLayout.list()).also(function(it) {
-      it.selection = 0
-    })
-    self.rowsOrColsEdit = group.editText(SIZE_DOCUMENT_INPUT2, "2").also(VALIDATE_DIGITS)
-  })
-  self.hgroup(function(group) {
-    group.helpTips = R.string.tip_opendocuments_units
-    group.leftStaticText(undefined, R.string.units)
-    self.unitsList = group.dropDownList(SIZE_DOCUMENT_INPUTMAX, UnitType.list()).also(function(it) {
-      it.selection = 3
-    })
-  })
-  self.hgroup(function(group) {
-    group.helpTips = R.string.tip_opendocuments_spacing
-    group.leftStaticText(undefined, R.string.spacing)
-    self.spacingEdit = group.editText(SIZE_DOCUMENT_INPUTMAX, "10 mm").also(VALIDATE_UNITS)
-  })
-  self.hgroup(function(group) {
-    group.alignChildren = "bottom"
-    group.helpTips = R.string.tip_opendocuments_previewmode
-    group.leftStaticText(undefined, R.string.preview_mode)
-    self.previewDefaultRadio = group.radioButton(undefined, "Default").also(SELECTED)
-    self.previewPixelRadio = group.radioButton(undefined, "Pixel")
-    self.previewOverprintRadio = group.radioButton(undefined, "Overprint")
-  })
+
+  /**
+   * Returns document's width.
+   * @return {Number}
+   */
+  self.getWidth = function() { return parseUnits(self.widthEdit.text) || 0 }
+
+  /**
+   * Returns document's width.
+   * @return {Number}
+   */
+  self.getHeight = function() { return parseUnits(self.heightEdit.text) || 0 }
+
+  /**
+   * Change document's width.
+   * @return {String}
+   */
+  self.setWidthText = function(widthText) { return self.widthEdit.text = widthText }
+
+  /**
+   * Change document's height.
+   * @return {String}
+   */
+  self.setHeightText = function(heightText) { return self.heightEdit.text = heightText }
 
   /**
    * Create a new document with specific preset.
    * @param {String} title document's name.
    * @param {Number} pages number of artboards.
-   * @param {Number} width each artboard's width.
-   * @param {Number} height each artboard's height.
-   * @param {Number} bleed document's bleed.
    * @return {Document}
    */
-  self.open = function(title, pages, width, height, bleed) {
-    return app.documents.addDocument(DocumentPresetType.Print, new DocumentPreset().also(function(preset) {
+  self.create = function(title, pages) {
+    var presetType = DocumentPreset2.valueOf(self.presetTypeList.selection)
+    return app.documents.addDocument(presetType.value, new DocumentPreset().also(function(preset) {
       preset.title = title
       preset.numArtboards = pages
-      preset.width = width
-      preset.height = height
-      if (bleed > 0) {
-        preset.documentBleedLink = true
-        preset.documentBleedOffset = [bleed, bleed, bleed, bleed]
-      }
-      preset.colorMode = DocumentColor.valueOf(self.modeList.selection).colorMode
-      preset.rasterResolution = DocumentResolution.valueOf(self.resolutionList.selection).rasterResolution
-      preset.artboardLayout = DocumentLayout.valueOf(self.layoutList.selection).artboardLayout
-      preset.artboardRowsOrCols = parseInt(self.rowsOrColsEdit.text)
+      preset.width = self.getWidth()
+      preset.height = self.getHeight()
+      preset.colorMode = DocumentColor.valueOf(self.colorModeList.selection).value
+      preset.rasterResolution = DocumentResolution.valueOf(self.resolutionList.selection).value
+      preset.artboardLayout = DocumentLayout.valueOf(self.layoutList.selection).value
+      preset.artboardRowsOrCols = parseInt(self.columnEdit.text)
       preset.units = UnitType.valueOf(self.unitsList.selection).rulerUnits
       preset.artboardSpacing = parseUnits(self.spacingEdit.text)
-      if (self.previewDefaultRadio.value) {
-        preset.previewMode = DocumentPreviewMode.DefaultPreview
-      } else if (self.previewPixelRadio.value) {
-        preset.previewMode = DocumentPreviewMode.PixelPreview
-      } else {
-        preset.previewMode = DocumentPreviewMode.OverprintPreview
-      }
+      preset.previewMode = DocumentPreview.valueOf(self.previewModeList.selection).value
     }))
   }
 

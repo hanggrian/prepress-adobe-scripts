@@ -5,6 +5,12 @@
 */
 
 /**
+ * Allows for multiple click listeners to occur by invoking all of them in collective listener.
+ * @param {Function} listener a callable of no parameter.
+ */
+Button.prototype.addClickListener = function(listener) { Internals.addClickListener(this, listener) }
+
+/**
  * Add children to group.
  * @param {Array} size optional size or bounds.
  * @param {String|Object} text optional control text.

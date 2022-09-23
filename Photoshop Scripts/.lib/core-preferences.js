@@ -8,13 +8,13 @@
 var preferences = app.preferences
 
 /** Global access to preferences wrapper. */
-var configs = new Configs("Prepress Adobe Scripts")
+var configs = new Preferences2("Prepress Adobe Scripts")
 
 /**
  * Wrapper of `Preferences` with simplified API.
  * @param {String} path hierarcy of preferences.
  */
-function Configs(path) {
+function Preferences2(path) {
   var descriptor
   try {
     descriptor = app.getCustomOptions(path)
@@ -27,7 +27,7 @@ function Configs(path) {
    * @param {String} relative relative file path.
    * @return {Boolean}
    */
-  this.resolve = function(relative) { return new Configs(path + "/" + relative) }
+  this.resolve = function(relative) { return new Preferences2(path + "/" + relative) }
 
   /**
    * Get boolean value from this preferences, returning default if not present.

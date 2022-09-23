@@ -23,15 +23,15 @@ dialog.vgroup(function(main) {
   main.vpanel(R.string.file_types, function(panel) {
     panel.helpTips = R.string.tip_selectlinks_filetypes
     panel.alignChildren = "fill"
-    aiCheck = panel.checkBox(undefined, getTypeString("Adobe Illustrator", FileType.ADOBE_ILLUSTRATOR))
-    pdfCheck = panel.checkBox(undefined, getTypeString("Adobe PDF", FileType.ADOBE_PDF))
-    bmpCheck = panel.checkBox(undefined, getTypeString("BMP", FileType.BMP))
-    gifCheck = panel.checkBox(undefined, getTypeString("GIF89a", FileType.GIF89a))
-    jpegCheck = panel.checkBox(undefined, getTypeString("JPEG", FileType.JPEG))
-    jpeg2000Check = panel.checkBox(undefined, getTypeString("JPEG2000", FileType.JPEG2000))
-    pngCheck = panel.checkBox(undefined, getTypeString("PNG", FileType.PNG))
-    psdCheck = panel.checkBox(undefined, getTypeString("Photoshop", FileType.PHOTOSHOP))
-    tiffCheck = panel.checkBox(undefined, getTypeString("TIFF", FileType.TIFF))
+    aiCheck = panel.checkBox(undefined, getTypeString("Adobe Illustrator", FileExtension.ADOBE_ILLUSTRATOR))
+    pdfCheck = panel.checkBox(undefined, getTypeString("Adobe PDF", FileExtension.ADOBE_PDF))
+    bmpCheck = panel.checkBox(undefined, getTypeString("BMP", FileExtension.BMP))
+    gifCheck = panel.checkBox(undefined, getTypeString("GIF89a", FileExtension.GIF89a))
+    jpegCheck = panel.checkBox(undefined, getTypeString("JPEG", FileExtension.JPEG))
+    jpeg2000Check = panel.checkBox(undefined, getTypeString("JPEG2000", FileExtension.JPEG2000))
+    pngCheck = panel.checkBox(undefined, getTypeString("PNG", FileExtension.PNG))
+    psdCheck = panel.checkBox(undefined, getTypeString("Photoshop", FileExtension.PHOTOSHOP))
+    tiffCheck = panel.checkBox(undefined, getTypeString("TIFF", FileExtension.TIFF))
   })
   if (isFilterMode) {
     recursiveCheck = new RecursiveCheck(main).also(function(it) {
@@ -48,15 +48,15 @@ dialog.setDefaultButton(undefined, function() {
     if (width !== undefined && parseInt(width) !== parseInt(item.width)) return false
     if (height !== undefined && parseInt(height) !== parseInt(item.height)) return false
     var extension = Items.isLinkExists(item) && item.file.name.split(".").pop()
-    if (aiCheck.value && !Collections.contains(FileType.ADOBE_ILLUSTRATOR.extensions, extension)) return false
-    if (pdfCheck.value && !Collections.contains(FileType.ADOBE_PDF.extensions, extension)) return false
-    if (bmpCheck.value && !Collections.contains(FileType.BMP.extensions, extension)) return false
-    if (gifCheck.value && !Collections.contains(FileType.GIF89a.extensions, extension)) return false
-    if (jpegCheck.value && !Collections.contains(FileType.JPEG.extensions, extension)) return false
-    if (jpeg2000Check.value && !Collections.contains(FileType.JPEG2000.extensions, extension)) return false
-    if (pngCheck.value && !Collections.contains(FileType.PNG.extensions, extension)) return false
-    if (psdCheck.value && !Collections.contains(FileType.PHOTOSHOP.extensions, extension)) return false
-    if (tiffCheck.value && !Collections.contains(FileType.TIFF.extensions, extension)) return false
+    if (aiCheck.value && !Collections.contains(FileExtension.ADOBE_ILLUSTRATOR.value, extension)) return false
+    if (pdfCheck.value && !Collections.contains(FileExtension.ADOBE_PDF.value, extension)) return false
+    if (bmpCheck.value && !Collections.contains(FileExtension.BMP.value, extension)) return false
+    if (gifCheck.value && !Collections.contains(FileExtension.GIF89a.value, extension)) return false
+    if (jpegCheck.value && !Collections.contains(FileExtension.JPEG.value, extension)) return false
+    if (jpeg2000Check.value && !Collections.contains(FileExtension.JPEG2000.value, extension)) return false
+    if (pngCheck.value && !Collections.contains(FileExtension.PNG.value, extension)) return false
+    if (psdCheck.value && !Collections.contains(FileExtension.PHOTOSHOP.value, extension)) return false
+    if (tiffCheck.value && !Collections.contains(FileExtension.TIFF.value, extension)) return false
     return true
   }, isFilterMode && recursiveCheck.value)
 
@@ -64,11 +64,11 @@ dialog.setDefaultButton(undefined, function() {
 })
 dialog.show()
 
-function getTypeString(prefix, fileType) {
+function getTypeString(prefix, fileExtension) {
   var s = ""
-  Collections.forEach(fileType.extensions, function(it, i) {
+  Collections.forEach(fileExtension.value, function(it, i) {
     s += it
-    if (i != Collections.lastIndex(fileType.extensions)) {
+    if (i != Collections.lastIndex(fileExtension.value)) {
       s += ", "
     }
   })

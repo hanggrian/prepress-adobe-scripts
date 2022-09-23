@@ -8,8 +8,8 @@ However, they need to be setup manually:
 
 ## Reserved Shortcuts
 
-|  | Windows | macOS | Shortcut |
-|--:|:-:|:-:|:--|
+| Keys | Windows | macOS | Shortcut |
+| ---: | :---: | :---: | :--- |
 | F1 | ✗ | ✓ | - |
 | ⌘ + F4 | ✗ | ✓ | Close the active tab |
 | ⇧ + ⌘ + F4 | ✗ | ✓ | - |

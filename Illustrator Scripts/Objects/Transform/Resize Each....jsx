@@ -2,6 +2,7 @@
 #include "../../.lib/commons.js"
 
 var SIZE_INPUT = [170, 21]
+var SIZE_INPUT_CHECK = [14, 14]
 
 checkHasSelection()
 
@@ -17,26 +18,22 @@ dialog.vgroup(function(main) {
   main.vgroup(function(topGroup) {
     topGroup.alignChildren = "right"
     topGroup.hgroup(function(group) {
-      group.alignChildren = "bottom"
-      group.helpTips = R.string.tip_resizeeach_width
       group.leftStaticText(undefined, R.string.width)
       widthEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitName, 2)).also(function(it) {
         it.validateUnits()
         it.activate()
       })
-      widthCheck = group.checkBox().also(function(it) {
+      widthCheck = group.checkBox(SIZE_INPUT_CHECK).also(function(it) {
         it.select()
-        it.onClick = function() { widthEdit.enabled = it.value }
+        it.addClickListener(function() { widthEdit.enabled = it.value })
       })
     })
     topGroup.hgroup(function(group) {
-      group.alignChildren = "bottom"
-      group.helpTips = R.string.tip_resizeeach_height
       group.leftStaticText(undefined, R.string.height)
       heightEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitName, 2)).also(VALIDATE_UNITS)
-      heightCheck = group.checkBox().also(function(it) {
+      heightCheck = group.checkBox(SIZE_INPUT_CHECK).also(function(it) {
         it.select()
-        it.onClick = function() { heightEdit.enabled = it.value }
+        it.addClickListener(function() { heightEdit.enabled = it.value })
       })
     })
   })
@@ -64,7 +61,7 @@ dialog.vgroup(function(main) {
     group.vpanel(R.string.anchor, function(panel) {
       panel.alignChildren = "fill"
       documentOriginCheck = new DocumentOriginCheck(panel).also(function(it) {
-        it.onClick = function() { anchorGroup.enabled = !it.value }
+        it.addClickListener(function() { anchorGroup.enabled = !it.value })
       })
       anchorGroup = new AnchorGroup(panel)
     })

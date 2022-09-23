@@ -13,6 +13,18 @@ Checkbox.prototype.select = function() { if (!this.value) this.value = true }
 RadioButton.prototype.select = function() { if (!this.value) this.value = true }
 
 /**
+ * Allows for multiple click listeners to occur by invoking all of them in collective listener.
+ * @param {Function} listener a callable of no parameter.
+ */
+Checkbox.prototype.addClickListener = function(listener) { Internals.addClickListener(this, listener) }
+
+/**
+ * Allows for multiple click listeners to occur by invoking all of them in collective listener.
+ * @param {Function} listener a callable of no parameter.
+ */
+RadioButton.prototype.addClickListener = function(listener) { Internals.addClickListener(this, listener) }
+
+/**
  * Add children to group.
  * @param {Array} size optional size or bounds.
  * @param {String|Object} text optional control text.

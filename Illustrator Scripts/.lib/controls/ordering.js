@@ -1,22 +1,105 @@
 var Ordering = new Enum({
-  LAYER_DEFAULT: { name: R.string.default, image: "ic_order_layer_default" },
-  LAYER_REVERSED: { name: R.string.reversed, image: "ic_order_layer_reversed" },
-  NAME_ASCENDING: { name: R.string.ascending, image: "ic_order_name_ascending" },
-  NAME_DESCENDING: { name: R.string.descending, image: "ic_order_name_descending" },
-  POSITION_HORIZONTAL: { name: R.string.horizontal, image: "ic_order_position_horizontal" },
-  POSITION_VERTICAL: { name: R.string.vertical, image: "ic_order_position_vertical" },
-  POSITION_HORIZONTALRTL: { name: R.string.horizontal_rtl, image: "ic_order_position_horizontalrtl" },
-  POSITION_VERTICALRTL: { name: R.string.vertical_rtl, image: "ic_order_position_verticalrtl" },
-
-  layerValues: function() { return [this.LAYER_DEFAULT, this.LAYER_REVERSED] },
-  nameValues: function() { return [this.NAME_ASCENDING, this.NAME_DESCENDING] },
-  positionValues: function() {
-    return [this.POSITION_HORIZONTAL, this.POSITION_VERTICAL, this.POSITION_HORIZONTALRTL, this.POSITION_VERTICALRTL]
+  LAYER_DEFAULT: {
+    name: R.string.default,
+    image: "ic_order_layer_default",
+    get: function(_, _) { return 1 }
   },
-  layerList: function() { return Collections.map(this.layerValues(), function(it) { return [it.name, it.image] }) },
-  nameList: function() { return Collections.map(this.nameValues(), function(it) { return [it.name, it.image] }) },
+  LAYER_REVERSED: {
+    name: R.string.reversed,
+    image: "ic_order_layer_reversed",
+    get: function(_, _) { return -1 }
+  },
+  NAME_ASCENDING: {
+    name: R.string.ascending,
+    image: "ic_order_name_ascending",
+    get: function(a, b) {
+      if (a.name > b.name) return 1
+      else if (a.name < b.name) return -1
+      return 0
+    }
+  },
+  NAME_DESCENDING: {
+    name: R.string.descending,
+    image: "ic_order_name_descending",
+    get: function(a, b) {
+      if (a.name < b.name) return 1
+      else if (a.name > b.name) return -1
+      return 0
+    }
+  },
+  POSITION_HORIZONTAL: {
+    name: R.string.horizontal,
+    image: "ic_order_position_horizontal",
+    get: function(a, b) {
+      var aX = Ordering.getRectangle(a).getLeft().floor()
+      var aY = Ordering.getRectangle(a).getTop().floor()
+      var bX = Ordering.getRectangle(b).getLeft().floor()
+      var bY = Ordering.getRectangle(b).getTop().floor()
+      if (aY < bY) return 1
+      else if (aY > bY) return -1
+      if (aX > bX) return 1
+      else if (aX < bX) return -1
+      return 0
+    }
+  },
+  POSITION_VERTICAL: {
+    name: R.string.vertical,
+    image: "ic_order_position_vertical",
+    get: function(a, b) {
+      var aX = Ordering.getRectangle(a).getLeft().floor()
+      var aY = Ordering.getRectangle(a).getTop().floor()
+      var bX = Ordering.getRectangle(b).getLeft().floor()
+      var bY = Ordering.getRectangle(b).getTop().floor()
+      if (aX > bX) return 1
+      else if (aX < bX) return -1
+      if (aY < bY) return 1
+      else if (aY > bY) return -1
+      return 0
+    }
+  },
+  POSITION_HORIZONTALRTL: {
+    name: R.string.horizontal_rtl,
+    image: "ic_order_position_horizontalrtl",
+    get: function(a, b) {
+      var aX = Ordering.getRectangle(a).getLeft().floor()
+      var aY = Ordering.getRectangle(a).getTop().floor()
+      var bX = Ordering.getRectangle(b).getLeft().floor()
+      var bY = Ordering.getRectangle(b).getTop().floor()
+      if (aY < bY) return 1
+      else if (aY > bY) return -1
+      if (aX > bX) return -1
+      else if (aX < bX) return 1
+      return 0
+    }
+  },
+  POSITION_VERTICALRTL: {
+    name: R.string.vertical_rtl,
+    image: "ic_order_position_verticalrtl",
+    get: function(a, b) {
+      var aX = Ordering.getRectangle(a).getLeft().floor()
+      var aY = Ordering.getRectangle(a).getTop().floor()
+      var bX = Ordering.getRectangle(b).getLeft().floor()
+      var bY = Ordering.getRectangle(b).getTop().floor()
+      if (aX > bX) return -1
+      else if (aX < bX) return 1
+      if (aY < bY) return 1
+      else if (aY > bY) return -1
+      return 0
+    }
+  },
+
+  getRectangle: function(item) { return item.typename === "Artboard" ? item.artboardRect : item.geometricBounds },
+
+  layerValues: function() { return [Ordering.LAYER_DEFAULT, Ordering.LAYER_REVERSED] },
+  nameValues: function() { return [Ordering.NAME_ASCENDING, Ordering.NAME_DESCENDING] },
+  positionValues: function() {
+    return [Ordering.POSITION_HORIZONTAL, Ordering.POSITION_VERTICAL,
+      Ordering.POSITION_HORIZONTALRTL, Ordering.POSITION_VERTICALRTL]
+  },
+  layerList: function() { return Collections.map(Ordering.layerValues(), function(it) { return [it.name, it.image] }) },
+  nameList: function() { return Collections.map(Ordering.nameValues(), function(it) { return [it.name, it.image] }) },
   positionList: function() {
-    return Collections.map(this.positionValues(), function(it) { return [it.name, it.image] })
+    return Collections.map(Ordering.positionValues(), function(it) { return [it.name, it.image] })
   }
 })
 
@@ -43,110 +126,7 @@ function OrderingList(parent, ordersCollection) {
    * Get a comparator for `Array.sort`.
    * @return {Function}
    */
-  self.getComparator = function() {
-    var ordering = Ordering.valueOf(self.selection)
-    if (ordering === Ordering.LAYER_DEFAULT) return function() { return 1 }
-    else if (ordering === Ordering.LAYER_REVERSED) return function() { return -1 }
-    else if (ordering === Ordering.NAME_ASCENDING) return sortAscending
-    else if (ordering === Ordering.NAME_DESCENDING) return sortDescending
-    else if (ordering === Ordering.POSITION_HORIZONTAL) return sortHorizontal
-    else if (ordering === Ordering.POSITION_VERTICAL) return sortVertical
-    else if (ordering === Ordering.POSITION_HORIZONTALRTL) return sortHorizontalRtl
-    else if (ordering === Ordering.POSITION_VERTICALRTL) return sortVerticalRtl
-    else error("Ordering error")
-  }
-
-  function getRectangle(item) { return item.typename === "Artboard" ? item.artboardRect : item.geometricBounds }
-
-  function sortAscending(a, b) {
-    if (a.name > b.name) {
-      return 1
-    } else if (a.name < b.name) {
-      return -1
-    }
-    return 0
-  }
-
-  function sortDescending(a, b) {
-    if (a.name < b.name) {
-      return 1
-    } else if (a.name > b.name) {
-      return -1
-    }
-    return 0
-  }
-
-  function sortHorizontal(a, b) {
-    var aX = getRectangle(a).getLeft().floor()
-    var aY = getRectangle(a).getTop().floor()
-    var bX = getRectangle(b).getLeft().floor()
-    var bY = getRectangle(b).getTop().floor()
-    if (aY < bY) {
-      return 1
-    } else if (aY > bY) {
-      return -1
-    }
-    if (aX > bX) {
-      return 1
-    } else if (aX < bX) {
-      return -1
-    }
-    return 0
-  }
-
-  function sortVertical(a, b) {
-    var aX = getRectangle(a).getLeft().floor()
-    var aY = getRectangle(a).getTop().floor()
-    var bX = getRectangle(b).getLeft().floor()
-    var bY = getRectangle(b).getTop().floor()
-    if (aX > bX) {
-      return 1
-    } else if (aX < bX) {
-      return -1
-    }
-    if (aY < bY) {
-      return 1
-    } else if (aY > bY) {
-      return -1
-    }
-    return 0
-  }
-
-  function sortHorizontalRtl(a, b) {
-    var aX = getRectangle(a).getLeft().floor()
-    var aY = getRectangle(a).getTop().floor()
-    var bX = getRectangle(b).getLeft().floor()
-    var bY = getRectangle(b).getTop().floor()
-    if (aY < bY) {
-      return 1
-    } else if (aY > bY) {
-      return -1
-    }
-    if (aX > bX) {
-      return -1
-    } else if (aX < bX) {
-      return 1
-    }
-    return 0
-  }
-
-  function sortVerticalRtl(a, b) {
-    var aX = getRectangle(a).getLeft().floor()
-    var aY = getRectangle(a).getTop().floor()
-    var bX = getRectangle(b).getLeft().floor()
-    var bY = getRectangle(b).getTop().floor()
-    if (aX > bX) {
-      return -1
-    } else if (aX < bX) {
-      return 1
-    }
-    if (aY < bY) {
-      return 1
-    } else if (aY > bY) {
-      return -1
-    }
-    return 0
-  }
+  self.getComparator = function() { return Ordering.valueOf(self.selection).get }
 
   return self
 }

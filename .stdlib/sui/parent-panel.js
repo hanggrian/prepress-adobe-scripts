@@ -11,6 +11,12 @@
 Panel.prototype.setHelpTips = function(tips) { Internals.setHelpTips(this, tips) }
 
 /**
+ * Allows for multiple change listeners to occur by invoking all of them in collective listener.
+ * @param {Function} listener a callable of no parameter.
+ */
+Panel.prototype.addChangeListener = function(listener) { Internals.addChangeListener(this, listener) }
+
+/**
  * Add horizontal parent to group.
  * @param {String|Object} text parent title.
  * @param {Function} configuration runnable with this parent as parameter.
@@ -84,13 +90,13 @@ Internals.addPanel = function(root, orientation, text, configuration) {
 }
 
 /**
- * Returns selected radio index of this group.
+ * Returns selected radio index of this panel.
  * @return {Number}
  */
 Panel.prototype.getSelectedRadioIndex = function() { return Internals.getSelectedRadioIndex(this) }
 
 /**
- * Select radio button of this group.
- * @param {String|Object} text existing text of any RadioButton, throws error if not found.
+ * Select radio button of this panel.
+ * @param {Number} index index of radio button in this parent.
  */
 Panel.prototype.selectRadioIndex = function(index) { Internals.selectRadioIndex(this, index) }

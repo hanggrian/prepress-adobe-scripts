@@ -7,98 +7,103 @@ var dialog = new Dialog(getString(R.string.impose_D_up, 2), "imposing-layout/#n-
 var pdfPanel, pagesPanel, documentPanel
 var nupGroup
 
-var files = FilePicker.openFile(dialog.text, FileType.values(), true)
+var pickedFiles = FilePicker.openFile(dialog.text, FileExtension.values(), true)
 
-if (files !== null && Collections.isNotEmpty(files)) {
-  var collection = new FileCollection(files)
+if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
+  var files = new FileCollection(pickedFiles)
 
   dialog.vgroup(function(main) {
     main.alignChildren = "right"
     main.hgroup(function(topGroup) {
       topGroup.alignChildren = "fill"
       topGroup.vgroup(function(group) {
-        if (collection.hasPDF) {
+        if (files.hasPDF) {
           pdfPanel = new OpenPDFPanel(group, SIZE_INPUT)
         }
-        pagesPanel = new OpenPagesPanel(group, SIZE_INPUT).also(function(panel) {
-          panel.rangeGroup.endEdit.text = collection.length
-          if (!collection.isSinglePDF) {
-            panel.rangeGroup.maxRange = collection.length
+        pagesPanel = new OpenPagesPanel(group, SIZE_INPUT).also(function(it) {
+          it.rangeGroup.startEdit.activate()
+          it.rangeGroup.endEdit.text = files.length
+          if (!files.isSinglePDF) {
+            it.rangeGroup.maxRange = files.length
           }
-          panel.rangeGroup.startEdit.activate()
+          it.widthEdit.addChangeListener(function() { updateDocumentDimensionText(true, false) })
+          it.heightEdit.addChangeListener(function() { updateDocumentDimensionText(false, true) })
+          it.bleedEdit.addChangeListener(updateDocumentDimensionText)
         })
       })
       documentPanel = new OpenDocumentPanel(topGroup)
     })
-    nupGroup = new NUpOptionsGroup(main, false)
+    nupGroup = new NUpOptionsGroup(main, false).also(function(it) {
+      it.rotateCheck.addClickListener(updateDocumentDimensionText)
+    })
+    updateDocumentDimensionText()
   })
   dialog.setCancelButton()
   dialog.setDefaultButton(undefined, function() {
-    var start = pagesPanel.rangeGroup.getStart()
-    var pages = pagesPanel.rangeGroup.getLength()
-    var artboards = pages / 2
-    var width = pagesPanel.getWidth()
-    var height = pagesPanel.getHeight()
-    var bleed = pagesPanel.getBleed()
-    var rotatedWidth = !nupGroup.isRotate() ? width : height
-    var rotatedHeight = !nupGroup.isRotate() ? height : width
+    var pageStart = pagesPanel.rangeGroup.getStart()
+    var pageLength = pagesPanel.rangeGroup.getLength()
+    var artboardLength = pageLength / 2
+    var pageBleed = pagesPanel.getBleed()
+    var pageWidth = pagesPanel.getWidth() + pageBleed * 2
+    var pageHeight = pagesPanel.getHeight() + pageBleed * 2
+    var rotatedPageWidth = nupGroup.isRotate() ? pageHeight : pageWidth
+    var rotatedPageHeight = nupGroup.isRotate() ? pageWidth : pageHeight
 
-    var pagesDivisor = !nupGroup.isDuplex() ? 2 : 4
-    if (pages % pagesDivisor !== 0) {
-      Windows.alert(getString(R.string.error_impose, pagesDivisor), dialog.text, true)
+    var pageDivisor = !nupGroup.isDuplex() ? 2 : 4
+    if (pageLength % pageDivisor !== 0) {
+      Windows.alert(getString(R.string.error_openpages, pageDivisor), dialog.text, true)
+      return true
+    } else if (documentPanel.getWidth() < (rotatedPageWidth * 2) || documentPanel.getHeight() < (rotatedPageHeight)) {
+      Windows.alert(R.string.error_opendocuments, dialog.text, true)
       return true
     }
-    var document = documentPanel.open(dialog.text,
-      artboards,
-      (rotatedWidth + bleed * 2) * 2,
-      (rotatedHeight + bleed * 2),
-      0)
-    var pager = !nupGroup.isStack()
-      ? (!nupGroup.isDuplex()
-        ? new TwoUpSimplexPager(document, start)
-        : new TwoUpDuplexPager(document, start))
-      : (!nupGroup.isDuplex()
-        ? new TwoUpSimplexStackPager(document, start)
-        : new TwoUpDuplexStackPager(document, start))
-    var progress = new ProgressPalette(artboards, R.string.imposing)
+    var document = documentPanel.create(dialog.text, artboardLength)
+    var pager = Pager.TWO_UP.get(document, pageStart, nupGroup.isDuplex(), nupGroup.isStack())
+    var progress = new ProgressPalette(artboardLength, R.string.imposing)
 
     pager.forEachArtboard(function(artboard, left, right) {
       progress.increment()
+      var artboardRect = artboard.artboardRect
       var item1 = document.placedItems.add()
       var item2 = document.placedItems.add()
-      item1.file = collection.get(left)
-      item2.file = collection.get(right)
-      var x1 = artboard.artboardRect.getLeft()
-      var x2 = x1 + rotatedWidth + bleed * 2
-      var y = artboard.artboardRect.getTop()
+      item1.file = files.get(left)
+      item2.file = files.get(right)
+      var x1 = artboardRect.getLeft() + (artboardRect.getWidth() - rotatedPageWidth * 2) / 2
+      var x2 = x1 + rotatedPageWidth
+      var y = artboardRect.getTop() - (artboardRect.getHeight() - rotatedPageHeight) / 2
       Collections.forEach([item1, item2],
         function(it) {
-          it.width = width + bleed * 2
-          it.height = height + bleed * 2
+          it.width = pageWidth
+          it.height = pageHeight
           if (nupGroup.isRotate()) {
             it.rotate(nupGroup.isDuplex() && Collections.indexOf(document.artboards, artboard).isOdd() ? 270 : 90)
           }
         })
       item1.position = [x1, y]
       item2.position = [x2, y]
-      if (bleed > 0) {
-        var guide1 = document.pathItems.rectangle(
-          y - bleed,
-          x1 + bleed,
-          rotatedWidth,
-          rotatedHeight)
-        guide1.filled = false
-        guide1.guides = true
-        var guide2 = document.pathItems.rectangle(
-          y - bleed,
-          x2 + bleed,
-          rotatedWidth,
-          rotatedHeight)
-        guide2.filled = false
-        guide2.guides = true
+      if (pageBleed > 0) {
+        Items.addBleedGuide(document, item1, pageBleed)
+        Items.addBleedGuide(document, item2, pageBleed)
       }
     })
     selection = []
   })
   dialog.show()
+}
+
+function updateDocumentDimensionText(updateWidth, updateHeight) {
+  updateWidth = updateWidth === undefined ? true : updateWidth
+  updateHeight = updateHeight === undefined ? true : updateHeight
+
+  var pageBleed = pagesPanel.getBleed()
+  var pageWidth = pagesPanel.getWidth() + pageBleed * 2
+  var pageHeight = pagesPanel.getHeight() + pageBleed * 2
+  if (updateWidth) {
+    var rotatedPageWidth = nupGroup.isRotate() ? pageHeight : pageWidth
+    documentPanel.setWidthText(formatUnits(rotatedPageWidth * 2, "mm", 0))
+  }
+  if (updateHeight) {
+    var rotatedPageHeight = nupGroup.isRotate() ? pageWidth : pageHeight
+    documentPanel.setHeightText(formatUnits(rotatedPageHeight, "mm", 0))
+  }
 }

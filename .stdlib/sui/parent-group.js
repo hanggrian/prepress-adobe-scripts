@@ -82,6 +82,6 @@ Group.prototype.getSelectedRadioIndex = function() { return Internals.getSelecte
 
 /**
  * Select radio button of this group.
- * @param {String|Object} text existing text of any RadioButton, throws error if not found.
+ * @param {Number} index index of radio button in this parent.
  */
 Group.prototype.selectRadioIndex = function(index) { Internals.selectRadioIndex(this, index) }

@@ -26,17 +26,14 @@ Scripts.PATH_LIB = new File($.fileName).path
 
 Language.set(Language.valueOfCode(configs.getString("language_code", Language.EN.code)))
 
-/**
- * @param {Object} pager object responsible for iterating pages each artboard.
- */
-var Imposition = new Enum({
+var Pager = new Enum({
   ONE_UP: {
     name: getString(R.string.D_up, 1),
-    getPager: function(document, start) { return new OneUpPager(document, start) }
+    get: function(document, start) { return new OneUpPager(document, start) }
   },
   TWO_UP: {
     name: getString(R.string.D_up, 2),
-    getPager: function(document, start, isDuplex, isStack) {
+    get: function(document, start, isDuplex, isStack) {
       if (!isDuplex) {
         return !isStack ? new TwoUpSimplexPager(document, start) : new TwoUpSimplexStackPager(document, start)
       } else {
@@ -46,7 +43,7 @@ var Imposition = new Enum({
   },
   FOUR_UP: {
     name: getString(R.string.D_up, 4),
-    getPager: function(document, start, isFolding, isDuplex, isStack) {
+    get: function(document, start, isFolding, isDuplex, isStack) {
       if (isFolding) {
         return new FourUpFoldingPager(document, start)
       }
@@ -59,7 +56,7 @@ var Imposition = new Enum({
   },
   EIGHT_UP: {
     name: getString(R.string.D_up, 8),
-    getPager: function(document, start, isFolding, isDuplex, isStack) {
+    get: function(document, start, isFolding, isDuplex, isStack) {
       if (isFolding) {
         return new EightUpFoldingPager(document, start)
       }
@@ -72,6 +69,6 @@ var Imposition = new Enum({
   },
   SADDLE_STITCH: {
     name: R.string.saddle_stitch,
-    getPager: function(document, start, end, isRtl) { return new SaddleStitchPager(document, start, end, isRtl) }
+    get: function(document, start, end, isRtl) { return new SaddleStitchPager(document, start, end, isRtl) }
   }
 })

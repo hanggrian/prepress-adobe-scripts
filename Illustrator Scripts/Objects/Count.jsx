@@ -1,5 +1,3 @@
-// Sum up all items recursively.
-
 #target Illustrator
 #include "../.lib/commons.js"
 
@@ -58,8 +56,7 @@ Collections.forEachItem(selection, function(it) {
 var message = getString(R.string.message_count1)
 var prefix = ""
 
-if (selection.length !== compoundPathCount + graphCount + legacyTextCount + meshCount +
-  nonNativeCount + pathCount + placedCount + pluginCount + rasterCount + symbolCount + textCount) {
+if (!isSingleType()) {
   message += selection.length + getString(R.string.message_count2)
   prefix = "\n"
 }
@@ -81,4 +78,16 @@ function getItemLine(prefix, count, pluralId) {
     return ""
   }
   return "%s%d %s".format(prefix, count, getPlural(pluralId, count))
+}
+
+function isSingleType() {
+  var typeCount = 0
+  Collections.forEach([compoundPathCount, graphCount, legacyTextCount,
+    meshCount, nonNativeCount, pathCount, placedCount, pluginCount,
+    rasterCount, symbolCount, textCount], function(it) {
+    if (it > 0) {
+      typeCount++
+    }
+  })
+  return typeCount === 1
 }

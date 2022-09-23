@@ -39,7 +39,7 @@ dialog.vgroup(function(main) {
     })
     moveRelativeCheck = panel.checkBox(undefined, R.string.relative_position).also(function(it) {
       it.helpTip = R.string.tip_stepandrepeat_relativeposition
-      it.onClick = function() {
+      it.addClickListener(function() {
         if (it.value) {
           moveHorizontalEdit.text = "0 " + unitName
           moveVerticalEdit.text = "0 " + unitName
@@ -48,7 +48,7 @@ dialog.vgroup(function(main) {
           moveVerticalEdit.text = formatUnits(bounds.getHeight(), unitName, 2)
         }
         moveHorizontalEdit.activate()
-      }
+      })
     })
   })
 })

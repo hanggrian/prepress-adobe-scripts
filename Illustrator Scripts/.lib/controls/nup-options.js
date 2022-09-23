@@ -7,31 +7,36 @@
  * @param {Boolean} showStack include stack checkbox, default is true.
  */
 function NUpOptionsGroup(parent, showFolding, showRotate, showDuplex, showStack) {
+  showFolding = showFolding === undefined ? true : showFolding
+  showRotate = showRotate === undefined ? true : showRotate
+  showDuplex = showDuplex === undefined ? true : showDuplex
+  showStack = showStack === undefined ? true : showStack
+
   var self = parent.hgroup()
   self.foldingCheck, self.rotateCheck, self.duplexCheck, self.stackCheck
 
   self.alignment = "right"
-  if (showFolding !== undefined ? showFolding : true) {
+  if (showFolding) {
     self.foldingCheck = self.checkBox(undefined, R.string.folding_booklet).also(function(it) {
       it.helpTip = R.string.tip_nup_foldingbooklet
-      it.onClick = function() {
+      it.addClickListener(function() {
         if (self.rotateCheck !== undefined) self.rotateCheck.enabled = !it.value
         if (self.duplexCheck !== undefined) self.duplexCheck.enabled = !it.value
         if (self.stackCheck !== undefined) self.stackCheck.enabled = !it.value
-      }
+      })
     })
   }
-  if (showRotate !== undefined ? showRotate : true) {
+  if (showRotate) {
     self.rotateCheck = self.checkBox(undefined, R.string.rotate_pages).also(function(it) {
       it.helpTip = R.string.tip_nup_rotatepages
     })
   }
-  if (showDuplex !== undefined ? showDuplex : true) {
+  if (showDuplex) {
     self.duplexCheck = self.checkBox(undefined, R.string.duplex_printing).also(function(it) {
       it.helpTip = R.string.tip_nup_duplexprinting
     })
   }
-  if (showStack !== undefined ? showStack : true) {
+  if (showStack) {
     self.stackCheck = self.checkBox(undefined, R.string.cut_stack).also(function(it) {
       it.helpTip = R.string.tip_nup_cutstack
     })

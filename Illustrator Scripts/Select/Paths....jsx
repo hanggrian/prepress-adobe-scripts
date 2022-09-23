@@ -110,9 +110,9 @@ dialog.setDefaultButton(undefined, function() {
     if (clipping !== undefined && clipping !== item.clipping) return false
     if (closed !== undefined && closed !== item.closed) return false
     if (guides !== undefined && guides !== item.guides) return false
-    if (fillColor !== undefined && item.filled && !isColorEqual(fillColor.getValue(), item.fillColor)) return false
+    if (fillColor !== undefined && item.filled && !isColorEqual(fillColor.get(), item.fillColor)) return false
     if (fillOverprint !== undefined  && fillOverprint !== item.fillOverprint) return false
-    if (strokeColor !== undefined && item.stroked && !isColorEqual(strokeColor.getValue(), item.strokeColor)) return false
+    if (strokeColor !== undefined && item.stroked && !isColorEqual(strokeColor.get(), item.strokeColor)) return false
     if (strokeWeight !== undefined && parseInt(strokeWeight) !== parseInt(item.strokeWidth)) return false
     if (strokeDashed !== undefined && strokeDashed !== Collections.isNotEmpty(item.strokeDashes)) return false
     if (strokeOverprint !== undefined && strokeOverprint !== item.strokeOverprint) return false

@@ -21,7 +21,7 @@ dialog.setDefaultButton(R.string.all, function() {
   }
 })
 dialog.setYesButton(R.string.others, function() {
-  // in Photoshop, compare documents
+  in Photoshop, compare documents
   for (var i = 0; i < app.documents.length; i++) {
     if (app.documents[i] === document) {
       continue
@@ -29,7 +29,8 @@ dialog.setYesButton(R.string.others, function() {
     app.documents[i].close(SaveOptions.DONOTSAVECHANGES)
     i--
   }
-}, app.documents.length === 1)
+})
+dialog.yesButton.enabled = app.documents.length > 1
 dialog.setHelpButton(R.string.keep_unsaved, function() {
   for (var i = 0; i < app.documents.length; i++) {
     if (!app.documents[i].saved) {
@@ -38,5 +39,6 @@ dialog.setHelpButton(R.string.keep_unsaved, function() {
     app.documents[i].close(SaveOptions.DONOTSAVECHANGES)
     i--
   }
-}, app.documents.length === 1 || unsavedLength === 0)
+})
+dialog.helpButton.enabled = app.documents.length > 1 && unsavedLength > 0
 dialog.show()

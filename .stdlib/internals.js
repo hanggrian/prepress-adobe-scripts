@@ -6,7 +6,30 @@
 
 var Internals = {
 
-  getFileFilters: function(fileTypes) {
+  addChangeListener: function(child, listener) {
+    if (child.onChangeListeners === undefined) {
+      child.onChangeListeners = [listener]
+      child.onChange = listener
+    } else {
+      if (child.onChangeListeners.length === 1) {
+        child.onChange = function() { Collections.forEach(child.onChangeListeners, function(it) { it() }) }
+      }
+      child.onChangeListeners.push(listener)
+    }
+  },
+  addClickListener: function(child, listener) {
+    if (child.onClickListeners === undefined) {
+      child.onClickListeners = [listener]
+      child.onClick = listener
+    } else {
+      if (child.onClickListeners.length === 1) {
+        child.onClick = function() { Collections.forEach(child.onClickListeners, function(it) { it() }) }
+      }
+      child.onClickListeners.push(listener)
+    }
+  },
+
+  getFileFilters: function(fileExtensions) {
     var filters
     if (Scripts.OS_MAC) {
       // in macOS, filters are predicate, returning true for selectable file
@@ -14,10 +37,10 @@ var Internals = {
         if (file instanceof Folder) {  // required to go through directory
           return true
         }
-        for (var i = 0; i < fileTypes.length; i++) {
-          var fileType = fileTypes[i]
-          for (var j = 0; j < fileType.extensions.length; j++) {
-            if (file.getExtension() === fileType.extensions[j]) {
+        for (var i = 0; i < fileExtensions.length; i++) {
+          var fileExtension = fileExtensions[i]
+          for (var j = 0; j < fileExtension.value.length; j++) {
+            if (file.getExtension() === fileExtension.value[j]) {
               return true
             }
           }
@@ -27,12 +50,12 @@ var Internals = {
     } else {
       // in Windows, filters are string, e.g.: "Adobe Illustrator:*.ai;Photoshop:*.psd,*.psb,*.pdd;"
       filters = ""
-      var allExtensions = []
-      Collections.forEach(fileTypes, function(it) {
-        filters += it.name + ":*." + it.extensions.join(";*.") + ","
-        allExtensions = allExtensions.concat(it.extensions)
+      var allExts = []
+      Collections.forEach(fileExtensions, function(it) {
+        filters += it.name + ":*." + it.value.join(";*.") + ","
+        allExts = allExts.concat(it.value)
       })
-      filters = "All Formats:*." + allExtensions.join(";*.") + "," + filters
+      filters = "All Formats:*." + allExts.join(";*.") + "," + filters
       if (filters.endsWith(",")) {
         filters = filters.substringBeforeLast(",")
       }
@@ -69,9 +92,9 @@ var Internals = {
 
   removeRegexes: function(string, regexes) {
     var s = string
-    for (var i = 0; i < regexes.length; i++) {
-      s = s.replace(regexes[i], "")
-    }
+    Collections.forEach(regexes, function(regex) {
+      s = s.replace(regex, "")
+    })
     return s
   },
 
@@ -90,13 +113,13 @@ var Internals = {
     return [itemTexts, itemFiles]
   },
 
-  registerValidator: function(editText, regex, valueProvider) {
+  registerValidator: function(editText, regex, getValue) {
     var oldValue = editText.text
     editText.onActivate = function() { oldValue = editText.text }
-    editText.onChange = function() {
+    editText.addChangeListener(function() {
       var newValue = editText.text
-      editText.text = regex.test(newValue) ? valueProvider(oldValue, newValue) : oldValue
-    }
+      editText.text = regex.test(newValue) ? getValue(oldValue, newValue) : oldValue
+    })
   },
 
   getSelectedRadioIndex: function(parent) {
@@ -117,6 +140,6 @@ var Internals = {
     }
     var radio = parent.children[index]
     check(radio.type === "radiobutton")
-    radio.value = true
+    radio.select()
   }
 }

@@ -49,7 +49,7 @@ function AboutPanel(parent, clientDate) {
     tab.hgroup(function(group) {
       group.button(undefined, R.string.check_updates).also(function(it) {
         it.maximumSize.height = 21
-        it.onClick = function() {
+        it.addClickListener(function() {
           getScript("check_updates").execute()
           $.sleep(3000)
           var result = new File("~/prepress-adobe-scripts")
@@ -67,12 +67,12 @@ function AboutPanel(parent, clientDate) {
               self.updatesStatusText.text = getString(R.string.message_aboutscripts_updates_unavailable)
             }
           }
-        }
+        })
       })
       self.updatesDownloadButton = group.button(undefined, R.string.download).also(function(it) {
         it.maximumSize.height = 21
         it.enabled = false
-        it.onClick = function() { Scripts.openUrl(Scripts.URL_GITHUB + "/archive/refs/heads/main.zip") }
+        it.addClickListener(function() { Scripts.openUrl(Scripts.URL_GITHUB + "/archive/refs/heads/main.zip") })
       })
     })
   })

@@ -6,10 +6,10 @@
  * @param {Boolean} isRtl useful for arabic layout, default is false.
  */
 function SaddleStitchPager(document, start, end, isRtl) {
-  var _start = start || 0
-  var _end = end || document.artboards.length * 2 - 1
-  var _isRtl = isRtl || false
-  var _isFront = true
+  start = start || 0
+  end = end || document.artboards.length * 2 - 1
+  isRtl = isRtl || false
+  var isFront = true
 
   /**
    * Iterate artboards.
@@ -18,28 +18,28 @@ function SaddleStitchPager(document, start, end, isRtl) {
   this.forEachArtboard = function(action) {
     Collections.forEach(document.artboards, function(artboard) {
       var left, right
-      if (_isFront) {
-        if (!_isRtl) {
-          left = _end
-          right = _start
+      if (isFront) {
+        if (!isRtl) {
+          left = end
+          right = start
         } else {
-          left = _start
-          right = _end
+          left = start
+          right = end
         }
       } else {
-        if (!_isRtl) {
-          left = _start
-          right = _end
+        if (!isRtl) {
+          left = start
+          right = end
         } else {
-          left = _end
-          right = _start
+          left = end
+          right = start
         }
       }
       artboard.name = (left + 1) + "-" + (right + 1)
       action(artboard, left, right)
-      _start++
-      _end--
-      _isFront = !_isFront
+      start++
+      end--
+      isFront = !isFront
     })
   }
 }
