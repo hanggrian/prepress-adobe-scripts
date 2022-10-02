@@ -11,6 +11,7 @@
  * @return {Array}
  */
 Collections.map = function(collection, transform) {
+  checkNotNull(transform)
   var result = []
   Collections.forEach(collection, function(element, i) {
     result.push(transform(element, i))
@@ -26,6 +27,7 @@ Collections.map = function(collection, transform) {
  * @return {Array}
  */
 Collections.flatMap = function(collection, transform) {
+  checkNotNull(transform)
   var result = []
   Collections.forEach(collection, function(collection2) {
     Collections.forEach(collection2, function(element) {

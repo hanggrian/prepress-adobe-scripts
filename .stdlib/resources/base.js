@@ -13,6 +13,7 @@ var R = { }
  * @return {File}
  */
 function getImage(name) {
+  checkNotNull(name)
   if (Scripts.RES_DARK === undefined) {
     Scripts.RES_DARK = configs.getBoolean("theme_dark")
   }
@@ -35,6 +36,7 @@ function getImage(name) {
  * @return {String}
  */
 function getString() {
+  check(Collections.isNotEmpty(arguments))
   if (Scripts.RES_LANG === undefined) {
     Scripts.RES_LANG = configs.getString("language_code", Language.EN.code)
   }
@@ -47,6 +49,7 @@ function getString() {
  * @return {String}
  */
 function getPlural() {
+  check(Collections.isNotEmpty(arguments))
   if (Scripts.RES_LANG === undefined) {
     Scripts.RES_LANG = configs.getString("language_code", Language.EN.code)
   }
@@ -60,4 +63,6 @@ function getPlural() {
  * @param {String} name file name without extension.
  * @return {File}
  */
-function getScript(name) { return Scripts.getResource("script/" + name + (Scripts.OS_MAC ? ".command" : ".cmd")) }
+function getScript(name) {
+  return Scripts.getResource("script/" + checkNotNull(name) + (Scripts.OS_MAC ? ".command" : ".cmd"))
+}

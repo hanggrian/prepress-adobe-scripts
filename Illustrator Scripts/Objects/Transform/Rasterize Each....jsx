@@ -79,7 +79,7 @@ dialog.vgroup(function(main) {
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_rasterizeeach_aroundobject
         group.staticText(undefined, R.string.add)
-        paddingEdit = group.editText([70, 21], unitsOf("0 mm")).also(VALIDATE_UNITS)
+        paddingEdit = group.editText([70, 21], "0 mm").also(VALIDATE_UNITS)
         group.staticText(undefined, R.string.around_object)
       })
     })

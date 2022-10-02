@@ -4,21 +4,22 @@
  * @param {Number} start first page to open, the first and default is 0.
  */
 function TwoUpSimplexPager(document, start) {
+  checkNotNull(document)
+  checkNotNull(start)
   var current = start || 0
 
+  var self = this
+  self.left, self.right
+
   /**
-   * Iterate artboards.
-   * @param {Function} action runnable with pages' index as parameters.
+   * Iterate pager to next artboard, returning artboard's name.
+   * @return {String}
    */
-  this.forEachArtboard = function(action) {
-    Collections.forEach(document.artboards, function(artboard) {
-      var left = current
-      var right = current + 1
-      artboard.name = "%d-%d".format(left + 1, right + 1)
-      action(artboard,
-        left, right)
-      current += 2
-    })
+  self.next = function() {
+    self.left = current
+    self.right = current + 1
+    current += 2
+    return "%d-%d".format(self.left + 1, self.right + 1)
   }
 }
 
@@ -28,29 +29,29 @@ function TwoUpSimplexPager(document, start) {
  * @param {Number} start first page to open, the first and default is 0.
  */
 function TwoUpDuplexPager(document, start) {
+  checkNotNull(document)
+  checkNotNull(start)
   var current = start || 0
   var isFront = true
 
+  var self = this
+  self.left, self.right
+
   /**
-   * Iterate artboards.
-   * @param {Function} action runnable with pages' index as parameters.
+   * Iterate pager to next artboard, returning artboard's name.
+   * @return {String}
    */
-  this.forEachArtboard = function(action) {
-    Collections.forEach(document.artboards, function(artboard) {
-      var left, right
-      if (isFront) {
-        left = current
-        right = current + 2
-      } else {
-        left = current + 1
-        right = current - 1
-      }
-      artboard.name = "%d-%d".format(left + 1, right + 1)
-      action(artboard,
-        left, right)
-      current += 2
-      isFront = !isFront
-    })
+  self.next = function() {
+    if (isFront) {
+      self.left = current
+      self.right = current + 2
+    } else {
+      self.left = current + 1
+      self.right = current - 1
+    }
+    current += 2
+    isFront = !isFront
+    return "%d-%d".format(self.left + 1, self.right + 1)
   }
 }
 
@@ -60,22 +61,22 @@ function TwoUpDuplexPager(document, start) {
  * @param {Number} start first page to open, the first and default is 0.
  */
 function TwoUpSimplexStackPager(document, start) {
+  checkNotNull(document)
+  checkNotNull(start)
   var current = start || 0
 
+  var self = this
+  self.left, self.right
+
   /**
-   * Iterate artboards.
-   * @param {Function} action runnable with pages' index as parameters.
+   * Iterate pager to next artboard, returning artboard's name.
+   * @return {String}
    */
-  this.forEachArtboard = function(action) {
-    var artboards = document.artboards.length
-    Collections.forEach(document.artboards, function(artboard) {
-      var left = current
-      var right = current + artboards
-      artboard.name = "%d-%d".format(left + 1, right + 1)
-      action(artboard,
-        left, right)
-      current++
-    })
+  self.next = function() {
+    self.left = current
+    self.right = current + document.artboards.length
+    current++
+    return "%d-%d".format(self.left + 1, self.right + 1)
   }
 }
 
@@ -85,29 +86,28 @@ function TwoUpSimplexStackPager(document, start) {
  * @param {Number} start first page to open, the first and default is 0.
  */
 function TwoUpDuplexStackPager(document, start) {
+  checkNotNull(document)
+  checkNotNull(start)
   var current = start || 0
   var isFront = true
 
+  var self = this
+  self.left, self.right
+
   /**
-   * Iterate artboards.
-   * @param {Function} action runnable with pages' index as parameters.
+   * Iterate pager to next artboard, returning artboard's name.
+   * @return {String}
    */
-  this.forEachArtboard = function(action) {
-    var artboards = document.artboards.length
-    Collections.forEach(document.artboards, function(artboard) {
-      var left, right
-      if (isFront) {
-        left = current
-        right = current + artboards
-      } else {
-        left = current + artboards
-        right = current
-      }
-      artboard.name = "%d-%d".format(left + 1, right + 1)
-      action(artboard,
-        left, right)
-      current++
-      isFront = !isFront
-    })
+  self.next = function() {
+    if (isFront) {
+      self.left = current
+      self.right = current + document.artboards.length
+    } else {
+      self.left = current + document.artboards.length
+      self.right = current
+    }
+    current++
+    isFront = !isFront
+    return "%d-%d".format(self.left + 1, self.right + 1)
   }
 }

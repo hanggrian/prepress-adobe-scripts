@@ -7,6 +7,7 @@
 var Internals = {
 
   addChangeListener: function(child, listener) {
+    checkNotNull(listener)
     if (child.onChangeListeners === undefined) {
       child.onChangeListeners = [listener]
       child.onChange = listener
@@ -18,6 +19,7 @@ var Internals = {
     }
   },
   addClickListener: function(child, listener) {
+    checkNotNull(listener)
     if (child.onClickListeners === undefined) {
       child.onClickListeners = [listener]
       child.onClick = listener
@@ -30,6 +32,7 @@ var Internals = {
   },
 
   getFileFilters: function(fileExtensions) {
+    checkNotNull(fileExtensions)
     var filters
     if (Scripts.OS_MAC) {
       // in macOS, filters are predicate, returning true for selectable file
@@ -66,6 +69,7 @@ var Internals = {
 
   // https://stackoverflow.com/a/35187109/1567541
   formatString: function(s, arr) {
+    checkNotNull(arr)
     var args = Array.prototype.slice.call(arr)
     var rep = args.slice(0, args.length)
     var i = 0
@@ -91,6 +95,7 @@ var Internals = {
   },
 
   removeRegexes: function(string, regexes) {
+    checkNotNull(regexes)
     var s = string
     Collections.forEach(regexes, function(regex) {
       s = s.replace(regex, "")
@@ -114,6 +119,8 @@ var Internals = {
   },
 
   registerValidator: function(editText, regex, getValue) {
+    checkNotNull(regex)
+    checkNotNull(getValue)
     var oldValue = editText.text
     editText.onActivate = function() { oldValue = editText.text }
     editText.addChangeListener(function() {
@@ -135,6 +142,7 @@ var Internals = {
     return -1
   },
   selectRadioIndex: function(parent, index) {
+    checkNotNull(index)
     if (index > Collections.lastIndex(parent.children)) {
       return
     }

@@ -7,10 +7,11 @@
  * @param {Boolean} showStack include stack checkbox, default is true.
  */
 function NUpOptionsGroup(parent, showFolding, showRotate, showDuplex, showStack) {
-  showFolding = showFolding === undefined ? true : showFolding
-  showRotate = showRotate === undefined ? true : showRotate
-  showDuplex = showDuplex === undefined ? true : showDuplex
-  showStack = showStack === undefined ? true : showStack
+  checkNotNull(parent)
+  showFolding = getOrDefault(showFolding, true)
+  showRotate = getOrDefault(showRotate, true)
+  showDuplex = getOrDefault(showDuplex, true)
+  showStack = getOrDefault(showStack, true)
 
   var self = parent.hgroup()
   self.foldingCheck, self.rotateCheck, self.duplexCheck, self.stackCheck

@@ -24,6 +24,7 @@ Object.prototype.run = function(block) {
  * @return {*}
  */
 Object.prototype.also = function(block) {
+  checkNotNull(block)
   block(this)
   return this
 }
@@ -34,6 +35,7 @@ Object.prototype.also = function(block) {
  * @return {*}
  */
 Object.prototype.let = function(block) {
+  checkNotNull(block)
   return block(this)
 }
 
@@ -43,6 +45,7 @@ Object.prototype.let = function(block) {
  * @return {Boolean}
  */
 Object.prototype.takeIf = function(predicate) {
+  checkNotNull(predicate)
   return predicate(this) ? this : null
 }
 
@@ -52,6 +55,7 @@ Object.prototype.takeIf = function(predicate) {
  * @return {Boolean}
  */
 Object.prototype.takeUnless = function(predicate) {
+  checkNotNull(predicate)
   return !predicate(this) ? this : null
 }
 
@@ -61,6 +65,8 @@ Object.prototype.takeUnless = function(predicate) {
  * @param {Function} action runnable with no parameter.
  */
 function repeat(times, action) {
+  checkNotNull(times)
+  checkNotNull(action)
   for (var i = 1; i <= times; i++) {
     action(i)
   }

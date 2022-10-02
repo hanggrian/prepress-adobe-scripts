@@ -62,8 +62,10 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
     var pager = Pager.EIGHT_UP.get(document, pageStart, nupGroup.isFolding(), nupGroup.isDuplex(), nupGroup.isStack())
     var progress = new ProgressPalette(artboardLength, R.string.imposing)
 
-    pager.forEachArtboard(function(artboard, top1, top2, top3, top4, bottom1, bottom2, bottom3, bottom4) {
+    Collections.forEach(document.artboards, function(artboard) {
       progress.increment()
+      artboard.name = pager.next()
+
       var artboardRect = artboard.artboardRect
       var topItem1 = document.placedItems.add()
       var topItem2 = document.placedItems.add()
@@ -73,14 +75,14 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
       var bottomItem2 = document.placedItems.add()
       var bottomItem3 = document.placedItems.add()
       var bottomItem4 = document.placedItems.add()
-      topItem1.file = files.get(top1)
-      topItem2.file = files.get(top2)
-      topItem3.file = files.get(top3)
-      topItem4.file = files.get(top4)
-      bottomItem1.file = files.get(bottom1)
-      bottomItem2.file = files.get(bottom2)
-      bottomItem3.file = files.get(bottom3)
-      bottomItem4.file = files.get(bottom4)
+      topItem1.file = files.get(pager.top1)
+      topItem2.file = files.get(pager.top2)
+      topItem3.file = files.get(pager.top3)
+      topItem4.file = files.get(pager.top4)
+      bottomItem1.file = files.get(pager.bottom1)
+      bottomItem2.file = files.get(pager.bottom2)
+      bottomItem3.file = files.get(pager.bottom3)
+      bottomItem4.file = files.get(pager.bottom4)
       var x1 = artboardRect.getLeft() + (artboardRect.getWidth() - rotatedPageWidth * 4) / 2
       var x2 = x1 + rotatedPageWidth
       var x3 = x2 + rotatedPageWidth
@@ -134,10 +136,10 @@ function updateDocumentDimensionText(updateWidth, updateHeight) {
   var pageHeight = pagesPanel.getHeight() + pageBleed * 2
   if (updateWidth) {
     var rotatedPageWidth = !nupGroup.isFolding() && nupGroup.isRotate() ? pageHeight : pageWidth
-    documentPanel.setWidthText(formatUnits(rotatedPageWidth * 4, "mm", 0))
+    documentPanel.setWidthText(formatUnits(rotatedPageWidth * 4, UnitType.MM, 0))
   }
   if (updateHeight) {
     var rotatedPageHeight = !nupGroup.isFolding() && nupGroup.isRotate() ? pageWidth : pageHeight
-    documentPanel.setHeightText(formatUnits(rotatedPageHeight * 2, "mm", 0))
+    documentPanel.setHeightText(formatUnits(rotatedPageHeight * 2, UnitType.MM, 0))
   }
 }

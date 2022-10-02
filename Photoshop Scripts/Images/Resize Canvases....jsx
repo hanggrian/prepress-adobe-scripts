@@ -20,14 +20,14 @@ dialog.hgroup(function(main) {
     panel.alignChildren = "right"
     panel.hgroup(function(group) {
       group.leftStaticText(undefined, R.string.width)
-      widthEdit = group.editText(SIZE_INPUT, formatUnits(document.width, unitName, 2)).also(function(it) {
+      widthEdit = group.editText(SIZE_INPUT, formatUnits(document.width, unitType, 2)).also(function(it) {
         it.validateUnits()
         it.activate()
       })
     })
     panel.hgroup(function(group) {
       group.leftStaticText(undefined, R.string.height)
-      heightEdit = group.editText(SIZE_INPUT, formatUnits(document.height, unitName, 2)).also(VALIDATE_UNITS)
+      heightEdit = group.editText(SIZE_INPUT, formatUnits(document.height, unitType, 2)).also(VALIDATE_UNITS)
     })
   })
   main.vpanel(R.string.anchor, function(panel) {

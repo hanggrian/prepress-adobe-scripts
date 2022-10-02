@@ -19,7 +19,7 @@ dialog.vgroup(function(main) {
     topGroup.alignChildren = "right"
     topGroup.hgroup(function(group) {
       group.leftStaticText(undefined, R.string.width)
-      widthEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitName, 2)).also(function(it) {
+      widthEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitType, 2)).also(function(it) {
         it.validateUnits()
         it.activate()
       })
@@ -30,7 +30,7 @@ dialog.vgroup(function(main) {
     })
     topGroup.hgroup(function(group) {
       group.leftStaticText(undefined, R.string.height)
-      heightEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitName, 2)).also(VALIDATE_UNITS)
+      heightEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitType, 2)).also(VALIDATE_UNITS)
       heightCheck = group.checkBox(SIZE_INPUT_CHECK).also(function(it) {
         it.select()
         it.addClickListener(function() { heightEdit.enabled = it.value })

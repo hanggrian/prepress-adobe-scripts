@@ -5,34 +5,27 @@
 */
 
 /**
- * Asserts that a condition is satisfied, throw an error otherwise.
+ * Throws an error if the input is false.
  * Error message is always suffixed with period by SUI.
- * @param {Boolean} requirement expect value to be `true`.
- * @param {Object} errorMessage helpful alert, may be null.
+ * @param {Boolean} value input value.
+ * @param {String|Object} errorMessage helpful alert, may be null.
  */
-function check(requirement, errorMessage) {
-  if (!requirement) {
-    error(errorMessage || "Failed requirement")
+function check(value, errorMessage) {
+  if (!value) {
+    error(getOrDefault(errorMessage, "Failed requirement"))
   }
 }
 
 /**
- * Asserts that a value is null.
- * @param {Object} value expected to be `undefined` or `null`.
- * @return {Object}
+ * Throws an error if the input is null or undefined, otherwise return itself.
+ * @param {*} value input value.
+ * @param {String|Object} errorMessage helpful alert, may be null.
+ * @return {*}
  */
-function checkNull(value) {
-  check(value === undefined || value === null, "Expected value to be null")
-  return value
-}
-
-/**
- * Asserts that a value is not null.
- * @param {Object} value expected to be not `undefined` and not `null`.
- * @return {Object}
- */
-function checkNotNull(value) {
-  check(value !== undefined && value !== null, "Expected value to be not null")
+function checkNotNull(value, errorMessage) {
+  if (value == null) {
+    error(getOrDefault(errorMessage, "Expected value to be not null"))
+  }
   return value
 }
 

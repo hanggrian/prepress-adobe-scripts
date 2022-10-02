@@ -63,14 +63,18 @@ String.prototype.isNotBlank = function() { return this.isNotEmpty() && this.trim
  * @param {String} substring target.
  * @return {Boolean}
  */
-String.prototype.substringBefore = function(substring) { return this.substring(0, this.indexOf(substring)) }
+String.prototype.substringBefore = function(substring) {
+  return this.substring(0, this.indexOf(checkNotNull(substring)))
+}
 
 /**
  * Returns prefix that ends with last target.
  * @param {String} substring target.
  * @return {Boolean}
  */
-String.prototype.substringBeforeLast = function(substring) { return this.substring(0, this.lastIndexOf(substring)) }
+String.prototype.substringBeforeLast = function(substring) {
+  return this.substring(0, this.lastIndexOf(checkNotNull(substring)))
+}
 
 /**
  * Returns suffix that starts with target.
@@ -78,6 +82,7 @@ String.prototype.substringBeforeLast = function(substring) { return this.substri
  * @return {Boolean}
  */
 String.prototype.substringAfter = function(substring) {
+  checkNotNull(substring)
   return this.substring(this.indexOf(substring) + substring.length)
 }
 
@@ -87,6 +92,7 @@ String.prototype.substringAfter = function(substring) {
  * @return {Boolean}
  */
 String.prototype.substringAfterLast = function(substring) {
+  checkNotNull(substring)
   return this.substring(this.lastIndexOf(substring) + substring.length)
 }
 
@@ -95,7 +101,7 @@ String.prototype.substringAfterLast = function(substring) {
  * @param {String} substring expected prefix.
  * @return {Boolean}
  */
-String.prototype.startsWith = function(substring) { return this.lastIndexOf(substring, 0) === 0 }
+String.prototype.startsWith = function(substring) { return this.lastIndexOf(checkNotNull(substring), 0) === 0 }
 
 /**
  * Returns true if text ends with word.
@@ -103,6 +109,7 @@ String.prototype.startsWith = function(substring) { return this.lastIndexOf(subs
  * @return {Boolean}
  */
 String.prototype.endsWith = function(substring) {
+  checkNotNull(substring)
   return this.indexOf(substring, this.length - substring.length) !== -1
 }
 
@@ -111,7 +118,7 @@ String.prototype.endsWith = function(substring) {
  * @param {String} substring expected prefix.
  * @return {Boolean}
  */
-String.prototype.includes = function(substring) { return this.indexOf(substring) !== -1 }
+String.prototype.includes = function(substring) { return this.indexOf(checkNotNull(substring)) !== -1 }
 
 /**
  * Returns true if string is integer or decimal.

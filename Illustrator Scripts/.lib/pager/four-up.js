@@ -4,34 +4,33 @@
  * @param {Number} start first page to open, the first and default is 0.
  */
 function FourUpFoldingPager(document, start) {
+  checkNotNull(document)
+  checkNotNull(start)
   var current = start || 0
   var isFront = true
 
+  var self = this
+  self.top1, self.top2, self.bottom1, self.bottom2
+
   /**
-   * Iterate artboards.
-   * @param {Function} action runnable with pages' index as parameters.
+   * Iterate pager to next artboard, returning artboard's name.
+   * @return {String}
    */
-  this.forEachArtboard = function(action) {
-    Collections.forEach(document.artboards, function(artboard) {
-      var top1, top2, bottom1, bottom2
-      if (isFront) {
-        top1 = current + 7
-        top2 = current + 4
-        bottom1 = current
-        bottom2 = current + 3
-      } else {
-        top1 = current + 1
-        top2 = current + 2
-        bottom1 = current - 2
-        bottom2 = current - 3
-      }
-      artboard.name = "%d-%d-%d-%d".format(top1 + 1, top2 + 1, bottom1 + 1, bottom2 + 1)
-      action(artboard,
-        top1, top2,
-        bottom1, bottom2)
-      current += 4
-      isFront = !isFront
-    })
+  self.next = function() {
+    if (isFront) {
+      self.top1 = current + 7
+      self.top2 = current + 4
+      self.bottom1 = current
+      self.bottom2 = current + 3
+    } else {
+      self.top1 = current + 1
+      self.top2 = current + 2
+      self.bottom1 = current - 2
+      self.bottom2 = current - 3
+    }
+    current += 4
+    isFront = !isFront
+    return "%d-%d-%d-%d".format(self.top1 + 1, self.top2 + 1, self.bottom1 + 1, self.bottom2 + 1)
   }
 }
 
@@ -41,24 +40,24 @@ function FourUpFoldingPager(document, start) {
  * @param {Number} start first page to open, the first and default is 0.
  */
 function FourUpSimplexPager(document, start) {
+  checkNotNull(document)
+  checkNotNull(start)
   var current = start || 0
 
+  var self = this
+  self.top1, self.top2, self.bottom1, self.bottom2
+
   /**
-   * Iterate artboards.
-   * @param {Function} action runnable with pages' index as parameters.
+   * Iterate pager to next artboard, returning artboard's name.
+   * @return {String}
    */
-  this.forEachArtboard = function(action) {
-    Collections.forEach(document.artboards, function(artboard) {
-      var top1 = current
-      var top2 = current + 1
-      var bottom1 = current + 2
-      var bottom2 = current + 3
-      artboard.name = "%d-%d-%d-%d".format(top1 + 1, top2 + 1, bottom1 + 1, bottom2 + 1)
-      action(artboard,
-        top1, top2,
-        bottom1, bottom2)
-      current += 4
-    })
+  self.next = function() {
+    self.top1 = current
+    self.top2 = current + 1
+    self.bottom1 = current + 2
+    self.bottom2 = current + 3
+    current += 4
+    return "%d-%d-%d-%d".format(self.top1 + 1, self.top2 + 1, self.bottom1 + 1, self.bottom2 + 1)
   }
 }
 
@@ -68,34 +67,33 @@ function FourUpSimplexPager(document, start) {
  * @param {Number} start first page to open, the first and default is 0.
  */
 function FourUpDuplexPager(document, start) {
+  checkNotNull(document)
+  checkNotNull(start)
   var current = start || 0
   var isFront = true
 
+  var self = this
+  self.top1, self.top2, self.bottom1, self.bottom2
+
   /**
-   * Iterate artboards.
-   * @param {Function} action runnable with pages' index as parameters.
+   * Iterate pager to next artboard, returning artboard's name.
+   * @return {String}
    */
-  this.forEachArtboard = function(action) {
-    Collections.forEach(document.artboards, function(artboard) {
-      var top1, top2, bottom1, bottom2
-      if (isFront) {
-        top1 = current
-        top2 = current + 2
-        bottom1 = current + 4
-        bottom2 = current + 6
-      } else {
-        top1 = current - 1
-        top2 = current - 3
-        bottom1 = current + 3
-        bottom2 = current + 1
-      }
-      artboard.name = "%d-%d-%d-%d".format(top1 + 1, top2 + 1, bottom1 + 1, bottom2 + 1)
-      action(artboard,
-        top1, top2,
-        bottom1, bottom2)
-      current += 4
-      isFront = !isFront
-    })
+  self.next = function() {
+    if (isFront) {
+      self.top1 = current
+      self.top2 = current + 2
+      self.bottom1 = current + 4
+      self.bottom2 = current + 6
+    } else {
+      self.top1 = current - 1
+      self.top2 = current - 3
+      self.bottom1 = current + 3
+      self.bottom2 = current + 1
+    }
+    current += 4
+    isFront = !isFront
+    return "%d-%d-%d-%d".format(self.top1 + 1, self.top2 + 1, self.bottom1 + 1, self.bottom2 + 1)
   }
 }
 
@@ -105,25 +103,24 @@ function FourUpDuplexPager(document, start) {
  * @param {Number} start first page to open, the first and default is 0.
  */
 function FourUpSimplexStackPager(document, start) {
+  checkNotNull(document)
+  checkNotNull(start)
   var current = start || 0
 
+  var self = this
+  self.top1, self.top2, self.bottom1, self.bottom2
+
   /**
-   * Iterate artboards.
-   * @param {Function} action runnable with pages' index as parameters.
+   * Iterate pager to next artboard, returning artboard's name.
+   * @return {String}
    */
-  this.forEachArtboard = function(action) {
-    var artboards = document.artboards.length
-    Collections.forEach(document.artboards, function(artboard) {
-      var top1 = current
-      var top2 = current + artboards
-      var bottom1 = current + artboards * 2
-      var bottom2 = current + artboards * 3
-      artboard.name = "%d-%d-%d-%d".format(top1 + 1, top2 + 1, bottom1 + 1, bottom2 + 1)
-      action(artboard,
-        top1, top2,
-        bottom1, bottom2)
-      current++
-    })
+  self.next = function() {
+    self.top1 = current
+    self.top2 = current + document.artboards.length
+    self.bottom1 = current + document.artboards.length * 2
+    self.bottom2 = current + document.artboards.length * 3
+    current++
+    return "%d-%d-%d-%d".format(self.top1 + 1, self.top2 + 1, self.bottom1 + 1, self.bottom2 + 1)
   }
 }
 
@@ -133,34 +130,32 @@ function FourUpSimplexStackPager(document, start) {
  * @param {Number} start first page to open, the first and default is 0.
  */
 function FourUpDuplexStackPager(document, start) {
+  checkNotNull(document)
+  checkNotNull(start)
   var current = start || 0
   var isFront = true
 
+  var self = this
+  self.top1, self.top2, self.bottom1, self.bottom2
+
   /**
-   * Iterate artboards.
-   * @param {Function} action runnable with pages' index as parameters.
+   * Iterate pager to next artboard, returning artboard's name.
+   * @return {String}
    */
-  this.forEachArtboard = function(action) {
-    var artboards = document.artboards.length
-    Collections.forEach(document.artboards, function(artboard) {
-      var top1, top2, bottom1, bottom2
-      if (isFront) {
-        top1 = current
-        top2 = current + artboards
-        bottom1 = current + artboards * 2
-        bottom2 = current + artboards * 3
-      } else {
-        top1 = current + artboards
-        top2 = current
-        bottom1 = current + artboards * 3
-        bottom2 = current + artboards * 2
-      }
-      artboard.name = "%d-%d-%d-%d".format(top1 + 1, top2 + 1, bottom1 + 1, bottom2 + 1)
-      action(artboard,
-        top1, top2,
-        bottom1, bottom2)
-      current++
-      isFront = !isFront
-    })
+  self.next = function() {
+    if (isFront) {
+      self.top1 = current
+      self.top2 = current + document.artboards.length
+      self.bottom1 = current + document.artboards.length * 2
+      self.bottom2 = current + document.artboards.length * 3
+    } else {
+      self.top1 = current + document.artboards.length
+      self.top2 = current
+      self.bottom1 = current + document.artboards.length * 3
+      self.bottom2 = current + document.artboards.length * 2
+    }
+    current++
+    isFront = !isFront
+    return "%d-%d-%d-%d".format(self.top1 + 1, self.top2 + 1, self.bottom1 + 1, self.bottom2 + 1)
   }
 }

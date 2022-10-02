@@ -48,6 +48,6 @@ dialog.setDefaultButton(undefined, function() {
   } else {
     pager = pager.get(document, start)
   }
-  pager.forEachArtboard(function(_) { })
+  Collections.forEach(document.artboards, function(it) { it.name = pager.next() })
 })
 dialog.show()

@@ -8,7 +8,7 @@
  * Returns true if both files point to the same location.
  * @return {Boolean}
  */
-File.prototype.equalTo = function(other) { return this.absoluteURI === other.absoluteURI }
+File.prototype.equalTo = function(other) { return this.absoluteURI === checkNotNull(other).absoluteURI }
 
 /**
  * Returns file name without extension.
@@ -31,21 +31,25 @@ File.prototype.isPdf = function() { return this.getExtension().let(function(it) 
 
 /**
  * Reads the file content as a string.
+ * @param {String} charset default is `UTF-8`.
  * @return {String}
  */
 File.prototype.readText = function(charset) {
+  charset = getOrDefault(charset, "UTF-8")
   return this.use("r", function(it) {
-    it.charset = charset || "UTF-8"
+    it.charset = charset
     return it.read()
   })
 }
 
 /**
  * Writes string content to file.
+ * @param {String} charset default is `UTF-8`.
  */
 File.prototype.writeText = function(text, charset) {
+  charset = getOrDefault(charset, "UTF-8")
   this.use("w", function(it) {
-    it.charset = charset || "UTF-8"
+    it.charset = charset
     it.write(text)
   })
 }
@@ -57,6 +61,8 @@ File.prototype.writeText = function(text, charset) {
  * @return {Object}
  */
 File.prototype.use = function(openArg, block) {
+  checkNotNull(openArg)
+  checkNotNull(block)
   this.open(openArg)
   this.lineFeed = "Unix"
   var result = block(this)

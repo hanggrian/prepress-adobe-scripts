@@ -4,25 +4,25 @@
 </javascriptresource>
 */
 
-// Conventions used in this library:
-// * `units` are number with unit name suffix. (e.g.: `5`, `20 mm`)
-// * `unitValue` are the number. (e.g. : `5`, `20`)
-// * `unitName` are the suffix. (e.g. : `pt`, `mm`)
-// * `unitFullName` are the full form name. (e.g.: `Points`, `Millimeters`)
+UnitType.PX.units = Units.PIXELS
+UnitType.PT.units = Units.POINTS
+UnitType.IN.units = Units.INCHES
+UnitType.MM.units = Units.MM
+UnitType.CM.units = Units.CM
 
 /**
  * Build string based on unit value, name and optional fraction.
  * @param {UnitValue} unitValue native unit value.
- * @param {Number} unitName expected conversion, e.g: cm, mm, etc.
- * @param {Number} fraction max decimal place, may be undefined.
+ * @param {UnitType} unitType expected conversion, e.g: cm, mm, etc.
+ * @param {Number} fraction max decimal place, may be null.
  * @return {String}
  */
-function formatUnits(unitValue, unitName, fraction) {
+function formatUnits(unitValue, unitType, fraction) {
   checkNotNull(unitValue)
-  checkNotNull(unitName)
-  var value = unitValue.as(unitName)
+  checkNotNull(unitType)
+  var value = unitValue.as(unitType.qualifier)
   var s = fraction !== undefined ? value.toFixed(fraction) : value.toString()
-  return parseFloat(s) + " " + unitName
+  return parseFloat(s) + " " + unitType.qualifier
 }
 
 /**

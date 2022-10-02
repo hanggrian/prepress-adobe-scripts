@@ -10,6 +10,7 @@
  * @return {Date}
  */
 function parseDate(date) {
+  checkNotNull(date)
   date = date.trim().substring(0, 10).split("-")
   var year = parseInt(date[0])
   var month = parseInt(date[1]) - 1

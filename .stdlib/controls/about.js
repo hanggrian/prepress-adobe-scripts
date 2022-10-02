@@ -13,6 +13,9 @@ var MARGINS_ABOUT_TAB = [10, 0, 10, 0]
  * @param {String} clientDate date associated in scripts' resources for checking update.
  */
 function AboutPanel(parent, clientDate) {
+  checkNotNull(parent)
+  checkNotNull(clientDate)
+
   var self = parent.tabbedPanel()
   self.preferencesTab, self.preferencesThemeList, self.preferencesLanguageList, self.preferencesClearButton
   self.updatesTab, self.updatesStatusText, self.updatesDownloadButton

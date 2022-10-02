@@ -12,6 +12,7 @@ var Properties = {
    * @param {Object} source object with properties.
    */
   copy: function(source) {
+    checkNotNull(source)
     var props = { }
     for (var key in source) {
       try {
@@ -28,6 +29,8 @@ var Properties = {
    * @param {Object} target any object.
    */
   paste: function(source, target) {
+    checkNotNull(source)
+    checkNotNull(target)
     for (var key in source) {
       target[key] = source[key]
     }

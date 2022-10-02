@@ -31,7 +31,7 @@ var message = ""
 if (count + distance === 0) {
   message += getString(R.string.message_measuredielines1)
 } else {
-  message += getString(R.string.message_measuredielines2, count, formatUnits(distance, unitName, 2))
+  message += getString(R.string.message_measuredielines2, count, formatUnits(distance, unitType, 2))
 }
 if (clippingCount > 0) {
   message += getString(R.string.message_measuredielines3, clippingCount)

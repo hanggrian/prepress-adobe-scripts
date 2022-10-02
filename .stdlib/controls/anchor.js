@@ -11,6 +11,8 @@ var SIZE_ANCHOR_RADIO = [15, 15]
  * @param {Group|Panel|Window} parent holder of this control.
  */
 function AnchorGroup(parent) {
+  checkNotNull(parent)
+  
   var self = parent.vgroup()
   self.topLeftRadio, self.topRadio, self.topRightRadio
   self.leftRadio, self.centerRadio, self.rightRadio

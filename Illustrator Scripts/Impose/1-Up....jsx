@@ -57,11 +57,13 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
     var pager = Pager.ONE_UP.get(document, pageStart)
     var progress = new ProgressPalette(artboardLength, R.string.imposing)
 
-    pager.forEachArtboard(function(artboard, index) {
+    Collections.forEach(document.artboards, function(artboard) {
       progress.increment()
+      artboard.name = pager.next()
+
       var artboardRect = artboard.artboardRect
       var item = document.placedItems.add()
-      item.file = files.get(index)
+      item.file = files.get(pager.index)
       var x = artboardRect.getLeft() + (artboardRect.getWidth() - rotatedPageWidth) / 2
       var y = artboardRect.getTop() - (artboardRect.getHeight() - rotatedPageHeight) / 2
       item.width = pageWidth
@@ -88,10 +90,10 @@ function updateDocumentDimensionText(updateWidth, updateHeight) {
   var pageHeight = pagesPanel.getHeight() + pageBleed * 2
   if (updateWidth) {
     var rotatedPageWidth = nupGroup.isRotate() ? pageHeight : pageWidth
-    documentPanel.setWidthText(formatUnits(rotatedPageWidth, "mm", 0))
+    documentPanel.setWidthText(formatUnits(rotatedPageWidth, UnitType.MM, 0))
   }
   if (updateHeight) {
     var rotatedPageHeight = nupGroup.isRotate() ? pageWidth : pageHeight
-    documentPanel.setHeightText(formatUnits(rotatedPageHeight, "mm", 0))
+    documentPanel.setHeightText(formatUnits(rotatedPageHeight, UnitType.MM, 0))
   }
 }

@@ -37,25 +37,25 @@ Array.prototype.isWithin = function(other) {
  * Returns x1 value of this `Rectangle` or `Point`.
  * @return {Number}
  */
-Array.prototype.getLeft = function() { return this[0] }
+Array.prototype.getLeft = function() { return checkNotNull(this[0]) }
 
 /**
  * Returns y1 value of this `Rectangle` or `Point`.
  * @return {Number}
  */
-Array.prototype.getTop = function() { return this[1] }
+Array.prototype.getTop = function() { return checkNotNull(this[1]) }
 
 /**
  * Returns x2 value of this `Rectangle`.
  * @return {Number}
  */
-Array.prototype.getRight = function() { return this[2] }
+Array.prototype.getRight = function() { return checkNotNull(this[2]) }
 
 /**
  * Returns y2 value of this `Rectangle`.
  * @return {Number}
  */
-Array.prototype.getBottom = function() { return this[3] }
+Array.prototype.getBottom = function() { return checkNotNull(this[3]) }
 
 /**
  * Returns width value of this `Rectangle`.

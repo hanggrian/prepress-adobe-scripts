@@ -28,24 +28,24 @@ dialog.vgroup(function(main) {
     panel.hgroup(function(group) {
       group.helpTips = R.string.tip_stepandrepeat_horizontal
       group.leftStaticText(undefined, R.string.horizontal)
-      moveHorizontalEdit = group.editText(SIZE_INPUT_MOVE, formatUnits(bounds.getWidth(), unitName, 2))
+      moveHorizontalEdit = group.editText(SIZE_INPUT_MOVE, formatUnits(bounds.getWidth(), unitType, 2))
         .also(VALIDATE_UNITS)
     })
     panel.hgroup(function(group) {
       group.helpTips = R.string.tip_stepandrepeat_vertical
       group.leftStaticText(undefined, R.string.vertical)
-      moveVerticalEdit = group.editText(SIZE_INPUT_MOVE, formatUnits(bounds.getHeight(), unitName, 2))
+      moveVerticalEdit = group.editText(SIZE_INPUT_MOVE, formatUnits(bounds.getHeight(), unitType, 2))
         .also(VALIDATE_UNITS)
     })
     moveRelativeCheck = panel.checkBox(undefined, R.string.relative_position).also(function(it) {
       it.helpTip = R.string.tip_stepandrepeat_relativeposition
       it.addClickListener(function() {
         if (it.value) {
-          moveHorizontalEdit.text = "0 " + unitName
-          moveVerticalEdit.text = "0 " + unitName
+          moveHorizontalEdit.text = "0 " + unitType.qualifier
+          moveVerticalEdit.text = "0 " + unitType.qualifier
         } else {
-          moveHorizontalEdit.text = formatUnits(bounds.getWidth(), unitName, 2)
-          moveVerticalEdit.text = formatUnits(bounds.getHeight(), unitName, 2)
+          moveHorizontalEdit.text = formatUnits(bounds.getWidth(), unitType, 2)
+          moveVerticalEdit.text = formatUnits(bounds.getHeight(), unitType, 2)
         }
         moveHorizontalEdit.activate()
       })

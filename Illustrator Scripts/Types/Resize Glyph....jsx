@@ -37,7 +37,7 @@ dialog.vgroup(function(main) {
   main.hgroup(function(group) {
     group.helpTips = R.string.tip_resizeglyph_size
     dimensionSizeText = group.leftStaticText(SIZE_LABEL, R.string.width)
-    dimensionSizeEdit = group.editText(SIZE_INPUT, formatUnits(item.width, unitName, 2)).also(function(it) {
+    dimensionSizeEdit = group.editText(SIZE_INPUT, formatUnits(item.width, unitType, 2)).also(function(it) {
       it.validateUnits()
       it.activate()
     })
@@ -69,9 +69,9 @@ dialog.show()
 function changeDimensionText() {
   if (dimensionWidthRadio.value) {
     dimensionSizeText.text = getString(R.string.width) + ":"
-    dimensionSizeEdit.text = formatUnits(item.width, unitName, 2)
+    dimensionSizeEdit.text = formatUnits(item.width, unitType, 2)
   } else {
     dimensionSizeText.text = getString(R.string.height) + ":"
-    dimensionSizeEdit.text = formatUnits(item.height, unitName, 2)
+    dimensionSizeEdit.text = formatUnits(item.height, unitType, 2)
   }
 }

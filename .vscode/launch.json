@@ -5,7 +5,7 @@
       "type": "extendscript-debug",
       "request": "launch",
       "name": "Prepress Adobe Scripts",
-      "hostAppSpecifier": "illustrator", "script": "${workspaceFolder}/Illustrator Scripts/Dielines/Measure.jsx",
+      "hostAppSpecifier": "illustrator", "script": "${workspaceFolder}/Illustrator Scripts/Impose/2-Up....jsx",
       // "hostAppSpecifier": "photoshop", "script": "${workspaceFolder}/Photoshop Scripts/Documents/Pre-Flight.jsx"
     }
   ]

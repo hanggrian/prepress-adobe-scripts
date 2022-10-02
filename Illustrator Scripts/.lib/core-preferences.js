@@ -40,6 +40,7 @@ var configs = new Preferences2("Prepress Adobe Scripts")
  * @param {String} path hierarcy of preferences.
  */
 function Preferences2(path) {
+  checkNotNull(path)
   var prefix = path + "/"
 
   /**

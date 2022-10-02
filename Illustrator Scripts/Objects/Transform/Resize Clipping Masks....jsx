@@ -18,18 +18,18 @@ dialog.hgroup(function(main) {
     panel.alignChildren = "right"
     panel.hgroup(function(group) {
       group.leftStaticText(undefined, R.string.width)
-      widthFromEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitName, 2)).also(function(it) {
+      widthFromEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitType, 2)).also(function(it) {
         it.validateUnits()
         it.activate()
       })
       group.staticText(undefined, "to")
-      widthToEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitName, 2)).also(VALIDATE_UNITS)
+      widthToEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitType, 2)).also(VALIDATE_UNITS)
     })
     panel.hgroup(function(group) {
       group.leftStaticText(undefined, R.string.height)
-      heightFromEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitName, 2)).also(VALIDATE_UNITS)
+      heightFromEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitType, 2)).also(VALIDATE_UNITS)
       group.staticText(undefined, "to")
-      heightToEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitName, 2)).also(VALIDATE_UNITS)
+      heightToEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitType, 2)).also(VALIDATE_UNITS)
     })
   })
   main.vpanel(R.string.anchor, function(panel) {

@@ -63,13 +63,15 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
     var pager = Pager.SADDLE_STITCH.get(document, pageStart, pageEnd, rtlCheck.value)
     var progress = new ProgressPalette(artboardLength, R.string.imposing)
 
-    pager.forEachArtboard(function(artboard, leftIndex, rightIndex) {
+    Collections.forEach(document.artboards, function(artboard) {
       progress.increment()
+      artboard.name = pager.next()
+
       var artboardRect = artboard.artboardRect
       var item1 = document.placedItems.add()
       var item2 = document.placedItems.add()
-      item1.file = files.get(leftIndex)
-      item2.file = files.get(rightIndex)
+      item1.file = files.get(pager.left)
+      item2.file = files.get(pager.right)
       var x1, x2
       if (pageBleed === 0) {
         x1 = artboardRect.getLeft() + (artboardRect.getWidth() - pageWidth * 2) / 2
@@ -120,9 +122,9 @@ function updateDocumentDimensionText(updateWidth, updateHeight) {
   var pageWidth = pagesPanel.getWidth() + pageBleed // only 1 side of bleed is applied in saddle-stitch
   var pageHeight = pagesPanel.getHeight() + pageBleed * 2
   if (updateWidth) {
-    documentPanel.setWidthText(formatUnits(pageWidth * 2, "mm", 0))
+    documentPanel.setWidthText(formatUnits(pageWidth * 2, UnitType.MM, 0))
   }
   if (updateHeight) {
-    documentPanel.setHeightText(formatUnits(pageHeight, "mm", 0))
+    documentPanel.setHeightText(formatUnits(pageHeight, UnitType.MM, 0))
   }
 }

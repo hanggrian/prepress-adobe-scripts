@@ -6,40 +6,40 @@
  * @param {Boolean} isRtl useful for arabic layout, default is false.
  */
 function SaddleStitchPager(document, start, end, isRtl) {
-  start = start || 0
-  end = end || document.artboards.length * 2 - 1
-  isRtl = isRtl || false
+  checkNotNull(document)
+  start = getOrDefault(start, 0)
+  end = getOrDefault(end, document.artboards.length * 2 - 1)
+  isRtl = getOrDefault(isRtl, false)
   var isFront = true
 
+  var self = this
+  self.left, self.right
+
   /**
-   * Iterate artboards.
-   * @param {Function} action runnable with pages' index as parameters.
+   * Iterate pager to next artboard, returning artboard's name.
+   * @return {String}
    */
-  this.forEachArtboard = function(action) {
-    Collections.forEach(document.artboards, function(artboard) {
-      var left, right
-      if (isFront) {
-        if (!isRtl) {
-          left = end
-          right = start
-        } else {
-          left = start
-          right = end
-        }
+  self.next = function() {
+    if (isFront) {
+      if (!isRtl) {
+        self.left = end
+        self.right = start
       } else {
-        if (!isRtl) {
-          left = start
-          right = end
-        } else {
-          left = end
-          right = start
-        }
+        self.left = start
+        self.right = end
       }
-      artboard.name = (left + 1) + "-" + (right + 1)
-      action(artboard, left, right)
-      start++
-      end--
-      isFront = !isFront
-    })
+    } else {
+      if (!isRtl) {
+        self.left = start
+        self.right = end
+      } else {
+        self.left = end
+        self.right = start
+      }
+    }
+    start++
+    end--
+    isFront = !isFront
+    return (self.left + 1) + "-" + (self.right + 1)
   }
 }

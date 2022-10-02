@@ -11,6 +11,7 @@
  * @return {Object}
  */
 Collections.first = function(collection, predicate) {
+  checkNotNull(collection)
   if (predicate === undefined) {
     return collection[0]
   }
@@ -47,6 +48,8 @@ Collections.last = function(collection, predicate) {
  * @return {Boolean}
  */
 Collections.none = function(collection, predicate) {
+  checkNotNull(collection)
+  checkNotNull(predicate)
   for (var i = 0; i < collection.length; i++) {
     if (predicate(collection[i], i)) {
       return false
@@ -62,6 +65,8 @@ Collections.none = function(collection, predicate) {
  * @return {Boolean}
  */
 Collections.any = function(collection, predicate) {
+  checkNotNull(collection)
+  checkNotNull(predicate)
   for (var i = 0; i < collection.length; i++) {
     if (predicate(collection[i], i)) {
       return true
@@ -77,6 +82,8 @@ Collections.any = function(collection, predicate) {
  * @return {Boolean}
  */
 Collections.all = function(collection, predicate) {
+  checkNotNull(collection)
+  checkNotNull(predicate)
   for (var i = 0; i < collection.length; i++) {
     if (!predicate(collection[i], i)) {
       return false
@@ -92,6 +99,7 @@ Collections.all = function(collection, predicate) {
  * @return {Array}
  */
 Collections.filter = function(collection, predicate) {
+  checkNotNull(predicate)
   var result = []
   Collections.forEach(collection, function(element, i) {
     if (predicate(element, i)) {

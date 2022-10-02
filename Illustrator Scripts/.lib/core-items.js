@@ -5,6 +5,7 @@ var Items = {
    * @return {String}
    */
   getName: function(item) {
+    checkNotNull(item)
     return item.name !== undefined && item.name.isNotBlank() ? item.name : item.typename
   },
 
@@ -14,6 +15,7 @@ var Items = {
    * @return {PathItem|CompoundPathItem}
    */
   getClippingItem: function(item) {
+    checkNotNull(item)
     if (item.typename === "GroupItem" && item.clipped) {
       return Collections.first(item.pathItems, function(it) { return it.clipping })
     }
@@ -26,6 +28,7 @@ var Items = {
    * @return {Array}
    */
   getMaxBounds: function(items) {
+    checkNotNull(items)
     var maxStartX, maxStartY, maxEndX, maxEndY
     Collections.forEach(items, function(item) {
       var clippingItem = Items.getClippingItem(item)
@@ -57,6 +60,7 @@ var Items = {
    * @return {Boolean}
    */
   isLinkExists: function(item) {
+    checkNotNull(item)
     checkTypename(item, "PlacedItem")
     try {
       return item.file.exists
@@ -67,11 +71,15 @@ var Items = {
 
   /**
    * Add a rectangle guide around item, the size and position of the item must already be set for this to work.
+   * @param {Document} document current file.
    * @param {PageItem} item any item.
    * @param {Number} bleed length of individual bleed.
    * @return {PathItem}
    */
   addBleedGuide: function(document, item, bleed) {
+    checkNotNull(document)
+    checkNotNull(item)
+    checkNotNull(bleed)
     var guide = document.pathItems.rectangle(
       item.position.getTop() - bleed, item.position.getLeft() + bleed,
       item.width - bleed * 2, item.height - bleed * 2)

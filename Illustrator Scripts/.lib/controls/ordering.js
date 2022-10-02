@@ -109,8 +109,11 @@ var Ordering = new Enum({
  * @param {Array} ordersCollection ordering options.
  */
 function OrderingList(parent, ordersCollection) {
+  checkNotNull(parent)
+  checkNotNull(ordersCollection)
+
   var orders = []
-  Collections.forEach(checkNotNull(ordersCollection), function(it, i) {
+  Collections.forEach(ordersCollection, function(it, i) {
     orders = orders.concat(it)
     if (i !== Collections.lastIndex(ordersCollection)) {
       orders.push("-")

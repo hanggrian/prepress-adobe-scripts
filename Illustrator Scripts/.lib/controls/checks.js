@@ -3,6 +3,7 @@
  * @param {Group|Panel|Window} parent holder of this control.
  */
 function DocumentOriginCheck(parent) {
+  checkNotNull(parent)
   return parent.checkBox(undefined, R.string.document_origin).also(function(it) {
     it.helpTip = R.string.tip_checks_documentorigin
   })
@@ -13,6 +14,7 @@ function DocumentOriginCheck(parent) {
  * @param {Group|Panel|Window} parent holder of this control.
  */
 function RecursiveCheck(parent) {
+  checkNotNull(parent)
   return parent.checkBox(undefined, R.string.recursive).also(function(it) {
     it.helpTip = R.string.tip_checks_recursive
   })
@@ -23,6 +25,7 @@ function RecursiveCheck(parent) {
  * @param {Group|Panel|Window} parent holder of this control.
  */
 function KeepSizeCheck(parent) {
+  checkNotNull(parent)
   return parent.checkBox(undefined, R.string.keep_size).also(function(it) {
     it.helpTip = R.string.tip_checks_keepsize
   })

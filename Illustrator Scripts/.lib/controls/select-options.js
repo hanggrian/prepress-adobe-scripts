@@ -8,9 +8,11 @@ var SelectOption = new Enum({
 /**
  * Panel of width and height inputs.
  * @param {Group|Panel|Window} parent holder of this control.
- * @param {Array} inputSize size or bounds.
+ * @param {Array} inputSize size or bounds, may be null.
  */
 function SelectDimensionPanel(parent, inputSize) {
+  checkNotNull(parent)
+  
   var self = parent.vpanel(R.string.dimension)
   self.widthEdit, self.heightEdit
 

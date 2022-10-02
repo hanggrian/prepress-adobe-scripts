@@ -62,17 +62,19 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
     var pager = Pager.FOUR_UP.get(document, pageStart, nupGroup.isFolding(), nupGroup.isDuplex(), nupGroup.isStack())
     var progress = new ProgressPalette(artboardLength, R.string.imposing)
 
-    pager.forEachArtboard(function(artboard, top1, top2, bottom1, bottom2) {
+    Collections.forEach(document.artboards, function(artboard) {
       progress.increment()
+      artboard.name = pager.next()
+
       var artboardRect = artboard.artboardRect
       var topItem1 = document.placedItems.add()
       var topItem2 = document.placedItems.add()
       var bottomItem1 = document.placedItems.add()
       var bottomItem2 = document.placedItems.add()
-      topItem1.file = files.get(top1)
-      topItem2.file = files.get(top2)
-      bottomItem1.file = files.get(bottom1)
-      bottomItem2.file = files.get(bottom2)
+      topItem1.file = files.get(pager.top1)
+      topItem2.file = files.get(pager.top2)
+      bottomItem1.file = files.get(pager.bottom1)
+      bottomItem2.file = files.get(pager.bottom2)
       var x1 = artboardRect.getLeft() + (artboardRect.getWidth() - rotatedPageWidth * 2) / 2
       var x2 = x1 + rotatedPageWidth
       var y1 = artboardRect.getTop() - (artboardRect.getHeight() - rotatedPageHeight * 2) / 2
@@ -116,10 +118,10 @@ function updateDocumentDimensionText(updateWidth, updateHeight) {
   var pageHeight = pagesPanel.getHeight() + pageBleed * 2
   if (updateWidth) {
     var rotatedPageWidth = nupGroup.isFolding() || nupGroup.isRotate() ? pageHeight : pageWidth
-    documentPanel.setWidthText(formatUnits(rotatedPageWidth * 2, "mm", 0))
+    documentPanel.setWidthText(formatUnits(rotatedPageWidth * 2, UnitType.MM, 0))
   }
   if (updateHeight) {
     var rotatedPageHeight = nupGroup.isFolding() || nupGroup.isRotate() ? pageWidth : pageHeight
-    documentPanel.setHeightText(formatUnits(rotatedPageHeight * 2, "mm", 0))
+    documentPanel.setHeightText(formatUnits(rotatedPageHeight * 2, UnitType.MM, 0))
   }
 }

@@ -7,10 +7,13 @@
 /**
  * Any number of radio buttons with their disability attached to left checkbox.
  * @param {Group|Panel|Window} parent holder of this control.
- * @param {String} text checkbox's text.
+ * @param {String} text checkbox's text, may be null.
  * @param {Array} radioTexts radio buttons' texts.
  */
 function MultiRadioGroup(parent, text, radioTexts) {
+  checkNotNull(parent)
+  checkNotNull(radioTexts)
+
   var self = parent.hgroup()
   self.check, self.radios
 
@@ -19,14 +22,16 @@ function MultiRadioGroup(parent, text, radioTexts) {
       Collections.forEach(self.radios, function(it) { it.enabled = check.value })
     })
   })
-  self.radios = Collections.map(radioTexts, function(text, i) {
-    return self.radioButton(undefined, text).also(function(it) {
-      it.enabled = false
-      if (i === 0) {
-        it.select()
-      }
+  if (radioTexts != null) {
+    self.radios = Collections.map(radioTexts, function(text, i) {
+      return self.radioButton(undefined, text).also(function(it) {
+        it.enabled = false
+        if (i === 0) {
+          it.select()
+        }
+      })
     })
-  })
+  }
 
   /**
    * Returns true if checkbox is selected.
@@ -46,11 +51,14 @@ function MultiRadioGroup(parent, text, radioTexts) {
 /**
  * Any number of checkboxes with their disability attached to on/off radio button.
  * @param {Group|Panel|Window} parent holder of this control.
- * @param {String} textOff radio's text when in enabled state.
- * @param {String} textOn radio's text when in disabled state.
+ * @param {String} textOff radio's text when in enabled state, may be null.
+ * @param {String} textOn radio's text when in disabled state, may be null.
  * @param {Array} checkTexts checkboxes' texts.
  */
 function MultiCheckGroup(parent, textOff, textOn, checkTexts) {
+  checkNotNull(parent)
+  checkNotNull(checkTexts)
+
   var self = parent.hgroup()
   self.radioOff, self.radioOn, self.checks
 
@@ -62,11 +70,13 @@ function MultiCheckGroup(parent, textOff, textOn, checkTexts) {
   self.radioOn = self.radioButton(undefined, textOn).also(function(it) {
     it.addClickListener(radioClickListener)
   })
-  self.checks = Collections.map(checkTexts, function(text) {
-    return self.checkBox(undefined, text).also(function(it) {
-      it.enabled = false
+  if (checkTexts != null) {
+    self.checks = Collections.map(checkTexts, function(text) {
+      return self.checkBox(undefined, text).also(function(it) {
+        it.enabled = false
+      })
     })
-  })
+  }
 
   /**
    * Returns true if is in off state.

@@ -38,6 +38,7 @@
 #include "sui/window-palette.js"
 #include "geometry.js"
 #include "math.js"
+#include "objects.js"
 #include "preconditions.js"
 #include "properties.js"
 #include "standard.js"
@@ -87,6 +88,7 @@ var Scripts = {
    * @returns {File}
    */
   getResource: function(fullName) {
+    checkNotNull(fullName)
     if (Scripts.PATH_STDRES === undefined) {
       Scripts.PATH_STDRES = new File(Scripts.PATH_STDLIB + "/../.stdres")
       Scripts.PATH_RES = new File(Scripts.PATH_LIB + "/../.res")
@@ -108,6 +110,7 @@ var Scripts = {
    * @see https://community.adobe.com/t5/indesign/js-scriptui-url-links-in-dialogues/td-p/4572773?page=1
    */
   openUrl: function(url) {
+    checkNotNull(url)
     var tempFile = new File(Folder.temp.absoluteURI + "/prepress-adobe-scripts.html")
     tempFile.writeText('<html><head><META HTTP-EQUIV=Refresh CONTENT="0; URL=%s">'.format(url) +
       "</head><body> <p></body></html>")

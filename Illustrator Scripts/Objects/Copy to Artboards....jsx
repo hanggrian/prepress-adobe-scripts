@@ -78,8 +78,8 @@ if (proceed) {
         } else {
           y = artboardRect.getBottom() - relativePosition.getBottom()
         }
-        item.duplicate(layer, ElementPlacement.PLACEATBEGINNING).position = [x, y]
         println("%d. Position X=%d Y=%d.", artboardIndex, x, y)
+        item.duplicate(layer, ElementPlacement.PLACEATBEGINNING).position = [x, y]
       })
     })
 

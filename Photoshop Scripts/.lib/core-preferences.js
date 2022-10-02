@@ -15,6 +15,7 @@ var configs = new Preferences2("Prepress Adobe Scripts")
  * @param {String} path hierarcy of preferences.
  */
 function Preferences2(path) {
+  checkNotNull(path)
   var descriptor
   try {
     descriptor = app.getCustomOptions(path)
@@ -120,6 +121,7 @@ function Preferences2(path) {
    * @param {ActionDescriptor} descriptor inherited from `PreferencesWrapper`.
    */
   function Editor(path, descriptor) {
+    checkNotNull(descriptor)
     /**
      * Set boolean value of this preferences.
      * @param {String} key preference's key.

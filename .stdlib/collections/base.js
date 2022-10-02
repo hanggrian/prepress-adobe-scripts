@@ -17,6 +17,8 @@ var Collections = {
    * @return {Boolean}
    */
   indexOf: function(collection, element) {
+    checkNotNull(collection)
+    checkNotNull(element)
     for (var i = 0; i < collection.length; i++) {
       if (collection[i] == element) {
         return i
@@ -30,21 +32,21 @@ var Collections = {
    * @param {Array|Object} collection array or array-like object.
    * @return {Boolean}
    */
-  lastIndex: function(collection) { return collection.length - 1 },
+  lastIndex: function(collection) { return checkNotNull(collection).length - 1 },
 
   /**
    * Returns true if this collection is empty.
    * @param {Array|Object} collection array or array-like object.
    * @return {Boolean}
    */
-  isEmpty: function(collection) { return collection.length === 0 },
+  isEmpty: function(collection) { return checkNotNull(collection).length === 0 },
 
   /**
    * Returns true if this collection is not empty.
    * @param {Array|Object} collection array or array-like object.
    * @return {Boolean}
    */
-  isNotEmpty: function(collection) { return collection.length > 0 },
+  isNotEmpty: function(collection) { return checkNotNull(collection).length > 0 },
 
   /**
    * Returns true if element belongs in this collection.
@@ -52,6 +54,8 @@ var Collections = {
    * @return {Boolean}
    */
   contains: function(collection, element) {
+    checkNotNull(collection)
+    checkNotNull(element)
     var i = collection.length
     while (i--) {
       if (collection[i] == element) {
@@ -67,6 +71,8 @@ var Collections = {
    * @param {Function} action runnable to execute.
    */
   forEach: function(collection, action) {
+    checkNotNull(collection)
+    checkNotNull(action)
     for (var i = 0; i < collection.length; i++) {
       action(collection[i], i)
     }
@@ -78,6 +84,7 @@ var Collections = {
    * @param {Function} action runnable to execute.
    */
   forEachReversed: function(collection, action) {
+    checkNotNull(action)
     for (var i = Collections.lastIndex(collection); i >= 0; i--) {
       action(collection[i], i)
     }

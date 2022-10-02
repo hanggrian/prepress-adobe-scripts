@@ -1,9 +1,11 @@
 /**
  * Left and right EditText representing start and end point of range.
  * @param {Group|Panel|Window} parent holder of this control.
- * @param {Array} inputSize size or bounds.
+ * @param {Array} inputSize size or bounds, may be null.
  */
 function RangeGroup(parent, inputSize) {
+  checkNotNull(parent)
+  
   var self = parent.hgroup()
   self.startEdit, self.endEdit
 

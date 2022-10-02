@@ -48,9 +48,11 @@ var DocumentPreview = new Enum({
 /**
  * PDF placing option panel.
  * @param {Group|Panel|Window} parent holder of this control.
- * @param {Array} inputSize size or bounds.
+ * @param {Array} inputSize size or bounds, may be null.
  */
 function OpenPDFPanel(parent, inputSize) {
+  checkNotNull(parent)
+
   var self = parent.vpanel(R.string.pdf_box)
   self.boxTypeList
 
@@ -84,9 +86,11 @@ function OpenPDFPanel(parent, inputSize) {
 /**
  * Impose pages option panel.
  * @param {Group|Panel|Window} parent holder of this control.
- * @param {Array} inputSize size or bounds.
+ * @param {Array} inputSize size or bounds, may be null.
  */
 function OpenPagesPanel(parent, inputSize) {
+  checkNotNull(parent)
+
   var self = parent.vpanel(R.string.pages)
   self.rangeGroup, self.widthEdit, self.heightEdit, self.bleedEdit
 
@@ -137,6 +141,8 @@ function OpenPagesPanel(parent, inputSize) {
  * @param {Group|Panel|Window} parent holder of this control.
  */
 function OpenDocumentPanel(parent) {
+  checkNotNull(parent)
+
   var self = parent.vpanel(R.string.document)
   self.widthEdit, self.heightEdit, self.unitsList, self.layoutList, self.previewModeList
   self.presetTypeList, self.colorModeList, self.resolutionList, self.columnEdit, self.spacingEdit
@@ -229,13 +235,13 @@ function OpenDocumentPanel(parent) {
    * Change document's width.
    * @return {String}
    */
-  self.setWidthText = function(widthText) { return self.widthEdit.text = widthText }
+  self.setWidthText = function(widthText) { return self.widthEdit.text = checkNotNull(widthText) }
 
   /**
    * Change document's height.
    * @return {String}
    */
-  self.setHeightText = function(heightText) { return self.heightEdit.text = heightText }
+  self.setHeightText = function(heightText) { return self.heightEdit.text = checkNotNull(heightText) }
 
   /**
    * Create a new document with specific preset.
@@ -244,6 +250,8 @@ function OpenDocumentPanel(parent) {
    * @return {Document}
    */
   self.create = function(title, pages) {
+    checkNotNull(title)
+    checkNotNull(pages)
     var presetType = DocumentPreset2.valueOf(self.presetTypeList.selection)
     return app.documents.addDocument(presetType.value, new DocumentPreset().also(function(preset) {
       preset.title = title

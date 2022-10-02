@@ -19,27 +19,30 @@ var FileExtension = new Enum({
 var FilePicker = {
   /**
    * Pick a folder to select.
-   * @param {String} prompt title of the picker.
+   * @param {String} prompt title of the picker, may be null.
    * @return {Folder}
    */
   selectFolder: function(prompt) { return Folder.selectDialog(prompt) },
 
   /**
    * Pick single/multiple file to open.
-   * @param {String} prompt title of the picker.
+   * @param {String} prompt title of the picker, may be null.
    * @param {Array} fileExtensions array of `FileExtension` enum.
    * @param {Array} multiSelect set to true to pick multiple items, default is false.
    * @return {File}
    */
   openFile: function(prompt, fileExtensions, multiSelect) {
-    return File.openDialog(prompt, Internals.getFileFilters(fileExtensions), multiSelect || false)
+    multiSelect = getOrDefault(multiSelect, false)
+    return File.openDialog(prompt, Internals.getFileFilters(fileExtensions), multiSelect)
   },
 
   /**
    * Pick single file to save.
-   * @param {String} prompt title of the picker.
+   * @param {String} prompt title of the picker, may be null.
    * @param {Array} fileExtensions array of `FileExtension` enum.
    * @return {File}
    */
-  saveFile: function(prompt, filters) { return File.saveDialog(prompt, Internals.getFileFilters(fileExtensions)) }
+  saveFile: function(prompt, fileExtensions) {
+    return File.saveDialog(prompt, Internals.getFileFilters(fileExtensions))
+  }
 }
