@@ -6,37 +6,40 @@
 
 /**
  * Returns true if both files point to the same location.
- * @return {Boolean}
+ * @return {boolean}
  */
 File.prototype.equalTo = function(other) { return this.absoluteURI === checkNotNull(other).absoluteURI }
 
 /**
  * Returns file name without extension.
- * @return {String}
+ * @return {string}
  */
-File.prototype.getNameWithoutExtension = function() { return unescape(this.name).substringBeforeLast(".") }
+File.prototype.getNameWithoutExtension = function() { return unescape(this.name).substringBeforeLast('.') }
 
 /**
  * Returns file extension in lower-case without `.`.
- * @return {String}
+ * @return {string}
  */
-File.prototype.getExtension = function() { return unescape(this.name).substringAfterLast(".").toLowerCase() }
+File.prototype.getExtension = function() { return unescape(this.name).substringAfterLast('.').toLowerCase() }
 
 /**
  * Returns true if this file is PDF type, and should be opened with `PDFFileOptions`.
  * Non-template Illustrator files are PDF-compatible.
- * @return {Boolean}
+ * @return {boolean}
  */
-File.prototype.isPdf = function() { return this.getExtension().let(function(it) { return it == "ai" || it == "pdf" }) }
+File.prototype.isPdf = function() {
+  var extension = this.getExtension()
+  return extension === 'ai' || extension === 'pdf'
+}
 
 /**
  * Reads the file content as a string.
- * @param {String} charset default is `UTF-8`.
- * @return {String}
+ * @param {string=} charset default is `UTF-8`.
+ * @return {string}
  */
 File.prototype.readText = function(charset) {
-  charset = getOrDefault(charset, "UTF-8")
-  return this.use("r", function(it) {
+  charset = charset || 'UTF-8'
+  return this.use('r', function(it) {
     it.charset = charset
     return it.read()
   })
@@ -44,27 +47,28 @@ File.prototype.readText = function(charset) {
 
 /**
  * Writes string content to file.
- * @param {String} charset default is `UTF-8`.
+ * @param {string} content
+ * @param {string=} charset default is `UTF-8`.
  */
-File.prototype.writeText = function(text, charset) {
-  charset = getOrDefault(charset, "UTF-8")
-  this.use("w", function(it) {
+File.prototype.writeText = function(content, charset) {
+  charset = charset || 'UTF-8'
+  this.use('w', function(it) {
     it.charset = charset
-    it.write(text)
+    it.write(content)
   })
 }
 
 /**
  * Executes the given block function on this resource and then closes it down.
- * @param {String} openArg either 'r' or 'w', for read or write access.
- * @param {Function} block action with return value.
- * @return {Object}
+ * @param {string} openArg either 'r' or 'w', for read or write access.
+ * @param {function(!File): *} block
+ * @return {*}
  */
 File.prototype.use = function(openArg, block) {
   checkNotNull(openArg)
   checkNotNull(block)
   this.open(openArg)
-  this.lineFeed = "Unix"
+  this.lineFeed = 'Unix'
   var result = block(this)
   this.close()
   return result

@@ -6,9 +6,9 @@
 
 /**
  * First item of this collection, or given predicate when defined.
- * @param {Array|Object} collection array or array-like object.
- * @param {Function} predicate optional consumer.
- * @return {Object}
+ * @param {!Array<*>|!PageItems} collection
+ * @param {function(*, number): boolean=} predicate
+ * @return {*}
  */
 Collections.first = function(collection, predicate) {
   checkNotNull(collection)
@@ -20,14 +20,14 @@ Collections.first = function(collection, predicate) {
       return collection[i]
     }
   }
-  error("Element not found given the predicate")
+  error('Element not found given the predicate')
 }
 
 /**
  * Last item of this collection, or given predicate when defined.
- * @param {Array|Object} collection array or array-like object.
- * @param {Function} predicate optional consumer.
- * @return {Object}
+ * @param {!Array<*>|!PageItems} collection
+ * @param {function(*, number): boolean=} predicate
+ * @return {*}
  */
 Collections.last = function(collection, predicate) {
   if (predicate === undefined) {
@@ -38,14 +38,14 @@ Collections.last = function(collection, predicate) {
       return collection[i]
     }
   }
-  error("Element not found given the predicate")
+  error('Element not found given the predicate')
 }
 
 /**
  * Returns true if the collection has no elements matching predicate.
- * @param {Array|Object} collection array or array-like object.
- * @param {Function} predicate runnable with return value.
- * @return {Boolean}
+ * @param {!Array<*>|!PageItems} collection
+ * @param {function(*, number): boolean} predicate
+ * @return {boolean}
  */
 Collections.none = function(collection, predicate) {
   checkNotNull(collection)
@@ -60,9 +60,9 @@ Collections.none = function(collection, predicate) {
 
 /**
  * Returns true if collection has at least one element matching predicate.
- * @param {Array|Object} collection array or array-like object.
- * @param {Function} predicate runnable with return value.
- * @return {Boolean}
+ * @param {!Array<*>|!PageItems} collection
+ * @param {function(*, number): boolean} predicate
+ * @return {boolean}
  */
 Collections.any = function(collection, predicate) {
   checkNotNull(collection)
@@ -77,9 +77,9 @@ Collections.any = function(collection, predicate) {
 
 /**
  * Returns true if all elements in this collection match the predicate.
- * @param {Array|Object} collection array or array-like object.
- * @param {Function} predicate runnable with return value.
- * @return {Boolean}
+ * @param {!Array<*>|!PageItems} collection
+ * @param {function(*, number): boolean} predicate
+ * @return {boolean}
  */
 Collections.all = function(collection, predicate) {
   checkNotNull(collection)
@@ -94,9 +94,9 @@ Collections.all = function(collection, predicate) {
 
 /**
  * Returns a list containing only elements matching the given predicate.
- * @param {Array|Object} collection array or array-like object.
- * @param {Function} predicate runnable with return value.
- * @return {Array}
+ * @param {!Array<*>|!PageItems} collection
+ * @param {function(*, number): boolean} predicate
+ * @return {!Array<*>}
  */
 Collections.filter = function(collection, predicate) {
   checkNotNull(predicate)

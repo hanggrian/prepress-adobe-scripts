@@ -1,18 +1,18 @@
-#target Illustrator
-#include "../.lib/commons.js"
+#target illustrator
+#include '../.lib/commons.js'
 
-var PREDICATE_LINKS = function(it) { return it.typename === "PlacedItem" && Items.isLinkExists(it) && it.file.isPdf() }
+var PREDICATE_LINKS = function(it) { return it.typename === 'PlacedItem' && Items.isLinkExists(it) && it.file.isPdf() }
 var SIZE_INPUT = [120, 21]
 
 checkHasSelection()
 check(Collections.anyItem(selection, PREDICATE_LINKS), R.string.error_changepage)
 
-var dialog = new Dialog(R.string.change_page, "relinking-files/#change-page")
+var dialog = new Dialog(R.string.change_page, 'relinking-files/#change-page')
 var pdfPanel, rangeGroup, orderingList, recursiveCheck, keepSizeCheck
-var config = configs.resolve("links/change_page")
+var prefs = preferences2.resolve('links/change_page')
 
 dialog.vgroup(function(main) {
-  main.alignChildren = "fill"
+  main.alignChildren = 'fill'
   pdfPanel = new OpenPDFPanel(main, SIZE_INPUT).also(function(panel) {
     panel.hgroup(function(group) {
       group.helpTips = R.string.tip_relink_pages
@@ -23,21 +23,24 @@ dialog.vgroup(function(main) {
     })
   })
   orderingList = new OrderingList(main, [Ordering.layerList(), Ordering.positionList()]).also(function(it) {
-    it.alignment = "right"
-    it.selection = config.getInt("order")
+    it.alignment = 'right'
+    it.selection = prefs.getInt('order')
   })
   main.hgroup(function(group) {
-    group.alignment = "right"
+    group.alignment = 'right'
     recursiveCheck = new RecursiveCheck(group).also(function(it) {
-      it.value = config.getBoolean("recursive")
+      it.value = prefs.getBoolean('recursive')
     })
     keepSizeCheck = new KeepSizeCheck(group).also(function(it) {
-      it.value = config.getBoolean("keep_size")
+      it.value = prefs.getBoolean('keep_size')
     })
   })
 })
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
+  if (!rangeGroup.isValid()) {
+    return Windows.alert(R.string.error_range, dialog.text, true)
+  }
   var current = rangeGroup.getStart()
   var end = rangeGroup.getEnd()
   var source = recursiveCheck.value ? Collections.filterItem(selection, PREDICATE_LINKS) : selection
@@ -46,10 +49,10 @@ dialog.setDefaultButton(undefined, function() {
   source.sort(orderingList.getComparator())
   Collections.forEach(source, function(item, i) {
     progress.increment(R.string.progress_relink, i + 1)
-    print("Item %d page %d.".format(i, current))
+    print('Item %d page %d.'.format(i, current))
     preferences.setPDFPage(current)
     var relinked = false
-    if (!recursiveCheck.value && item.typename === "GroupItem") {
+    if (!recursiveCheck.value && item.typename === 'GroupItem') {
       Collections.forEachItem([item], function(innerItem) {
         if (PREDICATE_LINKS(innerItem)) {
           relinked = relink(innerItem)
@@ -61,13 +64,13 @@ dialog.setDefaultButton(undefined, function() {
     if (relinked && ++current > end) {
       current--
     }
-    println("Done.")
+    println('Done.')
   })
   selection = source
 
-  config.setInt("order", orderingList.selection.index)
-  config.setBoolean("recursive", recursiveCheck.value)
-  config.setBoolean("keep_size", keepSizeCheck.value)
+  prefs.setInt('order', orderingList.selection.index)
+  prefs.setBoolean('recursive', recursiveCheck.value)
+  prefs.setBoolean('keep_size', keepSizeCheck.value)
 })
 dialog.show()
 
@@ -76,10 +79,10 @@ function relink(item) {
   var height = item.height
   var position = item.position
   var file = item.file
-  item.file = getImage("relink_fix") // Apply PDF fix
+  item.file = getImage('relink_fix') // Apply PDF fix
   item.file = file
   if (keepSizeCheck.value) {
-    print("Keep size, ")
+    print('Keep size, ')
     item.width = width
     item.height = height
     item.position = position

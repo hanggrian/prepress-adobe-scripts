@@ -1,18 +1,18 @@
 // Select all TextFrame with attributes matching user input.
 // When there are active selection, will only select items within those selection.
 
-#target Illustrator
-#include "../.lib/commons.js"
+#target illustrator
+#include '../.lib/commons.js'
 
 var Kind = new Enum({
-  POINT_TEXT: { name: R.string.point_text, value: TextType.POINTTEXT },
-  AREA_TEXT: { name: R.string.area_text, value: TextType.AREATEXT },
-  PATH_TEXT: { name: R.string.path_text, value: TextType.PATHTEXT }
+  POINT_TEXT: { text: R.string.point_text, value: TextType.POINTTEXT },
+  AREA_TEXT: { text: R.string.area_text, value: TextType.AREATEXT },
+  PATH_TEXT: { text: R.string.path_text, value: TextType.PATHTEXT }
 })
 
 var Orientation = new Enum({
-  HORIZONTAL: { name: R.string.horizontal, value: TextOrientation.HORIZONTAL },
-  VERTICAL: { name: R.string.vertical, value: TextOrientation.VERTICAL }
+  HORIZONTAL: { text: R.string.horizontal, value: TextOrientation.HORIZONTAL },
+  VERTICAL: { text: R.string.vertical, value: TextOrientation.VERTICAL }
 })
 
 var SIZE_INPUT_LEFT = [100, 21]
@@ -21,20 +21,20 @@ var SIZE_INPUT_RIGHT = [110, 21]
 check(Collections.isNotEmpty(document.textFrames), getString(R.string.error_notypes_document, R.plurals.text.plural))
 var isFilterMode = Collections.isNotEmpty(selection)
 
-var dialog = new Dialog(R.string.select_types, "selecting-items/#select-types")
+var dialog = new Dialog(R.string.select_types, 'selecting-items/#select-types')
 var findEdit, matchCaseCheck, matchWordCheck
 var fontNameEdit, fontSizeEdit, italicList, underlineList
 var fillColorList, strokeColorList
 var kindList, orientationList
 var recursiveCheck
-var config = configs.resolve("select/types")
+var prefs = preferences2.resolve('select/types')
 
 dialog.hgroup(function(main) {
-  main.alignChildren = "fill"
+  main.alignChildren = 'fill'
   main.vgroup(function(topGroup) {
-    topGroup.alignChildren = "fill"
+    topGroup.alignChildren = 'fill'
     topGroup.vpanel(R.string.content, function(panel) {
-      panel.alignChildren = "fill"
+      panel.alignChildren = 'fill'
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_selecttypes_content
         group.leftStaticText(undefined, R.string.find)
@@ -44,7 +44,7 @@ dialog.hgroup(function(main) {
       matchWordCheck = panel.checkBox(undefined, R.string.match_whole_word)
     })
     topGroup.vpanel(R.string.character, function(panel) {
-      panel.alignChildren = "right"
+      panel.alignChildren = 'right'
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_selecttypes_fontname
         group.leftStaticText(undefined, R.string.font_name)
@@ -68,9 +68,9 @@ dialog.hgroup(function(main) {
     })
   })
   main.vgroup(function(topGroup) {
-    topGroup.alignChildren = "fill"
+    topGroup.alignChildren = 'fill'
     topGroup.vpanel(R.string.color, function(panel) {
-      panel.alignChildren = "right"
+      panel.alignChildren = 'right'
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_selecttypes_fill
         group.leftStaticText(undefined, R.string.fill)
@@ -83,7 +83,7 @@ dialog.hgroup(function(main) {
       })
     })
     topGroup.vpanel(R.string.others, function(panel) {
-      panel.alignChildren = "right"
+      panel.alignChildren = 'right'
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_selecttypes_kind
         group.leftStaticText(undefined, R.string.kind)
@@ -97,8 +97,8 @@ dialog.hgroup(function(main) {
     })
     if (isFilterMode) {
       recursiveCheck = new RecursiveCheck(topGroup).also(function(it) {
-        it.alignment = "right"
-        it.value = config.getBoolean("recursive")
+        it.alignment = 'right'
+        it.value = prefs.getBoolean('recursive')
       })
     }
   })
@@ -110,11 +110,11 @@ dialog.setDefaultButton(undefined, function() {
   var fontSize = parseUnits(fontSizeEdit.text)
   var italic = italicList.hasSelection() ? SelectOption.isYes(italicList.selection) : undefined
   var underline = underlineList.hasSelection() ? SelectOption.isYes(underlineList.selection) : undefined
-  var fillColor = fillColorList.hasSelection() ? Color2.valueOf(fillColorList.selection) : undefined
-  var strokeColor = strokeColorList.hasSelection() ? Color2.valueOf(strokeColorList.selection) : undefined
-  var kind = kindList.hasSelection() ? Kind.valueOf(kindList.selection) : undefined
-  var orientation = orientationList.hasSelection() ? Orientation.valueOf(orientationList.selection) : undefined
-  selectAll(["TextFrame"], function(item) {
+  var fillColor = fillColorList.hasSelection() ? Color2.find(fillColorList.selection) : undefined
+  var strokeColor = strokeColorList.hasSelection() ? Color2.find(strokeColorList.selection) : undefined
+  var kind = kindList.hasSelection() ? Kind.find(kindList.selection) : undefined
+  var orientation = orientationList.hasSelection() ? Orientation.find(orientationList.selection) : undefined
+  selectAll(['TextFrame'], function(item) {
     if (substring.isNotEmpty()) {
       var string = item.contents
       if (!matchCaseCheck.value) {
@@ -135,7 +135,7 @@ dialog.setDefaultButton(undefined, function() {
     return true
   }, isFilterMode && recursiveCheck.value)
 
-  if (isFilterMode) config.setBoolean("recursive", recursiveCheck.value)
+  if (isFilterMode) prefs.setBoolean('recursive', recursiveCheck.value)
 })
 dialog.show()
 
@@ -144,7 +144,7 @@ function find(string, substring) {
     return string.includes(substring)
   } else {
     // https://stackoverflow.com/questions/18740664/search-whole-word-in-string
-    substring = substring.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")
-    return string.match(new RegExp("\\b" + substring + "\\b", "i")) !== null
+    substring = substring.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+    return string.match(new RegExp('\\b' + substring + '\\b', 'i')) !== null
   }
 }

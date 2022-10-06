@@ -12,53 +12,54 @@ var Collections = {
 
   /**
    * Last index of this collection.
-   * @param {Array|Object} collection array or array-like object.
-   * @param {Object} element value within this collection.
-   * @return {Boolean}
+   * @param {!Array<*>|!PageItems} collection
+   * @param {*|!PageItem} element
+   * @return {number}
    */
   indexOf: function(collection, element) {
     checkNotNull(collection)
     checkNotNull(element)
     for (var i = 0; i < collection.length; i++) {
-      if (collection[i] == element) {
+      if (collection[i] === element) {
         return i
       }
     }
-    error("Element not found in this collection")
+    error('Element not found in this collection')
   },
 
   /**
    * Last index of this collection.
-   * @param {Array|Object} collection array or array-like object.
-   * @return {Boolean}
+   * @param {!Array<*>|!PageItems} collection
+   * @return {number}
    */
   lastIndex: function(collection) { return checkNotNull(collection).length - 1 },
 
   /**
    * Returns true if this collection is empty.
-   * @param {Array|Object} collection array or array-like object.
-   * @return {Boolean}
+   * @param {!Array<*>|!PageItems} collection
+   * @return {boolean}
    */
   isEmpty: function(collection) { return checkNotNull(collection).length === 0 },
 
   /**
    * Returns true if this collection is not empty.
-   * @param {Array|Object} collection array or array-like object.
-   * @return {Boolean}
+   * @param {!Array<*>|!PageItems} collection
+   * @return {boolean}
    */
   isNotEmpty: function(collection) { return checkNotNull(collection).length > 0 },
 
   /**
    * Returns true if element belongs in this collection.
-   * @param {Array|Object} collection array or array-like object.
-   * @return {Boolean}
+   * @param {!Array<*>|!PageItems} collection
+   * @param {*|!PageItem} element
+   * @return {boolean}
    */
   contains: function(collection, element) {
     checkNotNull(collection)
     checkNotNull(element)
     var i = collection.length
     while (i--) {
-      if (collection[i] == element) {
+      if (collection[i] === element) {
         return true
       }
     }
@@ -67,8 +68,8 @@ var Collections = {
 
   /**
    * Iterate each element of this collection.
-   * @param {Array|Object} collection array or array-like object.
-   * @param {Function} action runnable to execute.
+   * @param {!Array<*>|!PageItems} collection
+   * @param {function(*, number): undefined} action
    */
   forEach: function(collection, action) {
     checkNotNull(collection)
@@ -79,21 +80,9 @@ var Collections = {
   },
 
   /**
-   * Iterate each element of this collection as reversed.
-   * @param {Array|Object} collection array or array-like object.
-   * @param {Function} action runnable to execute.
-   */
-  forEachReversed: function(collection, action) {
-    checkNotNull(action)
-    for (var i = Collections.lastIndex(collection); i >= 0; i--) {
-      action(collection[i], i)
-    }
-  },
-
-  /**
    * Returns an array containing only distinct elements from the given collection.
-   * @param {Array|Object} collection array or array-like object.
-   * @return {Array}
+   * @param {!Array<*>|!PageItems} collection
+   * @return {!Array<*>}
    */
   distinct: function(collection) {
     var result = []
@@ -107,14 +96,26 @@ var Collections = {
 
   /**
    * Returns new array which is a copy of the original array.
-   * @param {Array|Object} collection array or array-like object
-   * @return {Array}
+   * @param {!Array<*>|!PageItems} collection
+   * @return {!Array<*>}
    */
   copyOf: function(collection) {
     var result = []
     Collections.forEach(collection, function(element) {
       result.push(element)
     })
+    return result
+  },
+
+  /**
+   * Returns new reversed array.
+   * @param {!Array<*>|!PageItems} collection
+   */
+  reversed: function(collection) {
+    var result = []
+    for (var i = Collections.lastIndex(collection); i >= 0; i--) {
+      result.push(collection[i])
+    }
     return result
   }
 }

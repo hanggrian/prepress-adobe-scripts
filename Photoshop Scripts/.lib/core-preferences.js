@@ -8,11 +8,11 @@
 var preferences = app.preferences
 
 /** Global access to preferences wrapper. */
-var configs = new Preferences2("Prepress Adobe Scripts")
+var preferences2 = new Preferences2('Prepress Adobe Scripts')
 
 /**
  * Wrapper of `Preferences` with simplified API.
- * @param {String} path hierarcy of preferences.
+ * @param {string} path
  */
 function Preferences2(path) {
   checkNotNull(path)
@@ -25,20 +25,20 @@ function Preferences2(path) {
 
   /**
    * Create another instance of preferences using current path suffixed with `relative` path.
-   * @param {String} relative relative file path.
-   * @return {Boolean}
+   * @param {string} relative
+   * @return {!Preferences2}
    */
   this.resolve = function(relative) { return new Preferences2(path + "/" + relative) }
 
   /**
    * Get boolean value from this preferences, returning default if not present.
-   * @param {String} key preference's key.
-   * @param {Boolean} defaultValue value to use when preference is not found.
-   * @return {Boolean}
+   * @param {string} key
+   * @param {boolean} defaultValue
+   * @return {boolean}
    */
   this.getBoolean = function(key, defaultValue) {
     var actualKey = app.stringIDToTypeID(key)
-    print("Get bool preference '%s': ", actualKey)
+    print("Get bool preference '%s': ", key)
     if (!descriptor.hasKey(actualKey)) {
       println("not found, use default '%s'.", defaultValue)
       return defaultValue
@@ -50,13 +50,13 @@ function Preferences2(path) {
 
   /**
    * Get integer value from this preferences, returning default if not present.
-   * @param {String} key preference's key.
-   * @param {Boolean} defaultValue value to use when preference is not found.
-   * @return {Number}
+   * @param {string} key
+   * @param {number} defaultValue
+   * @return {number}
    */
   this.getInt = function(key, defaultValue) {
     var actualKey = app.stringIDToTypeID(key)
-    print("Get int preference '%s': ", actualKey)
+    print("Get int preference '%s': ", key)
     if (!descriptor.hasKey(actualKey)) {
       println("not found, use default '%s'.", defaultValue)
       return defaultValue
@@ -68,13 +68,13 @@ function Preferences2(path) {
 
   /**
    * Get double value from this preferences, returning default if not present.
-   * @param {String} key preference's key.
-   * @param {Boolean} defaultValue value to use when preference is not found.
-   * @return {Number}
+   * @param {string} key
+   * @param {number} defaultValue
+   * @return {number}
    */
   this.getDouble = function(key, defaultValue) {
     var actualKey = app.stringIDToTypeID(key)
-    print("Get dbl preference '%s': ", actualKey)
+    print("Get dbl preference '%s': ", key)
     if (!descriptor.hasKey(actualKey)) {
       println("not found, use default '%s'.", defaultValue)
       return defaultValue
@@ -86,13 +86,13 @@ function Preferences2(path) {
 
   /**
    * Get string value from this preferences, returning default if not present.
-   * @param {String} key preference's key.
-   * @param {String} defaultValue value to use when preference is not found.
-   * @return {String}
+   * @param {string} key
+   * @param {string} defaultValue
+   * @return {string}
    */
   this.getString = function(key, defaultValue) {
     var actualKey = app.stringIDToTypeID(key)
-    print("Get str preference '%s': ", actualKey)
+    print("Get str preference '%s': ", key)
     if (!descriptor.hasKey(actualKey)) {
       println("not found, use default '%s'.", defaultValue)
       return defaultValue
@@ -106,7 +106,7 @@ function Preferences2(path) {
 
   /**
    * Open DSL to configure preferences.
-   * @param {Function} action runnable with editor as parameter.
+   * @param {function(!Editor): undefined} action
    */
   this.edit = function(action) {
     var editor = new Editor(path, descriptor)
@@ -117,15 +117,15 @@ function Preferences2(path) {
   /**
    * A class to edit values of preferences.
    * Any configuration is queued until `save` is called.
-   * @param {String} path hierarcy of preferences.
-   * @param {ActionDescriptor} descriptor inherited from `PreferencesWrapper`.
+   * @param {string} path
+   * @param {!ActionDescriptor} descriptor
    */
   function Editor(path, descriptor) {
     checkNotNull(descriptor)
     /**
      * Set boolean value of this preferences.
-     * @param {String} key preference's key.
-     * @param {Boolean} value preference's value to store.
+     * @param {string} key
+     * @param {boolean} value
      */
     this.setBoolean = function(key, value) {
       var actualValue = value instanceof Function ? value() : value
@@ -135,8 +135,8 @@ function Preferences2(path) {
 
     /**
      * Set integer value of this preferences.
-     * @param {String} key preference's key.
-     * @param {Boolean} value preference's value to store.
+     * @param {string} key
+     * @param {boolean} value
      */
     this.setInt = function(key, value) {
       var actualValue = value instanceof Function ? value() : value
@@ -146,8 +146,8 @@ function Preferences2(path) {
 
     /**
      * Set double value of this preferences.
-     * @param {String} key preference's key.
-     * @param {Boolean} value preference's value to store.
+     * @param {string} key
+     * @param {boolean} value preference's value to store.
      */
     this.setDouble = function(key, value) {
       var actualValue = value instanceof Function ? value() : value
@@ -157,8 +157,8 @@ function Preferences2(path) {
 
     /**
      * Set string value of this preferences.
-     * @param {String} key preference's key.
-     * @param {String} value preference's value to store.
+     * @param {string} key
+     * @param {string} value
      */
     this.setString = function(key, value) {
       var actualValue = value instanceof Function ? value() : value
@@ -168,7 +168,7 @@ function Preferences2(path) {
 
     /**
      * Remove preference from this preferences.
-     * @param {String} key preference's key.
+     * @param {string} key
      */
     this.remove = function(key) {
       descriptor.erase(app.stringIDToTypeID(key))
@@ -178,7 +178,7 @@ function Preferences2(path) {
     /** Confirm all the changes to this editor. */
     this.save = function() {
       app.putCustomOptions(path, descriptor, true)
-      println("Save preferences.")
+      println('Save preferences.')
     }
   }
 }

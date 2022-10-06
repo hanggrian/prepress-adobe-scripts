@@ -4,9 +4,7 @@
 </javascriptresource>
 */
 
-#include "core.js"
-
-#include "commons-preconditions.js"
+#include 'core.js'
 
 // Commons libraries require active document,
 // providing tools for modifying current document.

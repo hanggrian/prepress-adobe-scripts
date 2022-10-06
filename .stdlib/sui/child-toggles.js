@@ -14,22 +14,22 @@ RadioButton.prototype.select = function() { if (!this.value) this.value = true }
 
 /**
  * Allows for multiple click listeners to occur by invoking all of them in collective listener.
- * @param {Function} listener a callable of no parameter.
+ * @param {function(): undefined} listener
  */
-Checkbox.prototype.addClickListener = function(listener) { Internals.addClickListener(this, listener) }
+Checkbox.prototype.addClickListener = function(listener) { Internals.addListener(this, 'onClick', listener) }
 
 /**
  * Allows for multiple click listeners to occur by invoking all of them in collective listener.
- * @param {Function} listener a callable of no parameter.
+ * @param {function(): undefined} listener
  */
-RadioButton.prototype.addClickListener = function(listener) { Internals.addClickListener(this, listener) }
+RadioButton.prototype.addClickListener = function(listener) { Internals.addListener(this, 'onClick', listener) }
 
 /**
  * Add children to group.
- * @param {Array} size optional size or bounds.
- * @param {String|Object} text optional control text.
- * @param {Object} properties optional extra properties.
- * @return {CheckBox}
+ * @param {?Array<number>=} size
+ * @param {?string|?Object=} text
+ * @param {?Object=} properties
+ * @return {!CheckBox}
  */
 Group.prototype.checkBox = function(size, text, properties) {
   return Internals.addCheckBox(this, size, text, properties)
@@ -37,17 +37,17 @@ Group.prototype.checkBox = function(size, text, properties) {
 
 /**
  * Add children to panel.
- * @param {Array} size optional size or bounds.
- * @param {String|Object} text optional control text.
- * @param {Object} properties optional extra properties.
- * @return {CheckBox}
+ * @param {?Array<number>=} size
+ * @param {?string|?Object=} text
+ * @param {?Object=} properties
+ * @return {!CheckBox}
  */
 Panel.prototype.checkBox = function(size, text, properties) {
   return Internals.addCheckBox(this, size, text, properties)
 }
 
 Internals.addCheckBox = function(root, size, text, properties) {
-  var child = root.add("checkbox", Internals.sizeOrBounds(size), text, properties)
+  var child = root.add('checkbox', Internals.sizeOrBounds(size), text, properties)
   if (root.helpTips !== undefined) {
     child.helpTip = root.helpTips
   }
@@ -56,10 +56,10 @@ Internals.addCheckBox = function(root, size, text, properties) {
 
 /**
  * Add children to group.
- * @param {Array} size optional size or bounds.
- * @param {String|Object} text optional control text.
- * @param {Object} properties optional extra properties.
- * @return {RadioButton}
+ * @param {?Array<number>=} size
+ * @param {?string|?Object=} text
+ * @param {?Object=} properties
+ * @return {!RadioButton}
  */
 Group.prototype.radioButton = function(size, text, properties) {
   return Internals.addRadioButton(this, size, text, properties)
@@ -67,17 +67,17 @@ Group.prototype.radioButton = function(size, text, properties) {
 
 /**
  * Add children to panel.
- * @param {Array} size optional size or bounds.
- * @param {String|Object} text optional control text.
- * @param {Object} properties optional extra properties.
- * @return {RadioButton}
+ * @param {?Array<number>=} size
+ * @param {?string|?Object=} text
+ * @param {?Object=} properties
+ * @return {!RadioButton}
  */
 Panel.prototype.radioButton = function(size, text, properties) {
   return Internals.addRadioButton(this, size, text, properties)
 }
 
 Internals.addRadioButton = function(root, size, text, properties) {
-  var child = root.add("radiobutton", Internals.sizeOrBounds(size), text, properties)
+  var child = root.add('radiobutton', Internals.sizeOrBounds(size), text, properties)
   if (root.helpTips !== undefined) {
     child.helpTip = root.helpTips
   }

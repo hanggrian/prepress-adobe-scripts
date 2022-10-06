@@ -1,8 +1,8 @@
 var Items = {
   /**
    * Returns item name in the layer, or typename if it is unnamed.
-   * @param {PageItem} item any type of item.
-   * @return {String}
+   * @param {!PageItem} item
+   * @return {string}
    */
   getName: function(item) {
     checkNotNull(item)
@@ -11,12 +11,12 @@ var Items = {
 
   /**
    * Returns the clipping path of this clip group, or the item itself if this is not a clip group.
-   * @param {PageItem} item any type of item.
-   * @return {PathItem|CompoundPathItem}
+   * @param {!PageItem} item
+   * @return {!PathItem|!CompoundPathItem}
    */
   getClippingItem: function(item) {
     checkNotNull(item)
-    if (item.typename === "GroupItem" && item.clipped) {
+    if (item.typename === 'GroupItem' && item.clipped) {
       return Collections.first(item.pathItems, function(it) { return it.clipping })
     }
     return item
@@ -24,8 +24,8 @@ var Items = {
 
   /**
    * Returns bounds covering all items.
-   * @param {Array|Object} items array or array-like objects containing any type of item.
-   * @return {Array}
+   * @param {!Array<!PageItem>|!PageItems} items
+   * @return {!Array<number>}
    */
   getMaxBounds: function(items) {
     checkNotNull(items)
@@ -56,12 +56,12 @@ var Items = {
 
   /**
    * Returns true if the file associated with this PlacedItem is not missing.
-   * @param {PlacedItem} item a link.
-   * @return {Boolean}
+   * @param {!PlacedItem} item
+   * @return {boolean}
    */
   isLinkExists: function(item) {
     checkNotNull(item)
-    checkTypename(item, "PlacedItem")
+    checkTypename(item, 'PlacedItem')
     try {
       return item.file.exists
     } catch (e) {
@@ -71,10 +71,10 @@ var Items = {
 
   /**
    * Add a rectangle guide around item, the size and position of the item must already be set for this to work.
-   * @param {Document} document current file.
-   * @param {PageItem} item any item.
-   * @param {Number} bleed length of individual bleed.
-   * @return {PathItem}
+   * @param {!Document} document
+   * @param {!PageItem} item
+   * @param {number} bleed
+   * @return {!PathItem}
    */
   addBleedGuide: function(document, item, bleed) {
     checkNotNull(document)

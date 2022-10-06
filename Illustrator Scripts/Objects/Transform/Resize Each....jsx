@@ -1,22 +1,22 @@
-#target Illustrator
-#include "../../.lib/commons.js"
+#target illustrator
+#include '../../.lib/commons.js'
 
 var SIZE_INPUT = [170, 21]
 var SIZE_INPUT_CHECK = [14, 14]
 
 checkHasSelection()
 
-var dialog = new Dialog(R.string.resize_each, "resizing-rasterizing-each/#resize-each")
+var dialog = new Dialog(R.string.resize_each, 'resizing-rasterizing-each/#resize-each')
 var prefill = Collections.first(selection)
 var widthEdit, widthCheck, heightEdit, heightCheck
 var changePositionsCheck, changeFillPatternsCheck, changeFillGradientsCheck, changeStrokePatternsCheck
 var documentOriginCheck, anchorGroup
 var recursiveCheck
-var config = configs.resolve("objects/resize_each")
+var prefs = preferences2.resolve('objects/resize_each')
 
 dialog.vgroup(function(main) {
   main.vgroup(function(topGroup) {
-    topGroup.alignChildren = "right"
+    topGroup.alignChildren = 'right'
     topGroup.hgroup(function(group) {
       group.leftStaticText(undefined, R.string.width)
       widthEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitType, 2)).also(function(it) {
@@ -38,28 +38,28 @@ dialog.vgroup(function(main) {
     })
   })
   main.hgroup(function(group) {
-    group.alignChildren = "fill"
+    group.alignChildren = 'fill'
     group.vpanel(R.string.change, function(panel) {
-      panel.alignChildren = "fill"
+      panel.alignChildren = 'fill'
       changePositionsCheck = panel.checkBox(undefined, R.string.positions).also(function(it) {
         it.helpTip = R.string.tip_resizeeach_option1
-        it.value = config.getBoolean("option1")
+        it.value = prefs.getBoolean('option1')
       })
       changeFillPatternsCheck = panel.checkBox(undefined, R.string.fill_patterns).also(function(it) {
         it.helpTip = R.string.tip_resizeeach_option2
-        it.value = config.getBoolean("option2")
+        it.value = prefs.getBoolean('option2')
       })
       changeFillGradientsCheck = panel.checkBox(undefined, R.string.fill_gradients).also(function(it) {
         it.helpTip = R.string.tip_resizeeach_option3
-        it.value = config.getBoolean("option3")
+        it.value = prefs.getBoolean('option3')
       })
       changeStrokePatternsCheck = panel.checkBox(undefined, R.string.stroke_patterns).also(function(it) {
         it.helpTip = R.string.tip_resizeeach_option4
-        it.value = config.getBoolean("option4")
+        it.value = prefs.getBoolean('option4')
       })
     })
     group.vpanel(R.string.anchor, function(panel) {
-      panel.alignChildren = "fill"
+      panel.alignChildren = 'fill'
       documentOriginCheck = new DocumentOriginCheck(panel).also(function(it) {
         it.addClickListener(function() { anchorGroup.enabled = !it.value })
       })
@@ -67,9 +67,9 @@ dialog.vgroup(function(main) {
     })
   })
   main.hgroup(function(group) {
-    group.alignment = "right"
+    group.alignment = 'right'
     recursiveCheck = new RecursiveCheck(group).also(function(it) {
-      it.value = config.getBoolean("recursive")
+      it.value = prefs.getBoolean('recursive')
     })
   })
 })
@@ -80,7 +80,7 @@ dialog.setDefaultButton(undefined, function() {
   var transformation = documentOriginCheck.value ? Transformation.DOCUMENTORIGIN : anchorGroup.getTransformation()
 
   var action = function(item, i) {
-    print(i + ". ")
+    print(i + '. ')
     var scaleX = !widthCheck.value ? 100 : 100 * width / item.width
     var scaleY = !heightCheck.value ? 100 : 100 * height / item.height
     if (!isFinite(scaleX)) {
@@ -89,7 +89,7 @@ dialog.setDefaultButton(undefined, function() {
     if (!isFinite(scaleY)) {
       scaleY = 100
     }
-    println("Scale X=%d Y=%d.", scaleX, scaleY)
+    println('Scale X=%d Y=%d.', scaleX, scaleY)
     item.resize(scaleX, scaleY,
       changePositionsCheck.value,
       changeFillPatternsCheck.value,
@@ -104,10 +104,10 @@ dialog.setDefaultButton(undefined, function() {
     Collections.forEach(selection, action)
   }
 
-  config.setBoolean("option1", changePositionsCheck.value)
-  config.setBoolean("option2", changeFillPatternsCheck.value)
-  config.setBoolean("option3", changeFillGradientsCheck.value)
-  config.setBoolean("option4", changeStrokePatternsCheck.value)
-  config.setBoolean("recursive", recursiveCheck.value)
+  prefs.setBoolean('option1', changePositionsCheck.value)
+  prefs.setBoolean('option2', changeFillPatternsCheck.value)
+  prefs.setBoolean('option3', changeFillGradientsCheck.value)
+  prefs.setBoolean('option4', changeStrokePatternsCheck.value)
+  prefs.setBoolean('recursive', recursiveCheck.value)
 })
 dialog.show()

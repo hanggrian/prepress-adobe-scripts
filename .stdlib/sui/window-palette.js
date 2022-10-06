@@ -6,30 +6,41 @@
 
 /**
  * Construct a new palette.
- * @param {Number} stop final value of progress bar.
- * @param {String} status starting message, may be null.
+ * @param {number} stop
+ * @param {?string|Object=} status starting message.
  */
 function ProgressPalette(stop, status) {
-  var self = new Window("palette", R.string.please_wait)
-  self.orientation = "column"
+  status = (status || getString(R.string.please_wait)) + '...'
+
+  var self = new Window('palette', R.string.please_wait)
+  self.orientation = 'column'
   self.statusText, self.countText, self.progressBar
 
-  self.add("group").also(function(group) {
-    group.orientation = "row"
-    self.statusText = group.staticText([325, 21], (status || getString(R.string.please_wait)) + "...")
-      .also(function(it) { it.justify = "left" })
-    self.countText = group.staticText([75, 21], "0/" + stop).also(function(it) { it.justify = "right" })
-  })
-  self.progressBar = self.add("slider", [0, 0, 400, 21], 0, 0, stop) // progressbar won't update in palette, use slider instead
+  Internals.addGroup(self, 'row', function(group) {
+    group.alignment = 'fill'
 
-  /** Add progression to dialog with optional status. */
+    self.statusText = group.staticText(undefined, status /* initial */).also(function(it) {
+      it.alignment = ['left', 'center']
+      it.justify = 'left'
+    })
+    self.countText = group.staticText(undefined, '0/' + stop).also(function(it) {
+      it.alignment = ['right', 'center']
+      it.justify = 'right'
+    })
+  })
+  self.progressBar = Internals.addSlider(self, [400, 21], 0, 0, stop) // progressbar won't update in palette, use slider instead
+
+  /**
+   * Add progression to dialog with optional status.
+   * @param {!Array<*>} arguments
+   */
   self.increment = function() {
     if (Collections.isNotEmpty(arguments)) {
       self.statusText.text = Array.prototype.shift.call(arguments)
-      self.statusText.text = Internals.formatString(self.statusText.text, arguments) + "..."
+      self.statusText.text = Internals.formatString(self.statusText.text, arguments) + '...'
     }
     self.progressBar.value++
-    self.countText.text = self.progressBar.value + "/" + stop
+    self.countText.text = self.progressBar.value + '/' + stop
     if (self.progressBar.value < stop) {
       self.update()
     } else {

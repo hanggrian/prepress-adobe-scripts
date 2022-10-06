@@ -6,10 +6,10 @@
 
 /**
  * Alert is a simpler dialog containing only text.
- * @param {String|Object} title window title.
- * @param {String} message content of the alert.
- * @param {Boolean} error true to display error icon, default to false.
- * @param {String} helpUrlSuffix enable bottom-left icon button to go to url for help, may be null.
+ * @param {string|!Object} title
+ * @param {string|!Object} message
+ * @param {boolean=} error default to false.
+ * @param {?string=} helpUrlSuffix enable bottom-left icon button to go to url for help.
  */
 function AlertDialog(title, message, error, helpUrlSuffix) {
   if (error === undefined) {
@@ -20,7 +20,7 @@ function AlertDialog(title, message, error, helpUrlSuffix) {
   self.buttonMaxHeight = 20
   self.buttonActivateDefault = true
   self.hgroup(function(main) {
-    main.image(undefined, error ? "alert_error" : "alert_warning")
+    main.image(undefined, error ? 'alert_error' : 'alert_warning')
     main.staticText(undefined, message)
   })
 
@@ -29,53 +29,49 @@ function AlertDialog(title, message, error, helpUrlSuffix) {
 
 /**
  * Construct a new dialog.
- * @param {String|Object} title window title.
- * @param {String} helpUrlSuffix enable bottom-left icon button to go to url for help, may be null.
+ * @param {string|!Object} title
+ * @param {?string=} helpUrlSuffix enable bottom-left icon button to go to url for help.
  */
 function Dialog(title, helpUrlSuffix) {
-  var self = new Window("dialog", title)
-  self.orientation = "column"
+  var self = new Window('dialog', title)
+  self.orientation = 'column'
   self.defaultButton, self.yesButton, self.cancelButton, self.helpButton, self.helpIconButton
 
   var defaultButtonContainer, yesButtonContainer, cancelButtonContainer, helpButtonContainer
 
   // main content
-  self.main = self.add("group")
+  self.main = self.add('group')
 
   // buttons
-  self.add("group").also(function(rootButtons) {
-    rootButtons.orientation = "stack"
-    rootButtons.alignment = "fill"
-    rootButtons.hgroup(function(leftButtons) {
-      leftButtons.alignment = "left"
-      if (helpUrlSuffix !== undefined) {
-        self.helpIconButton = leftButtons.iconButton(undefined, "ic_help", { style: "toolbutton" }).also(function(it) {
-          it.helpTip = R.string.tip_whatsthis
-          it.addClickListener(function() { Scripts.openUrl(Scripts.URL_WEBSITE + helpUrlSuffix) })
-        })
-      }
-      helpButtonContainer = leftButtons.sgroup()
-    })
-    rootButtons.hgroup(function(rightButtons) {
-      rightButtons.alignment = "right"
-      if (Scripts.OS_MAC) {
-        yesButtonContainer = rightButtons.sgroup()
-        cancelButtonContainer = rightButtons.sgroup()
-        defaultButtonContainer = rightButtons.sgroup()
-      } else {
-        defaultButtonContainer = rightButtons.sgroup()
-        yesButtonContainer = rightButtons.sgroup()
-        cancelButtonContainer = rightButtons.sgroup()
-      }
-    })
+  Internals.addGroup(self, 'row', function(buttons) {
+    buttons.alignment = 'fill'
+
+    if (helpUrlSuffix !== undefined) {
+      self.helpIconButton = buttons.iconButton(undefined, 'ic_help', { style: "toolbutton" }).also(function(it) {
+        it.alignment = ['left', 'center']
+        it.helpTip = R.string.tip_whatsthis
+        it.addClickListener(function() { Scripts.openUrl(Scripts.URL_WEBSITE + helpUrlSuffix) })
+      })
+    }
+    helpButtonContainer = buttons.sgroup(function(container) { container.alignment = ['left', 'center'] })
+    var alignRight = function(container) { container.alignment = ['right', 'center'] }
+    if (Scripts.OS_MAC) {
+      yesButtonContainer = buttons.sgroup(alignRight)
+      cancelButtonContainer = buttons.sgroup(alignRight)
+      defaultButtonContainer = buttons.sgroup(alignRight)
+    } else {
+      defaultButtonContainer = buttons.sgroup(alignRight)
+      yesButtonContainer = buttons.sgroup(alignRight)
+      cancelButtonContainer = buttons.sgroup(alignRight)
+    }
   })
 
   /**
    * Set main layout to horizontal.
-   * @param {Function} configuration runnable with this parent as parameter.
+   * @param {function(!Group): undefined} configuration
    */
   self.hgroup = function(configuration) {
-    self.main.orientation = "row"
+    self.main.orientation = 'row'
     if (configuration !== null) {
       configuration(self.main)
     }
@@ -83,10 +79,10 @@ function Dialog(title, helpUrlSuffix) {
 
   /**
    * Set main layout to vertical.
-   * @param {Function} configuration runnable with this parent as parameter.
+   * @param {function(!Group): undefined} configuration
    */
   self.vgroup = function(configuration) {
-    self.main.orientation = "column"
+    self.main.orientation = 'column'
     if (configuration !== null) {
       configuration(self.main)
     }
@@ -94,13 +90,12 @@ function Dialog(title, helpUrlSuffix) {
 
   /**
    * Default button responds to pressing the Enter key.
-   * @param {String|Object} text nullable button text.
-   * @param {Function} action nullable button click listener.
-   * @param {Boolean} disabled nullable first state, set true to disable upon creation.
+   * @param {?string|?Object=} text
+   * @param {?function(): boolean=} action
    */
   self.setDefaultButton = function(text, action) {
-    self.defaultButton = appendButton(defaultButtonContainer, text || "OK", action,
-      { name: "ok" })
+    text = text || 'OK'
+    self.defaultButton = appendButton(defaultButtonContainer, text, action, { name: "ok" })
     if (self.buttonActivateDefault) {
       // skip Illustrator on Windows, see `child-edittext` for more
       if (!Scripts.OS_MAC && Scripts.APP_AI) {
@@ -112,45 +107,41 @@ function Dialog(title, helpUrlSuffix) {
 
   /**
    * Yes button is a secondary default button that sits beside it.
-   * @param {String|Object} text nullable button text.
-   * @param {Function} action nullable button click listener.
-   * @param {Boolean} disabled nullable first state, set true to disable upon creation.
+   * @param {?string|?Object=} text
+   * @param {?function(): boolean=} action
    */
   self.setYesButton = function(text, action) {
-    self.yesButton = appendButton(yesButtonContainer, text || getString(R.string.yes), action)
+    text = text || getString(R.string.yes)
+    self.yesButton = appendButton(yesButtonContainer, text, action)
   }
 
   /**
    * Cancel button responds to pressing the Escape key.
-   * @param {String|Object} text nullable button text.
-   * @param {Function} action nullable button click listener.
-   * @param {Boolean} disabled nullable first state, set true to disable upon creation.
+   * @param {?string|?Object=} text
+   * @param {?function(): boolean=} action
    */
   self.setCancelButton = function(text, action) {
-    self.cancelButton = appendButton(cancelButtonContainer, text || getString(R.string.cancel), action,
-      { name: "cancel" })
+    text = text || getString(R.string.cancel)
+    self.cancelButton = appendButton(cancelButtonContainer, text, action, { name: "cancel" })
   }
 
   /**
    * Help button sits on the left side of the dialog.
-   * @param {String|Object} text nullable button text.
-   * @param {Function} action nullable button click listener.
-   * @param {Boolean} disabled nullable first state, set true to disable upon creation.
+   * @param {?string|?Object=} text
+   * @param {?function(): boolean=} action
    */
   self.setHelpButton = function(text, action) {
-    self.helpButton = appendButton(helpButtonContainer, text || getString(R.string.help), action)
+    text = text || getString(R.string.help)
+    self.helpButton = appendButton(helpButtonContainer, text, action)
   }
 
   /** In `AlertDialog`, max button height is shrinked. */
   self.buttonMaxHeight = undefined
 
-  /** In `AlertDialog`, deefault button is activated. */
+  /** In `AlertDialog`, default button is activated. */
   self.buttonActivateDefault = false
 
   function appendButton(group, text, action, properties) {
-    if (text === undefined) {
-      return undefined
-    }
     return group.button(undefined, text, properties).also(function(it) {
       if (self.buttonMaxHeight !== undefined) {
         it.maximumSize.height = self.buttonMaxHeight

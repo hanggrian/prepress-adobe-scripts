@@ -1,12 +1,12 @@
 // TODO: avoid duplicate paths in the same position and length.
 
-#target Illustrator
-#include "../.lib/commons.js"
+#target illustrator
+#include '../.lib/commons.js'
 
 checkHasSelection()
 
 var items = Collections.filterItem(selection, function(it) {
-  return it.typename === "PathItem" || it.typename === "CompoundPathItem"
+  return it.typename === 'PathItem' || it.typename === 'CompoundPathItem'
 })
 check(Collections.isNotEmpty(items), getString(R.string.error_notypes_document, R.plurals.path.plural))
 
@@ -16,10 +16,10 @@ var clippingCount = 0, filledCount = 0, registrationCount = 0
 
 Collections.forEachItem(items, function(item) {
   switch (item.typename) {
-    case "PathItem":
+    case 'PathItem':
       increment(item)
       break;
-    case "CompoundPathItem":
+    case 'CompoundPathItem':
       Collections.forEach(item.pathItems, function(it) {
         increment(it)
       })
@@ -27,7 +27,7 @@ Collections.forEachItem(items, function(item) {
   }
 })
 
-var message = ""
+var message = ''
 if (count + distance === 0) {
   message += getString(R.string.message_measuredielines1)
 } else {

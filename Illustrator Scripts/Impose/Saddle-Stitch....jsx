@@ -1,9 +1,9 @@
-#target Illustrator
-#include "../.lib/core.js"
+#target illustrator
+#include '../.lib/core.js'
 
 var SIZE_INPUT = [100, 21]
 
-var dialog = new Dialog(R.string.impose_saddle_stitch, "imposing-layout/#saddle-stitch")
+var dialog = new Dialog(R.string.impose_saddle_stitch, 'imposing-layout/#saddle-stitch')
 var pdfPanel, pagesPanel, documentPanel
 var rtlCheck
 
@@ -13,9 +13,9 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
   var files = new FileCollection(pickedFiles)
 
   dialog.vgroup(function(main) {
-    main.alignChildren = "right"
+    main.alignChildren = 'right'
     main.hgroup(function(topGroup) {
-      topGroup.alignChildren = "fill"
+      topGroup.alignChildren = 'fill'
       topGroup.vgroup(function(group) {
         if (files.hasPDF) {
           pdfPanel = new OpenPDFPanel(group, SIZE_INPUT)
@@ -42,6 +42,9 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
   })
   dialog.setCancelButton()
   dialog.setDefaultButton(undefined, function() {
+    if (!pagesPanel.rangeGroup.isValid()) {
+      return Windows.alert(R.string.error_range, dialog.text, true)
+    }
     var pageStart = pagesPanel.rangeGroup.getStart()
     var pageEnd = pagesPanel.rangeGroup.getEnd()
     var pageLength = pagesPanel.rangeGroup.getLength()
@@ -53,11 +56,9 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
     var pageHeight = originalPageHeight + pageBleed * 2
 
     if (pageLength % 4 !== 0) {
-      Windows.alert(getString(R.string.error_openpages, 4), dialog.text, true)
-      return true
+      return Windows.alert(getString(R.string.error_openpages, 4), dialog.text, true)
     } else if (documentPanel.getWidth() < ((pageWidth - pageBleed) * 2) || documentPanel.getHeight() < (pageHeight)) {
-      Windows.alert(R.string.error_opendocuments, dialog.text, true)
-      return true
+      return Windows.alert(R.string.error_opendocuments, dialog.text, true)
     }
     var document = documentPanel.create(dialog.text, artboardLength)
     var pager = Pager.SADDLE_STITCH.get(document, pageStart, pageEnd, rtlCheck.value)

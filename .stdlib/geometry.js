@@ -10,7 +10,7 @@
 
 /**
  * Check if two `Rectangle` are equal.
- * @param {Array} other array of 4 values.
+ * @param {!Array<number>} other
  */
 Array.prototype.equalTo = function(other) {
   return isEqualRounded(this.getLeft(), other.getLeft()) &&
@@ -21,7 +21,7 @@ Array.prototype.equalTo = function(other) {
 
 /**
  * Returns true if the first `Rectangle` are inside the second.
- * @param {Array} other array of 4 values.
+ * @param {!Array<number>} other
  * @see https://gist.github.com/Daniel-Hug/d7984d82b58d6d2679a087d896ca3d2b
  */
 Array.prototype.isWithin = function(other) {
@@ -35,36 +35,36 @@ Array.prototype.isWithin = function(other) {
 
 /**
  * Returns x1 value of this `Rectangle` or `Point`.
- * @return {Number}
+ * @return {number}
  */
 Array.prototype.getLeft = function() { return checkNotNull(this[0]) }
 
 /**
  * Returns y1 value of this `Rectangle` or `Point`.
- * @return {Number}
+ * @return {number}
  */
 Array.prototype.getTop = function() { return checkNotNull(this[1]) }
 
 /**
  * Returns x2 value of this `Rectangle`.
- * @return {Number}
+ * @return {number}
  */
 Array.prototype.getRight = function() { return checkNotNull(this[2]) }
 
 /**
  * Returns y2 value of this `Rectangle`.
- * @return {Number}
+ * @return {number}
  */
 Array.prototype.getBottom = function() { return checkNotNull(this[3]) }
 
 /**
  * Returns width value of this `Rectangle`.
- * @return {Number}
+ * @return {number}
  */
 Array.prototype.getWidth = function() { return this.getRight() - this.getLeft() }
 
 /**
  * Returns height value of this `Rectangle`.
- * @return {Number}
+ * @return {number}
  */
 Array.prototype.getHeight = function() { return this.getTop() - this.getBottom() }

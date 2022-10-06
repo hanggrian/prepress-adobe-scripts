@@ -1,18 +1,18 @@
 /**
  * Slider with its current value synced with left EditText.
- * @param {Group|Panel|Window} parent holder of this control.
- * @param {Array} inputSize size or bounds, may be null.
- * @param {Number} current current value.
- * @param {Number} start min value.
- * @param {Number} end max value.
- * @param {Number} scale slider's scale, default is 1.
+ * @param {!Group|!Panel|!Window} parent
+ * @param {!Array<number>} inputSize
+ * @param {number} current
+ * @param {number} start
+ * @param {number} end
+ * @param {number} scale default is 1.
  */
 function SliderGroup(parent, inputSize, current, start, end, scale) {
   checkNotNull(parent)
   checkNotNull(current)
   checkNotNull(start)
   checkNotNull(end)
-  scale = getOrDefault(scale, 1)
+  scale = scale || 1
 
   var self = parent.hgroup()
   self.edit, self.slider
@@ -27,7 +27,7 @@ function SliderGroup(parent, inputSize, current, start, end, scale) {
 
   /**
    * Returns EditText value, or slider's current point if empty.
-   * @return {Number}
+   * @return {number}
    */
   self.getValue = function() { return parseInt(self.edit.value) || current }
 

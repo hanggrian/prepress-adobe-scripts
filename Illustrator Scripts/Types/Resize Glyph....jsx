@@ -1,11 +1,11 @@
-#target Illustrator
-#include "../.lib/commons.js"
+#target illustrator
+#include '../.lib/commons.js'
 
 var Rounding = new Enum({
-  NONE: { name: R.string.none, round: function(it) { return it } },
-  ROUND: { name: R.string.round, round: Math.round },
-  FLOOR: { name: R.string.floor, round: Math.floor },
-  CEIL: { name: R.string.ceil, round: Math.ceil }
+  NONE: { text: R.string.none, round: function(it) { return it } },
+  ROUND: { text: R.string.round, round: Math.round },
+  FLOOR: { text: R.string.floor, round: Math.floor },
+  CEIL: { text: R.string.ceil, round: Math.ceil }
 })
 
 var SIZE_LABEL = [80, 21] // manual sizing because content is changable
@@ -14,7 +14,7 @@ var SIZE_INPUT = [150, 21]
 checkSingleSelection()
 
 var item = Collections.first(selection)
-checkTypename(item, "TextFrame")
+checkTypename(item, 'TextFrame')
 
 var dialog = new Dialog(R.string.resize_glyph)
 var dimensionWidthRadio, dimensionHeightRadio
@@ -22,7 +22,7 @@ var dimensionSizeText, dimensionSizeEdit
 var roundingList
 
 dialog.vgroup(function(main) {
-  main.alignChildren = "left"
+  main.alignChildren = 'left'
   main.hgroup(function(group) {
     group.helpTips = R.string.tip_resizeglyph_dimension
     group.leftStaticText(SIZE_LABEL, R.string.dimension)
@@ -60,7 +60,7 @@ dialog.setDefaultButton(undefined, function() {
   })
   var targetDimension = parseUnits(dimensionSizeEdit.text)
   var targetFont = currentFont * targetDimension / currentDimension
-  var rounding = Rounding.valueOf(roundingList.selection)
+  var rounding = Rounding.find(roundingList.selection)
   targetFont = rounding.round(targetFont)
   item.textRange.characterAttributes.size = targetFont
 })
@@ -68,10 +68,10 @@ dialog.show()
 
 function changeDimensionText() {
   if (dimensionWidthRadio.value) {
-    dimensionSizeText.text = getString(R.string.width) + ":"
+    dimensionSizeText.text = getString(R.string.width) + ':'
     dimensionSizeEdit.text = formatUnits(item.width, unitType, 2)
   } else {
-    dimensionSizeText.text = getString(R.string.height) + ":"
+    dimensionSizeText.text = getString(R.string.height) + ':'
     dimensionSizeEdit.text = formatUnits(item.height, unitType, 2)
   }
 }

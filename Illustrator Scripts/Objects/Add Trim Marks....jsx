@@ -1,28 +1,28 @@
-﻿#target Illustrator
-#include "../.lib/commons.js"
+﻿#target illustrator
+#include '../.lib/commons.js'
 
 checkHasSelection()
 
 var SIZE_INPUT = [110, 21]
 var SIZE_CHECK = [15, 15] // usually 14, but use 15 to stretch the size equalling left panel
 
-var dialog = new Dialog(R.string.add_trim_marks, "add-trim-marks/")
+var dialog = new Dialog(R.string.add_trim_marks, 'add-trim-marks/')
 var offsetEdit, lengthEdit, weightEdit, colorList
 var topLeftCheck, topRightCheck, leftTopCheck, rightTopCheck, leftBottomCheck, rightBottomCheck, bottomLeftCheck, bottomRightCheck // single checks
 var topCheck, rightCheck, bottomCheck, leftCheck // multiple checks
 var multipleMultiRadioGroup
-var config = configs.resolve("objects/add_trim_marks")
+var prefs = preferences2.resolve('objects/add_trim_marks')
 
 dialog.vgroup(function(main) {
-  main.alignChildren = "right"
+  main.alignChildren = 'right'
   main.hgroup(function(topGroup) {
-    topGroup.alignChildren = "fill"
+    topGroup.alignChildren = 'fill'
     topGroup.vpanel(R.string.trim_marks, function(panel) {
-      panel.alignChildren = "right"
+      panel.alignChildren = 'right'
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addtrimmarks_offset
         group.leftStaticText(undefined, R.string.offset)
-        offsetEdit = group.editText(SIZE_INPUT, config.getString("offset", "2.5 mm")).also(function(it) {
+        offsetEdit = group.editText(SIZE_INPUT, prefs.getString('offset', '2.5 mm')).also(function(it) {
           it.validateUnits()
           it.activate()
         })
@@ -30,18 +30,18 @@ dialog.vgroup(function(main) {
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addtrimmarks_length
         group.leftStaticText(undefined, R.string.length)
-        lengthEdit = group.editText(SIZE_INPUT, config.getString("length", "2.5 mm")).also(VALIDATE_UNITS)
+        lengthEdit = group.editText(SIZE_INPUT, prefs.getString('length', '2.5 mm')).also(VALIDATE_UNITS)
       })
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addtrimmarks_weight
         group.leftStaticText(undefined, R.string.weight)
-        weightEdit = group.editText(SIZE_INPUT, config.getString("weight", "0.3 pt")).also(VALIDATE_UNITS) // the same value used in `Object > Create Trim Marks`
+        weightEdit = group.editText(SIZE_INPUT, prefs.getString('weight', '0.3 pt')).also(VALIDATE_UNITS) // the same value used in `Object > Create Trim Marks`
       })
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addtrimmarks_color
         group.leftStaticText(undefined, R.string.color)
         colorList = group.dropDownList(SIZE_INPUT, Color2.list()).also(function(it) {
-          it.selection = config.getInt("color")
+          it.selection = prefs.getInt('color')
         })
       })
     })
@@ -68,9 +68,9 @@ dialog.vgroup(function(main) {
           it.select()
           it.helpTip = R.string.left
         })
-        group.image(SIZE_CHECK, "ic_arrow_topleft")
-        group.image(SIZE_CHECK, "ic_arrow_top")
-        group.image(SIZE_CHECK, "ic_arrow_topright")
+        group.image(SIZE_CHECK, 'ic_arrow_topleft')
+        group.image(SIZE_CHECK, 'ic_arrow_top')
+        group.image(SIZE_CHECK, 'ic_arrow_topright')
         rightTopCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
           it.helpTip = R.string.right
@@ -82,9 +82,9 @@ dialog.vgroup(function(main) {
           it.helpTip = R.string.left
           it.visible = false
         })
-        group.image(SIZE_CHECK, "ic_arrow_left")
-        group.image(SIZE_CHECK, "ic_arrow_center")
-        group.image(SIZE_CHECK, "ic_arrow_right")
+        group.image(SIZE_CHECK, 'ic_arrow_left')
+        group.image(SIZE_CHECK, 'ic_arrow_center')
+        group.image(SIZE_CHECK, 'ic_arrow_right')
         rightCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
           it.helpTip = R.string.right
@@ -96,9 +96,9 @@ dialog.vgroup(function(main) {
           it.select()
           it.helpTip = R.string.left
         })
-        group.image(SIZE_CHECK, "ic_arrow_bottomleft")
-        group.image(SIZE_CHECK, "ic_arrow_bottom")
-        group.image(SIZE_CHECK, "ic_arrow_bottomright")
+        group.image(SIZE_CHECK, 'ic_arrow_bottomleft')
+        group.image(SIZE_CHECK, 'ic_arrow_bottom')
+        group.image(SIZE_CHECK, 'ic_arrow_bottomright')
         rightBottomCheck = group.checkBox(SIZE_CHECK).also(function(it) {
           it.select()
           it.helpTip = R.string.right
@@ -147,16 +147,16 @@ dialog.setDefaultButton(undefined, function() {
   var offset = parseUnits(offsetEdit.text)
   var length = parseUnits(lengthEdit.text)
   var weight = parseUnits(weightEdit.text)
-  var color = Color2.valueOf(colorList.selection)
+  var color = Color2.find(colorList.selection)
   var maxBounds = Items.getMaxBounds(selection)
   selection = multipleMultiRadioGroup.isSelected()
     ? processMultiple(offset, length, weight, color, maxBounds)
     : processSingle(offset, length, weight, color, maxBounds)
 
-  config.setString("offset", offsetEdit.text)
-  config.setString("length", lengthEdit.text)
-  config.setString("weight", weightEdit.text)
-  config.setInt("color", colorList.selection.index)
+  prefs.setString('offset', offsetEdit.text)
+  prefs.setString('length', lengthEdit.text)
+  prefs.setString('weight', weightEdit.text)
+  prefs.setInt('color', colorList.selection.index)
 })
 dialog.show()
 
@@ -164,7 +164,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
   var paths = []
   if (topLeftCheck.value) {
     paths.push(createTrimMark(
-      weight, color, "TOP",
+      weight, color, 'TOP',
       maxBounds.getLeft(),
       maxBounds.getTop() + offset,
       maxBounds.getLeft(),
@@ -173,7 +173,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
   }
   if (topRightCheck.value) {
     paths.push(createTrimMark(
-      weight, color, "TOP",
+      weight, color, 'TOP',
       maxBounds.getRight(),
       maxBounds.getTop() + offset,
       maxBounds.getRight(),
@@ -182,7 +182,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
   }
   if (rightTopCheck.value) {
     paths.push(createTrimMark(
-      weight, color, "RIGHT",
+      weight, color, 'RIGHT',
       maxBounds.getRight() + offset,
       maxBounds.getTop(),
       maxBounds.getRight() + offset + length,
@@ -191,7 +191,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
   }
   if (rightBottomCheck.value) {
     paths.push(createTrimMark(
-      weight, color, "RIGHT",
+      weight, color, 'RIGHT',
       maxBounds.getRight() + offset,
       maxBounds.getBottom(),
       maxBounds.getRight() + offset + length,
@@ -200,7 +200,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
   }
   if (bottomRightCheck.value) {
     paths.push(createTrimMark(
-      weight, color, "BOTTOM",
+      weight, color, 'BOTTOM',
       maxBounds.getRight(),
       maxBounds.getBottom() - offset,
       maxBounds.getRight(),
@@ -209,7 +209,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
   }
   if (bottomLeftCheck.value) {
     paths.push(createTrimMark(
-      weight, color, "BOTTOM",
+      weight, color, 'BOTTOM',
       maxBounds.getLeft(),
       maxBounds.getBottom() - offset,
       maxBounds.getLeft(),
@@ -218,7 +218,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
   }
   if (leftBottomCheck.value) {
     paths.push(createTrimMark(
-      weight, color, "LEFT",
+      weight, color, 'LEFT',
       maxBounds.getLeft() - offset,
       maxBounds.getBottom(),
       maxBounds.getLeft() - offset - length,
@@ -227,7 +227,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
   }
   if (leftTopCheck.value) {
     paths.push(createTrimMark(
-      weight, color, "LEFT",
+      weight, color, 'LEFT',
       maxBounds.getLeft() - offset,
       maxBounds.getTop(),
       maxBounds.getLeft() - offset - length,
@@ -249,14 +249,14 @@ function processMultiple(offset, length, weight, color, maxBounds) {
     var itemEndY = itemStartY - height
     if (topCheck.value) {
       paths.push([
-        "TOP",
+        'TOP',
         itemStartX,
         maxBounds.getTop() + offset,
         itemStartX,
         maxBounds.getTop() + offset + length
       ])
       paths.push([
-        "TOP",
+        'TOP',
         itemEndX,
         maxBounds.getTop() + offset,
         itemEndX,
@@ -265,14 +265,14 @@ function processMultiple(offset, length, weight, color, maxBounds) {
     }
     if (rightCheck.value) {
       paths.push([
-        "RIGHT",
+        'RIGHT',
         maxBounds.getRight() + offset,
         itemStartY,
         maxBounds.getRight() + offset + length,
         itemStartY
       ])
       paths.push([
-        "RIGHT",
+        'RIGHT',
         maxBounds.getRight() + offset,
         itemEndY,
         maxBounds.getRight() + offset + length,
@@ -281,14 +281,14 @@ function processMultiple(offset, length, weight, color, maxBounds) {
     }
     if (bottomCheck.value) {
       paths.push([
-        "BOTTOM",
+        'BOTTOM',
         itemEndX,
         maxBounds.getBottom() - offset,
         itemEndX,
         maxBounds.getBottom() - offset - length
       ])
       paths.push([
-        "BOTTOM",
+        'BOTTOM',
         itemStartX,
         maxBounds.getBottom() - offset,
         itemStartX,
@@ -297,14 +297,14 @@ function processMultiple(offset, length, weight, color, maxBounds) {
     }
     if (leftCheck.value) {
       paths.push([
-        "LEFT",
+        'LEFT',
         maxBounds.getLeft() - offset,
         itemEndY,
         maxBounds.getLeft() - offset - length,
         itemEndY
       ])
       paths.push([
-        "LEFT",
+        'LEFT',
         maxBounds.getLeft() - offset,
         itemStartY,
         maxBounds.getLeft() - offset - length,
@@ -343,9 +343,9 @@ function containsPathBounds(collection, element) {
 }
 
 function createTrimMark(weight, color, suffixName, fromX, fromY, toX, toY) {
-  println("%d. From [%d, %d] to [%d, %d].", suffixName, fromX, fromY, toX, toY)
+  println('%d. From [%d, %d] to [%d, %d].', suffixName, fromX, fromY, toX, toY)
   var path = layer.pathItems.add()
-  path.name = "Trim" + suffixName
+  path.name = 'Trim' + suffixName
   path.filled = false
   path.strokeDashes = []
   path.strokeColor = color.get()

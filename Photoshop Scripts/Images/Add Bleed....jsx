@@ -6,32 +6,32 @@
 </javascriptresource>
 */
 
-#target Photoshop
-#include "../.lib/commons.js"
+#target photoshop
+#include '../.lib/commons.js'
 
-var dialog = new Dialog(R.string.add_bleed_to_images, "add-bleed-to-images/")
+var dialog = new Dialog(R.string.add_bleed_to_images, 'add-bleed-to-images/')
 var lengthEdit
 var anchorGroup
 var flattenImageCheck, guidesMultiRadioGroup, selectBleedCheck, correctionEdit
-var config = configs.resolve("images/add_bleed")
+var prefs = preferences2.resolve('images/add_bleed')
 
 dialog.vgroup(function(main) {
-  main.alignChildren = "fill"
+  main.alignChildren = 'fill'
   main.hgroup(function(group) {
     group.helpTips = R.string.tip_addbleedtoimages_bleed
     group.leftStaticText([120, 21], R.string.length)
-    lengthEdit = group.editText([200, 21], config.getString("length", "2.5 mm")).also(function(it) {
+    lengthEdit = group.editText([200, 21], prefs.getString('length', '2.5 mm')).also(function(it) {
       it.validateUnits()
       it.activate()
     })
   })
   main.hgroup(function(topGroup) {
-    topGroup.alignChildren = "fill"
+    topGroup.alignChildren = 'fill'
     topGroup.vpanel(R.string.anchor, function(panel) {
       anchorGroup = new AnchorGroup(panel)
     })
     topGroup.vpanel(R.string.options, function(group) {
-      group.alignChildren = "fill"
+      group.alignChildren = 'fill'
       flattenImageCheck = group.checkBox(undefined, R.string.flatten_image).also(function(it) {
         it.helpTip = R.string.tip_addbleedtoimages_flatten
         it.select()
@@ -54,7 +54,7 @@ dialog.vgroup(function(main) {
             }
           })
         })
-        correctionEdit = innerGroup.editText([50, 21], "0 px").also(function(it) {
+        correctionEdit = innerGroup.editText([50, 21], '0 px').also(function(it) {
           it.validateUnits()
           it.enabled = false
         })
@@ -71,7 +71,7 @@ dialog.setDefaultButton(undefined, function() {
 
   process(document, bleed, anchor, correction)
 })
-dialog.setYesButton("All", function() {
+dialog.setYesButton('All', function() {
   var bleed = new UnitValue(lengthEdit.text)
   var anchor = anchorGroup.getAnchorPosition()
   var correction = parseUnits(correctionEdit.text)
@@ -130,10 +130,10 @@ function process(document, bleed, anchor, correction) {
   }
   document.resizeCanvas(targetWidth, targetHeight, anchor)
   if (selectBleedCheck.value) {
-    var left = guideLeft.coordinate.as("px") + (pushLeft ? correction : 0)
-    var top = guideTop.coordinate.as("px") + (pushTop ? correction : 0)
-    var right = guideRight.coordinate.as("px") - (pushRight ? correction : 0)
-    var bottom = guideBottom.coordinate.as("px") - (pushBottom ? correction : 0)
+    var left = guideLeft.coordinate.as('px') + (pushLeft ? correction : 0)
+    var top = guideTop.coordinate.as('px') + (pushTop ? correction : 0)
+    var right = guideRight.coordinate.as('px') - (pushRight ? correction : 0)
+    var bottom = guideBottom.coordinate.as('px') - (pushBottom ? correction : 0)
     document.selection.select([
       [left, top],
       [left, bottom],
@@ -143,7 +143,7 @@ function process(document, bleed, anchor, correction) {
     document.selection.invert()
   }
 
-  config.edit(function(it) {
-    it.setString("length", lengthEdit.text)
+  prefs.edit(function(it) {
+    it.setString('length', lengthEdit.text)
   })
 }

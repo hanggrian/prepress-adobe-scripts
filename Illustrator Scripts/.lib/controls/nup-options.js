@@ -1,22 +1,22 @@
 /**
  * 3 checkboxes group for imposing N-Up pager.
- * @param {Group|Panel|Window} parent holder of this control.
- * @param {Boolean} showFolding include folding checkbox, default is true.
- * @param {Boolean} showRotate include rotate checkbox, default is true.
- * @param {Boolean} showDuplex include duplex checkbox, default is true.
- * @param {Boolean} showStack include stack checkbox, default is true.
+ * @param {!Group|!Panel|!Window} parent
+ * @param {?boolean=} showFolding default is true.
+ * @param {?boolean=} showRotate default is true.
+ * @param {?boolean=} showDuplex default is true.
+ * @param {?boolean=} showStack default is true.
  */
 function NUpOptionsGroup(parent, showFolding, showRotate, showDuplex, showStack) {
   checkNotNull(parent)
-  showFolding = getOrDefault(showFolding, true)
-  showRotate = getOrDefault(showRotate, true)
-  showDuplex = getOrDefault(showDuplex, true)
-  showStack = getOrDefault(showStack, true)
+  showFolding = showFolding !== false
+  showRotate = showRotate !== false
+  showDuplex = showDuplex !== false
+  showStack = showStack !== false
 
   var self = parent.hgroup()
   self.foldingCheck, self.rotateCheck, self.duplexCheck, self.stackCheck
 
-  self.alignment = "right"
+  self.alignment = 'right'
   if (showFolding) {
     self.foldingCheck = self.checkBox(undefined, R.string.folding_booklet).also(function(it) {
       it.helpTip = R.string.tip_nup_foldingbooklet
@@ -45,25 +45,25 @@ function NUpOptionsGroup(parent, showFolding, showRotate, showDuplex, showStack)
 
   /**
    * Returns true if rotate checkbox is selected.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isFolding = function() { return self.foldingCheck.value }
 
   /**
    * Returns true if rotate checkbox is selected.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isRotate = function() { return self.rotateCheck.value }
 
   /**
    * Returns true if duplex checkbox is selected.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isDuplex = function() { return self.duplexCheck.value }
 
   /**
    * Returns true if cut-stack checkbox is selected.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isStack = function() { return self.stackCheck.value }
 

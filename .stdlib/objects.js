@@ -4,25 +4,35 @@
 </javascriptresource>
 */
 
-// Why is this necessary? Why not just use `value || defaultValue`?
-// In case of boolean `value || true`, the value is always true.
+var Objects = {
+  /**
+   * Returns an object with cloned properties.
+   * @param {!Object} source
+   * @see https://community.adobe.com/t5/illustrator/script-to-sort-artboard-list-alphabetically/m-p/9558395
+   */
+  copyProperties: function(source) {
+    checkNotNull(source)
+    var props = { }
+    for (var key in source) {
+      try {
+        props[key] = source[key]
+      } catch (e) {
+      }
+    }
+    return props
+  },
 
-/**
- * Get value if not null, otherwise get replacement.
- * @param {*} value expected value.
- * @param {*} defaultValue replacement.
- * @return {*}
- */
-function getOrDefault(value, defaultValue) {
-  return value == null ? defaultValue : value
-}
-
-/**
- * Get value if not null, otherwise get replacement.
- * @param {*} value expected value.
- * @param {Function} defaultValue replacement.
- * @return {*}
- */
-function getOrElse(value, defaultValue) {
-  return value == null ? defaultValue() : value
+  /**
+   * Sets target's properties the exact same as source's.
+   * @param {!Object} source
+   * @param {!Object} target
+   * @see https://community.adobe.com/t5/illustrator/script-to-sort-artboard-list-alphabetically/m-p/9558395
+   */
+  pasteProperties: function(source, target) {
+    checkNotNull(source)
+    checkNotNull(target)
+    for (var key in source) {
+      target[key] = source[key]
+    }
+  }
 }

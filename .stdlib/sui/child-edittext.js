@@ -40,10 +40,10 @@ EditText.prototype.validateUnits = function() {
     if (exec !== null) { // new unit type found, use it
       var newUnitValue = Internals.removeRegexes(_new.substring(0, exec.index), [REPLACE_TRAILING_SPACE])
       var newUnitType = _new.substring(exec.index)
-      return newUnitValue + " " + newUnitType
+      return newUnitValue + ' ' + newUnitType
     } else { // new unit type not found, use old unit value if exist
-      if (_new.isEmpty()) _new = "0" // in event when all text is removed, use 0
-      return oldUnitType !== undefined ? _new + " " + oldUnitType : _new
+      if (_new.isEmpty()) _new = '0' // in event when all text is removed, use 0
+      return oldUnitType !== undefined ? _new + ' ' + oldUnitType : _new
     }
   })
 }
@@ -63,16 +63,16 @@ EditText.prototype.activate = function() {
 
 /**
  * Allows for multiple change listeners to occur by invoking all of them in collective listener.
- * @param {Function} listener a callable of no parameter.
+ * @param {function(): undefined} listener
  */
-EditText.prototype.addChangeListener = function(listener) { Internals.addChangeListener(this, listener) }
+EditText.prototype.addChangeListener = function(listener) { Internals.addListener(this, 'onChange', listener) }
 
 /**
  * Add children to group.
- * @param {Array} size optional size or bounds.
- * @param {String|Object} text optional control text.
- * @param {Object} properties optional extra properties.
- * @return {EditText}
+ * @param {?Array<number>=} size
+ * @param {?string|?Object=} text
+ * @param {?Object=} properties
+ * @return {!EditText}
  */
 Group.prototype.editText = function(size, text, properties) {
   return Internals.addEditText(this, size, text, properties)
@@ -80,17 +80,17 @@ Group.prototype.editText = function(size, text, properties) {
 
 /**
  * Add children to panel.
- * @param {Array} size optional size or bounds.
- * @param {String|Object} text optional control text.
- * @param {Object} properties optional extra properties.
- * @return {EditText}
+ * @param {?Array<number>=} size
+ * @param {?string|?Object=} text
+ * @param {?Object=} properties
+ * @return {!EditText}
  */
 Panel.prototype.editText = function(size, text, properties) {
   return Internals.addEditText(this, size, text, properties)
 }
 
 Internals.addEditText = function(root, size, text, properties) {
-  var child = root.add("edittext", Internals.sizeOrBounds(size), text, properties)
+  var child = root.add('edittext', Internals.sizeOrBounds(size), text, properties)
   if (root.helpTips !== undefined) {
     child.helpTip = root.helpTips
   }

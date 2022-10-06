@@ -1,6 +1,3 @@
-/** Asserts that document is currently saved. */
-function checkSaved() { check(document.saved, R.string.error_preconditions_saved) }
-
 /** Asserts that more than 1 artboard are present. */
 function checkMultipleArtboards() {
   check(document.artboards.length > 1, R.string.error_preconditions_multipleartboard)

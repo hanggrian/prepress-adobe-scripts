@@ -1,41 +1,41 @@
-#include "../../.stdlib/stdlib.js"
+#include '../../.stdlib/stdlib.js'
 
-#include "core-resources.js"
+#include 'core-resources.js'
 
-#include "controls/checks.js"
-#include "controls/nup-options.js"
-#include "controls/open-options.js"
-#include "controls/ordering.js"
-#include "controls/range.js"
-#include "controls/select-options.js"
-#include "controls/slider.js"
-#include "pager/eight-up.js"
-#include "pager/four-up.js"
-#include "pager/one-up.js"
-#include "pager/saddle-stitch.js"
-#include "pager/two-up.js"
-#include "core-collections.js"
-#include "core-colors.js"
-#include "core-files.js"
-#include "core-items.js"
-#include "core-preconditions.js"
-#include "core-preferences.js"
-#include "core-units.js"
+#include 'controls/checks.js'
+#include 'controls/nup-options.js'
+#include 'controls/open-options.js'
+#include 'controls/ordering.js'
+#include 'controls/range.js'
+#include 'controls/select-options.js'
+#include 'controls/slider.js'
+#include 'pager/eight-up.js'
+#include 'pager/four-up.js'
+#include 'pager/one-up.js'
+#include 'pager/saddle-stitch.js'
+#include 'pager/two-up.js'
+#include 'core-collections.js'
+#include 'core-colors.js'
+#include 'core-files.js'
+#include 'core-items.js'
+#include 'core-preconditions.js'
+#include 'core-preferences.js'
+#include 'core-units.js'
 
 // Core libraries are base of all scripts,
 // providing tools for creating new document or modifying current document.
 
 Scripts.PATH_LIB = new File($.fileName).path
 
-Language.set(Language.valueOfCode(configs.getString("language_code", Language.EN.code)))
+Language.set(Language.valueOfCode(preferences2.getString('language_code', Language.EN.code)))
 
 var Pager = new Enum({
   ONE_UP: {
-    name: getString(R.string.D_up, 1),
+    text: getString(R.string.D_up, 1),
     get: function(document, start) { return new OneUpPager(document, start) }
   },
   TWO_UP: {
-    name: getString(R.string.D_up, 2),
+    text: getString(R.string.D_up, 2),
     get: function(document, start, isDuplex, isStack) {
       if (!isDuplex) {
         return !isStack ? new TwoUpSimplexPager(document, start) : new TwoUpSimplexStackPager(document, start)
@@ -45,7 +45,7 @@ var Pager = new Enum({
     }
   },
   FOUR_UP: {
-    name: getString(R.string.D_up, 4),
+    text: getString(R.string.D_up, 4),
     get: function(document, start, isFolding, isDuplex, isStack) {
       if (isFolding) {
         return new FourUpFoldingPager(document, start)
@@ -58,7 +58,7 @@ var Pager = new Enum({
     }
   },
   EIGHT_UP: {
-    name: getString(R.string.D_up, 8),
+    text: getString(R.string.D_up, 8),
     get: function(document, start, isFolding, isDuplex, isStack) {
       if (isFolding) {
         return new EightUpFoldingPager(document, start)
@@ -71,7 +71,7 @@ var Pager = new Enum({
     }
   },
   SADDLE_STITCH: {
-    name: R.string.saddle_stitch,
+    text: R.string.saddle_stitch,
     get: function(document, start, end, isRtl) { return new SaddleStitchPager(document, start, end, isRtl) }
   }
 })

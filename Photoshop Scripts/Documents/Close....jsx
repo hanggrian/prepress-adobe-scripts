@@ -6,13 +6,13 @@
 </javascriptresource>
 */
 
-#target Photoshop
-#include "../.lib/commons.js"
+#target photoshop
+#include '../.lib/commons.js'
 
 var unsavedLength = Collections.filter(app.documents, function(it) { return !it.saved }).length
 
 var dialog = new AlertDialog(R.string.close_documents, getString(R.string.confirm_closedocuments,
-  app.documents.length, unsavedLength > 0 ? unsavedLength : "none"))
+  app.documents.length, unsavedLength > 0 ? unsavedLength : 'none'))
 dialog.setCancelButton()
 dialog.setDefaultButton(R.string.all, function() {
   for (var i = 0; i < app.documents.length; i++) {
@@ -21,7 +21,7 @@ dialog.setDefaultButton(R.string.all, function() {
   }
 })
 dialog.setYesButton(R.string.others, function() {
-  in Photoshop, compare documents
+  // in Photoshop, compare documents
   for (var i = 0; i < app.documents.length; i++) {
     if (app.documents[i] === document) {
       continue

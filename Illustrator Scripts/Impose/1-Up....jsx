@@ -1,9 +1,9 @@
-#target Illustrator
-#include "../.lib/core.js"
+#target illustrator
+#include '../.lib/core.js'
 
 var SIZE_INPUT = [100, 21]
 
-var dialog = new Dialog(getString(R.string.impose_D_up, 1), "imposing-layout/#n-up")
+var dialog = new Dialog(getString(R.string.impose_D_up, 1), 'imposing-layout/#n-up')
 var pdfPanel, pagesPanel, documentPanel
 var nupGroup
 
@@ -13,9 +13,9 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
   var files = new FileCollection(pickedFiles)
 
   dialog.vgroup(function(main) {
-    main.alignChildren = "right"
+    main.alignChildren = 'right'
     main.hgroup(function(topGroup) {
-      topGroup.alignChildren = "fill"
+      topGroup.alignChildren = 'fill'
       topGroup.vgroup(function(group) {
         if (files.hasPDF) {
           pdfPanel = new OpenPDFPanel(group, SIZE_INPUT)
@@ -40,6 +40,9 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
   })
   dialog.setCancelButton()
   dialog.setDefaultButton(undefined, function() {
+    if (!pagesPanel.rangeGroup.isValid()) {
+      return Windows.alert(R.string.error_range, dialog.text, true)
+    }
     var pageStart = pagesPanel.rangeGroup.getStart()
     var pageLength = pagesPanel.rangeGroup.getLength()
     var artboardLength = pageLength
@@ -50,8 +53,7 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
     var rotatedPageHeight = nupGroup.isRotate() ? pageWidth : pageHeight
 
     if (documentPanel.getWidth() < (rotatedPageWidth) || documentPanel.getHeight() < (rotatedPageHeight)) {
-      Windows.alert(R.string.error_opendocuments, dialog.text, true)
-      return true
+      return Windows.alert(R.string.error_opendocuments, dialog.text, true)
     }
     var document = documentPanel.create(dialog.text, artboardLength)
     var pager = Pager.ONE_UP.get(document, pageStart)

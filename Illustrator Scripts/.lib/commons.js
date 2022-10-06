@@ -1,6 +1,6 @@
-#include "core.js"
+#include 'core.js'
 
-#include "commons-preconditions.js"
+#include 'commons-preconditions.js'
 
 // Commons libraries require active document,
 // providing tools for modifying current document.
@@ -17,14 +17,14 @@ var unitType = Collections.first(UnitType.values(), function(it) { return it.rul
  * Select all items that match selected configuration.
  * When nothing is selected, this script will select all items with requested parameters.
  * When there are selection, it will instead filter the selection to only match requested parameters.
- * @param {Array} types array of `PageItem` typenames.
- * @param {Function} predicate nullable item checker that should return true if the item parameter should be selected.
- * @param {Boolean} recursive whether or not search within groups recursively, default is false
+ * @param {!Array<string>} types array of `PageItem` typenames.
+ * @param {?function(!PageItem): boolean=} predicate nullable item checker that should return true if the item parameter should be selected.
+ * @param {?boolean=} recursive whether or not search within groups recursively, default is false
  */
 function selectAll(types, predicate, recursive) {
   checkNotNull(types)
-  predicate = getOrDefault(predicate, function(_) { return true })
-  recursive = getOrDefault(recursive, false)
+  predicate = predicate || function(_) { return true }
+  recursive = recursive || false
 
   var source = Collections.isEmpty(selection) ? document.pageItems : selection
   var filterPredicate = function(item) {

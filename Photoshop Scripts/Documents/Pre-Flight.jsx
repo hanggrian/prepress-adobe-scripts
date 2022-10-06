@@ -6,8 +6,8 @@
 </javascriptresource>
 */
 
-#target Photoshop
-#include "../.lib/commons.js"
+#target photoshop
+#include '../.lib/commons.js'
 
 var allOkay = true
 Collections.forEach(app.documents, function(document) {
@@ -17,7 +17,7 @@ Collections.forEach(app.documents, function(document) {
   document.mode.let(function(it) {
     if (it !== DocumentMode.CMYK) {
       errorCount++
-      result += getString(R.string.message_preflight_issue_mode, it.toString().substringAfter("."))
+      result += getString(R.string.message_preflight_issue_mode, it.toString().substringAfter('.'))
     }
   })
   document.resolution.let(function(it) {
@@ -29,14 +29,14 @@ Collections.forEach(app.documents, function(document) {
   document.bitsPerChannel.let(function(it) {
     if (it !== BitsPerChannelType.EIGHT) {
       errorCount++
-      result += getString(R.string.message_preflight_issue_bits, it.toString().substringAfter("."))
+      result += getString(R.string.message_preflight_issue_bits, it.toString().substringAfter('.'))
     }
   })
 
   if (errorCount > 0) {
     allOkay = false
     app.activeDocument = document
-    alert(result.trim(), R.string.pre_flight, true)
+    alert(result.trim(), R.string.pre_flight, true) // don't use Windows.alert since not suffixed with period
   }
 })
 if (allOkay) {

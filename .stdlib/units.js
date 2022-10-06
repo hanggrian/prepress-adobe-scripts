@@ -15,31 +15,31 @@
  */
 var UnitType = new Enum({
   PX: {
-    name: R.string.pixels,
+    text: R.string.pixels,
     qualifier: "px",
     rulerUnits: undefined,
     units: undefined
   },
   PT: {
-    name: R.string.points,
+    text: R.string.points,
     qualifier: "pt",
     rulerUnits: undefined,
     units: undefined
   },
   IN: {
-    name: R.string.inches,
-    qualifier: "inches",
+    text: R.string.inches,
+    qualifier: "in",
     rulerUnits: undefined,
     units: undefined
   },
   MM: {
-    name: R.string.millimeters,
+    text: R.string.millimeters,
     qualifier: "mm",
     rulerUnits: undefined,
     units: undefined
   },
   CM: {
-    name: R.string.centimeters,
+    text: R.string.centimeters,
     qualifier: "cm",
     rulerUnits: undefined,
     units: undefined

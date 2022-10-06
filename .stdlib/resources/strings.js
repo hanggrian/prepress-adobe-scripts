@@ -27,7 +27,6 @@ R.string = {
   download: { en: "Download", id: "Unduh" },
   error_commons: { en: "No active document", id: "Tidak ada dokumen aktif" },
   error_emptyselection: { en: "Empty selection", id: "Seleksi kosong" },
-  error_preconditions_saved: { en: "Save the document before proceeding", id: "Simpan dokumen sebelum melanjutkan" },
   height: { en: "Height", id: "Tinggi" },
   help: { en: "Help", id: "Bantuan" },
   inches: { en: "Inches", id: "Inci" },

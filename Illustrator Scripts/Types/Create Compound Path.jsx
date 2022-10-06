@@ -1,9 +1,9 @@
-#target Illustrator
-#include "../.lib/commons.js"
+#target illustrator
+#include '../.lib/commons.js'
 
 checkHasSelection()
 
-var items = Collections.filterItem(selection, function(it) { return it.typename === "TextFrame" })
+var items = Collections.filterItem(selection, function(it) { return it.typename === 'TextFrame' })
 check(Collections.isNotEmpty(items), getString(R.string.error_notypes_selection, R.plurals.text.plural))
 
 var createdItems = []
@@ -16,7 +16,7 @@ Collections.forEach(items, function(it) {
     })
   })
   group.remove()
-  app.executeMenuCommand("compoundPath")
+  app.executeMenuCommand('compoundPath')
   createdItems.push(Collections.first(selection))
 })
 selection = createdItems

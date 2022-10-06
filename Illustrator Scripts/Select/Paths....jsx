@@ -1,28 +1,28 @@
 // Select all PathItem with attributes matching user input.
 // When there are active selection, will only select items within those selection.
 
-#target Illustrator
-#include "../.lib/commons.js"
+#target illustrator
+#include '../.lib/commons.js'
 
 var SIZE_INPUT = [110, 21]
 
 check(Collections.isNotEmpty(document.pathItems), getString(R.string.error_notypes_document, R.plurals.path.plural))
 var isFilterMode = Collections.isNotEmpty(selection)
 
-var dialog = new Dialog(R.string.select_paths, "selecting-items/#select-paths")
+var dialog = new Dialog(R.string.select_paths, 'selecting-items/#select-paths')
 var fillColorList, fillOverprintList
 var strokeColorList, strokeWeightEdit, strokeDashedList, strokeOverprintList
 var dimensionPanel
 var clippingList, closedList, guidesList
 var recursiveCheck
-var config = configs.resolve("select/paths")
+var prefs = preferences2.resolve('select/paths')
 
 dialog.hgroup(function(main) {
-  main.alignChildren = "fill"
+  main.alignChildren = 'fill'
   main.vgroup(function(topGroup) {
-    topGroup.alignChildren = "fill"
+    topGroup.alignChildren = 'fill'
     topGroup.vpanel(R.string.fill, function(panel) {
-      panel.alignChildren = "right"
+      panel.alignChildren = 'right'
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_selectpaths_fillcolor
         group.leftStaticText(undefined, R.string.color)
@@ -35,7 +35,7 @@ dialog.hgroup(function(main) {
       })
     })
     topGroup.vpanel(R.string.stroke, function(panel) {
-      panel.alignChildren = "right"
+      panel.alignChildren = 'right'
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_selectpaths_strokecolor
         group.leftStaticText(undefined, R.string.color)
@@ -62,10 +62,10 @@ dialog.hgroup(function(main) {
     })
   })
   main.vgroup(function(topGroup) {
-    topGroup.alignChildren = "fill"
+    topGroup.alignChildren = 'fill'
     dimensionPanel = new SelectDimensionPanel(topGroup, SIZE_INPUT)
     topGroup.vpanel(R.string.others, function(panel) {
-      panel.alignChildren = "right"
+      panel.alignChildren = 'right'
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_selectpaths_clipping
         group.leftStaticText(undefined, R.string.clipping)
@@ -84,17 +84,17 @@ dialog.hgroup(function(main) {
     })
     if (isFilterMode) {
       recursiveCheck = new RecursiveCheck(topGroup).also(function(it) {
-        it.alignment = "right"
-        it.value = config.getBoolean("recursive")
+        it.alignment = 'right'
+        it.value = prefs.getBoolean('recursive')
       })
     }
   })
 })
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
-  var fillColor = fillColorList.hasSelection() ? Color2.valueOf(fillColorList.selection) : undefined
+  var fillColor = fillColorList.hasSelection() ? Color2.find(fillColorList.selection) : undefined
   var fillOverprint = fillOverprintList.hasSelection() ? SelectOption.isYes(fillOverprintList.selection) : undefined
-  var strokeColor = strokeColorList.hasSelection() ? Color2.valueOf(strokeColorList.selection) : undefined
+  var strokeColor = strokeColorList.hasSelection() ? Color2.find(strokeColorList.selection) : undefined
   var strokeWeight = parseUnits(strokeWeightEdit.text)
   var strokeDashed = strokeDashedList.hasSelection() ? SelectOption.isYes(strokeDashedList.selection) : undefined
   var strokeOverprint = strokeOverprintList.hasSelection() ?
@@ -104,7 +104,7 @@ dialog.setDefaultButton(undefined, function() {
   var clipping = clippingList.hasSelection() ? SelectOption.isYes(clippingList.selection) : undefined
   var closed = closedList.hasSelection() ? SelectOption.isYes(closedList.selection) : undefined
   var guides = guidesList.hasSelection() ? SelectOption.isYes(guidesList.selection) : undefined
-  selectAll(["PathItem"], function(item) {
+  selectAll(['PathItem'], function(item) {
     if (width !== undefined && parseInt(width) !== parseInt(item.width)) return false
     if (height !== undefined && parseInt(height) !== parseInt(item.height)) return false
     if (clipping !== undefined && clipping !== item.clipping) return false
@@ -119,6 +119,6 @@ dialog.setDefaultButton(undefined, function() {
     return true
   }, isFilterMode && recursiveCheck.value)
 
-  if (isFilterMode) config.setBoolean("recursive", recursiveCheck.value)
+  if (isFilterMode) prefs.setBoolean('recursive', recursiveCheck.value)
 })
 dialog.show()

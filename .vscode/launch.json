@@ -1,12 +1,12 @@
 {
-  "version": "1.0.0",
+  "version": "0.2.0",
   "configurations": [
     {
       "type": "extendscript-debug",
       "request": "launch",
       "name": "Prepress Adobe Scripts",
-      "hostAppSpecifier": "illustrator", "script": "${workspaceFolder}/Illustrator Scripts/Impose/2-Up....jsx",
-      // "hostAppSpecifier": "photoshop", "script": "${workspaceFolder}/Photoshop Scripts/Documents/Pre-Flight.jsx"
+      // "hostAppSpecifier": "illustrator", "script": "${workspaceFolder}/Illustrator Scripts/Impose/2-Up....jsx",
+      "hostAppSpecifier": "photoshop", "script": "${workspaceFolder}/Photoshop Scripts/Images/Resize Images....jsx"
     }
   ]
 }

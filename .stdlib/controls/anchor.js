@@ -8,17 +8,17 @@ var SIZE_ANCHOR_RADIO = [15, 15]
 
 /**
  * 3 groups with 3 radio buttons each representing anchor position.
- * @param {Group|Panel|Window} parent holder of this control.
+ * @param {!Group|!Panel|!Window} parent
  */
 function AnchorGroup(parent) {
   checkNotNull(parent)
-  
+
   var self = parent.vgroup()
   self.topLeftRadio, self.topRadio, self.topRightRadio
   self.leftRadio, self.centerRadio, self.rightRadio
   self.bottomLeftRadio, self.bottomRadio, self.bottomRightRadio
 
-  isPsd = Scripts.APP_AI ? false : true
+  isPsd = !Scripts.APP_AI
   self.hgroup(function(group) {
     if (isPsd) {
       group.spacing = 0
@@ -74,97 +74,97 @@ function AnchorGroup(parent) {
 
   /**
    * Returns true if anchor is left horizontally and top vertically.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isTopLeft = function() { return self.topLeftRadio.value }
 
   /**
    * Returns true if anchor is center horizontally and top vertically.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isTop = function() { return self.topRadio.value }
 
   /**
    * Returns true if anchor is right horizontally and top vertically.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isTopRight = function() { return self.topRightRadio.value }
 
   /**
    * Returns true if anchor is left horizontally and center vertically.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isLeft = function() { return self.leftRadio.value }
 
   /**
    * Returns true if anchor is center horizontally and center vertically.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isCenter = function() { return self.centerRadio.value }
 
   /**
    * Returns true if anchor is right horizontally and center vertically.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isRight = function() { return self.rightRadio.value }
 
   /**
    * Returns true if anchor is left horizontally and bottom vertically.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isBottomLeft = function() { return self.bottomLeftRadio.value }
 
   /**
    * Returns true if anchor is center horizontally and bottom vertically.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isBottom = function() { return self.bottomRadio.value }
 
   /**
    * Returns true if anchor is right horizontally and bottom vertically.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isBottomRight = function() { return self.bottomRightRadio.value }
 
   /**
    * Returns true if anchor is any horizontal position and top vertically.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isHorizontalTop = function() { return self.isTopLeft() || self.isTop() || self.isTopRight() }
 
   /**
    * Returns true if anchor is any horizontal position and center vertically.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isHorizontalCenter = function() { return self.isLeft() || self.isCenter() || self.isRight() }
 
   /**
    * Returns true if anchor is any horizontal position and bottom vertically.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isHorizontalBottom = function() { return self.isBottomLeft() || self.isBottom() || self.isBottomRight() }
 
   /**
    * Returns true if anchor is left horizontally and any vertical position.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isVerticalLeft = function() { return self.isTopLeft() || self.isLeft() || self.isBottomLeft() }
 
   /**
    * Returns true if anchor is center horizontally and any vertical position.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isVerticalCenter = function() { return self.isTop() || self.isCenter() || self.isBottom() }
 
   /**
    * Returns true if anchor is right horizontally and any vertical position.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isVerticalRight = function() { return self.isTopRight() || self.isRight() || self.isBottomRight() }
 
   /**
    * Returns anchor as Illustrator's `Transformation`.
-   * @return {Transformation}
+   * @return {!Transformation}
    */
   self.getTransformation = function() {
     if (self.isTopLeft()) return Transformation.TOPLEFT
@@ -180,7 +180,7 @@ function AnchorGroup(parent) {
 
   /**
    * Returns anchor as Photoshop's `AnchorPosition`.
-   * @return {AnchorPosition}
+   * @return {!AnchorPosition}
    */
   self.getAnchorPosition = function() {
     if (self.isTopLeft()) return AnchorPosition.TOPLEFT
@@ -196,15 +196,15 @@ function AnchorGroup(parent) {
 
   function registerRadioClick(radio) {
     radio.addClickListener(function() {
-      if (radio != self.topLeftRadio) self.topLeftRadio.value = false
-      if (radio != self.topRadio) self.topRadio.value = false
-      if (radio != self.topRightRadio) self.topRightRadio.value = false
-      if (radio != self.leftRadio) self.leftRadio.value = false
-      if (radio != self.centerRadio) self.centerRadio.value = false
-      if (radio != self.rightRadio) self.rightRadio.value = false
-      if (radio != self.bottomLeftRadio) self.bottomLeftRadio.value = false
-      if (radio != self.bottomRadio) self.bottomRadio.value = false
-      if (radio != self.bottomRightRadio) self.bottomRightRadio.value = false
+      if (radio !== self.topLeftRadio) self.topLeftRadio.value = false
+      if (radio !== self.topRadio) self.topRadio.value = false
+      if (radio !== self.topRightRadio) self.topRightRadio.value = false
+      if (radio !== self.leftRadio) self.leftRadio.value = false
+      if (radio !== self.centerRadio) self.centerRadio.value = false
+      if (radio !== self.rightRadio) self.rightRadio.value = false
+      if (radio !== self.bottomLeftRadio) self.bottomLeftRadio.value = false
+      if (radio !== self.bottomRadio) self.bottomRadio.value = false
+      if (radio !== self.bottomRightRadio) self.bottomRightRadio.value = false
     })
   }
 

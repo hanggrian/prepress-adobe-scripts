@@ -1,5 +1,5 @@
-#target Illustrator
-#include "../../.lib/commons.js"
+#target illustrator
+#include '../../.lib/commons.js'
 
 checkMultipleSelection()
 
@@ -11,11 +11,11 @@ for (var i = 1; i < selection.length; i++) {
 
 var dialog = new Dialog(R.string.rearrange_objects)
 var orderingList
-var config = configs.resolve("objects/rearrange")
+var prefs = preferences2.resolve('objects/rearrange')
 
 dialog.vgroup(function(main) {
   orderingList = new OrderingList(main, [Ordering.positionList()]).also(function(it) {
-    it.selection = config.getInt("order")
+    it.selection = prefs.getInt('order')
   })
 })
 dialog.setCancelButton()
@@ -24,12 +24,12 @@ dialog.setDefaultButton(undefined, function() {
   // the idea is to keep pusing item to bottommost
   Collections.forEach(sortedSelection, function(it) {
     var times = it.absoluteZOrderPosition - Collections.last(initialPositions)
-    println("Moving %s %d times.", Items.getName(it), times)
+    println('Moving %s %d times.', Items.getName(it), times)
     repeat(times, function() {
       it.zOrder(ZOrderMethod.SENDBACKWARD)
     })
   })
 
-  config.setInt("order", orderingList.selection.index)
+  prefs.setInt('order', orderingList.selection.index)
 })
 dialog.show()

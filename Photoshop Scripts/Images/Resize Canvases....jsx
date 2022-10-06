@@ -6,18 +6,18 @@
 </javascriptresource>
 */
 
-#target Photoshop
-#include "../.lib/commons.js"
+#target photoshop
+#include '../.lib/commons.js'
 
 var SIZE_INPUT = [100, 21]
 
-var dialog = new Dialog(R.string.resize_canvases, "resizing-images-canvases/#resize-canvases")
+var dialog = new Dialog(R.string.resize_canvases, 'resizing-images-canvases/#resize-canvases')
 var widthEdit, heightEdit, anchorGroup
 
 dialog.hgroup(function(main) {
-  main.alignChildren = "fill"
+  main.alignChildren = 'fill'
   main.vpanel(R.string.canvas, function(panel) {
-    panel.alignChildren = "right"
+    panel.alignChildren = 'right'
     panel.hgroup(function(group) {
       group.leftStaticText(undefined, R.string.width)
       widthEdit = group.editText(SIZE_INPUT, formatUnits(document.width, unitType, 2)).also(function(it) {

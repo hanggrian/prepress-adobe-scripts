@@ -1,5 +1,5 @@
-#target Illustrator
-#include "../../.lib/commons.js"
+#target illustrator
+#include '../../.lib/commons.js'
 
 var SIZE_INPUT = [100, 21]
 
@@ -12,28 +12,28 @@ var widthFromEdit, widthToEdit, heightFromEdit, heightToEdit
 var documentOriginCheck, anchorGroup
 
 dialog.hgroup(function(main) {
-  main.alignChildren = "fill"
+  main.alignChildren = 'fill'
   var prefill = Collections.firstItem(selection, function(it) { return it.clipping })
   main.vpanel(R.string.dimension, function(panel) {
-    panel.alignChildren = "right"
+    panel.alignChildren = 'right'
     panel.hgroup(function(group) {
       group.leftStaticText(undefined, R.string.width)
       widthFromEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitType, 2)).also(function(it) {
         it.validateUnits()
         it.activate()
       })
-      group.staticText(undefined, "to")
+      group.staticText(undefined, 'to')
       widthToEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitType, 2)).also(VALIDATE_UNITS)
     })
     panel.hgroup(function(group) {
       group.leftStaticText(undefined, R.string.height)
       heightFromEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitType, 2)).also(VALIDATE_UNITS)
-      group.staticText(undefined, "to")
+      group.staticText(undefined, 'to')
       heightToEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitType, 2)).also(VALIDATE_UNITS)
     })
   })
   main.vpanel(R.string.anchor, function(panel) {
-    panel.alignChildren = "fill"
+    panel.alignChildren = 'fill'
     documentOriginCheck = new DocumentOriginCheck(panel).also(function(it) {
       it.addClickListener(function() { anchorGroup.enabled = !it.value })
     })
@@ -56,11 +56,11 @@ dialog.setDefaultButton(undefined, function() {
 
   Collections.forEach(clippingPaths, function(clippingPath, i) {
     var clippingPath = clippingPaths[i]
-    print(i + ". ")
+    print(i + '. ')
     progress.increment()
     var scaleX = 100 * widthTo / clippingPath.width
     var scaleY = 100 * heightTo / clippingPath.height
-    println("Scale X=%d Y=%d.", scaleX, scaleY)
+    println('Scale X=%d Y=%d.', scaleX, scaleY)
     clippingPath.resize(scaleX, scaleY, true, true, true, true, 100, transformation)
   })
 })

@@ -12,23 +12,23 @@ UnitType.CM.units = Units.CM
 
 /**
  * Build string based on unit value, name and optional fraction.
- * @param {UnitValue} unitValue native unit value.
- * @param {UnitType} unitType expected conversion, e.g: cm, mm, etc.
- * @param {Number} fraction max decimal place, may be null.
- * @return {String}
+ * @param {number} unitValue unit value in pt.
+ * @param {!Object} unitType enum UnitType.
+ * @param {?number=} fraction max decimal place.
+ * @return {string}
  */
 function formatUnits(unitValue, unitType, fraction) {
   checkNotNull(unitValue)
   checkNotNull(unitType)
   var value = unitValue.as(unitType.qualifier)
   var s = fraction !== undefined ? value.toFixed(fraction) : value.toString()
-  return parseFloat(s) + " " + unitType.qualifier
+  return parseFloat(s) + ' ' + unitType.qualifier
 }
 
 /**
  * Converts units to unit value in pixels.
- * @param {String} units units to convert.
- * @return {Number}
+ * @param {string} units units to convert.
+ * @return {number}
  */
 function parseUnits(units) {
   checkNotNull(units)
@@ -36,5 +36,5 @@ function parseUnits(units) {
   if (units.isEmpty()) {
     return undefined
   }
-  return units.isNumeric() ? parseFloat(units) : UnitValue(units).as("px")
+  return units.isNumeric() ? parseFloat(units) : new UnitValue(units).as('px')
 }

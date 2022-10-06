@@ -6,13 +6,13 @@
 
 /**
  * Returns true if this list has a selection.
- * @return {Boolean}
+ * @return {boolean}
  */
 DropDownList.prototype.hasSelection = function() { return this.selection !== null }
 
 /**
- * Change selection to ListItem with `text`.
- * @param {String|Object} text existing text of any ListItem, throws error if not found.
+ * Change selection to ListItem with `text`, throwing error if not found.
+ * @param {string|!Object} text
  */
 DropDownList.prototype.selectText = function(text) {
   this.selection = Collections.indexOf(
@@ -21,16 +21,16 @@ DropDownList.prototype.selectText = function(text) {
 
 /**
  * Allows for multiple change listeners to occur by invoking all of them in collective listener.
- * @param {Function} listener a callable of no parameter.
+ * @param {function(): undefined} listener
  */
-DropDownList.prototype.addChangeListener = function(listener) { Internals.addChangeListener(this, listener) }
+DropDownList.prototype.addChangeListener = function(listener) { Internals.addListener(this, 'onChange', listener) }
 
 /**
  * Add children to group.
- * @param {Array} size optional size or bounds.
- * @param {Array} items optional list items.
- * @param {Object} properties optional extra properties.
- * @return {DropDownList}
+ * @param {?Array<number>=} size
+ * @param {?Array<*>=} items
+ * @param {?Object=} properties
+ * @return {!DropDownList}
  */
 Group.prototype.dropDownList = function(size, items, properties) {
   return Internals.addDropDownList(this, size, items, properties)
@@ -38,10 +38,10 @@ Group.prototype.dropDownList = function(size, items, properties) {
 
 /**
  * Add children to panel.
- * @param {Array} size optional size or bounds.
- * @param {Array} items optional list items.
- * @param {Object} properties optional extra properties.
- * @return {DropDownList}
+ * @param {?Array<number>=} size
+ * @param {?Array<*>=} items
+ * @param {?Object=} properties
+ * @return {!DropDownList}
  */
 Panel.prototype.dropDownList = function(size, items, properties) {
   return Internals.addDropDownList(this, size, items, properties)
@@ -53,7 +53,7 @@ Internals.addDropDownList = function(root, size, items, properties) {
     itemTexts = it[0]
     itemFiles = it[1]
   })
-  var child = root.add("dropdownlist", Internals.sizeOrBounds(size), itemTexts, properties)
+  var child = root.add('dropdownlist', Internals.sizeOrBounds(size), itemTexts, properties)
   if (Collections.isNotEmpty(itemFiles)) {
     Collections.forEach(child.items, function(it, i) {
       if (itemFiles[i] !== undefined) {

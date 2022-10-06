@@ -12,7 +12,7 @@
 
 /**
  * Calls the specified function `block` and returns its result.
- * @param {Function} block runnable with receiver object as parameter.
+ * @param {function(*): undefined} block
  */
 Object.prototype.run = function(block) {
   block(this)
@@ -20,7 +20,7 @@ Object.prototype.run = function(block) {
 
 /**
  * Calls the specified function `block` with `this` value as its argument and returns `this` value.
- * @param {Function} block runnable with receiver object as parameter.
+ * @param {function(*): *} block
  * @return {*}
  */
 Object.prototype.also = function(block) {
@@ -31,7 +31,7 @@ Object.prototype.also = function(block) {
 
 /**
  * Calls the specified function `block` with `this` value as its argument and returns its result.
- * @param {Function} block runnable with receiver object as parameter.
+ * @param {function(*): *} block
  * @return {*}
  */
 Object.prototype.let = function(block) {
@@ -41,8 +41,8 @@ Object.prototype.let = function(block) {
 
 /**
  * Returns `this` value if it satisfies the given `predicate` or `null`, if it doesn't.
- * @param {Function} predicate runnable with receiver object as parameter and boolean return value.
- * @return {Boolean}
+ * @param {function(*): boolean} predicate
+ * @return {*}
  */
 Object.prototype.takeIf = function(predicate) {
   checkNotNull(predicate)
@@ -51,8 +51,8 @@ Object.prototype.takeIf = function(predicate) {
 
 /**
  * Returns `this` value if it _does not_ satisfy the given `predicate` or `null`, if it does.
- * @param {Function} predicate runnable with receiver object as parameter and boolean return value.
- * @return {Boolean}
+ * @param {function(*): boolean} predicate
+ * @return {*}
  */
 Object.prototype.takeUnless = function(predicate) {
   checkNotNull(predicate)
@@ -61,8 +61,8 @@ Object.prototype.takeUnless = function(predicate) {
 
 /**
  * Iterate n times with provided action.
- * @param {Number} times number of times to run the action.
- * @param {Function} action runnable with no parameter.
+ * @param {number} times
+ * @param {function(number): undefined} action
  */
 function repeat(times, action) {
   checkNotNull(times)

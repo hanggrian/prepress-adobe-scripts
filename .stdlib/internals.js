@@ -6,31 +6,30 @@
 
 var Internals = {
 
-  addChangeListener: function(child, listener) {
+  /**
+   * @param {!Button|!DropDownList|!EditText|!IconButton|!ListBox|!CheckBox|!RadioButton|!Panel} owner
+   * @param {string} type
+   * @param {function(): undefined} listener
+   */
+  addListener: function(owner, type, listener) {
+    checkNotNull(type)
     checkNotNull(listener)
-    if (child.onChangeListeners === undefined) {
-      child.onChangeListeners = [listener]
-      child.onChange = listener
+    var typeHolder = type + 'Listeners'
+    if (owner[typeHolder] === undefined) {
+      owner[typeHolder] = [listener]
+      owner[type] = listener
     } else {
-      if (child.onChangeListeners.length === 1) {
-        child.onChange = function() { Collections.forEach(child.onChangeListeners, function(it) { it() }) }
+      if (owner[typeHolder].length === 1) {
+        owner[type] = function() { Collections.forEach(owner[typeHolder], function(it) { it() }) }
       }
-      child.onChangeListeners.push(listener)
-    }
-  },
-  addClickListener: function(child, listener) {
-    checkNotNull(listener)
-    if (child.onClickListeners === undefined) {
-      child.onClickListeners = [listener]
-      child.onClick = listener
-    } else {
-      if (child.onClickListeners.length === 1) {
-        child.onClick = function() { Collections.forEach(child.onClickListeners, function(it) { it() }) }
-      }
-      child.onClickListeners.push(listener)
+      owner[typeHolder].push(listener)
     }
   },
 
+  /**
+   * @param {!Array<!Object>} fileExtensions array of enum FileExtension.
+   * @return {(function(!File): boolean)|string}
+   */
   getFileFilters: function(fileExtensions) {
     checkNotNull(fileExtensions)
     var filters
@@ -51,23 +50,28 @@ var Internals = {
         return false
       }
     } else {
-      // in Windows, filters are string, e.g.: "Adobe Illustrator:*.ai;Photoshop:*.psd,*.psb,*.pdd;"
-      filters = ""
+      // in Windows, filters are string, e.g.: 'Adobe Illustrator:*.ai;Photoshop:*.psd,*.psb,*.pdd;'
+      filters = ''
       var allExts = []
       Collections.forEach(fileExtensions, function(it) {
-        filters += it.name + ":*." + it.value.join(";*.") + ","
+        filters += it.name + ':*.' + it.value.join(';*.') + ','
         allExts = allExts.concat(it.value)
       })
-      filters = "All Formats:*." + allExts.join(";*.") + "," + filters
-      if (filters.endsWith(",")) {
-        filters = filters.substringBeforeLast(",")
+      filters = 'All Formats:*.' + allExts.join(';*.') + ',' + filters
+      if (filters.endsWith(',')) {
+        filters = filters.substringBeforeLast(',')
       }
-      println("Native filters = " + filters)
+      println('Native filters = ' + filters)
     }
     return filters
   },
 
-  // https://stackoverflow.com/a/35187109/1567541
+  /**
+   * @param {string} s
+   * @param {!Array<*>} arr
+   * @return {string}
+   * @see https://stackoverflow.com/a/35187109/1567541
+   */
   formatString: function(s, arr) {
     checkNotNull(arr)
     var args = Array.prototype.slice.call(arr)
@@ -77,32 +81,57 @@ var Internals = {
     return output
   },
 
+  /**
+   * @param {!Group|!Panel|!Window} parent
+   * @param {string} tips
+   */
   setHelpTips: function(parent, tips) { Collections.forEach(parent.children, function(it) { it.helpTip = tips }) },
 
+  /**
+   * @param {!Array<number>} size
+   */
   sizeOrBounds: function(size) { return size !== undefined && size.length === 2 ? [0, 0, size[0], size[1]] : size },
 
+  /**
+   * @param {?string|?File} image
+   * @return {?File}
+   */
   imageOrResource: function(image) {
-    if (image !== undefined && typeof image === "string") {
+    if (image !== undefined && typeof image === 'string') {
       return getImage(image)
     }
     return image
   },
+
+  /**
+   * @param {?string|?Object} text
+   * @return {?string}
+   */
   textOrResource: function(text) {
-    if (text !== undefined && typeof text !== "string") {
+    if (text !== undefined && typeof text !== 'string') {
       return getString(text)
     }
     return text
   },
 
+  /**
+   * @param {string} string
+   * @param {!Array<String>} regexes
+   * @return {string}
+   */
   removeRegexes: function(string, regexes) {
     checkNotNull(regexes)
     var s = string
     Collections.forEach(regexes, function(regex) {
-      s = s.replace(regex, "")
+      s = s.replace(regex, '')
     })
     return s
   },
 
+  /**
+   * @param {!Array<*>} items
+   * @return {!Array<!Array<string>>}
+   */
   splitListItems: function(items) {
     if (items === undefined || Collections.isEmpty(items)) {
       return [[], []]
@@ -113,11 +142,16 @@ var Internals = {
     var itemFiles = []
     Collections.forEach(items, function(pair) {
       itemTexts.push(pair[0])
-      itemFiles.push(pair[0] === "-" ? undefined : Internals.imageOrResource(pair[1]))
+      itemFiles.push(pair[0] === '-' ? undefined : Internals.imageOrResource(pair[1]))
     })
     return [itemTexts, itemFiles]
   },
 
+  /**
+   * @param {!EditText} editText
+   * @param {string} regex
+   * @param {function(string, string): string} getValue
+   */
   registerValidator: function(editText, regex, getValue) {
     checkNotNull(regex)
     checkNotNull(getValue)
@@ -129,10 +163,14 @@ var Internals = {
     })
   },
 
+  /**
+   * @param {!Group|!Panel|!Window} parent
+   * @return {number}
+   */
   getSelectedRadioIndex: function(parent) {
     var radioCount = 0
     for (var i = 0; i < parent.children.length; i++) {
-      if (parent.children[i].type === "radiobutton") {
+      if (parent.children[i].type === 'radiobutton') {
         if (parent.children[i].value) {
           return radioCount
         }
@@ -141,13 +179,18 @@ var Internals = {
     }
     return -1
   },
+
+  /**
+   * @param {!Group|!Panel|!Window} parent
+   * @param {number} index
+   */
   selectRadioIndex: function(parent, index) {
     checkNotNull(index)
-    if (index > Collections.lastIndex(parent.children)) {
+    if (index < 0 || index > Collections.lastIndex(parent.children)) {
       return
     }
     var radio = parent.children[index]
-    check(radio.type === "radiobutton")
+    check(radio.type === 'radiobutton')
     radio.select()
   }
 }

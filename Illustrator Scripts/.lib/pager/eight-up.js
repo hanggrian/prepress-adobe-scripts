@@ -1,12 +1,12 @@
 /**
  * 8 pages of folding layout.
- * @param {Document} document to attach to, use `document` for active document.
- * @param {Number} start first page to open, the first and default is 0.
+ * @param {!Document} document use `document` for active document.
+ * @param {number} start the first and default is 0.
  */
 function EightUpFoldingPager(document, start) {
   checkNotNull(document)
   checkNotNull(start)
-  var current = start || 0
+  var current = start
   var isFront = true
 
   var self = this
@@ -14,7 +14,7 @@ function EightUpFoldingPager(document, start) {
 
   /**
    * Iterate pager to next artboard, returning artboard's name.
-   * @return {String}
+   * @return {string}
    */
   self.next = function() {
     if (isFront) {
@@ -38,27 +38,27 @@ function EightUpFoldingPager(document, start) {
     }
     current += 8
     isFront = !isFront
-    return "%d-%d-%d-%d-%d-%d-%d-%d".format(self.top1 + 1, self.top2 + 1, self.top3 + 1, self.top4 + 1,
+    return '%d-%d-%d-%d-%d-%d-%d-%d'.format(self.top1 + 1, self.top2 + 1, self.top3 + 1, self.top4 + 1,
       self.bottom1 + 1, self.bottom2 + 1, self.bottom3 + 1, self.bottom4 + 1)
   }
 }
 
 /**
  * 8 pages of single-side layout.
- * @param {Document} document to attach to, use `document` for active document.
- * @param {Number} start first page to open, the first and default is 0.
+ * @param {!Document} document use `document` for active document.
+ * @param {number} start the first and default is 0.
  */
 function EightUpSimplexPager(document, start) {
   checkNotNull(document)
   checkNotNull(start)
-  var current = start || 0
+  var current = start
 
   var self = this
   self.top1, self.top2, self.top3, self.top4, self.bottom1, self.bottom2, self.bottom3, self.bottom3
 
   /**
    * Iterate pager to next artboard, returning artboard's name.
-   * @return {String}
+   * @return {string}
    */
   self.next = function() {
     self.top1 = current
@@ -70,29 +70,28 @@ function EightUpSimplexPager(document, start) {
     self.bottom3 = current + 6
     self.bottom4 = current + 7
     current += 8
-    return "%d-%d-%d-%d-%d-%d-%d-%d".format(self.top1 + 1, self.top2 + 1, self.top3 + 1, self.top4 + 1,
+    return '%d-%d-%d-%d-%d-%d-%d-%d'.format(self.top1 + 1, self.top2 + 1, self.top3 + 1, self.top4 + 1,
       self.bottom1 + 1, self.bottom2 + 1, self.bottom3 + 1, self.bottom4 + 1)
   }
 }
 
 /**
  * 8 pages of double-side layout.
- * @param {Document} document to attach to, use `document` for active document.
- * @param {Number} start first page to open, the first and default is 0.
+ * @param {!Document} document use `document` for active document.
+ * @param {number} start the first and default is 0.
  */
 function EightUpDuplexPager(document, start) {
   checkNotNull(document)
   checkNotNull(start)
-  var current = start || 0
+  var current = start
   var isFront = true
-  var current = start || 0
 
   var self = this
   self.top1, self.top2, self.top3, self.top4, self.bottom1, self.bottom2, self.bottom3, self.bottom3
 
   /**
    * Iterate pager to next artboard, returning artboard's name.
-   * @return {String}
+   * @return {string}
    */
   self.next = function() {
     if (isFront) {
@@ -116,27 +115,27 @@ function EightUpDuplexPager(document, start) {
     }
     current += 8
     isFront = !isFront
-    return "%d-%d-%d-%d-%d-%d-%d-%d".format(self.top1 + 1, self.top2 + 1, self.top3 + 1, self.top4 + 1,
+    return '%d-%d-%d-%d-%d-%d-%d-%d'.format(self.top1 + 1, self.top2 + 1, self.top3 + 1, self.top4 + 1,
       self.bottom1 + 1, self.bottom2 + 1, self.bottom3 + 1, self.bottom4 + 1)
   }
 }
 
 /**
  * 8 pages of single-side layout with cut stack flow.
- * @param {Document} document to attach to, use `document` for active document.
- * @param {Number} start first page to open, the first and default is 0.
+ * @param {!Document} document use `document` for active document.
+ * @param {number} start the first and default is 0.
  */
 function EightUpSimplexStackPager(document, start) {
   checkNotNull(document)
   checkNotNull(start)
-  var current = start || 0
+  var current = start
 
   var self = this
   self.top1, self.top2, self.top3, self.top4, self.bottom1, self.bottom2, self.bottom3, self.bottom3
 
   /**
    * Iterate pager to next artboard, returning artboard's name.
-   * @return {String}
+   * @return {string}
    */
   self.next = function() {
     self.top1 = current
@@ -148,20 +147,20 @@ function EightUpSimplexStackPager(document, start) {
     self.bottom3 = current + document.artboards.length * 6
     self.bottom4 = current + document.artboards.length * 7
     current++
-    return "%d-%d-%d-%d-%d-%d-%d-%d".format(self.top1 + 1, self.top2 + 1, self.top3 + 1, self.top4 + 1,
+    return '%d-%d-%d-%d-%d-%d-%d-%d'.format(self.top1 + 1, self.top2 + 1, self.top3 + 1, self.top4 + 1,
       self.bottom1 + 1, self.bottom2 + 1, self.bottom3 + 1, self.bottom4 + 1)
   }
 }
 
 /**
  * 8 pages of double-side layout with cut stack flow.
- * @param {Document} document to attach to, use `document` for active document.
- * @param {Number} start first page to open, the first and default is 0.
+ * @param {!Document} document use `document` for active document.
+ * @param {number} start the first and default is 0.
  */
 function EightUpDuplexStackPager(document, start) {
   checkNotNull(document)
   checkNotNull(start)
-  var current = start || 0
+  var current = start
   var isFront = true
 
   var self = this
@@ -169,7 +168,7 @@ function EightUpDuplexStackPager(document, start) {
 
   /**
    * Iterate pager to next artboard, returning artboard's name.
-   * @return {String}
+   * @return {string}
    */
   self.next = function() {
     if (isFront) {
@@ -193,7 +192,7 @@ function EightUpDuplexStackPager(document, start) {
     }
     current++
     isFront = !isFront
-    return "%d-%d-%d-%d-%d-%d-%d-%d".format(self.top1 + 1, self.top2 + 1, self.top3 + 1, self.top4 + 1,
+    return '%d-%d-%d-%d-%d-%d-%d-%d'.format(self.top1 + 1, self.top2 + 1, self.top3 + 1, self.top4 + 1,
       self.bottom1 + 1, self.bottom2 + 1, self.bottom3 + 1, self.bottom4 + 1)
   }
 }

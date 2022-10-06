@@ -1,30 +1,30 @@
-#target Illustrator
-#include "../.lib/commons.js"
+#target illustrator
+#include '../.lib/commons.js'
 
 var SIZE_INPUT = [40, 21]
 var SIZE_INPUT_MOVE = [100, 21]
 
 checkHasSelection()
 
-var dialog = new Dialog(R.string.step_and_repeat, "step-and-repeat/")
+var dialog = new Dialog(R.string.step_and_repeat, 'step-and-repeat/')
 var horizontalEdit, verticalEdit
 var moveHorizontalEdit, moveVerticalEdit, moveRelativeCheck
-var config = configs.resolve("objects/step_and_repeat")
+var prefs = preferences2.resolve('objects/step_and_repeat')
 
 var bounds = Items.getMaxBounds(selection)
 dialog.vgroup(function(main) {
   main.hgroup(function(group) {
     group.helpTips = R.string.tip_stepandrepeat_copies
     group.leftStaticText(undefined, R.string.copies)
-    horizontalEdit = group.editText(SIZE_INPUT, config.getInt("horizontal").toString()).also(function(it) {
+    horizontalEdit = group.editText(SIZE_INPUT, prefs.getInt('horizontal').toString()).also(function(it) {
       it.validateDigits()
       it.activate()
     })
-    group.staticText(undefined, "×")
-    verticalEdit = group.editText(SIZE_INPUT, config.getInt("vertical").toString()).also(VALIDATE_DIGITS)
+    group.staticText(undefined, '×')
+    verticalEdit = group.editText(SIZE_INPUT, prefs.getInt('vertical').toString()).also(VALIDATE_DIGITS)
   })
   main.vpanel(R.string.move, function(panel) {
-    panel.alignChildren = "right"
+    panel.alignChildren = 'right'
     panel.hgroup(function(group) {
       group.helpTips = R.string.tip_stepandrepeat_horizontal
       group.leftStaticText(undefined, R.string.horizontal)
@@ -41,8 +41,8 @@ dialog.vgroup(function(main) {
       it.helpTip = R.string.tip_stepandrepeat_relativeposition
       it.addClickListener(function() {
         if (it.value) {
-          moveHorizontalEdit.text = "0 " + unitType.qualifier
-          moveVerticalEdit.text = "0 " + unitType.qualifier
+          moveHorizontalEdit.text = '0 ' + unitType.qualifier
+          moveVerticalEdit.text = '0 ' + unitType.qualifier
         } else {
           moveHorizontalEdit.text = formatUnits(bounds.getWidth(), unitType, 2)
           moveVerticalEdit.text = formatUnits(bounds.getHeight(), unitType, 2)
@@ -68,25 +68,25 @@ dialog.setDefaultButton(undefined, function() {
 
   // vertical starts with 0 because the starting point doesn't change
   for (var v = 0; v < vertical; v++) {
-    print(v + ". ")
+    print(v + '. ')
     var finalMoveVertical = moveVertical
     if (moveRelativeCheck.value) {
       finalMoveVertical += bounds.getHeight()
     }
     if (v !== 0) { // skip first
-      Collections.forEachReversed(readOnlySelection, function(item) {
+      Collections.forEach(Collections.reversed(readOnlySelection), function(item) {
         var x = bounds.getLeft() - (bounds.getLeft() - item.position.getLeft())
         var y = bounds.getTop() - (bounds.getTop() - item.position.getTop())
         item.duplicate(layer, ElementPlacement.PLACEATBEGINNING).position = [x, y - v * finalMoveVertical]
       })
     }
     for (var h = 1; h < horizontal; h++) {
-      print(h + " ")
+      print(h + ' ')
       var finalMoveHorizontal = moveHorizontal
       if (moveRelativeCheck.value) {
         finalMoveHorizontal += bounds.getWidth()
       }
-      Collections.forEachReversed(readOnlySelection, function(item) {
+      Collections.forEach(Collections.reversed(readOnlySelection), function(item) {
         var x = bounds.getLeft() - (bounds.getLeft() - item.position.getLeft())
         var y = bounds.getTop() - (bounds.getTop() - item.position.getTop())
         item.duplicate(layer, ElementPlacement.PLACEATBEGINNING).position =
@@ -96,7 +96,7 @@ dialog.setDefaultButton(undefined, function() {
     println()
   }
 
-  config.setInt("horizontal", horizontal)
-  config.setInt("vertical", vertical)
+  prefs.setInt('horizontal', horizontal)
+  prefs.setInt('vertical', vertical)
 })
 dialog.show()

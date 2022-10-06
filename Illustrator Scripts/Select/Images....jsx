@@ -1,34 +1,48 @@
 // Select all PathItem with attributes matching user input.
 // When there are active selection, will only select items within those selection.
 
-#target Illustrator
-#include "../.lib/commons.js"
+#target illustrator
+#include '../.lib/commons.js'
 
-var COLOR_SPACES = ["Grayscale", "RGB", "CMYK", "LAB", "Separations", "DeviceN", "Indexed"]
-var STATUSES = ["No Data", "Data from File", "Data Modified"]
+var ImageColor = new Enum({
+  GRAYSCALE: { text: "Grayscale", value: ImageColorSpace.GrayScale },
+  RGB: { text: "RGB", value: ImageColorSpace.RGB },
+  CMYK: { text: "CMYK", value: ImageColorSpace.CMYK },
+  LAB: { text: "LAB", value: ImageColorSpace.LAB },
+  SEPARATION: { text: "Separation", value: ImageColorSpace.Separation },
+  DEVICEN: { text: "DeviceN", value: ImageColorSpace.DeviceN },
+  INDEXED: { text: "Indexed", value: ImageColorSpace.Indexed }
+})
+
+var ImageStatus = new Enum({
+  NO_DATA: { text: "No Data" },
+  DATA_FROM_FILE: { text: "Data from File" },
+  DATA_MODIFIED: { text: "Data Modified" }
+})
+
 var SIZE_INPUT = [100, 21]
 
 check(Collections.isNotEmpty(document.rasterItems), getString(R.string.error_notypes_document, R.plurals.raster.plural))
 var isFilterMode = Collections.isNotEmpty(selection)
 
-var dialog = new Dialog(R.string.select_images, "selecting-items/#select-images")
+var dialog = new Dialog(R.string.select_images, 'selecting-items/#select-images')
 var dimensionPanel
 var colorSpaceList, bitsEdit, transparentList
 var embeddedList, overprintList, statusList
 var recursiveCheck
-var config = configs.resolve("select/images")
+var prefs = preferences2.resolve('select/images')
 
 dialog.hgroup(function(main) {
-  main.alignChildren = "fill"
+  main.alignChildren = 'fill'
   main.vgroup(function(topGroup) {
-    topGroup.alignChildren = "fill"
+    topGroup.alignChildren = 'fill'
     dimensionPanel = new SelectDimensionPanel(topGroup, SIZE_INPUT)
     topGroup.vpanel(R.string.image, function(panel) {
-      panel.alignChildren = "right"
+      panel.alignChildren = 'right'
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_selectimage_colorspace
         group.leftStaticText(undefined, R.string.color_space)
-        colorSpaceList = group.dropDownList(SIZE_INPUT, COLOR_SPACES)
+        colorSpaceList = group.dropDownList(SIZE_INPUT, ImageColor.list())
       })
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_selectimage_bitsperchannel
@@ -43,9 +57,9 @@ dialog.hgroup(function(main) {
     })
   })
   main.vgroup(function(topGroup) {
-    topGroup.alignChildren = "fill"
+    topGroup.alignChildren = 'fill'
     topGroup.vpanel(R.string.others, function(panel) {
-      panel.alignChildren = "right"
+      panel.alignChildren = 'right'
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_selectimage_embedded
         group.leftStaticText(undefined, R.string.embedded)
@@ -59,13 +73,13 @@ dialog.hgroup(function(main) {
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_selectimage_status
         group.leftStaticText(undefined, R.string.status)
-        statusList = group.dropDownList(SIZE_INPUT, STATUSES)
+        statusList = group.dropDownList(SIZE_INPUT, ImageStatus.list())
       })
     })
     if (isFilterMode) {
       recursiveCheck = new RecursiveCheck(topGroup).also(function(it) {
-        it.alignment = "right"
-        it.value = config.getBoolean("recursive")
+        it.alignment = 'right'
+        it.value = prefs.getBoolean('recursive')
       })
     }
   })
@@ -76,21 +90,7 @@ dialog.setDefaultButton(undefined, function() {
   var height = dimensionPanel.getHeight()
   var colorSpace
   if (colorSpaceList.hasSelection()) {
-    if (colorSpaceList.selection.text === "Grayscale") {
-      colorSpace = ImageColorSpace.GrayScale
-    } else if (colorSpaceList.selection.text === "RGB") {
-      colorSpace = ImageColorSpace.RGB
-    } else if (colorSpaceList.selection.text === "CMYK") {
-      colorSpace = ImageColorSpace.CMYK
-    } else if (colorSpaceList.selection.text === "LAB") {
-      colorSpace = ImageColorSpace.LAB
-    } else if (colorSpaceList.selection.text === "Separations") {
-      colorSpace = ImageColorSpace.Separation
-    } else if (colorSpaceList.selection.text === "DeviceN") {
-      colorSpace = ImageColorSpace.DeviceN
-    } else {
-      colorSpace = ImageColorSpace.Indexed
-    }
+    colorSpace = ImageColor.find(colorSpaceList.selection).value
   }
   var bits = parseInt(bitsEdit.text) || 0
   var transparent = transparentList.hasSelection() ? SelectOption.isYes(transparentList.selection) : undefined
@@ -98,19 +98,13 @@ dialog.setDefaultButton(undefined, function() {
   var overprint = overprintList.hasSelection() ? SelectOption.isYes(overprintList.selection) : undefined
   var status
   if (statusList.hasSelection()) {
-    if (statusList.selection.text === "No Data") {
-      status = RasterLinkState.NODATA
-    } else if (statusList.selection.text === "Data from File") {
-      status = RasterLinkState.DATAFROMFILE
-    } else {
-      status = RasterLinkState.DATAMODIFIED
-    }
+    status = ImageStatus.find(statusList.selection).value
   }
-  selectAll(["RasterItem"], function(item) {
+  selectAll(['RasterItem'], function(item) {
     if (width !== undefined && parseInt(width) !== parseInt(item.width)) return false
     if (height !== undefined && parseInt(height) !== parseInt(item.height)) return false
     if (colorSpace !== undefined && colorSpace !== item.imageColorSpace) return false
-    if (bits !== 0 && parseInt(bits) !== parseInt(item.bitsPerChannel)) return false
+    if (bits !== 0 && bits !== parseInt(item.bitsPerChannel)) return false
     if (transparent !== undefined && transparent !== item.transparent) return false
     if (embedded !== undefined && embedded !== item.embedded) return false
     if (overprint !== undefined && overprint !== item.overprint) return false
@@ -118,6 +112,6 @@ dialog.setDefaultButton(undefined, function() {
     return true
   }, isFilterMode && recursiveCheck.value)
 
-  if (isFilterMode) config.setBoolean("recursive", recursiveCheck.value)
+  if (isFilterMode) prefs.setBoolean('recursive', recursiveCheck.value)
 })
 dialog.show()

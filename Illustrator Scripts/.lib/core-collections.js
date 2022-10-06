@@ -2,14 +2,14 @@
 
 /**
  * Iterate each element of this collection.
- * @param {Array|Object} items array or array-like object.
- * @param {Function} action runnable to execute.
+ * @param {!Array<!PageItem>|!PageItems} items
+ * @param {function(!PageItem, number): undefined} action
  */
 Collections.forEachItem = function(items, action) {
   checkNotNull(items)
   checkNotNull(action)
   for (var i = 0; i < items.length; i++) {
-    if (items[i].typename === "GroupItem") {
+    if (items[i].typename === 'GroupItem') {
       Collections.forEachItem(items[i].pageItems, action)
     } else {
       action(items[i], i)
@@ -18,56 +18,40 @@ Collections.forEachItem = function(items, action) {
 }
 
 /**
- * Iterate each element of this collection as reversed.
- * @param {Array|Object} items array or array-like object.
- * @param {Function} action runnable to execute.
- */
-Collections.forEachItemReversed = function(items, action) {
-  checkNotNull(action)
-  for (var i = Collections.lastIndex(items); i >= 0; i--) {
-    if (items[i].typename === "GroupItem") {
-      Collections.forEachItemReversed(items[i].pageItems, action)
-    } else {
-      action(items[i], i)
-    }
-  }
-}
-
-/**
  * First item of this collection, or given predicate when defined.
- * @param {Array|Object} items array or array-like object.
- * @param {Function} predicate optional consumer.
- * @return {Object}
+ * @param {!Array<!PageItem>|!PageItems} items
+ * @param {function(*, number): boolean} predicate
+ * @return {!PageItem}
  */
 Collections.firstItem = function(items, predicate) {
   checkNotNull(items)
   checkNotNull(predicate)
   for (var i = 0; i < items.length; i++) {
-    if (items[i].typename === "GroupItem") {
+    if (items[i].typename === 'GroupItem') {
       return Collections.firstItem(items[i].pageItems, predicate)
     } else if (predicate(items[i], i)) {
       return items[i]
     }
   }
-  error("Element not found given the predicate")
+  error('Element not found given the predicate')
 }
 
 /**
  * Last item of this collection, or given predicate when defined.
- * @param {Array|Object} items array or array-like object.
- * @param {Function} predicate optional consumer.
- * @return {Object}
+ * @param {!Array<!PageItem>|!PageItems} items
+ * @param {function(*, number): boolean} predicate
+ * @return {!PageItem}
  */
 Collections.lastItem = function(items, predicate) {
   checkNotNull(predicate)
   for (var i = Collections.lastIndex(this); i >= 0; i--) {
-    if (items[i].typename === "GroupItem") {
+    if (items[i].typename === 'GroupItem') {
       return Collections.firstItem(items[i].pageItems, predicate)
     } else if (predicate(items[i], i)) {
       return items[i]
     }
   }
-  error("Element not found given the predicate")
+  error('Element not found given the predicate')
 }
 
 // TODO: Collections.firstItem
@@ -75,15 +59,15 @@ Collections.lastItem = function(items, predicate) {
 
 /**
  * Returns true if the collection has no elements matching predicate.
- * @param {Array|Object} items array or array-like object.
- * @param {Function} predicate runnable with return value.
- * @return {Boolean}
+ * @param {!Array<!PageItem>|!PageItems} items
+ * @param {function(*, number): boolean} predicate
+ * @return {boolean}
  */
 Collections.noneItem = function(items, predicate) {
   checkNotNull(items)
   checkNotNull(predicate)
   for (var i = 0; i < items.length; i++) {
-    if (items[i].typename === "GroupItem") {
+    if (items[i].typename === 'GroupItem') {
       if (!Collections.noneItem(items[i].pageItems, predicate)) {
         return false
       }
@@ -96,15 +80,15 @@ Collections.noneItem = function(items, predicate) {
 
 /**
  * Returns true if collection has at least one element matching predicate.
- * @param {Array|Object} items array or array-like object.
- * @param {Function} predicate runnable with return value.
- * @return {Boolean}
+ * @param {!Array<!PageItem>|!PageItems} items
+ * @param {function(*, number): boolean} predicate
+ * @return {boolean}
  */
 Collections.anyItem = function(items, predicate) {
   checkNotNull(items)
   checkNotNull(predicate)
   for (var i = 0; i < items.length; i++) {
-    if (items[i].typename === "GroupItem") {
+    if (items[i].typename === 'GroupItem') {
       if (Collections.anyItem(items[i].pageItems, predicate)) {
         return true
       }
@@ -117,15 +101,15 @@ Collections.anyItem = function(items, predicate) {
 
 /**
  * Returns true if all elements in this collection match the predicate.
- * @param {Array|Object} items array or array-like object.
- * @param {Function} predicate runnable with return value.
- * @return {Boolean}
+ * @param {!Array<!PageItem>|!PageItems} items
+ * @param {function(*, number): boolean} predicate
+ * @return {boolean}
  */
 Collections.allItem = function(items, predicate) {
   checkNotNull(items)
   checkNotNull(predicate)
   for (var i = 0; i < items.length; i++) {
-    if (items[i].typename === "GroupItem") {
+    if (items[i].typename === 'GroupItem') {
       if (!Collections.allItem(items[i].pageItems, predicate)) {
         return false
       }
@@ -138,9 +122,9 @@ Collections.allItem = function(items, predicate) {
 
 /**
  * Returns a list containing only elements matching the given predicate.
- * @param {Array|Object} items array or array-like object.
- * @param {Function} predicate runnable with return value.
- * @return {Array}
+ * @param {!Array<!PageItem>|!PageItems} items
+ * @param {function(*, number): boolean} predicate
+ * @return {!Array<!PageItem>}
  */
 Collections.filterItem = function(items, predicate) {
   checkNotNull(items)
@@ -152,7 +136,7 @@ Collections.filterItem = function(items, predicate) {
 
 function _filterItem(items, predicate, result) {
   for (var i = 0; i < items.length; i++) {
-    if (items[i].typename === "GroupItem") {
+    if (items[i].typename === 'GroupItem') {
       _filterItem(items[i].pageItems, predicate, result)
     } else {
       if (predicate(items[i], i)) {
@@ -164,9 +148,9 @@ function _filterItem(items, predicate, result) {
 
 /**
  * Returns an array containing the results of applying the given transform function.
- * @param {Array|Object} items array or array-like object.
- * @param {Function} transform runnable with return value.
- * @return {Array}
+ * @param {!Array<!PageItem>|!PageItems} items
+ * @param {function(!PageItem): *} transform
+ * @return {!Array<*>}
  */
 Collections.mapItem = function(items, transform) {
   checkNotNull(items)
@@ -178,7 +162,7 @@ Collections.mapItem = function(items, transform) {
 
 function _mapItem(items, transform, result) {
   for (var i = 0; i < items.length; i++) {
-    if (items[i].typename === "GroupItem") {
+    if (items[i].typename === 'GroupItem') {
       _mapItem(items[i].pageItems, transform, result)
     } else {
       result.push(transform(items[i], i))

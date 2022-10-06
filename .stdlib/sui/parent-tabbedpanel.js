@@ -6,8 +6,8 @@
 
 /**
  * Add parent to group.
- * @param {Function} configuration runnable with this parent as parameter.
- * @return {TabbedPanel}
+ * @param {function(!TabbedPanel): undefined} configuration
+ * @return {!TabbedPanel}
  */
 Group.prototype.tabbedPanel = function(configuration) {
   return Internals.addTabbedPanel(this, configuration)
@@ -15,15 +15,15 @@ Group.prototype.tabbedPanel = function(configuration) {
 
 /**
  * Add parent to panel.
- * @param {Function} configuration runnable with this parent as parameter.
- * @return {TabbedPanel}
+ * @param {function(!TabbedPanel): undefined} configuration
+ * @return {!TabbedPanel}
  */
 Panel.prototype.tabbedPanel = function(configuration) {
   return Internals.addTabbedPanel(this, configuration)
 }
 
 Internals.addTabbedPanel = function(root, configuration) {
-  var parent = root.add("tabbedpanel")
+  var parent = root.add('tabbedpanel')
   if (configuration !== undefined) {
     configuration(parent)
   }

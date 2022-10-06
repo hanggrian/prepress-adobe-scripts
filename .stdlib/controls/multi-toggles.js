@@ -6,9 +6,9 @@
 
 /**
  * Any number of radio buttons with their disability attached to left checkbox.
- * @param {Group|Panel|Window} parent holder of this control.
- * @param {String} text checkbox's text, may be null.
- * @param {Array} radioTexts radio buttons' texts.
+ * @param {!Group|!Panel|!Window} parent
+ * @param {?string} text checkbox's text.
+ * @param {!Array<string>} radioTexts radio buttons' texts.
  */
 function MultiRadioGroup(parent, text, radioTexts) {
   checkNotNull(parent)
@@ -35,13 +35,13 @@ function MultiRadioGroup(parent, text, radioTexts) {
 
   /**
    * Returns true if checkbox is selected.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isSelected = function() { return self.check.value }
 
   /**
    * Returns index of selected toggle, will still return value if checkbox is not selected.
-   * @return {Number}
+   * @return {number}
    */
   self.getSelectedRadioIndex = function() { return Internals.getSelectedRadioIndex(self) }
 
@@ -50,10 +50,10 @@ function MultiRadioGroup(parent, text, radioTexts) {
 
 /**
  * Any number of checkboxes with their disability attached to on/off radio button.
- * @param {Group|Panel|Window} parent holder of this control.
- * @param {String} textOff radio's text when in enabled state, may be null.
- * @param {String} textOn radio's text when in disabled state, may be null.
- * @param {Array} checkTexts checkboxes' texts.
+ * @param {!Group|!Panel|!Window} parent
+ * @param {?string} textOff radio's text when in enabled state.
+ * @param {?string} textOn radio's text when in disabled state.
+ * @param {!Array<string>} checkTexts checkboxes' texts.
  */
 function MultiCheckGroup(parent, textOff, textOn, checkTexts) {
   checkNotNull(parent)
@@ -80,19 +80,19 @@ function MultiCheckGroup(parent, textOff, textOn, checkTexts) {
 
   /**
    * Returns true if is in off state.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isOff = function() { return self.radioOff.value }
 
   /**
    * Returns true if is in on state.
-   * @return {Boolean}
+   * @return {boolean}
    */
   self.isOn = function() { return self.radioOn.value }
 
   /**
    * Returns index of selected toggle, will still return value if in off state.
-   * @return {Number}
+   * @return {number}
    */
   self.getSelectedRadioIndex = function() { return Internals.getSelectedRadioIndex(self) }
 

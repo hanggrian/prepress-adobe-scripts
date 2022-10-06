@@ -1,10 +1,10 @@
-#target Illustrator
-#include "../.lib/commons.js"
+#target illustrator
+#include '../.lib/commons.js'
 
 var unsavedLength = Collections.filter(app.documents, function(it) { return !it.saved }).length
 
 var dialog = new AlertDialog(R.string.close_documents, getString(R.string.confirm_closedocuments,
-  app.documents.length, unsavedLength > 0 ? unsavedLength : "none"))
+  app.documents.length, unsavedLength > 0 ? unsavedLength : 'none'))
 dialog.setCancelButton()
 dialog.setDefaultButton(R.string.all, function() {
   for (var i = 0; i < app.documents.length; i++) {

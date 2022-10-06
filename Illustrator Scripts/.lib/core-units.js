@@ -6,23 +6,23 @@ UnitType.CM.rulerUnits = RulerUnits.Centimeters
 
 /**
  * Build string based on unit value, name and optional fraction.
- * @param {Number} units unit value in pt.
- * @param {UnitType} unitType expected conversion, e.g: cm, mm, etc.
- * @param {Number} fraction max decimal place, may be undefined.
- * @return {String}
+ * @param {number} unitValue unit value in pt.
+ * @param {!Object} unitType enum UnitType.
+ * @param {?number=} fraction max decimal place.
+ * @return {string}
  */
-function formatUnits(units, unitType, fraction) {
-  checkNotNull(units)
+function formatUnits(unitValue, unitType, fraction) {
+  checkNotNull(unitValue)
   checkNotNull(unitType)
-  var value = new UnitValue(units, "pt").as(unitType.qualifier)
+  var value = new UnitValue(unitValue, 'pt').as(unitType.qualifier)
   var s = fraction !== undefined ? value.toFixed(fraction) : value.toString()
-  return parseFloat(s) + " " + unitType.qualifier
+  return parseFloat(s) + ' ' + unitType.qualifier
 }
 
 /**
  * Converts units to unit value in points.
- * @param {String} units units to convert.
- * @return {Number}
+ * @param {string} units units to convert.
+ * @return {number}
  */
 function parseUnits(units) {
   checkNotNull(units)
@@ -30,5 +30,5 @@ function parseUnits(units) {
   if (units.isEmpty()) {
     return undefined
   }
-  return units.isNumeric() ? parseFloat(units) : UnitValue(units).as("pt")
+  return units.isNumeric() ? parseFloat(units) : new UnitValue(units).as('pt')
 }

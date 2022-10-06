@@ -1,5 +1,5 @@
-#target Illustrator
-#include "../.lib/commons.js"
+#target illustrator
+#include '../.lib/commons.js'
 
 checkHasSelection()
 
@@ -17,48 +17,48 @@ var textCount = 0
 
 Collections.forEachItem(selection, function(it) {
   switch (it.typename) {
-    case "CompoundPathItem":
+    case 'CompoundPathItem':
       compoundPathCount++
       break;
-    case "GraphItem":
+    case 'GraphItem':
       graphCount++
       break;
-    case "LegacyTextItem":
+    case 'LegacyTextItem':
       legacyTextCount++
       break;
-    case "MeshItem":
+    case 'MeshItem':
       meshCount++
       break;
-    case "NonNativeItem":
+    case 'NonNativeItem':
       nonNativeCount++
       break;
-    case "PathItem":
+    case 'PathItem':
       pathCount++
       break;
-    case "PlacedItem":
+    case 'PlacedItem':
       placedCount++
       break;
-    case "PluginItem":
+    case 'PluginItem':
       pluginCount++
       break;
-    case "RasterItem":
+    case 'RasterItem':
       rasterCount++
       break;
-    case "SymbolItem":
+    case 'SymbolItem':
       symbolCount++
       break;
-    case "TextFrame":
+    case 'TextFrame':
       textCount++
       break;
   }
 })
 
 var message = getString(R.string.message_count1)
-var prefix = ""
+var prefix = ''
 
 if (!isSingleType()) {
   message += selection.length + getString(R.string.message_count2)
-  prefix = "\n"
+  prefix = '\n'
 }
 message += getItemLine(prefix, compoundPathCount, R.plurals.compound_path)
 message += getItemLine(prefix, graphCount, R.plurals.graph)
@@ -75,9 +75,9 @@ alert(message, getString(R.string.count_objects))
 
 function getItemLine(prefix, count, pluralId) {
   if (count === 0) {
-    return ""
+    return ''
   }
-  return "%s%d %s".format(prefix, count, getPlural(pluralId, count))
+  return '%s%d %s'.format(prefix, count, getPlural(pluralId, count))
 }
 
 function isSingleType() {

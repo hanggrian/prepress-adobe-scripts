@@ -1,11 +1,11 @@
-#target Illustrator
-#include "../.lib/commons.js"
+#target illustrator
+#include '../.lib/commons.js'
 
 var Direction = new Enum({
-  TOP: { name: R.string.top, image: "ic_arrow_top" },
-  RIGHT: { name: R.string.right, image: "ic_arrow_right" },
-  BOTTOM: { name: R.string.bottom, image: "ic_arrow_bottom" },
-  LEFT: { name: R.string.left, image: "ic_arrow_left" }
+  TOP: { text: R.string.top, image: "ic_arrow_top" },
+  RIGHT: { text: R.string.right, image: "ic_arrow_right" },
+  BOTTOM: { text: R.string.bottom, image: "ic_arrow_bottom" },
+  LEFT: { text: R.string.left, image: "ic_arrow_left" }
 })
 
 var SIZE_INPUT = [110, 21]
@@ -14,24 +14,24 @@ var SIZE_RADIO = [15, 15]
 
 checkSingleSelection()
 
-var dialog = new Dialog(R.string.add_flap_dieline, "adding-measuring-dielines/#add-flap-dieline")
+var dialog = new Dialog(R.string.add_flap_dieline, 'adding-measuring-dielines/#add-flap-dieline')
 var lengthEdit, weightEdit, colorList, directionList, tabbedPanel
 var glueShearEdit, glueScratchEdit
 var tuckSliderGroup, tuckDistanceEdit
 var dustShoulderEdit, dustDistanceEdit
 var leftRadio, topRadio, rightRadio, bottomRadio
-var config = configs.resolve("dielines/add_flap")
+var prefs = preferences2.resolve('dielines/add_flap')
 var currentTab = getString(R.string.glue_flap) // do not use tabbedpanel.selection as it crashes on macOS
 
 dialog.hgroup(function(main) {
-  main.alignChildren = "fill"
+  main.alignChildren = 'fill'
   main.hgroup(function(topGroup) {
     topGroup.vpanel(R.string.flap, function(panel) {
-      panel.alignChildren = "right"
+      panel.alignChildren = 'right'
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_length
         group.leftStaticText(undefined, R.string.length)
-        lengthEdit = group.editText(SIZE_INPUT, config.getString("length", "20 mm")).also(function(it) {
+        lengthEdit = group.editText(SIZE_INPUT, prefs.getString('length', '20 mm')).also(function(it) {
           it.validateUnits()
           it.activate()
         })
@@ -39,20 +39,20 @@ dialog.hgroup(function(main) {
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_weight
         group.leftStaticText(undefined, R.string.weight)
-        weightEdit = group.editText(SIZE_INPUT, config.getString("weight", "1 pt")).also(VALIDATE_UNITS)
+        weightEdit = group.editText(SIZE_INPUT, prefs.getString('weight', '1 pt')).also(VALIDATE_UNITS)
       })
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_color
         group.leftStaticText(undefined, R.string.color)
         colorList = group.dropDownList(SIZE_INPUT, Color2.list()).also(function(it) {
-          it.selection = config.getInt("color")
+          it.selection = prefs.getInt('color')
         })
       })
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_direction
         group.leftStaticText(undefined, R.string.direction)
         directionList = group.dropDownList(SIZE_INPUT, Direction.list()).also(function(it) {
-          it.selection = config.getInt("direction")
+          it.selection = prefs.getInt('direction')
         })
       })
     })
@@ -63,12 +63,12 @@ dialog.hgroup(function(main) {
       tab.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_glueflap_shear
         group.leftStaticText(SIZE_LABEL_TAB, R.string.shear)
-        glueShearEdit = group.editText(SIZE_INPUT, "5 mm").also(VALIDATE_UNITS)
+        glueShearEdit = group.editText(SIZE_INPUT, '5 mm').also(VALIDATE_UNITS)
       })
       tab.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_glueflap_scratches
         group.leftStaticText(SIZE_LABEL_TAB, R.string.scratches)
-        glueScratchEdit = group.editText(SIZE_INPUT, "0 mm").also(function(it) {
+        glueScratchEdit = group.editText(SIZE_INPUT, '0 mm').also(function(it) {
           it.validateUnits()
           it.enabled = false
         })
@@ -83,19 +83,19 @@ dialog.hgroup(function(main) {
       tab.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_tuckflap_distance
         group.leftStaticText(SIZE_LABEL_TAB, R.string.distance)
-        tuckDistanceEdit = group.editText(SIZE_EDIT, "0 mm").also(VALIDATE_UNITS)
+        tuckDistanceEdit = group.editText(SIZE_EDIT, '0 mm').also(VALIDATE_UNITS)
       })
     }) */
     panel.vtab(R.string.dust_flap, function(tab) {
       tab.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_dustflap_shoulder
         group.leftStaticText(SIZE_LABEL_TAB, R.string.shoulder)
-        dustShoulderEdit = group.editText(SIZE_INPUT, "5 mm").also(VALIDATE_UNITS)
+        dustShoulderEdit = group.editText(SIZE_INPUT, '5 mm').also(VALIDATE_UNITS)
       })
       tab.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_dustflap_distance
         group.leftStaticText(SIZE_LABEL_TAB, R.string.distance)
-        dustDistanceEdit = group.editText(SIZE_INPUT, "0 mm").also(VALIDATE_UNITS)
+        dustDistanceEdit = group.editText(SIZE_INPUT, '0 mm').also(VALIDATE_UNITS)
       })
     })
     panel.addChangeListener(function() {
@@ -117,8 +117,8 @@ dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
   var length = parseUnits(lengthEdit.text)
   var weight = parseUnits(weightEdit.text)
-  var color = Color2.valueOf(colorList.selection)
-  var direction = Direction.valueOf(directionList.selection)
+  var color = Color2.find(colorList.selection)
+  var direction = Direction.find(directionList.selection)
 
   var pathItem = layer.pathItems.add()
   pathItem.filled = false
@@ -135,10 +135,10 @@ dialog.setDefaultButton(undefined, function() {
   }
   selection = [pathItem]
 
-  config.setString("length", lengthEdit.text)
-  config.setString("weight", weightEdit.text)
-  config.setInt("color", colorList.selection.index)
-  config.setInt("direction", directionList.selection.index)
+  prefs.setString('length', lengthEdit.text)
+  prefs.setString('weight', weightEdit.text)
+  prefs.setInt('color', colorList.selection.index)
+  prefs.setInt('direction', directionList.selection.index)
 })
 dialog.show()
 
@@ -169,7 +169,7 @@ function processGlue(pathItem, length, direction) {
       positions.push([it.getRight(), it.getBottom()])
     }
   })
-  pathItem.name = "FlapGLUE"
+  pathItem.name = 'FlapGLUE'
   pathItem.setEntirePath(positions)
 }
 
@@ -191,7 +191,7 @@ function processTuck(pathItem, length, direction) {
     } else {
     }
   })
-  pathItem.name = "FlapTUCK"
+  pathItem.name = 'FlapTUCK'
   Collections.forEach(positions, function(it) {
     var point = pathItem.pathPoints.add()
     point.anchor = it
@@ -239,6 +239,6 @@ function processDust(pathItem, length, direction) {
       positions.push([it.getRight(), it.getBottom()])
     }
   })
-  pathItem.name = "FlapDUST"
+  pathItem.name = 'FlapDUST'
   pathItem.setEntirePath(positions)
 }

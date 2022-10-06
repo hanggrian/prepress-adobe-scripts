@@ -33,27 +33,27 @@ Preferences.prototype.setPSDPreserveSlices = function(preserveSlices) {
 Preferences.prototype.getPSDPreserveSlices = function() { return this.photoshopFileOptions.preserveSlices }
 
 /** Global access to preferences wrapper. */
-var configs = new Preferences2("Prepress Adobe Scripts")
+var preferences2 = new Preferences2('Prepress Adobe Scripts')
 
 /**
  * Wrapper of `Preferences` with simplified API.
- * @param {String} path hierarcy of preferences.
+ * @param {string} path
  */
 function Preferences2(path) {
   checkNotNull(path)
-  var prefix = path + "/"
+  var prefix = path + '/'
 
   /**
    * Create another instance of preferences using current path suffixed with `relative` path.
-   * @param {String} relative relative file path.
-   * @return {Boolean}
+   * @param {string} relative
+   * @return {!Preferences2}
    */
   this.resolve = function(relative) { return new Preferences2(prefix + relative) }
 
   /**
    * Get boolean value from this preferences, returning true if not present.
-   * @param {String} key preference's key.
-   * @return {Boolean}
+   * @param {string} key
+   * @return {boolean}
    */
   this.getBoolean = function(key) {
     var value = preferences.getBooleanPreference(prefix + key)
@@ -63,8 +63,8 @@ function Preferences2(path) {
 
   /**
    * Get int value from this preferences, returning default if not present.
-   * @param {String} key preference's key.
-   * @return {Number}
+   * @param {string} key
+   * @return {number}
    */
   this.getInt = function(key) {
     var value = preferences.getIntegerPreference(prefix + key)
@@ -74,8 +74,8 @@ function Preferences2(path) {
 
   /**
    * Get number value from this preferences, returning 0 if not present.
-   * @param {String} key preference's key.
-   * @return {Number}
+   * @param {string} key
+   * @return {number}
    */
   this.getNumber = function(key) {
     var value = preferences.getRealPreference(prefix + key)
@@ -85,14 +85,14 @@ function Preferences2(path) {
 
   /**
    * Get string value from this preferences, returning default if not present.
-   * @param {String} key preference's key.
-   * @param {String} defaultValue value to use when preference is not found.
-   * @return {String}
+   * @param {string} key
+   * @param {string} defaultValue
+   * @return {string}
    */
   this.getString = function(key, defaultValue) {
     print("Get str preference '%s': ", key)
     var value = preferences.getStringPreference(prefix + key)
-    if (value === "") {
+    if (value === '') {
       println("not found, use default '%s'.", defaultValue)
       return defaultValue
     }
@@ -102,8 +102,8 @@ function Preferences2(path) {
 
   /**
    * Set boolean value of this preferences.
-   * @param {String} key preference's key.
-   * @param {Boolean} value preference's value to store.
+   * @param {string} key
+   * @param {boolean} value
    */
   this.setBoolean = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
@@ -113,8 +113,8 @@ function Preferences2(path) {
 
   /**
    * Set int value of this preferences.
-   * @param {String} key preference's key.
-   * @param {Number} value preference's value to store.
+   * @param {string} key
+   * @param {number} value
    */
   this.setInt = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
@@ -124,8 +124,8 @@ function Preferences2(path) {
 
   /**
    * Set number value of this preferences.
-   * @param {String} key preference's key.
-   * @param {Number} value preference's value to store.
+   * @param {string} key
+   * @param {number} value
    */
   this.setNumber = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
@@ -135,8 +135,8 @@ function Preferences2(path) {
 
   /**
    * Set string value of this preferences.
-   * @param {String} key preference's key.
-   * @param {String} value preference's value to store.
+   * @param {string} key
+   * @param {string} value
    */
   this.setString = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
@@ -146,7 +146,7 @@ function Preferences2(path) {
 
   /**
    * Remove preference from this preferences.
-   * @param {String} key preference's key.
+   * @param {string} key
    */
   this.remove = function(key) {
     preferences.removePreference(prefix + key)

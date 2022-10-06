@@ -1,6 +1,6 @@
 /**
  * CheckBox with text `Document Origin`.
- * @param {Group|Panel|Window} parent holder of this control.
+ * @param {!Group|!Panel|!Window} parent
  */
 function DocumentOriginCheck(parent) {
   checkNotNull(parent)
@@ -11,7 +11,7 @@ function DocumentOriginCheck(parent) {
 
 /**
  * CheckBox with text `Recursive`.
- * @param {Group|Panel|Window} parent holder of this control.
+ * @param {!Group|!Panel|!Window} parent
  */
 function RecursiveCheck(parent) {
   checkNotNull(parent)
@@ -22,7 +22,7 @@ function RecursiveCheck(parent) {
 
 /**
  * CheckBox with text `Keep Size`.
- * @param {Group|Panel|Window} parent holder of this control.
+ * @param {!Group|!Panel|!Window} parent
  */
 function KeepSizeCheck(parent) {
   checkNotNull(parent)

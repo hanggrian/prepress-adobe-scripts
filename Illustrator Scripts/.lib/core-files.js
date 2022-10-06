@@ -1,6 +1,6 @@
 /**
  * A file collection can be an array of files or just single PDF file.
- * @param {Array} files array of files.
+ * @param {!Array<!File>} files
  */
 function FileCollection(files) {
   var self = this
@@ -13,8 +13,8 @@ function FileCollection(files) {
 
   /**
    * Returns image file or PDF file with specific page.
-   * @param {Number} index index at which to retrieve file or PDF page.
-   * @return {File}
+   * @param {number} index index at which to retrieve file or PDF page.
+   * @return {!File}
    */
   self.get = function(index) {
     var file = self.isSinglePDF ? Collections.first(files) : files[index]
