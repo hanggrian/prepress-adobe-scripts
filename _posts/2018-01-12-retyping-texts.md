@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Retyping Texts"
+title: Retyping Texts
 author: ai
 categories: [Illustrator Scripts]
 tags: [general, prepress]

@@ -16,7 +16,7 @@ comments: false
 
 <h5>Automatic Installation</h5>
 
-<img src="https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/install.png"/>
+<img src="https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/install.png" alt="macOS installation." />
 
 <p>Run <code class="highlighter-rouge">install.bat</code> as admin (Windows) or <code class="highlighter-rouge">install.sh</code> with sudo (macOS).</p>
 
@@ -43,8 +43,8 @@ comments: false
 <h3>Usage</h3>
 
 <p>
-  <img src="https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/menu_ai.png"/>
-  <img src="https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/menu_psd.png"/>
+  <img src="https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/menu_ai.png" alt="Illustrator menu." />
+  <img src="https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/menu_psd.png" alt="Photoshop menu." />
 </p>
 
 <p>If you decide to install the scripts, they can be accessed from menubar or <a target="_blank" href="https://github.com/hendraanggrian/prepress-adobe-scripts/tree/main/Actions/">keyboard shortcuts</a>.</p>

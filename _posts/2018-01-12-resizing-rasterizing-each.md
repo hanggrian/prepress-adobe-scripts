@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Resizing and Rasterizing Each"
+title: Resizing and Rasterizing Each
 author: ai
 categories: [Illustrator Scripts]
 tags: [general]

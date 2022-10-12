@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Close Documents"
+title: Close Documents
 author: all
 categories: [Illustrator Scripts, Photoshop Scripts]
 tags: [general]

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Copy to Artboards"
+title: Copy to Artboards
 author: ai
 categories: [Illustrator Scripts]
 tags: [general]

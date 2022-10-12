@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Relinking Files"
+title: Relinking Files
 author: ai
 categories: [Illustrator Scripts]
 tags: [general]

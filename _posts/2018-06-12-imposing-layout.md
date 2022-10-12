@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Imposing Layout"
+title: Imposing Layout
 author: ai
 categories: [Illustrator Scripts]
 tags: [prepress]

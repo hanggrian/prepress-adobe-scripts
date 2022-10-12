@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Selecting Items"
+title: Selecting Items
 author: ai
 categories: [Illustrator Scripts]
 tags: [general]

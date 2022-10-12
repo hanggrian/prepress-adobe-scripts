@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Add Bleed to Images"
+title: Add Bleed to Images
 author: psd
 categories: [Photoshop Scripts]
 tags: [prepress]

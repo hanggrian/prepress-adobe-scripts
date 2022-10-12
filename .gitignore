@@ -1,5 +1,11 @@
+# macOS
+**/.DS_Store
+
+# IDEA
+.idea/
+
+# Jekyll
 _site
-.DS_Store
 *.swp
 .sass-cache
 *~

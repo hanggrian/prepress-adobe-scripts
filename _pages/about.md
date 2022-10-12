@@ -9,7 +9,7 @@ comments: false
 <div class="col-md-8 pr-5">
 
 <p class="mb-5">
-  <img class="shadow-lg" src="https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/social_preview.png"/>
+  <img class="shadow-lg" src="https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/social_preview.png" alt="GitHub social preview."/>
 </p>
 
 <p>Collection of Illustrator and Photoshop scripts to automate repetitive tasks and procedures of preparing final print layout.</p>

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Pre-Flight Documents"
+title: Pre-Flight Documents
 author: all
 categories: [Illustrator Scripts, Photoshop Scripts]
 tags: [prepress]

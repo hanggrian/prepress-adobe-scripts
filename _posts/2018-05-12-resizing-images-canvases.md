@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Resizing Images and Canvases"
+title: Resizing Images and Canvases
 author: psd
 categories: [Photoshop Scripts]
 tags: [general]

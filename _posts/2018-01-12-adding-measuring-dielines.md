@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Adding and Measuring Dielines"
+title: Adding and Measuring Dielines
 author: ai
 categories: [Illustrator Scripts]
 tags: [prepress]

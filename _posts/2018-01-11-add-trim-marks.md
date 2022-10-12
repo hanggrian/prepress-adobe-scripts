@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Add Trim Marks"
+title: Add Trim Marks
 author: ai
 categories: [Illustrator Scripts]
 tags: [prepress]

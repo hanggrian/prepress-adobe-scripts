@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Reordering and Resizing Artboards"
+title: Reordering and Resizing Artboards
 author: ai
 categories: [Illustrator Scripts]
 tags: [general]

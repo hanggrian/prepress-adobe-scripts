@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Step and Repeat"
+title: Step and Repeat
 author: ai
 categories: [Illustrator Scripts]
 tags: [general]
