@@ -23,7 +23,9 @@ ListBox.prototype.selectText = function(text) {
  * Allows for multiple change listeners to occur by invoking all of them in collective listener.
  * @param {function(): undefined} listener
  */
-ListBox.prototype.addChangeListener = function(listener) { Internals.addListener(this, 'onChange', listener) }
+ListBox.prototype.addChangeListener = function(listener) {
+  Internals.addListener(this, 'onChange', listener)
+}
 
 /**
  * Add children to group.

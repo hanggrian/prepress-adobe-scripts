@@ -4,7 +4,6 @@
 </javascriptresource>
 */
 
-
 /**
  * Set tooltip to all children.
  * @param {string|!Object=} tips

@@ -38,4 +38,6 @@ Number.prototype.round = function() { return Math.round(this) }
  * Returns true if both numbers are the same after rounding.
  * @return {boolean}
  */
-function isEqualRounded(number1, number2) { return checkNotNull(number1).round() === checkNotNull(number2).round() }
+function isEqualRounded(number1, number2) {
+  return checkNotNull(number1).round() === checkNotNull(number2).round()
+}

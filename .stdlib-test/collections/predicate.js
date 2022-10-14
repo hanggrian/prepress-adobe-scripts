@@ -1,4 +1,4 @@
-initTest($)
+initTest($.fileName)
 
 test('first', function() {
   var fruits = ['Apple', 'Orange', 'Banana']

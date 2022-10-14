@@ -10,7 +10,8 @@ dialog.vgroup(function(main) {
   main.hgroup(function(group) {
     group.alignChildren = 'center'
     group.image(undefined, 'logo')
-    group.staticText([300, 32], getString(R.string.message_aboutscripts, 'Illustrator', clientDate.toISOString()),
+    group.staticText([300, 32],
+      getString(R.string.message_aboutscripts, 'Illustrator', clientDate.toISOString()),
       { multiline: true })
   })
   aboutPanel = new AboutPanel(main, clientDate).also(function(panel) {

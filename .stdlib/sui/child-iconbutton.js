@@ -8,7 +8,9 @@
  * Allows for multiple click listeners to occur by invoking all of them in collective listener.
  * @param {function(): undefined} listener
  */
-IconButton.prototype.addClickListener = function(listener) { Internals.addListener(this, 'onClick', listener) }
+IconButton.prototype.addClickListener = function(listener) {
+  Internals.addListener(this, 'onClick', listener)
+}
 
 /**
  * Add children to group.
@@ -33,7 +35,8 @@ Panel.prototype.iconButton = function(size, file, properties) {
 }
 
 Internals.addIconButton = function(root, size, file, properties) {
-  var child = root.add('iconbutton', Internals.sizeOrBounds(size), Internals.imageOrResource(file), properties)
+  var child = root.add('iconbutton', Internals.sizeOrBounds(size), Internals.imageOrResource(file),
+    properties)
   if (root.helpTips !== undefined) {
     child.helpTip = root.helpTips
   }

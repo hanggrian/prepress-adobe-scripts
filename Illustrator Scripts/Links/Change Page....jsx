@@ -1,7 +1,9 @@
 #target illustrator
 #include '../.lib/commons.js'
 
-var PREDICATE_LINKS = function(it) { return it.typename === 'PlacedItem' && Items.isLinkExists(it) && it.file.isPdf() }
+var PREDICATE_LINKS = function(it) {
+  return it.typename === 'PlacedItem' && Items.isLinkExists(it) && it.file.isPdf()
+}
 var SIZE_INPUT = [120, 21]
 
 checkHasSelection()
@@ -22,10 +24,11 @@ dialog.vgroup(function(main) {
       })
     })
   })
-  orderingList = new OrderingList(main, [Ordering.layerList(), Ordering.positionList()]).also(function(it) {
-    it.alignment = 'right'
-    it.selection = prefs.getInt('order')
-  })
+  orderingList = new OrderingList(main, [Ordering.layerList(), Ordering.positionList()]).also(
+    function(it) {
+      it.alignment = 'right'
+      it.selection = prefs.getInt('order')
+    })
   main.hgroup(function(group) {
     group.alignment = 'right'
     recursiveCheck = new RecursiveCheck(group).also(function(it) {

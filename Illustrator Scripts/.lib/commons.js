@@ -1,9 +1,9 @@
+// Commons libraries require active document,
+// providing tools for modifying current document.
+
 #include 'core.js'
 
 #include 'commons-preconditions.js'
-
-// Commons libraries require active document,
-// providing tools for modifying current document.
 
 check(app.documents.length > 0, R.string.error_commons)
 
@@ -11,7 +11,8 @@ var document = app.activeDocument
 
 var layer = Collections.isNotEmpty(selection) ? selection[0].layer : document.layers[0]
 
-var unitType = Collections.first(UnitType.values(), function(it) { return it.rulerUnits === document.rulerUnits })
+var unitType = Collections.first(UnitType.values(),
+  function(it) { return it.rulerUnits === document.rulerUnits })
 
 /**
  * Select all items that match selected configuration.

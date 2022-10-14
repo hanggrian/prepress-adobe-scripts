@@ -25,18 +25,20 @@ dialog.hgroup(function(main) {
       groupCheck = panel.checkBox(undefined, R.plurals.group.plural).also(function(it) {
         it.value = prefs.getBoolean('group')
       })
-      clippingMaskCheck = panel.checkBox(undefined, R.plurals.clipping_mask.plural).also(function(it) {
-        it.value = prefs.getBoolean('group2')
-      })
+      clippingMaskCheck = panel.checkBox(undefined, R.plurals.clipping_mask.plural)
+        .also(function(it) {
+          it.value = prefs.getBoolean('group2')
+        })
     })
     topGroup.vpanel(R.plurals.path.plural, function(panel) {
       panel.alignChildren = 'fill'
       pathCheck = panel.checkBox(undefined, R.plurals.path.plural).also(function(it) {
         it.value = prefs.getBoolean('path')
       })
-      compoundPathCheck = panel.checkBox(undefined, R.plurals.compound_path.plural).also(function(it) {
-        it.value = prefs.getBoolean('compound_path')
-      })
+      compoundPathCheck = panel.checkBox(undefined, R.plurals.compound_path.plural)
+        .also(function(it) {
+          it.value = prefs.getBoolean('compound_path')
+        })
     })
     topGroup.vpanel(R.plurals.text.plural, function(panel) {
       panel.alignChildren = 'fill'

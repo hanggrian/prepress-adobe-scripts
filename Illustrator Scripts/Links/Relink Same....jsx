@@ -6,7 +6,8 @@ var SIZE_INPUT = [120, 21]
 
 checkHasSelection()
 var items = Collections.filterItem(selection, PREDICATE_LINKS)
-check(Collections.isNotEmpty(items), getString(R.string.error_notypes_document, R.plurals.link.plural))
+check(Collections.isNotEmpty(items),
+  getString(R.string.error_notypes_document, R.plurals.link.plural))
 
 var dialog = new Dialog(R.string.relink_same, 'relinking-files/#relink-same')
 var pdfPanel, pageEdit, keepSizeCheck

@@ -1,4 +1,4 @@
-initTest($)
+initTest($.fileName)
 
 test('indexOf', function() {
   var fruits = ['Apple', 'Orange', 'Banana']

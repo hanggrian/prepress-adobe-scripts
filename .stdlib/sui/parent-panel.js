@@ -14,7 +14,9 @@ Panel.prototype.setHelpTips = function(tips) { Internals.setHelpTips(this, tips)
  * Allows for multiple change listeners to occur by invoking all of them in collective listener.
  * @param {function(): undefined} listener
  */
-Panel.prototype.addChangeListener = function(listener) { Internals.addListener(this, 'onChange', listener) }
+Panel.prototype.addChangeListener = function(listener) {
+  Internals.addListener(this, 'onChange', listener)
+}
 
 /**
  * Add horizontal parent to group.

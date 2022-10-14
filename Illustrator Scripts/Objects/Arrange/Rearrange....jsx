@@ -5,7 +5,8 @@ checkMultipleSelection()
 
 var initialPositions = [selection[0].absoluteZOrderPosition]
 for (var i = 1; i < selection.length; i++) {
-  check(selection[i - 1].absoluteZOrderPosition - selection[i].absoluteZOrderPosition === 1, R.string.error_rearrange)
+  check(selection[i - 1].absoluteZOrderPosition - selection[i].absoluteZOrderPosition === 1,
+    R.string.error_rearrange)
   initialPositions.push(selection[i].absoluteZOrderPosition)
 }
 

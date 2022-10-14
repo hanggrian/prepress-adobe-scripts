@@ -2,7 +2,7 @@ var SelectOption = new Enum({
   YES: { text: R.string.yes },
   NO: { text: R.string.no },
 
-  isYes: function(name) { return SelectOption.find(name) === SelectOption.YES }
+  isYes: function(name) { return SelectOption.find(name) === SelectOption.YES },
 })
 
 /**
@@ -12,7 +12,7 @@ var SelectOption = new Enum({
  */
 function SelectDimensionPanel(parent, inputSize) {
   checkNotNull(parent)
-  
+
   var self = parent.vpanel(R.string.dimension)
   self.widthEdit, self.heightEdit
 

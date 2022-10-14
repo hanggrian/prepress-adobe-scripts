@@ -1,4 +1,4 @@
-initTest($)
+initTest($.fileName)
 
 test('run', function() {
   var count = 0

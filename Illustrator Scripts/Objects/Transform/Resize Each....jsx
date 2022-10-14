@@ -9,7 +9,8 @@ checkHasSelection()
 var dialog = new Dialog(R.string.resize_each, 'resizing-rasterizing-each/#resize-each')
 var prefill = Collections.first(selection)
 var widthEdit, widthCheck, heightEdit, heightCheck
-var changePositionsCheck, changeFillPatternsCheck, changeFillGradientsCheck, changeStrokePatternsCheck
+var changePositionsCheck, changeFillPatternsCheck, changeFillGradientsCheck,
+  changeStrokePatternsCheck
 var documentOriginCheck, anchorGroup
 var recursiveCheck
 var prefs = preferences2.resolve('objects/resize_each')
@@ -19,10 +20,11 @@ dialog.vgroup(function(main) {
     topGroup.alignChildren = 'right'
     topGroup.hgroup(function(group) {
       group.leftStaticText(undefined, R.string.width)
-      widthEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitType, 2)).also(function(it) {
-        it.validateUnits()
-        it.activate()
-      })
+      widthEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitType, 2))
+        .also(function(it) {
+          it.validateUnits()
+          it.activate()
+        })
       widthCheck = group.checkBox(SIZE_INPUT_CHECK).also(function(it) {
         it.select()
         it.addClickListener(function() { widthEdit.enabled = it.value })
@@ -30,7 +32,8 @@ dialog.vgroup(function(main) {
     })
     topGroup.hgroup(function(group) {
       group.leftStaticText(undefined, R.string.height)
-      heightEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitType, 2)).also(VALIDATE_UNITS)
+      heightEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitType, 2))
+        .also(VALIDATE_UNITS)
       heightCheck = group.checkBox(SIZE_INPUT_CHECK).also(function(it) {
         it.select()
         it.addClickListener(function() { heightEdit.enabled = it.value })
@@ -45,18 +48,21 @@ dialog.vgroup(function(main) {
         it.helpTip = R.string.tip_resizeeach_option1
         it.value = prefs.getBoolean('option1')
       })
-      changeFillPatternsCheck = panel.checkBox(undefined, R.string.fill_patterns).also(function(it) {
-        it.helpTip = R.string.tip_resizeeach_option2
-        it.value = prefs.getBoolean('option2')
-      })
-      changeFillGradientsCheck = panel.checkBox(undefined, R.string.fill_gradients).also(function(it) {
-        it.helpTip = R.string.tip_resizeeach_option3
-        it.value = prefs.getBoolean('option3')
-      })
-      changeStrokePatternsCheck = panel.checkBox(undefined, R.string.stroke_patterns).also(function(it) {
-        it.helpTip = R.string.tip_resizeeach_option4
-        it.value = prefs.getBoolean('option4')
-      })
+      changeFillPatternsCheck = panel.checkBox(undefined, R.string.fill_patterns)
+        .also(function(it) {
+          it.helpTip = R.string.tip_resizeeach_option2
+          it.value = prefs.getBoolean('option2')
+        })
+      changeFillGradientsCheck = panel.checkBox(undefined, R.string.fill_gradients)
+        .also(function(it) {
+          it.helpTip = R.string.tip_resizeeach_option3
+          it.value = prefs.getBoolean('option3')
+        })
+      changeStrokePatternsCheck = panel.checkBox(undefined, R.string.stroke_patterns)
+        .also(function(it) {
+          it.helpTip = R.string.tip_resizeeach_option4
+          it.value = prefs.getBoolean('option4')
+        })
     })
     group.vpanel(R.string.anchor, function(panel) {
       panel.alignChildren = 'fill'
@@ -77,7 +83,9 @@ dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
   var width = parseUnits(widthEdit.text)
   var height = parseUnits(heightEdit.text)
-  var transformation = documentOriginCheck.value ? Transformation.DOCUMENTORIGIN : anchorGroup.getTransformation()
+  var transformation = documentOriginCheck.value
+    ? Transformation.DOCUMENTORIGIN
+    : anchorGroup.getTransformation()
 
   var action = function(item, i) {
     print(i + '. ')

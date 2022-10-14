@@ -1,4 +1,4 @@
-initTest($)
+initTest($.fileName)
 
 test('equalTo', function() {
   var apple1 = new File('apple.png')

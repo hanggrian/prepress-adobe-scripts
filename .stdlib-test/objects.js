@@ -1,9 +1,9 @@
-initTest($)
+initTest($.fileName)
 
 test('copyProperties', function() {
   var car = {
     wheel: 4,
-    honk: true
+    honk: true,
   }
   var clone = Objects.copyProperties(car)
   assertEquals(4, clone.wheel)
@@ -13,10 +13,10 @@ test('copyProperties', function() {
 test('pasteProperties', function() {
   var car = {
     wheel: 4,
-    honk: true
+    honk: true,
   }
   var clone = Objects.copyProperties(car)
-  var anotherCar = { }
+  var anotherCar = {}
   Objects.pasteProperties(clone, anotherCar)
   assertEquals(4, anotherCar.wheel)
   assertTrue(anotherCar.honk)

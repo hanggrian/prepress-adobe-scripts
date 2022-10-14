@@ -117,5 +117,5 @@ var Collections = {
       result.push(collection[i])
     }
     return result
-  }
+  },
 }

@@ -1,4 +1,4 @@
-initTest($)
+initTest($.fileName)
 
 test('isOdd', function() {
   assertTrue(1.0.isOdd())

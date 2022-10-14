@@ -8,19 +8,25 @@
  * Returns true if both files point to the same location.
  * @return {boolean}
  */
-File.prototype.equalTo = function(other) { return this.absoluteURI === checkNotNull(other).absoluteURI }
+File.prototype.equalTo = function(other) {
+  return this.absoluteURI === checkNotNull(other).absoluteURI
+}
 
 /**
  * Returns file name without extension.
  * @return {string}
  */
-File.prototype.getNameWithoutExtension = function() { return unescape(this.name).substringBeforeLast('.') }
+File.prototype.getNameWithoutExtension = function() {
+  return unescape(this.name).substringBeforeLast('.')
+}
 
 /**
  * Returns file extension in lower-case without `.`.
  * @return {string}
  */
-File.prototype.getExtension = function() { return unescape(this.name).substringAfterLast('.').toLowerCase() }
+File.prototype.getExtension = function() {
+  return unescape(this.name).substringAfterLast('.').toLowerCase()
+}
 
 /**
  * Returns true if this file is PDF type, and should be opened with `PDFFileOptions`.

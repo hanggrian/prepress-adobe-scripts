@@ -16,25 +16,29 @@ dialog.vgroup(function(main) {
   main.hgroup(function(group) {
     group.helpTips = R.string.tip_stepandrepeat_copies
     group.leftStaticText(undefined, R.string.copies)
-    horizontalEdit = group.editText(SIZE_INPUT, prefs.getInt('horizontal').toString()).also(function(it) {
-      it.validateDigits()
-      it.activate()
-    })
+    horizontalEdit = group.editText(SIZE_INPUT, prefs.getInt('horizontal').toString())
+      .also(function(it) {
+        it.validateDigits()
+        it.activate()
+      })
     group.staticText(undefined, '×')
-    verticalEdit = group.editText(SIZE_INPUT, prefs.getInt('vertical').toString()).also(VALIDATE_DIGITS)
+    verticalEdit = group.editText(SIZE_INPUT, prefs.getInt('vertical').toString())
+      .also(VALIDATE_DIGITS)
   })
   main.vpanel(R.string.move, function(panel) {
     panel.alignChildren = 'right'
     panel.hgroup(function(group) {
       group.helpTips = R.string.tip_stepandrepeat_horizontal
       group.leftStaticText(undefined, R.string.horizontal)
-      moveHorizontalEdit = group.editText(SIZE_INPUT_MOVE, formatUnits(bounds.getWidth(), unitType, 2))
+      moveHorizontalEdit = group.editText(SIZE_INPUT_MOVE,
+        formatUnits(bounds.getWidth(), unitType, 2))
         .also(VALIDATE_UNITS)
     })
     panel.hgroup(function(group) {
       group.helpTips = R.string.tip_stepandrepeat_vertical
       group.leftStaticText(undefined, R.string.vertical)
-      moveVerticalEdit = group.editText(SIZE_INPUT_MOVE, formatUnits(bounds.getHeight(), unitType, 2))
+      moveVerticalEdit = group.editText(SIZE_INPUT_MOVE,
+        formatUnits(bounds.getHeight(), unitType, 2))
         .also(VALIDATE_UNITS)
     })
     moveRelativeCheck = panel.checkBox(undefined, R.string.relative_position).also(function(it) {
@@ -77,7 +81,9 @@ dialog.setDefaultButton(undefined, function() {
       Collections.forEach(Collections.reversed(readOnlySelection), function(item) {
         var x = bounds.getLeft() - (bounds.getLeft() - item.position.getLeft())
         var y = bounds.getTop() - (bounds.getTop() - item.position.getTop())
-        item.duplicate(layer, ElementPlacement.PLACEATBEGINNING).position = [x, y - v * finalMoveVertical]
+        item.duplicate(layer, ElementPlacement.PLACEATBEGINNING).position = [
+          x,
+          y - v * finalMoveVertical]
       })
     }
     for (var h = 1; h < horizontal; h++) {

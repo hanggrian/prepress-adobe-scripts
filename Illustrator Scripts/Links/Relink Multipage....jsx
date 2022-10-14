@@ -34,10 +34,11 @@ if (files !== null && Collections.isNotEmpty(files)) {
         })
       })
     })
-    orderingList = new OrderingList(main, [Ordering.layerList(), Ordering.positionList()]).also(function(it) {
-      it.alignment = 'right'
-      it.selection = prefs.getInt('order')
-    })
+    orderingList = new OrderingList(main, [Ordering.layerList(), Ordering.positionList()]).also(
+      function(it) {
+        it.alignment = 'right'
+        it.selection = prefs.getInt('order')
+      })
     main.hgroup(function(group) {
       group.alignment = 'right'
       recursiveCheck = new RecursiveCheck(group).also(function(it) {
@@ -55,7 +56,9 @@ if (files !== null && Collections.isNotEmpty(files)) {
     }
     var current = rangeGroup.getStart()
     var end = rangeGroup.getEnd()
-    var source = recursiveCheck.value ? Collections.filterItem(selection, PREDICATE_LINKS) : selection
+    var source = recursiveCheck.value
+      ? Collections.filterItem(selection, PREDICATE_LINKS)
+      : selection
     var progress = new ProgressPalette(source.length)
 
     source.sort(orderingList.getComparator())

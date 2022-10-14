@@ -2,10 +2,10 @@ var _scriptName, _testName
 
 /**
  * Marks the js file as test subject.
- * @param {!Object} script dollar-sign object.
+ * @param {string} fileName use `$.fileName`.
  */
-function initTest(script) {
-  _scriptName = script.fileName.substringAfterLast('/').substringBefore('.')
+function initTest(fileName) {
+  _scriptName = fileName.substringAfterLast('/').substringBefore('.')
 }
 
 /**

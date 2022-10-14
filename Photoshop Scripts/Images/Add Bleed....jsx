@@ -44,16 +44,17 @@ dialog.vgroup(function(main) {
       })
       group.hgroup(function(innerGroup) {
         innerGroup.helpTips = R.string.tip_addbleedtoimages_select
-        selectBleedCheck = innerGroup.checkBox(undefined, R.string.message_addbleedtoimages_select).also(function(it) {
-          it.addClickListener(function() {
-            correctionEdit.enabled = it.value
-            if (it.value) {
-              correctionEdit.activate()
-            } else {
-              lengthEdit.activate()
-            }
+        selectBleedCheck = innerGroup.checkBox(undefined, R.string.message_addbleedtoimages_select)
+          .also(function(it) {
+            it.addClickListener(function() {
+              correctionEdit.enabled = it.value
+              if (it.value) {
+                correctionEdit.activate()
+              } else {
+                lengthEdit.activate()
+              }
+            })
           })
-        })
         correctionEdit = innerGroup.editText([50, 21], '0 px').also(function(it) {
           it.validateUnits()
           it.enabled = false
@@ -138,7 +139,7 @@ function process(document, bleed, anchor, correction) {
       [left, top],
       [left, bottom],
       [right, bottom],
-      [right, top]
+      [right, top],
     ])
     document.selection.invert()
   }

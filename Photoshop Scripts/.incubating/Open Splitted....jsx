@@ -22,7 +22,7 @@ var files = FilePicker.openFile(dialog.text, [
   ['JPEG2000', 'JPF', 'JPX', 'JP2', 'J2K', 'J2C', 'JPC'],
   ['PNG', 'PNG', 'PNS'],
   ['Photoshop', 'PSD', 'PSB', 'PDD'],
-  ['TIFF', 'TIF', 'TIFF']
+  ['TIFF', 'TIF', 'TIFF'],
 ], true)
 
 if (files !== null && Collections.isNotEmpty(files)) {

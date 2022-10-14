@@ -22,7 +22,8 @@ dialog.vgroup(function(main) {
     impositionList = group.dropDownList(SIZE_INPUT, Pager.list()).also(function(it) {
       it.addChangeListener(function() {
         var pager = Pager.find(it.selection)
-        var duplexAndStackEnabled = pager === Pager.TWO_UP || pager === Pager.FOUR_UP || pager === Pager.EIGHT_UP
+        var duplexAndStackEnabled = pager === Pager.TWO_UP || pager === Pager.FOUR_UP ||
+          pager === Pager.EIGHT_UP
         nupGroup.foldingCheck.enabled = pager === Pager.FOUR_UP || pager === Pager.EIGHT_UP
         nupGroup.duplexCheck.enabled = duplexAndStackEnabled
         nupGroup.stackCheck.enabled = duplexAndStackEnabled
@@ -44,7 +45,8 @@ dialog.setDefaultButton(undefined, function() {
   if (pager === Pager.TWO_UP) {
     pager = pager.get(document, start, nupGroup.isDuplex(), nupGroup.isStack())
   } else if (pager === Pager.FOUR_UP || pager === Pager.EIGHT_UP) {
-    pager = pager.get(document, start, nupGroup.isFolding(), nupGroup.isDuplex(), nupGroup.isStack())
+    pager = pager.get(document, start, nupGroup.isFolding(), nupGroup.isDuplex(),
+      nupGroup.isStack())
   } else {
     pager = pager.get(document, start)
   }

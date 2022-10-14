@@ -8,7 +8,8 @@ var SIZE_CHECK = [15, 15] // usually 14, but use 15 to stretch the size equallin
 
 var dialog = new Dialog(R.string.add_trim_marks, 'add-trim-marks/')
 var offsetEdit, lengthEdit, weightEdit, colorList
-var topLeftCheck, topRightCheck, leftTopCheck, rightTopCheck, leftBottomCheck, rightBottomCheck, bottomLeftCheck, bottomRightCheck // single checks
+var topLeftCheck, topRightCheck, leftTopCheck, rightTopCheck, leftBottomCheck, rightBottomCheck,
+  bottomLeftCheck, bottomRightCheck // single checks
 var topCheck, rightCheck, bottomCheck, leftCheck // multiple checks
 var multipleMultiRadioGroup
 var prefs = preferences2.resolve('objects/add_trim_marks')
@@ -22,20 +23,23 @@ dialog.vgroup(function(main) {
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addtrimmarks_offset
         group.leftStaticText(undefined, R.string.offset)
-        offsetEdit = group.editText(SIZE_INPUT, prefs.getString('offset', '2.5 mm')).also(function(it) {
-          it.validateUnits()
-          it.activate()
-        })
+        offsetEdit = group.editText(SIZE_INPUT, prefs.getString('offset', '2.5 mm'))
+          .also(function(it) {
+            it.validateUnits()
+            it.activate()
+          })
       })
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addtrimmarks_length
         group.leftStaticText(undefined, R.string.length)
-        lengthEdit = group.editText(SIZE_INPUT, prefs.getString('length', '2.5 mm')).also(VALIDATE_UNITS)
+        lengthEdit = group.editText(SIZE_INPUT, prefs.getString('length', '2.5 mm'))
+          .also(VALIDATE_UNITS)
       })
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addtrimmarks_weight
         group.leftStaticText(undefined, R.string.weight)
-        weightEdit = group.editText(SIZE_INPUT, prefs.getString('weight', '0.3 pt')).also(VALIDATE_UNITS) // the same value used in `Object > Create Trim Marks`
+        weightEdit = group.editText(SIZE_INPUT, prefs.getString('weight', '0.3 pt'))
+          .also(VALIDATE_UNITS) // the same value used in `Object > Create Trim Marks`
       })
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addtrimmarks_color
@@ -168,7 +172,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
       maxBounds.getLeft(),
       maxBounds.getTop() + offset,
       maxBounds.getLeft(),
-      maxBounds.getTop() + offset + length
+      maxBounds.getTop() + offset + length,
     ))
   }
   if (topRightCheck.value) {
@@ -177,7 +181,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
       maxBounds.getRight(),
       maxBounds.getTop() + offset,
       maxBounds.getRight(),
-      maxBounds.getTop() + offset + length
+      maxBounds.getTop() + offset + length,
     ))
   }
   if (rightTopCheck.value) {
@@ -186,7 +190,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
       maxBounds.getRight() + offset,
       maxBounds.getTop(),
       maxBounds.getRight() + offset + length,
-      maxBounds.getTop()
+      maxBounds.getTop(),
     ))
   }
   if (rightBottomCheck.value) {
@@ -195,7 +199,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
       maxBounds.getRight() + offset,
       maxBounds.getBottom(),
       maxBounds.getRight() + offset + length,
-      maxBounds.getBottom()
+      maxBounds.getBottom(),
     ))
   }
   if (bottomRightCheck.value) {
@@ -204,7 +208,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
       maxBounds.getRight(),
       maxBounds.getBottom() - offset,
       maxBounds.getRight(),
-      maxBounds.getBottom() - offset - length
+      maxBounds.getBottom() - offset - length,
     ))
   }
   if (bottomLeftCheck.value) {
@@ -213,7 +217,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
       maxBounds.getLeft(),
       maxBounds.getBottom() - offset,
       maxBounds.getLeft(),
-      maxBounds.getBottom() - offset - length
+      maxBounds.getBottom() - offset - length,
     ))
   }
   if (leftBottomCheck.value) {
@@ -222,7 +226,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
       maxBounds.getLeft() - offset,
       maxBounds.getBottom(),
       maxBounds.getLeft() - offset - length,
-      maxBounds.getBottom()
+      maxBounds.getBottom(),
     ))
   }
   if (leftTopCheck.value) {
@@ -231,7 +235,7 @@ function processSingle(offset, length, weight, color, maxBounds) {
       maxBounds.getLeft() - offset,
       maxBounds.getTop(),
       maxBounds.getLeft() - offset - length,
-      maxBounds.getTop()
+      maxBounds.getTop(),
     ))
   }
   return paths
@@ -253,14 +257,14 @@ function processMultiple(offset, length, weight, color, maxBounds) {
         itemStartX,
         maxBounds.getTop() + offset,
         itemStartX,
-        maxBounds.getTop() + offset + length
+        maxBounds.getTop() + offset + length,
       ])
       paths.push([
         'TOP',
         itemEndX,
         maxBounds.getTop() + offset,
         itemEndX,
-        maxBounds.getTop() + offset + length
+        maxBounds.getTop() + offset + length,
       ])
     }
     if (rightCheck.value) {
@@ -269,14 +273,14 @@ function processMultiple(offset, length, weight, color, maxBounds) {
         maxBounds.getRight() + offset,
         itemStartY,
         maxBounds.getRight() + offset + length,
-        itemStartY
+        itemStartY,
       ])
       paths.push([
         'RIGHT',
         maxBounds.getRight() + offset,
         itemEndY,
         maxBounds.getRight() + offset + length,
-        itemEndY
+        itemEndY,
       ])
     }
     if (bottomCheck.value) {
@@ -285,14 +289,14 @@ function processMultiple(offset, length, weight, color, maxBounds) {
         itemEndX,
         maxBounds.getBottom() - offset,
         itemEndX,
-        maxBounds.getBottom() - offset - length
+        maxBounds.getBottom() - offset - length,
       ])
       paths.push([
         'BOTTOM',
         itemStartX,
         maxBounds.getBottom() - offset,
         itemStartX,
-        maxBounds.getBottom() - offset - length
+        maxBounds.getBottom() - offset - length,
       ])
     }
     if (leftCheck.value) {
@@ -301,14 +305,14 @@ function processMultiple(offset, length, weight, color, maxBounds) {
         maxBounds.getLeft() - offset,
         itemEndY,
         maxBounds.getLeft() - offset - length,
-        itemEndY
+        itemEndY,
       ])
       paths.push([
         'LEFT',
         maxBounds.getLeft() - offset,
         itemStartY,
         maxBounds.getLeft() - offset - length,
-        itemStartY
+        itemStartY,
       ])
     }
   }

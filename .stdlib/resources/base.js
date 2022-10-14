@@ -5,7 +5,7 @@
 */
 
 // replacement of JSON files in resources because JSON parsing isn't officialy supported by ExtendScript
-var R = { }
+var R = {}
 
 /**
  * Refer to png file, which can be dark or light theme.
@@ -65,5 +65,6 @@ function getPlural() {
  * @return {!File}
  */
 function getScript(name) {
-  return Scripts.getResource('script/' + checkNotNull(name) + (Scripts.OS_MAC ? '.command' : '.cmd'))
+  return Scripts.getResource(
+    'script/' + checkNotNull(name) + (Scripts.OS_MAC ? '.command' : '.cmd'))
 }

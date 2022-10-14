@@ -8,7 +8,9 @@
  * Allows for multiple click listeners to occur by invoking all of them in collective listener.
  * @param {function(): undefined} listener
  */
-Button.prototype.addClickListener = function(listener) { Internals.addListener(this, 'onClick', listener) }
+Button.prototype.addClickListener = function(listener) {
+  Internals.addListener(this, 'onClick', listener)
+}
 
 /**
  * Add children to group.

@@ -2,10 +2,10 @@
 #include '../.lib/commons.js'
 
 var Direction = new Enum({
-  TOP: { text: R.string.top, image: "ic_arrow_top" },
-  RIGHT: { text: R.string.right, image: "ic_arrow_right" },
-  BOTTOM: { text: R.string.bottom, image: "ic_arrow_bottom" },
-  LEFT: { text: R.string.left, image: "ic_arrow_left" }
+  TOP: { text: R.string.top, image: 'ic_arrow_top' },
+  RIGHT: { text: R.string.right, image: 'ic_arrow_right' },
+  BOTTOM: { text: R.string.bottom, image: 'ic_arrow_bottom' },
+  LEFT: { text: R.string.left, image: 'ic_arrow_left' },
 })
 
 var SIZE_INPUT = [110, 21]
@@ -31,15 +31,17 @@ dialog.hgroup(function(main) {
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_length
         group.leftStaticText(undefined, R.string.length)
-        lengthEdit = group.editText(SIZE_INPUT, prefs.getString('length', '20 mm')).also(function(it) {
-          it.validateUnits()
-          it.activate()
-        })
+        lengthEdit = group.editText(SIZE_INPUT, prefs.getString('length', '20 mm'))
+          .also(function(it) {
+            it.validateUnits()
+            it.activate()
+          })
       })
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_weight
         group.leftStaticText(undefined, R.string.weight)
-        weightEdit = group.editText(SIZE_INPUT, prefs.getString('weight', '1 pt')).also(VALIDATE_UNITS)
+        weightEdit = group.editText(SIZE_INPUT, prefs.getString('weight', '1 pt'))
+          .also(VALIDATE_UNITS)
       })
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_color

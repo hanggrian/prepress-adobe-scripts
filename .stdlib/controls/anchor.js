@@ -142,13 +142,17 @@ function AnchorGroup(parent) {
    * Returns true if anchor is any horizontal position and bottom vertically.
    * @return {boolean}
    */
-  self.isHorizontalBottom = function() { return self.isBottomLeft() || self.isBottom() || self.isBottomRight() }
+  self.isHorizontalBottom = function() {
+    return self.isBottomLeft() || self.isBottom() || self.isBottomRight()
+  }
 
   /**
    * Returns true if anchor is left horizontally and any vertical position.
    * @return {boolean}
    */
-  self.isVerticalLeft = function() { return self.isTopLeft() || self.isLeft() || self.isBottomLeft() }
+  self.isVerticalLeft = function() {
+    return self.isTopLeft() || self.isLeft() || self.isBottomLeft()
+  }
 
   /**
    * Returns true if anchor is center horizontally and any vertical position.
@@ -160,7 +164,9 @@ function AnchorGroup(parent) {
    * Returns true if anchor is right horizontally and any vertical position.
    * @return {boolean}
    */
-  self.isVerticalRight = function() { return self.isTopRight() || self.isRight() || self.isBottomRight() }
+  self.isVerticalRight = function() {
+    return self.isTopRight() || self.isRight() || self.isBottomRight()
+  }
 
   /**
    * Returns anchor as Illustrator's `Transformation`.

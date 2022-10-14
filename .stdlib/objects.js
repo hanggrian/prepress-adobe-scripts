@@ -12,7 +12,7 @@ var Objects = {
    */
   copyProperties: function(source) {
     checkNotNull(source)
-    var props = { }
+    var props = {}
     for (var key in source) {
       try {
         props[key] = source[key]
@@ -34,5 +34,5 @@ var Objects = {
     for (var key in source) {
       target[key] = source[key]
     }
-  }
+  },
 }

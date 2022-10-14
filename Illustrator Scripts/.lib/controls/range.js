@@ -5,7 +5,7 @@
  */
 function RangeGroup(parent, inputSize) {
   checkNotNull(parent)
-  
+
   var self = parent.hgroup()
   self.startEdit, self.endEdit
 

@@ -4,7 +4,8 @@
 checkHasSelection()
 
 var items = Collections.filterItem(selection, function(it) { return it.typename === 'TextFrame' })
-check(Collections.isNotEmpty(items), getString(R.string.error_notypes_selection, R.plurals.text.plural))
+check(Collections.isNotEmpty(items),
+  getString(R.string.error_notypes_selection, R.plurals.text.plural))
 
 var createdItems = []
 Collections.forEach(items, function(it) {

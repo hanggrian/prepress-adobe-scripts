@@ -1,4 +1,4 @@
-initTest($)
+initTest($.fileName)
 
 test('parseDate', function() {
   var nativeDate = new Date(2021, 6, 30)

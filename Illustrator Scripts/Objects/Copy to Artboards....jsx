@@ -2,10 +2,10 @@
 #include '../.lib/commons.js'
 
 var Anchor = new Enum({
-  TOP_LEFT: { text: R.string.top_left, image: "ic_arrow_topleft" },
-  TOP_RIGHT: { text: R.string.top_right, image: "ic_arrow_topright" },
-  BOTTOM_LEFT: { text: R.string.bottom_left, image: "ic_arrow_bottomleft" },
-  BOTTOM_RIGHT: { text: R.string.bottom_right, image: "ic_arrow_bottomright" }
+  TOP_LEFT: { text: R.string.top_left, image: 'ic_arrow_topleft' },
+  TOP_RIGHT: { text: R.string.top_right, image: 'ic_arrow_topright' },
+  BOTTOM_LEFT: { text: R.string.bottom_left, image: 'ic_arrow_bottomleft' },
+  BOTTOM_RIGHT: { text: R.string.bottom_right, image: 'ic_arrow_bottomright' },
 })
 
 var SIZE_INPUT = [150, 21]
@@ -18,7 +18,8 @@ var activeArtboard = document.artboards[activeArtboardIndex]
 var activeArtboardRect = activeArtboard.artboardRect
 
 var proceed = true
-if (!Collections.all(selection, function(it) { return it.geometricBounds.isWithin(activeArtboardRect) })) {
+if (!Collections.all(selection,
+  function(it) { return it.geometricBounds.isWithin(activeArtboardRect) })) {
   proceed = Windows.confirm(R.string.confirm_copytoartboards)
 }
 
@@ -32,15 +33,19 @@ if (proceed) {
     return [relativeLeft, relativeTop, relativeRight, relativeBottom]
   })
 
-  var dialog = new Dialog('Copy to Artboards', 'copy-to-artboards/')
+  var dialog = new Dialog(R.string.copy_to_artboards, 'copy-to-artboards/')
   var rangeGroup, anchorList
   var prefs = preferences2.resolve('objects/copy_to_artboards')
 
   dialog.vgroup(function(main) {
     main.alignChildren = 'right'
     main.hgroup(function(group) {
+      group.leftStaticText(undefined, R.string.from_artboard)
+      group.staticText(SIZE_INPUT, activeArtboardIndex + 1)
+    })
+    main.hgroup(function(group) {
       group.helpTips = R.string.tip_copytoartboards_artboards
-      group.leftStaticText(undefined, R.string.artboards)
+      group.leftStaticText(undefined, R.string.to_artboards)
       rangeGroup = new RangeGroup(group, SIZE_INPUT).also(function(it) {
         it.maxRange = document.artboards.length
         it.endEdit.text = document.artboards.length
@@ -69,7 +74,7 @@ if (proceed) {
         return
       }
       var artboardRect = artboard.artboardRect
-      Collections.forEach(Collections.reversed(readOnlySelection), function(item, itemIndex) {
+      Collections.forEach(readOnlySelection, function(item, itemIndex) {
         var relativePosition = relativePositions[itemIndex]
         var x, y
         if (anchor === Anchor.TOP_LEFT || anchor === Anchor.BOTTOM_LEFT) {

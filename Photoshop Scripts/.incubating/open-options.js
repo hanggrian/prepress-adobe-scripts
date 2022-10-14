@@ -76,16 +76,16 @@ function OpenDocumentPanel(parent) {
     switch (self.bitsList.selection.text) {
       case '1 bit':
         bits = BitsPerChannelType.EIGHT
-        break;
+        break
       case '8 bit':
         bits = BitsPerChannelType.ONE
-        break;
+        break
       case '16 bit':
         bits = BitsPerChannelType.SIXTEEN
-        break;
+        break
       default:
         bits = BitsPerChannelType.THIRTYTWO
-        break;
+        break
     }
     return app.documents.add(width, height, resolution, title, mode, background, 1.0, bits)
   }

@@ -11,7 +11,8 @@ var prefill = Collections.first(selection)
 var colorModelList, resolutionEdit
 var backgroundPanel, backgroundWhiteRadio, backgroundTransparentRadio
 var antiAliasingPanel, antiAliasingNoneRadio, antiAliasingArtRadio, antiAliasingTypeRadio
-var backgroundBlackCheck, clippingMaskCheck, convertSpotColorsCheck, convertTextToOutlinesCheck, includeLayersCheck, paddingEdit
+var backgroundBlackCheck, clippingMaskCheck, convertSpotColorsCheck, convertTextToOutlinesCheck,
+  includeLayersCheck, paddingEdit
 var recursiveCheck, keepSizeCheck
 var prefs = preferences2.resolve('objects/rasterize_each')
 
@@ -56,22 +57,26 @@ dialog.vgroup(function(main) {
     })
     topGroup.vpanel('Options', function(panel) {
       panel.alignChildren = 'fill'
-      backgroundBlackCheck = panel.checkBox(undefined, R.string.against_black_background).also(function(it) {
-        it.helpTip = R.string.tip_rasterizeeach_option1
-        it.value = prefs.getBoolean('option1')
-      })
-      clippingMaskCheck = panel.checkBox(undefined, R.string.create_clipping_mask).also(function(it) {
-        it.helpTip = R.string.tip_rasterizeeach_option2
-        it.value = prefs.getBoolean('option2')
-      })
-      convertSpotColorsCheck = panel.checkBox(undefined, R.string.convert_spot_colors).also(function(it) {
-        it.helpTip = R.string.tip_rasterizeeach_option3
-        it.value = prefs.getBoolean('option3')
-      })
-      convertTextToOutlinesCheck = panel.checkBox(undefined, R.string.convert_text_to_outlines).also(function(it) {
-        it.helpTip = R.string.tip_rasterizeeach_option4
-        it.value = prefs.getBoolean('option4')
-      })
+      backgroundBlackCheck = panel.checkBox(undefined, R.string.against_black_background)
+        .also(function(it) {
+          it.helpTip = R.string.tip_rasterizeeach_option1
+          it.value = prefs.getBoolean('option1')
+        })
+      clippingMaskCheck = panel.checkBox(undefined, R.string.create_clipping_mask)
+        .also(function(it) {
+          it.helpTip = R.string.tip_rasterizeeach_option2
+          it.value = prefs.getBoolean('option2')
+        })
+      convertSpotColorsCheck = panel.checkBox(undefined, R.string.convert_spot_colors)
+        .also(function(it) {
+          it.helpTip = R.string.tip_rasterizeeach_option3
+          it.value = prefs.getBoolean('option3')
+        })
+      convertTextToOutlinesCheck = panel.checkBox(undefined, R.string.convert_text_to_outlines)
+        .also(function(it) {
+          it.helpTip = R.string.tip_rasterizeeach_option4
+          it.value = prefs.getBoolean('option4')
+        })
       includeLayersCheck = panel.checkBox(undefined, R.string.include_layers).also(function(it) {
         it.helpTip = R.string.tip_rasterizeeach_option5
         it.value = prefs.getBoolean('option5')

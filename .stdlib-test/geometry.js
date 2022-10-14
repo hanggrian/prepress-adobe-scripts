@@ -1,4 +1,4 @@
-initTest($)
+initTest($.fileName)
 
 test('equalTo', function() {
   var boundsA = [1, 2, 3, 4]

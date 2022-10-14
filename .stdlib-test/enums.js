@@ -1,10 +1,10 @@
-initTest($)
+initTest($.fileName)
 
-test('values', function () {
+test('values', function() {
   var fruits = new Enum({
-    APPLE: { text: "Apple" },
-    ORANGE: { text: "Orange" },
-    BANANA: { text: "Banana" }
+    APPLE: { text: 'Apple' },
+    ORANGE: { text: 'Orange' },
+    BANANA: { text: 'Banana' },
   })
   var result = fruits.values()
   assertEquals('Apple', result[0].text)
@@ -12,11 +12,11 @@ test('values', function () {
   assertEquals('Banana', result[2].text)
 })
 
-test('list', function () {
+test('list', function() {
   var fruits = new Enum({
-    APPLE: { text: "Apple" },
-    ORANGE: { text: "Orange" },
-    BANANA: { text: "Banana" }
+    APPLE: { text: 'Apple' },
+    ORANGE: { text: 'Orange' },
+    BANANA: { text: 'Banana' },
   }, [0, 1])
   var result = fruits.list()
   assertEquals('Apple', result[0])
@@ -26,22 +26,22 @@ test('list', function () {
   assertEquals('Banana', result[4])
 })
 
-test('valueOf', function () {
+test('valueOf', function() {
   var fruits = new Enum({
-    APPLE: { text: "Apple" },
-    ORANGE: { text: "Orange" },
-    BANANA: { text: "Banana" }
+    APPLE: { text: 'Apple' },
+    ORANGE: { text: 'Orange' },
+    BANANA: { text: 'Banana' },
   })
   assertEquals('Apple', fruits.valueOf('APPLE').text)
   assertEquals('Orange', fruits.valueOf('ORANGE').text)
   assertEquals('Banana', fruits.valueOf('BANANA').text)
 })
 
-test('valueOfText', function () {
+test('valueOfText', function() {
   var fruits = new Enum({
-    APPLE: { text: "Apple" },
-    ORANGE: { text: "Orange" },
-    BANANA: { text: "Banana" }
+    APPLE: { text: 'Apple' },
+    ORANGE: { text: 'Orange' },
+    BANANA: { text: 'Banana' },
   })
   assertEquals('Apple', fruits.find('Apple').text)
   assertEquals('Orange', fruits.find('Orange').text)

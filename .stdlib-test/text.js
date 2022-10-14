@@ -1,4 +1,4 @@
-initTest($)
+initTest($.fileName)
 
 test('isUpperCase', function() {
   var s = 'HELLO WORLD'
@@ -94,6 +94,6 @@ test('isNumeric', function() {
 })
 
 test('format', function() {
-  var s = "Hi, my name is %s, I'm a %s."
-  assertEquals("Hi, my name is Hendra, I'm a Potato.", s.format('Hendra', 'Potato'))
+  var s = 'Hi, my name is %s, I\'m a %s.'
+  assertEquals('Hi, my name is Hendra, I\'m a Potato.', s.format('Hendra', 'Potato'))
 })

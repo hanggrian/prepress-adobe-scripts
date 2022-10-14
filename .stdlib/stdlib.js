@@ -47,14 +47,16 @@
 
 var Theme = new Enum({
   DARK: { text: R.string.dark },
-  LIGHT: { text: R.string.light }
+  LIGHT: { text: R.string.light },
 })
 
 var Language = new Enum({
-  EN: { text: "English", code: "en" },
-  ID: { text: "Indonesia", code: "id" },
+  EN: { text: 'English', code: 'en' },
+  ID: { text: 'Indonesia', code: 'id' },
 
-  valueOfCode: function(code) { return Collections.first(Language.values(), function(it) { return it.code == code }) },
+  valueOfCode: function(code) {
+    return Collections.first(Language.values(), function(it) { return it.code == code })
+  },
 
   /**
    * Change scripts' localization.
@@ -64,7 +66,7 @@ var Language = new Enum({
     checkNotNull(language)
     $.localize = true
     $.locale = language.code
-  }
+  },
 })
 
 var Scripts = {
@@ -115,5 +117,5 @@ var Scripts = {
     tempFile.writeText('<html><head><META HTTP-EQUIV=Refresh CONTENT="0; URL=%s">'.format(url) +
       '</head><body> <p></body></html>')
     tempFile.execute()
-  }
+  },
 }

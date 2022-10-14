@@ -27,7 +27,8 @@ Panel.prototype.image = function(size, file, properties) {
 }
 
 Internals.addImage = function(root, size, file, properties) {
-  var child = root.add('image', Internals.sizeOrBounds(size), Internals.imageOrResource(file), properties)
+  var child = root.add('image', Internals.sizeOrBounds(size), Internals.imageOrResource(file),
+    properties)
   if (root.helpTips !== undefined) {
     child.helpTip = root.helpTips
   }

@@ -5,7 +5,7 @@ var Rounding = new Enum({
   NONE: { text: R.string.none, round: function(it) { return it } },
   ROUND: { text: R.string.round, round: Math.round },
   FLOOR: { text: R.string.floor, round: Math.floor },
-  CEIL: { text: R.string.ceil, round: Math.ceil }
+  CEIL: { text: R.string.ceil, round: Math.ceil },
 })
 
 var SIZE_LABEL = [80, 21] // manual sizing because content is changable
@@ -37,10 +37,11 @@ dialog.vgroup(function(main) {
   main.hgroup(function(group) {
     group.helpTips = R.string.tip_resizeglyph_size
     dimensionSizeText = group.leftStaticText(SIZE_LABEL, R.string.width)
-    dimensionSizeEdit = group.editText(SIZE_INPUT, formatUnits(item.width, unitType, 2)).also(function(it) {
-      it.validateUnits()
-      it.activate()
-    })
+    dimensionSizeEdit = group.editText(SIZE_INPUT, formatUnits(item.width, unitType, 2))
+      .also(function(it) {
+        it.validateUnits()
+        it.activate()
+      })
   })
   main.hgroup(function(group) {
     group.helpTips = R.string.tip_resizeglyph_rounding

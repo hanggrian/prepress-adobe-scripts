@@ -47,13 +47,15 @@ function Dialog(title, helpUrlSuffix) {
     buttons.alignment = 'fill'
 
     if (helpUrlSuffix !== undefined) {
-      self.helpIconButton = buttons.iconButton(undefined, 'ic_help', { style: "toolbutton" }).also(function(it) {
-        it.alignment = ['left', 'center']
-        it.helpTip = R.string.tip_whatsthis
-        it.addClickListener(function() { Scripts.openUrl(Scripts.URL_WEBSITE + helpUrlSuffix) })
-      })
+      self.helpIconButton = buttons.iconButton(undefined, 'ic_help', { style: 'toolbutton' })
+        .also(function(it) {
+          it.alignment = ['left', 'center']
+          it.helpTip = R.string.tip_whatsthis
+          it.addClickListener(function() { Scripts.openUrl(Scripts.URL_WEBSITE + helpUrlSuffix) })
+        })
     }
-    helpButtonContainer = buttons.sgroup(function(container) { container.alignment = ['left', 'center'] })
+    helpButtonContainer = buttons.sgroup(
+      function(container) { container.alignment = ['left', 'center'] })
     var alignRight = function(container) { container.alignment = ['right', 'center'] }
     if (Scripts.OS_MAC) {
       yesButtonContainer = buttons.sgroup(alignRight)
@@ -95,7 +97,7 @@ function Dialog(title, helpUrlSuffix) {
    */
   self.setDefaultButton = function(text, action) {
     text = text || 'OK'
-    self.defaultButton = appendButton(defaultButtonContainer, text, action, { name: "ok" })
+    self.defaultButton = appendButton(defaultButtonContainer, text, action, { name: 'ok' })
     if (self.buttonActivateDefault) {
       // skip Illustrator on Windows, see `child-edittext` for more
       if (!Scripts.OS_MAC && Scripts.APP_AI) {
@@ -122,7 +124,7 @@ function Dialog(title, helpUrlSuffix) {
    */
   self.setCancelButton = function(text, action) {
     text = text || getString(R.string.cancel)
-    self.cancelButton = appendButton(cancelButtonContainer, text, action, { name: "cancel" })
+    self.cancelButton = appendButton(cancelButtonContainer, text, action, { name: 'cancel' })
   }
 
   /**

@@ -1,4 +1,4 @@
-initTest($)
+initTest($.fileName)
 
 var window = new Window('dialog', 'Test')
 var root = window.add('group')

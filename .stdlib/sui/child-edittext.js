@@ -16,7 +16,8 @@ var REPLACE_LEADING_ZERO = /^(?:0+(?=[1-9])|0+(?=0$))/mg // https://stackoverflo
 /** Restricts input to be digits-only (digits are non-negative and non-decimal number). */
 EditText.prototype.validateDigits = function() {
   Internals.registerValidator(this, MATCH_DIGITS, function(_, newValue) {
-    return Internals.removeRegexes(newValue, [REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
+    return Internals.removeRegexes(newValue,
+      [REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
   })
 }
 
@@ -27,7 +28,8 @@ EditText.prototype.validateUnits = function() {
     var exec
 
     // check for old unit type
-    var old = Internals.removeRegexes(oldValue, [REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
+    var old = Internals.removeRegexes(oldValue,
+      [REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
     var oldUnitType
     exec = alphabetRegex.exec(old)
     if (exec !== null) {
@@ -35,10 +37,12 @@ EditText.prototype.validateUnits = function() {
     }
 
     // parse new unit value and type
-    var _new = Internals.removeRegexes(newValue, [REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
+    var _new = Internals.removeRegexes(newValue,
+      [REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
     exec = alphabetRegex.exec(_new)
     if (exec !== null) { // new unit type found, use it
-      var newUnitValue = Internals.removeRegexes(_new.substring(0, exec.index), [REPLACE_TRAILING_SPACE])
+      var newUnitValue = Internals.removeRegexes(_new.substring(0, exec.index),
+        [REPLACE_TRAILING_SPACE])
       var newUnitType = _new.substring(exec.index)
       return newUnitValue + ' ' + newUnitType
     } else { // new unit type not found, use old unit value if exist
@@ -65,7 +69,9 @@ EditText.prototype.activate = function() {
  * Allows for multiple change listeners to occur by invoking all of them in collective listener.
  * @param {function(): undefined} listener
  */
-EditText.prototype.addChangeListener = function(listener) { Internals.addListener(this, 'onChange', listener) }
+EditText.prototype.addChangeListener = function(listener) {
+  Internals.addListener(this, 'onChange', listener)
+}
 
 /**
  * Add children to group.

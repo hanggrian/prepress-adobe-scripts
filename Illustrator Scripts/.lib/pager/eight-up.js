@@ -38,7 +38,8 @@ function EightUpFoldingPager(document, start) {
     }
     current += 8
     isFront = !isFront
-    return '%d-%d-%d-%d-%d-%d-%d-%d'.format(self.top1 + 1, self.top2 + 1, self.top3 + 1, self.top4 + 1,
+    return '%d-%d-%d-%d-%d-%d-%d-%d'.format(
+      self.top1 + 1, self.top2 + 1, self.top3 + 1, self.top4 + 1,
       self.bottom1 + 1, self.bottom2 + 1, self.bottom3 + 1, self.bottom4 + 1)
   }
 }
@@ -70,7 +71,8 @@ function EightUpSimplexPager(document, start) {
     self.bottom3 = current + 6
     self.bottom4 = current + 7
     current += 8
-    return '%d-%d-%d-%d-%d-%d-%d-%d'.format(self.top1 + 1, self.top2 + 1, self.top3 + 1, self.top4 + 1,
+    return '%d-%d-%d-%d-%d-%d-%d-%d'.format(
+      self.top1 + 1, self.top2 + 1, self.top3 + 1, self.top4 + 1,
       self.bottom1 + 1, self.bottom2 + 1, self.bottom3 + 1, self.bottom4 + 1)
   }
 }
@@ -115,7 +117,8 @@ function EightUpDuplexPager(document, start) {
     }
     current += 8
     isFront = !isFront
-    return '%d-%d-%d-%d-%d-%d-%d-%d'.format(self.top1 + 1, self.top2 + 1, self.top3 + 1, self.top4 + 1,
+    return '%d-%d-%d-%d-%d-%d-%d-%d'.format(
+      self.top1 + 1, self.top2 + 1, self.top3 + 1, self.top4 + 1,
       self.bottom1 + 1, self.bottom2 + 1, self.bottom3 + 1, self.bottom4 + 1)
   }
 }
@@ -147,7 +150,8 @@ function EightUpSimplexStackPager(document, start) {
     self.bottom3 = current + document.artboards.length * 6
     self.bottom4 = current + document.artboards.length * 7
     current++
-    return '%d-%d-%d-%d-%d-%d-%d-%d'.format(self.top1 + 1, self.top2 + 1, self.top3 + 1, self.top4 + 1,
+    return '%d-%d-%d-%d-%d-%d-%d-%d'.format(
+      self.top1 + 1, self.top2 + 1, self.top3 + 1, self.top4 + 1,
       self.bottom1 + 1, self.bottom2 + 1, self.bottom3 + 1, self.bottom4 + 1)
   }
 }
@@ -192,7 +196,8 @@ function EightUpDuplexStackPager(document, start) {
     }
     current++
     isFront = !isFront
-    return '%d-%d-%d-%d-%d-%d-%d-%d'.format(self.top1 + 1, self.top2 + 1, self.top3 + 1, self.top4 + 1,
+    return '%d-%d-%d-%d-%d-%d-%d-%d'.format(
+      self.top1 + 1, self.top2 + 1, self.top3 + 1, self.top4 + 1,
       self.bottom1 + 1, self.bottom2 + 1, self.bottom3 + 1, self.bottom4 + 1)
   }
 }

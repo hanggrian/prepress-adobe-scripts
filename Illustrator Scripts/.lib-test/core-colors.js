@@ -1,4 +1,4 @@
-initTest($)
+initTest($.fileName)
 
 test('isColorEqual', function() {
   var colorA = new CMYKColor().also(function(it) { it.cyan = 100 })

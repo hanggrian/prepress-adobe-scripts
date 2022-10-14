@@ -17,14 +17,12 @@ function ProgressPalette(stop, status) {
   self.statusText, self.countText, self.progressBar
 
   Internals.addGroup(self, 'row', function(group) {
-    group.alignment = 'fill'
-
-    self.statusText = group.staticText(undefined, status /* initial */).also(function(it) {
-      it.alignment = ['left', 'center']
-      it.justify = 'left'
-    })
-    self.countText = group.staticText(undefined, '0/' + stop).also(function(it) {
-      it.alignment = ['right', 'center']
+    group.orientation = 'row'
+    self.statusText = group.staticText([325, 21],
+      (status || getString(R.string.please_wait)) + '...').also(function(it) {
+        it.justify = 'left'
+      })
+    self.countText = group.staticText([75, 21], '0/' + stop).also(function(it) {
       it.justify = 'right'
     })
   })
@@ -53,7 +51,7 @@ function ProgressPalette(stop, status) {
   if (dialog !== undefined) {
     self.location = [
       dialog.location.x + (dialog.bounds.width - self.bounds.width) / 2,
-      dialog.location.y - 130
+      dialog.location.y - 130,
     ]
   }
 

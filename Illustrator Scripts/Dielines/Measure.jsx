@@ -8,7 +8,8 @@ checkHasSelection()
 var items = Collections.filterItem(selection, function(it) {
   return it.typename === 'PathItem' || it.typename === 'CompoundPathItem'
 })
-check(Collections.isNotEmpty(items), getString(R.string.error_notypes_document, R.plurals.path.plural))
+check(Collections.isNotEmpty(items),
+  getString(R.string.error_notypes_document, R.plurals.path.plural))
 
 var count = 0
 var distance = 0

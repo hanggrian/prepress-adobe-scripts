@@ -3,15 +3,17 @@
 
 checkMultipleArtboards()
 
-var dialog = new Dialog(R.string.reorder_artboards, 'reordering-resizing-artboards/#reorder-artboards')
+var dialog = new Dialog(R.string.reorder_artboards,
+  'reordering-resizing-artboards/#reorder-artboards')
 var orderingList
 var prefs = preferences2.resolve('artboards/reorder')
 
 dialog.vgroup(function(main) {
-  orderingList = new OrderingList(main, [Ordering.nameList(), Ordering.positionList()]).also(function(it) {
-    it.minimumSize.width = 230
-    it.selection = prefs.getInt('order')
-  })
+  orderingList = new OrderingList(main, [Ordering.nameList(), Ordering.positionList()]).also(
+    function(it) {
+      it.minimumSize.width = 230
+      it.selection = prefs.getInt('order')
+    })
 })
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {

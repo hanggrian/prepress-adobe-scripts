@@ -2,30 +2,30 @@ var SIZE_DOCUMENT_INPUT = [120, 21]
 var SIZE_DOCUMENT_INPUT2 = [80, 21]
 
 var PDFCrop = new Enum({
-  BOUNDING: { text: "Bounding", value: PDFBoxType.PDFBOUNDINGBOX },
-  ART: { text: "Art", value: PDFBoxType.PDFARTBOX },
-  CROP: { text: "Crop", value: PDFBoxType.PDFCROPBOX },
-  TRIM: { text: "Trim", value: PDFBoxType.PDFTRIMBOX },
-  BLEED: { text: "Bleed", value: PDFBoxType.PDFBLEEDBOX },
-  MEDIA: { text: "Media", value: PDFBoxType.PDFMEDIABOX }
+  BOUNDING: { text: 'Bounding', value: PDFBoxType.PDFBOUNDINGBOX },
+  ART: { text: 'Art', value: PDFBoxType.PDFARTBOX },
+  CROP: { text: 'Crop', value: PDFBoxType.PDFCROPBOX },
+  TRIM: { text: 'Trim', value: PDFBoxType.PDFTRIMBOX },
+  BLEED: { text: 'Bleed', value: PDFBoxType.PDFBLEEDBOX },
+  MEDIA: { text: 'Media', value: PDFBoxType.PDFMEDIABOX },
 }, [0])
 
 var DocumentPreset2 = new Enum({
-  MOBILE: { text: "Mobile", value: DocumentPresetType.Mobile },
-  WEB: { text: "Web", value: DocumentPresetType.Web },
-  PRINT: { text: "Print", value: DocumentPresetType.Print },
-  VIDEO: { text: "Video", value: DocumentPresetType.Video }
+  MOBILE: { text: 'Mobile', value: DocumentPresetType.Mobile },
+  WEB: { text: 'Web', value: DocumentPresetType.Web },
+  PRINT: { text: 'Print', value: DocumentPresetType.Print },
+  VIDEO: { text: 'Video', value: DocumentPresetType.Video },
 })
 
 var DocumentColor = new Enum({
-  RGB: { text: "RGB", value: DocumentColorSpace.RGB },
-  CMYK: { text: "CMYK", value: DocumentColorSpace.CMYK }
+  RGB: { text: 'RGB', value: DocumentColorSpace.RGB },
+  CMYK: { text: 'CMYK', value: DocumentColorSpace.CMYK },
 })
 
 var DocumentResolution = new Enum({
   SCREEN: { text: R.string.screen, value: DocumentRasterResolution.ScreenResolution },
   MEDIUM: { text: R.string.medium, value: DocumentRasterResolution.MediumResolution },
-  HIGH: { text: R.string.high, value: DocumentRasterResolution.HighResolution }
+  HIGH: { text: R.string.high, value: DocumentRasterResolution.HighResolution },
 })
 
 var DocumentLayout = new Enum({
@@ -34,14 +34,17 @@ var DocumentLayout = new Enum({
   ROW: { text: R.string.row, value: DocumentArtboardLayout.Row },
   COLUMN: { text: R.string.column, value: DocumentArtboardLayout.Column },
   RTL_GRID_BY_ROW: { text: R.string.rtl_grid_by_row, value: DocumentArtboardLayout.RLGridByRow },
-  RTL_GRID_BY_COLUMN: { text: R.string.rtl_grid_by_column, value: DocumentArtboardLayout.RLGridByCol },
-  RTL_ROW: { text: R.string.rtl_row, value: DocumentArtboardLayout.RLRow }
+  RTL_GRID_BY_COLUMN: {
+    text: R.string.rtl_grid_by_column,
+    value: DocumentArtboardLayout.RLGridByCol,
+  },
+  RTL_ROW: { text: R.string.rtl_row, value: DocumentArtboardLayout.RLRow },
 })
 
 var DocumentPreview = new Enum({
-  DEFAULT: { text: "Default", value: DocumentPreviewMode.DefaultPreview },
-  PIXEL: { text: "Pixel", value: DocumentPreviewMode.PixelPreview },
-  OVERPRINT: { text: "Overprint", value: DocumentPreviewMode.OverprintPreview }
+  DEFAULT: { text: 'Default', value: DocumentPreviewMode.DefaultPreview },
+  PIXEL: { text: 'Pixel', value: DocumentPreviewMode.PixelPreview },
+  OVERPRINT: { text: 'Overprint', value: DocumentPreviewMode.OverprintPreview },
 })
 
 /**
@@ -163,23 +166,26 @@ function OpenDocumentPanel(parent) {
       topGroup.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_units
         group.leftStaticText(undefined, R.string.units)
-        self.unitsList = group.dropDownList(SIZE_DOCUMENT_INPUT, UnitType.list()).also(function(it) {
-          it.selection = 3
-        })
+        self.unitsList = group.dropDownList(SIZE_DOCUMENT_INPUT, UnitType.list())
+          .also(function(it) {
+            it.selection = 3
+          })
       })
       topGroup.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_layout
         group.leftStaticText(undefined, R.string.layout)
-        self.layoutList = group.dropDownList(SIZE_DOCUMENT_INPUT, DocumentLayout.list()).also(function(it) {
-          it.selection = 0
-        })
+        self.layoutList = group.dropDownList(SIZE_DOCUMENT_INPUT, DocumentLayout.list())
+          .also(function(it) {
+            it.selection = 0
+          })
       })
       topGroup.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_previewmode
         group.leftStaticText(undefined, R.string.preview_mode)
-        self.previewModeList = group.dropDownList(SIZE_DOCUMENT_INPUT, DocumentPreview.list()).also(function(it) {
-          it.selection = 0
-        })
+        self.previewModeList = group.dropDownList(SIZE_DOCUMENT_INPUT, DocumentPreview.list())
+          .also(function(it) {
+            it.selection = 0
+          })
       })
     })
     rootGroup.vgroup(function(topGroup) {
@@ -187,23 +193,26 @@ function OpenDocumentPanel(parent) {
       topGroup.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_preset
         group.leftStaticText(undefined, R.string.preset_type)
-        self.presetTypeList = group.dropDownList(SIZE_DOCUMENT_INPUT2, DocumentPreset2.list()).also(function(it) {
-          it.selection = 2
-        })
+        self.presetTypeList = group.dropDownList(SIZE_DOCUMENT_INPUT2, DocumentPreset2.list())
+          .also(function(it) {
+            it.selection = 2
+          })
       })
       topGroup.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_colormode
         group.leftStaticText(undefined, R.string.color_mode)
-        self.colorModeList = group.dropDownList(SIZE_DOCUMENT_INPUT2, DocumentColor.list()).also(function(it) {
-          it.selection = 1
-        })
+        self.colorModeList = group.dropDownList(SIZE_DOCUMENT_INPUT2, DocumentColor.list())
+          .also(function(it) {
+            it.selection = 1
+          })
       })
       topGroup.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_resolution
         group.leftStaticText(undefined, R.string.resolution)
-        self.resolutionList = group.dropDownList(SIZE_DOCUMENT_INPUT2, DocumentResolution.list()).also(function(it) {
-          it.selection = 2
-        })
+        self.resolutionList = group.dropDownList(SIZE_DOCUMENT_INPUT2, DocumentResolution.list())
+          .also(function(it) {
+            it.selection = 2
+          })
       })
       topGroup.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_column
@@ -240,7 +249,9 @@ function OpenDocumentPanel(parent) {
    * Change document's height.
    * @return {string}
    */
-  self.setHeightText = function(heightText) { return self.heightEdit.text = checkNotNull(heightText) }
+  self.setHeightText = function(heightText) {
+    return self.heightEdit.text = checkNotNull(heightText)
+  }
 
   /**
    * Create a new document with specific preset.

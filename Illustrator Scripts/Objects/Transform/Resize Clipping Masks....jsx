@@ -18,18 +18,22 @@ dialog.hgroup(function(main) {
     panel.alignChildren = 'right'
     panel.hgroup(function(group) {
       group.leftStaticText(undefined, R.string.width)
-      widthFromEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitType, 2)).also(function(it) {
-        it.validateUnits()
-        it.activate()
-      })
+      widthFromEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitType, 2))
+        .also(function(it) {
+          it.validateUnits()
+          it.activate()
+        })
       group.staticText(undefined, 'to')
-      widthToEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitType, 2)).also(VALIDATE_UNITS)
+      widthToEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitType, 2))
+        .also(VALIDATE_UNITS)
     })
     panel.hgroup(function(group) {
       group.leftStaticText(undefined, R.string.height)
-      heightFromEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitType, 2)).also(VALIDATE_UNITS)
+      heightFromEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitType, 2))
+        .also(VALIDATE_UNITS)
       group.staticText(undefined, 'to')
-      heightToEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitType, 2)).also(VALIDATE_UNITS)
+      heightToEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitType, 2))
+        .also(VALIDATE_UNITS)
     })
   })
   main.vpanel(R.string.anchor, function(panel) {
@@ -46,7 +50,9 @@ dialog.setDefaultButton(undefined, function() {
   var heightFrom = parseUnits(heightFromEdit.text)
   var widthTo = parseUnits(widthToEdit.text)
   var heightTo = parseUnits(heightToEdit.text)
-  var transformation = documentOriginCheck.value ? Transformation.DOCUMENTORIGIN : anchorGroup.getTransformation()
+  var transformation = documentOriginCheck.value
+    ? Transformation.DOCUMENTORIGIN
+    : anchorGroup.getTransformation()
   var clippingPaths = Collections.filterItem(selection, function(it) {
     return it.clipping &&
       parseInt(it.width) === parseInt(widthFrom) &&

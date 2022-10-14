@@ -52,7 +52,8 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
     var rotatedPageWidth = nupGroup.isRotate() ? pageHeight : pageWidth
     var rotatedPageHeight = nupGroup.isRotate() ? pageWidth : pageHeight
 
-    if (documentPanel.getWidth() < (rotatedPageWidth) || documentPanel.getHeight() < (rotatedPageHeight)) {
+    if (documentPanel.getWidth() < (rotatedPageWidth) || documentPanel.getHeight() <
+      (rotatedPageHeight)) {
       return Windows.alert(R.string.error_opendocuments, dialog.text, true)
     }
     var document = documentPanel.create(dialog.text, artboardLength)

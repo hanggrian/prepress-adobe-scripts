@@ -16,32 +16,32 @@
 var UnitType = new Enum({
   PX: {
     text: R.string.pixels,
-    qualifier: "px",
+    qualifier: 'px',
     rulerUnits: undefined,
-    units: undefined
+    units: undefined,
   },
   PT: {
     text: R.string.points,
-    qualifier: "pt",
+    qualifier: 'pt',
     rulerUnits: undefined,
-    units: undefined
+    units: undefined,
   },
   IN: {
     text: R.string.inches,
-    qualifier: "in",
+    qualifier: 'in',
     rulerUnits: undefined,
-    units: undefined
+    units: undefined,
   },
   MM: {
     text: R.string.millimeters,
-    qualifier: "mm",
+    qualifier: 'mm',
     rulerUnits: undefined,
-    units: undefined
+    units: undefined,
   },
   CM: {
     text: R.string.centimeters,
-    qualifier: "cm",
+    qualifier: 'cm',
     rulerUnits: undefined,
-    units: undefined
-  }
+    units: undefined,
+  },
 })

@@ -9,13 +9,15 @@ Collections.forEach(app.documents, function(document) {
   document.documentColorSpace.let(function(it) {
     if (it !== DocumentColorSpace.CMYK) {
       errorCount++
-      result += getString(R.string.message_preflight_issue_colorspace, it.toString().substringAfter('.'))
+      result += getString(R.string.message_preflight_issue_colorspace,
+        it.toString().substringAfter('.'))
     }
   })
   document.rasterEffectSettings.let(function(it) {
     if (it.colorModel !== RasterizationColorModel.DEFAULTCOLORMODEL) {
       errorCount++
-      result += getString(R.string.message_preflight_issue_colormodel, it.colorModel.toString().substringAfter('.'))
+      result += getString(R.string.message_preflight_issue_colormodel,
+        it.colorModel.toString().substringAfter('.'))
     }
     if (it.resolution < 300) {
       errorCount++
@@ -23,9 +25,11 @@ Collections.forEach(app.documents, function(document) {
     }
   })
   document.rulerUnits.let(function(it) {
-    if (it !== RulerUnits.Inches && it !== RulerUnits.Centimeters && it !== RulerUnits.Millimeters) {
+    if (it !== RulerUnits.Inches && it !== RulerUnits.Centimeters && it !==
+      RulerUnits.Millimeters) {
       errorCount++
-      result += getString(R.string.message_preflight_issue_rulerunits, it.toString().substringAfter('.'))
+      result += getString(R.string.message_preflight_issue_rulerunits,
+        it.toString().substringAfter('.'))
     }
   })
 

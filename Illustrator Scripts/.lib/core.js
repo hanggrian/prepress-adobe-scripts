@@ -1,3 +1,6 @@
+// Core libraries are base of all scripts,
+// providing tools for creating new document or modifying current document.
+
 #include '../../.stdlib/stdlib.js'
 
 #include 'core-resources.js'
@@ -22,9 +25,6 @@
 #include 'core-preferences.js'
 #include 'core-units.js'
 
-// Core libraries are base of all scripts,
-// providing tools for creating new document or modifying current document.
-
 Scripts.PATH_LIB = new File($.fileName).path
 
 Language.set(Language.valueOfCode(preferences2.getString('language_code', Language.EN.code)))
@@ -32,17 +32,19 @@ Language.set(Language.valueOfCode(preferences2.getString('language_code', Langua
 var Pager = new Enum({
   ONE_UP: {
     text: getString(R.string.D_up, 1),
-    get: function(document, start) { return new OneUpPager(document, start) }
+    get: function(document, start) { return new OneUpPager(document, start) },
   },
   TWO_UP: {
     text: getString(R.string.D_up, 2),
     get: function(document, start, isDuplex, isStack) {
       if (!isDuplex) {
-        return !isStack ? new TwoUpSimplexPager(document, start) : new TwoUpSimplexStackPager(document, start)
+        return !isStack ? new TwoUpSimplexPager(document, start) : new TwoUpSimplexStackPager(
+          document, start)
       } else {
-        return !isStack ? new TwoUpDuplexPager(document, start) : new TwoUpDuplexStackPager(document, start)
+        return !isStack ? new TwoUpDuplexPager(document, start) : new TwoUpDuplexStackPager(
+          document, start)
       }
-    }
+    },
   },
   FOUR_UP: {
     text: getString(R.string.D_up, 4),
@@ -51,11 +53,13 @@ var Pager = new Enum({
         return new FourUpFoldingPager(document, start)
       }
       if (!isDuplex) {
-        return !isStack ? new FourUpSimplexPager(document, start) : new FourUpSimplexStackPager(document, start)
+        return !isStack ? new FourUpSimplexPager(document, start) : new FourUpSimplexStackPager(
+          document, start)
       } else {
-        return !isStack ? new FourUpDuplexPager(document, start) : new FourUpDuplexStackPager(document, start)
+        return !isStack ? new FourUpDuplexPager(document, start) : new FourUpDuplexStackPager(
+          document, start)
       }
-    }
+    },
   },
   EIGHT_UP: {
     text: getString(R.string.D_up, 8),
@@ -64,14 +68,18 @@ var Pager = new Enum({
         return new EightUpFoldingPager(document, start)
       }
       if (!isDuplex) {
-        return !isStack ? new EightUpSimplexPager(document, start) : new EightUpSimplexStackPager(document, start)
+        return !isStack ? new EightUpSimplexPager(document, start) : new EightUpSimplexStackPager(
+          document, start)
       } else {
-        return !isStack ? new EightUpDuplexPager(document, start) : new EightUpDuplexStackPager(document, start)
+        return !isStack ? new EightUpDuplexPager(document, start) : new EightUpDuplexStackPager(
+          document, start)
       }
-    }
+    },
   },
   SADDLE_STITCH: {
     text: R.string.saddle_stitch,
-    get: function(document, start, end, isRtl) { return new SaddleStitchPager(document, start, end, isRtl) }
-  }
+    get: function(document, start, end, isRtl) {
+      return new SaddleStitchPager(document, start, end, isRtl)
+    },
+  },
 })

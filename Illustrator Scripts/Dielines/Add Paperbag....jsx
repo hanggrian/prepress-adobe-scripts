@@ -4,7 +4,8 @@
 var SIZE_TEXT_DIVIDER = [60, 21]
 var SIZE_EDIT = [100, 21]
 
-var dialog = new Dialog(R.string.add_paperbag_dielines, 'adding-measuring-dielines/#add-paperbag-dielines')
+var dialog = new Dialog(R.string.add_paperbag_dielines,
+  'adding-measuring-dielines/#add-paperbag-dielines')
 var widthEdit, heightEdit, depthEdit, upperEdit, lowerEdit, glueLengthEdit, glueShearEdit
 var strokeWeightEdit, strokeColorList
 var prefs = preferences2.resolve('dielines/add_paperbag')
@@ -17,46 +18,53 @@ dialog.hgroup(function(main) {
         midGroup.hgroup(function(group) {
           group.helpTips = R.string.tip_addpaperbagdielines_width
           group.leftStaticText(undefined, R.string.width)
-          widthEdit = group.editText(SIZE_EDIT, prefs.getString('width', '210 mm')).also(function(it) {
-            it.validateUnits()
-            it.activate()
-          })
+          widthEdit = group.editText(SIZE_EDIT, prefs.getString('width', '210 mm'))
+            .also(function(it) {
+              it.validateUnits()
+              it.activate()
+            })
         })
         midGroup.hgroup(function(group) {
           group.helpTips = R.string.tip_addpaperbagdielines_height
           group.leftStaticText(SIZE_TEXT_DIVIDER, R.string.height)
-          heightEdit = group.editText(SIZE_EDIT, prefs.getString('height', '297 mm')).also(VALIDATE_UNITS)
+          heightEdit = group.editText(SIZE_EDIT, prefs.getString('height', '297 mm'))
+            .also(VALIDATE_UNITS)
         })
       })
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
           group.helpTips = R.string.tip_addpaperbagdielines_depth
           group.leftStaticText(undefined, R.string.depth)
-          depthEdit = group.editText(SIZE_EDIT, prefs.getString('depth', '100 mm')).also(VALIDATE_UNITS)
+          depthEdit = group.editText(SIZE_EDIT, prefs.getString('depth', '100 mm'))
+            .also(VALIDATE_UNITS)
         })
       })
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
           group.helpTips = R.string.tip_addpaperbagdielines_upper
           group.leftStaticText(undefined, R.string.upper)
-          upperEdit = group.editText(SIZE_EDIT, prefs.getString('upper', '30 mm')).also(VALIDATE_UNITS)
+          upperEdit = group.editText(SIZE_EDIT, prefs.getString('upper', '30 mm'))
+            .also(VALIDATE_UNITS)
         })
         midGroup.hgroup(function(group) {
           group.helpTips = R.string.tip_addpaperbagdielines_lower
           group.leftStaticText(SIZE_TEXT_DIVIDER, R.string.lower)
-          lowerEdit = group.editText(SIZE_EDIT, prefs.getString('lower', '60 mm')).also(VALIDATE_UNITS)
+          lowerEdit = group.editText(SIZE_EDIT, prefs.getString('lower', '60 mm'))
+            .also(VALIDATE_UNITS)
         })
       })
       panel.hgroup(function(midGroup) {
         midGroup.hgroup(function(group) {
           group.helpTips = R.string.tip_addpaperbagdielines_glue
           group.leftStaticText(undefined, R.string.glue)
-          glueLengthEdit = group.editText(SIZE_EDIT, prefs.getString('glue_length', '20 mm')).also(VALIDATE_UNITS)
+          glueLengthEdit = group.editText(SIZE_EDIT, prefs.getString('glue_length', '20 mm'))
+            .also(VALIDATE_UNITS)
         })
         midGroup.hgroup(function(group) {
           group.helpTips = R.string.tip_addpaperbagdielines_shear
           group.leftStaticText(SIZE_TEXT_DIVIDER, R.string.shear)
-          glueShearEdit = group.editText(SIZE_EDIT, prefs.getString('glue_shear', '5 mm')).also(VALIDATE_UNITS)
+          glueShearEdit = group.editText(SIZE_EDIT, prefs.getString('glue_shear', '5 mm'))
+            .also(VALIDATE_UNITS)
         })
       })
     })
@@ -65,7 +73,8 @@ dialog.hgroup(function(main) {
         midGroup.hgroup(function(group) {
           group.helpTips = R.string.tip_addpaperbagdielines_strokeweight
           group.leftStaticText(undefined, R.string.weight)
-          strokeWeightEdit = group.editText(SIZE_EDIT, prefs.getString('stroke_weight', '1 pt')).also(VALIDATE_UNITS)
+          strokeWeightEdit = group.editText(SIZE_EDIT, prefs.getString('stroke_weight', '1 pt'))
+            .also(VALIDATE_UNITS)
         })
         midGroup.hgroup(function(group) {
           group.helpTips = R.string.tip_addpaperbagdielines_strokecolor
@@ -115,56 +124,56 @@ function process(isFull) {
     [rightMost, bottomMost],
     [leftMost + glueLength, bottomMost],
     [leftMost, bottomMost + glueShear],
-    [leftMost, topMost - glueShear]
+    [leftMost, topMost - glueShear],
   ]))
 
   // inner vertical
   paths.push(createDash(weight, color, [
     [leftMost + glueLength, topMost],
-    [leftMost + glueLength, bottomMost]
+    [leftMost + glueLength, bottomMost],
   ]))
   paths.push(createDash(weight, color, [
     [leftMost + glueLength + width, topMost],
-    [leftMost + glueLength + width, bottomMost]
+    [leftMost + glueLength + width, bottomMost],
   ]))
   paths.push(createDash(weight, color, [
     [leftMost + glueLength + width + depth * 0.5, topMost],
-    [leftMost + glueLength + width + depth * 0.5, bottomMost]
+    [leftMost + glueLength + width + depth * 0.5, bottomMost],
   ]))
   if (isFull) {
     paths.push(createDash(weight, color, [
       [leftMost + glueLength + width + depth, topMost],
-      [leftMost + glueLength + width + depth, bottomMost]
+      [leftMost + glueLength + width + depth, bottomMost],
     ]))
     paths.push(createDash(weight, color, [
       [leftMost + glueLength + width * 2 + depth, topMost],
-      [leftMost + glueLength + width * 2 + depth, bottomMost]
+      [leftMost + glueLength + width * 2 + depth, bottomMost],
     ]))
     paths.push(createDash(weight, color, [
       [leftMost + glueLength + width * 2 + depth * 1.5, topMost],
-      [leftMost + glueLength + width * 2 + depth * 1.5, bottomMost]
+      [leftMost + glueLength + width * 2 + depth * 1.5, bottomMost],
     ]))
   }
 
   // inner horizontal
   paths.push(createDash(weight, color, [
     [leftMost, topMost - upper],
-    [rightMost, topMost - upper]
+    [rightMost, topMost - upper],
   ]))
   paths.push(createDash(weight, color, [
     [leftMost, topMost - upper - height + depth * 0.5],
-    [rightMost, topMost - upper - height + depth * 0.5]
+    [rightMost, topMost - upper - height + depth * 0.5],
   ]))
   paths.push(createDash(weight, color, [
     [leftMost, topMost - upper - height],
-    [rightMost, topMost - upper - height]
+    [rightMost, topMost - upper - height],
   ]))
 
   // inner diagonal
   var topDiagonal = topMost - upper - height + depth * 0.5
   paths.push(createDash(weight, color, [
     [leftMost, bottomMost + lower + glueLength],
-    [leftMost + glueLength + lower, bottomMost]
+    [leftMost + glueLength + lower, bottomMost],
   ]))
   var secondDiagonalPoints = []
   secondDiagonalPoints.push([leftMost + glueLength + width - lower, bottomMost])
@@ -179,7 +188,7 @@ function process(isFull) {
     paths.push(createDash(weight, color, [
       [leftMost + glueLength + width * 2 + depth - lower, bottomMost],
       [leftMost + glueLength + width * 2 + depth * 1.5, topDiagonal],
-      [rightMost, bottomMost + lower]
+      [rightMost, bottomMost + lower],
     ]))
   }
 

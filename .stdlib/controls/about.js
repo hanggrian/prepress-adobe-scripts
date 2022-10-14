@@ -17,7 +17,8 @@ function AboutPanel(parent, clientDate) {
   checkNotNull(clientDate)
 
   var self = parent.tabbedPanel()
-  self.preferencesTab, self.preferencesThemeList, self.preferencesLanguageList, self.preferencesClearButton
+  self.preferencesTab, self.preferencesThemeList, self.preferencesLanguageList,
+    self.preferencesClearButton
   self.updatesTab, self.updatesStatusText, self.updatesDownloadButton
   self.licensingTab
 
@@ -35,14 +36,16 @@ function AboutPanel(parent, clientDate) {
     tab.hgroup(function(group) {
       group.helpTips = R.string.tip_aboutscripts_language
       group.leftStaticText(undefined, R.string.language)
-      self.preferencesLanguageList = group.dropDownList(undefined, Language.list()).also(function(it) {
-        var currentCode = preferences2.getString('language_code', Language.EN.code)
-        it.selectText(Language.valueOfCode(currentCode).text)
+      self.preferencesLanguageList = group.dropDownList(undefined, Language.list())
+        .also(function(it) {
+          var currentCode = preferences2.getString('language_code', Language.EN.code)
+          it.selectText(Language.valueOfCode(currentCode).text)
+        })
+    })
+    self.preferencesClearButton = tab.button(undefined, R.string.clear_preferences)
+      .also(function(it) {
+        it.maximumSize.height = 21
       })
-    })
-    self.preferencesClearButton = tab.button(undefined, R.string.clear_preferences).also(function(it) {
-      it.maximumSize.height = 21
-    })
   })
   self.updatesTab = self.vtab(R.string.updates, function(tab) {
     tab.preferredSize = SIZE_ABOUT_TAB
@@ -60,14 +63,15 @@ function AboutPanel(parent, clientDate) {
             self.updatesStatusText.text = getString(R.string.message_aboutscripts_updates_failed)
           } else {
             var serverDate = parseDate(result.readText()
-            .substringAfter('"date": "').substringBefore('"').substring(0, 10))
+              .substringAfter('"date": "').substringBefore('"').substring(0, 10))
             result.remove()
             if (serverDate > clientDate) {
               self.updatesStatusText.text =
                 getString(R.string.message_aboutscripts_updates_available, serverDate.toISOString())
               self.updatesDownloadButton.enabled = true
             } else {
-              self.updatesStatusText.text = getString(R.string.message_aboutscripts_updates_unavailable)
+              self.updatesStatusText.text = getString(
+                R.string.message_aboutscripts_updates_unavailable)
             }
           }
         })
@@ -75,7 +79,9 @@ function AboutPanel(parent, clientDate) {
       self.updatesDownloadButton = group.button(undefined, R.string.download).also(function(it) {
         it.maximumSize.height = 21
         it.enabled = false
-        it.addClickListener(function() { Scripts.openUrl(Scripts.URL_GITHUB + '/archive/refs/heads/main.zip') })
+        it.addClickListener(function() {
+          Scripts.openUrl(Scripts.URL_GITHUB + '/archive/refs/heads/main.zip')
+        })
       })
     })
   })

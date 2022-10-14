@@ -6,7 +6,8 @@
 
 var SIZE_INPUT = [110, 21]
 
-check(Collections.isNotEmpty(document.pathItems), getString(R.string.error_notypes_document, R.plurals.path.plural))
+check(Collections.isNotEmpty(document.pathItems),
+  getString(R.string.error_notypes_document, R.plurals.path.plural))
 var isFilterMode = Collections.isNotEmpty(selection)
 
 var dialog = new Dialog(R.string.select_paths, 'selecting-items/#select-paths')
@@ -93,15 +94,19 @@ dialog.hgroup(function(main) {
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
   var fillColor = fillColorList.hasSelection() ? Color2.find(fillColorList.selection) : undefined
-  var fillOverprint = fillOverprintList.hasSelection() ? SelectOption.isYes(fillOverprintList.selection) : undefined
-  var strokeColor = strokeColorList.hasSelection() ? Color2.find(strokeColorList.selection) : undefined
+  var fillOverprint = fillOverprintList.hasSelection()
+    ? SelectOption.isYes(fillOverprintList.selection) : undefined
+  var strokeColor = strokeColorList.hasSelection()
+    ? Color2.find(strokeColorList.selection) : undefined
   var strokeWeight = parseUnits(strokeWeightEdit.text)
-  var strokeDashed = strokeDashedList.hasSelection() ? SelectOption.isYes(strokeDashedList.selection) : undefined
-  var strokeOverprint = strokeOverprintList.hasSelection() ?
-    SelectOption.isYes(strokeOverprintList.selection) : undefined
+  var strokeDashed = strokeDashedList.hasSelection()
+    ? SelectOption.isYes(strokeDashedList.selection) : undefined
+  var strokeOverprint = strokeOverprintList.hasSelection()
+    ? SelectOption.isYes(strokeOverprintList.selection) : undefined
   var width = dimensionPanel.getWidth()
   var height = dimensionPanel.getHeight()
-  var clipping = clippingList.hasSelection() ? SelectOption.isYes(clippingList.selection) : undefined
+  var clipping = clippingList.hasSelection()
+    ? SelectOption.isYes(clippingList.selection) : undefined
   var closed = closedList.hasSelection() ? SelectOption.isYes(closedList.selection) : undefined
   var guides = guidesList.hasSelection() ? SelectOption.isYes(guidesList.selection) : undefined
   selectAll(['PathItem'], function(item) {
@@ -110,11 +115,15 @@ dialog.setDefaultButton(undefined, function() {
     if (clipping !== undefined && clipping !== item.clipping) return false
     if (closed !== undefined && closed !== item.closed) return false
     if (guides !== undefined && guides !== item.guides) return false
-    if (fillColor !== undefined && item.filled && !isColorEqual(fillColor.get(), item.fillColor)) return false
-    if (fillOverprint !== undefined  && fillOverprint !== item.fillOverprint) return false
-    if (strokeColor !== undefined && item.stroked && !isColorEqual(strokeColor.get(), item.strokeColor)) return false
-    if (strokeWeight !== undefined && parseInt(strokeWeight) !== parseInt(item.strokeWidth)) return false
-    if (strokeDashed !== undefined && strokeDashed !== Collections.isNotEmpty(item.strokeDashes)) return false
+    if (fillColor !== undefined && item.filled && !isColorEqual(fillColor.get(), item.fillColor))
+      return false
+    if (fillOverprint !== undefined && fillOverprint !== item.fillOverprint) return false
+    if (strokeColor !== undefined && item.stroked &&
+      !isColorEqual(strokeColor.get(), item.strokeColor)) return false
+    if (strokeWeight !== undefined && parseInt(strokeWeight) !== parseInt(item.strokeWidth))
+      return false
+    if (strokeDashed !== undefined && strokeDashed !== Collections.isNotEmpty(item.strokeDashes))
+      return false
     if (strokeOverprint !== undefined && strokeOverprint !== item.strokeOverprint) return false
     return true
   }, isFilterMode && recursiveCheck.value)

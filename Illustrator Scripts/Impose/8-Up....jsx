@@ -56,11 +56,13 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
     var pageDivisor = !nupGroup.isDuplex() ? 8 : 16
     if (pageLength % pageDivisor !== 0) {
       return Windows.alert(getString(R.string.error_openpages, pageDivisor), dialog.text, true)
-    } else if (documentPanel.getWidth() < (rotatedPageWidth * 4) || documentPanel.getHeight() < (rotatedPageHeight * 2)) {
+    } else if (documentPanel.getWidth() < (rotatedPageWidth * 4) || documentPanel.getHeight() <
+      (rotatedPageHeight * 2)) {
       return Windows.alert(R.string.error_opendocuments, dialog.text, true)
     }
     var document = documentPanel.create(dialog.text, artboardLength)
-    var pager = Pager.EIGHT_UP.get(document, pageStart, nupGroup.isFolding(), nupGroup.isDuplex(), nupGroup.isStack())
+    var pager = Pager.EIGHT_UP.get(document, pageStart, nupGroup.isFolding(), nupGroup.isDuplex(),
+      nupGroup.isStack())
     var progress = new ProgressPalette(artboardLength, R.string.imposing)
 
     Collections.forEach(document.artboards, function(artboard) {
@@ -90,12 +92,23 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
       var x4 = x3 + rotatedPageWidth
       var y1 = artboardRect.getTop() - (artboardRect.getHeight() - rotatedPageHeight * 2) / 2
       var y2 = y1 - rotatedPageHeight
-      Collections.forEach([topItem1, topItem2, topItem3, topItem4, bottomItem1, bottomItem2, bottomItem3, bottomItem4],
+      Collections.forEach([
+          topItem1,
+          topItem2,
+          topItem3,
+          topItem4,
+          bottomItem1,
+          bottomItem2,
+          bottomItem3,
+          bottomItem4],
         function(it) {
           it.width = pageWidth
           it.height = pageHeight
           if (!nupGroup.isFolding() && nupGroup.isRotate()) {
-            it.rotate(nupGroup.isDuplex() && Collections.indexOf(document.artboards, artboard).isOdd() ? 270 : 90)
+            it.rotate(
+              nupGroup.isDuplex() && Collections.indexOf(document.artboards, artboard).isOdd()
+                ? 270
+                : 90)
           }
         })
       if (nupGroup.isFolding()) {

@@ -1,4 +1,4 @@
-initTest($)
+initTest($.fileName)
 
 test('map', function() {
   var fruits = ['Apple', 'Orange', 'Banana']

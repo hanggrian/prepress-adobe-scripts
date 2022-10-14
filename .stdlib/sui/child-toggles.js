@@ -16,13 +16,17 @@ RadioButton.prototype.select = function() { if (!this.value) this.value = true }
  * Allows for multiple click listeners to occur by invoking all of them in collective listener.
  * @param {function(): undefined} listener
  */
-Checkbox.prototype.addClickListener = function(listener) { Internals.addListener(this, 'onClick', listener) }
+Checkbox.prototype.addClickListener = function(listener) {
+  Internals.addListener(this, 'onClick', listener)
+}
 
 /**
  * Allows for multiple click listeners to occur by invoking all of them in collective listener.
  * @param {function(): undefined} listener
  */
-RadioButton.prototype.addClickListener = function(listener) { Internals.addListener(this, 'onClick', listener) }
+RadioButton.prototype.addClickListener = function(listener) {
+  Internals.addListener(this, 'onClick', listener)
+}
 
 /**
  * Add children to group.

@@ -21,9 +21,10 @@ function SliderGroup(parent, inputSize, current, start, end, scale) {
     it.validateDigits()
     it.onChanging = function() { self.slider.value = new Number(it.text) / scale }
   })
-  self.slider = self.slider([inputSize[0] - 40 - 10, inputSize[1]], current, start, end).also(function(it) {
-    it.onChanging = function() { self.edit.text = parseInt(it.value) * scale }
-  })
+  self.slider = self.slider([inputSize[0] - 40 - 10, inputSize[1]], current, start, end)
+    .also(function(it) {
+      it.onChanging = function() { self.edit.text = parseInt(it.value) * scale }
+    })
 
   /**
    * Returns EditText value, or slider's current point if empty.

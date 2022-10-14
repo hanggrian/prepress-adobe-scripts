@@ -57,7 +57,8 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
 
     if (pageLength % 4 !== 0) {
       return Windows.alert(getString(R.string.error_openpages, 4), dialog.text, true)
-    } else if (documentPanel.getWidth() < ((pageWidth - pageBleed) * 2) || documentPanel.getHeight() < (pageHeight)) {
+    } else if (documentPanel.getWidth() < ((pageWidth - pageBleed) * 2) ||
+      documentPanel.getHeight() < (pageHeight)) {
       return Windows.alert(R.string.error_opendocuments, dialog.text, true)
     }
     var document = documentPanel.create(dialog.text, artboardLength)
@@ -78,7 +79,8 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
         x1 = artboardRect.getLeft() + (artboardRect.getWidth() - pageWidth * 2) / 2
         x2 = x1 + pageWidth
       } else {
-        x1 = artboardRect.getLeft() + (artboardRect.getWidth() - (originalPageWidth + pageBleed) * 2) / 2
+        x1 = artboardRect.getLeft() +
+          (artboardRect.getWidth() - (originalPageWidth + pageBleed) * 2) / 2
         x2 = x1 + originalPageWidth
       }
       var y = artboardRect.getTop() - (artboardRect.getHeight() - pageHeight) / 2

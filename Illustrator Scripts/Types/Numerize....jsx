@@ -4,14 +4,15 @@
 var ALPHABETS = [
   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
   'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-  'U', 'V', 'W', 'X', 'Y', 'Z'
+  'U', 'V', 'W', 'X', 'Y', 'Z',
 ]
 var SIZE_INPUT = [100, 21]
 
 checkHasSelection()
 
 var items = Collections.filterItem(selection, function(it) { return it.typename === 'TextFrame' })
-check(Collections.isNotEmpty(items), getString(R.string.error_notypes_selection, R.plurals.text.plural))
+check(Collections.isNotEmpty(items),
+  getString(R.string.error_notypes_selection, R.plurals.text.plural))
 
 var dialog = new Dialog(R.string.numerize, 'retyping-texts/#numerize')
 var startsAtEdit, digitsEdit
@@ -29,24 +30,27 @@ dialog.vgroup(function(main) {
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_numerize_startsat
         group.leftStaticText(undefined, R.string.starts_at)
-        startsAtEdit = group.editText(SIZE_INPUT, prefs.getInt('start').toString()).also(function(it) {
-          it.validateDigits()
-          it.activate()
-        })
+        startsAtEdit = group.editText(SIZE_INPUT, prefs.getInt('start').toString())
+          .also(function(it) {
+            it.validateDigits()
+            it.activate()
+          })
       })
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_numerize_digits
         group.leftStaticText(undefined, R.string.digits)
-        digitsEdit = group.editText(SIZE_INPUT, prefs.getInt('digit').toString()).also(VALIDATE_DIGITS)
+        digitsEdit = group.editText(SIZE_INPUT, prefs.getInt('digit').toString())
+          .also(VALIDATE_DIGITS)
       })
       stopsAtGroup = panel.hgroup(function(group) {
         group.alignChildren = 'bottom'
         group.helpTips = R.string.tip_numerize_stopsat
-        stopsAtCheck = group.checkBox(undefined, getString(R.string.stops_at) + ':').also(function(it) {
-          it.justify = 'right'
-          it.value = prefs.getBoolean('stop_enabled')
-          it.addClickListener(function() { stopsAtList.enabled = stopsAtCheck.value })
-        })
+        stopsAtCheck = group.checkBox(undefined, getString(R.string.stops_at) + ':')
+          .also(function(it) {
+            it.justify = 'right'
+            it.value = prefs.getBoolean('stop_enabled')
+            it.addClickListener(function() { stopsAtList.enabled = stopsAtCheck.value })
+          })
         stopsAtList = group.dropDownList(SIZE_INPUT, ALPHABETS).also(function(it) {
           it.enabled = stopsAtCheck.value
           it.selection = prefs.getInt('stop_alphabet')
@@ -67,9 +71,10 @@ dialog.vgroup(function(main) {
       })
     })
   })
-  orderingList = new OrderingList(main, [Ordering.layerList(), Ordering.positionList()]).also(function(it) {
-    it.selection = prefs.getInt('order')
-  })
+  orderingList = new OrderingList(main, [Ordering.layerList(), Ordering.positionList()]).also(
+    function(it) {
+      it.selection = prefs.getInt('order')
+    })
 })
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
@@ -119,7 +124,7 @@ dialog.show()
 
 // https://stackoverflow.com/questions/10073699/pad-a-number-with-leading-zeros-in-javascript
 function pad(n, width, z) {
-  z = z || '0';
-  n = n + '';
-  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  z = z || '0'
+  n = n + ''
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n
 }

@@ -5,24 +5,25 @@
 #include '../.lib/commons.js'
 
 var ImageColor = new Enum({
-  GRAYSCALE: { text: "Grayscale", value: ImageColorSpace.GrayScale },
-  RGB: { text: "RGB", value: ImageColorSpace.RGB },
-  CMYK: { text: "CMYK", value: ImageColorSpace.CMYK },
-  LAB: { text: "LAB", value: ImageColorSpace.LAB },
-  SEPARATION: { text: "Separation", value: ImageColorSpace.Separation },
-  DEVICEN: { text: "DeviceN", value: ImageColorSpace.DeviceN },
-  INDEXED: { text: "Indexed", value: ImageColorSpace.Indexed }
+  GRAYSCALE: { text: 'Grayscale', value: ImageColorSpace.GrayScale },
+  RGB: { text: 'RGB', value: ImageColorSpace.RGB },
+  CMYK: { text: 'CMYK', value: ImageColorSpace.CMYK },
+  LAB: { text: 'LAB', value: ImageColorSpace.LAB },
+  SEPARATION: { text: 'Separation', value: ImageColorSpace.Separation },
+  DEVICEN: { text: 'DeviceN', value: ImageColorSpace.DeviceN },
+  INDEXED: { text: 'Indexed', value: ImageColorSpace.Indexed },
 })
 
 var ImageStatus = new Enum({
-  NO_DATA: { text: "No Data" },
-  DATA_FROM_FILE: { text: "Data from File" },
-  DATA_MODIFIED: { text: "Data Modified" }
+  NO_DATA: { text: 'No Data' },
+  DATA_FROM_FILE: { text: 'Data from File' },
+  DATA_MODIFIED: { text: 'Data Modified' },
 })
 
 var SIZE_INPUT = [100, 21]
 
-check(Collections.isNotEmpty(document.rasterItems), getString(R.string.error_notypes_document, R.plurals.raster.plural))
+check(Collections.isNotEmpty(document.rasterItems),
+  getString(R.string.error_notypes_document, R.plurals.raster.plural))
 var isFilterMode = Collections.isNotEmpty(selection)
 
 var dialog = new Dialog(R.string.select_images, 'selecting-items/#select-images')
@@ -93,9 +94,12 @@ dialog.setDefaultButton(undefined, function() {
     colorSpace = ImageColor.find(colorSpaceList.selection).value
   }
   var bits = parseInt(bitsEdit.text) || 0
-  var transparent = transparentList.hasSelection() ? SelectOption.isYes(transparentList.selection) : undefined
-  var embedded = embeddedList.hasSelection() ? SelectOption.isYes(embeddedList.selection) : undefined
-  var overprint = overprintList.hasSelection() ? SelectOption.isYes(overprintList.selection) : undefined
+  var transparent = transparentList.hasSelection()
+    ? SelectOption.isYes(transparentList.selection) : undefined
+  var embedded = embeddedList.hasSelection()
+    ? SelectOption.isYes(embeddedList.selection) : undefined
+  var overprint = overprintList.hasSelection()
+    ? SelectOption.isYes(overprintList.selection) : undefined
   var status
   if (statusList.hasSelection()) {
     status = ImageStatus.find(statusList.selection).value

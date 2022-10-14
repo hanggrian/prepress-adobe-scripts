@@ -62,7 +62,9 @@ function MultiCheckGroup(parent, textOff, textOn, checkTexts) {
   var self = parent.hgroup()
   self.radioOff, self.radioOn, self.checks
 
-  var radioClickListener = function() { Collections.forEach(self.checks, function(it) { it.enabled = self.radioOn.value }) }
+  var radioClickListener = function() {
+    Collections.forEach(self.checks, function(it) { it.enabled = self.radioOn.value })
+  }
   self.radioOff = self.radioButton(undefined, textOff).also(function(it) {
     it.addClickListener(radioClickListener)
     it.select()

@@ -26,9 +26,9 @@
 #include 'text.js'
 #include 'time.js'
 
-initTest($)
+initTest($.fileName)
 
-test('Languages', function () {
+test('Languages', function() {
   assertEquals('English', Language.valueOfCode('en').text)
   assertEquals('Indonesia', Language.valueOfCode('id').text)
 })

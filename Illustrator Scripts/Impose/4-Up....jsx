@@ -56,11 +56,13 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
     var pageDivisor = !nupGroup.isDuplex() ? 4 : 8
     if (pageLength % pageDivisor !== 0) {
       return Windows.alert(getString(R.string.error_openpages, pageDivisor), dialog.text, true)
-    } else if (documentPanel.getWidth() < (rotatedPageWidth * 2) || documentPanel.getHeight() < (rotatedPageHeight * 2)) {
+    } else if (documentPanel.getWidth() < (rotatedPageWidth * 2) || documentPanel.getHeight() <
+      (rotatedPageHeight * 2)) {
       return Windows.alert(R.string.error_opendocuments, dialog.text, true)
     }
     var document = documentPanel.create(dialog.text, artboardLength)
-    var pager = Pager.FOUR_UP.get(document, pageStart, nupGroup.isFolding(), nupGroup.isDuplex(), nupGroup.isStack())
+    var pager = Pager.FOUR_UP.get(document, pageStart, nupGroup.isFolding(), nupGroup.isDuplex(),
+      nupGroup.isStack())
     var progress = new ProgressPalette(artboardLength, R.string.imposing)
 
     Collections.forEach(document.artboards, function(artboard) {
@@ -85,7 +87,10 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
           it.width = pageWidth
           it.height = pageHeight
           if (!nupGroup.isFolding() && nupGroup.isRotate()) {
-            it.rotate(nupGroup.isDuplex() && Collections.indexOf(document.artboards, artboard).isOdd() ? 270 : 90)
+            it.rotate(
+              nupGroup.isDuplex() && Collections.indexOf(document.artboards, artboard).isOdd()
+                ? 270
+                : 90)
           }
         })
       if (nupGroup.isFolding()) {

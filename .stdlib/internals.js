@@ -85,12 +85,20 @@ var Internals = {
    * @param {!Group|!Panel|!Window} parent
    * @param {string} tips
    */
-  setHelpTips: function(parent, tips) { Collections.forEach(parent.children, function(it) { it.helpTip = tips }) },
+  setHelpTips: function(parent, tips) {
+    Collections.forEach(parent.children, function(it) { it.helpTip = tips })
+  },
 
   /**
    * @param {!Array<number>} size
    */
-  sizeOrBounds: function(size) { return size !== undefined && size.length === 2 ? [0, 0, size[0], size[1]] : size },
+  sizeOrBounds: function(size) {
+    return size !== undefined && size.length === 2 ? [
+      0,
+      0,
+      size[0],
+      size[1]] : size
+  },
 
   /**
    * @param {?string|?File} image
@@ -192,5 +200,5 @@ var Internals = {
     var radio = parent.children[index]
     check(radio.type === 'radiobutton')
     radio.select()
-  }
+  },
 }

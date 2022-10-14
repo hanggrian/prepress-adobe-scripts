@@ -1,4 +1,4 @@
-initTest($)
+initTest($.fileName)
 
 test('formatUnits', function() {
   assertTrue('2.5 mm', formatUnits('2.5', UnitType.MM, 1))

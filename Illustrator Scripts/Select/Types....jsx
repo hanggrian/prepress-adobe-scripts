@@ -1,24 +1,27 @@
 // Select all TextFrame with attributes matching user input.
 // When there are active selection, will only select items within those selection.
 
-#target illustrator
-#include '../.lib/commons.js'
+#target
+illustrator
+#include
+'../.lib/commons.js'
 
 var Kind = new Enum({
   POINT_TEXT: { text: R.string.point_text, value: TextType.POINTTEXT },
   AREA_TEXT: { text: R.string.area_text, value: TextType.AREATEXT },
-  PATH_TEXT: { text: R.string.path_text, value: TextType.PATHTEXT }
+  PATH_TEXT: { text: R.string.path_text, value: TextType.PATHTEXT },
 })
 
 var Orientation = new Enum({
   HORIZONTAL: { text: R.string.horizontal, value: TextOrientation.HORIZONTAL },
-  VERTICAL: { text: R.string.vertical, value: TextOrientation.VERTICAL }
+  VERTICAL: { text: R.string.vertical, value: TextOrientation.VERTICAL },
 })
 
 var SIZE_INPUT_LEFT = [100, 21]
 var SIZE_INPUT_RIGHT = [110, 21]
 
-check(Collections.isNotEmpty(document.textFrames), getString(R.string.error_notypes_document, R.plurals.text.plural))
+check(Collections.isNotEmpty(document.textFrames),
+  getString(R.string.error_notypes_document, R.plurals.text.plural))
 var isFilterMode = Collections.isNotEmpty(selection)
 
 var dialog = new Dialog(R.string.select_types, 'selecting-items/#select-types')
@@ -109,11 +112,14 @@ dialog.setDefaultButton(undefined, function() {
   var fontName = fontNameEdit.text
   var fontSize = parseUnits(fontSizeEdit.text)
   var italic = italicList.hasSelection() ? SelectOption.isYes(italicList.selection) : undefined
-  var underline = underlineList.hasSelection() ? SelectOption.isYes(underlineList.selection) : undefined
+  var underline = underlineList.hasSelection()
+    ? SelectOption.isYes(underlineList.selection) : undefined
   var fillColor = fillColorList.hasSelection() ? Color2.find(fillColorList.selection) : undefined
-  var strokeColor = strokeColorList.hasSelection() ? Color2.find(strokeColorList.selection) : undefined
+  var strokeColor = strokeColorList.hasSelection()
+    ? Color2.find(strokeColorList.selection) : undefined
   var kind = kindList.hasSelection() ? Kind.find(kindList.selection) : undefined
-  var orientation = orientationList.hasSelection() ? Orientation.find(orientationList.selection) : undefined
+  var orientation = orientationList.hasSelection()
+    ? Orientation.find(orientationList.selection) : undefined
   selectAll(['TextFrame'], function(item) {
     if (substring.isNotEmpty()) {
       var string = item.contents
@@ -124,12 +130,14 @@ dialog.setDefaultButton(undefined, function() {
       if (!find(string, substring)) return false
     }
     var attr = item.textRange.characterAttributes
-    if (fontName.isNotEmpty() && !attr.textFont.name.toLowerCase().includes(fontName.toLowerCase())) return false
+    if (fontName.isNotEmpty() && !attr.textFont.name.toLowerCase().includes(fontName.toLowerCase()))
+      return false
     if (fontSize !== undefined && parseInt(fontSize) !== parseInt(attr.size)) return false
     if (italic !== undefined && italic !== attr.italics) return false
     if (underline !== undefined && underline !== attr.underline) return false
     if (fillColor !== undefined && !isColorEqual(fillColor.get(), attr.fillColor)) return false
-    if (strokeColor !== undefined && !isColorEqual(strokeColor.get(), attr.strokeColor)) return false
+    if (strokeColor !== undefined && !isColorEqual(strokeColor.get(), attr.strokeColor))
+      return false
     if (kind !== undefined && kind.value !== item.kind) return false
     if (orientation !== undefined && orientation.value !== item.orientation) return false
     return true

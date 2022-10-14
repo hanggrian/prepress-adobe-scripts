@@ -101,7 +101,9 @@ String.prototype.substringAfterLast = function(substring) {
  * @param {string} substring
  * @return {boolean}
  */
-String.prototype.startsWith = function(substring) { return this.lastIndexOf(checkNotNull(substring), 0) === 0 }
+String.prototype.startsWith = function(substring) {
+  return this.lastIndexOf(checkNotNull(substring), 0) === 0
+}
 
 /**
  * Returns true if text ends with word.
@@ -118,7 +120,9 @@ String.prototype.endsWith = function(substring) {
  * @param {string} substring
  * @return {boolean}
  */
-String.prototype.includes = function(substring) { return this.indexOf(checkNotNull(substring)) !== -1 }
+String.prototype.includes = function(substring) {
+  return this.indexOf(checkNotNull(substring)) !== -1
+}
 
 /**
  * Returns true if string is integer or decimal.
