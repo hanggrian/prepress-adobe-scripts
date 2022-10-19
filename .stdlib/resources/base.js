@@ -33,7 +33,7 @@ function getImage(name) {
 
 /**
  * Refer to string value from JSON object, which can be specific language.
- * @param {!Array<*>} arguments
+ * @param {!Array<string>} arguments
  * @return {string}
  */
 function getString() {

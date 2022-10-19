@@ -28,7 +28,6 @@ R.string.color_mode = { en: "Color Mode", id: "Mode Warna" }
 R.string.color_model = { en: "Color Model", id: "Model Warna" }
 R.string.color_space = { en: "Color Space", id: "Ruang Warna" }
 R.string.column = { en: "Column", id: "Kolom" }
-R.string.confirm_copytoartboards = { en: "Selected items are out of active artboard. Would you like to continue?", id: "Barang yang dipilih diluar dari papan seni aktif. Apakah Anda ingin melanjutkan?" }
 R.string.content = { en: "Content", id: "Konten" }
 R.string.convert_spot_colors = { en: "Convert Spot Colors", id: "Konversi Warna Khusus" }
 R.string.convert_text_to_outlines = { en: "Convert Text to Outlines", id: "Konversi Teks ke Garis Besar" }
@@ -52,19 +51,6 @@ R.string.document_origin = { en: "Document Origin", id: "Asal Dokumen" }
 R.string.duplex_printing = { en: "Duplex Printing", id: "Cetak Bolak-Balik" }
 R.string.dust_flap = { en: "Dust Flap", id: "Lidah Debu" }
 R.string.embedded = { en: "Embedded", id: "Tertanam" }
-R.string.error_changepage = { en: "No PDF links found in selection", id: "Tidak ada tautan PDF yang ditemukan dalam pilihan" }
-R.string.error_notypes_document = { en: "No %s found in document", id: "Tidak ditemukan %s dalam dokumen" }
-R.string.error_notypes_selection = { en: "No %s found in selection", id: "Tidak ditemukan %s dalam seleksi" }
-R.string.error_opendocuments = { en: "Invalid document dimension", id: "Dimensi dokumen tidak valid" }
-R.string.error_openpages = { en: "Pages must be divisible by %d", id: "Halaman harus habis dibagi %d" }
-R.string.error_preconditions_hasselection = { en: "No selection in document", id: "Tidak ada seleksi dalam dokumen" }
-R.string.error_preconditions_multipleartboard = { en: "No other artboards in document", id: "Tidak ada papan seni lainnya dalam dokumen" }
-R.string.error_preconditions_multipleselection = { en: "Single selection is not supported", id: "Seleksi tunggal tidak didukung" }
-R.string.error_preconditions_singleselection = { en: "Multiple selection is not supported", id: "Seleksi ganda tidak didukung" }
-R.string.error_preconditions_typename = { en: "Expected item type to be %s", id: "Jenis barang yang diharapkan adalah %s" }
-R.string.error_range = { en: "Invalid range", id: "Rentang tidak valid" }
-R.string.error_rearrange = { en: "Objects to arrange must be connected to each other", id: "Objek untuk mengatur harus terhubung satu sama lain" }
-R.string.error_stepandrepeat = { en: "Minimal value is 1x1", id: "Nilai minimal adalah 1x1" }
 R.string.file_types = { en: "File Types", id: "Jenis File" }
 R.string.fill = { en: "Fill", id: "Isi" }
 R.string.fill_gradients = { en: "Fill Gradients", id: "Isi Gradasi" }
@@ -104,17 +90,6 @@ R.string.match_case = { en: "Match Case", id: "Cocokan Besar Huruf" }
 R.string.match_whole_word = { en: "Match Whole Word", id: "Cocokan Seluruh Kata" }
 R.string.measure_dielines = { en: "Measure Dielines", id: "Ukur Garis Pond" }
 R.string.medium = { en: "Medium", id: "Sedang" }
-R.string.message_count1 = { en: "There are ", id: "Ada " }
-R.string.message_count2 = { en: " items, containing:", id: " barang, termasuk:" }
-R.string.message_measuredielines1 = { en: "No dielines found in selection.", id: "Tidak ada dieline yang ditemukan dalam seleksi." }
-R.string.message_measuredielines2 = { en: "%d lines measuring at %d.", id: "%d garis dengan ukuran %d." }
-R.string.message_measuredielines3 = { en: "\n%d lines used as clipping are ignored.", id: "\n%d garis yang digunakan sebagai kliping diabaikan." }
-R.string.message_measuredielines4 = { en: "\n%d lines with any fill are ignored.", id: "\n%d garis dengan isian apa pun diabaikan." }
-R.string.message_measuredielines5 = { en: "\n%d lines with registration stroke are ignored.", id: "\n%d garis dengan goresan registrasi diabaikan." }
-R.string.message_preflight_issue_colormodel = { en: "Color model is %s\n", id: "Model warna adalah %s\n" }
-R.string.message_preflight_issue_colorspace = { en: "Color space is %s\n", id: "Ruang warna adalah %s\n" }
-R.string.message_preflight_issue_resolution = { en: "Resolution is %s\n", id: "Resolusi adalah %s\n" }
-R.string.message_preflight_issue_rulerunits = { en: "Unusual ruler units %s\n", id: "Satuan penggaris yang tidak biasa %s\n" }
 R.string.mode = { en: "Mode", id: "Mode" }
 R.string.move = { en: "Move", id: "Pindah" }
 R.string.multiple_target = { en: "Multiple Target", id: "Sasaran Ganda" }
@@ -175,6 +150,44 @@ R.string.stops_at = { en: "Stops at", id: "Berhenti di" }
 R.string.stroke = { en: "Stroke", id: "Goresan" }
 R.string.stroke_patterns = { en: "Stroke Patterns", id: "Goresan Pola" }
 R.string.suffix = { en: "Suffix", id: "Akhiran" }
+R.string.to_artboards = { en: "To Artboards", id: "Ke Papan Seni" }
+R.string.transparent = { en: "Transparent", id: "Transparan" }
+R.string.trim_marks = { en: "Trim Marks", id: "Tanda Potong" }
+R.string.tuck_flap = { en: "Tuck Flap", id: "Lidah Selipan" }
+R.string.type_optimized = { en: "Type Optimized", id: "Optimalkan Teks" }
+R.string.underline = { en: "Underline", id: "Garisbawah" }
+R.string.units = { en: "Units", id: "Satuan" }
+R.string.upper = { en: "Upper", id: "Atas" }
+R.string.vertical = { en: "Vertical", id: "Vertikal" }
+R.string.vertical_rtl = { en: "Vertical RTL", id: "Vertikal Terbalik" }
+R.string.weight = { en: "Weight", id: "Bobot" }
+R.string.white = { en: "White", id: "Putih" }
+R.string.yellow = { en: "Yellow", id: "Kuning" }
+R.string.confirm_copytoartboards = { en: "Selected items are out of active artboard. Would you like to continue?", id: "Barang yang dipilih diluar dari papan seni aktif. Apakah Anda ingin melanjutkan?" }
+R.string.error_changepage = { en: "No PDF links found in selection", id: "Tidak ada tautan PDF yang ditemukan dalam pilihan" }
+R.string.error_notypes_document = { en: "No %s found in document", id: "Tidak ditemukan %s dalam dokumen" }
+R.string.error_notypes_selection = { en: "No %s found in selection", id: "Tidak ditemukan %s dalam seleksi" }
+R.string.error_opendocuments = { en: "Invalid document dimension", id: "Dimensi dokumen tidak valid" }
+R.string.error_openpages = { en: "Pages must be divisible by %d", id: "Halaman harus habis dibagi %d" }
+R.string.error_preconditions_hasselection = { en: "No selection in document", id: "Tidak ada seleksi dalam dokumen" }
+R.string.error_preconditions_multipleartboard = { en: "No other artboards in document", id: "Tidak ada papan seni lainnya dalam dokumen" }
+R.string.error_preconditions_multipleselection = { en: "Single selection is not supported", id: "Seleksi tunggal tidak didukung" }
+R.string.error_preconditions_singleselection = { en: "Multiple selection is not supported", id: "Seleksi ganda tidak didukung" }
+R.string.error_preconditions_typename = { en: "Expected item type to be %s", id: "Jenis barang yang diharapkan adalah %s" }
+R.string.error_range = { en: "Invalid range", id: "Rentang tidak valid" }
+R.string.error_rearrange = { en: "Objects to arrange must be connected to each other", id: "Objek untuk mengatur harus terhubung satu sama lain" }
+R.string.error_stepandrepeat = { en: "Minimal value is 1x1", id: "Nilai minimal adalah 1x1" }
+R.string.message_count1 = { en: "There are ", id: "Ada " }
+R.string.message_count2 = { en: " items, containing:", id: " barang, termasuk:" }
+R.string.message_measuredielines1 = { en: "No dielines found in selection.", id: "Tidak ada dieline yang ditemukan dalam seleksi." }
+R.string.message_measuredielines2 = { en: "%d lines measuring at %d.", id: "%d garis dengan ukuran %d." }
+R.string.message_measuredielines3 = { en: "\n%d lines used as clipping are ignored.", id: "\n%d garis yang digunakan sebagai kliping diabaikan." }
+R.string.message_measuredielines4 = { en: "\n%d lines with any fill are ignored.", id: "\n%d garis dengan isian apa pun diabaikan." }
+R.string.message_measuredielines5 = { en: "\n%d lines with registration stroke are ignored.", id: "\n%d garis dengan goresan registrasi diabaikan." }
+R.string.message_preflight_issue_colormodel = { en: "Color model is %s\n", id: "Model warna adalah %s\n" }
+R.string.message_preflight_issue_colorspace = { en: "Color space is %s\n", id: "Ruang warna adalah %s\n" }
+R.string.message_preflight_issue_resolution = { en: "Resolution is %s\n", id: "Resolusi adalah %s\n" }
+R.string.message_preflight_issue_rulerunits = { en: "Unusual ruler units %s\n", id: "Satuan penggaris yang tidak biasa %s\n" }
 R.string.tip_addflapdieline_color = { en: "Stroke color of dielines.", id: "Warna goresan garis pond." }
 R.string.tip_addflapdieline_direction = { en: "Where should the flap be added relative to target.", id: "Di mana lidah harus ditambahkan relatif terhadap target." }
 R.string.tip_addflapdieline_dustflap_distance = { en: "Thicker material should have more distance.", id: "Bahan yang lebih tebal harus memiliki jarak yang lebih jauh." }
@@ -275,56 +288,56 @@ R.string.tip_stepandrepeat_copies = { en: "2 dimension target.", id: "Target 2 d
 R.string.tip_stepandrepeat_horizontal = { en: "Distance between arts horizontally.", id: "Jarak antara seni secara horisontal." }
 R.string.tip_stepandrepeat_relativeposition = { en: "Move the object relative to its current position.", id: "Pindahkan objek relatif ke posisinya saat ini." }
 R.string.tip_stepandrepeat_vertical = { en: "Distance between arts vertically.", id: "Jarak antara seni secara vertikal." }
-R.string.to_artboards = { en: "To Artboards", id: "Ke Papan Seni" }
-R.string.transparent = { en: "Transparent", id: "Transparan" }
-R.string.trim_marks = { en: "Trim Marks", id: "Tanda Potong" }
-R.string.tuck_flap = { en: "Tuck Flap", id: "Lidah Selipan" }
-R.string.type_optimized = { en: "Type Optimized", id: "Optimalkan Teks" }
-R.string.underline = { en: "Underline", id: "Garisbawah" }
-R.string.units = { en: "Units", id: "Satuan" }
-R.string.upper = { en: "Upper", id: "Atas" }
-R.string.vertical = { en: "Vertical", id: "Vertikal" }
-R.string.vertical_rtl = { en: "Vertical RTL", id: "Vertikal Terbalik" }
-R.string.weight = { en: "Weight", id: "Bobot" }
-R.string.white = { en: "White", id: "Putih" }
-R.string.yellow = { en: "Yellow", id: "Kuning" }
 
 R.plurals.clipping_mask = {
   single: { en: "Clipping Mask", id: "Kliping Topeng" },
-  plural: { en: "Clipping Masks", id: "Kliping Topeng" } }
+  plural: { en: "Clipping Masks", id: "Kliping Topeng" },
+}
 R.plurals.compound_path = {
   single: { en: "Compound Path", id: "Jalur Gabungan" },
-  plural: { en: "Compound Paths", id: "Jalur Gabungan" } }
+  plural: { en: "Compound Paths", id: "Jalur Gabungan" },
+}
 R.plurals.graph = {
   single: { en: "Graph", id: "Bagan" },
-  plural: { en: "Graphs", id: "Bagan" } }
+  plural: { en: "Graphs", id: "Bagan" },
+}
 R.plurals.group = {
   single: { en: "Group", id: "Grup" },
-  plural: { en: "Groups", id: "Grup" } }
+  plural: { en: "Groups", id: "Grup" },
+}
 R.plurals.legacy_text = {
   single: { en: "Legacy Text", id: "Teks Lama" },
-  plural: { en: "Legacy Texts", id: "Teks Lama" } }
+  plural: { en: "Legacy Texts", id: "Teks Lama" },
+}
 R.plurals.link = {
   single: { en: "Link", id: "Tautan" },
-  plural: { en: "Links", id: "Tautan" } }
+  plural: { en: "Links", id: "Tautan" },
+}
 R.plurals.mesh = {
   single: { en: "Mesh", id: "Jala" },
-  plural: { en: "Meshes", id: "Jala" } }
+  plural: { en: "Meshes", id: "Jala" },
+}
 R.plurals.nonnative = {
   single: { en: "Non-Native", id: "Impor" },
-  plural: { en: "Non-Natives", id: "Impor" } }
+  plural: { en: "Non-Natives", id: "Impor" },
+}
 R.plurals.path = {
   single: { en: "Path", id: "Jalur" },
-  plural: { en: "Paths", id: "Jalur" } }
+  plural: { en: "Paths", id: "Jalur" },
+}
 R.plurals.plugin = {
   single: { en: "Plugin", id: "Pengaya" },
-  plural: { en: "Plugins", id: "Pengaya" } }
+  plural: { en: "Plugins", id: "Pengaya" },
+}
 R.plurals.raster = {
   single: { en: "Raster", id: "Gambar" },
-  plural: { en: "Rasters", id: "Gambar" } }
+  plural: { en: "Rasters", id: "Gambar" },
+}
 R.plurals.symbol = {
   single: { en: "Symbol", id: "Simbol" },
-  plural: { en: "Symbols", id: "Simbol" } }
+  plural: { en: "Symbols", id: "Simbol" },
+}
 R.plurals.text = {
   single: { en: "Text", id: "Teks" },
-  plural: { en: "Texts", id: "Teks" } }
+  plural: { en: "Texts", id: "Teks" },
+}

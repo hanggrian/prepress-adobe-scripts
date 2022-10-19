@@ -12,7 +12,7 @@
 
 /**
  * Calls the specified function `block` and returns its result.
- * @param {function(*): undefined} block
+ * @param {function(*)} block
  */
 Object.prototype.run = function(block) {
   block(this)
@@ -62,7 +62,7 @@ Object.prototype.takeUnless = function(predicate) {
 /**
  * Iterate n times with provided action.
  * @param {number} times
- * @param {function(number): undefined} action
+ * @param {function(number)} action
  */
 function repeat(times, action) {
   checkNotNull(times)

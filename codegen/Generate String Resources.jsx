@@ -14,13 +14,12 @@ var stringsInputFile, pluralsInputFile, outputFile, output
 stringsInputFile = new File(PATH_CURRENT + '/strings.csv')
 outputFile = new File(Scripts.PATH_STDLIB + '/resources/strings.js')
 output = ''
-forEachLine(stringsInputFile, function(key, languages, values, isLast) {
-  output += '  %s: { %s }'.format(key, getContent(languages, values))
-  output += !isLast ? ',\n' : '\n'
+forEachLine(stringsInputFile, function(key, languages, values) {
+  output += '  %s: { %s },\n'.format(key, getContent(languages, values))
 })
 overwrite(outputFile, COMMENT_ALL + COMMENT_PSD + 'R.string = {\n%s}\n'.format(output))
 
-// Illustrator
+// illustrator
 stringsInputFile = new File(PATH_CURRENT + '/strings_ai.csv')
 pluralsInputFile = new File(PATH_CURRENT + '/plurals_ai.csv')
 outputFile = new File(PATH_ROOT + '/Illustrator Scripts/.lib/core-resources.js')
@@ -37,12 +36,12 @@ forEachLine(pluralsInputFile, function(key, languages, values) {
       pluralValues[i] = it[1]
     })
   })
-  output += 'R.plurals.%s = {\n  single: { %s },\n  plural: { %s } }\n'.format(key,
+  output += 'R.plurals.%s = {\n  single: { %s },\n  plural: { %s },\n}\n'.format(key,
     getContent(languages, singleValues), getContent(languages, pluralValues))
 }, true)
 overwrite(outputFile, COMMENT_ALL + output)
 
-// Photoshop
+// photoshop
 stringsInputFile = new File(PATH_CURRENT + '/strings_psd.csv')
 outputFile = new File(PATH_ROOT + '/Photoshop Scripts/.lib/core-resources.js')
 output = ''
@@ -51,16 +50,23 @@ forEachLine(stringsInputFile, function(key, languages, values) {
 })
 overwrite(outputFile, COMMENT_ALL + COMMENT_PSD + output)
 
-// https://stackoverflow.com/a/7431565/1567541
+/**
+ * TODO: find out why `File.prototype` is failing.
+ * Iterate each CSV lines, except the first (the header).
+ * @param file {!File}
+ * @param action {function(string, !Array<string>, !Array<string>)}
+ * @param disableRules {?boolean=}
+ * @see https://stackoverflow.com/a/7431565/1567541
+ */
 function forEachLine(file, action, disableRules) {
+  disableRules = disableRules !== false
   var lines = file.readText().split(/\r\n|\n/)
-  var headers = readLine(lines, 0)
-  for (var i = 1; i < lines.length; i++) {
-    var line = readLine(lines, i)
+  var headers = readLine(lines.shift())
+  for (var i = 0; i < lines.length; i++) {
+    var line = readLine(lines[i])
     var key = line[0]
     var languages = []
     var values = []
-    var isLast = i === Collections.lastIndex(lines)
     for (var j = 1; j < headers.length; j++) {
       if (disableRules === undefined || !disableRules) {
         Rules.enforce(key, headers[j], line[j])
@@ -68,10 +74,16 @@ function forEachLine(file, action, disableRules) {
       languages.push(headers[j])
       values.push(line[j])
     }
-    action(key, languages, values, isLast)
+    action(key, languages, values)
   }
 }
 
+/**
+ * Get the JSON string content within the brackets.
+ * @param languages {!Array<string>}
+ * @param values {!Array<string>}
+ * @return {string}
+ */
 function getContent(languages, values) {
   var content = ''
   Collections.forEach(languages, function(language, i) {
@@ -82,14 +94,25 @@ function getContent(languages, values) {
   return content
 }
 
-function readLine(lines, index) {
-  var line = lines[index].split('","')
-  var lastIndex = line.length - 1
-  line[0] = line[0].substring(1)
-  line[lastIndex] = line[lastIndex].substring(0, line[lastIndex].length - 1)
-  return line
+/**
+ * Split a line in CSV file into array of parts.
+ * @param line {string}
+ * @return {string[]}
+ */
+function readLine(line) {
+  var result = line.split('","')
+  var lastIndex = result.length - 1
+  result[0] = result[0].substring(1)
+  result[lastIndex] = result[lastIndex].substring(0, result[lastIndex].length - 1)
+  return result
 }
 
+/**
+ * TODO: find out why `File.prototype` is failing.
+ * Rewrite file with new content.
+ * @param file {!File}
+ * @param text {string}
+ */
 function overwrite(file, text) {
   if (file.exists) {
     file.remove()

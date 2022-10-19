@@ -72,7 +72,7 @@ dialog.setDefaultButton(undefined, function() {
 
   process(document, bleed, anchor, correction)
 })
-dialog.setYesButton('All', function() {
+dialog.setYesButton(R.string.all, function() {
   var bleed = new UnitValue(lengthEdit.text)
   var anchor = anchorGroup.getAnchorPosition()
   var correction = parseUnits(correctionEdit.text)

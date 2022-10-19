@@ -21,7 +21,7 @@ DropDownList.prototype.selectText = function(text) {
 
 /**
  * Allows for multiple change listeners to occur by invoking all of them in collective listener.
- * @param {function(): undefined} listener
+ * @param {function()} listener
  */
 DropDownList.prototype.addChangeListener = function(listener) {
   Internals.addListener(this, 'onChange', listener)

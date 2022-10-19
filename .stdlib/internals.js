@@ -9,7 +9,7 @@ var Internals = {
   /**
    * @param {!Button|!DropDownList|!EditText|!IconButton|!ListBox|!CheckBox|!RadioButton|!Panel} owner
    * @param {string} type
-   * @param {function(): undefined} listener
+   * @param {function()} listener
    */
   addListener: function(owner, type, listener) {
     checkNotNull(type)
@@ -68,7 +68,7 @@ var Internals = {
 
   /**
    * @param {string} s
-   * @param {!Array<*>} arr
+   * @param {!Array<!Object>} arr
    * @return {string}
    * @see https://stackoverflow.com/a/35187109/1567541
    */
@@ -124,7 +124,7 @@ var Internals = {
 
   /**
    * @param {string} string
-   * @param {!Array<String>} regexes
+   * @param {!Array<string>} regexes
    * @return {string}
    */
   removeRegexes: function(string, regexes) {
@@ -137,7 +137,7 @@ var Internals = {
   },
 
   /**
-   * @param {!Array<*>} items
+   * @param {!Array<!Object>} items
    * @return {!Array<!Array<string>>}
    */
   splitListItems: function(items) {

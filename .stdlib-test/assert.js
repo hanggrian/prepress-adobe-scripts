@@ -11,7 +11,7 @@ function initTest(fileName) {
 /**
  * Test a topic within the subject.
  * @param {string} name topic name.
- * @param {function(): undefined} action where assertions are done.
+ * @param {function()} action where assertions are done.
  */
 function test(name, action) {
   _testName = name
@@ -20,8 +20,8 @@ function test(name, action) {
 
 /**
  * Asserts that both values are equal.
- * @param {*} expected first value.
- * @param {*} actual second value.
+ * @param {?Object} expected first value.
+ * @param {?Object} actual second value.
  */
 function assertEquals(expected, actual) {
   if (expected != actual) {
@@ -31,8 +31,8 @@ function assertEquals(expected, actual) {
 
 /**
  * Asserts that both values are not equal.
- * @param {*} expected first value.
- * @param {*} actual second value.
+ * @param {?Object} expected first value.
+ * @param {?Object} actual second value.
  */
 function assertNotEquals(expected, actual) {
   if (expected == actual) {
@@ -62,7 +62,7 @@ function assertFalse(actual) {
 
 /**
  * Assert that the value is undefined or null.
- * @param {*} actual input value.
+ * @param {?Object} actual input value.
  */
 function assertNull(actual) {
   if (actual !== undefined && actual !== null) {
@@ -72,7 +72,7 @@ function assertNull(actual) {
 
 /**
  * Assert that the value is not undefined or null.
- * @param {*} actual input value.
+ * @param {?Object} actual input value.
  */
 function assertNotNull(actual) {
   if (actual === undefined || actual === null) {

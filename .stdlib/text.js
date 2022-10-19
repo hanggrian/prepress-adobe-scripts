@@ -132,7 +132,7 @@ String.prototype.isNumeric = function() { return /^-{0,1}\d*\.{0,1}\d+$/.test(th
 
 /**
  * Returns a formatted string using varargs arguments.
- * @param {!Array<*>} arguments
+ * @param {!Array<?Object>} arguments
  * @return {string}
  */
 String.prototype.format = function() { return Internals.formatString(this, arguments) }

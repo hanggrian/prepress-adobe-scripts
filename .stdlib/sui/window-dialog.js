@@ -70,7 +70,7 @@ function Dialog(title, helpUrlSuffix) {
 
   /**
    * Set main layout to horizontal.
-   * @param {function(!Group): undefined} configuration
+   * @param {function(!Group)} configuration
    */
   self.hgroup = function(configuration) {
     self.main.orientation = 'row'
@@ -81,7 +81,7 @@ function Dialog(title, helpUrlSuffix) {
 
   /**
    * Set main layout to vertical.
-   * @param {function(!Group): undefined} configuration
+   * @param {function(!Group)} configuration
    */
   self.vgroup = function(configuration) {
     self.main.orientation = 'column'
@@ -137,7 +137,7 @@ function Dialog(title, helpUrlSuffix) {
     self.helpButton = appendButton(helpButtonContainer, text, action)
   }
 
-  /** In `AlertDialog`, max button height is shrinked. */
+  /** In `AlertDialog`, max button height is shrunk. */
   self.buttonMaxHeight = undefined
 
   /** In `AlertDialog`, default button is activated. */

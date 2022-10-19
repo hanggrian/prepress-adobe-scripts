@@ -49,7 +49,7 @@ var Rules = {
 
   enforce: function(key, language, value) {
     var getExceptionMessage = function(ruleName) {
-      return 'Rule error \'%s\' at \'%s (%s)\': %s'.format(ruleName, key, language, value)
+      return "Rule error '%s' at '%s (%s)': %s".format(ruleName, key, language, value)
     }
     check(this.notTrimmed(key, language, value), getExceptionMessage('notTrimmed'))
     check(this.tipAndConfirmIsSentence(key, language, value),

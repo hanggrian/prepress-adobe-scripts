@@ -72,7 +72,7 @@ Enum.prototype.valueOf = function(name) {
       }
     }
   }
-  error('No field with name \'%s\' found in this enum'.format(name))
+  error("No field with name '%s' found in this enum".format(name))
 }
 
 /**
@@ -93,5 +93,5 @@ Enum.prototype.find = function(text) {
       }
     }
   }
-  error('No field with text \'%s\' found in this enum'.format(text))
+  error("No field with text '%s' found in this enum".format(text))
 }

@@ -7,7 +7,7 @@
 /**
  * Construct a new palette.
  * @param {number} stop
- * @param {?string|Object=} status starting message.
+ * @param {?string|?Object=} status starting message.
  */
 function ProgressPalette(stop, status) {
   status = (status || getString(R.string.please_wait)) + '...'
@@ -30,7 +30,7 @@ function ProgressPalette(stop, status) {
 
   /**
    * Add progression to dialog with optional status.
-   * @param {!Array<*>} arguments
+   * @param {!Array<?Object>} arguments
    */
   self.increment = function() {
     if (Collections.isNotEmpty(arguments)) {

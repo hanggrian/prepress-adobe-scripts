@@ -69,7 +69,7 @@ var Collections = {
   /**
    * Iterate each element of this collection.
    * @param {!Array<*>|!PageItems} collection
-   * @param {function(*, number): undefined} action
+   * @param {function(*, number)} action
    */
   forEach: function(collection, action) {
     checkNotNull(collection)

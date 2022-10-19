@@ -12,7 +12,7 @@ Panel.prototype.setHelpTips = function(tips) { Internals.setHelpTips(this, tips)
 
 /**
  * Allows for multiple change listeners to occur by invoking all of them in collective listener.
- * @param {function(): undefined} listener
+ * @param {function()} listener
  */
 Panel.prototype.addChangeListener = function(listener) {
   Internals.addListener(this, 'onChange', listener)
@@ -21,7 +21,7 @@ Panel.prototype.addChangeListener = function(listener) {
 /**
  * Add horizontal parent to group.
  * @param {?string|?Object=} text
- * @param {function(!Panel): undefined} configuration
+ * @param {function(!Panel)} configuration
  * @return {!Panel}
  */
 Group.prototype.hpanel = function(text, configuration) {
@@ -31,7 +31,7 @@ Group.prototype.hpanel = function(text, configuration) {
 /**
  * Add horizontal parent to panel.
  * @param {?string|?Object=} text
- * @param {function(!Panel): undefined} configuration
+ * @param {function(!Panel)} configuration
  * @return {!Panel}
  */
 Panel.prototype.hpanel = function(text, configuration) {
@@ -41,7 +41,7 @@ Panel.prototype.hpanel = function(text, configuration) {
 /**
  * Add vertical parent to group.
  * @param {?string|?Object=} text
- * @param {function(!Panel): undefined} configuration
+ * @param {function(!Panel)} configuration
  * @return {!Panel}
  */
 Group.prototype.vpanel = function(text, configuration) {
@@ -51,7 +51,7 @@ Group.prototype.vpanel = function(text, configuration) {
 /**
  * Add vertical parent to panel.
  * @param {?string|?Object=} text
- * @param {function(!Panel): undefined} configuration
+ * @param {function(!Panel)} configuration
  * @return {!Panel}
  */
 Panel.prototype.vpanel = function(text, configuration) {
@@ -61,7 +61,7 @@ Panel.prototype.vpanel = function(text, configuration) {
 /**
  * Add stack parent to group.
  * @param {?string|?Object=} text
- * @param {function(!Panel): undefined} configuration
+ * @param {function(!Panel)} configuration
  * @return {!Panel}
  */
 Group.prototype.spanel = function(text, configuration) {
@@ -71,7 +71,7 @@ Group.prototype.spanel = function(text, configuration) {
 /**
  * Add stack parent to panel.
  * @param {?string|?Object=} text
- * @param {function(!Panel): undefined} configuration
+ * @param {function(!Panel)} configuration
  * @return {!Panel}
  */
 Panel.prototype.spanel = function(text, configuration) {
