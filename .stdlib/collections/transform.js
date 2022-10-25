@@ -20,8 +20,8 @@ Collections.map = function(collection, transform) {
 }
 
 /**
- * Returns a single sequence of all elements from results of
- * transform function being invoked on each element of original sequence.
+ * Returns a single sequence of all elements from results of transform function being invoked on
+ * each element of original sequence.
  * @param {!Array<*>|!PageItems} collection
  * @param {function(*): *} transform
  * @return {!Array<*>}

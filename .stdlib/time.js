@@ -19,8 +19,7 @@ function parseDate(date) {
 }
 
 /**
- * Format this date to a string.
- * E.g.: 2011-10-05
+ * Format this date to a string. E.g.: 2011-10-05
  * @return {string}
  */
 Date.prototype.toISOString = function() {

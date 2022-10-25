@@ -115,8 +115,7 @@ function Preferences2(path) {
   }
 
   /**
-   * A class to edit values of preferences.
-   * Any configuration is queued until `save` is called.
+   * A class to edit values of preferences. Any configuration is queued until `save` is called.
    * @param {string} path
    * @param {!ActionDescriptor} descriptor
    */

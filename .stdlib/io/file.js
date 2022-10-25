@@ -29,8 +29,8 @@ File.prototype.getExtension = function() {
 }
 
 /**
- * Returns true if this file is PDF type, and should be opened with `PDFFileOptions`.
- * Non-template Illustrator files are PDF-compatible.
+ * Returns true if this file is PDF type, and should be opened with `PDFFileOptions`. Non-template
+ * Illustrator files are PDF-compatible.
  * @return {boolean}
  */
 File.prototype.isPdf = function() {

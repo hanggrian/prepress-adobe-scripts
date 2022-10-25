@@ -1,7 +1,7 @@
 /*
 <javascriptresource>
 <name>Close Documents...</name>
-<category>4</category>
+<category>1</category>
 <enableinfo>true</enableinfo>
 </javascriptresource>
 */

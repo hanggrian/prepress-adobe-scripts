@@ -1,10 +1,8 @@
 // Select all TextFrame with attributes matching user input.
 // When there are active selection, will only select items within those selection.
 
-#target
-illustrator
-#include
-'../.lib/commons.js'
+#target illustrator
+#include '../.lib/commons.js'
 
 var Kind = new Enum({
   POINT_TEXT: { text: R.string.point_text, value: TextType.POINTTEXT },

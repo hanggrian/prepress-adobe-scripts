@@ -81,8 +81,7 @@ function assertNotNull(actual) {
 }
 
 /**
- * Throws an error in test.
- * Error message is always suffixed with period by SUI.
+ * Throws an error in test. Error message is always suffixed with period by SUI.
  * @param {string|!Object} message error description.
  */
 function testError(message) {

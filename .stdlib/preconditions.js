@@ -5,8 +5,7 @@
 */
 
 /**
- * Throws an error if the input is false.
- * Error message is always suffixed with period by SUI.
+ * Throws an error if the input is false. Error message is always suffixed with period by SUI.
  * @param {boolean} value
  * @param {string|!Object=} errorMessage
  */
@@ -30,10 +29,9 @@ function checkNotNull(value, errorMessage) {
 }
 
 /**
- * Throws an exception.
- * In dialog on click listener, throwing an error stops a script but does not show an alert.
- * In such cases, set `showAlert` to true.
- * Error message is always suffixed with period by SUI.
+ * Throws an exception. In dialog on click listener, throwing an error stops a script but does not
+ * show an alert. In such cases, set `showAlert` to true. Error message is always suffixed with
+ * period by SUI.
  * @param {string|!Object} message
  * @param {?string|?Object=} title
  */

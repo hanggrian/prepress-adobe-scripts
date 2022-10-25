@@ -62,9 +62,8 @@ function RangeGroup(parent, inputSize) {
   }
 
   /**
-   * Checks validity of range.
-   * Dialog action should return true to invalidate process.
-   * @returns {boolean}
+   * Checks validity of range. Dialog action should return true to invalidate process.
+   * @return {boolean}
    */
   self.isValid = function() {
     // do not use getStart and getEnd because they are reduced accommodate default 0

@@ -5,8 +5,8 @@
 */
 
 /**
- * Static helper class for any array-like objects.
- * This is due to Adobe's custom non-array collection objects like `Artboards`, `PageItems`, etc.
+ * Static helper class for any array-like objects. This is due to Adobe's custom non-array
+ * collection objects like `Artboards`, `PageItems`, etc.
  */
 var Collections = {
 

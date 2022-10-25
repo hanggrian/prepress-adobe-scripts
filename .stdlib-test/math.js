@@ -10,19 +10,6 @@ test('isEven', function() {
   assertTrue(2.0.isEven())
 })
 
-test('floor', function() {
-  assertEquals(1, 1.5.floor())
-})
-
-test('ceil', function() {
-  assertEquals(2, 1.5.ceil())
-})
-
-test('round', function() {
-  assertEquals(1, 1.4.round())
-  assertEquals(2, 1.6.round())
-})
-
 test('isEqualRounded', function() {
   assertTrue(isEqualRounded(1.1, 1))
   assertFalse(isEqualRounded(1.6, 1))

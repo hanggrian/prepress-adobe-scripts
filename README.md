@@ -26,20 +26,22 @@ Run `install.bat` as admin (Windows) or `install.sh` with sudo (macOS).
 
 ### Manual Installation
 
-Find **Scripts** directory in your local Adobe installation paths, we will refer this directory
-as `$SCRIPTS`.
+Copy certain files and directories from this repository to your local Adobe installation paths,
+usually *Applications* in macOS and *Program Files* in Windows.
 
-| App | Path |
-| --- | --- |
-| Illustrator | `$APP_DIR`/Presets/`$LOCALE_CODE`/Scripts |
-| Photoshop | `$APP_DIR`/Presets/Scripts |
-
-Now copy these directories:
+#### Illustrator
 
 | From | To |
 | --- | --- |
-| `Illustrator Scripts` or `Photoshop Scripts` | `$SCRIPTS` |
-| `.stdlib` and `.stdres` | parent of `$SCRIPTS` |
+| Content of [Illustrator Scripts] | `$APP_DIR`/Presets/`$LOCALE_CODE`/Scripts/ |
+| [.stdlib] and [.stdres] | `$APP_DIR`/Presets/`$LOCALE_CODE`/ |
+
+#### Photoshop
+
+| From | To |
+| --- | --- |
+| Content of [Photoshop Scripts] | `$APP_DIR`/Presets/Scripts/ |
+| [.stdlib] and [.stdres] | `$APP_DIR`/Presets/ |
 
 > In macOS, make sure to show all hidden files in Finder.
 
@@ -59,3 +61,8 @@ pre-determined locations.
 
 If you decide to install the scripts, they can be accessed from menubar
 or [keyboard shortcuts](Actions).
+
+[.stdlib]: .stdlib
+[.stdres]: .stdres
+[Illustrator Scripts]: Illustrator%20Scripts
+[Photoshop Scripts]: Photoshop%20Scripts

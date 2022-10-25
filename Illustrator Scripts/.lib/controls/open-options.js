@@ -216,7 +216,7 @@ function OpenDocumentPanel(parent) {
       })
       topGroup.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_column
-        group.leftStaticText(undefined, R.string.column)
+        group.leftStaticText(undefined, R.string.column) // or row
         self.columnEdit = group.editText(SIZE_DOCUMENT_INPUT2, '2').also(VALIDATE_DIGITS)
       })
       topGroup.hgroup(function(group) {
@@ -256,16 +256,16 @@ function OpenDocumentPanel(parent) {
   /**
    * Create a new document with specific preset.
    * @param {string} title
-   * @param {number} pages
+   * @param {number} artboardLength
    * @return {!Document}
    */
-  self.create = function(title, pages) {
+  self.create = function(title, artboardLength) {
     checkNotNull(title)
-    checkNotNull(pages)
+    checkNotNull(artboardLength)
     var presetType = DocumentPreset2.find(self.presetTypeList.selection)
     return app.documents.addDocument(presetType.value, new DocumentPreset().also(function(preset) {
       preset.title = title
-      preset.numArtboards = pages
+      preset.numArtboards = artboardLength
       preset.width = self.getWidth()
       preset.height = self.getHeight()
       preset.colorMode = DocumentColor.find(self.colorModeList.selection).value
@@ -276,6 +276,30 @@ function OpenDocumentPanel(parent) {
       preset.artboardSpacing = parseUnits(self.spacingEdit.text)
       preset.previewMode = DocumentPreview.find(self.previewModeList.selection).value
     }))
+  }
+
+  /**
+   * Checks validity of document, return false is combined artboards' size exceed max canvas size,
+   * which is 225 inch. Dialog action should return true to invalidate process.
+   * @param {number} artboardLength
+   * @return {boolean}
+   * @see https://pixelandbracket.com/how-to-change-max-canvas-size-in-illustrator/#:~:text=Traditionally%2C%20the%20max%20canvas%20size,a%20little%20over%2016%2C000%20pixels.
+   */
+  self.isValid = function(artboardLength) {
+    var maxCanvasSize = parseUnits('225 inch')
+    var isHorizontal = DocumentLayout.find(self.layoutList.selection).name.endsWith('ROW')
+    var column = parseInt(self.columnEdit.text)
+    var spacing = parseUnits(self.spacingEdit.text)
+
+    var constraint1 = column * ((isHorizontal ? self.getWidth() : self.getHeight()) + spacing)
+    var lines = artboardLength > column ? Math.floor(artboardLength / column) : 1
+    var constraint2 = lines * ((isHorizontal ? self.getHeight() : self.getWidth()) + spacing)
+
+    println('Checking validity of new document:')
+    println('- maxCanvasSize = ' + maxCanvasSize)
+    println('- constraint1 = ' + constraint1)
+    println('- constraint2 = ' + constraint2)
+    return maxCanvasSize > constraint1 && maxCanvasSize > constraint2;
   }
 
   return self

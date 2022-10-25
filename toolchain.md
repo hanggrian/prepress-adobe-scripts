@@ -23,7 +23,7 @@ Forked from [Mediumish Jekyll Template](https://github.com/wowthemesnet/mediumis
 
 - **Adobe Illustrator**, used to manage vectors and generate images.
   - RGB, Screen (72 ppi), Pixels.
-  - Blank color swatches to reduce file size.
+  - No color swatches to reduce file size.
   - Non-decimal artboard's position to generate image in exact dimension.
   - Save files in `ai` format using options:
     - `Create PDF Compatible File` if such files are directly linked to others, disable otherwise.

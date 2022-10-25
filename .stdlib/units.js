@@ -9,10 +9,7 @@
 // * `unitValue` are the number. (e.g. : `5`, `20`)
 // * `unitType` are the suffix. (e.g. : `pt`, `mm`)
 
-/**
- * `units` is a class in Photoshop.
- * `rulerUnits` is a class in Illustrator.
- */
+/** `units` is a class in Photoshop. `rulerUnits` is a class in Illustrator. */
 var UnitType = new Enum({
   PX: {
     text: R.string.pixels,

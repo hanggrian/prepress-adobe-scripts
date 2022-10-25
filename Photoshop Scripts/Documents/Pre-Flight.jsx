@@ -1,7 +1,7 @@
 /*
 <javascriptresource>
 <name>Pre-Flight Documents</name>
-<category>4</category>
+<category>1</category>
 <enableinfo>true</enableinfo>
 </javascriptresource>
 */

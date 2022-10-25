@@ -56,8 +56,8 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
     var pageDivisor = !nupGroup.isDuplex() ? 8 : 16
     if (pageLength % pageDivisor !== 0) {
       return Windows.alert(getString(R.string.error_openpages, pageDivisor), dialog.text, true)
-    } else if (documentPanel.getWidth() < (rotatedPageWidth * 4) || documentPanel.getHeight() <
-      (rotatedPageHeight * 2)) {
+    } else if (documentPanel.getWidth() < (rotatedPageWidth * 4) ||
+      documentPanel.getHeight() < (rotatedPageHeight * 2)) {
       return Windows.alert(R.string.error_opendocuments, dialog.text, true)
     }
     var document = documentPanel.create(dialog.text, artboardLength)

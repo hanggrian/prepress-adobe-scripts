@@ -32,8 +32,8 @@ var Color2 = new Enum({
 }, [1])
 
 /**
- * Returns true if both CMYK colors are equal.
- * Avoid prototype function since `Color` may be `CMYKColor`, `RGBColor` or `SpotColor`.
+ * Returns true if both CMYK colors are equal. Avoid prototype function since `Color` may
+ * be `CMYKColor`, `RGBColor` or `SpotColor`.
  * @param {!CMYKColor} colorA
  * @param {!CMYKColor} colorB
  * @return {boolean}

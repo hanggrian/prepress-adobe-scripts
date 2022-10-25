@@ -5,9 +5,9 @@
 */
 
 /**
- * Give Java-like methods namely `values` and `valueOf` for enumeration.
- * There is also `list` for displaying `ListItem` in `DropDownList` or `ListBox`.
- * Every enumeration field usually have property `name` and `image`, but not mandatory.
+ * Give Java-like methods namely `values` and `valueOf` for enumeration. There is also `list` for
+ * displaying `ListItem` in `DropDownList` or `ListBox`. Every enumeration field usually have
+ * property `text` and `image`, but not mandatory.
  * @param {!Object} object
  * @param {!Array<number>=} separatorIndices array of numbers indicating where ListItem separator should be, default is empty.
  */
@@ -16,6 +16,7 @@ function Enum(object, separatorIndices) {
   separatorIndices = separatorIndices || []
   for (var key in object) {
     this[key] = object[key]
+    this[key].name = key
   }
   this.separatorIndices = separatorIndices
 }
@@ -35,8 +36,8 @@ Enum.prototype.values = function() {
 }
 
 /**
- * Returns an array of `ListItem` for `DropDownList` or `ListBox`.
- * For this to work, every field must have property `text` and optionally `image`.
+ * Returns an array of `ListItem` for `DropDownList` or `ListBox`. For this to work, every field
+ * must have property `text` and optionally `image`.
  * @return {!Array<string>|!Array<!Array<string, string>>}
  */
 Enum.prototype.list = function() {

@@ -6,9 +6,9 @@
 
 var Windows = {
   /**
-   * Show alert with values from resources.
-   * The message are always suffixed with period, just like when throwing `Error`.
-   * This function also returns `isError`, intended for directly invalidating dialog button action.
+   * Show alert with values from resources. The message are always suffixed with period, just like
+   * when throwing `Error`. This function also returns `isError`, intended for directly invalidating
+   * dialog button action.
    * @param {string|!Object} message
    * @param {?string|?Object=} title
    * @param {boolean=} isError default is false.

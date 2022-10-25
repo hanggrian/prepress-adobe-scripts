@@ -208,6 +208,8 @@
 "tip_addpaperbagdielines_width","Width of paperbag.","Lebar kantong kertas."
 "tip_addtrimmarks_color","Color of trim marks.","Warna garis potong."
 "tip_addtrimmarks_length","Size of trim marks.","Ukuran garis potong."
+"tip_addtrimmarks_markcheck","Generate single trim mark on specific location.","Hasilkan tanda trim tunggal di lokasi tertentu."
+"tip_addtrimmarks_markscheck","Generate multiple trim marks across location.","Hasilkan beberapa tanda trim di seluruh lokasi."
 "tip_addtrimmarks_multipletarget","When activated, trim marks will be added to each item.","Saat diaktifkan, tanda trim akan ditambahkan ke setiap barang."
 "tip_addtrimmarks_offset","Distance between art and trim marks.","Jarak antara tanda seni dan garis potong."
 "tip_addtrimmarks_weight","Thickness of trim marks.","Ketebalan garis potong."
