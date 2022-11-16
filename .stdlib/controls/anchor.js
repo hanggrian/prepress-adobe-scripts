@@ -18,7 +18,7 @@ function AnchorGroup(parent) {
   self.leftRadio, self.centerRadio, self.rightRadio
   self.bottomLeftRadio, self.bottomRadio, self.bottomRightRadio
 
-  isPsd = !Scripts.APP_AI
+  var isPsd = !Scripts.APP_AI
   self.hgroup(function(group) {
     if (isPsd) {
       group.spacing = 0

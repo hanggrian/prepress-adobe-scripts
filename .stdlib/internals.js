@@ -93,11 +93,7 @@ var Internals = {
    * @param {!Array<number>} size
    */
   sizeOrBounds: function(size) {
-    return size !== undefined && size.length === 2 ? [
-      0,
-      0,
-      size[0],
-      size[1]] : size
+    return size !== undefined && size.length === 2 ? [0, 0, size[0], size[1]] : size
   },
 
   /**
@@ -124,7 +120,7 @@ var Internals = {
 
   /**
    * @param {string} string
-   * @param {!Array<string>} regexes
+   * @param {!Array<!RegExp>} regexes
    * @return {string}
    */
   removeRegexes: function(string, regexes) {

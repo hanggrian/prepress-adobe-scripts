@@ -25,7 +25,7 @@ to be setup manually:
 | ⇧ **F4** | Select > Paths... |
 | **F5** | Objects > Step and Repeat... |
 | ⇧ **F5** | Objects > Add Trim Marks... |
-| ⌘ **F5** | Objects > Copy to Artboards... |
+| ⇧⌘ **F5** | Objects > Copy to Artboards... |
 | **F6** | Types > Retype... |
 | ⇧ **F6** | Types > Numerize... |
 | **F7** | Links > Change Page... |
