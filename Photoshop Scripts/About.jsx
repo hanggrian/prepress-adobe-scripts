@@ -4,8 +4,8 @@
 </javascriptresource>
 */
 
-#target photoshop
-#include '.lib/core.js'
+//@target photoshop
+//@include '.lib/core.js'
 
 var dialog = new Dialog(R.string.about_scripts)
 var aboutPanel

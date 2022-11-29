@@ -1,8 +1,8 @@
 // Select all PathItem with attributes matching user input.
 // When there are active selection, will only select items within those selection.
 
-#target illustrator
-#include '../.lib/commons.js'
+//@target illustrator
+//@include '../.lib/commons.js'
 
 var SIZE_INPUT = [110, 21]
 

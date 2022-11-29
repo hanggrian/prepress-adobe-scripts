@@ -1,8 +1,8 @@
 // TODO: find out why `TextFrame.textRanges` are always undefined.
 // TODO: find out why `app.textFonts` are always undefined.
 
-#target illustrator
-#include '../.lib/commons.js'
+//@target illustrator
+//@include '../.lib/commons.js'
 
 checkHasSelection()
 

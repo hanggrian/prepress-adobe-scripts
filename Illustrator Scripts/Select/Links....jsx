@@ -3,8 +3,8 @@
 //
 // The file type options are similar with Illustrator native `Relink...` dialog.
 
-#target illustrator
-#include '../.lib/commons.js'
+//@target illustrator
+//@include '../.lib/commons.js'
 
 var SIZE_INPUT = [150, 21]
 

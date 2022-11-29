@@ -1,5 +1,5 @@
-#target illustrator
-#include '../.lib/commons.js'
+//@target illustrator
+//@include '../.lib/commons.js'
 
 var dialog = new Dialog(R.string.fit_to_arts)
 var rangeGroup

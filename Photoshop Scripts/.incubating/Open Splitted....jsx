@@ -4,8 +4,8 @@
 </javascriptresource>
 */
 
-#target photoshop
-#include '../.lib/core.js'
+//@target photoshop
+//@include '../.lib/core.js'
 
 var SIZE_TEXT = [60, 21]
 var SIZE_EDIT = [100, 21]
@@ -22,7 +22,7 @@ var files = FilePicker.openFile(dialog.text, [
   ['JPEG2000', 'JPF', 'JPX', 'JP2', 'J2K', 'J2C', 'JPC'],
   ['PNG', 'PNG', 'PNS'],
   ['Photoshop', 'PSD', 'PSB', 'PDD'],
-  ['TIFF', 'TIF', 'TIFF'],
+  ['TIFF', 'TIF', 'TIFF']
 ], true)
 
 if (files !== null && Collections.isNotEmpty(files)) {

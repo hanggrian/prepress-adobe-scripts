@@ -20,8 +20,8 @@ function ProgressPalette(stop, status) {
     group.orientation = 'row'
     self.statusText = group.staticText([325, 21],
       (status || getString(R.string.please_wait)) + '...').also(function(it) {
-        it.justify = 'left'
-      })
+      it.justify = 'left'
+    })
     self.countText = group.staticText([75, 21], '0/' + stop).also(function(it) {
       it.justify = 'right'
     })
@@ -51,7 +51,7 @@ function ProgressPalette(stop, status) {
   if (dialog !== undefined) {
     self.location = [
       dialog.location.x + (dialog.bounds.width - self.bounds.width) / 2,
-      dialog.location.y - 130,
+      dialog.location.y - 130
     ]
   }
 

@@ -6,8 +6,8 @@
 </javascriptresource>
 */
 
-#target photoshop
-#include '../.lib/commons.js'
+//@target photoshop
+//@include '../.lib/commons.js'
 
 var unsavedLength = Collections.filter(app.documents, function(it) { return !it.saved }).length
 

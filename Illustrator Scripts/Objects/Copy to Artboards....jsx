@@ -1,11 +1,11 @@
-#target illustrator
-#include '../.lib/commons.js'
+//@target illustrator
+//@include '../.lib/commons.js'
 
 var Anchor = new Enum({
   TOP_LEFT: { text: R.string.top_left, image: 'ic_arrow_topleft' },
   TOP_RIGHT: { text: R.string.top_right, image: 'ic_arrow_topright' },
   BOTTOM_LEFT: { text: R.string.bottom_left, image: 'ic_arrow_bottomleft' },
-  BOTTOM_RIGHT: { text: R.string.bottom_right, image: 'ic_arrow_bottomright' },
+  BOTTOM_RIGHT: { text: R.string.bottom_right, image: 'ic_arrow_bottomright' }
 })
 
 var SIZE_INPUT = [150, 21]

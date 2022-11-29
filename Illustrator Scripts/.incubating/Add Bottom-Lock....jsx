@@ -1,5 +1,5 @@
-#target illustrator
-#include '../.lib/core.js'
+//@target illustrator
+//@include '../.lib/core.js'
 
 var SIZE_INPUT = [150, 21]
 

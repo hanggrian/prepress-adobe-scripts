@@ -6,8 +6,8 @@
 </javascriptresource>
 */
 
-#target photoshop
-#include '../.lib/commons.js'
+//@target photoshop
+//@include '../.lib/commons.js'
 
 var SIZE_INPUT = [100, 21]
 

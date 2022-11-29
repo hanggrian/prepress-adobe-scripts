@@ -7,25 +7,25 @@ var PDFCrop = new Enum({
   CROP: { text: 'Crop', value: PDFBoxType.PDFCROPBOX },
   TRIM: { text: 'Trim', value: PDFBoxType.PDFTRIMBOX },
   BLEED: { text: 'Bleed', value: PDFBoxType.PDFBLEEDBOX },
-  MEDIA: { text: 'Media', value: PDFBoxType.PDFMEDIABOX },
+  MEDIA: { text: 'Media', value: PDFBoxType.PDFMEDIABOX }
 }, [0])
 
 var DocumentPreset2 = new Enum({
   MOBILE: { text: 'Mobile', value: DocumentPresetType.Mobile },
   WEB: { text: 'Web', value: DocumentPresetType.Web },
   PRINT: { text: 'Print', value: DocumentPresetType.Print },
-  VIDEO: { text: 'Video', value: DocumentPresetType.Video },
+  VIDEO: { text: 'Video', value: DocumentPresetType.Video }
 })
 
 var DocumentColor = new Enum({
   RGB: { text: 'RGB', value: DocumentColorSpace.RGB },
-  CMYK: { text: 'CMYK', value: DocumentColorSpace.CMYK },
+  CMYK: { text: 'CMYK', value: DocumentColorSpace.CMYK }
 })
 
 var DocumentResolution = new Enum({
   SCREEN: { text: R.string.screen, value: DocumentRasterResolution.ScreenResolution },
   MEDIUM: { text: R.string.medium, value: DocumentRasterResolution.MediumResolution },
-  HIGH: { text: R.string.high, value: DocumentRasterResolution.HighResolution },
+  HIGH: { text: R.string.high, value: DocumentRasterResolution.HighResolution }
 })
 
 var DocumentLayout = new Enum({
@@ -36,15 +36,15 @@ var DocumentLayout = new Enum({
   RTL_GRID_BY_ROW: { text: R.string.rtl_grid_by_row, value: DocumentArtboardLayout.RLGridByRow },
   RTL_GRID_BY_COLUMN: {
     text: R.string.rtl_grid_by_column,
-    value: DocumentArtboardLayout.RLGridByCol,
+    value: DocumentArtboardLayout.RLGridByCol
   },
-  RTL_ROW: { text: R.string.rtl_row, value: DocumentArtboardLayout.RLRow },
+  RTL_ROW: { text: R.string.rtl_row, value: DocumentArtboardLayout.RLRow }
 })
 
 var DocumentPreview = new Enum({
   DEFAULT: { text: 'Default', value: DocumentPreviewMode.DefaultPreview },
   PIXEL: { text: 'Pixel', value: DocumentPreviewMode.PixelPreview },
-  OVERPRINT: { text: 'Overprint', value: DocumentPreviewMode.OverprintPreview },
+  OVERPRINT: { text: 'Overprint', value: DocumentPreviewMode.OverprintPreview }
 })
 
 /**
@@ -299,7 +299,7 @@ function OpenDocumentPanel(parent) {
     println('- maxCanvasSize = ' + maxCanvasSize)
     println('- constraint1 = ' + constraint1)
     println('- constraint2 = ' + constraint2)
-    return maxCanvasSize > constraint1 && maxCanvasSize > constraint2;
+    return maxCanvasSize > constraint1 && maxCanvasSize > constraint2
   }
 
   return self

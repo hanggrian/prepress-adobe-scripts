@@ -2,12 +2,12 @@ var Ordering = new Enum({
   LAYER_DEFAULT: {
     text: R.string.default,
     image: 'ic_order_layer_default',
-    get: function(_, _) { return 1 },
+    get: function(_, _) { return 1 }
   },
   LAYER_REVERSED: {
     text: R.string.reversed,
     image: 'ic_order_layer_reversed',
-    get: function(_, _) { return -1 },
+    get: function(_, _) { return -1 }
   },
   NAME_ASCENDING: {
     text: R.string.ascending,
@@ -16,7 +16,7 @@ var Ordering = new Enum({
       if (a.name > b.name) return 1
       else if (a.name < b.name) return -1
       return 0
-    },
+    }
   },
   NAME_DESCENDING: {
     text: R.string.descending,
@@ -25,7 +25,7 @@ var Ordering = new Enum({
       if (a.name < b.name) return 1
       else if (a.name > b.name) return -1
       return 0
-    },
+    }
   },
   POSITION_HORIZONTAL: {
     text: R.string.horizontal,
@@ -40,7 +40,7 @@ var Ordering = new Enum({
       if (aX > bX) return 1
       else if (aX < bX) return -1
       return 0
-    },
+    }
   },
   POSITION_VERTICAL: {
     text: R.string.vertical,
@@ -55,7 +55,7 @@ var Ordering = new Enum({
       if (aY < bY) return 1
       else if (aY > bY) return -1
       return 0
-    },
+    }
   },
   POSITION_HORIZONTALRTL: {
     text: R.string.horizontal_rtl,
@@ -70,7 +70,7 @@ var Ordering = new Enum({
       if (aX > bX) return -1
       else if (aX < bX) return 1
       return 0
-    },
+    }
   },
   POSITION_VERTICALRTL: {
     text: R.string.vertical_rtl,
@@ -85,7 +85,7 @@ var Ordering = new Enum({
       if (aY < bY) return 1
       else if (aY > bY) return -1
       return 0
-    },
+    }
   },
 
   getRectangle: function(item) {
@@ -109,7 +109,7 @@ var Ordering = new Enum({
   },
   positionList: function() {
     return Collections.map(Ordering.positionValues(), function(it) { return [it.text, it.image] })
-  },
+  }
 })
 
 /**

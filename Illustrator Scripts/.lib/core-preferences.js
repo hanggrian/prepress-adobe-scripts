@@ -71,7 +71,7 @@ function Preferences2(path) {
    */
   this.getBoolean = function(key) {
     var value = preferences.getBooleanPreference(prefix + key)
-    println("Get bool preference '%s': '%s'.", key, value)
+    println('Get bool preference \'%s\': \'%s\'.', key, value)
     return value
   }
 
@@ -82,7 +82,7 @@ function Preferences2(path) {
    */
   this.getInt = function(key) {
     var value = preferences.getIntegerPreference(prefix + key)
-    println("Get int preference '%s': '%d'.", key, value)
+    println('Get int preference \'%s\': \'%d\'.', key, value)
     return value
   }
 
@@ -93,7 +93,7 @@ function Preferences2(path) {
    */
   this.getNumber = function(key) {
     var value = preferences.getRealPreference(prefix + key)
-    println("Get num preference '%s': '%d'.", key, value)
+    println('Get num preference \'%s\': \'%d\'.', key, value)
     return value
   }
 
@@ -104,13 +104,13 @@ function Preferences2(path) {
    * @return {string}
    */
   this.getString = function(key, defaultValue) {
-    print("Get str preference '%s': ", key)
+    print('Get str preference \'%s\': ', key)
     var value = preferences.getStringPreference(prefix + key)
     if (value === '') {
-      println("not found, use default '%s'.", defaultValue)
+      println('not found, use default \'%s\'.', defaultValue)
       return defaultValue
     }
-    println("'%s'.", value)
+    println('\'%s\'.', value)
     return value
   }
 
@@ -122,7 +122,7 @@ function Preferences2(path) {
   this.setBoolean = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     preferences.setBooleanPreference(prefix + key, actualValue)
-    println("Set bool preference '%s': '%d'.", key, actualValue)
+    println('Set bool preference \'%s\': \'%d\'.', key, actualValue)
   }
 
   /**
@@ -133,7 +133,7 @@ function Preferences2(path) {
   this.setInt = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     preferences.setIntegerPreference(prefix + key, actualValue)
-    println("Set int preference '%s': '%d'.", key, actualValue)
+    println('Set int preference \'%s\': \'%d\'.', key, actualValue)
   }
 
   /**
@@ -144,7 +144,7 @@ function Preferences2(path) {
   this.setNumber = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     preferences.setRealPreference(prefix + key, actualValue)
-    println("Set num preference '%s': '%d'.", key, actualValue)
+    println('Set num preference \'%s\': \'%d\'.', key, actualValue)
   }
 
   /**
@@ -155,7 +155,7 @@ function Preferences2(path) {
   this.setString = function(key, value) {
     var actualValue = value instanceof Function ? value() : value
     preferences.setStringPreference(prefix + key, actualValue)
-    println("Set str preference '%s': '%s'.", key, actualValue)
+    println('Set str preference \'%s\': \'%s\'.', key, actualValue)
   }
 
   /**
@@ -164,6 +164,6 @@ function Preferences2(path) {
    */
   this.remove = function(key) {
     preferences.removePreference(prefix + key)
-    println("Remove preference '%s'.", key)
+    println('Remove preference \'%s\'.', key)
   }
 }

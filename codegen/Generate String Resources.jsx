@@ -1,7 +1,7 @@
 // Run this script on any Adobe app to generate string resources in form of JavaScript sources.
 
-#include '../.stdlib/stdlib.js'
-#include 'lib/rules.js'
+//@include '../.stdlib/stdlib.js'
+//@include 'lib/rules.js'
 
 var PATH_CURRENT = new File($.fileName).path
 var PATH_ROOT = new File(PATH_CURRENT + '/..')

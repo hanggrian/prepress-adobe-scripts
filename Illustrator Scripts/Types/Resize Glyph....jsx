@@ -1,11 +1,11 @@
-#target illustrator
-#include '../.lib/commons.js'
+//@target illustrator
+//@include '../.lib/commons.js'
 
 var Rounding = new Enum({
   NONE: { text: R.string.none, round: function(it) { return it } },
   ROUND: { text: R.string.round, round: Math.round },
   FLOOR: { text: R.string.floor, round: Math.floor },
-  CEIL: { text: R.string.ceil, round: Math.ceil },
+  CEIL: { text: R.string.ceil, round: Math.ceil }
 })
 
 var SIZE_LABEL = [80, 21] // manual sizing because content is changable

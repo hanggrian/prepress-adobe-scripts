@@ -1,7 +1,7 @@
 // TODO: avoid duplicate paths in the same position and length.
 
-#target illustrator
-#include '../.lib/commons.js'
+//@target illustrator
+//@include '../.lib/commons.js'
 
 checkHasSelection()
 
@@ -19,12 +19,12 @@ Collections.forEachItem(items, function(item) {
   switch (item.typename) {
     case 'PathItem':
       increment(item)
-      break;
+      break
     case 'CompoundPathItem':
       Collections.forEach(item.pathItems, function(it) {
         increment(it)
       })
-      break;
+      break
   }
 })
 

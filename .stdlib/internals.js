@@ -196,5 +196,5 @@ var Internals = {
     var radio = parent.children[index]
     check(radio.type === 'radiobutton')
     radio.select()
-  },
+  }
 }

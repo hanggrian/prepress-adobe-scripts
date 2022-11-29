@@ -4,50 +4,50 @@
 </javascriptresource>
 */
 
-#include 'resources/base.js'
-#include 'resources/plurals.js'
-#include 'resources/strings.js'
-#include 'enums.js'
-#include 'internals.js'
+//@include 'resources/base.js'
+//@include 'resources/plurals.js'
+//@include 'resources/strings.js'
+//@include 'enums.js'
+//@include 'internals.js'
 
-#include 'collections/base.js'
-#include 'collections/predicate.js'
-#include 'collections/transform.js'
-#include 'controls/about.js'
-#include 'controls/anchor.js'
-#include 'controls/multi-toggles.js'
-#include 'io/console.js'
-#include 'io/file.js'
-#include 'io/picker.js'
-#include 'sui/child-button.js'
-#include 'sui/child-dropdownlist.js'
-#include 'sui/child-edittext.js'
-#include 'sui/child-iconbutton.js'
-#include 'sui/child-image.js'
-#include 'sui/child-listbox.js'
-#include 'sui/child-progressbar.js'
-#include 'sui/child-slider.js'
-#include 'sui/child-statictext.js'
-#include 'sui/child-toggles.js'
-#include 'sui/parent-group.js'
-#include 'sui/parent-panel.js'
-#include 'sui/parent-tab.js'
-#include 'sui/parent-tabbedpanel.js'
-#include 'sui/window-builtin.js'
-#include 'sui/window-dialog.js'
-#include 'sui/window-palette.js'
-#include 'geometry.js'
-#include 'math.js'
-#include 'objects.js'
-#include 'preconditions.js'
-#include 'standard.js'
-#include 'text.js'
-#include 'time.js'
-#include 'units.js'
+//@include 'collections/base.js'
+//@include 'collections/predicate.js'
+//@include 'collections/transform.js'
+//@include 'controls/about.js'
+//@include 'controls/anchor.js'
+//@include 'controls/multi-toggles.js'
+//@include 'io/console.js'
+//@include 'io/file.js'
+//@include 'io/picker.js'
+//@include 'sui/child-button.js'
+//@include 'sui/child-dropdownlist.js'
+//@include 'sui/child-edittext.js'
+//@include 'sui/child-iconbutton.js'
+//@include 'sui/child-image.js'
+//@include 'sui/child-listbox.js'
+//@include 'sui/child-progressbar.js'
+//@include 'sui/child-slider.js'
+//@include 'sui/child-statictext.js'
+//@include 'sui/child-toggles.js'
+//@include 'sui/parent-group.js'
+//@include 'sui/parent-panel.js'
+//@include 'sui/parent-tab.js'
+//@include 'sui/parent-tabbedpanel.js'
+//@include 'sui/window-builtin.js'
+//@include 'sui/window-dialog.js'
+//@include 'sui/window-palette.js'
+//@include 'geometry.js'
+//@include 'math.js'
+//@include 'objects.js'
+//@include 'preconditions.js'
+//@include 'standard.js'
+//@include 'text.js'
+//@include 'time.js'
+//@include 'units.js'
 
 var Theme = new Enum({
   DARK: { text: R.string.dark },
-  LIGHT: { text: R.string.light },
+  LIGHT: { text: R.string.light }
 })
 
 var Language = new Enum({
@@ -66,7 +66,7 @@ var Language = new Enum({
     checkNotNull(language)
     $.localize = true
     $.locale = language.code
-  },
+  }
 })
 
 var Scripts = {
@@ -117,5 +117,5 @@ var Scripts = {
     tempFile.writeText('<html><head><META HTTP-EQUIV=Refresh CONTENT="0; URL=%s">'.format(url) +
       '</head><body> <p></body></html>')
     tempFile.execute()
-  },
+  }
 }

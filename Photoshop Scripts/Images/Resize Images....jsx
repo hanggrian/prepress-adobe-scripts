@@ -6,8 +6,8 @@
 </javascriptresource>
 */
 
-#target photoshop
-#include '../.lib/commons.js'
+//@target photoshop
+//@include '../.lib/commons.js'
 
 var Resample = new Enum({
   BICUBIC: { text: R.string.bicubic, value: ResampleMethod.BICUBIC },
@@ -15,7 +15,7 @@ var Resample = new Enum({
   BICUBIC_SMOOTHER: { text: R.string.bicubic_smoother, value: ResampleMethod.BICUBICSMOOTHER },
   BILINEAR: { text: R.string.bilinear, value: ResampleMethod.BILINEAR },
   NEAREST_NEIGHBOR: { text: R.string.nearest_neighbor, value: ResampleMethod.NEARESTNEIGHBOR },
-  NONE: { text: R.string.none, value: ResampleMethod.NONE },
+  NONE: { text: R.string.none, value: ResampleMethod.NONE }
 })
 
 var SIZE_INPUT = [180, 21]

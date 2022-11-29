@@ -1,10 +1,10 @@
-#target illustrator
-#include '../.lib/commons.js'
+//@target illustrator
+//@include '../.lib/commons.js'
 
 var ALPHABETS = [
   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
   'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-  'U', 'V', 'W', 'X', 'Y', 'Z',
+  'U', 'V', 'W', 'X', 'Y', 'Z'
 ]
 var SIZE_INPUT = [100, 21]
 

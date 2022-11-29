@@ -1,7 +1,6 @@
 :: Windows executable to sync scripts to Adobe installation paths.
 
 @echo off
-
 setlocal EnableDelayedExpansion
 
 set END=[0m
@@ -12,22 +11,24 @@ set GREEN=[92m
 set YELLOW=[93m
 
 :: SOURCE_ROOT ends with backslash
-set SOURCE_ROOT=%~dp0
+set "SOURCE_ROOT=%~dp0"
 
-:: Check permissions
+:: check permissions
 net session >nul 2>&1
-if !errorLevel! neq 0 goto :die Check sources
-if not exist "!SOURCE_ROOT!.stdlib" goto :die_sources
-if not exist "!SOURCE_ROOT!.stdres" goto :die_sources
-if not exist "!SOURCE_ROOT!Illustrator Scripts" goto :die_sources
-if not exist "!SOURCE_ROOT!Photoshop Scripts" goto :die_sources
-if not exist "!SOURCE_ROOT!Actions" goto :die_sources
+if !errorLevel! neq 0 set "DIE_MSG=Root access required." & goto :die
 
+:: check sources
+if not exist "!SOURCE_ROOT!.stdlib" set "DIE_MSG=Missing hidden directories." & goto :die
+if not exist "!SOURCE_ROOT!.stdres" set "DIE_MSG=Missing hidden directories." & goto :die
+if not exist "!SOURCE_ROOT!Illustrator Scripts" set "DIE_MSG=Missing scripts." & goto :die
+if not exist "!SOURCE_ROOT!Photoshop Scripts" set "DIE_MSG=Missing scripts." & goto :die
+if not exist "!SOURCE_ROOT!Actions" set "DIE_MSG=Missing actions." & goto :die
+
+echo.
+echo !BOLD!!UNDERLINE!Prepress Adobe Scripts Installer!END!
 echo.
 echo !YELLOW!!BOLD!WARNING!END!
-echo !YELLOW!This command will replace all existing scripts, backup if necessary.!END!
-echo.
-echo !BOLD!!UNDERLINE!Prepress Adobe Scripts!END!
+call :warn !YELLOW!This command will replace all existing scripts, backup if necessary.!END!
 echo.
 echo 1. Illustrator
 echo 2. Photoshop
@@ -35,7 +36,7 @@ echo A. All
 echo.
 echo Q. Quit
 echo.
-set /p input=!BOLD!Which scripts would you like to install: !END!
+set /p input=!BOLD!Pick the app: !END!
 
 if "!input!" equ "1" (
   call :patch_app "Illustrator" "aia"
@@ -52,7 +53,7 @@ if "!input!" equ "1" (
 ) else if "!input!" equ "q" (
   rem
 ) else (
-  goto :die_input
+  set "DIE_MSG=Unable to recognize input." & goto :die
 )
 
 echo.
@@ -61,31 +62,37 @@ echo.
 pause
 exit /b 0
 
-:: Find adobe apps and determine its scripts directory parent.
+:: Find Adobe apps and determine its scripts directory parent.
 :: In Windows, we manually do this manually. Check if `Presets` directly contain `Scripts` directory.
 :patch_app
   setlocal
-  set name=%~1
-  set action_extension=%~2
-  set scripts_filename=!name! Scripts
-  set action_filename=Prepress Adobe Scripts.!action_extension!
+  set "name=%~1"
+  set "action_extension=%~2"
+  set "scripts_filename=!name! Scripts"
+  set "action_filename=Prepress Adobe Scripts.!action_extension!"
   set "success="
 
   echo.
   echo Patching !name!...
 
+  :: find matching Adobe app
   for /d %%a in ("!ProgramFiles!\Adobe\*") do (
-    set app_name=%%~nxa
+    set "app_name=%%~nxa"
     if "!app_name:%name%=!" neq "!app_name!" (
-      set presets=%%a\Presets
+      set "presets=%%a\Presets"
       if not exist "!presets!\Scripts" (
+        :: in Illustrator, scripts are located within `$root/Presets/$LOCALE`
         for /d %%p in ("!presets!\*") do (
-          set "success=y"
-          call :patch_preset "%%a" "!scripts_filename!" "!action_filename!" "%%p"
+          set "preset_name=%%~nxp"
+          if "!preset_name:~0,3!" equ "en_" (
+            set "success=y"
+            call :patch_preset "!scripts_filename!" "!action_filename!" "%%p"
+          )
         )
       ) else (
+        :: in Photoshop, scripts are located within `$root`
         set "success=y"
-        call :patch_preset "%%a" "!scripts_filename!" "!action_filename!" "!presets!"
+        call :patch_preset "!scripts_filename!" "!action_filename!" "!presets!"
       )
     )
   )
@@ -98,18 +105,24 @@ exit /b 0
     echo.
     echo Patching 32-bit !name!...
 
+    :: find matching Adobe app
     for /d %%a in ("!ProgramFiles(x86)!\Adobe\*") do (
-      set app_name=%%~nxa
+      set "app_name=%%~nxa"
       if "!app_name:%name%=!" neq "!app_name!" (
-        set presets=%%a\Presets
+        set "presets=%%a\presets"
         if not exist "!presets!\Scripts" (
+          :: in Illustrator, scripts are located within `$root/Presets/$LOCALE`
           for /d %%p in ("!presets!\*") do (
-            set "success=y"
-            call :patch_preset "%%a" "!scripts_filename!" "!action_filename!" "%%p"
+            set "preset_name=%%~nxp"
+            if "!preset_name:~0,3!" equ "en_" (
+              set "success=y"
+              call :patch_preset "!scripts_filename!" "!action_filename!" "%%p"
+            )
           )
         ) else (
+          :: in Photoshop, scripts are located within `$root`
           set "success=y"
-          call :patch_preset "%%a" "!scripts_filename!" "!action_filename!" "!presets!"
+          call :patch_preset "!scripts_filename!" "!action_filename!" "!presets!"
         )
       )
     )
@@ -118,19 +131,18 @@ exit /b 0
     )
   )
   endlocal
-goto :eof
+  goto :eof
 
 :: Wipe out current scripts and shared libraries, then copy new ones.
 :patch_preset
   setlocal
-  set full_name=%~1
-  set scripts_filename=%~2
-  set action_filename=%~3
-  set target_root=%~4
+  set "scripts_filename=%~1"
+  set "action_filename=%~2"
+  set "target_root=%~3"
 
-  echo - !GREEN!!full_name!!END!
+  echo - !GREEN!!target_root!!END!
 
-  :: Delete existing
+  :: delete existing
   if exist "!target_root!\.stdlib" (
     rmdir /s /q "!target_root!\.stdlib"
     md "!target_root!\.stdlib"
@@ -146,35 +158,25 @@ goto :eof
   if exist "!target_root!\Actions\!action_filename!" (
     del "!target_root!\Actions\!action_filename!"
   )
-  :: Copy new ones
+  :: copy new ones
   robocopy /s "!SOURCE_ROOT!.stdlib" "!target_root!\.stdlib" /njh /njs /ndl /nc /ns /nfl
   robocopy /s "!SOURCE_ROOT!.stdres" "!target_root!\.stdres" /njh /njs /ndl /nc /ns /nfl
   robocopy /s "!SOURCE_ROOT!!scripts_filename!" "!target_root!\Scripts" /njh /njs /ndl /nc /ns /nfl
   robocopy "!SOURCE_ROOT!Actions" "!target_root!\Actions" "!action_filename!" /njh /njs /ndl /nc /ns /nfl
-  :: Clean up
+  :: clean up
   del "!target_root!\.stdres\script\check_updates.command"
   rmdir /s /q "!target_root!\Scripts\.incubating"
   rmdir /s /q "!target_root!\Scripts\.lib-test"
   endlocal
-goto :eof
+  goto :eof
 
-:die_permissions
+:warn
+  echo !YELLOW!%*!END!
+  goto :eof
+
+:die
   echo.
-  echo !RED!Administrative permissions required.!END!
+  echo !RED!!DIE_MSG!!END!
   echo.
   pause
-exit /b 1
-
-:die_sources
-  echo.
-  echo !RED!Missing sources.!END!
-  echo.
-  pause
-exit /b 1
-
-:die_input
-  echo.
-  echo !RED!Unable to recognize input.!END!
-  echo.
-  pause
-exit /b 1
+  exit /b 1

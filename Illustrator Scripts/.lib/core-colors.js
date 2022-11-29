@@ -2,33 +2,33 @@ var Color2 = new Enum({
   REGISTRATION: {
     text: R.string.registration,
     image: 'color_registration',
-    get: function() { return document.swatches['[registration]'].color },
+    get: function() { return document.swatches['[registration]'].color }
   },
   WHITE: {
     text: R.string.white,
     image: 'color_white',
-    get: function() { return new CMYKColor() },
+    get: function() { return new CMYKColor() }
   },
   CYAN: {
     text: R.string.cyan,
     image: 'color_cyan',
-    get: function() { return new CMYKColor().also(function(it) { it.cyan = 100 }) },
+    get: function() { return new CMYKColor().also(function(it) { it.cyan = 100 }) }
   },
   MAGENTA: {
     text: R.string.magenta,
     image: 'color_magenta',
-    get: function() { return new CMYKColor().also(function(it) { it.magenta = 100 }) },
+    get: function() { return new CMYKColor().also(function(it) { it.magenta = 100 }) }
   },
   YELLOW: {
     text: R.string.yellow,
     image: 'color_yellow',
-    get: function() { return new CMYKColor().also(function(it) { it.yellow = 100 }) },
+    get: function() { return new CMYKColor().also(function(it) { it.yellow = 100 }) }
   },
   BLACK: {
     text: R.string.black,
     image: 'color_black',
-    get: function() { return new CMYKColor().also(function(it) { it.black = 100 }) },
-  },
+    get: function() { return new CMYKColor().also(function(it) { it.black = 100 }) }
+  }
 }, [1])
 
 /**

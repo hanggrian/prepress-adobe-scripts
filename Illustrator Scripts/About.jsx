@@ -1,5 +1,5 @@
-#target illustrator
-#include '.lib/core.js'
+//@target illustrator
+//@include '.lib/core.js'
 
 var dialog = new Dialog(R.string.about_scripts)
 var aboutPanel

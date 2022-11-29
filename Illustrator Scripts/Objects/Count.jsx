@@ -1,6 +1,5 @@
-#target illustrator
-#include '../.lib/commons.js'
-
+//@target illustrator
+//@include '../.lib/commons.js'
 
 checkHasSelection()
 
@@ -20,37 +19,37 @@ Collections.forEachItem(selection, function(it) {
   switch (it.typename) {
     case 'CompoundPathItem':
       compoundPathCount++
-      break;
+      break
     case 'GraphItem':
       graphCount++
-      break;
+      break
     case 'LegacyTextItem':
       legacyTextCount++
-      break;
+      break
     case 'MeshItem':
       meshCount++
-      break;
+      break
     case 'NonNativeItem':
       nonNativeCount++
-      break;
+      break
     case 'PathItem':
       pathCount++
-      break;
+      break
     case 'PlacedItem':
       placedCount++
-      break;
+      break
     case 'PluginItem':
       pluginCount++
-      break;
+      break
     case 'RasterItem':
       rasterCount++
-      break;
+      break
     case 'SymbolItem':
       symbolCount++
-      break;
+      break
     case 'TextFrame':
       textCount++
-      break;
+      break
   }
 })
 

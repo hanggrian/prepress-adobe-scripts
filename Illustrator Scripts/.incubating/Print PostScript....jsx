@@ -1,5 +1,5 @@
-#target illustrator
-#include '../../.lib/commons.js'
+//@target illustrator
+//@include '../../.lib/commons.js'
 
 // var adobePPDs = app.PPDFileList.filter(function(it) { return it.name.startsWith('Adobe') })
 

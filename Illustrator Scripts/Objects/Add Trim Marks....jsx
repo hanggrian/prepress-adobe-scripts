@@ -1,5 +1,5 @@
-﻿#target illustrator
-#include '../.lib/commons.js'
+﻿//@target illustrator
+//@include '../.lib/commons.js'
 
 checkHasSelection()
 
@@ -219,49 +219,49 @@ function calculateSingleTarget(offset, length, weight, color, maxBounds) {
   if (topLeftMarkCheck.value) {
     result.push(new TrimMark(weight, color, 'TOP_LEFT',
       maxBounds.getLeft(), maxBounds.getTop() + offset,
-      maxBounds.getLeft(), maxBounds.getTop() + offset + length,
+      maxBounds.getLeft(), maxBounds.getTop() + offset + length
     ))
   }
   if (topRightMarkCheck.value) {
     result.push(new TrimMark(weight, color, 'TOP_RIGHT',
       maxBounds.getRight(), maxBounds.getTop() + offset,
-      maxBounds.getRight(), maxBounds.getTop() + offset + length,
+      maxBounds.getRight(), maxBounds.getTop() + offset + length
     ))
   }
   if (rightTopMarkCheck.value) {
     result.push(new TrimMark(weight, color, 'RIGHT_TOP',
       maxBounds.getRight() + offset, maxBounds.getTop(),
-      maxBounds.getRight() + offset + length, maxBounds.getTop(),
+      maxBounds.getRight() + offset + length, maxBounds.getTop()
     ))
   }
   if (rightBottomMarkCheck.value) {
     result.push(new TrimMark(weight, color, 'RIGHT_BOTTOM',
       maxBounds.getRight() + offset, maxBounds.getBottom(),
-      maxBounds.getRight() + offset + length, maxBounds.getBottom(),
+      maxBounds.getRight() + offset + length, maxBounds.getBottom()
     ))
   }
   if (bottomRightMarkCheck.value) {
     result.push(new TrimMark(weight, color, 'BOTTOM_RIGHT',
       maxBounds.getRight(), maxBounds.getBottom() - offset,
-      maxBounds.getRight(), maxBounds.getBottom() - offset - length,
+      maxBounds.getRight(), maxBounds.getBottom() - offset - length
     ))
   }
   if (bottomLeftMarkCheck.value) {
     result.push(new TrimMark(weight, color, 'BOTTOM_LEFT',
       maxBounds.getLeft(), maxBounds.getBottom() - offset,
-      maxBounds.getLeft(), maxBounds.getBottom() - offset - length,
+      maxBounds.getLeft(), maxBounds.getBottom() - offset - length
     ))
   }
   if (leftBottomMarkCheck.value) {
     result.push(new TrimMark(weight, color, 'LEFT_BOTTOM',
       maxBounds.getLeft() - offset, maxBounds.getBottom(),
-      maxBounds.getLeft() - offset - length, maxBounds.getBottom(),
+      maxBounds.getLeft() - offset - length, maxBounds.getBottom()
     ))
   }
   if (leftTopMarkCheck.value) {
     result.push(new TrimMark(weight, color, 'LEFT_TOP',
       maxBounds.getLeft() - offset, maxBounds.getTop(),
-      maxBounds.getLeft() - offset - length, maxBounds.getTop(),
+      maxBounds.getLeft() - offset - length, maxBounds.getTop()
     ))
   }
   return result
@@ -281,13 +281,13 @@ function calculateMultipleTarget(offset, length, weight, color, maxBounds) {
       if (itemStartX !== maxBounds.getLeft()) {
         result.push(new TrimMark(weight, color, 'TOP',
           itemStartX, maxBounds.getTop() + offset,
-          itemStartX, maxBounds.getTop() + offset + length,
+          itemStartX, maxBounds.getTop() + offset + length
         ))
       }
       if (itemEndX !== maxBounds.getRight()) {
         result.push(new TrimMark(weight, color, 'TOP',
           itemEndX, maxBounds.getTop() + offset,
-          itemEndX, maxBounds.getTop() + offset + length,
+          itemEndX, maxBounds.getTop() + offset + length
         ))
       }
     }
@@ -295,13 +295,13 @@ function calculateMultipleTarget(offset, length, weight, color, maxBounds) {
       if (itemStartY !== maxBounds.getTop()) {
         result.push(new TrimMark(weight, color, 'RIGHT',
           maxBounds.getRight() + offset, itemStartY,
-          maxBounds.getRight() + offset + length, itemStartY,
+          maxBounds.getRight() + offset + length, itemStartY
         ))
       }
       if (itemEndY !== maxBounds.getBottom()) {
         result.push(new TrimMark(weight, color, 'RIGHT',
           maxBounds.getRight() + offset, itemEndY,
-          maxBounds.getRight() + offset + length, itemEndY,
+          maxBounds.getRight() + offset + length, itemEndY
         ))
       }
     }
@@ -309,13 +309,13 @@ function calculateMultipleTarget(offset, length, weight, color, maxBounds) {
       if (itemEndX !== maxBounds.getRight()) {
         result.push(new TrimMark(weight, color, 'BOTTOM',
           itemEndX, maxBounds.getBottom() - offset,
-          itemEndX, maxBounds.getBottom() - offset - length,
+          itemEndX, maxBounds.getBottom() - offset - length
         ))
       }
       if (itemStartX !== maxBounds.getLeft()) {
         result.push(new TrimMark(weight, color, 'BOTTOM',
           itemStartX, maxBounds.getBottom() - offset,
-          itemStartX, maxBounds.getBottom() - offset - length,
+          itemStartX, maxBounds.getBottom() - offset - length
         ))
       }
     }
@@ -323,13 +323,13 @@ function calculateMultipleTarget(offset, length, weight, color, maxBounds) {
       if (itemEndY !== maxBounds.getBottom()) {
         result.push(new TrimMark(weight, color, 'LEFT',
           maxBounds.getLeft() - offset, itemEndY,
-          maxBounds.getLeft() - offset - length, itemEndY,
+          maxBounds.getLeft() - offset - length, itemEndY
         ))
       }
       if (itemStartY !== maxBounds.getTop()) {
         result.push(new TrimMark(weight, color, 'LEFT',
           maxBounds.getLeft() - offset, itemStartY,
-          maxBounds.getLeft() - offset - length, itemStartY,
+          maxBounds.getLeft() - offset - length, itemStartY
         ))
       }
     }

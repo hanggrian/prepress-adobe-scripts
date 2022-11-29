@@ -1,5 +1,5 @@
-#target illustrator
-#include '../.lib/commons.js'
+//@target illustrator
+//@include '../.lib/commons.js'
 
 var dialog = new Dialog('Group by Artboards')
 var groupRadio, clipGroupRadio

@@ -86,5 +86,5 @@ var Items = {
     guide.filled = false
     guide.guides = true
     return guide
-  },
+  }
 }

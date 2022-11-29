@@ -1,5 +1,5 @@
-#target illustrator
-#include '../.lib/commons.js'
+//@target illustrator
+//@include '../.lib/commons.js'
 
 var unsavedLength = Collections.filter(app.documents, function(it) { return !it.saved }).length
 

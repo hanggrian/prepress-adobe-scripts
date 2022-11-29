@@ -1,5 +1,5 @@
-#target illustrator
-#include '../.lib/commons.js'
+//@target illustrator
+//@include '../.lib/commons.js'
 
 var SIZE_TEXT_DIVIDER = [60, 21]
 var SIZE_EDIT = [100, 21]
@@ -124,56 +124,56 @@ function process(isFull) {
     [rightMost, bottomMost],
     [leftMost + glueLength, bottomMost],
     [leftMost, bottomMost + glueShear],
-    [leftMost, topMost - glueShear],
+    [leftMost, topMost - glueShear]
   ]))
 
   // inner vertical
   paths.push(createDash(weight, color, [
     [leftMost + glueLength, topMost],
-    [leftMost + glueLength, bottomMost],
+    [leftMost + glueLength, bottomMost]
   ]))
   paths.push(createDash(weight, color, [
     [leftMost + glueLength + width, topMost],
-    [leftMost + glueLength + width, bottomMost],
+    [leftMost + glueLength + width, bottomMost]
   ]))
   paths.push(createDash(weight, color, [
     [leftMost + glueLength + width + depth * 0.5, topMost],
-    [leftMost + glueLength + width + depth * 0.5, bottomMost],
+    [leftMost + glueLength + width + depth * 0.5, bottomMost]
   ]))
   if (isFull) {
     paths.push(createDash(weight, color, [
       [leftMost + glueLength + width + depth, topMost],
-      [leftMost + glueLength + width + depth, bottomMost],
+      [leftMost + glueLength + width + depth, bottomMost]
     ]))
     paths.push(createDash(weight, color, [
       [leftMost + glueLength + width * 2 + depth, topMost],
-      [leftMost + glueLength + width * 2 + depth, bottomMost],
+      [leftMost + glueLength + width * 2 + depth, bottomMost]
     ]))
     paths.push(createDash(weight, color, [
       [leftMost + glueLength + width * 2 + depth * 1.5, topMost],
-      [leftMost + glueLength + width * 2 + depth * 1.5, bottomMost],
+      [leftMost + glueLength + width * 2 + depth * 1.5, bottomMost]
     ]))
   }
 
   // inner horizontal
   paths.push(createDash(weight, color, [
     [leftMost, topMost - upper],
-    [rightMost, topMost - upper],
+    [rightMost, topMost - upper]
   ]))
   paths.push(createDash(weight, color, [
     [leftMost, topMost - upper - height + depth * 0.5],
-    [rightMost, topMost - upper - height + depth * 0.5],
+    [rightMost, topMost - upper - height + depth * 0.5]
   ]))
   paths.push(createDash(weight, color, [
     [leftMost, topMost - upper - height],
-    [rightMost, topMost - upper - height],
+    [rightMost, topMost - upper - height]
   ]))
 
   // inner diagonal
   var topDiagonal = topMost - upper - height + depth * 0.5
   paths.push(createDash(weight, color, [
     [leftMost, bottomMost + lower + glueLength],
-    [leftMost + glueLength + lower, bottomMost],
+    [leftMost + glueLength + lower, bottomMost]
   ]))
   var secondDiagonalPoints = []
   secondDiagonalPoints.push([leftMost + glueLength + width - lower, bottomMost])
@@ -188,7 +188,7 @@ function process(isFull) {
     paths.push(createDash(weight, color, [
       [leftMost + glueLength + width * 2 + depth - lower, bottomMost],
       [leftMost + glueLength + width * 2 + depth * 1.5, topDiagonal],
-      [rightMost, bottomMost + lower],
+      [rightMost, bottomMost + lower]
     ]))
   }
 

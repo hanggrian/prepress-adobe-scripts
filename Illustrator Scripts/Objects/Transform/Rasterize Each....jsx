@@ -1,5 +1,5 @@
-#target illustrator
-#include '../../.lib/commons.js'
+//@target illustrator
+//@include '../../.lib/commons.js'
 
 var COLOR_MODELS = ['Default', 'Grayscale', 'Bitmap']
 var SIZE_INPUT = [200, 21]

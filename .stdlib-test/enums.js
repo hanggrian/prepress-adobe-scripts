@@ -4,7 +4,7 @@ test('values', function() {
   var fruits = new Enum({
     APPLE: { text: 'Apple' },
     ORANGE: { text: 'Orange' },
-    BANANA: { text: 'Banana' },
+    BANANA: { text: 'Banana' }
   })
   var result = fruits.values()
   assertEquals('Apple', result[0].text)
@@ -16,7 +16,7 @@ test('list', function() {
   var fruits = new Enum({
     APPLE: { text: 'Apple' },
     ORANGE: { text: 'Orange' },
-    BANANA: { text: 'Banana' },
+    BANANA: { text: 'Banana' }
   }, [0, 1])
   var result = fruits.list()
   assertEquals('Apple', result[0])
@@ -30,7 +30,7 @@ test('valueOf', function() {
   var fruits = new Enum({
     APPLE: { text: 'Apple' },
     ORANGE: { text: 'Orange' },
-    BANANA: { text: 'Banana' },
+    BANANA: { text: 'Banana' }
   })
   assertEquals('Apple', fruits.valueOf('APPLE').text)
   assertEquals('Orange', fruits.valueOf('ORANGE').text)
@@ -41,7 +41,7 @@ test('valueOfText', function() {
   var fruits = new Enum({
     APPLE: { text: 'Apple' },
     ORANGE: { text: 'Orange' },
-    BANANA: { text: 'Banana' },
+    BANANA: { text: 'Banana' }
   })
   assertEquals('Apple', fruits.find('Apple').text)
   assertEquals('Orange', fruits.find('Orange').text)

@@ -1,5 +1,5 @@
-#target illustrator
-#include '../.lib/commons.js'
+//@target illustrator
+//@include '../.lib/commons.js'
 
 var PREDICATE_LINKS = function(it) {
   return it.typename === 'PlacedItem' && Items.isLinkExists(it) && it.file.isPdf()

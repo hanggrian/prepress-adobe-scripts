@@ -6,8 +6,8 @@
 </javascriptresource>
 */
 
-#target photoshop
-#include '../.lib/commons.js'
+//@target photoshop
+//@include '../.lib/commons.js'
 
 var dialog = new Dialog(R.string.add_bleed_to_images, 'add-bleed-to-images/')
 var lengthEdit
@@ -139,7 +139,7 @@ function process(document, bleed, anchor, correction) {
       [left, top],
       [left, bottom],
       [right, bottom],
-      [right, top],
+      [right, top]
     ])
     document.selection.invert()
   }

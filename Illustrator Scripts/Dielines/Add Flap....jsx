@@ -1,11 +1,11 @@
-#target illustrator
-#include '../.lib/commons.js'
+//@target illustrator
+//@include '../.lib/commons.js'
 
 var Direction = new Enum({
   TOP: { text: R.string.top, image: 'ic_arrow_top' },
   RIGHT: { text: R.string.right, image: 'ic_arrow_right' },
   BOTTOM: { text: R.string.bottom, image: 'ic_arrow_bottom' },
-  LEFT: { text: R.string.left, image: 'ic_arrow_left' },
+  LEFT: { text: R.string.left, image: 'ic_arrow_left' }
 })
 
 var SIZE_INPUT = [110, 21]

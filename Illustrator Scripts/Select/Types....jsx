@@ -1,18 +1,18 @@
 // Select all TextFrame with attributes matching user input.
 // When there are active selection, will only select items within those selection.
 
-#target illustrator
-#include '../.lib/commons.js'
+//@target illustrator
+//@include '../.lib/commons.js'
 
 var Kind = new Enum({
   POINT_TEXT: { text: R.string.point_text, value: TextType.POINTTEXT },
   AREA_TEXT: { text: R.string.area_text, value: TextType.AREATEXT },
-  PATH_TEXT: { text: R.string.path_text, value: TextType.PATHTEXT },
+  PATH_TEXT: { text: R.string.path_text, value: TextType.PATHTEXT }
 })
 
 var Orientation = new Enum({
   HORIZONTAL: { text: R.string.horizontal, value: TextOrientation.HORIZONTAL },
-  VERTICAL: { text: R.string.vertical, value: TextOrientation.VERTICAL },
+  VERTICAL: { text: R.string.vertical, value: TextOrientation.VERTICAL }
 })
 
 var SIZE_INPUT_LEFT = [100, 21]

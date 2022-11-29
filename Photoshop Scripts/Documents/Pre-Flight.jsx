@@ -6,8 +6,8 @@
 </javascriptresource>
 */
 
-#target photoshop
-#include '../.lib/commons.js'
+//@target photoshop
+//@include '../.lib/commons.js'
 
 var allOkay = true
 Collections.forEach(app.documents, function(document) {

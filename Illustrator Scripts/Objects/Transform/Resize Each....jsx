@@ -1,5 +1,5 @@
-#target illustrator
-#include '../../.lib/commons.js'
+//@target illustrator
+//@include '../../.lib/commons.js'
 
 var SIZE_INPUT = [170, 21]
 var SIZE_INPUT_CHECK = [14, 14]

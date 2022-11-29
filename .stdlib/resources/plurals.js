@@ -4,4 +4,4 @@
 </javascriptresource>
 */
 
-R.plurals = { }
+R.plurals = {}

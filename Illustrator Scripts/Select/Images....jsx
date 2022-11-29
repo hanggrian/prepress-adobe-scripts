@@ -1,8 +1,8 @@
 // Select all PathItem with attributes matching user input.
 // When there are active selection, will only select items within those selection.
 
-#target illustrator
-#include '../.lib/commons.js'
+//@target illustrator
+//@include '../.lib/commons.js'
 
 var ImageColor = new Enum({
   GRAYSCALE: { text: 'Grayscale', value: ImageColorSpace.GrayScale },
@@ -11,13 +11,13 @@ var ImageColor = new Enum({
   LAB: { text: 'LAB', value: ImageColorSpace.LAB },
   SEPARATION: { text: 'Separation', value: ImageColorSpace.Separation },
   DEVICEN: { text: 'DeviceN', value: ImageColorSpace.DeviceN },
-  INDEXED: { text: 'Indexed', value: ImageColorSpace.Indexed },
+  INDEXED: { text: 'Indexed', value: ImageColorSpace.Indexed }
 })
 
 var ImageStatus = new Enum({
   NO_DATA: { text: 'No Data' },
   DATA_FROM_FILE: { text: 'Data from File' },
-  DATA_MODIFIED: { text: 'Data Modified' },
+  DATA_MODIFIED: { text: 'Data Modified' }
 })
 
 var SIZE_INPUT = [100, 21]

@@ -13,7 +13,7 @@ var FileExtension = new Enum({
   JPEG2000: { text: 'JPEG2000', value: ['jpf', 'jpx', 'jp2', 'j2k', 'j2c', 'jpc'] },
   PNG: { text: 'PNG', value: ['png', 'pns'] },
   PHOTOSHOP: { text: 'Photoshop', value: ['psd', 'psb', 'pdd'] },
-  TIFF: { text: 'TIFF', value: ['tif', 'tiff'] },
+  TIFF: { text: 'TIFF', value: ['tif', 'tiff'] }
 })
 
 var FilePicker = {
@@ -44,5 +44,5 @@ var FilePicker = {
    */
   saveFile: function(prompt, fileExtensions) {
     return File.saveDialog(prompt, Internals.getFileFilters(fileExtensions))
-  },
+  }
 }
