@@ -4,16 +4,15 @@
 var COLOR_MODELS = ['Default', 'Grayscale', 'Bitmap']
 var SIZE_INPUT = [200, 21]
 
-checkHasSelection()
+checkAnySelection()
 
 var dialog = new Dialog(R.string.rasterize_each, 'resizing-rasterizing-each/#rasterize-each')
-var prefill = Collections.first(selection)
 var colorModelList, resolutionEdit
 var backgroundPanel, backgroundWhiteRadio, backgroundTransparentRadio
 var antiAliasingPanel, antiAliasingNoneRadio, antiAliasingArtRadio, antiAliasingTypeRadio
 var backgroundBlackCheck, clippingMaskCheck, convertSpotColorsCheck, convertTextToOutlinesCheck,
-  includeLayersCheck, paddingEdit
-var recursiveCheck, keepSizeCheck
+  includeLayersCheck, paddingGroup
+var keepSizeCheck, recursiveCheck
 var prefs = preferences2.resolve('objects/rasterize_each')
 
 dialog.vgroup(function(main) {
@@ -81,21 +80,16 @@ dialog.vgroup(function(main) {
         it.helpTip = R.string.tip_rasterizeeach_option5
         it.value = prefs.getBoolean('option5')
       })
-      panel.hgroup(function(group) {
-        group.helpTips = R.string.tip_rasterizeeach_aroundobject
-        group.staticText(undefined, R.string.add)
-        paddingEdit = group.editText([70, 21], '0 mm').also(VALIDATE_UNITS)
-        group.staticText(undefined, R.string.around_object)
-      })
+      paddingGroup = new PaddingGroup(panel)
     })
   })
   main.hgroup(function(group) {
     group.alignment = 'right'
-    recursiveCheck = new RecursiveCheck(group).also(function(it) {
-      it.value = prefs.getBoolean('recursive')
-    })
     keepSizeCheck = new KeepSizeCheck(group).also(function(it) {
       it.value = prefs.getBoolean('keep_size')
+    })
+    recursiveCheck = new RecursiveCheck(group).also(function(it) {
+      it.value = prefs.getBoolean('recursive')
     })
   })
 })
@@ -123,7 +117,7 @@ dialog.setDefaultButton(undefined, function() {
   options.convertSpotColors = convertSpotColorsCheck.value
   options.convertTextToOutlines = convertTextToOutlinesCheck.value
   options.includeLayers = includeLayersCheck.value
-  options.padding = parseUnits(paddingEdit.text)
+  options.padding = paddingGroup.get()
 
   var selectQueues = []
   var action = function(item, i) {
@@ -155,7 +149,7 @@ dialog.setDefaultButton(undefined, function() {
   prefs.setBoolean('option3', convertSpotColorsCheck.value)
   prefs.setBoolean('option4', convertTextToOutlinesCheck.value)
   prefs.setBoolean('option5', includeLayersCheck.value)
-  prefs.setBoolean('recursive', recursiveCheck.value)
   prefs.setBoolean('keep_size', keepSizeCheck.value)
+  prefs.setBoolean('recursive', recursiveCheck.value)
 })
 dialog.show()

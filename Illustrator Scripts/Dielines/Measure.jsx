@@ -3,7 +3,7 @@
 //@target illustrator
 //@include '../.lib/commons.js'
 
-checkHasSelection()
+checkAnySelection()
 
 var items = Collections.filterItem(selection, function(it) {
   return it.typename === 'PathItem' || it.typename === 'CompoundPathItem'
@@ -19,12 +19,12 @@ Collections.forEachItem(items, function(item) {
   switch (item.typename) {
     case 'PathItem':
       increment(item)
-      break
+      break;
     case 'CompoundPathItem':
       Collections.forEach(item.pathItems, function(it) {
         increment(it)
       })
-      break
+      break;
   }
 })
 

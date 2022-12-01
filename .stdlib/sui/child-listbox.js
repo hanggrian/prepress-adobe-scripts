@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 /**
  * Returns true if this list has a selection.
  * @return {boolean}

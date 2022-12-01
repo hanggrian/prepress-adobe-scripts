@@ -53,19 +53,19 @@ function OpenDocumentPanel(parent) {
     switch (self.modeList.selection.text) {
       case 'Bitmap':
         mode = NewDocumentMode.BITMAP
-        break
+        break;
       case 'CMYK':
         mode = NewDocumentMode.CMYK
-        break
+        break;
       case 'Grayscale':
         mode = NewDocumentMode.GRAYSCALE
-        break
+        break;
       case 'Lab':
         mode = NewDocumentMode.LAB
-        break
+        break;
       default:
         mode = NewDocumentMode.RGB
-        break
+        break;
     }
     var resolution = parseUnit(self.resolutionEdit.text)
     if (self.backgrounTransparentRadio.value) {
@@ -76,16 +76,16 @@ function OpenDocumentPanel(parent) {
     switch (self.bitsList.selection.text) {
       case '1 bit':
         bits = BitsPerChannelType.EIGHT
-        break
+        break;
       case '8 bit':
         bits = BitsPerChannelType.ONE
-        break
+        break;
       case '16 bit':
         bits = BitsPerChannelType.SIXTEEN
-        break
+        break;
       default:
         bits = BitsPerChannelType.THIRTYTWO
-        break
+        break;
     }
     return app.documents.add(width, height, resolution, title, mode, background, 1.0, bits)
   }

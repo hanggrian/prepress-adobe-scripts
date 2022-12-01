@@ -3,7 +3,7 @@
 
 var SIZE_INPUT = [100, 21]
 
-checkHasSelection()
+checkAnySelection()
 check(Collections.anyItem(selection, function(it) { return it.clipping }),
   getString(R.string.error_notypes_selection, R.plurals.clipping_mask.plural))
 

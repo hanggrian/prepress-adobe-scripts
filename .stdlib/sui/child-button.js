@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 /**
  * Allows for multiple click listeners to occur by invoking all of them in collective listener.
  * @param {function()} listener

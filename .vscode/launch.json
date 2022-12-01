@@ -5,8 +5,8 @@
       "type": "extendscript-debug",
       "request": "launch",
       "name": "Prepress Adobe Scripts",
-      // "hostAppSpecifier": "illustrator", "script": "${workspaceFolder}/Illustrator Scripts/Impose/2-Up....jsx",
-      "hostAppSpecifier": "photoshop", "script": "${workspaceFolder}/Photoshop Scripts/Images/Resize Images....jsx"
+      "hostAppSpecifier": "illustrator", "script": "${workspaceFolder}/Illustrator Scripts/Objects/Expand Mirrored....jsx",
+      // "hostAppSpecifier": "photoshop", "script": "${workspaceFolder}/Photoshop Scripts/Images/Resize Images....jsx"
     }
   ]
 }

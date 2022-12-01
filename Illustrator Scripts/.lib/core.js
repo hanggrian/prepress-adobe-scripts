@@ -9,6 +9,7 @@
 //@include 'controls/nup-options.js'
 //@include 'controls/open-options.js'
 //@include 'controls/ordering.js'
+//@include 'controls/padding.js'
 //@include 'controls/range.js'
 //@include 'controls/select-options.js'
 //@include 'controls/slider.js'

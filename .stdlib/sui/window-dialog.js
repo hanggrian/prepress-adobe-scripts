@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 /**
  * Alert is a simpler dialog containing only text.
  * @param {string|!Object} title

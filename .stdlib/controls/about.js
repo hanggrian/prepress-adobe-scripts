@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 var SIZE_ABOUT_TAB = [400, 100]
 var MARGINS_ABOUT_TAB = [10, 0, 10, 0]
 
@@ -70,8 +64,7 @@ function AboutPanel(parent, clientDate) {
                 getString(R.string.message_aboutscripts_updates_available, serverDate.toISOString())
               self.updatesDownloadButton.enabled = true
             } else {
-              self.updatesStatusText.text = getString(
-                R.string.message_aboutscripts_updates_unavailable)
+              self.updatesStatusText.text = getString(R.string.message_aboutscripts_updates_unavailable)
             }
           }
         })

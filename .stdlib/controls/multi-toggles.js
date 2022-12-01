@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 /**
  * Any number of radio buttons with their disability attached to left checkbox.
  * @param {!Group|!Panel|!Window} parent
@@ -33,10 +27,7 @@ function MultiRadioGroup(parent, text, radioTexts) {
     })
   }
 
-  /**
-   * Returns true if checkbox is selected.
-   * @return {boolean}
-   */
+  /** @return {boolean} */
   self.isSelected = function() { return self.check.value }
 
   /**
@@ -80,16 +71,10 @@ function MultiCheckGroup(parent, textOff, textOn, checkTexts) {
     })
   }
 
-  /**
-   * Returns true if is in off state.
-   * @return {boolean}
-   */
+  /** @return {boolean} */
   self.isOff = function() { return self.radioOff.value }
 
-  /**
-   * Returns true if is in on state.
-   * @return {boolean}
-   */
+  /** @return {boolean} */
   self.isOn = function() { return self.radioOn.value }
 
   /**

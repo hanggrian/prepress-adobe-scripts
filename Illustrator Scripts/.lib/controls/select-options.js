@@ -26,16 +26,10 @@ function SelectDimensionPanel(parent, inputSize) {
     self.heightEdit = group.editText(inputSize).also(VALIDATE_UNITS)
   })
 
-  /**
-   * Returns width input.
-   * @return {number}
-   */
+  /** @return {number} */
   self.getWidth = function() { return parseUnits(self.widthEdit.text) }
 
-  /**
-   * Returns height input.
-   * @return {number}
-   */
+  /** @return {number} */
   self.getHeight = function() { return parseUnits(self.heightEdit.text) }
 
   return self

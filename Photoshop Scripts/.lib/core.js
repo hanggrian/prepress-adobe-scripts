@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 // Core libraries are base of all scripts,
 // providing tools for creating new document or modifying current document.
 

@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 //@include 'resources/base.js'
 //@include 'resources/plurals.js'
 //@include 'resources/strings.js'
@@ -113,9 +107,19 @@ var Scripts = {
    */
   openUrl: function(url) {
     checkNotNull(url)
+    var htmlContent = '<!doctype html>' +
+      '<html>' +
+      '  <head>' +
+      '    <meta charset="UTF-8">' +
+      '    <meta HTTP-EQUIV=Refresh CONTENT="0; URL=%s">'.format(url) +
+      '    <title>Redirecting...</title>' +
+      '  </head>' +
+      '  <body>' +
+      '    <p>This is a redirecting page of <a href="%s">prepress-adobe-scripts</a>, you may close it.</p>'.format(Scripts.URL_GITHUB) +
+      '  </body>' +
+      '</html>'
     var tempFile = new File(Folder.temp.absoluteURI + '/prepress-adobe-scripts.html')
-    tempFile.writeText('<html><head><META HTTP-EQUIV=Refresh CONTENT="0; URL=%s">'.format(url) +
-      '</head><body> <p></body></html>')
+    tempFile.writeText(htmlContent)
     tempFile.execute()
   }
 }

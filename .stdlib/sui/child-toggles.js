@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 var SELECTED = function(toggle) { toggle.select() }
 
 /** Select this check box, if not already. */

@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 var FileExtension = new Enum({
   ADOBE_ILLUSTRATOR: { text: 'Adobe Illustrator', value: ['ai'] },
   ADOBE_PDF: { text: 'Adobe PDF', value: ['pdf'] },

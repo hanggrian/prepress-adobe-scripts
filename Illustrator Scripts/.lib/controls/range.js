@@ -22,35 +22,23 @@ function RangeGroup(parent, inputSize) {
   self.staticText(undefined, '–') // use en dash
   self.endEdit = self.editText(inputSize, '1').also(VALIDATE_DIGITS)
 
-  /**
-   * Returns start input, shows error alert if range is invalid,
-   * @return {number}
-   */
+  /** @return {number} */
   self.getStart = function() { return parseInt(self.startEdit.text) - 1 }
 
-  /**
-   * Returns end input, shows error alert if range is invalid,
-   * @return {number}
-   */
+  /** @return {number} */
   self.getEnd = function() { return parseInt(self.endEdit.text) - 1 }
 
-  /**
-   * Returns range distance, throws error if range is invalid.
-   * @return {number}
-   */
+  /** @return {number} */
   self.getLength = function() { return self.getEnd() - self.getStart() + 1 }
 
   /**
-   * Returns true if `input` is in within range, throws error if range is invalid.
+   * Returns true if `input` is in within range.
    * @param {number} input expected to be more than start and less than end.
    * @return {boolean}
    */
   self.includes = function(input) { return input >= self.getStart() && input <= self.getEnd() }
 
-  /**
-   * Creates an array containing starting number until ending number.
-   * @return {!Array<number>}
-   */
+  /** @return {!Array<number>} */
   self.toArray = function() {
     var result = []
     var from = self.getStart()

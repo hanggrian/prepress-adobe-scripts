@@ -4,13 +4,14 @@
 var PREDICATE_LINKS = function(it) { return it.typename === 'PlacedItem' }
 var SIZE_INPUT = [120, 21]
 
-checkHasSelection()
+checkAnySelection()
 var items = Collections.filterItem(selection, PREDICATE_LINKS)
 check(Collections.isNotEmpty(items),
   getString(R.string.error_notypes_document, R.plurals.link.plural))
 
 var dialog = new Dialog(R.string.relink_same, 'relinking-files/#relink-same')
-var pdfPanel, pageEdit, keepSizeCheck
+var pdfPanel, pageEdit
+var keepSizeCheck
 var prefs = preferences2.resolve('links/relink_same')
 
 var file = FilePicker.openFile(dialog.text, FileExtension.values())

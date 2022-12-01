@@ -10,17 +10,6 @@ function DocumentOriginCheck(parent) {
 }
 
 /**
- * CheckBox with text `Recursive`.
- * @param {!Group|!Panel|!Window} parent
- */
-function RecursiveCheck(parent) {
-  checkNotNull(parent)
-  return parent.checkBox(undefined, R.string.recursive).also(function(it) {
-    it.helpTip = R.string.tip_checks_recursive
-  })
-}
-
-/**
  * CheckBox with text `Keep Size`.
  * @param {!Group|!Panel|!Window} parent
  */
@@ -28,5 +17,16 @@ function KeepSizeCheck(parent) {
   checkNotNull(parent)
   return parent.checkBox(undefined, R.string.keep_size).also(function(it) {
     it.helpTip = R.string.tip_checks_keepsize
+  })
+}
+
+/**
+ * CheckBox with text `Recursive`.
+ * @param {!Group|!Panel|!Window} parent
+ */
+function RecursiveCheck(parent) {
+  checkNotNull(parent)
+  return parent.checkBox(undefined, R.string.recursive).also(function(it) {
+    it.helpTip = R.string.tip_checks_recursive
   })
 }

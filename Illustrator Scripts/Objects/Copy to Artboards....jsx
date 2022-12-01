@@ -10,7 +10,7 @@ var Anchor = new Enum({
 
 var SIZE_INPUT = [150, 21]
 
-checkHasSelection()
+checkAnySelection()
 checkMultipleArtboards()
 
 var activeArtboardIndex = document.artboards.getActiveArtboardIndex()

@@ -6,11 +6,12 @@ var PREDICATE_LINKS = function(it) {
 }
 var SIZE_INPUT = [120, 21]
 
-checkHasSelection()
+checkAnySelection()
 check(Collections.anyItem(selection, PREDICATE_LINKS), R.string.error_changepage)
 
 var dialog = new Dialog(R.string.change_page, 'relinking-files/#change-page')
-var pdfPanel, rangeGroup, orderingList, recursiveCheck, keepSizeCheck
+var pdfPanel, rangeGroup, orderingList
+var keepSizeCheck, recursiveCheck
 var prefs = preferences2.resolve('links/change_page')
 
 dialog.vgroup(function(main) {
@@ -31,11 +32,11 @@ dialog.vgroup(function(main) {
     })
   main.hgroup(function(group) {
     group.alignment = 'right'
-    recursiveCheck = new RecursiveCheck(group).also(function(it) {
-      it.value = prefs.getBoolean('recursive')
-    })
     keepSizeCheck = new KeepSizeCheck(group).also(function(it) {
       it.value = prefs.getBoolean('keep_size')
+    })
+    recursiveCheck = new RecursiveCheck(group).also(function(it) {
+      it.value = prefs.getBoolean('recursive')
     })
   })
 })
@@ -72,8 +73,8 @@ dialog.setDefaultButton(undefined, function() {
   selection = source
 
   prefs.setInt('order', orderingList.selection.index)
-  prefs.setBoolean('recursive', recursiveCheck.value)
   prefs.setBoolean('keep_size', keepSizeCheck.value)
+  prefs.setBoolean('recursive', recursiveCheck.value)
 })
 dialog.show()
 

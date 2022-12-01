@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 /**
  * Returns true if all characters of this string is uppercase.
  * @return {boolean}

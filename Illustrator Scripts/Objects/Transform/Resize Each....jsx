@@ -4,7 +4,7 @@
 var SIZE_INPUT = [170, 21]
 var SIZE_INPUT_CHECK = [14, 14]
 
-checkHasSelection()
+checkAnySelection()
 
 var dialog = new Dialog(R.string.resize_each, 'resizing-rasterizing-each/#resize-each')
 var prefill = Collections.first(selection)

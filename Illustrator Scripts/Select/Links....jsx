@@ -77,5 +77,5 @@ function getTypeString(fileExtension) {
       s += ', '
     }
   })
-  return '%s (%s)'.format(fileExtension.name, s)
+  return '%s (%s)'.format(fileExtension.text, s)
 }

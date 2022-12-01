@@ -1,18 +1,18 @@
 ﻿//@target illustrator
 //@include '../.lib/commons.js'
 
-checkHasSelection()
+checkAnySelection()
 
 var SIZE_INPUT = [110, 21]
-var SIZE_CHECK = [15, 15] // usually 14, but use 15 to stretch the size equalling left panel
+var SIZE_CHECK = [15, 15] // usually 14, but need to stretch the size equalling left panel
 var STYLE_TOOLBUTTON = { style: 'toolbutton' }
 
 var dialog = new Dialog(R.string.add_trim_marks, 'add-trim-marks/')
 var offsetEdit, lengthEdit, weightEdit, colorList
-var topLeftMarkCheck, topMarksCheck, topRightMarkCheck
-var rightTopMarkCheck, rightMarksCheck, rightBottomMarkCheck
-var leftTopMarkCheck, leftMarksCheck, leftBottomMarkCheck
-var bottomLeftMarkCheck, bottomMarksCheck, bottomRightMarkCheck
+var topLeftMarkCheck, topMarksCheck, topRightMarkCheck,
+  rightTopMarkCheck, rightMarksCheck, rightBottomMarkCheck,
+  leftTopMarkCheck, leftMarksCheck, leftBottomMarkCheck,
+  bottomLeftMarkCheck, bottomMarksCheck, bottomRightMarkCheck
 var multipleMultiRadioGroup
 var prefs = preferences2.resolve('objects/add_trim_marks')
 

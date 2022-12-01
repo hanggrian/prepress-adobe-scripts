@@ -117,22 +117,13 @@ function OpenPagesPanel(parent, inputSize) {
     self.bleedEdit = group.editText(inputSize, '0 mm').also(VALIDATE_UNITS)
   })
 
-  /**
-   * Returns width input added with horizontal bleed.
-   * @return {number}
-   */
+  /** @return {number} */
   self.getWidth = function() { return parseUnits(self.widthEdit.text) }
 
-  /**
-   * Returns height input added with vertical bleed.
-   * @return {number}
-   */
+  /** @return {number} */
   self.getHeight = function() { return parseUnits(self.heightEdit.text) }
 
-  /**
-   * Returns bleed input.
-   * @return {number}
-   */
+  /** @return {number} */
   self.getBleed = function() { return parseUnits(self.bleedEdit.text) }
 
   return self
@@ -227,34 +218,21 @@ function OpenDocumentPanel(parent) {
     })
   })
 
-  /**
-   * Returns document's width.
-   * @return {number}
-   */
+  /** @return {number} */
   self.getWidth = function() { return parseUnits(self.widthEdit.text) || 0 }
 
-  /**
-   * Returns document's width.
-   * @return {number}
-   */
+  /** @return {number} */
   self.getHeight = function() { return parseUnits(self.heightEdit.text) || 0 }
 
-  /**
-   * Change document's width.
-   * @return {string}
-   */
+  /** @return {string} */
   self.setWidthText = function(widthText) { return self.widthEdit.text = checkNotNull(widthText) }
 
-  /**
-   * Change document's height.
-   * @return {string}
-   */
+  /** @return {string} */
   self.setHeightText = function(heightText) {
     return self.heightEdit.text = checkNotNull(heightText)
   }
 
   /**
-   * Create a new document with specific preset.
    * @param {string} title
    * @param {number} artboardLength
    * @return {!Document}

@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 /**
  * Static helper class for any array-like objects. This is due to Adobe's custom non-array
  * collection objects like `Artboards`, `PageItems`, etc.

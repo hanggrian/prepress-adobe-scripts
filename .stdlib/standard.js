@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 // Because JavaScript does not have a generic type,
 // first parameter of `block` and `predicate` is always an Object.
 // When comparing it directly, remember that `===` and `!==` operators won't work,

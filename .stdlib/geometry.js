@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 // Do not confuse `Bounds` with `Rectangle`.
 // Bounds is a SUI class for SUI controls, it has a property `left`, `top`, etc.
 // Rectangle is just an array with 4 values for Illustrator's PageItem, it has no custom property.

@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 var SIZE_ANCHOR_RADIO = [15, 15]
 
 /**
@@ -72,98 +66,53 @@ function AnchorGroup(parent) {
     })
   })
 
-  /**
-   * Returns true if anchor is left horizontally and top vertically.
-   * @return {boolean}
-   */
+  /** @return {boolean} */
   self.isTopLeft = function() { return self.topLeftRadio.value }
 
-  /**
-   * Returns true if anchor is center horizontally and top vertically.
-   * @return {boolean}
-   */
+  /** @return {boolean} */
   self.isTop = function() { return self.topRadio.value }
 
-  /**
-   * Returns true if anchor is right horizontally and top vertically.
-   * @return {boolean}
-   */
+  /** @return {boolean} */
   self.isTopRight = function() { return self.topRightRadio.value }
 
-  /**
-   * Returns true if anchor is left horizontally and center vertically.
-   * @return {boolean}
-   */
+  /** @return {boolean} */
   self.isLeft = function() { return self.leftRadio.value }
 
-  /**
-   * Returns true if anchor is center horizontally and center vertically.
-   * @return {boolean}
-   */
+  /** @return {boolean} */
   self.isCenter = function() { return self.centerRadio.value }
 
-  /**
-   * Returns true if anchor is right horizontally and center vertically.
-   * @return {boolean}
-   */
+  /** @return {boolean} */
   self.isRight = function() { return self.rightRadio.value }
 
-  /**
-   * Returns true if anchor is left horizontally and bottom vertically.
-   * @return {boolean}
-   */
+  /** @return {boolean} */
   self.isBottomLeft = function() { return self.bottomLeftRadio.value }
 
-  /**
-   * Returns true if anchor is center horizontally and bottom vertically.
-   * @return {boolean}
-   */
+  /** @return {boolean} */
   self.isBottom = function() { return self.bottomRadio.value }
 
-  /**
-   * Returns true if anchor is right horizontally and bottom vertically.
-   * @return {boolean}
-   */
+  /** @return {boolean} */
   self.isBottomRight = function() { return self.bottomRightRadio.value }
 
-  /**
-   * Returns true if anchor is any horizontal position and top vertically.
-   * @return {boolean}
-   */
+  /** @return {boolean} */
   self.isHorizontalTop = function() { return self.isTopLeft() || self.isTop() || self.isTopRight() }
 
-  /**
-   * Returns true if anchor is any horizontal position and center vertically.
-   * @return {boolean}
-   */
+  /** @return {boolean} */
   self.isHorizontalCenter = function() { return self.isLeft() || self.isCenter() || self.isRight() }
 
-  /**
-   * Returns true if anchor is any horizontal position and bottom vertically.
-   * @return {boolean}
-   */
+  /** @return {boolean} */
   self.isHorizontalBottom = function() {
     return self.isBottomLeft() || self.isBottom() || self.isBottomRight()
   }
 
-  /**
-   * Returns true if anchor is left horizontally and any vertical position.
-   * @return {boolean}
-   */
+  /** @return {boolean} */
   self.isVerticalLeft = function() {
     return self.isTopLeft() || self.isLeft() || self.isBottomLeft()
   }
 
-  /**
-   * Returns true if anchor is center horizontally and any vertical position.
-   * @return {boolean}
-   */
+  /** @return {boolean} */
   self.isVerticalCenter = function() { return self.isTop() || self.isCenter() || self.isBottom() }
 
-  /**
-   * Returns true if anchor is right horizontally and any vertical position.
-   * @return {boolean}
-   */
+  /** @return {boolean} */
   self.isVerticalRight = function() {
     return self.isTopRight() || self.isRight() || self.isBottomRight()
   }

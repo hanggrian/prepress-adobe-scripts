@@ -8,7 +8,7 @@ var ALPHABETS = [
 ]
 var SIZE_INPUT = [100, 21]
 
-checkHasSelection()
+checkAnySelection()
 
 var items = Collections.filterItem(selection, function(it) { return it.typename === 'TextFrame' })
 check(Collections.isNotEmpty(items),

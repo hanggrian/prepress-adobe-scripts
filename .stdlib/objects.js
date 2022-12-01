@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 var Objects = {
   /**
    * Returns an object with cloned properties.

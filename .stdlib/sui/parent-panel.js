@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 /**
  * Set tooltip to all children.
  * @param {string|!Object=} tips
@@ -83,7 +77,7 @@ Internals.addPanel = function(root, orientation, text, configuration) {
   parent.orientation = orientation
   if (text !== undefined) {
     // default margin is [15, 10, 15, 10], but this margin is insufficient when title is present
-    parent.margins = [15, 15, 15, 10]
+    parent.margins = [15, 18, 15, 10]
   }
   if (configuration !== undefined) {
     configuration(parent)

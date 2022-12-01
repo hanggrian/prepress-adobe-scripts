@@ -4,7 +4,7 @@
 var SIZE_INPUT = [40, 21]
 var SIZE_INPUT_MOVE = [100, 21]
 
-checkHasSelection()
+checkAnySelection()
 
 var dialog = new Dialog(R.string.step_and_repeat, 'step-and-repeat/')
 var horizontalEdit, verticalEdit

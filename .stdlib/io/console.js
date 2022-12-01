@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 /**
  * Print a message to the console.
  * @param {!Array<?Object>} arguments first element as format template, the rest are its format arguments.

@@ -4,12 +4,13 @@
 var PREDICATE_LINKS = function(it) { return it.typename === 'PlacedItem' }
 var SIZE_INPUT = [120, 21]
 
-checkHasSelection()
+checkAnySelection()
 check(Collections.anyItem(selection, PREDICATE_LINKS),
   getString(R.string.error_notypes_document, R.plurals.link.plural))
 
 var dialog = new Dialog(R.string.relink_multipage, 'relinking-files/#relink-multipage')
-var pdfPanel, rangeGroup, orderingList, recursiveCheck, keepSizeCheck
+var pdfPanel, rangeGroup, orderingList
+var keepSizeCheck, recursiveCheck
 var collection
 var prefs = preferences2.resolve('links/relink_multipage')
 
@@ -41,11 +42,11 @@ if (files !== null && Collections.isNotEmpty(files)) {
       })
     main.hgroup(function(group) {
       group.alignment = 'right'
-      recursiveCheck = new RecursiveCheck(group).also(function(it) {
-        it.value = prefs.getBoolean('recursive')
-      })
       keepSizeCheck = new KeepSizeCheck(group).also(function(it) {
         it.value = prefs.getBoolean('keep_size')
+      })
+      recursiveCheck = new RecursiveCheck(group).also(function(it) {
+        it.value = prefs.getBoolean('recursive')
       })
     })
   })
@@ -84,8 +85,8 @@ if (files !== null && Collections.isNotEmpty(files)) {
     selection = source
 
     prefs.setInt('order', orderingList.selection.index)
-    prefs.setBoolean('recursive', recursiveCheck.value)
     prefs.setBoolean('keep_size', keepSizeCheck.value)
+    prefs.setBoolean('recursive', recursiveCheck.value)
   })
   dialog.show()
 }

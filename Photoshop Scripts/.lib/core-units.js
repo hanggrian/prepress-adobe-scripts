@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 UnitType.PX.units = Units.PIXELS
 UnitType.PT.units = Units.POINTS
 UnitType.IN.units = Units.INCHES

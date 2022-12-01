@@ -26,11 +26,8 @@ function SliderGroup(parent, inputSize, current, start, end, scale) {
       it.onChanging = function() { self.edit.text = parseInt(it.value) * scale }
     })
 
-  /**
-   * Returns EditText value, or slider's current point if empty.
-   * @return {number}
-   */
-  self.getValue = function() { return parseInt(self.edit.value) || current }
+  /** @return {number} */
+  self.get = function() { return parseInt(self.edit.value) || current }
 
   return self
 }

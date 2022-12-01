@@ -4,7 +4,7 @@
 //@target illustrator
 //@include '../.lib/commons.js'
 
-checkHasSelection()
+checkAnySelection()
 
 var items = Collections.filterItem(selection, function(it) { return it.typename === 'TextFrame' })
 check(Collections.isNotEmpty(items),

@@ -4,18 +4,18 @@ function checkMultipleArtboards() {
 }
 
 /** Asserts that document currently has any selection. */
-function checkHasSelection() {
+function checkAnySelection() {
   check(selection != null && selection.length > 0, R.string.error_preconditions_hasselection)
 }
 
 /** Asserts that document currently has single selection. */
 function checkSingleSelection() {
-  checkHasSelection()
+  checkAnySelection()
   check(selection.length === 1, R.string.error_preconditions_singleselection)
 }
 
 /** Asserts that document currently has multiple selection. */
 function checkMultipleSelection() {
-  checkHasSelection()
+  checkAnySelection()
   check(selection.length > 1, R.string.error_preconditions_multipleselection)
 }

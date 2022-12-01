@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 // Commons libraries require active document,
 // providing tools for modifying current document.
 

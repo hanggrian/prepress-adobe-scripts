@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 /**
  * Give Java-like methods namely `values` and `valueOf` for enumeration. There is also `list` for
  * displaying `ListItem` in `DropDownList` or `ListBox`. Every enumeration field usually have

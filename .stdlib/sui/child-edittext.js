@@ -1,9 +1,3 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
-
 // match regexes are inclusive with optional areas to trim and leading zero
 var MATCH_DIGITS = /^[ ]*[0-9]*[ ]*$/
 var MATCH_UNITS = /^[ ]*([0-9]*(\.[0-9]+)?|\.[0-9]+)[ ]*(?:in|mi|mm|cm|pt|px)?[ ]*$/
