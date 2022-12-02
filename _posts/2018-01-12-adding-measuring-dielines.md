@@ -13,7 +13,8 @@ image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/scree
 
 Combine the length of all selected paths, excluding:
 - Paths with any fill color, usually dielines are just simple lines.
-- Paths with registration stroke color, registration color lines are reserved for trim marks.
+- Paths with registration stroke color, registration color lines are reserved
+  for trim marks.
 
 ## Add Flap Dieline
 
@@ -21,7 +22,7 @@ Combine the length of all selected paths, excluding:
 
 Flaps are common parts of product packaging dielines.
 
-![Flap dieline types.](../images/samples/ai_dielines_addflap.png)
+![Flap dieline types.](../images/samples/addingmeasuringdielines_flap.png)
 
 ## Add Paperbag Dielines
 
@@ -29,4 +30,4 @@ Flaps are common parts of product packaging dielines.
 
 Pretty self-explanatory.
 
-![Paperbag dielines area.](../images/samples/ai_dielines_addpaperbag.png)
+![Paperbag dielines area.](../images/samples/addingmeasuringdielines_paperbag.png)

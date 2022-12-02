@@ -2,11 +2,11 @@
 author: "Hendra Anggrian"
 name: "Prepress Adobe Scripts"
 title: "Prepress Adobe Scripts"
-description: "Essential Illustrator and Photoshop scripts for commercial printshop."
-logo: 'images/logo.png'
-favicon: 'images/favicon.png'
+description: "Essential Illustrator and Photoshop scripts for commercial printshop"
+logo: "images/logo.png"
+favicon: "images/favicon.png"
 baseurl:
-google_analytics: 'UA-46278016-1'
+google_analytics: "UA-46278016-1"
 include: ["_pages"]
 permalink: /:title/
 
@@ -15,17 +15,17 @@ authors:
   all:
     name: All
     display_name: Illustrator & Photoshop
-    avatar: 'images/avatar_all.png'
+    avatar: "images/avatar_all.png"
     description: Scripts
   ai:
     name: Ai
     display_name: Illustrator
-    avatar: 'images/avatar_ai.png'
+    avatar: "images/avatar_ai.png"
     description: Script
   psd:
     name: Psd
     display_name: Photoshop
-    avatar: 'images/avatar_psd.png'
+    avatar: "images/avatar_psd.png"
     description: Script
 
 # Plugins
@@ -42,7 +42,7 @@ jekyll-archives:
     - categories
   layout: archive
   permalinks:
-    category: '/category/:name/'
+    category: "/category/:name/"
 
 # Pagination
 paginate: 6

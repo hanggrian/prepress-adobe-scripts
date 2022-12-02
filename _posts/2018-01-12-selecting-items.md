@@ -7,9 +7,12 @@ tags: [general]
 image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/ai_select_all.png
 ---
 
-`Select` sub-directories contain several scripts to manipulate selection, all of which works under 2 scenarios:
-1. When there are no selection, the scripts will scan all items and select ones with matched criteria.
-2. When there are selection, the scripts will instead filter current items and deselect ones with unmatched criteria.
+`Select` sub-directories contain several scripts to manipulate selection, all of
+which works under 2 scenarios:
+1. When there are no selection, the scripts will scan all items and select ones
+   with matched criteria.
+2. When there are selection, the scripts will instead filter current items and
+   deselect ones with unmatched criteria.
 
 ## Select All
 
