@@ -15,7 +15,7 @@ Common artboard operations.
 
 By changing artboards' title or position, this script adjust its z order.
 
-## Fit Artboards
+## Fit to Arts
 
 ![Resize artboards to their content.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/screenshots/ai_artboards_fittoarts.png)
 

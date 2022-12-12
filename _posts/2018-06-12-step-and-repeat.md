@@ -10,4 +10,4 @@ image: https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/scree
 Duplicating items given the horizontal and vertical
 values. `Relative Position` is useful for adding gaps in between items.
 
-![Step and repeat items.](../images/samples/stepandrepeat_result.png)
+![Step and repeat with and without gap.](../images/samples/stepandrepeat_result.png)

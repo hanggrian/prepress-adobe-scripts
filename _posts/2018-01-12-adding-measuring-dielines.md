@@ -22,7 +22,7 @@ Combine the length of all selected paths, excluding:
 
 Flaps are common parts of product packaging dielines.
 
-![Flap dieline types.](../images/samples/addingmeasuringdielines_flap.png)
+![Types of flap dieline.](../images/samples/addingmeasuringdielines_flap.png)
 
 ## Add Paperbag Dielines
 
@@ -30,4 +30,4 @@ Flaps are common parts of product packaging dielines.
 
 Pretty self-explanatory.
 
-![Paperbag dielines area.](../images/samples/addingmeasuringdielines_paperbag.png)
+![Area of paperbag dielines.](../images/samples/addingmeasuringdielines_paperbag.png)

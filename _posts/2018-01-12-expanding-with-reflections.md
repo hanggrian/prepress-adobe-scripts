@@ -17,10 +17,10 @@ However, there are some cases where modifying source file is not an option
 method by duplicating items and flipping its content to mimic the appearance of
 bleed. This script is designed to automate that particular task.
 
-![Flap dieline types.](../images/samples/expandingwithreflections.png)
+![Expand reflections only.](../images/samples/expandingwithreflections.png)
 
 ## Clip Objects
 
 To complete the process, check `Clip Objects` control and specify its padding.
 
-![Flap dieline types.](../images/samples/expandingwithreflections_clipobjects.png)
+![Expand reflections, clip objects and add guide-layout.](../images/samples/expandingwithreflections_clipobjects.png)

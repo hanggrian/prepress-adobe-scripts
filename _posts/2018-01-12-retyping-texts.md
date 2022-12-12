@@ -27,7 +27,7 @@ and `Stops at` configuration which are optional and can be left empty.
 
 ### Digits
 
-![Numerize texts with digits.](../images/samples/retypingtexts_numerize_digits.png)
+![Iteration of numerize text with digits.](../images/samples/retypingtexts_numerize_digits.png)
 
 Will append leading n-number of zeroes.
 
@@ -35,7 +35,7 @@ An example of this feature is voucher/invoice code.
 
 ### Stops at
 
-![Numerize texts with stops at.](../images/samples/retypingtexts_numerize_stopsat.png)
+![Iteration of numerize texts with stops at.](../images/samples/retypingtexts_numerize_stopsat.png)
 
 Instead of iterating the index first, the script will take account of alphabet
 suffix. The index will only be iterated when current alphabet has reached

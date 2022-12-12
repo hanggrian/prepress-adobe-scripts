@@ -16,13 +16,13 @@ script behaves differently:
 
 ## Single Target
 
-![Add trim marks around single target.](../images/samples/addtrimmarks_single.png)
+![Add trim marks to single guide.](../images/samples/addtrimmarks_single.png)
 
 Treats selection as one dimension and create trim marks around it.
 
 ## Multiple Target
 
-![Add trim marks around multiple targets.](../images/samples/addtrimmarks_multiple.png)
+![Add trim marks to multiple guides.](../images/samples/addtrimmarks_multiple.png)
 
 Taking account the dimension of all selected items (grouped items count as 1)
 and create multiple trim marks around outer bounds.

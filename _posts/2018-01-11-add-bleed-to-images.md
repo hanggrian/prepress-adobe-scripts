@@ -11,7 +11,7 @@ hidden: true
 
 Enlarge a canvas and create a guide layout separating content and bleed area.
 
-![Add bleed to current or all images.](../images/samples/addbleedtomages_result.png)
+![Add bleed and guide-layout.](../images/samples/addbleedtomages.png)
 
 There is an optional `Select Bleed` check. It is mainly to fill the bleed
 with `Content-Aware`, which is currently not supported with Photoshop Scripting.
