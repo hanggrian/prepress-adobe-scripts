@@ -6,7 +6,7 @@ Group.prototype.setHelpTips = function(tips) { Internals.setHelpTips(this, tips)
 
 /**
  * Add horizontal parent to group.
- * @param {function(!Group)} configuration
+ * @param {?function(!Group)=} configuration
  * @return {!Group}
  */
 Group.prototype.hgroup = function(configuration) {
@@ -15,7 +15,7 @@ Group.prototype.hgroup = function(configuration) {
 
 /**
  * Add horizontal parent to panel.
- * @param {function(!Group)} configuration
+ * @param {?function(!Group)=} configuration
  * @return {!Group}
  */
 Panel.prototype.hgroup = function(configuration) {
@@ -24,7 +24,7 @@ Panel.prototype.hgroup = function(configuration) {
 
 /**
  * Add vertical parent to group.
- * @param {function(!Group)} configuration
+ * @param {?function(!Group)=} configuration
  * @return {!Group}
  */
 Group.prototype.vgroup = function(configuration) {
@@ -33,7 +33,7 @@ Group.prototype.vgroup = function(configuration) {
 
 /**
  * Add vertical parent to panel.
- * @param {function(!Group)} configuration
+ * @param {?function(!Group)=} configuration
  * @return {!Group}
  */
 Panel.prototype.vgroup = function(configuration) {
@@ -42,7 +42,7 @@ Panel.prototype.vgroup = function(configuration) {
 
 /**
  * Add stack parent to group.
- * @param {function(!Group)} configuration
+ * @param {?function(!Group)=} configuration
  * @return {!Group}
  */
 Group.prototype.sgroup = function(configuration) {
@@ -51,7 +51,7 @@ Group.prototype.sgroup = function(configuration) {
 
 /**
  * Add stack parent to panel.
- * @param {function(!Group)} configuration
+ * @param {?function(!Group)=} configuration
  * @return {!Group}
  */
 Panel.prototype.sgroup = function(configuration) {

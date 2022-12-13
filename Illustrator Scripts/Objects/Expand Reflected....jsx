@@ -6,7 +6,7 @@ checkAnySelection()
 var SIZE_CHECK = [14, 14]
 var SPACING_LOCATIONS = 14
 
-var dialog = new Dialog(R.string.expand_reflected, 'expand-reflected/')
+var dialog = new Dialog(R.string.expand_reflected, 'expanding-with-reflections/')
 var clipObjectsCheck, paddingGroup
 var topLeftCheck, topCheck, topRightCheck,
   leftCheck, rightCheck,
@@ -46,7 +46,7 @@ dialog.vgroup(function(main) {
         group.spacing = SPACING_LOCATIONS
         group.helpTips = R.string.tip_expandreflected_locations
         leftCheck = group.checkBox(SIZE_CHECK).also(SELECTED)
-        group.iconButton(SIZE_CHECK, 'ic_arrow_center', { style: 'toolbutton' }).also(function(it) {
+        group.iconButton(SIZE_CHECK, 'ic_arrow_center', STYLE_TOOLBUTTON).also(function(it) {
           it.addClickListener(function() {
             toggleChecks()
           })

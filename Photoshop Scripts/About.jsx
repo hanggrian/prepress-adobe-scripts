@@ -33,10 +33,17 @@ dialog.vgroup(function(main) {
       })
       Language.set(language)
     })
+    panel.preferencesActivateControl.addClickListener(function() {
+      preferences2.edit(function(editor) {
+        editor.setBoolean('activate_control_on_show', panel.preferencesActivateControl.value)
+      })
+    })
+
     panel.preferencesClearButton.addClickListener(function() {
       preferences2.edit(function(editor) {
         editor.remove('theme_dark')
         editor.remove('language_code')
+        editor.remove('activate_control_on_show')
       })
       preferences2.resolve('images/add_bleed').edit(function(editor) { editor.remove('length') })
       Windows.alert(R.string.done, R.string.about_scripts)

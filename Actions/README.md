@@ -1,16 +1,17 @@
 # Keyboard Shortcuts
 
-This is made possible by using Actions feature which binds Fn keys to menu item. However, they need
-to be setup manually:
+This is made possible by using Actions feature which binds Fn keys to menu item.
+However, they need to be setup manually:
 
 1. In Actions panel, select `Load Actions...`.
-2. Navigate to local Adobe installation path, and find `Actions` directory under `Presets`.
+2. Navigate to local Adobe installation path, and find `Actions` directory
+under `Presets`.
 3. Open a file named `Prepress Adobe Script`.
 
 ## All
 
 | Keys | Action |
-| ---: | --- |
+| --: | --- |
 | **F2** | Documents > Pre-Flight |
 | ⇧ **F2** | Documents > Close... |
 | **F12** | About |
@@ -18,7 +19,7 @@ to be setup manually:
 ## Illustrator
 
 | Keys | Action |
-| ---: | --- |
+| --: | --- |
 | **F3** | Artboards > Reorder... |
 | ⇧ **F3** | Artboards > Fit to Arts... |
 | **F4** | Select > All... |
@@ -45,7 +46,7 @@ to be setup manually:
 ## Photoshop
 
 | Keys | Action |
-| ---: | --- |
+| --: | --- |
 | **F3** | Images > Resize Images... |
 | **F4** | Images > Resize Canvases... |
 | **F5** | Images > Add Bleed... |
@@ -55,7 +56,7 @@ to be setup manually:
 Some key combinations are left untouched because they are OS-specific.
 
 | Keys | Windows | macOS | Shortcut |
-| ---: | :---: | :---: | :--- |
+| --: | :-: | :-: | :-- |
 | **F1** | &cross; | &check; | - |
 | ⌘ **F4** | &cross; | &check; | Close the active tab |
 | ⇧⌘ **F4** | &cross; | &check; | - |

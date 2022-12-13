@@ -52,8 +52,7 @@ var VALIDATE_UNITS = function(editText) { editText.validateUnits() }
 
 /** Focus on this edit text. */
 EditText.prototype.activate = function() {
-  // in Illustrator on Windows, this process is skipped because activating control will mess up app focus
-  if (!Scripts.OS_MAC && Scripts.APP_AI) {
+  if (!preferences2.getBoolean('activate_control_on_show')) {
     return
   }
   this.active = true

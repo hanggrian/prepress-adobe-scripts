@@ -55,12 +55,15 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
 
     var pageDivisor = !nupGroup.isDuplex() ? 8 : 16
     if (pageLength % pageDivisor !== 0) {
-      return Windows.alert(getString(R.string.error_openpages, pageDivisor), dialog.text, true)
+      return Windows.alert(getString(R.string.error_impose_openpages, pageDivisor), dialog.text, true)
     } else if (documentPanel.getWidth() < (rotatedPageWidth * 4) ||
       documentPanel.getHeight() < (rotatedPageHeight * 2)) {
-      return Windows.alert(R.string.error_opendocuments, dialog.text, true)
+      return Windows.alert(R.string.error_impose_opendocuments, dialog.text, true)
     }
-    var document = documentPanel.create(dialog.text, artboardLength)
+    var document = documentPanel.create(
+      '%s %d-%d'.format(Pager.EIGHT_UP.text, pagesPanel.rangeGroup.startEdit.text,
+        pagesPanel.rangeGroup.endEdit.text),
+      artboardLength)
     var pager = Pager.EIGHT_UP.get(document, pageStart, nupGroup.isFolding(), nupGroup.isDuplex(),
       nupGroup.isStack())
     var progress = new ProgressPalette(artboardLength, R.string.imposing)

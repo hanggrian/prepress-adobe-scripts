@@ -5,7 +5,6 @@ checkAnySelection()
 
 var SIZE_INPUT = [110, 21]
 var SIZE_CHECK = [15, 15] // usually 14, but need to stretch the size equalling left panel
-var STYLE_TOOLBUTTON = { style: 'toolbutton' }
 
 var dialog = new Dialog(R.string.add_trim_marks, 'add-trim-marks/')
 var offsetEdit, lengthEdit, weightEdit, colorList

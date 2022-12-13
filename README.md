@@ -2,19 +2,20 @@
 
 ![Social preview.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/social_preview.png)
 
-Collection of Illustrator and Photoshop scripts to automate repetitive tasks and procedures of
-preparing final print layout.
+Collection of Illustrator and Photoshop scripts to automate repetitive tasks and
+procedures of preparing final print layout.
 
 - Multiple languages.
 - Dark theme support.
 
-Head to [repository website](http://hendraanggrian.com/prepress-adobe-scripts/) for description of
-the scripts.
+Head to [repository website](http://hendraanggrian.com/prepress-adobe-scripts/)
+for description of the scripts.
 
 ## Download
 
-There are several ways to use the scripts, a recommended method is to install them in Adobe
-installation paths so that they may appear in `Menubar > File > Scripts`.
+There are several ways to use the scripts, a recommended method is to install
+them in Adobe installation paths so that they may appear
+in `Menubar > File > Scripts`.
 
 In any case, download the source code and pick one of the following solutions.
 
@@ -26,8 +27,9 @@ Run `install.bat` as admin (Windows) or `install.sh` with sudo (macOS).
 
 ### Manual Installation
 
-Copy certain files and directories from this repository to your local Adobe installation paths,
-usually *Applications* in macOS and *Program Files* in Windows.
+Copy certain files and directories from this repository to your local Adobe
+installation paths, usually *Applications* in macOS and *Program Files* in
+Windows.
 
 #### Illustrator
 
@@ -47,12 +49,12 @@ usually *Applications* in macOS and *Program Files* in Windows.
 
 ### No Installation
 
-It is possible to use the scripts by drag-and-dropping JSX files directly to Adobe apps. Just make
-sure to keep the entirety of root folder instead of only `Illustrator Scripts`
-or `Photoshop Scripts` folders.
+It is possible to use the scripts by drag-and-dropping JSX files directly to
+Adobe apps. Just make sure to keep the entirety of root folder instead of
+only `Illustrator Scripts` or `Photoshop Scripts` folders.
 
-This is because the scripts are **not standalone**, all of them require hidden directories to be in
-pre-determined locations.
+This is because the scripts are **not standalone**, all of them require hidden
+directories to be in pre-determined locations.
 
 ## Usage
 

@@ -9,8 +9,8 @@
   - Code style `JavaScript Standard Style`.
 - **Visual Studio Code**, used to debug specific script
   with [ExtendScript Debugger](https://marketplace.visualstudio.com/items?itemName=Adobe.extendscript-debug).
-- **[TableTool](https://github.com/jakob/TableTool/)** for creating and maintaining string
-  resources.
+- **[TableTool](https://github.com/jakob/TableTool/)** for creating and
+  maintaining string resources.
 
 ### GitHub Pages
 
@@ -26,7 +26,8 @@ Forked from [Mediumish Jekyll Template](https://github.com/wowthemesnet/mediumis
   - No color swatches to reduce file size.
   - Non-decimal artboard's position to generate image in exact dimension.
   - Save files in `ai` format using options:
-    - `Create PDF Compatible File` if such files are directly linked to others, disable otherwise.
+    - `Create PDF Compatible File` if such files are directly linked to others,
+      disable otherwise.
     - `Use Compression`.
   - Generate files in `png` with `Export for Screens...` using options:
     - 8-bit for resources.

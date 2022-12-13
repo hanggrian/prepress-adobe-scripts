@@ -54,9 +54,12 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
 
     if (documentPanel.getWidth() < (rotatedPageWidth) ||
       documentPanel.getHeight() < (rotatedPageHeight)) {
-      return Windows.alert(R.string.error_opendocuments, dialog.text, true)
+      return Windows.alert(R.string.error_impose_opendocuments, dialog.text, true)
     }
-    var document = documentPanel.create(dialog.text, artboardLength)
+    var document = documentPanel.create(
+      '%s %d-%d'.format(Pager.ONE_UP.text, pagesPanel.rangeGroup.startEdit.text,
+        pagesPanel.rangeGroup.endEdit.text),
+      artboardLength)
     var pager = Pager.ONE_UP.get(document, pageStart)
     var progress = new ProgressPalette(artboardLength, R.string.imposing)
 

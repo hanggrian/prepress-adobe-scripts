@@ -1,6 +1,6 @@
 /**
  * Add parent to group.
- * @param {function(!TabbedPanel)} configuration
+ * @param {?function(!TabbedPanel)=} configuration
  * @return {!TabbedPanel}
  */
 Group.prototype.tabbedPanel = function(configuration) {
@@ -9,7 +9,7 @@ Group.prototype.tabbedPanel = function(configuration) {
 
 /**
  * Add parent to panel.
- * @param {function(!TabbedPanel)} configuration
+ * @param {?function(!TabbedPanel)=} configuration
  * @return {!TabbedPanel}
  */
 Panel.prototype.tabbedPanel = function(configuration) {

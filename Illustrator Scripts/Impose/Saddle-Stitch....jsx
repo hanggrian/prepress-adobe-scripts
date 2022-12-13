@@ -56,12 +56,15 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
     var pageHeight = originalPageHeight + pageBleed * 2
 
     if (pageLength % 4 !== 0) {
-      return Windows.alert(getString(R.string.error_openpages, 4), dialog.text, true)
+      return Windows.alert(getString(R.string.error_impose_openpages, 4), dialog.text, true)
     } else if (documentPanel.getWidth() < ((pageWidth - pageBleed) * 2) ||
       documentPanel.getHeight() < (pageHeight)) {
-      return Windows.alert(R.string.error_opendocuments, dialog.text, true)
+      return Windows.alert(R.string.error_impose_opendocuments, dialog.text, true)
     }
-    var document = documentPanel.create(dialog.text, artboardLength)
+    var document = documentPanel.create(
+      '%s %d-%d'.format(Pager.SADDLE_STITCH.text, pagesPanel.rangeGroup.startEdit.text,
+        pagesPanel.rangeGroup.endEdit.text),
+      artboardLength)
     var pager = Pager.SADDLE_STITCH.get(document, pageStart, pageEnd, rtlCheck.value)
     var progress = new ProgressPalette(artboardLength, R.string.imposing)
 

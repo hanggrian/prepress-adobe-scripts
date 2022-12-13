@@ -3,6 +3,7 @@ var MARGINS_ABOUT_TAB = [10, 0, 10, 0]
 
 /**
  * Content to display on `About....jsx`.
+ * Because preferences are kept differently across app, implement its saving logic in `About....jsx`.
  * @param {!Group|!Panel|!Window} parent
  * @param {string} clientDate date associated in scripts' resources for checking update.
  */
@@ -12,7 +13,7 @@ function AboutPanel(parent, clientDate) {
 
   var self = parent.tabbedPanel()
   self.preferencesTab, self.preferencesThemeList, self.preferencesLanguageList,
-    self.preferencesClearButton
+    self.preferencesActivateControl, self.preferencesClearButton
   self.updatesTab, self.updatesStatusText, self.updatesDownloadButton
   self.licensingTab
 
@@ -23,11 +24,11 @@ function AboutPanel(parent, clientDate) {
     tab.hgroup(function(group) {
       group.helpTips = R.string.tip_aboutscripts_theme
       group.leftStaticText(undefined, R.string.theme)
-      self.preferencesThemeList = group.dropDownList(undefined, Theme.list()).also(function(it) {
-        it.selection = preferences2.getBoolean('theme_dark') ? 0 : 1
-      })
-    })
-    tab.hgroup(function(group) {
+      self.preferencesThemeList = group.dropDownList(undefined, Theme.list())
+        .also(function(it) {
+          it.selection = preferences2.getBoolean('theme_dark') ? 0 : 1
+        })
+      group.hgroup(); group.hgroup() // 2x divider
       group.helpTips = R.string.tip_aboutscripts_language
       group.leftStaticText(undefined, R.string.language)
       self.preferencesLanguageList = group.dropDownList(undefined, Language.list())
@@ -35,6 +36,13 @@ function AboutPanel(parent, clientDate) {
           var currentCode = preferences2.getString('language_code', Language.EN.code)
           it.selectText(Language.valueOfCode(currentCode).text)
         })
+    })
+    tab.hgroup(function(group) {
+      group.helpTips = R.string.tip_aboutscripts_activatecontrolonstart
+      self.preferencesActivateControl = group.checkBox(undefined,
+        R.string.activate_control_on_start).also(function(it) {
+        it.value = preferences2.getBoolean('activate_control_on_show')
+      })
     })
     self.preferencesClearButton = tab.button(undefined, R.string.clear_preferences)
       .also(function(it) {
@@ -54,7 +62,7 @@ function AboutPanel(parent, clientDate) {
           $.sleep(3000)
           var result = new File('~/prepress-adobe-scripts')
           if (!result.exists) {
-            self.updatesStatusText.text = getString(R.string.message_aboutscripts_updates_failed)
+            self.updatesStatusText.text = R.string.message_aboutscripts_updates_failed
           } else {
             var serverDate = parseDate(result.readText()
               .substringAfter('"date": "').substringBefore('"').substring(0, 10))
@@ -64,7 +72,7 @@ function AboutPanel(parent, clientDate) {
                 getString(R.string.message_aboutscripts_updates_available, serverDate.toISOString())
               self.updatesDownloadButton.enabled = true
             } else {
-              self.updatesStatusText.text = getString(R.string.message_aboutscripts_updates_unavailable)
+              self.updatesStatusText.text = R.string.message_aboutscripts_updates_unavailable
             }
           }
         })

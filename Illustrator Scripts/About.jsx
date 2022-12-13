@@ -23,9 +23,14 @@ dialog.vgroup(function(main) {
       preferences2.setString('language_code', language.code)
       Language.set(language)
     })
+    panel.preferencesActivateControl.addClickListener(function() {
+      preferences2.setBoolean('activate_control_on_show', panel.preferencesActivateControl.value)
+    })
+
     panel.preferencesClearButton.addClickListener(function() {
       preferences2.remove('theme_dark')
       preferences2.remove('language_code')
+      preferences2.remove('activate_control_on_show')
       preferences2.resolve('artboards/reorder').run(function(it) { it.remove('order') })
       preferences2.resolve('dielines').run(function(subconfigs) {
         subconfigs.resolve('add_flap').run(function(it) {
@@ -67,6 +72,11 @@ dialog.vgroup(function(main) {
           it.remove('color')
         })
         subconfigs.resolve('copy_to_artboards').run(function(it) { it.remove('anchor') })
+        subconfigs.resolve('expand_reflected').run(function(it) {
+          it.remove('padding')
+          it.remove('use_guides')
+          it.remove('recursive')
+        })
         subconfigs.resolve('step_and_repeat').run(function(it) {
           it.remove('horizontal')
           it.remove('vertical')

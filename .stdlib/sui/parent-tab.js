@@ -1,7 +1,7 @@
 /**
  * Add horizontal parent to tabbed panel.
  * @param {?string|?Object=} text
- * @param {function(!Group)} configuration
+ * @param {?function(!Group)=} configuration
  * @return {!Tab}
  */
 Panel.prototype.htab = function(text, configuration) {
@@ -11,7 +11,7 @@ Panel.prototype.htab = function(text, configuration) {
 /**
  * Add vertical parent to tabbed panel.
  * @param {?string|?Object=} text
- * @param {function(!Group)} configuration
+ * @param {?function(!Group)=} configuration
  * @return {!Tab}
  */
 Panel.prototype.vtab = function(text, configuration) {
@@ -21,7 +21,7 @@ Panel.prototype.vtab = function(text, configuration) {
 /**
  * Add stack parent to tabbed panel.
  * @param {?string|?Object=} text
- * @param {function(!Group)} configuration
+ * @param {?function(!Group)=} configuration
  * @return {!Tab}
  */
 Panel.prototype.stab = function(text, configuration) {

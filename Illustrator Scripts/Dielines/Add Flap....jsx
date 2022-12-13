@@ -21,7 +21,7 @@ var tuckSliderGroup, tuckDistanceEdit
 var dustShoulderEdit, dustDistanceEdit
 var leftRadio, topRadio, rightRadio, bottomRadio
 var prefs = preferences2.resolve('dielines/add_flap')
-var currentTab = getString(R.string.glue_flap) // do not use tabbedpanel.selection as it crashes on macOS
+var currentTab = R.string.glue_flap // do not use tabbedpanel.selection as it crashes on macOS
 
 dialog.hgroup(function(main) {
   main.alignChildren = 'fill'
@@ -105,9 +105,9 @@ dialog.hgroup(function(main) {
         return
       }
       currentTab = panel.selection.text
-      if (currentTab === getString(R.string.glue_flap)) {
+      if (currentTab === R.string.glue_flap) {
         glueShearEdit.activate()
-      } else if (currentTab === getString(R.string.tuck_flap)) {
+      } else if (currentTab === R.string.tuck_flap) {
         tuckCurveEdit.activate()
       } else {
         dustShoulderEdit.activate()
@@ -128,9 +128,9 @@ dialog.setDefaultButton(undefined, function() {
   pathItem.strokeColor = color.get()
   pathItem.strokeWidth = weight
 
-  if (currentTab === getString(R.string.glue_flap)) {
+  if (currentTab === R.string.glue_flap) {
     processGlue(pathItem, length, direction)
-  } else if (currentTab === getString(R.string.tuck_flap)) {
+  } else if (currentTab === R.string.tuck_flap) {
     processTuck(pathItem, length, direction)
   } else {
     processDust(pathItem, length, direction)

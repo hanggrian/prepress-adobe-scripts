@@ -41,7 +41,7 @@ function Dialog(title, helpUrlSuffix) {
     buttons.alignment = 'fill'
 
     if (helpUrlSuffix !== undefined) {
-      self.helpIconButton = buttons.iconButton(undefined, 'ic_help', { style: 'toolbutton' })
+      self.helpIconButton = buttons.iconButton(undefined, 'ic_help', STYLE_TOOLBUTTON)
         .also(function(it) {
           it.alignment = ['left', 'center']
           it.helpTip = R.string.tip_whatsthis
@@ -64,7 +64,7 @@ function Dialog(title, helpUrlSuffix) {
 
   /**
    * Set main layout to horizontal.
-   * @param {function(!Group)} configuration
+   * @param {?function(!Group)=} configuration
    */
   self.hgroup = function(configuration) {
     self.main.orientation = 'row'
@@ -75,7 +75,7 @@ function Dialog(title, helpUrlSuffix) {
 
   /**
    * Set main layout to vertical.
-   * @param {function(!Group)} configuration
+   * @param {?function(!Group)=} configuration
    */
   self.vgroup = function(configuration) {
     self.main.orientation = 'column'
@@ -107,7 +107,7 @@ function Dialog(title, helpUrlSuffix) {
    * @param {?function(): boolean=} action
    */
   self.setYesButton = function(text, action) {
-    text = text || getString(R.string.yes)
+    text = text || R.string.yes
     self.yesButton = appendButton(yesButtonContainer, text, action)
   }
 
@@ -117,7 +117,7 @@ function Dialog(title, helpUrlSuffix) {
    * @param {?function(): boolean=} action
    */
   self.setCancelButton = function(text, action) {
-    text = text || getString(R.string.cancel)
+    text = text || R.string.cancel
     self.cancelButton = appendButton(cancelButtonContainer, text, action, { name: 'cancel' })
   }
 
@@ -127,7 +127,7 @@ function Dialog(title, helpUrlSuffix) {
    * @param {?function(): boolean=} action
    */
   self.setHelpButton = function(text, action) {
-    text = text || getString(R.string.help)
+    text = text || R.string.help
     self.helpButton = appendButton(helpButtonContainer, text, action)
   }
 

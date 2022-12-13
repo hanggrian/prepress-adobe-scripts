@@ -2,6 +2,7 @@
 
 R.string = {
   about_scripts: { en: "About Scripts", id: "Tentang Naskah" },
+  activate_control_on_start: { en: "Activate Control on Start", id: "Aktifkan Kontrol pada Awal" },
   all: { en: "All", id: "Semua" },
   anchor: { en: "Anchor", id: "Jangkar" },
   bottom: { en: "Bottom", id: "Bawah" },
@@ -50,6 +51,7 @@ R.string = {
   resolution: { en: "Resolution", id: "Resolusi" },
   right: { en: "Right", id: "Kanan" },
   theme: { en: "Theme", id: "Tema" },
+  tip_aboutscripts_activatecontrolonstart: { en: "In certain OS and app suite, activating control on window start will break app focus.\nThis preference is a hotfix to that behavior.", id: "Di OS dan suite aplikasi tertentu, mengaktifkan kontrol pada awal jendela akan merusak fokus aplikasi.\nPreferensi ini adalah hotfix untuk perilaku tersebut." },
   tip_aboutscripts_language: { en: "Languages of the scripts.", id: "Bahasa-bahasa dari naskah ini." },
   tip_aboutscripts_theme: { en: "Defines what icon color to be used.\nThe script is still dumb and can't yet know UI brightness setting across apps.", id: "Menentukan warna icon yang akan digunakan.\nNaskah ini masih bodoh dan belum bisa mengetahui pengaturan kecerahan UI di seluruh aplikasi." },
   tip_whatsthis: { en: "What's this?", id: "Apa ini?" },

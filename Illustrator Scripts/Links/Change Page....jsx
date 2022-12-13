@@ -47,7 +47,9 @@ dialog.setDefaultButton(undefined, function() {
   }
   var current = rangeGroup.getStart()
   var end = rangeGroup.getEnd()
-  var source = recursiveCheck.value ? Collections.filterItem(selection, PREDICATE_LINKS) : selection
+  var source = recursiveCheck.value ?
+    Collections.filterItem(selection, PREDICATE_LINKS) :
+    Collections.filter(selection, PREDICATE_LINKS)
   var progress = new ProgressPalette(source.length)
 
   source.sort(orderingList.getComparator())
