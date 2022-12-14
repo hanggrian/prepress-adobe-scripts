@@ -17,9 +17,9 @@ var progress
 
 dialog.vgroup(function(main) {
   main.alignChildren = 'right'
-  main.hgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    topGroup.vpanel(R.string.expand, function(panel) {
+  main.hgroup(function(rootPane) {
+    rootPane.alignChildren = 'fill'
+    rootPane.vpanel(R.string.expand, function(panel) {
       panel.alignChildren = 'left'
       clipObjectsCheck = panel.checkBox(undefined, R.string.clip_objects).also(function(it) {
         it.helpTip = R.string.tip_expandreflected_clipobjects
@@ -33,7 +33,7 @@ dialog.vgroup(function(main) {
         group.paddingEdit.text = prefs.getString('padding', '2.5 mm')
       })
     })
-    topGroup.vpanel(R.string.locations, function(panel) {
+    rootPane.vpanel(R.string.locations, function(panel) {
       panel.spacing = SPACING_LOCATIONS
       panel.hgroup(function(group) {
         group.spacing = SPACING_LOCATIONS

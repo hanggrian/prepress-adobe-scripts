@@ -4,6 +4,8 @@
 // Instead use `==` and `!=`.
 // See https://github.com/JetBrains/kotlin/blob/master/libraries/stdlib/src/kotlin/util/Standard.kt.
 
+/*<javascriptresource><menu>hide</menu></javascriptresource>*/
+
 /**
  * Calls the specified function `block` and returns its result.
  * @param {function(*)} block

@@ -4,7 +4,8 @@
 //@target illustrator
 //@include '../.lib/commons.js'
 
-check(Collections.isNotEmpty(document.pageItems), getString(R.string.error_notypes_document))
+check(Collections.isNotEmpty(document.pageItems),
+  getString(R.string.error_notypes_document, R.string.anything))
 var isFilterMode = Collections.isNotEmpty(selection)
 
 var dialog = new Dialog(R.string.select_all, 'selecting-items/#select-all')
@@ -16,76 +17,118 @@ var symbolCheck, meshCheck, graphCheck
 var recursiveCheck
 var prefs = preferences2.resolve('select/all')
 
-dialog.hgroup(function(main) {
-  main.alignChildren = 'fill'
-  main.vgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    topGroup.vpanel(R.plurals.group.plural, function(panel) {
-      panel.alignChildren = 'fill'
-      groupCheck = panel.checkBox(undefined, R.plurals.group.plural).also(function(it) {
-        it.value = prefs.getBoolean('group')
-      })
-      clippingMaskCheck = panel.checkBox(undefined, R.plurals.clipping_mask.plural)
-        .also(function(it) {
-          it.value = prefs.getBoolean('group2')
+dialog.vgroup(function(main) {
+  main.hgroup(function(rootPane) {
+    rootPane.alignChildren = 'fill'
+    rootPane.vgroup(function(leftPane) {
+      leftPane.alignChildren = 'fill'
+      leftPane.hpanel(R.plurals.group.plural, function(panel) {
+        panel.vgroup(function(checkGroup) {
+          checkGroup.alignChildren = 'fill'
+          groupCheck = checkGroup.checkBox(undefined, R.plurals.group.plural).also(function(it) {
+            it.value = prefs.getBoolean('group')
+          })
+          clippingMaskCheck = checkGroup.checkBox(undefined, R.plurals.clipping_mask.plural)
+            .also(function(it) {
+              it.value = prefs.getBoolean('group2')
+            })
         })
-    })
-    topGroup.vpanel(R.plurals.path.plural, function(panel) {
-      panel.alignChildren = 'fill'
-      pathCheck = panel.checkBox(undefined, R.plurals.path.plural).also(function(it) {
-        it.value = prefs.getBoolean('path')
-      })
-      compoundPathCheck = panel.checkBox(undefined, R.plurals.compound_path.plural)
-        .also(function(it) {
-          it.value = prefs.getBoolean('compound_path')
+        panel.vgroup(function(imageGroup) {
+          imageGroup.alignment = 'top'
+          tiedImage(imageGroup, 'ic_item_group', groupCheck)
+          tiedImage(imageGroup, 'ic_item_clippingMask', clippingMaskCheck)
         })
-    })
-    topGroup.vpanel(R.plurals.text.plural, function(panel) {
-      panel.alignChildren = 'fill'
-      textFrameCheck = panel.checkBox(undefined, R.plurals.text.plural).also(function(it) {
-        it.value = prefs.getBoolean('text')
       })
-      legacyTextCheck = panel.checkBox(undefined, R.plurals.legacy_text.plural).also(function(it) {
-        it.value = prefs.getBoolean('legacy_text')
+      leftPane.hpanel(R.plurals.path.plural, function(panel) {
+        panel.vgroup(function(checkGroup) {
+          checkGroup.alignChildren = 'fill'
+          pathCheck = checkGroup.checkBox(undefined, R.plurals.path.plural).also(function(it) {
+            it.value = prefs.getBoolean('path')
+          })
+          compoundPathCheck = checkGroup.checkBox(undefined, R.plurals.compound_path.plural)
+            .also(function(it) {
+              it.value = prefs.getBoolean('compound_path')
+            })
+        })
+        panel.vgroup(function(imageGroup) {
+          imageGroup.alignment = 'top'
+          tiedImage(imageGroup, 'ic_item_path', pathCheck)
+          tiedImage(imageGroup, 'ic_item_compoundpath', compoundPathCheck)
+        })
+      })
+      leftPane.hpanel(R.plurals.text.plural, function(panel) {
+        panel.vgroup(function(checkGroup) {
+          checkGroup.alignChildren = 'fill'
+          textFrameCheck = checkGroup.checkBox(undefined, R.plurals.text.plural).also(function(it) {
+            it.value = prefs.getBoolean('text')
+          })
+          legacyTextCheck = checkGroup.checkBox(undefined, R.plurals.legacy_text.plural)
+            .also(function(it) {
+              it.value = prefs.getBoolean('legacy_text')
+            })
+        })
+        panel.vgroup(function(imageGroup) {
+          imageGroup.alignment = 'top'
+          tiedImage(imageGroup, 'ic_item_text', textFrameCheck)
+          tiedImage(imageGroup, 'ic_item_legacytext', legacyTextCheck)
+        })
+      })
+    })
+    rootPane.vgroup(function(rightPane) {
+      rightPane.alignChildren = 'fill'
+      rightPane.hpanel(R.string.imports, function(panel) {
+        panel.vgroup(function(checkGroup) {
+          checkGroup.alignChildren = 'fill'
+          placedCheck = checkGroup.checkBox(undefined, R.plurals.link.plural).also(function(it) {
+            it.value = prefs.getBoolean('placed')
+          })
+          nonNativeCheck = checkGroup.checkBox(undefined, R.plurals.nonnative.plural)
+            .also(function(it) {
+              it.value = prefs.getBoolean('nonnative')
+            })
+          rasterCheck = checkGroup.checkBox(undefined, R.plurals.raster.plural).also(function(it) {
+            it.value = prefs.getBoolean('raster')
+          })
+          pluginCheck = checkGroup.checkBox(undefined, R.plurals.plugin.plural).also(function(it) {
+            it.value = prefs.getBoolean('plugin')
+          })
+        })
+        panel.vgroup(function(imageGroup) {
+          imageGroup.alignment = 'top'
+          tiedImage(imageGroup, 'ic_item_placed', placedCheck)
+          tiedImage(imageGroup, 'ic_item_nonnative', nonNativeCheck)
+          tiedImage(imageGroup, 'ic_item_raster', rasterCheck)
+          tiedImage(imageGroup, 'ic_item_plugin', pluginCheck)
+        })
+      })
+      rightPane.hpanel(R.string.others, function(panel) {
+        panel.vgroup(function(checkGroup) {
+          checkGroup.alignChildren = 'fill'
+          symbolCheck = checkGroup.checkBox(undefined, R.plurals.symbol.plural).also(function(it) {
+            it.value = prefs.getBoolean('symbol')
+          })
+          meshCheck = checkGroup.checkBox(undefined, R.plurals.mesh.plural).also(function(it) {
+            it.value = prefs.getBoolean('mesh')
+          })
+          graphCheck = checkGroup.checkBox(undefined, R.plurals.graph.plural).also(function(it) {
+            it.value = prefs.getBoolean('graph')
+          })
+        })
+        panel.vgroup(function(imageGroup) {
+          imageGroup.alignment = 'top'
+          tiedImage(imageGroup, 'ic_item_symbol', symbolCheck)
+          tiedImage(imageGroup, 'ic_item_mesh', meshCheck)
+          tiedImage(imageGroup, 'ic_item_graph', graphCheck)
+        })
       })
     })
   })
-  main.vgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    topGroup.vpanel(R.string.imports, function(panel) {
-      panel.alignChildren = 'fill'
-      placedCheck = panel.checkBox(undefined, R.plurals.link.plural).also(function(it) {
-        it.value = prefs.getBoolean('placed')
-      })
-      nonNativeCheck = panel.checkBox(undefined, R.plurals.nonnative.plural).also(function(it) {
-        it.value = prefs.getBoolean('nonnative')
-      })
-      rasterCheck = panel.checkBox(undefined, R.plurals.raster.plural).also(function(it) {
-        it.value = prefs.getBoolean('raster')
-      })
-      pluginCheck = panel.checkBox(undefined, R.plurals.plugin.plural).also(function(it) {
-        it.value = prefs.getBoolean('plugin')
-      })
+  if (isFilterMode) {
+    recursiveCheck = new RecursiveCheck(main).also(function(it) {
+      it.alignment = 'right'
+      it.value = prefs.getBoolean('recursive')
     })
-    topGroup.vpanel(R.string.others, function(panel) {
-      panel.alignChildren = 'fill'
-      symbolCheck = panel.checkBox(undefined, R.plurals.symbol.plural).also(function(it) {
-        it.value = prefs.getBoolean('symbol')
-      })
-      meshCheck = panel.checkBox(undefined, R.plurals.mesh.plural).also(function(it) {
-        it.value = prefs.getBoolean('mesh')
-      })
-      graphCheck = panel.checkBox(undefined, R.plurals.graph.plural).also(function(it) {
-        it.value = prefs.getBoolean('graph')
-      })
-    })
-    if (isFilterMode) {
-      recursiveCheck = new RecursiveCheck(topGroup).also(function(it) {
-        it.alignment = 'right'
-        it.value = prefs.getBoolean('recursive')
-      })
-    }
-  })
+  }
 })
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
@@ -131,3 +174,10 @@ dialog.setDefaultButton(undefined, function() {
   if (isFilterMode) prefs.setBoolean('recursive', recursiveCheck.value)
 })
 dialog.show()
+
+function tiedImage(parent, src, check) {
+  var image = parent.image(undefined, src)
+  image.addEventListener('click', function() {
+    check.value = !check.value
+  })
+}

@@ -23,9 +23,9 @@ var prefs = preferences2.resolve('types/numerize')
 
 dialog.vgroup(function(main) {
   main.alignChildren = 'right'
-  main.hgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    topGroup.vpanel(R.string.options, function(panel) {
+  main.hgroup(function(rootPane) {
+    rootPane.alignChildren = 'fill'
+    rootPane.vpanel(R.string.options, function(panel) {
       panel.alignChildren = 'right'
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_numerize_startsat
@@ -57,7 +57,7 @@ dialog.vgroup(function(main) {
         })
       })
     })
-    topGroup.vpanel(R.string.affix, function(panel) {
+    rootPane.vpanel(R.string.affix, function(panel) {
       panel.alignChildren = 'right'
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_numerize_prefix

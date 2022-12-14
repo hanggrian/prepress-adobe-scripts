@@ -9,10 +9,10 @@ var cyanCheck, magentaCheck, yellowCheck, blackCheck
 var saveDirectoryGroup
 
 dialog.vgroup(function(main) {
-  main.hgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    saveFilePanel = new SaveFilePanel(topGroup, 'ps')
-    topGroup.vpanel('Options', function(panel) {
+  main.hgroup(function(rootPane) {
+    rootPane.alignChildren = 'fill'
+    saveFilePanel = new SaveFilePanel(rootPane, 'ps')
+    rootPane.vpanel('Options', function(panel) {
       panel.hgroup(function(group) {
         group.helpTips = 'Output mode'
         group.leftStaticText(undefined, 'Mode')
@@ -20,7 +20,7 @@ dialog.vgroup(function(main) {
         group.radioButton(undefined, 'Separations').also(SELECTED)
       })
     })
-    topGroup.vpanel('Process', function(panel) {
+    rootPane.vpanel('Process', function(panel) {
       panel.alignChildren = 'fill'
       cyanCheck = panel.checkBox(undefined, 'Cyan').also(function(it) {
         it.helpTip = 'Should ps file include cyan layer'

@@ -10,78 +10,76 @@ var widthEdit, heightEdit, depthEdit, upperEdit, lowerEdit, glueLengthEdit, glue
 var strokeWeightEdit, strokeColorList
 var prefs = preferences2.resolve('dielines/add_paperbag')
 
-dialog.hgroup(function(main) {
-  main.vgroup(function(topGroup) {
-    topGroup.vpanel('Area', function(panel) {
-      panel.alignChildren = 'right'
-      panel.hgroup(function(midGroup) {
-        midGroup.hgroup(function(group) {
-          group.helpTips = R.string.tip_addpaperbagdielines_width
-          group.leftStaticText(undefined, R.string.width)
-          widthEdit = group.editText(SIZE_EDIT, prefs.getString('width', '210 mm'))
-            .also(function(it) {
-              it.validateUnits()
-              it.activate()
-            })
-        })
-        midGroup.hgroup(function(group) {
-          group.helpTips = R.string.tip_addpaperbagdielines_height
-          group.leftStaticText(SIZE_TEXT_DIVIDER, R.string.height)
-          heightEdit = group.editText(SIZE_EDIT, prefs.getString('height', '297 mm'))
-            .also(VALIDATE_UNITS)
-        })
+dialog.vgroup(function(main) {
+  main.vpanel('Area', function(panel) {
+    panel.alignChildren = 'right'
+    panel.hgroup(function(line) {
+      line.hgroup(function(group) {
+        group.helpTips = R.string.tip_addpaperbagdielines_width
+        group.leftStaticText(undefined, R.string.width)
+        widthEdit = group.editText(SIZE_EDIT, prefs.getString('width', '210 mm'))
+          .also(function(it) {
+            it.validateUnits()
+            it.activate()
+          })
       })
-      panel.hgroup(function(midGroup) {
-        midGroup.hgroup(function(group) {
-          group.helpTips = R.string.tip_addpaperbagdielines_depth
-          group.leftStaticText(undefined, R.string.depth)
-          depthEdit = group.editText(SIZE_EDIT, prefs.getString('depth', '100 mm'))
-            .also(VALIDATE_UNITS)
-        })
-      })
-      panel.hgroup(function(midGroup) {
-        midGroup.hgroup(function(group) {
-          group.helpTips = R.string.tip_addpaperbagdielines_upper
-          group.leftStaticText(undefined, R.string.upper)
-          upperEdit = group.editText(SIZE_EDIT, prefs.getString('upper', '30 mm'))
-            .also(VALIDATE_UNITS)
-        })
-        midGroup.hgroup(function(group) {
-          group.helpTips = R.string.tip_addpaperbagdielines_lower
-          group.leftStaticText(SIZE_TEXT_DIVIDER, R.string.lower)
-          lowerEdit = group.editText(SIZE_EDIT, prefs.getString('lower', '60 mm'))
-            .also(VALIDATE_UNITS)
-        })
-      })
-      panel.hgroup(function(midGroup) {
-        midGroup.hgroup(function(group) {
-          group.helpTips = R.string.tip_addpaperbagdielines_glue
-          group.leftStaticText(undefined, R.string.glue)
-          glueLengthEdit = group.editText(SIZE_EDIT, prefs.getString('glue_length', '20 mm'))
-            .also(VALIDATE_UNITS)
-        })
-        midGroup.hgroup(function(group) {
-          group.helpTips = R.string.tip_addpaperbagdielines_shear
-          group.leftStaticText(SIZE_TEXT_DIVIDER, R.string.shear)
-          glueShearEdit = group.editText(SIZE_EDIT, prefs.getString('glue_shear', '5 mm'))
-            .also(VALIDATE_UNITS)
-        })
+      line.hgroup(function(group) {
+        group.helpTips = R.string.tip_addpaperbagdielines_height
+        group.leftStaticText(SIZE_TEXT_DIVIDER, R.string.height)
+        heightEdit = group.editText(SIZE_EDIT, prefs.getString('height', '297 mm'))
+          .also(VALIDATE_UNITS)
       })
     })
-    topGroup.vpanel(R.string.stroke, function(panel) {
-      panel.hgroup(function(midGroup) {
-        midGroup.hgroup(function(group) {
-          group.helpTips = R.string.tip_addpaperbagdielines_strokeweight
-          group.leftStaticText(undefined, R.string.weight)
-          strokeWeightEdit = group.editText(SIZE_EDIT, prefs.getString('stroke_weight', '1 pt'))
-            .also(VALIDATE_UNITS)
-        })
-        midGroup.hgroup(function(group) {
-          group.helpTips = R.string.tip_addpaperbagdielines_strokecolor
-          group.leftStaticText(SIZE_TEXT_DIVIDER, R.string.color)
-          strokeColorList = group.dropDownList(SIZE_EDIT, Color2.list()).also(function(it) {
-            it.selection = prefs.getInt('stroke_color')
-          })
+    panel.hgroup(function(line) {
+      line.hgroup(function(group) {
+        group.helpTips = R.string.tip_addpaperbagdielines_depth
+        group.leftStaticText(undefined, R.string.depth)
+        depthEdit = group.editText(SIZE_EDIT, prefs.getString('depth', '100 mm'))
+          .also(VALIDATE_UNITS)
+      })
+    })
+    panel.hgroup(function(line) {
+      line.hgroup(function(group) {
+        group.helpTips = R.string.tip_addpaperbagdielines_upper
+        group.leftStaticText(undefined, R.string.upper)
+        upperEdit = group.editText(SIZE_EDIT, prefs.getString('upper', '30 mm'))
+          .also(VALIDATE_UNITS)
+      })
+      line.hgroup(function(group) {
+        group.helpTips = R.string.tip_addpaperbagdielines_lower
+        group.leftStaticText(SIZE_TEXT_DIVIDER, R.string.lower)
+        lowerEdit = group.editText(SIZE_EDIT, prefs.getString('lower', '60 mm'))
+          .also(VALIDATE_UNITS)
+      })
+    })
+    panel.hgroup(function(line) {
+      line.hgroup(function(group) {
+        group.helpTips = R.string.tip_addpaperbagdielines_glue
+        group.leftStaticText(undefined, R.string.glue)
+        glueLengthEdit = group.editText(SIZE_EDIT, prefs.getString('glue_length', '20 mm'))
+          .also(VALIDATE_UNITS)
+      })
+      line.hgroup(function(group) {
+        group.helpTips = R.string.tip_addpaperbagdielines_shear
+        group.leftStaticText(SIZE_TEXT_DIVIDER, R.string.shear)
+        glueShearEdit = group.editText(SIZE_EDIT, prefs.getString('glue_shear', '5 mm'))
+          .also(VALIDATE_UNITS)
+      })
+    })
+  })
+  main.vpanel(R.string.stroke, function(panel) {
+    panel.hgroup(function(line) {
+      line.hgroup(function(group) {
+        group.helpTips = R.string.tip_addpaperbagdielines_strokeweight
+        group.leftStaticText(undefined, R.string.weight)
+        strokeWeightEdit = group.editText(SIZE_EDIT, prefs.getString('stroke_weight', '1 pt'))
+          .also(VALIDATE_UNITS)
+      })
+      line.hgroup(function(group) {
+        group.helpTips = R.string.tip_addpaperbagdielines_strokecolor
+        group.leftStaticText(SIZE_TEXT_DIVIDER, R.string.color)
+        strokeColorList = group.dropDownList(SIZE_EDIT, Color2.list()).also(function(it) {
+          it.selection = prefs.getInt('stroke_color')
         })
       })
     })
@@ -219,6 +217,7 @@ function createLine(weight, color, positions) {
 function createDash(weight, color, positions) {
   var path = layer.pathItems.add()
   path.filled = false
+  path.strokeDashOffset = 12
   path.strokeDashes = [12]
   path.strokeColor = color.get()
   path.strokeWidth = weight

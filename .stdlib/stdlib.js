@@ -1,3 +1,5 @@
+/*<javascriptresource><menu>hide</menu></javascriptresource>*/
+
 //@include 'resources/base.js'
 //@include 'resources/plurals.js'
 //@include 'resources/strings.js'

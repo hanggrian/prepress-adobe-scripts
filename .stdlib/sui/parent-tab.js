@@ -1,3 +1,5 @@
+/*<javascriptresource><menu>hide</menu></javascriptresource>*/
+
 /**
  * Add horizontal parent to tabbed panel.
  * @param {?string|?Object=} text

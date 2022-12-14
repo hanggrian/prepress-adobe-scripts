@@ -25,8 +25,8 @@ var currentTab = R.string.glue_flap // do not use tabbedpanel.selection as it cr
 
 dialog.hgroup(function(main) {
   main.alignChildren = 'fill'
-  main.hgroup(function(topGroup) {
-    topGroup.vpanel(R.string.flap, function(panel) {
+  main.hgroup(function(leftPane) {
+    leftPane.vpanel(R.string.flap, function(panel) {
       panel.alignChildren = 'right'
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_length
@@ -59,9 +59,9 @@ dialog.hgroup(function(main) {
       })
     })
   })
-  tabbedPanel = main.tabbedPanel(function(panel) {
-    panel.preferredSize = [200, 0]
-    panel.vtab(R.string.glue_flap, function(tab) {
+  tabbedPanel = main.tabbedPanel(function(rightPane) {
+    rightPane.preferredSize = [200, 0]
+    rightPane.vtab(R.string.glue_flap, function(tab) {
       tab.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_glueflap_shear
         group.leftStaticText(SIZE_LABEL_TAB, R.string.shear)
@@ -88,7 +88,7 @@ dialog.hgroup(function(main) {
         tuckDistanceEdit = group.editText(SIZE_EDIT, '0 mm').also(VALIDATE_UNITS)
       })
     }) */
-    panel.vtab(R.string.dust_flap, function(tab) {
+    rightPane.vtab(R.string.dust_flap, function(tab) {
       tab.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_dustflap_shoulder
         group.leftStaticText(SIZE_LABEL_TAB, R.string.shoulder)
@@ -100,11 +100,11 @@ dialog.hgroup(function(main) {
         dustDistanceEdit = group.editText(SIZE_INPUT, '0 mm').also(VALIDATE_UNITS)
       })
     })
-    panel.addChangeListener(function() {
-      if (panel.selection === null) {
+    rightPane.addChangeListener(function() {
+      if (rightPane.selection === null) {
         return
       }
-      currentTab = panel.selection.text
+      currentTab = rightPane.selection.text
       if (currentTab === R.string.glue_flap) {
         glueShearEdit.activate()
       } else if (currentTab === R.string.tuck_flap) {

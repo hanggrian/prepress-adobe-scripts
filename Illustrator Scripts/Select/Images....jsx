@@ -33,57 +33,59 @@ var embeddedList, overprintList, statusList
 var recursiveCheck
 var prefs = preferences2.resolve('select/images')
 
-dialog.hgroup(function(main) {
-  main.alignChildren = 'fill'
-  main.vgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    dimensionPanel = new SelectDimensionPanel(topGroup, SIZE_INPUT)
-    topGroup.vpanel(R.string.image, function(panel) {
-      panel.alignChildren = 'right'
-      panel.hgroup(function(group) {
-        group.helpTips = R.string.tip_selectimage_colorspace
-        group.leftStaticText(undefined, R.string.color_space)
-        colorSpaceList = group.dropDownList(SIZE_INPUT, ImageColor.list())
+dialog.vgroup(function(main) {
+  main.hgroup(function(rootPane) {
+    rootPane.alignChildren = 'fill'
+    rootPane.vgroup(function (leftPane) {
+      leftPane.alignChildren = 'fill'
+      dimensionPanel = new SelectDimensionPanel(leftPane, SIZE_INPUT)
+      leftPane.vpanel(R.string.image, function(panel) {
+        panel.alignChildren = 'right'
+        panel.hgroup(function(group) {
+          group.helpTips = R.string.tip_selectimage_colorspace
+          group.leftStaticText(undefined, R.string.color_space)
+          colorSpaceList = group.dropDownList(SIZE_INPUT, ImageColor.list())
+        })
+        panel.hgroup(function(group) {
+          group.helpTips = R.string.tip_selectimage_bitsperchannel
+          group.leftStaticText(undefined, R.string.bits_per_channel)
+          bitsEdit = group.editText(SIZE_INPUT).also(VALIDATE_DIGITS)
+        })
+        panel.hgroup(function(group) {
+          group.helpTips = R.string.tip_selectimage_transparent
+          group.leftStaticText(undefined, R.string.transparent)
+          transparentList = group.dropDownList(SIZE_INPUT, SelectOption.list())
+        })
       })
-      panel.hgroup(function(group) {
-        group.helpTips = R.string.tip_selectimage_bitsperchannel
-        group.leftStaticText(undefined, R.string.bits_per_channel)
-        bitsEdit = group.editText(SIZE_INPUT).also(VALIDATE_DIGITS)
-      })
-      panel.hgroup(function(group) {
-        group.helpTips = R.string.tip_selectimage_transparent
-        group.leftStaticText(undefined, R.string.transparent)
-        transparentList = group.dropDownList(SIZE_INPUT, SelectOption.list())
+    })
+    rootPane.vgroup(function (rightPane) {
+      rightPane.alignChildren = 'fill'
+      rightPane.vpanel(R.string.others, function(panel) {
+        panel.alignChildren = 'right'
+        panel.hgroup(function(group) {
+          group.helpTips = R.string.tip_selectimage_embedded
+          group.leftStaticText(undefined, R.string.embedded)
+          embeddedList = group.dropDownList(SIZE_INPUT, SelectOption.list())
+        })
+        panel.hgroup(function(group) {
+          group.helpTips = R.string.tip_selectimage_overprint
+          group.leftStaticText(undefined, R.string.overprint)
+          overprintList = group.dropDownList(SIZE_INPUT, SelectOption.list())
+        })
+        panel.hgroup(function(group) {
+          group.helpTips = R.string.tip_selectimage_status
+          group.leftStaticText(undefined, R.string.status)
+          statusList = group.dropDownList(SIZE_INPUT, ImageStatus.list())
+        })
       })
     })
   })
-  main.vgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    topGroup.vpanel(R.string.others, function(panel) {
-      panel.alignChildren = 'right'
-      panel.hgroup(function(group) {
-        group.helpTips = R.string.tip_selectimage_embedded
-        group.leftStaticText(undefined, R.string.embedded)
-        embeddedList = group.dropDownList(SIZE_INPUT, SelectOption.list())
-      })
-      panel.hgroup(function(group) {
-        group.helpTips = R.string.tip_selectimage_overprint
-        group.leftStaticText(undefined, R.string.overprint)
-        overprintList = group.dropDownList(SIZE_INPUT, SelectOption.list())
-      })
-      panel.hgroup(function(group) {
-        group.helpTips = R.string.tip_selectimage_status
-        group.leftStaticText(undefined, R.string.status)
-        statusList = group.dropDownList(SIZE_INPUT, ImageStatus.list())
-      })
+  if (isFilterMode) {
+    recursiveCheck = new RecursiveCheck(main).also(function(it) {
+      it.alignment = 'right'
+      it.value = prefs.getBoolean('recursive')
     })
-    if (isFilterMode) {
-      recursiveCheck = new RecursiveCheck(topGroup).also(function(it) {
-        it.alignment = 'right'
-        it.value = prefs.getBoolean('recursive')
-      })
-    }
-  })
+  }
 })
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {

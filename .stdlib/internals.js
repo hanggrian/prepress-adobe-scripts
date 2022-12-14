@@ -1,3 +1,5 @@
+/*<javascriptresource><menu>hide</menu></javascriptresource>*/
+
 var Internals = {
 
   /**

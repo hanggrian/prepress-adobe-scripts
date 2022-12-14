@@ -143,18 +143,18 @@ function OpenDocumentPanel(parent) {
   self.alignChildren = 'right'
   self.alignment = 'fill'
 
-  self.hgroup(function(rootGroup) {
-    rootGroup.vgroup(function(topGroup) {
-      topGroup.alignChildren = 'right'
-      topGroup.hgroup(function(group) {
+  self.hgroup(function(rootPane) {
+    rootPane.vgroup(function(leftPane) {
+      leftPane.alignChildren = 'right'
+      leftPane.hgroup(function(group) {
         group.leftStaticText(undefined, R.string.width)
         self.widthEdit = group.editText(SIZE_DOCUMENT_INPUT, '0 mm').also(VALIDATE_UNITS)
       })
-      topGroup.hgroup(function(group) {
+      leftPane.hgroup(function(group) {
         group.leftStaticText(undefined, R.string.height)
         self.heightEdit = group.editText(SIZE_DOCUMENT_INPUT, '0 mm').also(VALIDATE_UNITS)
       })
-      topGroup.hgroup(function(group) {
+      leftPane.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_units
         group.leftStaticText(undefined, R.string.units)
         self.unitsList = group.dropDownList(SIZE_DOCUMENT_INPUT, UnitType.list())
@@ -162,7 +162,7 @@ function OpenDocumentPanel(parent) {
             it.selection = 3
           })
       })
-      topGroup.hgroup(function(group) {
+      leftPane.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_layout
         group.leftStaticText(undefined, R.string.layout)
         self.layoutList = group.dropDownList(SIZE_DOCUMENT_INPUT, DocumentLayout.list())
@@ -170,7 +170,7 @@ function OpenDocumentPanel(parent) {
             it.selection = 0
           })
       })
-      topGroup.hgroup(function(group) {
+      leftPane.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_previewmode
         group.leftStaticText(undefined, R.string.preview_mode)
         self.previewModeList = group.dropDownList(SIZE_DOCUMENT_INPUT, DocumentPreview.list())
@@ -179,9 +179,9 @@ function OpenDocumentPanel(parent) {
           })
       })
     })
-    rootGroup.vgroup(function(topGroup) {
-      topGroup.alignChildren = 'right'
-      topGroup.hgroup(function(group) {
+    rootPane.vgroup(function(rightPane) {
+      rightPane.alignChildren = 'right'
+      rightPane.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_preset
         group.leftStaticText(undefined, R.string.preset_type)
         self.presetTypeList = group.dropDownList(SIZE_DOCUMENT_INPUT2, DocumentPreset2.list())
@@ -189,7 +189,7 @@ function OpenDocumentPanel(parent) {
             it.selection = 2
           })
       })
-      topGroup.hgroup(function(group) {
+      rightPane.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_colormode
         group.leftStaticText(undefined, R.string.color_mode)
         self.colorModeList = group.dropDownList(SIZE_DOCUMENT_INPUT2, DocumentColor.list())
@@ -197,7 +197,7 @@ function OpenDocumentPanel(parent) {
             it.selection = 1
           })
       })
-      topGroup.hgroup(function(group) {
+      rightPane.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_resolution
         group.leftStaticText(undefined, R.string.resolution)
         self.resolutionList = group.dropDownList(SIZE_DOCUMENT_INPUT2, DocumentResolution.list())
@@ -205,12 +205,12 @@ function OpenDocumentPanel(parent) {
             it.selection = 2
           })
       })
-      topGroup.hgroup(function(group) {
+      rightPane.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_column
         group.leftStaticText(undefined, R.string.column) // or row
         self.columnEdit = group.editText(SIZE_DOCUMENT_INPUT2, '2').also(VALIDATE_DIGITS)
       })
-      topGroup.hgroup(function(group) {
+      rightPane.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_spacing
         group.leftStaticText(undefined, R.string.spacing)
         self.spacingEdit = group.editText(SIZE_DOCUMENT_INPUT2, '10 mm').also(VALIDATE_UNITS)

@@ -10,9 +10,8 @@ dialog.vgroup(function(main) {
   main.hgroup(function(group) {
     group.alignChildren = 'center'
     group.image(undefined, 'logo')
-    group.staticText([300, 32],
-      getString(R.string.message_aboutscripts, 'Illustrator', clientDate.toISOString()),
-      { multiline: true })
+    group.staticText(undefined, getString(R.string.message_aboutscripts, clientDate.toISOString()),
+      STYLE_MULTILINE)
   })
   aboutPanel = new AboutPanel(main, clientDate).also(function(panel) {
     panel.preferencesThemeList.addChangeListener(function() {
@@ -26,11 +25,15 @@ dialog.vgroup(function(main) {
     panel.preferencesActivateControl.addClickListener(function() {
       preferences2.setBoolean('activate_control_on_show', panel.preferencesActivateControl.value)
     })
+    panel.preferencesShowHelp.addClickListener(function() {
+      preferences2.setBoolean('show_help_button', panel.preferencesShowHelp.value)
+    })
 
     panel.preferencesClearButton.addClickListener(function() {
       preferences2.remove('theme_dark')
       preferences2.remove('language_code')
       preferences2.remove('activate_control_on_show')
+      preferences2.remove('show_help_button')
       preferences2.resolve('artboards/reorder').run(function(it) { it.remove('order') })
       preferences2.resolve('dielines').run(function(subconfigs) {
         subconfigs.resolve('add_flap').run(function(it) {

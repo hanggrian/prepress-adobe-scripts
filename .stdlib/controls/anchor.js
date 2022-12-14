@@ -1,3 +1,5 @@
+/*<javascriptresource><menu>hide</menu></javascriptresource>*/
+
 var SIZE_ANCHOR_RADIO = [15, 15]
 
 /**

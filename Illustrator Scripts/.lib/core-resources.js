@@ -8,6 +8,7 @@ R.string.add_trim_marks = { en: "Add Trim Marks", id: "Tambah Tanda Potong" }
 R.string.affix = { en: "Affix", id: "Afiks" }
 R.string.against_black_background = { en: "Against Black Background", id: "Terhadap Latar Belakang Hitam" }
 R.string.anti_aliasing = { en: "Anti-Aliasing", id: "Anti-Aliasing" }
+R.string.anything = { en: "Anything", id: "Apapun" }
 R.string.area_text = { en: "Area Text", id: "Teks Area" }
 R.string.around_object = { en: "Around Object", id: "Sekitar Objek" }
 R.string.art_optimized = { en: "Art Optimized", id: "Optimalkan Seni" }
@@ -56,8 +57,8 @@ R.string.embedded = { en: "Embedded", id: "Tertanam" }
 R.string.error_changepage = { en: "No PDF links found in selection", id: "Tidak ada tautan PDF yang ditemukan dalam pilihan" }
 R.string.error_impose_opendocuments = { en: "Invalid document dimension", id: "Dimensi dokumen tidak valid" }
 R.string.error_impose_openpages = { en: "Pages must be divisible by %d", id: "Halaman harus habis dibagi %d" }
-R.string.error_impose_sectionsewn_exceed = { en: "Section exceeds total saddle length", id: "Bagian melebihi total panjang sadel" }
-R.string.error_impose_sectionsewn_remaining = { en: "There is still remaining saddle", id: "Masih ada keteran yang tersisa" }
+R.string.error_impose_sectionsewn_exceed = { en: "Section exceeds total sheets length", id: "Bagian melebihi total panjang lembaran" }
+R.string.error_impose_sectionsewn_remaining = { en: "There is still remaining sheets", id: "Masih ada lembaran yang tersisa" }
 R.string.error_notypes_document = { en: "No %s found in document", id: "Tidak ditemukan %s dalam dokumen" }
 R.string.error_notypes_selection = { en: "No %s found in selection", id: "Tidak ditemukan %s dalam seleksi" }
 R.string.error_preconditions_hasselection = { en: "No selection in document", id: "Tidak ada seleksi dalam dokumen" }
@@ -148,7 +149,7 @@ R.string.registration = { en: "Registration", id: "Registrasi" }
 R.string.relative_position = { en: "Relative Position", id: "Posisi Relatif" }
 R.string.relink_multipage = { en: "Relink Multipage", id: "Taut Ulang Berbeda" }
 R.string.relink_same = { en: "Relink Same", id: "Taut Ulang Sama" }
-R.string.remaining_saddles = { en: "Remaining Saddles", id: "Sisa Keteran" }
+R.string.remaining_sheets = { en: "Remaining Sheets", id: "Sisa Lembar" }
 R.string.rename_as_imposition = { en: "Rename as Imposition", id: "Ganti Nama sebagai Imposisi" }
 R.string.reorder_artboards = { en: "Reorder Artboards", id: "Susun Ulang Papan Seni" }
 R.string.resize_clipping_masks = { en: "Resize Clipping Masks", id: "Ubah Ukuran Kliping Topeng" }
@@ -294,7 +295,7 @@ R.string.tip_stepandrepeat_horizontal = { en: "Distance between arts horizontall
 R.string.tip_stepandrepeat_relativeposition = { en: "Move the object relative to its current position.", id: "Pindahkan objek relatif ke posisinya saat ini." }
 R.string.tip_stepandrepeat_vertical = { en: "Distance between arts vertically.", id: "Jarak antara seni secara vertikal." }
 R.string.to_artboards = { en: "To Artboards", id: "Ke Papan Seni" }
-R.string.total_saddles = { en: "Total Saddles", id: "Jumlah Keteran" }
+R.string.total_sheets = { en: "Total Sheets", id: "Jumlah Lembar" }
 R.string.transparent = { en: "Transparent", id: "Transparan" }
 R.string.trim_marks = { en: "Trim Marks", id: "Tanda Potong" }
 R.string.tuck_flap = { en: "Tuck Flap", id: "Lidah Selipan" }
@@ -351,6 +352,10 @@ R.plurals.plugin = {
 R.plurals.raster = {
   single: { en: "Raster", id: "Gambar" },
   plural: { en: "Rasters", id: "Gambar" },
+}
+R.plurals.sheets = {
+  single: { en: "Sheet", id: "Lembar" },
+  plural: { en: "Sheets", id: "Lembar" },
 }
 R.plurals.symbol = {
   single: { en: "Symbol", id: "Simbol" },

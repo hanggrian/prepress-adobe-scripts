@@ -16,9 +16,8 @@ dialog.vgroup(function(main) {
   main.hgroup(function(group) {
     group.alignChildren = 'center'
     group.image(undefined, 'logo')
-    group.staticText([300, 32],
-      getString(R.string.message_aboutscripts, 'Photoshop', clientDate.toISOString()),
-      { multiline: true })
+    group.staticText(undefined, getString(R.string.message_aboutscripts, clientDate.toISOString()),
+      STYLE_MULTILINE)
   })
   aboutPanel = new AboutPanel(main, clientDate).also(function(panel) {
     panel.preferencesThemeList.addChangeListener(function() {
@@ -38,12 +37,18 @@ dialog.vgroup(function(main) {
         editor.setBoolean('activate_control_on_show', panel.preferencesActivateControl.value)
       })
     })
+    panel.preferencesShowHelp.addClickListener(function() {
+      preferences2.edit(function(editor) {
+        editor.setBoolean('show_help_button', panel.preferencesShowHelp.value)
+      })
+    })
 
     panel.preferencesClearButton.addClickListener(function() {
       preferences2.edit(function(editor) {
         editor.remove('theme_dark')
         editor.remove('language_code')
         editor.remove('activate_control_on_show')
+        editor.remove('show_help_button')
       })
       preferences2.resolve('images/add_bleed').edit(function(editor) { editor.remove('length') })
       Windows.alert(R.string.done, R.string.about_scripts)

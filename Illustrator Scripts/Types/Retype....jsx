@@ -13,7 +13,7 @@ var inputEdit
 dialog.hgroup(function(main) {
   main.alignChildren = 'top'
   main.leftStaticText(undefined, R.string.content)
-  inputEdit = main.editText([400, 100], Collections.first(items).contents, { multiline: true })
+  inputEdit = main.editText([400, 100], Collections.first(items).contents, STYLE_MULTILINE)
     .also(ACTIVATE)
 })
 dialog.setCancelButton()

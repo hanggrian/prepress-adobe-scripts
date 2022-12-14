@@ -1,3 +1,5 @@
+/*<javascriptresource><menu>hide</menu></javascriptresource>*/
+
 /**
  * First item of this collection, or given predicate when defined.
  * @param {!Array<*>|!PageItems} collection

@@ -1,5 +1,9 @@
+/*<javascriptresource><menu>hide</menu></javascriptresource>*/
+
 /**
- * Set tooltip to all children.
+ * Manually set tooltip to all children. This function is intended for parent whose children are
+ * already attached. For newly created children, use `helpTips` property which will automatically be
+ * delivered to children upon attaching.
  * @param {string|!Object=} tips
  */
 Group.prototype.setHelpTips = function(tips) { Internals.setHelpTips(this, tips) }

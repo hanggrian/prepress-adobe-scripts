@@ -1,7 +1,9 @@
 // Conventions used in this library:
-// * `units` are number with unit name suffix. (e.g.: `5`, `20 mm`)
-// * `unitValue` are the number. (e.g. : `5`, `20`)
-// * `unitType` are the suffix. (e.g. : `pt`, `mm`)
+// - `units` are number with unit name suffix. (e.g.: `5`, `20 mm`)
+// - `unitValue` are the number. (e.g. : `5`, `20`)
+// - `unitType` are the suffix. (e.g. : `pt`, `mm`)
+
+/*<javascriptresource><menu>hide</menu></javascriptresource>*/
 
 /** `units` is a class in Photoshop. `rulerUnits` is a class in Illustrator. */
 var UnitType = new Enum({

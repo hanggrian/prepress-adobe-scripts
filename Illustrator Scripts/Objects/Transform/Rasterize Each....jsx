@@ -16,16 +16,16 @@ var keepSizeCheck, recursiveCheck
 var prefs = preferences2.resolve('objects/rasterize_each')
 
 dialog.vgroup(function(main) {
-  main.vgroup(function(topGroup) {
-    topGroup.alignChildren = 'right'
-    topGroup.hgroup(function(group) {
+  main.vgroup(function(topPane) {
+    topPane.alignChildren = 'right'
+    topPane.hgroup(function(group) {
       group.helpTips = R.string.tip_rasterizeeach_colormodel
       group.leftStaticText(undefined, R.string.color_model)
       colorModelList = group.dropDownList(SIZE_INPUT, COLOR_MODELS).also(function(it) {
         it.selection = 0
       })
     })
-    topGroup.hgroup(function(group) {
+    topPane.hgroup(function(group) {
       group.helpTips = R.string.tip_rasterizeeach_resolusi
       group.leftStaticText(undefined, R.string.resolution)
       resolutionEdit = group.editText(SIZE_INPUT, '300').also(function(it) {
@@ -34,18 +34,18 @@ dialog.vgroup(function(main) {
       })
     })
   })
-  main.hgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    topGroup.vgroup(function(innerGroup) {
-      innerGroup.alignChildren = 'fill'
-      backgroundPanel = innerGroup.vpanel(R.string.background, function(panel) {
+  main.hgroup(function(rootPane) {
+    rootPane.alignChildren = 'fill'
+    rootPane.vgroup(function(leftPane) {
+      leftPane.alignChildren = 'fill'
+      backgroundPanel = leftPane.vpanel(R.string.background, function(panel) {
         panel.alignChildren = 'fill'
         panel.helpTips = R.string.tip_rasterizeeach_background
         backgroundWhiteRadio = panel.radioButton(undefined, R.string.white)
         backgroundTransparentRadio = panel.radioButton(undefined, R.string.transparent)
         panel.selectRadioIndex(prefs.getInt('background'))
       })
-      antiAliasingPanel = innerGroup.vpanel(R.string.anti_aliasing, function(panel) {
+      antiAliasingPanel = leftPane.vpanel(R.string.anti_aliasing, function(panel) {
         panel.alignChildren = 'fill'
         panel.helpTips = R.string.tip_rasterizeeach_antialiasing
         antiAliasingNoneRadio = panel.radioButton(undefined, R.string.none)
@@ -54,7 +54,7 @@ dialog.vgroup(function(main) {
         panel.selectRadioIndex(prefs.getInt('anti_aliasing'))
       })
     })
-    topGroup.vpanel('Options', function(panel) {
+    rootPane.vpanel('Options', function(panel) {
       panel.alignChildren = 'fill'
       backgroundBlackCheck = panel.checkBox(undefined, R.string.against_black_background)
         .also(function(it) {

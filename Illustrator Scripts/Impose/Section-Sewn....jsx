@@ -3,12 +3,16 @@
 
 var SIZE_INPUT = [100, 21]
 var SIZE_DIVISION_EDIT = [60, 21]
-var SIZE_DIVISION_BUTTON = [21, 21]
-var SIZE_DIVISION_LIST = [60, 100]
+var SIZE_DIVISION_BUTTON = [30, 30]
+var SIZE_DIVISION_LIST = [120, 120]
 
 var dialog = new Dialog(R.string.impose_section_sewn, 'imposing-layout/#section-sewn')
 var pdfPanel, pagesPanel, documentPanel
 var rtlCheck
+
+var nextDialog = new Dialog(R.string.sections)
+var remainingSaddleText, sectionList, sectionAddEdit, sectionAddButton, sectionRemoveButton
+var sections = []
 
 var pickedFiles = FilePicker.openFile(dialog.text, FileExtension.values(), true)
 
@@ -17,13 +21,13 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
 
   dialog.vgroup(function(main) {
     main.alignChildren = 'right'
-    main.hgroup(function(topGroup) {
-      topGroup.alignChildren = 'fill'
-      topGroup.vgroup(function(group) {
+    main.hgroup(function(rootPane) {
+      rootPane.alignChildren = 'fill'
+      rootPane.vgroup(function(leftPane) {
         if (files.hasPDF) {
-          pdfPanel = new OpenPDFPanel(group, SIZE_INPUT)
+          pdfPanel = new OpenPDFPanel(leftPane, SIZE_INPUT)
         }
-        pagesPanel = new OpenPagesPanel(group, SIZE_INPUT).also(function(it) {
+        pagesPanel = new OpenPagesPanel(leftPane, SIZE_INPUT).also(function(it) {
           it.rangeGroup.startEdit.activate()
           it.rangeGroup.endEdit.text = files.length
           if (!files.isSinglePDF) {
@@ -34,7 +38,7 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
           it.bleedEdit.addChangeListener(updateDocumentDimensionText)
         })
       })
-      documentPanel = new OpenDocumentPanel(topGroup)
+      documentPanel = new OpenDocumentPanel(rootPane)
     })
     main.hgroup(function(group) {
       rtlCheck = group.checkBox(undefined, R.string.right_to_left).also(function(it) {
@@ -62,72 +66,83 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
       return Windows.alert(R.string.error_impose_opendocuments, dialog.text, true)
     }
 
-    var remainingSaddleText, sectionListBox, sectionAddEdit, sectionAddButton, sectionRemoveButton
-    var remainingSaddleLength = pageLength / 4
-    var nextDialog = new Dialog(R.string.sections)
+    var requiredSheetLength = pageLength / 4
     nextDialog.hgroup(function(main) {
       main.alignChildren = 'top'
-      main.vgroup(function(topGroup) {
-        topGroup.alignChildren = 'right'
-        topGroup.hgroup(function(group) {
-          group.leftStaticText(undefined, R.string.total_saddles)
-          group.staticText(undefined, remainingSaddleLength)
+      main.vgroup(function(rootPane) {
+        rootPane.alignChildren = 'right'
+        rootPane.hgroup(function(group) {
+          group.leftStaticText(undefined, R.string.total_sheets)
+          group.staticText(undefined, requiredSheetLength)
         })
-        topGroup.hgroup(function(group) {
-          group.leftStaticText(undefined, R.string.remaining_saddles)
-          remainingSaddleText = group.staticText(undefined, remainingSaddleLength)
+        rootPane.hgroup(function(group) {
+          group.leftStaticText(undefined, R.string.remaining_sheets)
+          remainingSaddleText = group.staticText(undefined, requiredSheetLength)
         })
-        topGroup.hgroup()
-        topGroup.hgroup(function(group) {
-          sectionAddEdit = group.editText(SIZE_DIVISION_EDIT).also(VALIDATE_DIGITS)
-          sectionAddButton = group.iconButton(SIZE_DIVISION_BUTTON, 'ic_add', STYLE_TOOLBUTTON)
+        rootPane.hgroup()
+        rootPane.hgroup(function(group) {
+          group.helpTips = R.string.tip_impose_sectionsewn_add
+          group.leftStaticText(undefined, R.string.add)
+          sectionAddEdit = group.editText(SIZE_DIVISION_EDIT).also(function(it) {
+            it.validateDigits()
+            it.activate()
+          })
+        })
+        rootPane.hgroup(function(group) {
+          sectionAddButton = group.iconButton(SIZE_DIVISION_BUTTON, 'btn_add', STYLE_TOOLBUTTON)
             .also(function(it) {
-              it.helpTip = R.string.tip_impose_sectionsewn_add
               it.addClickListener(function() {
-                var digits = parseInt(sectionAddEdit.text) || 0
-                if (digits > 0) {
-                  if (remainingSaddleLength - digits < 0) {
-                    return Windows.alert(R.string.error_impose_sectionsewn_exceed, dialog.text,
-                      true)
-                  }
-                  remainingSaddleLength -= digits
-                  remainingSaddleText.text = remainingSaddleLength
-                  sectionListBox.add('item', digits)
+                var sheetLength = parseInt(sectionAddEdit.text) || 0
+                if (sheetLength <= 0) {
+                  return
                 }
+                var currentSheetLength = getCurrentSheetLength() + sheetLength
+                if (currentSheetLength > requiredSheetLength) {
+                  return Windows.alert(R.string.error_impose_sectionsewn_exceed, dialog.text, true)
+                }
+                sections.push(sheetLength)
+                addSectionItem(sectionList.children.length, sheetLength)
+                remainingSaddleText.text = requiredSheetLength - currentSheetLength
               })
             })
-          sectionRemoveButton = group.iconButton(SIZE_DIVISION_BUTTON, 'ic_remove',
+          sectionRemoveButton = group.iconButton(SIZE_DIVISION_BUTTON, 'btn_remove',
             STYLE_TOOLBUTTON).also(function(it) {
-            it.helpTip = R.string.tip_impose_sectionsewn_remove
             it.addClickListener(function() {
-              if (sectionListBox.selection !== undefined) {
-                Collections.forEach(sectionListBox.selection, function(selected) {
-                  remainingSaddleLength += parseInt(selected.text)
-                  remainingSaddleText.text = remainingSaddleLength
-                  sectionListBox.remove(selected)
-                })
+              if (sectionList.selection === undefined) {
+                return
               }
+              // removing element in array by index is only safe to do backwards
+              // indices of list selection is not guaranteed in order, therefore sort first
+              var listItems = sectionList.selection
+              listItems.sort(function(a, b) { return b - a })
+              Collections.forEach(listItems, function(listItem) {
+                sections.splice(listItem.index, 1)
+              })
+              sectionList.removeAll()
+              Collections.forEach(sections, function(sheetLength, index) {
+                addSectionItem(index, sheetLength)
+              })
+              remainingSaddleText.text = requiredSheetLength - getCurrentSheetLength()
             })
           })
         })
       })
-      sectionListBox = main.listBox(SIZE_DIVISION_LIST, [], { multiselect: true })
-        .also(function(it) {
-          it.helpTip = R.string.tip_impose_sectionsewn_remove
-        })
+      main.sgroup()
+      sectionList = main.listBox(SIZE_DIVISION_LIST, [], { multiselect: true }).also(function(it) {
+        it.helpTip = R.string.tip_impose_sectionsewn_remove
+      })
     })
     nextDialog.setCancelButton()
     nextDialog.setDefaultButton(undefined, function() {
-      if (remainingSaddleLength !== 0) {
+      if (remainingSaddleText.text !== '0') {
         return Windows.alert(R.string.error_impose_sectionsewn_remaining, nextDialog.text, true)
       }
       var pageIndex = 0
-      Collections.forEach(sectionListBox.children, function(sectionItem) {
-        var section = parseInt(sectionItem.text)
-        var pagesInSection = section * 4
-        process(pageIndex, pageIndex + pagesInSection - 1, section * 2,
+      Collections.forEach(sections, function(sheetLength, index) {
+        var sectionPageLength = sheetLength * 4
+        process(index + 1, pageIndex, pageIndex + sectionPageLength - 1, sheetLength * 2,
           originalPageWidth, originalPageHeight, pageBleed, pageWidth, pageHeight)
-        pageIndex += pagesInSection
+        pageIndex += sectionPageLength
       })
     })
     nextDialog.show()
@@ -135,10 +150,23 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
   dialog.show()
 }
 
-function process(pageStart, pageEnd, artboardLength,
+function getCurrentSheetLength() {
+  var result = 0
+  Collections.forEach(sections, function(sheetLength) {
+    result += sheetLength
+  })
+  return result
+}
+
+function addSectionItem(index, sheetLength) {
+  sectionList.add('item', '%d. %d %s'.format(index + 1, sheetLength,
+    getPlural(R.plurals.sheets, sheetLength)))
+}
+
+function process(sectionIndex, pageStart, pageEnd, artboardLength,
   originalPageWidth, originalPageHeight, pageBleed, pageWidth, pageHeight) {
   var document = documentPanel.create(
-    '%s %d-%d'.format(R.string.section_sewn, pageStart + 1, pageEnd + 1),
+    '%s %d. %d-%d'.format(R.string.section_sewn, sectionIndex, pageStart + 1, pageEnd + 1),
     artboardLength)
   var pager = Pager.SADDLE_STITCH.get(document, pageStart, pageEnd, rtlCheck.value)
   var progress = new ProgressPalette(artboardLength, R.string.imposing)

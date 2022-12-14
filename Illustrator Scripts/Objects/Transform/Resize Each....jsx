@@ -16,9 +16,9 @@ var recursiveCheck
 var prefs = preferences2.resolve('objects/resize_each')
 
 dialog.vgroup(function(main) {
-  main.vgroup(function(topGroup) {
-    topGroup.alignChildren = 'right'
-    topGroup.hgroup(function(group) {
+  main.vgroup(function(topPane) {
+    topPane.alignChildren = 'right'
+    topPane.hgroup(function(group) {
       group.leftStaticText(undefined, R.string.width)
       widthEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitType, 2))
         .also(function(it) {
@@ -30,7 +30,7 @@ dialog.vgroup(function(main) {
         it.addClickListener(function() { widthEdit.enabled = it.value })
       })
     })
-    topGroup.hgroup(function(group) {
+    topPane.hgroup(function(group) {
       group.leftStaticText(undefined, R.string.height)
       heightEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitType, 2))
         .also(VALIDATE_UNITS)
@@ -40,9 +40,9 @@ dialog.vgroup(function(main) {
       })
     })
   })
-  main.hgroup(function(group) {
-    group.alignChildren = 'fill'
-    group.vpanel(R.string.change, function(panel) {
+  main.hgroup(function(rootPane) {
+    rootPane.alignChildren = 'fill'
+    rootPane.vpanel(R.string.change, function(panel) {
       panel.alignChildren = 'fill'
       changePositionsCheck = panel.checkBox(undefined, R.string.positions).also(function(it) {
         it.helpTip = R.string.tip_resizeeach_option1
@@ -64,7 +64,7 @@ dialog.vgroup(function(main) {
           it.value = prefs.getBoolean('option4')
         })
     })
-    group.vpanel(R.string.anchor, function(panel) {
+    rootPane.vpanel(R.string.anchor, function(panel) {
       panel.alignChildren = 'fill'
       documentOriginCheck = new DocumentOriginCheck(panel).also(function(it) {
         it.addClickListener(function() { anchorGroup.enabled = !it.value })

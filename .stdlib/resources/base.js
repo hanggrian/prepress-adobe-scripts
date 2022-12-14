@@ -1,3 +1,5 @@
+/*<javascriptresource><menu>hide</menu></javascriptresource>*/
+
 // replacement of JSON files in resources because JSON parsing isn't officialy supported by ExtendScript
 var R = {}
 

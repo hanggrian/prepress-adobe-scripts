@@ -1,3 +1,5 @@
+/*<javascriptresource><menu>hide</menu></javascriptresource>*/
+
 /**
  * E.g.: 2022-07-20T07:09:04Z
  * @param {string} date

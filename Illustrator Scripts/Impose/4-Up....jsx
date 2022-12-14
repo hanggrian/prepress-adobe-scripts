@@ -14,13 +14,13 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
 
   dialog.vgroup(function(main) {
     main.alignChildren = 'right'
-    main.hgroup(function(topGroup) {
-      topGroup.alignChildren = 'fill'
-      topGroup.vgroup(function(group) {
+    main.hgroup(function(rootPane) {
+      rootPane.alignChildren = 'fill'
+      rootPane.vgroup(function(leftPane) {
         if (files.hasPDF) {
-          pdfPanel = new OpenPDFPanel(group, SIZE_INPUT)
+          pdfPanel = new OpenPDFPanel(leftPane, SIZE_INPUT)
         }
-        pagesPanel = new OpenPagesPanel(group, SIZE_INPUT).also(function(it) {
+        pagesPanel = new OpenPagesPanel(leftPane, SIZE_INPUT).also(function(it) {
           it.rangeGroup.startEdit.activate()
           it.rangeGroup.endEdit.text = files.length
           if (!files.isSinglePDF) {
@@ -31,7 +31,7 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
           it.bleedEdit.addChangeListener(updateDocumentDimensionText)
         })
       })
-      documentPanel = new OpenDocumentPanel(topGroup)
+      documentPanel = new OpenDocumentPanel(rootPane)
     })
     nupGroup = new NUpOptionsGroup(main).also(function(it) {
       it.foldingCheck.addClickListener(updateDocumentDimensionText)

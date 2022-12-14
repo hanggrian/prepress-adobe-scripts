@@ -1,3 +1,5 @@
+/*<javascriptresource><menu>hide</menu></javascriptresource>*/
+
 /**
  * Any number of radio buttons with their disability attached to left checkbox.
  * @param {!Group|!Panel|!Window} parent

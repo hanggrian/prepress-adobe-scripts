@@ -1,8 +1,4 @@
-/*
-<javascriptresource>
-<menu>hide</menu>
-</javascriptresource>
-*/
+/*<javascriptresource><menu>hide</menu></javascriptresource>*/
 
 var OPEN_PDFBOXTYPES = ['Bounding', '-', 'Art', 'Crop', 'Trim', 'Bleed', 'Media']
 var OPEN_DOCUMENTMODES = ['Bitmap', 'CMYK', 'Grayscale', 'Lab', 'RBG']

@@ -1,6 +1,8 @@
 // Core libraries are base of all scripts,
 // providing tools for creating new document or modifying current document.
 
+/*<javascriptresource><menu>hide</menu></javascriptresource>*/
+
 //@include '../../.stdlib/stdlib.js'
 
 //@include 'core-resources.js'

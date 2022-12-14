@@ -1,3 +1,5 @@
+// Currently only works if ruler settings is set to MM or CM.
+
 /*
 <javascriptresource>
 <name>Add Bleed to Images...</name>
@@ -11,8 +13,8 @@
 
 var dialog = new Dialog(R.string.add_bleed_to_images, 'add-bleed-to-images/')
 var lengthEdit
-var anchorGroup
 var flattenImageCheck, guidesMultiRadioGroup, selectBleedCheck, correctionEdit
+var anchorGroup
 var prefs = preferences2.resolve('images/add_bleed')
 
 dialog.vgroup(function(main) {
@@ -25,12 +27,9 @@ dialog.vgroup(function(main) {
       it.activate()
     })
   })
-  main.hgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    topGroup.vpanel(R.string.anchor, function(panel) {
-      anchorGroup = new AnchorGroup(panel)
-    })
-    topGroup.vpanel(R.string.options, function(group) {
+  main.hgroup(function(rootPane) {
+    rootPane.alignChildren = 'fill'
+    rootPane.vpanel(R.string.options, function(group) {
       group.alignChildren = 'fill'
       flattenImageCheck = group.checkBox(undefined, R.string.flatten_image).also(function(it) {
         it.helpTip = R.string.tip_addbleedtoimages_flatten
@@ -62,6 +61,9 @@ dialog.vgroup(function(main) {
         innerGroup.staticText(undefined, R.string.correction)
       })
     })
+    rootPane.vpanel(R.string.anchor, function(panel) {
+      anchorGroup = new AnchorGroup(panel)
+    })
   })
 })
 dialog.setCancelButton()
@@ -89,7 +91,8 @@ function process(document, bleed, anchor, correction) {
   app.activeDocument = document
   var pushLeft = false, pushTop = false, pushRight = false, pushBottom = false
   var guideLeft = false, guideTop = false, guideRight = false, guideBottom = false
-  var targetWidth = document.width, targetHeight = document.height
+  var targetWidth = document.width
+  var targetHeight = document.height
 
   if (anchorGroup.isCenter()) {
     pushTop = true

@@ -1,3 +1,5 @@
+/*<javascriptresource><menu>hide</menu></javascriptresource>*/
+
 /**
  * Throws an error if the input is false. Error message is always suffixed with period by SUI.
  * @param {boolean} value

@@ -8,7 +8,7 @@ var dialog = new Dialog(R.string.reorder_artboards,
 var orderingList
 var prefs = preferences2.resolve('artboards/reorder')
 
-dialog.vgroup(function(main) {
+dialog.hgroup(function(main) {
   orderingList = new OrderingList(main, [Ordering.nameList(), Ordering.positionList()]).also(
     function(it) {
       it.minimumSize.width = 230

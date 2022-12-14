@@ -1,3 +1,5 @@
+/*<javascriptresource><menu>hide</menu></javascriptresource>*/
+
 var Windows = {
   /**
    * Show alert with values from resources. The message are always suffixed with period, just like

@@ -1,3 +1,5 @@
+/*<javascriptresource><menu>hide</menu></javascriptresource>*/
+
 /**
  * Alert is a simpler dialog containing only text.
  * @param {string|!Object} title
@@ -40,8 +42,8 @@ function Dialog(title, helpUrlSuffix) {
   Internals.addGroup(self, 'row', function(buttons) {
     buttons.alignment = 'fill'
 
-    if (helpUrlSuffix !== undefined) {
-      self.helpIconButton = buttons.iconButton(undefined, 'ic_help', STYLE_TOOLBUTTON)
+    if (helpUrlSuffix !== undefined && preferences2.getBoolean('show_help_button')) {
+      self.helpIconButton = buttons.iconButton(undefined, 'btn_help', STYLE_TOOLBUTTON)
         .also(function(it) {
           it.alignment = ['left', 'center']
           it.helpTip = R.string.tip_whatsthis

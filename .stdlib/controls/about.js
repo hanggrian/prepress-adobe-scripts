@@ -1,3 +1,5 @@
+/*<javascriptresource><menu>hide</menu></javascriptresource>*/
+
 var SIZE_ABOUT_TAB = [400, 100]
 var MARGINS_ABOUT_TAB = [10, 0, 10, 0]
 
@@ -13,7 +15,7 @@ function AboutPanel(parent, clientDate) {
 
   var self = parent.tabbedPanel()
   self.preferencesTab, self.preferencesThemeList, self.preferencesLanguageList,
-    self.preferencesActivateControl, self.preferencesClearButton
+    self.preferencesActivateControl, self.preferencesShowHelp, self.preferencesClearButton
   self.updatesTab, self.updatesStatusText, self.updatesDownloadButton
   self.licensingTab
 
@@ -28,7 +30,7 @@ function AboutPanel(parent, clientDate) {
         .also(function(it) {
           it.selection = preferences2.getBoolean('theme_dark') ? 0 : 1
         })
-      group.hgroup(); group.hgroup() // 2x divider
+      group.sgroup()
       group.helpTips = R.string.tip_aboutscripts_language
       group.leftStaticText(undefined, R.string.language)
       self.preferencesLanguageList = group.dropDownList(undefined, Language.list())
@@ -43,6 +45,13 @@ function AboutPanel(parent, clientDate) {
         R.string.activate_control_on_start).also(function(it) {
         it.value = preferences2.getBoolean('activate_control_on_show')
       })
+    })
+    tab.hgroup(function(group) {
+      group.helpTips = R.string.tip_aboutscripts_showhelpbutton
+      self.preferencesShowHelp = group.checkBox(undefined, R.string.show_help_button)
+        .also(function(it) {
+          it.value = preferences2.getBoolean('show_help_button')
+        })
     })
     self.preferencesClearButton = tab.button(undefined, R.string.clear_preferences)
       .also(function(it) {

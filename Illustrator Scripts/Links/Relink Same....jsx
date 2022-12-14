@@ -66,7 +66,7 @@ function relink(item, file) {
   var position = item.position
   if (file.isPdf() && Items.isLinkExists(item) && item.file.isPdf()) {
     print('Appling PDF fix, ')
-    item.file = getImage('relink_fix')
+    item.file = getImage('fix_relinkpdf')
   }
   item.file = file
   if (keepSizeCheck.value) {

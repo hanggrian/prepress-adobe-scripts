@@ -85,7 +85,7 @@ function relink(item) {
   var height = item.height
   var position = item.position
   var file = item.file
-  item.file = getImage('relink_fix') // Apply PDF fix
+  item.file = getImage('fix_relinkpdf')
   item.file = file
   if (keepSizeCheck.value) {
     print('Keep size, ')

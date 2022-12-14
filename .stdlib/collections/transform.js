@@ -1,3 +1,5 @@
+/*<javascriptresource><menu>hide</menu></javascriptresource>*/
+
 /**
  * Returns an array containing the results of applying the given transform function.
  * @param {!Array<*>|!PageItems} collection

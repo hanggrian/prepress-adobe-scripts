@@ -18,78 +18,80 @@ var clippingList, closedList, guidesList
 var recursiveCheck
 var prefs = preferences2.resolve('select/paths')
 
-dialog.hgroup(function(main) {
-  main.alignChildren = 'fill'
-  main.vgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    topGroup.vpanel(R.string.fill, function(panel) {
-      panel.alignChildren = 'right'
-      panel.hgroup(function(group) {
-        group.helpTips = R.string.tip_selectpaths_fillcolor
-        group.leftStaticText(undefined, R.string.color)
-        fillColorList = group.dropDownList(SIZE_INPUT, Color2.list())
-      })
-      panel.hgroup(function(group) {
-        group.helpTips = R.string.tip_selectpaths_filloverprint
-        group.leftStaticText(undefined, R.string.overprint)
-        fillOverprintList = group.dropDownList(SIZE_INPUT, SelectOption.list())
-      })
-    })
-    topGroup.vpanel(R.string.stroke, function(panel) {
-      panel.alignChildren = 'right'
-      panel.hgroup(function(group) {
-        group.helpTips = R.string.tip_selectpaths_strokecolor
-        group.leftStaticText(undefined, R.string.color)
-        strokeColorList = group.dropDownList(SIZE_INPUT, Color2.list())
-      })
-      panel.hgroup(function(group) {
-        group.helpTips = R.string.tip_selectpaths_strokeweight
-        group.leftStaticText(undefined, R.string.weight)
-        strokeWeightEdit = group.editText(SIZE_INPUT).also(function(it) {
-          it.validateUnits()
-          it.activate()
+dialog.vgroup(function(main) {
+  main.hgroup(function(rootPane) {
+    rootPane.alignChildren = 'fill'
+    rootPane.vgroup(function(leftPane) {
+      leftPane.alignChildren = 'fill'
+      leftPane.vpanel(R.string.fill, function(panel) {
+        panel.alignChildren = 'right'
+        panel.hgroup(function(group) {
+          group.helpTips = R.string.tip_selectpaths_fillcolor
+          group.leftStaticText(undefined, R.string.color)
+          fillColorList = group.dropDownList(SIZE_INPUT, Color2.list())
+        })
+        panel.hgroup(function(group) {
+          group.helpTips = R.string.tip_selectpaths_filloverprint
+          group.leftStaticText(undefined, R.string.overprint)
+          fillOverprintList = group.dropDownList(SIZE_INPUT, SelectOption.list())
         })
       })
-      panel.hgroup(function(group) {
-        group.helpTips = R.string.tip_selectpaths_strokedashed
-        group.leftStaticText(undefined, R.string.dashed)
-        strokeDashedList = group.dropDownList(SIZE_INPUT, SelectOption.list())
+      leftPane.vpanel(R.string.stroke, function(panel) {
+        panel.alignChildren = 'right'
+        panel.hgroup(function(group) {
+          group.helpTips = R.string.tip_selectpaths_strokecolor
+          group.leftStaticText(undefined, R.string.color)
+          strokeColorList = group.dropDownList(SIZE_INPUT, Color2.list())
+        })
+        panel.hgroup(function(group) {
+          group.helpTips = R.string.tip_selectpaths_strokeweight
+          group.leftStaticText(undefined, R.string.weight)
+          strokeWeightEdit = group.editText(SIZE_INPUT).also(function(it) {
+            it.validateUnits()
+            it.activate()
+          })
+        })
+        panel.hgroup(function(group) {
+          group.helpTips = R.string.tip_selectpaths_strokedashed
+          group.leftStaticText(undefined, R.string.dashed)
+          strokeDashedList = group.dropDownList(SIZE_INPUT, SelectOption.list())
+        })
+        panel.hgroup(function(group) {
+          group.helpTips = R.string.tip_selectpaths_strokeoverprint
+          group.leftStaticText(undefined, R.string.overprint)
+          strokeOverprintList = group.dropDownList(SIZE_INPUT, SelectOption.list())
+        })
       })
-      panel.hgroup(function(group) {
-        group.helpTips = R.string.tip_selectpaths_strokeoverprint
-        group.leftStaticText(undefined, R.string.overprint)
-        strokeOverprintList = group.dropDownList(SIZE_INPUT, SelectOption.list())
+    })
+    rootPane.vgroup(function(rightPane) {
+      rightPane.alignChildren = 'fill'
+      dimensionPanel = new SelectDimensionPanel(rightPane, SIZE_INPUT)
+      rightPane.vpanel(R.string.others, function(panel) {
+        panel.alignChildren = 'right'
+        panel.hgroup(function(group) {
+          group.helpTips = R.string.tip_selectpaths_clipping
+          group.leftStaticText(undefined, R.string.clipping)
+          clippingList = group.dropDownList(SIZE_INPUT, SelectOption.list())
+        })
+        panel.hgroup(function(group) {
+          group.helpTips = R.string.tip_selectpaths_closed
+          group.leftStaticText(undefined, R.string.closed)
+          closedList = group.dropDownList(SIZE_INPUT, SelectOption.list())
+        })
+        panel.hgroup(function(group) {
+          group.helpTips = R.string.tip_selectpaths_guides
+          group.leftStaticText(undefined, R.string.guides)
+          guidesList = group.dropDownList(SIZE_INPUT, SelectOption.list())
+        })
       })
     })
   })
-  main.vgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    dimensionPanel = new SelectDimensionPanel(topGroup, SIZE_INPUT)
-    topGroup.vpanel(R.string.others, function(panel) {
-      panel.alignChildren = 'right'
-      panel.hgroup(function(group) {
-        group.helpTips = R.string.tip_selectpaths_clipping
-        group.leftStaticText(undefined, R.string.clipping)
-        clippingList = group.dropDownList(SIZE_INPUT, SelectOption.list())
-      })
-      panel.hgroup(function(group) {
-        group.helpTips = R.string.tip_selectpaths_closed
-        group.leftStaticText(undefined, R.string.closed)
-        closedList = group.dropDownList(SIZE_INPUT, SelectOption.list())
-      })
-      panel.hgroup(function(group) {
-        group.helpTips = R.string.tip_selectpaths_guides
-        group.leftStaticText(undefined, R.string.guides)
-        guidesList = group.dropDownList(SIZE_INPUT, SelectOption.list())
-      })
+  if (isFilterMode) {
+    recursiveCheck = new RecursiveCheck(main).also(function(it) {
+      it.alignment = 'right'
+      it.value = prefs.getBoolean('recursive')
     })
-    if (isFilterMode) {
-      recursiveCheck = new RecursiveCheck(topGroup).also(function(it) {
-        it.alignment = 'right'
-        it.value = prefs.getBoolean('recursive')
-      })
-    }
-  })
+  }
 })
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {

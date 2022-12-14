@@ -17,9 +17,9 @@ var prefs = preferences2.resolve('objects/add_trim_marks')
 
 dialog.vgroup(function(main) {
   main.alignChildren = 'right'
-  main.hgroup(function(topGroup) {
-    topGroup.alignChildren = 'fill'
-    topGroup.vpanel(R.string.trim_marks, function(panel) {
+  main.hgroup(function(rootPane) {
+    rootPane.alignChildren = 'fill'
+    rootPane.vpanel(R.string.trim_marks, function(panel) {
       panel.alignChildren = 'right'
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addtrimmarks_offset
@@ -50,7 +50,7 @@ dialog.vgroup(function(main) {
         })
       })
     })
-    topGroup.vpanel(R.string.locations, function(panel) {
+    rootPane.vpanel(R.string.locations, function(panel) {
       panel.hgroup(function(group) {
         group.staticText(SIZE_CHECK)
         topLeftMarkCheck = group.checkBox(SIZE_CHECK).also(function(it) {
