@@ -13,8 +13,8 @@ function AlertDialog(title, message, error, helpUrlSuffix) {
   }
 
   var self = new Dialog(title, helpUrlSuffix)
-  self.buttonMaxHeight = 20
-  self.buttonActivateDefault = true
+  self._buttonMaxHeight = 20
+  self._buttonActivateDefault = true
   self.hgroup(function(main) {
     main.image(undefined, error ? 'alert_error' : 'alert_warning')
     main.staticText(undefined, message)
@@ -30,6 +30,7 @@ function AlertDialog(title, message, error, helpUrlSuffix) {
  */
 function Dialog(title, helpUrlSuffix) {
   var self = new Window('dialog', title)
+  self.alignChildren = 'fill'
   self.orientation = 'column'
   self.defaultButton, self.yesButton, self.cancelButton, self.helpButton, self.helpIconButton
 
@@ -37,22 +38,22 @@ function Dialog(title, helpUrlSuffix) {
 
   // main content
   self.main = self.add('group')
+  self.main.alignChildren = 'fill'
 
   // buttons
   Internals.addGroup(self, 'row', function(buttons) {
-    buttons.alignment = 'fill'
+    var alignLeft = function(container) { container.alignment = ['left', 'center'] }
+    var alignRight = function(container) { container.alignment = ['right', 'center'] }
 
-    if (helpUrlSuffix !== undefined && preferences2.getBoolean('show_help_button')) {
+    if (helpUrlSuffix !== undefined) {
       self.helpIconButton = buttons.iconButton(undefined, 'btn_help', STYLE_TOOLBUTTON)
-        .also(function(it) {
-          it.alignment = ['left', 'center']
+        .apply(function(it) {
+          alignLeft(it)
           it.helpTip = R.string.tip_whatsthis
           it.addClickListener(function() { Scripts.openUrl(Scripts.URL_WEBSITE + helpUrlSuffix) })
         })
     }
-    helpButtonContainer = buttons.sgroup(
-      function(container) { container.alignment = ['left', 'center'] })
-    var alignRight = function(container) { container.alignment = ['right', 'center'] }
+    helpButtonContainer = buttons.sgroup(alignLeft)
     if (Scripts.OS_MAC) {
       yesButtonContainer = buttons.sgroup(alignRight)
       cancelButtonContainer = buttons.sgroup(alignRight)
@@ -94,11 +95,7 @@ function Dialog(title, helpUrlSuffix) {
   self.setDefaultButton = function(text, action) {
     text = text || 'OK'
     self.defaultButton = appendButton(defaultButtonContainer, text, action, { name: 'ok' })
-    if (self.buttonActivateDefault) {
-      // skip Illustrator on Windows, see `child-edittext` for more
-      if (!Scripts.OS_MAC && Scripts.APP_AI) {
-        return
-      }
+    if (self._buttonActivateDefault) {
       self.defaultButton.active = true
     }
   }
@@ -134,15 +131,15 @@ function Dialog(title, helpUrlSuffix) {
   }
 
   /** In `AlertDialog`, max button height is shrunk. */
-  self.buttonMaxHeight = undefined
+  self._buttonMaxHeight = undefined
 
   /** In `AlertDialog`, default button is activated. */
-  self.buttonActivateDefault = false
+  self._buttonActivateDefault = false
 
   function appendButton(group, text, action, properties) {
-    return group.button(undefined, text, properties).also(function(it) {
-      if (self.buttonMaxHeight !== undefined) {
-        it.maximumSize.height = self.buttonMaxHeight
+    return group.button(undefined, text, properties).apply(function(it) {
+      if (self._buttonMaxHeight !== undefined) {
+        it.maximumSize.height = self._buttonMaxHeight
       }
       it.addClickListener(function() {
         var consume

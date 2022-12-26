@@ -64,7 +64,7 @@ var Internals = {
 
   /**
    * @param {string} s
-   * @param {!Array<!Object>} arr
+   * @param {!IArguments|!Array<!Object>} arr
    * @return {string}
    * @see https://stackoverflow.com/a/35187109/1567541
    */

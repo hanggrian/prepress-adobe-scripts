@@ -116,7 +116,7 @@ String.prototype.endsWith = function(substring) {
  * @param {string} substring
  * @return {boolean}
  */
-String.prototype.includes = function(substring) {
+String.prototype.contains = function(substring) {
   return this.indexOf(checkNotNull(substring)) !== -1
 }
 

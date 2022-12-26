@@ -5,7 +5,8 @@
       "type": "extendscript-debug",
       "request": "launch",
       "name": "Prepress Adobe Scripts",
-      "hostAppSpecifier": "illustrator", "script": "${workspaceFolder}/codegen/Generate String Resources.jsx"
+      "hostAppSpecifier": "photoshop",
+      "script": "${workspaceFolder}/Photoshop Scripts/About.jsx"
     }
   ]
 }

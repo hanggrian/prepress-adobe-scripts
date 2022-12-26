@@ -9,7 +9,7 @@ Collections.forEachItem = function(items, action) {
   checkNotNull(items)
   checkNotNull(action)
   for (var i = 0; i < items.length; i++) {
-    if (items[i].typename === 'GroupItem') {
+    if (Items.isGroup(items[i])) {
       Collections.forEachItem(items[i].pageItems, action)
     } else {
       action(items[i], i)
@@ -27,7 +27,7 @@ Collections.firstItem = function(items, predicate) {
   checkNotNull(items)
   checkNotNull(predicate)
   for (var i = 0; i < items.length; i++) {
-    if (items[i].typename === 'GroupItem') {
+    if (Items.isGroup(items[i])) {
       return Collections.firstItem(items[i].pageItems, predicate)
     } else if (predicate(items[i], i)) {
       return items[i]
@@ -45,7 +45,7 @@ Collections.firstItem = function(items, predicate) {
 Collections.lastItem = function(items, predicate) {
   checkNotNull(predicate)
   for (var i = Collections.lastIndex(this); i >= 0; i--) {
-    if (items[i].typename === 'GroupItem') {
+    if (Items.isGroup(items[i])) {
       return Collections.firstItem(items[i].pageItems, predicate)
     } else if (predicate(items[i], i)) {
       return items[i]
@@ -67,7 +67,7 @@ Collections.noneItem = function(items, predicate) {
   checkNotNull(items)
   checkNotNull(predicate)
   for (var i = 0; i < items.length; i++) {
-    if (items[i].typename === 'GroupItem') {
+    if (Items.isGroup(items[i])) {
       if (!Collections.noneItem(items[i].pageItems, predicate)) {
         return false
       }
@@ -88,7 +88,7 @@ Collections.anyItem = function(items, predicate) {
   checkNotNull(items)
   checkNotNull(predicate)
   for (var i = 0; i < items.length; i++) {
-    if (items[i].typename === 'GroupItem') {
+    if (Items.isGroup(items[i])) {
       if (Collections.anyItem(items[i].pageItems, predicate)) {
         return true
       }
@@ -109,7 +109,7 @@ Collections.allItem = function(items, predicate) {
   checkNotNull(items)
   checkNotNull(predicate)
   for (var i = 0; i < items.length; i++) {
-    if (items[i].typename === 'GroupItem') {
+    if (Items.isGroup(items[i])) {
       if (!Collections.allItem(items[i].pageItems, predicate)) {
         return false
       }
@@ -136,7 +136,7 @@ Collections.filterItem = function(items, predicate) {
 
 function _filterItem(items, predicate, result) {
   for (var i = 0; i < items.length; i++) {
-    if (items[i].typename === 'GroupItem') {
+    if (Items.isGroup(items[i])) {
       _filterItem(items[i].pageItems, predicate, result)
     } else {
       if (predicate(items[i], i)) {
@@ -162,7 +162,7 @@ Collections.mapItem = function(items, transform) {
 
 function _mapItem(items, transform, result) {
   for (var i = 0; i < items.length; i++) {
-    if (items[i].typename === 'GroupItem') {
+    if (Items.isGroup(items[i])) {
       _mapItem(items[i].pageItems, transform, result)
     } else {
       result.push(transform(items[i], i))

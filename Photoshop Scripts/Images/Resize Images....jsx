@@ -26,27 +26,27 @@ var widthEdit, heightEdit, resolutionEdit, resampleList
 dialog.vgroup(function(main) {
   main.alignChildren = 'right'
   main.hgroup(function(group) {
-    group.leftStaticText(undefined, R.string.width)
+    group.staticText(undefined, R.string.width).apply(HEADING)
     widthEdit = group.editText(SIZE_INPUT, formatUnits(document.width, unitType, 2))
-      .also(function(it) {
+      .apply(function(it) {
         it.validateUnits()
         it.activate()
       })
   })
   main.hgroup(function(group) {
-    group.leftStaticText(undefined, R.string.height)
+    group.staticText(undefined, R.string.height).apply(HEADING)
     heightEdit = group.editText(SIZE_INPUT, formatUnits(document.height, unitType, 2))
-      .also(VALIDATE_UNITS)
+      .apply(VALIDATE_UNITS)
   })
   main.hgroup(function(group) {
     group.helpTips = R.string.tip_resizeimages_resolution
-    group.leftStaticText(undefined, R.string.resolution)
-    resolutionEdit = group.editText(SIZE_INPUT, document.resolution.toString()).also(VALIDATE_UNITS)
+    group.staticText(undefined, R.string.resolution).apply(HEADING)
+    resolutionEdit = group.editText(SIZE_INPUT, document.resolution.toString()).apply(VALIDATE_UNITS)
   })
   main.hgroup(function(group) {
     group.helpTips = R.string.tip_resizeimages_resample
-    group.leftStaticText(undefined, R.string.resample)
-    resampleList = group.dropDownList(SIZE_INPUT, Resample.list()).also(function(it) {
+    group.staticText(undefined, R.string.resample).apply(HEADING)
+    resampleList = group.dropDownList(SIZE_INPUT, Resample.list()).apply(function(it) {
       it.selection = 0
     })
   })

@@ -1,15 +1,15 @@
 //@target illustrator
 //@include '../.lib/commons.js'
 
-var PREDICATE_LINKS = function(it) { return it.typename === 'PlacedItem' }
-var SIZE_INPUT = [120, 21]
+var SIZE_INPUT = [140, 21]
 
 checkAnySelection()
-check(Collections.anyItem(selection, PREDICATE_LINKS),
-  getString(R.string.error_notypes_document, R.plurals.link.plural))
+
+check(Collections.anyItem(selection, function(it) { return Items.isPlacedPdf(it) }),
+  getString(R.string.error_notypes_document, getString(R.string.links).toLowerCase()))
 
 var dialog = new Dialog(R.string.relink_multipage, 'relinking-files/#relink-multipage')
-var pdfPanel, rangeGroup, orderingList
+var pdfPanel, rangingGroup, orderingList
 var keepSizeCheck, recursiveCheck
 var collection
 var prefs = preferences2.resolve('links/relink_multipage')
@@ -20,7 +20,6 @@ if (files !== null && Collections.isNotEmpty(files)) {
   collection = new FileCollection(files)
 
   dialog.vgroup(function(main) {
-    main.alignChildren = 'fill'
     if (collection.hasPDF) {
       pdfPanel = new OpenPDFPanel(main, SIZE_INPUT)
     }
@@ -28,61 +27,64 @@ if (files !== null && Collections.isNotEmpty(files)) {
       panel.alignChildren = 'right'
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_relink_pages
-        group.leftStaticText(undefined, R.string.pages)
-        rangeGroup = new RangeGroup(group, SIZE_INPUT).also(function(it) {
+        group.staticText(undefined, getString(R.string.pages)).apply(HEADING)
+        rangingGroup = new RangingGroup(group, SIZE_INPUT).apply(function(it) {
           it.startEdit.activate()
           it.endEdit.text = collection.length
         })
       })
     })
-    orderingList = new OrderingList(main, [Ordering.layerList(), Ordering.positionList()]).also(
+    orderingList = new OrderingList(main, [Ordering.layerList(), Ordering.positionList()]).apply(
       function(it) {
         it.alignment = 'right'
         it.selection = prefs.getInt('order')
       })
     main.hgroup(function(group) {
       group.alignment = 'right'
-      keepSizeCheck = new KeepSizeCheck(group).also(function(it) {
+      keepSizeCheck = new KeepSizeCheck(group).apply(function(it) {
         it.value = prefs.getBoolean('keep_size')
       })
-      recursiveCheck = new RecursiveCheck(group).also(function(it) {
+      recursiveCheck = new RecursiveCheck(group).apply(function(it) {
         it.value = prefs.getBoolean('recursive')
       })
     })
   })
   dialog.setCancelButton()
   dialog.setDefaultButton(undefined, function() {
-    if (!rangeGroup.isValid()) {
+    if (!rangingGroup.isValid()) {
       return Windows.alert(R.string.error_range, dialog.text, true)
     }
-    var current = rangeGroup.getStart()
-    var end = rangeGroup.getEnd()
-    var source = recursiveCheck.value ?
-      Collections.filterItem(selection, PREDICATE_LINKS) :
-      Collections.filter(selection, PREDICATE_LINKS)
-    var progress = new ProgressPalette(source.length)
+    var range = rangingGroup.get()
+    var current = range.start
 
-    source.sort(orderingList.getComparator())
-    Collections.forEach(source, function(item, i) {
+    var items = recursiveCheck.value
+      ? Collections.filterItem(selection, function(it) { return Items.isPlacedPdf(it) })
+      : Collections.filter(selection, function(it) {
+        return Items.isGroup(it) || Items.isPlacedPdf(it)
+      })
+    items.sort(orderingList.getComparator())
+
+    var progress = new ProgressPalette(items.length)
+    Collections.forEach(items, function(item, i) {
       progress.increment(R.string.progress_relink, i + 1)
       print('Item %d page %d.'.format(i, current))
       var file = collection.get(current)
       var relinked = false
-      if (!recursiveCheck.value && item.typename === 'GroupItem') {
-        Collections.forEachItem([item], function(innerItem) {
-          if (PREDICATE_LINKS(innerItem)) {
-            relinked = relink(innerItem, file)
+      if (!recursiveCheck.value && Items.isGroup(item)) {
+        Collections.forEachItem([item], function(it) {
+          if (Items.isPlacedPdf(it)) {
+            relinked = relink(it, file)
           }
         })
       } else {
         relinked = relink(item, file)
       }
-      if (relinked && ++current > end) {
+      if (relinked && ++current > range.end) {
         current--
       }
       println('Done.')
     })
-    selection = source
+    selection = items
 
     prefs.setInt('order', orderingList.selection.index)
     prefs.setBoolean('keep_size', keepSizeCheck.value)

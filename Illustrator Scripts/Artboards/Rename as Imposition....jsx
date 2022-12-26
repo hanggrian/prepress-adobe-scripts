@@ -10,16 +10,16 @@ dialog.vgroup(function(main) {
   main.alignChildren = 'right'
   main.hgroup(function(group) {
     group.helpTips = R.string.tip_renameasimposition_start
-    group.leftStaticText(undefined, R.string.start)
-    startEdit = group.editText(SIZE_INPUT, '1').also(function(it) {
+    group.staticText(undefined, R.string.start).apply(HEADING)
+    startEdit = group.editText(SIZE_INPUT, '1').apply(function(it) {
       it.validateDigits()
       it.activate()
     })
   })
   main.hgroup(function(group) {
     group.helpTips = R.string.tip_renameasimposition_mode
-    group.leftStaticText(undefined, R.string.mode)
-    impositionList = group.dropDownList(SIZE_INPUT, Pager.list()).also(function(it) {
+    group.staticText(undefined, R.string.mode).apply(HEADING)
+    impositionList = group.dropDownList(SIZE_INPUT, Pager.list()).apply(function(it) {
       it.addChangeListener(function() {
         var pager = Pager.find(it.selection)
         var duplexAndStackEnabled = pager === Pager.TWO_UP || pager === Pager.FOUR_UP ||
@@ -30,7 +30,7 @@ dialog.vgroup(function(main) {
       })
     })
   })
-  nupGroup = new NUpOptionsGroup(main, true, false).also(function(it) {
+  nupGroup = new NUpOptionsGroup(main, true, false).apply(function(it) {
     it.alignChildren = 'right'
     it.orientation = 'column'
     it.foldingCheck.enabled = false
@@ -48,7 +48,7 @@ dialog.setDefaultButton(undefined, function() {
     pager = pager.get(document, start, nupGroup.isFolding(), nupGroup.isDuplex(),
       nupGroup.isStack())
   } else {
-    pager = pager.get(document, start)
+    pager = pager.get(document, start, document.artboards.length + 1)
   }
   Collections.forEach(document.artboards, function(it) { it.name = pager.next() })
 })

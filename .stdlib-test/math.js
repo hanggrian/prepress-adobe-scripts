@@ -10,7 +10,13 @@ test('isEven', function() {
   assertTrue(2.0.isEven())
 })
 
-test('isEqualRounded', function() {
-  assertTrue(isEqualRounded(1.1, 1))
-  assertFalse(isEqualRounded(1.6, 1))
+test('isInt', function() {
+  var num = 1
+  assertTrue(num.isInt())
+
+  assertFalse(-2.7.isInt())
+  assertFalse(-0.5.isInt())
+  assertFalse(0.3.isInt())
+  assertFalse(1.5.isInt())
+  assertFalse(2.8.isInt())
 })

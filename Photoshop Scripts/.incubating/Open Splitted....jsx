@@ -33,17 +33,17 @@ if (files !== null && Collections.isNotEmpty(files)) {
   /* dialog.main.vpanel('Split Options', function(panel) {
       panel.hgroup(function(group) {
           group.helpTips = 'Divide image horizontally/vertically'
-          group.staticText(SIZE_TEXT, 'Direction:').also(JUSTIFY_RIGHT)
+          group.staticText(SIZE_TEXT, 'Direction:').apply(JUSTIFY_RIGHT)
           group.vgroup(function(group2) {
               group2.alignChildren = 'left'
-              horizontalRadio = group2.radioButton(undefined, 'Horizontal').also(SELECTED)
+              horizontalRadio = group2.radioButton(undefined, 'Horizontal').apply(SELECTED)
               verticalRadio = group2.radioButton(undefined, 'Vertical')
           })
       })
       panel.hgroup(function(group) {
           group.helpTips = 'Total number of divison'
-          group.staticText(SIZE_TEXT, 'Parts:').also(JUSTIFY_RIGHT)
-          partsEdit = group.editText(SIZE_EDIT, '2').also(function(it) {
+          group.staticText(SIZE_TEXT, 'Parts:').apply(JUSTIFY_RIGHT)
+          partsEdit = group.editText(SIZE_EDIT, '2').apply(function(it) {
               it.validateDigits()
               it.activate()
           })

@@ -1,32 +1,11 @@
 /*<javascriptresource><menu>hide</menu></javascriptresource>*/
 
-/**
- * Add children to group.
- * @param {?Array<number>=} size
- * @param {?string|?Object=} text
- * @param {?Object=} properties
- * @return {!StaticText}
- */
-Group.prototype.leftStaticText = function(size, text, properties) {
-  var child = Internals.addStaticText(this, size, text, properties)
-  child.text += ':'
-  child.justify = 'right'
-  return child
+var HEADING = function(it) {
+  it.text += ':'
+  it.justify = 'right'
 }
-
-/**
- * Add children to panel.
- * @param {?Array<number>=} size
- * @param {?string|?Object=} text
- * @param {?Object=} properties
- * @return {!StaticText}
- */
-Panel.prototype.leftStaticText = function(size, text, properties) {
-  var child = Internals.addStaticText(this, size, text, properties)
-  child.text += ':'
-  child.justify = 'right'
-  return child
-}
+var JUSTIFY_LEFT = function(it) { it.justify = 'left' }
+var JUSTIFY_RIGHT = function(it) { it.justify = 'right' }
 
 /**
  * Add children to group.

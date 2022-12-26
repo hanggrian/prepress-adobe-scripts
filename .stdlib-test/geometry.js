@@ -1,18 +1,18 @@
 initTest($.fileName)
 
-test('equalTo', function() {
+test('equals', function() {
   var boundsA = [1, 2, 3, 4]
   var boundsB = [1, 2, 3, 4]
   var boundsC = [4, 3, 2, 1]
-  assertTrue(boundsA.equalTo(boundsB))
-  assertFalse(boundsA.equalTo(boundsC))
+  assertTrue(boundsA.equals(boundsB))
+  assertFalse(boundsA.equals(boundsC))
 })
 
-test('isWithin', function() {
+test('contains', function() {
   var boundsInner = [0, 0, 0, 0]
   var boundsOuter = [-1, 1, 1, -1]
-  assertTrue(boundsInner.isWithin(boundsOuter))
-  assertFalse(boundsOuter.isWithin(boundsInner))
+  assertTrue(boundsOuter.contains(boundsInner))
+  assertFalse(boundsInner.contains(boundsOuter))
 })
 
 test('getLeft', function() {

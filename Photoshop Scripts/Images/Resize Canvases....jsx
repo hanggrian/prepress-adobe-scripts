@@ -19,17 +19,17 @@ dialog.hgroup(function(main) {
   main.vpanel(R.string.canvas, function(panel) {
     panel.alignChildren = 'right'
     panel.hgroup(function(group) {
-      group.leftStaticText(undefined, R.string.width)
+      group.staticText(undefined, R.string.width).apply(HEADING)
       widthEdit = group.editText(SIZE_INPUT, formatUnits(document.width, unitType, 2))
-        .also(function(it) {
+        .apply(function(it) {
           it.validateUnits()
           it.activate()
         })
     })
     panel.hgroup(function(group) {
-      group.leftStaticText(undefined, R.string.height)
+      group.staticText(undefined, R.string.height).apply(HEADING)
       heightEdit = group.editText(SIZE_INPUT, formatUnits(document.height, unitType, 2))
-        .also(VALIDATE_UNITS)
+        .apply(VALIDATE_UNITS)
     })
   })
   main.vpanel(R.string.anchor, function(panel) {

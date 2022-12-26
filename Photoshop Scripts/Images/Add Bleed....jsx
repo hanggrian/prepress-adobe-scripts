@@ -21,8 +21,8 @@ dialog.vgroup(function(main) {
   main.alignChildren = 'fill'
   main.hgroup(function(group) {
     group.helpTips = R.string.tip_addbleedtoimages_bleed
-    group.leftStaticText([120, 21], R.string.length)
-    lengthEdit = group.editText([200, 21], prefs.getString('length', '2.5 mm')).also(function(it) {
+    group.staticText([120, 21], R.string.length).apply(HEADING)
+    lengthEdit = group.editText([200, 21], prefs.getString('length', '2.5 mm')).apply(function(it) {
       it.validateUnits()
       it.activate()
     })
@@ -31,12 +31,12 @@ dialog.vgroup(function(main) {
     rootPane.alignChildren = 'fill'
     rootPane.vpanel(R.string.options, function(group) {
       group.alignChildren = 'fill'
-      flattenImageCheck = group.checkBox(undefined, R.string.flatten_image).also(function(it) {
+      flattenImageCheck = group.checkBox(undefined, R.string.flatten_image).apply(function(it) {
         it.helpTip = R.string.tip_addbleedtoimages_flatten
         it.select()
       })
       guidesMultiRadioGroup = new MultiRadioGroup(group, R.string.use_guides,
-        [R.string.append, R.string.replace]).also(function(it) {
+        [R.string.append, R.string.replace]).apply(function(it) {
         it.setHelpTips(R.string.tip_addbleedtoimages_guides)
         it.check.select()
         it.check.onClick()
@@ -44,7 +44,7 @@ dialog.vgroup(function(main) {
       group.hgroup(function(innerGroup) {
         innerGroup.helpTips = R.string.tip_addbleedtoimages_select
         selectBleedCheck = innerGroup.checkBox(undefined, R.string.message_addbleedtoimages_select)
-          .also(function(it) {
+          .apply(function(it) {
             it.addClickListener(function() {
               correctionEdit.enabled = it.value
               if (it.value) {
@@ -54,7 +54,7 @@ dialog.vgroup(function(main) {
               }
             })
           })
-        correctionEdit = innerGroup.editText([50, 21], '0 px').also(function(it) {
+        correctionEdit = innerGroup.editText([50, 21], '0 px').apply(function(it) {
           it.validateUnits()
           it.enabled = false
         })

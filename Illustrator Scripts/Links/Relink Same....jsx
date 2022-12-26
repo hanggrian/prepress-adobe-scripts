@@ -1,13 +1,13 @@
 //@target illustrator
 //@include '../.lib/commons.js'
 
-var PREDICATE_LINKS = function(it) { return it.typename === 'PlacedItem' }
-var SIZE_INPUT = [120, 21]
+var SIZE_INPUT = [140, 21]
 
 checkAnySelection()
-var items = Collections.filterItem(selection, PREDICATE_LINKS)
+
+var items = Collections.filterItem(selection, function(it) { return Items.isPlacedPdf(it) })
 check(Collections.isNotEmpty(items),
-  getString(R.string.error_notypes_document, R.plurals.link.plural))
+  getString(R.string.error_notypes_document, getString(R.string.links).toLowerCase()))
 
 var dialog = new Dialog(R.string.relink_same, 'relinking-files/#relink-same')
 var pdfPanel, pageEdit
@@ -18,13 +18,12 @@ var file = FilePicker.openFile(dialog.text, FileExtension.values())
 
 if (file !== null) {
   dialog.vgroup(function(main) {
-    main.alignChildren = 'fill'
     if (file.isPdf()) {
-      pdfPanel = new OpenPDFPanel(main, SIZE_INPUT).also(function(panel) {
+      pdfPanel = new OpenPDFPanel(main, SIZE_INPUT).apply(function(panel) {
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_relink_pages
-          group.leftStaticText(undefined, R.string.pages)
-          pageEdit = group.editText(SIZE_INPUT, '1').also(function(it) {
+          group.staticText(undefined, getString(R.string.pages)).apply(HEADING)
+          pageEdit = group.editText(SIZE_INPUT, '1').apply(function(it) {
             it.validateDigits()
             it.activate()
           })
@@ -33,7 +32,7 @@ if (file !== null) {
     }
     main.hgroup(function(group) {
       group.alignment = 'right'
-      keepSizeCheck = new KeepSizeCheck(group).also(function(it) {
+      keepSizeCheck = new KeepSizeCheck(group).apply(function(it) {
         it.value = prefs.getBoolean('keep_size')
       })
     })

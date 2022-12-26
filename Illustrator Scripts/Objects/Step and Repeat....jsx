@@ -2,7 +2,7 @@
 //@include '../.lib/commons.js'
 
 var SIZE_INPUT = [40, 21]
-var SIZE_INPUT_MOVE = [100, 21]
+var SIZE_INPUT_MOVE = [120, 21]
 
 checkAnySelection()
 
@@ -15,33 +15,32 @@ var bounds = Items.getMaxBounds(selection)
 dialog.vgroup(function(main) {
   main.hgroup(function(group) {
     group.helpTips = R.string.tip_stepandrepeat_copies
-    group.leftStaticText(undefined, R.string.copies)
+    group.staticText(undefined, R.string.copies).apply(HEADING)
     horizontalEdit = group.editText(SIZE_INPUT, prefs.getInt('horizontal').toString())
-      .also(function(it) {
+      .apply(function(it) {
         it.validateDigits()
         it.activate()
       })
     group.staticText(undefined, '×')
     verticalEdit = group.editText(SIZE_INPUT, prefs.getInt('vertical').toString())
-      .also(VALIDATE_DIGITS)
+      .apply(VALIDATE_DIGITS)
   })
   main.vpanel(R.string.move, function(panel) {
     panel.alignChildren = 'right'
     panel.hgroup(function(group) {
       group.helpTips = R.string.tip_stepandrepeat_horizontal
-      group.leftStaticText(undefined, R.string.horizontal)
+      group.staticText(undefined, R.string.horizontal).apply(HEADING)
       moveHorizontalEdit = group.editText(SIZE_INPUT_MOVE,
         formatUnits(bounds.getWidth(), unitType, 2))
-        .also(VALIDATE_UNITS)
+        .apply(VALIDATE_UNITS)
     })
     panel.hgroup(function(group) {
       group.helpTips = R.string.tip_stepandrepeat_vertical
-      group.leftStaticText(undefined, R.string.vertical)
+      group.staticText(undefined, R.string.vertical).apply(HEADING)
       moveVerticalEdit = group.editText(SIZE_INPUT_MOVE,
-        formatUnits(bounds.getHeight(), unitType, 2))
-        .also(VALIDATE_UNITS)
+        formatUnits(bounds.getHeight(), unitType, 2)).apply(VALIDATE_UNITS)
     })
-    moveRelativeCheck = panel.checkBox(undefined, R.string.relative_position).also(function(it) {
+    moveRelativeCheck = panel.checkBox(undefined, R.string.relative_position).apply(function(it) {
       it.helpTip = R.string.tip_stepandrepeat_relativeposition
       it.addClickListener(function() {
         if (it.value) {

@@ -19,15 +19,15 @@ function AnchorGroup(parent) {
     if (isPsd) {
       group.spacing = 0
     }
-    self.topLeftRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
+    self.topLeftRadio = group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
       it.helpTip = R.string.top_left
       registerRadioClick(it)
     })
-    self.topRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
+    self.topRadio = group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
       it.helpTip = R.string.top
       registerRadioClick(it)
     })
-    self.topRightRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
+    self.topRightRadio = group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
       it.helpTip = R.string.top_right
       registerRadioClick(it)
     })
@@ -36,16 +36,16 @@ function AnchorGroup(parent) {
     if (isPsd) {
       group.spacing = 0
     }
-    self.leftRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
+    self.leftRadio = group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
       it.helpTip = R.string.left
       registerRadioClick(it)
     })
-    self.centerRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
+    self.centerRadio = group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
       it.helpTip = R.string.center
       it.select()
       registerRadioClick(it)
     })
-    self.rightRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
+    self.rightRadio = group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
       it.helpTip = R.string.right
       registerRadioClick(it)
     })
@@ -54,15 +54,15 @@ function AnchorGroup(parent) {
     if (isPsd) {
       group.spacing = 0
     }
-    self.bottomLeftRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
+    self.bottomLeftRadio = group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
       it.helpTip = R.string.bottom_left
       registerRadioClick(it)
     })
-    self.bottomRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
+    self.bottomRadio = group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
       it.helpTip = R.string.bottom
       registerRadioClick(it)
     })
-    self.bottomRightRadio = group.radioButton(SIZE_ANCHOR_RADIO).also(function(it) {
+    self.bottomRightRadio = group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
       it.helpTip = R.string.bottom_right
       registerRadioClick(it)
     })

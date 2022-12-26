@@ -5,7 +5,7 @@
 //@include '../.lib/commons.js'
 
 check(Collections.isNotEmpty(document.pageItems),
-  getString(R.string.error_notypes_document, R.string.anything))
+  getString(R.string.error_notypes_document, getString(R.string.anything).toLowerCase()))
 var isFilterMode = Collections.isNotEmpty(selection)
 
 var dialog = new Dialog(R.string.select_all, 'selecting-items/#select-all')
@@ -19,56 +19,56 @@ var prefs = preferences2.resolve('select/all')
 
 dialog.vgroup(function(main) {
   main.hgroup(function(rootPane) {
-    rootPane.alignChildren = 'fill'
+    rootPane.alignChildren = 'top'
     rootPane.vgroup(function(leftPane) {
       leftPane.alignChildren = 'fill'
-      leftPane.hpanel(R.plurals.group.plural, function(panel) {
+      leftPane.hpanel(R.string.groups, function(panel) {
         panel.vgroup(function(checkGroup) {
-          checkGroup.alignChildren = 'fill'
-          groupCheck = checkGroup.checkBox(undefined, R.plurals.group.plural).also(function(it) {
+          checkGroup.alignChildren = 'left'
+          groupCheck = checkGroup.checkBox(undefined, R.string.groups).apply(function(it) {
             it.value = prefs.getBoolean('group')
           })
-          clippingMaskCheck = checkGroup.checkBox(undefined, R.plurals.clipping_mask.plural)
-            .also(function(it) {
+          clippingMaskCheck = checkGroup.checkBox(undefined, R.string.clipping_masks)
+            .apply(function(it) {
               it.value = prefs.getBoolean('group2')
             })
         })
         panel.vgroup(function(imageGroup) {
-          imageGroup.alignment = 'top'
+          imageGroup.alignment = ['fill', 'top']
           tiedImage(imageGroup, 'ic_item_group', groupCheck)
           tiedImage(imageGroup, 'ic_item_clippingMask', clippingMaskCheck)
         })
       })
-      leftPane.hpanel(R.plurals.path.plural, function(panel) {
+      leftPane.hpanel(R.string.paths, function(panel) {
         panel.vgroup(function(checkGroup) {
-          checkGroup.alignChildren = 'fill'
-          pathCheck = checkGroup.checkBox(undefined, R.plurals.path.plural).also(function(it) {
+          checkGroup.alignChildren = 'left'
+          pathCheck = checkGroup.checkBox(undefined, R.string.paths).apply(function(it) {
             it.value = prefs.getBoolean('path')
           })
-          compoundPathCheck = checkGroup.checkBox(undefined, R.plurals.compound_path.plural)
-            .also(function(it) {
+          compoundPathCheck = checkGroup.checkBox(undefined, R.string.compound_paths)
+            .apply(function(it) {
               it.value = prefs.getBoolean('compound_path')
             })
         })
         panel.vgroup(function(imageGroup) {
-          imageGroup.alignment = 'top'
+          imageGroup.alignment = ['fill', 'top']
           tiedImage(imageGroup, 'ic_item_path', pathCheck)
           tiedImage(imageGroup, 'ic_item_compoundpath', compoundPathCheck)
         })
       })
-      leftPane.hpanel(R.plurals.text.plural, function(panel) {
+      leftPane.hpanel(R.string.types, function(panel) {
         panel.vgroup(function(checkGroup) {
-          checkGroup.alignChildren = 'fill'
-          textFrameCheck = checkGroup.checkBox(undefined, R.plurals.text.plural).also(function(it) {
+          checkGroup.alignChildren = 'left'
+          textFrameCheck = checkGroup.checkBox(undefined, R.string.types).apply(function(it) {
             it.value = prefs.getBoolean('text')
           })
-          legacyTextCheck = checkGroup.checkBox(undefined, R.plurals.legacy_text.plural)
-            .also(function(it) {
+          legacyTextCheck = checkGroup.checkBox(undefined, R.string.obsolete_types)
+            .apply(function(it) {
               it.value = prefs.getBoolean('legacy_text')
             })
         })
         panel.vgroup(function(imageGroup) {
-          imageGroup.alignment = 'top'
+          imageGroup.alignment = ['fill', 'top']
           tiedImage(imageGroup, 'ic_item_text', textFrameCheck)
           tiedImage(imageGroup, 'ic_item_legacytext', legacyTextCheck)
         })
@@ -78,23 +78,23 @@ dialog.vgroup(function(main) {
       rightPane.alignChildren = 'fill'
       rightPane.hpanel(R.string.imports, function(panel) {
         panel.vgroup(function(checkGroup) {
-          checkGroup.alignChildren = 'fill'
-          placedCheck = checkGroup.checkBox(undefined, R.plurals.link.plural).also(function(it) {
+          checkGroup.alignChildren = 'left'
+          placedCheck = checkGroup.checkBox(undefined, R.string.links).apply(function(it) {
             it.value = prefs.getBoolean('placed')
           })
-          nonNativeCheck = checkGroup.checkBox(undefined, R.plurals.nonnative.plural)
-            .also(function(it) {
+          nonNativeCheck = checkGroup.checkBox(undefined, R.string.non_natives)
+            .apply(function(it) {
               it.value = prefs.getBoolean('nonnative')
             })
-          rasterCheck = checkGroup.checkBox(undefined, R.plurals.raster.plural).also(function(it) {
+          rasterCheck = checkGroup.checkBox(undefined, R.string.images).apply(function(it) {
             it.value = prefs.getBoolean('raster')
           })
-          pluginCheck = checkGroup.checkBox(undefined, R.plurals.plugin.plural).also(function(it) {
+          pluginCheck = checkGroup.checkBox(undefined, R.string.plugins).apply(function(it) {
             it.value = prefs.getBoolean('plugin')
           })
         })
         panel.vgroup(function(imageGroup) {
-          imageGroup.alignment = 'top'
+          imageGroup.alignment = ['fill', 'top']
           tiedImage(imageGroup, 'ic_item_placed', placedCheck)
           tiedImage(imageGroup, 'ic_item_nonnative', nonNativeCheck)
           tiedImage(imageGroup, 'ic_item_raster', rasterCheck)
@@ -103,19 +103,19 @@ dialog.vgroup(function(main) {
       })
       rightPane.hpanel(R.string.others, function(panel) {
         panel.vgroup(function(checkGroup) {
-          checkGroup.alignChildren = 'fill'
-          symbolCheck = checkGroup.checkBox(undefined, R.plurals.symbol.plural).also(function(it) {
+          checkGroup.alignChildren = 'left'
+          symbolCheck = checkGroup.checkBox(undefined, R.string.symbols).apply(function(it) {
             it.value = prefs.getBoolean('symbol')
           })
-          meshCheck = checkGroup.checkBox(undefined, R.plurals.mesh.plural).also(function(it) {
+          meshCheck = checkGroup.checkBox(undefined, R.string.meshes).apply(function(it) {
             it.value = prefs.getBoolean('mesh')
           })
-          graphCheck = checkGroup.checkBox(undefined, R.plurals.graph.plural).also(function(it) {
+          graphCheck = checkGroup.checkBox(undefined, R.string.graphs).apply(function(it) {
             it.value = prefs.getBoolean('graph')
           })
         })
         panel.vgroup(function(imageGroup) {
-          imageGroup.alignment = 'top'
+          imageGroup.alignment = ['fill', 'top']
           tiedImage(imageGroup, 'ic_item_symbol', symbolCheck)
           tiedImage(imageGroup, 'ic_item_mesh', meshCheck)
           tiedImage(imageGroup, 'ic_item_graph', graphCheck)
@@ -124,7 +124,7 @@ dialog.vgroup(function(main) {
     })
   })
   if (isFilterMode) {
-    recursiveCheck = new RecursiveCheck(main).also(function(it) {
+    recursiveCheck = new RecursiveCheck(main).apply(function(it) {
       it.alignment = 'right'
       it.value = prefs.getBoolean('recursive')
     })
@@ -146,7 +146,7 @@ dialog.setDefaultButton(undefined, function() {
   if (symbolCheck.value) types.push('SymbolItem')
   if (textFrameCheck.value) types.push('TextFrame')
   selectAll(types, function(item) {
-    if (item.typename === 'GroupItem') {
+    if (Items.isGroup(item)) {
       if (groupCheck.value && !item.clipped) {
         return true
       }
@@ -177,6 +177,7 @@ dialog.show()
 
 function tiedImage(parent, src, check) {
   var image = parent.image(undefined, src)
+  image.alignment = 'right'
   image.addEventListener('click', function() {
     check.value = !check.value
   })

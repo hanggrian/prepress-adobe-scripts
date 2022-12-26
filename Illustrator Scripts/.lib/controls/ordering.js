@@ -31,10 +31,10 @@ var Ordering = new Enum({
     text: R.string.horizontal,
     image: 'ic_order_position_horizontal',
     get: function(a, b) {
-      var aX = Math.floor(Ordering.getRectangle(a).getLeft())
-      var aY = Math.floor(Ordering.getRectangle(a).getTop())
-      var bX = Math.floor(Ordering.getRectangle(b).getLeft())
-      var bY = Math.floor(Ordering.getRectangle(b).getTop())
+      var aX = parseInt(Ordering.getRectangle(a).getLeft())
+      var aY = parseInt(Ordering.getRectangle(a).getTop())
+      var bX = parseInt(Ordering.getRectangle(b).getLeft())
+      var bY = parseInt(Ordering.getRectangle(b).getTop())
       if (aY < bY) return 1
       else if (aY > bY) return -1
       if (aX > bX) return 1
@@ -46,10 +46,10 @@ var Ordering = new Enum({
     text: R.string.vertical,
     image: 'ic_order_position_vertical',
     get: function(a, b) {
-      var aX = Math.floor(Ordering.getRectangle(a).getLeft())
-      var aY = Math.floor(Ordering.getRectangle(a).getTop())
-      var bX = Math.floor(Ordering.getRectangle(b).getLeft())
-      var bY = Math.floor(Ordering.getRectangle(b).getTop())
+      var aX = parseInt(Ordering.getRectangle(a).getLeft())
+      var aY = parseInt(Ordering.getRectangle(a).getTop())
+      var bX = parseInt(Ordering.getRectangle(b).getLeft())
+      var bY = parseInt(Ordering.getRectangle(b).getTop())
       if (aX > bX) return 1
       else if (aX < bX) return -1
       if (aY < bY) return 1
@@ -61,10 +61,10 @@ var Ordering = new Enum({
     text: R.string.horizontal_rtl,
     image: 'ic_order_position_horizontalrtl',
     get: function(a, b) {
-      var aX = Math.floor(Ordering.getRectangle(a).getLeft())
-      var aY = Math.floor(Ordering.getRectangle(a).getTop())
-      var bX = Math.floor(Ordering.getRectangle(b).getLeft())
-      var bY = Math.floor(Ordering.getRectangle(b).getTop())
+      var aX = parseInt(Ordering.getRectangle(a).getLeft())
+      var aY = parseInt(Ordering.getRectangle(a).getTop())
+      var bX = parseInt(Ordering.getRectangle(b).getLeft())
+      var bY = parseInt(Ordering.getRectangle(b).getTop())
       if (aY < bY) return 1
       else if (aY > bY) return -1
       if (aX > bX) return -1
@@ -76,10 +76,10 @@ var Ordering = new Enum({
     text: R.string.vertical_rtl,
     image: 'ic_order_position_verticalrtl',
     get: function(a, b) {
-      var aX = Math.floor(Ordering.getRectangle(a).getLeft())
-      var aY = Math.floor(Ordering.getRectangle(a).getTop())
-      var bX = Math.floor(Ordering.getRectangle(b).getLeft())
-      var bY = Math.floor(Ordering.getRectangle(b).getTop())
+      var aX = parseInt(Ordering.getRectangle(a).getLeft())
+      var aY = parseInt(Ordering.getRectangle(a).getTop())
+      var bX = parseInt(Ordering.getRectangle(b).getLeft())
+      var bY = parseInt(Ordering.getRectangle(b).getTop())
       if (aX > bX) return -1
       else if (aX < bX) return 1
       if (aY < bY) return 1
@@ -129,7 +129,7 @@ function OrderingList(parent, ordersCollection) {
     }
   })
 
-  var self = parent.dropDownList(undefined, orders).also(function(it) {
+  var self = parent.dropDownList(undefined, orders).apply(function(it) {
     it.helpTip = R.string.tip_orderby
     it.title = getString(R.string.order_by) + ':'
   })

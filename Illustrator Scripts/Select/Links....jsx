@@ -8,9 +8,14 @@
 
 var SIZE_INPUT = [150, 21]
 
-check(Collections.isNotEmpty(document.placedItems),
-  getString(R.string.error_notypes_document, R.plurals.link.plural))
 var isFilterMode = Collections.isNotEmpty(selection)
+if (isFilterMode) {
+  check(Collections.anyItem(selection, function(it) { return Items.isPlaced(it) }),
+    getString(R.string.error_notypes_selection, getString(R.string.links).toLowerCase()))
+} else {
+  check(Collections.isNotEmpty(document.placedItems),
+    getString(R.string.error_notypes_document, getString(R.string.links).toLowerCase()))
+}
 
 var dialog = new Dialog(R.string.select_links, 'selecting-items/#select-links')
 var dimensionPanel
@@ -19,11 +24,10 @@ var recursiveCheck
 var prefs = preferences2.resolve('select/links')
 
 dialog.vgroup(function(main) {
-  main.alignChildren = 'fill'
   dimensionPanel = new SelectDimensionPanel(main, SIZE_INPUT)
   main.vpanel(R.string.file_types, function(panel) {
     panel.helpTips = R.string.tip_selectlinks_filetypes
-    panel.alignChildren = 'fill'
+    panel.alignChildren = 'left'
     aiCheck = panel.checkBox(undefined, getTypeString(FileExtension.ADOBE_ILLUSTRATOR))
     pdfCheck = panel.checkBox(undefined, getTypeString(FileExtension.ADOBE_PDF))
     bmpCheck = panel.checkBox(undefined, getTypeString(FileExtension.BMP))
@@ -35,7 +39,7 @@ dialog.vgroup(function(main) {
     tiffCheck = panel.checkBox(undefined, getTypeString(FileExtension.TIFF))
   })
   if (isFilterMode) {
-    recursiveCheck = new RecursiveCheck(main).also(function(it) {
+    recursiveCheck = new RecursiveCheck(main).apply(function(it) {
       it.alignment = 'right'
       it.value = prefs.getBoolean('recursive')
     })

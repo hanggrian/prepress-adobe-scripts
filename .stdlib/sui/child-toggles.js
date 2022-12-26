@@ -1,6 +1,6 @@
 /*<javascriptresource><menu>hide</menu></javascriptresource>*/
 
-var SELECTED = function(toggle) { toggle.select() }
+var SELECTED = function(it) { it.select() }
 
 /** Select this check box, if not already. */
 Checkbox.prototype.select = function() { if (!this.value) this.value = true }

@@ -12,22 +12,22 @@ var Color2 = new Enum({
   CYAN: {
     text: R.string.cyan,
     image: 'color_cyan',
-    get: function() { return new CMYKColor().also(function(it) { it.cyan = 100 }) }
+    get: function() { return new CMYKColor().apply(function(it) { it.cyan = 100 }) }
   },
   MAGENTA: {
     text: R.string.magenta,
     image: 'color_magenta',
-    get: function() { return new CMYKColor().also(function(it) { it.magenta = 100 }) }
+    get: function() { return new CMYKColor().apply(function(it) { it.magenta = 100 }) }
   },
   YELLOW: {
     text: R.string.yellow,
     image: 'color_yellow',
-    get: function() { return new CMYKColor().also(function(it) { it.yellow = 100 }) }
+    get: function() { return new CMYKColor().apply(function(it) { it.yellow = 100 }) }
   },
   BLACK: {
     text: R.string.black,
     image: 'color_black',
-    get: function() { return new CMYKColor().also(function(it) { it.black = 100 }) }
+    get: function() { return new CMYKColor().apply(function(it) { it.black = 100 }) }
   }
 }, [1])
 

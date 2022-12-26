@@ -6,7 +6,7 @@ var Rounding = new Enum({
   ROUND: { text: R.string.round, round: Math.round },
   FLOOR: { text: R.string.floor, round: Math.floor },
   CEIL: { text: R.string.ceil, round: Math.ceil }
-})
+}, [0])
 
 var SIZE_LABEL = [80, 21] // manual sizing because content is changable
 var SIZE_INPUT = [150, 21]
@@ -25,28 +25,28 @@ dialog.vgroup(function(main) {
   main.alignChildren = 'left'
   main.hgroup(function(group) {
     group.helpTips = R.string.tip_resizeglyph_dimension
-    group.leftStaticText(SIZE_LABEL, R.string.dimension)
-    dimensionWidthRadio = group.radioButton(undefined, R.string.width).also(function(it) {
+    group.staticText(SIZE_LABEL, R.string.dimension).apply(HEADING)
+    dimensionWidthRadio = group.radioButton(undefined, R.string.width).apply(function(it) {
       it.addClickListener(changeDimensionText)
       it.select()
     })
-    dimensionHeightRadio = group.radioButton(undefined, R.string.height).also(function(it) {
+    dimensionHeightRadio = group.radioButton(undefined, R.string.height).apply(function(it) {
       it.addClickListener(changeDimensionText)
     })
   })
   main.hgroup(function(group) {
     group.helpTips = R.string.tip_resizeglyph_size
-    dimensionSizeText = group.leftStaticText(SIZE_LABEL, R.string.width)
+    dimensionSizeText = group.staticText(SIZE_LABEL, R.string.width).apply(HEADING)
     dimensionSizeEdit = group.editText(SIZE_INPUT, formatUnits(item.width, unitType, 2))
-      .also(function(it) {
+      .apply(function(it) {
         it.validateUnits()
         it.activate()
       })
   })
   main.hgroup(function(group) {
     group.helpTips = R.string.tip_resizeglyph_rounding
-    group.leftStaticText(SIZE_LABEL, R.string.rounding)
-    roundingList = group.dropDownList(SIZE_INPUT, Rounding.list()).also(function(it) {
+    group.staticText(SIZE_LABEL, R.string.rounding).apply(HEADING)
+    roundingList = group.dropDownList(SIZE_INPUT, Rounding.list()).apply(function(it) {
       it.selection = 0
     })
   })

@@ -6,9 +6,9 @@
 
 checkAnySelection()
 
-var items = Collections.filterItem(selection, function(it) { return it.typename === 'TextFrame' })
+var items = Collections.filterItem(selection, function(it) { return Items.isText(it) })
 check(Collections.isNotEmpty(items),
-  getString(R.string.error_notypes_selection, R.plurals.text.plural))
+  getString(R.string.error_notypes_selection, getString(R.string.types).toLowerCase()))
 
 Windows.alert(textFonts.first())
 var fonts = Collections.distinct(

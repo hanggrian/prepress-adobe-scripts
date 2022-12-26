@@ -6,6 +6,7 @@
 function EightUpFoldingPager(document, start) {
   checkNotNull(document)
   checkNotNull(start)
+  check(start.isInt())
   var current = start
   var isFront = true
 
@@ -52,6 +53,7 @@ function EightUpFoldingPager(document, start) {
 function EightUpSimplexPager(document, start) {
   checkNotNull(document)
   checkNotNull(start)
+  check(start.isInt())
   var current = start
 
   var self = this
@@ -85,6 +87,7 @@ function EightUpSimplexPager(document, start) {
 function EightUpDuplexPager(document, start) {
   checkNotNull(document)
   checkNotNull(start)
+  check(start.isInt())
   var current = start
   var isFront = true
 
@@ -131,6 +134,7 @@ function EightUpDuplexPager(document, start) {
 function EightUpSimplexStackPager(document, start) {
   checkNotNull(document)
   checkNotNull(start)
+  check(start.isInt())
   var current = start
 
   var self = this
@@ -164,6 +168,7 @@ function EightUpSimplexStackPager(document, start) {
 function EightUpDuplexStackPager(document, start) {
   checkNotNull(document)
   checkNotNull(start)
+  check(start.isInt())
   var current = start
   var isFront = true
 

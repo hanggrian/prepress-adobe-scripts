@@ -5,40 +5,38 @@ var SIZE_INPUT = [100, 21]
 
 checkAnySelection()
 check(Collections.anyItem(selection, function(it) { return it.clipping }),
-  getString(R.string.error_notypes_selection, R.plurals.clipping_mask.plural))
+  getString(R.string.error_notypes_selection, getString(R.string.clipping_masks).toLowerCase()))
 
 var dialog = new Dialog(R.string.resize_clipping_masks)
 var widthFromEdit, widthToEdit, heightFromEdit, heightToEdit
 var documentOriginCheck, anchorGroup
 
 dialog.hgroup(function(main) {
-  main.alignChildren = 'fill'
   var prefill = Collections.firstItem(selection, function(it) { return it.clipping })
   main.vpanel(R.string.dimension, function(panel) {
     panel.alignChildren = 'right'
     panel.hgroup(function(group) {
-      group.leftStaticText(undefined, R.string.width)
+      group.staticText(undefined, R.string.width).apply(HEADING)
       widthFromEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitType, 2))
-        .also(function(it) {
+        .apply(function(it) {
           it.validateUnits()
           it.activate()
         })
       group.staticText(undefined, 'to')
       widthToEdit = group.editText(SIZE_INPUT, formatUnits(prefill.width, unitType, 2))
-        .also(VALIDATE_UNITS)
+        .apply(VALIDATE_UNITS)
     })
     panel.hgroup(function(group) {
-      group.leftStaticText(undefined, R.string.height)
+      group.staticText(undefined, R.string.height).apply(HEADING)
       heightFromEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitType, 2))
-        .also(VALIDATE_UNITS)
+        .apply(VALIDATE_UNITS)
       group.staticText(undefined, 'to')
       heightToEdit = group.editText(SIZE_INPUT, formatUnits(prefill.height, unitType, 2))
-        .also(VALIDATE_UNITS)
+        .apply(VALIDATE_UNITS)
     })
   })
   main.vpanel(R.string.anchor, function(panel) {
-    panel.alignChildren = 'fill'
-    documentOriginCheck = new DocumentOriginCheck(panel).also(function(it) {
+    documentOriginCheck = new DocumentOriginCheck(panel).apply(function(it) {
       it.addClickListener(function() { anchorGroup.enabled = !it.value })
     })
     anchorGroup = new AnchorGroup(panel)

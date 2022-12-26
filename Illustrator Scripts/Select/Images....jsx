@@ -22,9 +22,14 @@ var ImageStatus = new Enum({
 
 var SIZE_INPUT = [100, 21]
 
-check(Collections.isNotEmpty(document.rasterItems),
-  getString(R.string.error_notypes_document, R.plurals.raster.plural))
 var isFilterMode = Collections.isNotEmpty(selection)
+if (isFilterMode) {
+  check(Collections.anyItem(selection, function(it) { return Items.isRaster(it) }),
+    getString(R.string.error_notypes_selection, getString(R.string.images).toLowerCase()))
+} else {
+  check(Collections.isNotEmpty(document.rasterItems),
+    getString(R.string.error_notypes_document, getString(R.string.images).toLowerCase()))
+}
 
 var dialog = new Dialog(R.string.select_images, 'selecting-items/#select-images')
 var dimensionPanel
@@ -35,7 +40,7 @@ var prefs = preferences2.resolve('select/images')
 
 dialog.vgroup(function(main) {
   main.hgroup(function(rootPane) {
-    rootPane.alignChildren = 'fill'
+    rootPane.alignChildren = 'top'
     rootPane.vgroup(function (leftPane) {
       leftPane.alignChildren = 'fill'
       dimensionPanel = new SelectDimensionPanel(leftPane, SIZE_INPUT)
@@ -43,17 +48,17 @@ dialog.vgroup(function(main) {
         panel.alignChildren = 'right'
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selectimage_colorspace
-          group.leftStaticText(undefined, R.string.color_space)
+          group.staticText(undefined, R.string.color_space).apply(HEADING)
           colorSpaceList = group.dropDownList(SIZE_INPUT, ImageColor.list())
         })
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selectimage_bitsperchannel
-          group.leftStaticText(undefined, R.string.bits_per_channel)
-          bitsEdit = group.editText(SIZE_INPUT).also(VALIDATE_DIGITS)
+          group.staticText(undefined, R.string.bits_per_channel).apply(HEADING)
+          bitsEdit = group.editText(SIZE_INPUT).apply(VALIDATE_DIGITS)
         })
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selectimage_transparent
-          group.leftStaticText(undefined, R.string.transparent)
+          group.staticText(undefined, R.string.transparent).apply(HEADING)
           transparentList = group.dropDownList(SIZE_INPUT, SelectOption.list())
         })
       })
@@ -64,24 +69,24 @@ dialog.vgroup(function(main) {
         panel.alignChildren = 'right'
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selectimage_embedded
-          group.leftStaticText(undefined, R.string.embedded)
+          group.staticText(undefined, R.string.embedded).apply(HEADING)
           embeddedList = group.dropDownList(SIZE_INPUT, SelectOption.list())
         })
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selectimage_overprint
-          group.leftStaticText(undefined, R.string.overprint)
+          group.staticText(undefined, R.string.overprint).apply(HEADING)
           overprintList = group.dropDownList(SIZE_INPUT, SelectOption.list())
         })
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selectimage_status
-          group.leftStaticText(undefined, R.string.status)
+          group.staticText(undefined, R.string.status).apply(HEADING)
           statusList = group.dropDownList(SIZE_INPUT, ImageStatus.list())
         })
       })
     })
   })
   if (isFilterMode) {
-    recursiveCheck = new RecursiveCheck(main).also(function(it) {
+    recursiveCheck = new RecursiveCheck(main).apply(function(it) {
       it.alignment = 'right'
       it.value = prefs.getBoolean('recursive')
     })

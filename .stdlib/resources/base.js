@@ -28,7 +28,8 @@ function getImage(name) {
 }
 
 /**
- * Refer to string value from JSON object, which can be specific language.
+ * Refer to string value from JSON object, which can be specific language. First param is plural ID,
+ * the rest is `String.format` arguments.
  * @param {!Array<string>} arguments
  * @return {string}
  */
@@ -42,7 +43,8 @@ function getString() {
 }
 
 /**
- * Refer to plural string value from JSON object, which can be specific language.
+ * Refer to plural string value from JSON object, which can be specific language. First param is
+ * plural ID, second param is integer defining whether or not to use plural value, the rest is `String.format` arguments.
  * @return {string}
  */
 function getPlural() {

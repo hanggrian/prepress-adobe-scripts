@@ -60,24 +60,24 @@ if (!isSingleType()) {
   message += selection.length + getString(R.string.message_count2)
   prefix = '\n'
 }
-message += getItemLine(prefix, compoundPathCount, R.plurals.compound_path)
-message += getItemLine(prefix, graphCount, R.plurals.graph)
-message += getItemLine(prefix, legacyTextCount, R.plurals.legacy_text)
-message += getItemLine(prefix, meshCount, R.plurals.mesh)
-message += getItemLine(prefix, nonNativeCount, R.plurals.nonnative)
-message += getItemLine(prefix, pathCount, R.plurals.path)
-message += getItemLine(prefix, placedCount, R.plurals.link)
-message += getItemLine(prefix, pluginCount, R.plurals.plugin)
-message += getItemLine(prefix, rasterCount, R.plurals.raster)
-message += getItemLine(prefix, symbolCount, R.plurals.symbol)
-message += getItemLine(prefix, textCount, R.plurals.text)
+message += getItemLine(prefix, compoundPathCount, R.plurals.D_compound_path)
+message += getItemLine(prefix, graphCount, R.plurals.D_graph)
+message += getItemLine(prefix, legacyTextCount, R.plurals.D_obsolete_type)
+message += getItemLine(prefix, meshCount, R.plurals.D_mesh)
+message += getItemLine(prefix, nonNativeCount, R.plurals.D_non_native)
+message += getItemLine(prefix, pathCount, R.plurals.D_path)
+message += getItemLine(prefix, placedCount, R.plurals.D_link)
+message += getItemLine(prefix, pluginCount, R.plurals.D_plugin)
+message += getItemLine(prefix, rasterCount, R.plurals.D_image)
+message += getItemLine(prefix, symbolCount, R.plurals.D_symbol)
+message += getItemLine(prefix, textCount, R.plurals.D_type)
 alert(message, getString(R.string.count_objects))
 
 function getItemLine(prefix, count, pluralId) {
   if (count === 0) {
     return ''
   }
-  return '%s%d %s'.format(prefix, count, getPlural(pluralId, count))
+  return prefix + getPlural(pluralId, count, count).toLowerCase()
 }
 
 function isSingleType() {

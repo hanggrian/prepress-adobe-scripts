@@ -6,9 +6,14 @@
 
 var SIZE_INPUT = [110, 21]
 
-check(Collections.isNotEmpty(document.pathItems),
-  getString(R.string.error_notypes_document, R.plurals.path.plural))
 var isFilterMode = Collections.isNotEmpty(selection)
+if (isFilterMode) {
+  check(Collections.anyItem(selection, function(it) { return Items.isPath(it) }),
+    getString(R.string.error_notypes_selection, getString(R.string.paths).toLowerCase()))
+} else {
+  check(Collections.isNotEmpty(document.pathItems),
+    getString(R.string.error_notypes_document, getString(R.string.paths).toLowerCase()))
+}
 
 var dialog = new Dialog(R.string.select_paths, 'selecting-items/#select-paths')
 var fillColorList, fillOverprintList
@@ -20,19 +25,19 @@ var prefs = preferences2.resolve('select/paths')
 
 dialog.vgroup(function(main) {
   main.hgroup(function(rootPane) {
-    rootPane.alignChildren = 'fill'
+    rootPane.alignChildren = 'top'
     rootPane.vgroup(function(leftPane) {
       leftPane.alignChildren = 'fill'
       leftPane.vpanel(R.string.fill, function(panel) {
         panel.alignChildren = 'right'
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selectpaths_fillcolor
-          group.leftStaticText(undefined, R.string.color)
+          group.staticText(undefined, R.string.color).apply(HEADING)
           fillColorList = group.dropDownList(SIZE_INPUT, Color2.list())
         })
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selectpaths_filloverprint
-          group.leftStaticText(undefined, R.string.overprint)
+          group.staticText(undefined, R.string.overprint).apply(HEADING)
           fillOverprintList = group.dropDownList(SIZE_INPUT, SelectOption.list())
         })
       })
@@ -40,25 +45,25 @@ dialog.vgroup(function(main) {
         panel.alignChildren = 'right'
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selectpaths_strokecolor
-          group.leftStaticText(undefined, R.string.color)
+          group.staticText(undefined, R.string.color).apply(HEADING)
           strokeColorList = group.dropDownList(SIZE_INPUT, Color2.list())
         })
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selectpaths_strokeweight
-          group.leftStaticText(undefined, R.string.weight)
-          strokeWeightEdit = group.editText(SIZE_INPUT).also(function(it) {
+          group.staticText(undefined, R.string.weight).apply(HEADING)
+          strokeWeightEdit = group.editText(SIZE_INPUT).apply(function(it) {
             it.validateUnits()
             it.activate()
           })
         })
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selectpaths_strokedashed
-          group.leftStaticText(undefined, R.string.dashed)
+          group.staticText(undefined, R.string.dashed).apply(HEADING)
           strokeDashedList = group.dropDownList(SIZE_INPUT, SelectOption.list())
         })
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selectpaths_strokeoverprint
-          group.leftStaticText(undefined, R.string.overprint)
+          group.staticText(undefined, R.string.overprint).apply(HEADING)
           strokeOverprintList = group.dropDownList(SIZE_INPUT, SelectOption.list())
         })
       })
@@ -70,24 +75,24 @@ dialog.vgroup(function(main) {
         panel.alignChildren = 'right'
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selectpaths_clipping
-          group.leftStaticText(undefined, R.string.clipping)
+          group.staticText(undefined, R.string.clipping).apply(HEADING)
           clippingList = group.dropDownList(SIZE_INPUT, SelectOption.list())
         })
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selectpaths_closed
-          group.leftStaticText(undefined, R.string.closed)
+          group.staticText(undefined, R.string.closed).apply(HEADING)
           closedList = group.dropDownList(SIZE_INPUT, SelectOption.list())
         })
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selectpaths_guides
-          group.leftStaticText(undefined, R.string.guides)
+          group.staticText(undefined, R.string.guides).apply(HEADING)
           guidesList = group.dropDownList(SIZE_INPUT, SelectOption.list())
         })
       })
     })
   })
   if (isFilterMode) {
-    recursiveCheck = new RecursiveCheck(main).also(function(it) {
+    recursiveCheck = new RecursiveCheck(main).apply(function(it) {
       it.alignment = 'right'
       it.value = prefs.getBoolean('recursive')
     })

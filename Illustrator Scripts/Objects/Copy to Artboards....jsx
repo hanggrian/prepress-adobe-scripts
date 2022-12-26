@@ -19,7 +19,7 @@ var activeArtboardRect = activeArtboard.artboardRect
 
 var proceed = true
 if (!Collections.all(selection,
-  function(it) { return it.geometricBounds.isWithin(activeArtboardRect) })) {
+  function(it) { return activeArtboardRect.contains(it.geometricBounds) })) {
   proceed = Windows.confirm(R.string.confirm_copytoartboards)
 }
 
@@ -34,19 +34,19 @@ if (proceed) {
   })
 
   var dialog = new Dialog(R.string.copy_to_artboards, 'copy-to-artboards/')
-  var rangeGroup, anchorList
+  var rangingGroup, anchorList
   var prefs = preferences2.resolve('objects/copy_to_artboards')
 
   dialog.vgroup(function(main) {
     main.alignChildren = 'right'
     main.hgroup(function(group) {
-      group.leftStaticText(undefined, R.string.from_artboard)
+      group.staticText(undefined, R.string.from_artboard).apply(HEADING)
       group.staticText(SIZE_INPUT, activeArtboardIndex + 1)
     })
     main.hgroup(function(group) {
       group.helpTips = R.string.tip_copytoartboards_artboards
-      group.leftStaticText(undefined, R.string.to_artboards)
-      rangeGroup = new RangeGroup(group, SIZE_INPUT).also(function(it) {
+      group.staticText(undefined, R.string.to_artboards).apply(HEADING)
+      rangingGroup = new RangingGroup(group, SIZE_INPUT).apply(function(it) {
         it.maxRange = document.artboards.length
         it.endEdit.text = document.artboards.length
         it.startEdit.activate()
@@ -54,22 +54,23 @@ if (proceed) {
     })
     main.hgroup(function(group) {
       group.helpTips = R.string.tip_copytoartboards_anchor
-      group.leftStaticText(undefined, R.string.anchor)
-      anchorList = group.dropDownList(SIZE_INPUT, Anchor.list()).also(function(it) {
+      group.staticText(undefined, R.string.anchor).apply(HEADING)
+      anchorList = group.dropDownList(SIZE_INPUT, Anchor.list()).apply(function(it) {
         it.selection = prefs.getInt('anchor')
       })
     })
   })
   dialog.setCancelButton()
   dialog.setDefaultButton(undefined, function() {
-    if (!rangeGroup.isValid()) {
+    if (!rangingGroup.isValid()) {
       return Windows.alert(R.string.error_range, dialog.text, true)
     }
+    var range = rangingGroup.get()
     var anchor = Anchor.find(anchorList.selection)
     var readOnlySelection = selection
 
     Collections.forEach(document.artboards, function(artboard, artboardIndex) {
-      if (artboardIndex === activeArtboardIndex || !rangeGroup.includes(artboardIndex)) {
+      if (artboardIndex === activeArtboardIndex || !range.contains(artboardIndex)) {
         println(activeArtboardIndex + '. Ignore active artboard' + '.')
         return
       }

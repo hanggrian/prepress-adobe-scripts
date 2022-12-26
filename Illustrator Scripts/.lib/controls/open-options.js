@@ -1,5 +1,5 @@
-var SIZE_DOCUMENT_INPUT = [120, 21]
-var SIZE_DOCUMENT_INPUT2 = [80, 21]
+var SIZE_OPENDOCUMENT_INPUT = [120, 21]
+var SIZE_OPENDOCUMENT_INPUT2 = [80, 21]
 
 var PDFCrop = new Enum({
   BOUNDING: { text: 'Bounding', value: PDFBoxType.PDFBOUNDINGBOX },
@@ -55,15 +55,15 @@ var DocumentPreview = new Enum({
 function OpenPDFPanel(parent, inputSize) {
   checkNotNull(parent)
 
-  var self = parent.vpanel(R.string.pdf_box)
+  var self = parent.vpanel(R.string.place_pdf)
   self.boxTypeList
 
   self.alignChildren = 'right'
   self.alignment = 'fill'
   self.hgroup(function(group) {
     group.helpTips = R.string.tip_cropto
-    group.leftStaticText(undefined, R.string.crop_to)
-    self.boxTypeList = group.dropDownList(inputSize, PDFCrop.list()).also(function(it) {
+    group.staticText(undefined, R.string.crop_to).apply(HEADING)
+    self.boxTypeList = group.dropDownList(inputSize, PDFCrop.list()).apply(function(it) {
       if (preferences.getPDFCrop() === PDFBoxType.PDFARTBOX) {
         it.selection = 2
       } else if (preferences.getPDFCrop() === PDFBoxType.PDFCROPBOX) {
@@ -93,29 +93,32 @@ function OpenPDFPanel(parent, inputSize) {
 function OpenPagesPanel(parent, inputSize) {
   checkNotNull(parent)
 
-  var self = parent.vpanel(R.string.pages)
-  self.rangeGroup, self.widthEdit, self.heightEdit, self.bleedEdit
+  var self = parent.vpanel(getString(R.string.pages))
+  self.rangingGroup, self.widthEdit, self.heightEdit, self.bleedEdit
 
   self.alignChildren = 'right'
   self.alignment = 'fill'
   self.hgroup(function(group) {
     group.helpTips = R.string.tip_openpages_pages
-    group.leftStaticText(undefined, R.string.pages)
-    self.rangeGroup = new RangeGroup(group, inputSize)
+    group.staticText(undefined, getString(R.string.pages)).apply(HEADING)
+    self.rangingGroup = new RangingGroup(group, inputSize)
   })
   self.hgroup(function(group) {
-    group.leftStaticText(undefined, R.string.width)
-    self.widthEdit = group.editText(inputSize, '210 mm').also(VALIDATE_UNITS)
+    group.staticText(undefined, R.string.width).apply(HEADING)
+    self.widthEdit = group.editText(inputSize, '210 mm').apply(VALIDATE_UNITS)
   })
   self.hgroup(function(group) {
-    group.leftStaticText(undefined, R.string.height)
-    self.heightEdit = group.editText(inputSize, '297 mm').also(VALIDATE_UNITS)
+    group.staticText(undefined, R.string.height).apply(HEADING)
+    self.heightEdit = group.editText(inputSize, '297 mm').apply(VALIDATE_UNITS)
   })
   self.hgroup(function(group) {
     group.helpTips = R.string.tip_openpages_bleed
-    group.leftStaticText(undefined, R.string.bleed)
-    self.bleedEdit = group.editText(inputSize, '0 mm').also(VALIDATE_UNITS)
+    group.staticText(undefined, R.string.bleed).apply(HEADING)
+    self.bleedEdit = group.editText(inputSize, '0 mm').apply(VALIDATE_UNITS)
   })
+
+  /** @return {Range} */
+  self.getRange = function() { return self.rangingGroup.get() }
 
   /** @return {number} */
   self.getWidth = function() { return parseUnits(self.widthEdit.text) }
@@ -147,34 +150,34 @@ function OpenDocumentPanel(parent) {
     rootPane.vgroup(function(leftPane) {
       leftPane.alignChildren = 'right'
       leftPane.hgroup(function(group) {
-        group.leftStaticText(undefined, R.string.width)
-        self.widthEdit = group.editText(SIZE_DOCUMENT_INPUT, '0 mm').also(VALIDATE_UNITS)
+        group.staticText(undefined, R.string.width).apply(HEADING)
+        self.widthEdit = group.editText(SIZE_OPENDOCUMENT_INPUT, '0 mm').apply(VALIDATE_UNITS)
       })
       leftPane.hgroup(function(group) {
-        group.leftStaticText(undefined, R.string.height)
-        self.heightEdit = group.editText(SIZE_DOCUMENT_INPUT, '0 mm').also(VALIDATE_UNITS)
+        group.staticText(undefined, R.string.height).apply(HEADING)
+        self.heightEdit = group.editText(SIZE_OPENDOCUMENT_INPUT, '0 mm').apply(VALIDATE_UNITS)
       })
       leftPane.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_units
-        group.leftStaticText(undefined, R.string.units)
-        self.unitsList = group.dropDownList(SIZE_DOCUMENT_INPUT, UnitType.list())
-          .also(function(it) {
+        group.staticText(undefined, R.string.units).apply(HEADING)
+        self.unitsList = group.dropDownList(SIZE_OPENDOCUMENT_INPUT, UnitType.list())
+          .apply(function(it) {
             it.selection = 3
           })
       })
       leftPane.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_layout
-        group.leftStaticText(undefined, R.string.layout)
-        self.layoutList = group.dropDownList(SIZE_DOCUMENT_INPUT, DocumentLayout.list())
-          .also(function(it) {
+        group.staticText(undefined, R.string.layout).apply(HEADING)
+        self.layoutList = group.dropDownList(SIZE_OPENDOCUMENT_INPUT, DocumentLayout.list())
+          .apply(function(it) {
             it.selection = 0
           })
       })
       leftPane.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_previewmode
-        group.leftStaticText(undefined, R.string.preview_mode)
-        self.previewModeList = group.dropDownList(SIZE_DOCUMENT_INPUT, DocumentPreview.list())
-          .also(function(it) {
+        group.staticText(undefined, R.string.preview_mode).apply(HEADING)
+        self.previewModeList = group.dropDownList(SIZE_OPENDOCUMENT_INPUT, DocumentPreview.list())
+          .apply(function(it) {
             it.selection = 0
           })
       })
@@ -183,37 +186,37 @@ function OpenDocumentPanel(parent) {
       rightPane.alignChildren = 'right'
       rightPane.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_preset
-        group.leftStaticText(undefined, R.string.preset_type)
-        self.presetTypeList = group.dropDownList(SIZE_DOCUMENT_INPUT2, DocumentPreset2.list())
-          .also(function(it) {
+        group.staticText(undefined, R.string.preset_type).apply(HEADING)
+        self.presetTypeList = group.dropDownList(SIZE_OPENDOCUMENT_INPUT2, DocumentPreset2.list())
+          .apply(function(it) {
             it.selection = 2
           })
       })
       rightPane.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_colormode
-        group.leftStaticText(undefined, R.string.color_mode)
-        self.colorModeList = group.dropDownList(SIZE_DOCUMENT_INPUT2, DocumentColor.list())
-          .also(function(it) {
+        group.staticText(undefined, R.string.color_mode).apply(HEADING)
+        self.colorModeList = group.dropDownList(SIZE_OPENDOCUMENT_INPUT2, DocumentColor.list())
+          .apply(function(it) {
             it.selection = 1
           })
       })
       rightPane.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_resolution
-        group.leftStaticText(undefined, R.string.resolution)
-        self.resolutionList = group.dropDownList(SIZE_DOCUMENT_INPUT2, DocumentResolution.list())
-          .also(function(it) {
-            it.selection = 2
-          })
+        group.staticText(undefined, R.string.resolution).apply(HEADING)
+        self.resolutionList = group.dropDownList(SIZE_OPENDOCUMENT_INPUT2,
+          DocumentResolution.list()).apply(function(it) {
+          it.selection = 2
+        })
       })
       rightPane.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_column
-        group.leftStaticText(undefined, R.string.column) // or row
-        self.columnEdit = group.editText(SIZE_DOCUMENT_INPUT2, '2').also(VALIDATE_DIGITS)
+        group.staticText(undefined, R.string.column).apply(HEADING) // or row
+        self.columnEdit = group.editText(SIZE_OPENDOCUMENT_INPUT2, '2').apply(VALIDATE_DIGITS)
       })
       rightPane.hgroup(function(group) {
         group.helpTips = R.string.tip_opendocuments_spacing
-        group.leftStaticText(undefined, R.string.spacing)
-        self.spacingEdit = group.editText(SIZE_DOCUMENT_INPUT2, '10 mm').also(VALIDATE_UNITS)
+        group.staticText(undefined, R.string.spacing).apply(HEADING)
+        self.spacingEdit = group.editText(SIZE_OPENDOCUMENT_INPUT2, '10 mm').apply(VALIDATE_UNITS)
       })
     })
   })
@@ -241,7 +244,7 @@ function OpenDocumentPanel(parent) {
     checkNotNull(title)
     checkNotNull(artboardLength)
     var presetType = DocumentPreset2.find(self.presetTypeList.selection)
-    return app.documents.addDocument(presetType.value, new DocumentPreset().also(function(preset) {
+    return app.documents.addDocument(presetType.value, new DocumentPreset().apply(function(preset) {
       preset.title = title
       preset.numArtboards = artboardLength
       preset.width = self.getWidth()

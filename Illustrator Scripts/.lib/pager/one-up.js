@@ -6,6 +6,7 @@
 function OneUpPager(document, start) {
   checkNotNull(document)
   checkNotNull(start)
+  check(start.isInt())
   var current = start
 
   var self = this

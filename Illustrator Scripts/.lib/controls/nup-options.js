@@ -18,7 +18,7 @@ function NUpOptionsGroup(parent, showFolding, showRotate, showDuplex, showStack)
 
   self.alignment = 'right'
   if (showFolding) {
-    self.foldingCheck = self.checkBox(undefined, R.string.folding_booklet).also(function(it) {
+    self.foldingCheck = self.checkBox(undefined, R.string.folding_booklet).apply(function(it) {
       it.helpTip = R.string.tip_nup_foldingbooklet
       it.addClickListener(function() {
         if (self.rotateCheck !== undefined) self.rotateCheck.enabled = !it.value
@@ -28,17 +28,17 @@ function NUpOptionsGroup(parent, showFolding, showRotate, showDuplex, showStack)
     })
   }
   if (showRotate) {
-    self.rotateCheck = self.checkBox(undefined, R.string.rotate_pages).also(function(it) {
+    self.rotateCheck = self.checkBox(undefined, R.string.rotate_pages).apply(function(it) {
       it.helpTip = R.string.tip_nup_rotatepages
     })
   }
   if (showDuplex) {
-    self.duplexCheck = self.checkBox(undefined, R.string.duplex_printing).also(function(it) {
+    self.duplexCheck = self.checkBox(undefined, R.string.duplex_printing).apply(function(it) {
       it.helpTip = R.string.tip_nup_duplexprinting
     })
   }
   if (showStack) {
-    self.stackCheck = self.checkBox(undefined, R.string.cut_stack).also(function(it) {
+    self.stackCheck = self.checkBox(undefined, R.string.cut_stack).apply(function(it) {
       it.helpTip = R.string.tip_nup_cutstack
     })
   }

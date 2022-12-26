@@ -15,7 +15,7 @@ var orderingList
 var prefs = preferences2.resolve('objects/rearrange')
 
 dialog.vgroup(function(main) {
-  orderingList = new OrderingList(main, [Ordering.positionList()]).also(function(it) {
+  orderingList = new OrderingList(main, [Ordering.positionList()]).apply(function(it) {
     it.selection = prefs.getInt('order')
   })
 })

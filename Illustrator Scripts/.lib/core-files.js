@@ -3,12 +3,17 @@
  * @param {!Array<!File>} files
  */
 function FileCollection(files) {
+  checkNotNull(files)
+
   var self = this
 
+  /** @type {boolean} */
   self.isSinglePDF = files.length === 1 && Collections.first(files).isPdf()
 
+  /** @type {boolean} */
   self.hasPDF = Collections.any(files, function(it) { return it.isPdf() })
 
+  /** @type {number} */
   self.length = files.length
 
   /**

@@ -1,12 +1,14 @@
 //@target illustrator
 //@include '../.lib/commons.js'
 
+var SIZE_RANGING = [150, 21]
+
 var dialog = new Dialog(R.string.fit_to_arts)
-var rangeGroup
+var rangingGroup
 
 dialog.hgroup(function(main) {
-  main.leftStaticText(undefined, R.string.range)
-  rangeGroup = new RangeGroup(main, [150, 21]).also(function(it) {
+  main.staticText(undefined, R.string.range).apply(HEADING)
+  rangingGroup = new RangingGroup(main, SIZE_RANGING).apply(function(it) {
     it.maxRange = document.artboards.length
     it.endEdit.text = document.artboards.length
     it.startEdit.activate()
@@ -14,11 +16,11 @@ dialog.hgroup(function(main) {
 })
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
-  if (!rangeGroup.isValid()) {
+  if (!rangingGroup.isValid()) {
     return Windows.alert(R.string.error_range, dialog.text, true)
   }
   var temp = selection // preserve selection
-  Collections.forEach(rangeGroup.toArray(), function(i) {
+  rangingGroup.get().forEachIndex(function(i) {
     document.artboards.setActiveArtboardIndex(i)
     document.selectObjectsOnActiveArtboard(i)
     document.fitArtboardToSelectedArt(i)

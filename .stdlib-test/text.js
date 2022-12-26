@@ -81,10 +81,10 @@ test('endsWith', function() {
   assertTrue(s.endsWith('World'))
 })
 
-test('includes', function() {
+test('contains', function() {
   var s = 'Hello World'
-  assertTrue(s.includes('Hello'))
-  assertFalse(s.includes('Helloo'))
+  assertTrue(s.contains('Hello'))
+  assertFalse(s.contains('Helloo'))
 })
 
 test('isNumeric', function() {

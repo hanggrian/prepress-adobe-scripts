@@ -36,6 +36,7 @@
 //@include 'math.js'
 //@include 'objects.js'
 //@include 'preconditions.js'
+//@include 'range.js'
 //@include 'standard.js'
 //@include 'text.js'
 //@include 'time.js'
@@ -109,19 +110,21 @@ var Scripts = {
    */
   openUrl: function(url) {
     checkNotNull(url)
-    var htmlContent = '<!doctype html>' +
-      '<html>' +
-      '  <head>' +
-      '    <meta charset="UTF-8">' +
-      '    <meta HTTP-EQUIV=Refresh CONTENT="0; URL=%s">'.format(url) +
-      '    <title>Redirecting...</title>' +
-      '  </head>' +
-      '  <body>' +
-      '    <p>This is a redirecting page of <a href="%s">prepress-adobe-scripts</a>, you may close it.</p>'.format(Scripts.URL_GITHUB) +
-      '  </body>' +
+    var html = '<!doctype html>\n' +
+      '<html lang="en">\n' +
+      '  <head>\n' +
+      '    <meta charset="UTF-8">\n' +
+      '    <title>Redirecting...</title>\n' +
+      '    <meta HTTP-EQUIV=refresh CONTENT="0; URL=%s">\n'.format(url) +
+      '  </head>\n' +
+      '  <body>\n' +
+      '    <h1>Redirecting...</h1>\n' +
+      '    <p>You\'re being redirected to</p>\n' +
+      '    <a href="%s">%s</a>\n'.format(url, url) +
+      '  </body>\n' +
       '</html>'
-    var tempFile = new File(Folder.temp.absoluteURI + '/prepress-adobe-scripts.html')
-    tempFile.writeText(htmlContent)
+    var tempFile = new File(Folder.temp + '/prepress-adobe-scripts.html')
+    tempFile.writeText(html)
     tempFile.execute()
   }
 }

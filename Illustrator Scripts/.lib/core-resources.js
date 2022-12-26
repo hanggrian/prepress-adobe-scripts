@@ -4,7 +4,7 @@ R.string.D_up = { en: "%d-Up", id: "%d-Mata" }
 R.string.add = { en: "Add", id: "Tambah" }
 R.string.add_flap_dieline = { en: "Add Flap Dieline", id: "Tambah Garis Pond Lidah" }
 R.string.add_paperbag_dielines = { en: "Add Paperbag Dielines", id: "Tambah Garis Pond Kantong Kertas" }
-R.string.add_trim_marks = { en: "Add Trim Marks", id: "Tambah Tanda Potong" }
+R.string.add_trim_marks = { en: "Add Trim Marks", id: "Tambah Garis Potong" }
 R.string.affix = { en: "Affix", id: "Afiks" }
 R.string.against_black_background = { en: "Against Black Background", id: "Terhadap Latar Belakang Hitam" }
 R.string.anti_aliasing = { en: "Anti-Aliasing", id: "Anti-Aliasing" }
@@ -24,12 +24,14 @@ R.string.change_page = { en: "Change Page", id: "Ganti Halaman" }
 R.string.character = { en: "Character", id: "Karakter" }
 R.string.clip_objects = { en: "Clip Objects", id: "Klip Objek" }
 R.string.clipping = { en: "Clipping", id: "Kliping" }
+R.string.clipping_masks = { en: "Clipping Masks", id: "Topeng Kliping" }
 R.string.closed = { en: "Closed", id: "Tertutup" }
 R.string.color = { en: "Color", id: "Warna" }
 R.string.color_mode = { en: "Color Mode", id: "Mode Warna" }
 R.string.color_model = { en: "Color Model", id: "Model Warna" }
 R.string.color_space = { en: "Color Space", id: "Ruang Warna" }
 R.string.column = { en: "Column", id: "Kolom" }
+R.string.compound_paths = { en: "Compound Paths", id: "Jalur Gabungan" }
 R.string.confirm_copytoartboards = { en: "Selected items are out of active artboard. Would you like to continue?", id: "Barang yang dipilih diluar dari papan seni aktif. Apakah Anda ingin melanjutkan?" }
 R.string.content = { en: "Content", id: "Konten" }
 R.string.convert_spot_colors = { en: "Convert Spot Colors", id: "Konversi Warna Khusus" }
@@ -37,7 +39,7 @@ R.string.convert_text_to_outlines = { en: "Convert Text to Outlines", id: "Konve
 R.string.copies = { en: "Copies", id: "Salinan" }
 R.string.copy_to_artboards = { en: "Copy to Artboards", id: "Salin ke Papan Seni" }
 R.string.count_objects = { en: "Count Objects", id: "Hitung Objek" }
-R.string.create_clipping_mask = { en: "Create Clipping Mask", id: "Buat Kliping Topeng" }
+R.string.create_clipping_mask = { en: "Create Clipping Mask", id: "Buat Topeng Kliping" }
 R.string.crop_to = { en: "Crop to", id: "Potong ke" }
 R.string.curve = { en: "Curve", id: "Lengkungan" }
 R.string.cut_stack = { en: "Cut Stack", id: "Tumpuk Potongan" }
@@ -69,15 +71,15 @@ R.string.error_preconditions_typename = { en: "Expected item type to be %s", id:
 R.string.error_range = { en: "Invalid range", id: "Rentang tidak valid" }
 R.string.error_rearrange = { en: "Objects to arrange must be connected to each other", id: "Objek untuk mengatur harus terhubung satu sama lain" }
 R.string.error_stepandrepeat = { en: "Minimal value is 1x1", id: "Nilai minimal adalah 1x1" }
-R.string.expand = { en: "Expand", id: "Perbesar" }
-R.string.expand_reflected = { en: "Expand Reflected", id: "Perbesar dengan Refleksi" }
-R.string.expanding = { en: "Expanding", id: "Memperbesar" }
-R.string.file_types = { en: "File Types", id: "Jenis File" }
+R.string.expand = { en: "Expand", id: "Perluas" }
+R.string.expand_reflected = { en: "Expand Reflected", id: "Perluas dengan Refleksi" }
+R.string.expanding = { en: "Expanding", id: "Memperluas" }
+R.string.file_types = { en: "File Types", id: "Jenis Berkas" }
 R.string.fill = { en: "Fill", id: "Isi" }
 R.string.fill_gradients = { en: "Fill Gradients", id: "Isi Gradasi" }
 R.string.fill_patterns = { en: "Fill Patterns", id: "Isi Pola" }
 R.string.find = { en: "Find", id: "Cari" }
-R.string.fit_to_arts = { en: "Fit to Arts", id: "Cocokan ke Konten" }
+R.string.fit_to_arts = { en: "Fit to Arts", id: "Cocokan ke Seni" }
 R.string.flap = { en: "Flap", id: "Lidah" }
 R.string.floor = { en: "Floor", id: "Lantai" }
 R.string.folding_booklet = { en: "Folding Booklet", id: "Lipatan Buku" }
@@ -87,14 +89,16 @@ R.string.from_artboard = { en: "From Artboard", id: "Dari Papan Seni" }
 R.string.full_size = { en: "Full-Size", id: "Penuh" }
 R.string.glue = { en: "Glue", id: "Lem" }
 R.string.glue_flap = { en: "Glue Flap", id: "Lidah Lem" }
+R.string.graphs = { en: "Graphs", id: "Bagan" }
 R.string.grid_by_column = { en: "Grid by Column", id: "Kisi Menurut Kolom" }
 R.string.grid_by_row = { en: "Grid by Row", id: "Kisi Menurut Baris" }
+R.string.groups = { en: "Groups", id: "Grup" }
 R.string.guides = { en: "Guides", id: "Panduan" }
 R.string.half_size = { en: "Half-Size", id: "Setengah" }
 R.string.high = { en: "High", id: "Tinggi" }
 R.string.horizontal = { en: "Horizontal", id: "Horisontal" }
 R.string.horizontal_rtl = { en: "Horizontal RTL", id: "Horisontal Terbalik" }
-R.string.image = { en: "Image", id: "Gambar" }
+R.string.images = { en: "Images", id: "Gambar" }
 R.string.imports = { en: "Imports", id: "Impor" }
 R.string.impose_D_up = { en: "Impose %d-Up", id: "Susun %d-Mata" }
 R.string.impose_saddle_stitch = { en: "Impose Saddle-Stitch", id: "Susun Steples" }
@@ -103,18 +107,20 @@ R.string.imposing = { en: "Imposing", id: "Menyusun" }
 R.string.include_layers = { en: "Include Layers", id: "Termasuk Lapisan" }
 R.string.italic = { en: "Italic", id: "Miring" }
 R.string.keep_size = { en: "Keep Size", id: "Jaga Ukuran" }
-R.string.kind = { en: "Kind", id: "Jenis" }
+R.string.kind = { en: "Kind", id: "Macam" }
 R.string.layout = { en: "Layout", id: "Tata Letak" }
+R.string.links = { en: "Links", id: "Tautan" }
 R.string.locations = { en: "Locations", id: "Lokasi" }
-R.string.lower = { en: "Lower", id: "Bawah" }
+R.string.lower = { en: "Lower", id: "Turunan" }
 R.string.magenta = { en: "Magenta", id: "Magenta" }
 R.string.match_case = { en: "Match Case", id: "Cocokan Besar Huruf" }
 R.string.match_whole_word = { en: "Match Whole Word", id: "Cocokan Seluruh Kata" }
 R.string.measure_dielines = { en: "Measure Dielines", id: "Ukur Garis Pond" }
 R.string.medium = { en: "Medium", id: "Sedang" }
+R.string.meshes = { en: "Meshes", id: "Jala" }
 R.string.message_count1 = { en: "There are ", id: "Ada " }
 R.string.message_count2 = { en: " items, containing:", id: " barang, termasuk:" }
-R.string.message_measuredielines1 = { en: "No dielines found in selection.", id: "Tidak ada dieline yang ditemukan dalam seleksi." }
+R.string.message_measuredielines1 = { en: "No dielines found in selection.", id: "Tidak ada garis pond yang ditemukan dalam seleksi." }
 R.string.message_measuredielines2 = { en: "%d lines measuring at %d.", id: "%d garis dengan ukuran %d." }
 R.string.message_measuredielines3 = { en: "\n%d lines used as clipping are ignored.", id: "\n%d garis yang digunakan sebagai kliping diabaikan." }
 R.string.message_measuredielines4 = { en: "\n%d lines with any fill are ignored.", id: "\n%d garis dengan isian apa pun diabaikan." }
@@ -122,19 +128,24 @@ R.string.message_measuredielines5 = { en: "\n%d lines with registration stroke a
 R.string.message_preflight_issue_colormodel = { en: "Color model is %s\n", id: "Model warna adalah %s\n" }
 R.string.message_preflight_issue_colorspace = { en: "Color space is %s\n", id: "Ruang warna adalah %s\n" }
 R.string.message_preflight_issue_resolution = { en: "Resolution is %s\n", id: "Resolusi adalah %s\n" }
-R.string.message_preflight_issue_rulerunits = { en: "Unusual ruler units %s\n", id: "Satuan penggaris yang tidak biasa %s\n" }
+R.string.message_preflight_issue_rulerunits = { en: "Unusual ruler units %s\n", id: "Satuan penggaris tidak biasa %s\n" }
 R.string.mode = { en: "Mode", id: "Mode" }
 R.string.move = { en: "Move", id: "Pindah" }
 R.string.multiple_target = { en: "Multiple Target", id: "Sasaran Ganda" }
 R.string.nearest = { en: "Nearest", id: "Terdekat" }
+R.string.non_natives = { en: "Non-Natives", id: "Impor" }
 R.string.numerize = { en: "Numerize", id: "Nomorator" }
+R.string.obsolete_types = { en: "Obsolete Types", id: "Tulisan Kuno" }
 R.string.offset = { en: "Offset", id: "Jarak" }
-R.string.order_by = { en: "Order by", id: "Urutan" }
+R.string.order_by = { en: "Order by", id: "Urutan dengan" }
 R.string.orientation = { en: "Orientation", id: "Orientasi" }
-R.string.overprint = { en: "Overprint", id: "Overprin" }
+R.string.overprint = { en: "Overprint", id: "Overprint" }
+R.string.page_D_D = { en: "Page %d-%d", id: "Halaman %d-%d" }
 R.string.pages = { en: "Pages", id: "Halaman" }
 R.string.path_text = { en: "Path Text", id: "Teks Jalur" }
-R.string.pdf_box = { en: "PDF Box", id: "Kotak PDF" }
+R.string.paths = { en: "Paths", id: "Jalur" }
+R.string.place_pdf = { en: "Place PDF", id: "Letak PDF" }
+R.string.plugins = { en: "Plugins", id: "Pengaya" }
 R.string.point_text = { en: "Point Text", id: "Teks Titik" }
 R.string.positions = { en: "Positions", id: "Posisi" }
 R.string.prefix = { en: "Prefix", id: "Awalan" }
@@ -152,11 +163,11 @@ R.string.relink_same = { en: "Relink Same", id: "Taut Ulang Sama" }
 R.string.remaining_sheets = { en: "Remaining Sheets", id: "Sisa Lembar" }
 R.string.rename_as_imposition = { en: "Rename as Imposition", id: "Ganti Nama sebagai Imposisi" }
 R.string.reorder_artboards = { en: "Reorder Artboards", id: "Susun Ulang Papan Seni" }
-R.string.resize_clipping_masks = { en: "Resize Clipping Masks", id: "Ubah Ukuran Kliping Topeng" }
+R.string.resize_clipping_masks = { en: "Resize Clipping Masks", id: "Ubah Ukuran Topeng Kliping" }
 R.string.resize_each = { en: "Resize Each", id: "Ubah Ukuran Masing-Masing" }
 R.string.resize_glyph = { en: "Resize Glyph", id: "Ubah Ukuran Teks" }
-R.string.resizing_clipping_masks = { en: "Resizing Clipping Masks", id: "Mengubah Ukuran Kliping Topeng" }
-R.string.retype = { en: "Retype", id: "Ketik Ulang" }
+R.string.resizing_clipping_masks = { en: "Resizing Clipping Masks", id: "Mengubah Ukuran Topeng Kliping" }
+R.string.retype = { en: "Retype", id: "Tulis Ulang" }
 R.string.reversed = { en: "Reversed", id: "Terbalik" }
 R.string.right_to_left = { en: "Right-to-Left", id: "Kanan-ke-Kiri" }
 R.string.rotate_pages = { en: "Rotate Pages", id: "Putar Halaman" }
@@ -170,12 +181,12 @@ R.string.saddle_stitch = { en: "Saddle-Stitch", id: "Steples" }
 R.string.scratches = { en: "Scratches", id: "Goresan" }
 R.string.screen = { en: "Screen", id: "Layar" }
 R.string.section_sewn = { en: "Section-Sewn", id: "Jahit Benang" }
-R.string.sections = { en: "Section", id: "Bagian" }
+R.string.sections = { en: "Sections", id: "Bagian" }
 R.string.select_all = { en: "Select All", id: "Pilih Semua" }
 R.string.select_images = { en: "Select Images", id: "Pilih Gambar" }
 R.string.select_links = { en: "Select Links", id: "Pilih Tautan" }
 R.string.select_paths = { en: "Select Paths", id: "Pilih Jalur" }
-R.string.select_types = { en: "Select Types", id: "Pilih Teks" }
+R.string.select_types = { en: "Select Types", id: "Pilih Tulisan" }
 R.string.shear = { en: "Shear", id: "Cukuran" }
 R.string.shoulder = { en: "Shoulder", id: "Bahu" }
 R.string.spacing = { en: "Spacing", id: "Spasi" }
@@ -185,8 +196,9 @@ R.string.status = { en: "Status", id: "Status" }
 R.string.step_and_repeat = { en: "Step and Repeat", id: "Langkah dan Ulangi" }
 R.string.stops_at = { en: "Stops at", id: "Berhenti di" }
 R.string.stroke = { en: "Stroke", id: "Goresan" }
-R.string.stroke_patterns = { en: "Stroke Patterns", id: "Goresan Pola" }
+R.string.stroke_patterns = { en: "Stroke Patterns", id: "Pola Goresan" }
 R.string.suffix = { en: "Suffix", id: "Akhiran" }
+R.string.symbols = { en: "Symbols", id: "Simbol" }
 R.string.tip_addflapdieline_color = { en: "Stroke color of dielines.", id: "Warna goresan garis pond." }
 R.string.tip_addflapdieline_direction = { en: "Where should the flap be added relative to target.", id: "Di mana lidah harus ditambahkan relatif terhadap target." }
 R.string.tip_addflapdieline_dustflap_distance = { en: "Thicker material should have more distance.", id: "Bahan yang lebih tebal harus memiliki jarak yang lebih jauh." }
@@ -200,23 +212,23 @@ R.string.tip_addflapdieline_weight = { en: "Stroke width of dielines.", id: "Leb
 R.string.tip_addpaperbagdielines_depth = { en: "Depth of paperbag.", id: "Kedalaman kantong kertas." }
 R.string.tip_addpaperbagdielines_glue = { en: "Length of glue area.", id: "Panjang area lem." }
 R.string.tip_addpaperbagdielines_height = { en: "Height of paperbag.", id: "Tinggi kantong kertas." }
-R.string.tip_addpaperbagdielines_lower = { en: "Length of lower area.", id: "Panjang daerah bawah." }
+R.string.tip_addpaperbagdielines_lower = { en: "Length of lower area.", id: "Panjang daerah bawahan." }
 R.string.tip_addpaperbagdielines_shear = { en: "Lowering the end half of glue area by this value.", id: "Menurunkan setengah bagian akhir dari area lem dengan nilai ini." }
 R.string.tip_addpaperbagdielines_strokecolor = { en: "Stroke color of dielines.", id: "Warna goresan garis pond." }
 R.string.tip_addpaperbagdielines_strokeweight = { en: "Stroke width of dielines.", id: "Lebar goresan garis pond." }
-R.string.tip_addpaperbagdielines_upper = { en: "Length of upper area.", id: "Panjang daerah atas." }
+R.string.tip_addpaperbagdielines_upper = { en: "Length of upper area.", id: "Panjang daerah atasan." }
 R.string.tip_addpaperbagdielines_width = { en: "Width of paperbag.", id: "Lebar kantong kertas." }
 R.string.tip_addtrimmarks_color = { en: "Color of trim marks.", id: "Warna garis potong." }
 R.string.tip_addtrimmarks_length = { en: "Size of trim marks.", id: "Ukuran garis potong." }
-R.string.tip_addtrimmarks_markcheck = { en: "Generate single trim mark on specific location.", id: "Hasilkan tanda trim tunggal di lokasi tertentu." }
-R.string.tip_addtrimmarks_markscheck = { en: "Generate multiple trim marks across location.", id: "Hasilkan beberapa tanda trim di seluruh lokasi." }
-R.string.tip_addtrimmarks_multipletarget = { en: "When activated, trim marks will be added to each item.", id: "Saat diaktifkan, tanda trim akan ditambahkan ke setiap barang." }
-R.string.tip_addtrimmarks_offset = { en: "Distance between art and trim marks.", id: "Jarak antara tanda seni dan garis potong." }
+R.string.tip_addtrimmarks_markcheck = { en: "Generate single trim mark on specific item.", id: "Hasilkan garis potong tunggal di barang tertentu." }
+R.string.tip_addtrimmarks_markscheck = { en: "Generate multiple trim marks across items.", id: "Hasilkan beberapa garus potong di seluruh barang." }
+R.string.tip_addtrimmarks_multipletarget = { en: "When activated, trim marks will be added to each item.", id: "Saat diaktifkan, garis potong akan ditambahkan ke setiap barang." }
+R.string.tip_addtrimmarks_offset = { en: "Distance between art and trim marks.", id: "Jarak antara seni dan garis potong." }
 R.string.tip_addtrimmarks_weight = { en: "Thickness of trim marks.", id: "Ketebalan garis potong." }
 R.string.tip_checks_documentorigin = { en: "Use current reference point preference.", id: "Gunakan preferensi titik referensi saat ini." }
 R.string.tip_checks_keepsize = { en: "Keep curent dimension.", id: "Pertahankan dimensi saat ini." }
 R.string.tip_checks_recursive = { en: "Iterate through groups recursively.", id: "Iterasi melalui grup secara rekursif." }
-R.string.tip_copytoartboards_anchor = { en: "Duplicate by putting distance between selection and anchor.\nThis option is only available when artboards do not have the same size.", id: "Gandakan dengan menempatkan jarak antara seleksi dan jangkar.\nOpsi ini hanya tersedia jika papan seni tidak memiliki ukuran yang sama." }
+R.string.tip_copytoartboards_anchor = { en: "Duplicate by putting distance between selection and anchor.", id: "Gandakan dengan menempatkan jarak antara seleksi dan jangkar." }
 R.string.tip_copytoartboards_artboards = { en: "Which artboards to paste.", id: "Papan seni mana yang akan ditempel." }
 R.string.tip_cropto = { en: "Which box should be used when placing a pdf document.", id: "Kotak mana yang harus digunakan saat menempatkan dokumen pdf." }
 R.string.tip_expandreflected_clipobjects = { en: "Create a clipping mask around main object and its reflections.", id: "Buat topeng kliping di sekitar objek utama dan pantulannya." }
@@ -237,28 +249,28 @@ R.string.tip_nup_rotatepages = { en: "Should the pages be rotated?", id: "Harusk
 R.string.tip_opendocuments_colormode = { en: "The color mode of the new document.", id: "Mode warna dokumen baru." }
 R.string.tip_opendocuments_column = { en: "Number of cell each column/row depending on the layout.", id: "Jumlah sel setiap kolom/baris tergantung pada tata letak." }
 R.string.tip_opendocuments_layout = { en: "The direction flow of artboards.", id: "Arah aliran papan seni." }
-R.string.tip_opendocuments_preset = { en: "The preset type of the new document.", id: "Jenis preset dokumen dari." }
-R.string.tip_opendocuments_previewmode = { en: "The preview mode of the new document.", id: "Mode pratinjau dokumen baru." }
-R.string.tip_opendocuments_resolution = { en: "The resolution of the new document.", id: "Resolusi dokumen baru." }
+R.string.tip_opendocuments_preset = { en: "The preset type of the new document.", id: "Jenis preset dari dokumen baru." }
+R.string.tip_opendocuments_previewmode = { en: "The preview mode of the new document.", id: "Mode pratinjau dari dokumen baru." }
+R.string.tip_opendocuments_resolution = { en: "The resolution of the new document.", id: "Resolusi dari dokumen baru." }
 R.string.tip_opendocuments_spacing = { en: "Distance between artboards.", id: "Jarak antara papan seni." }
-R.string.tip_opendocuments_units = { en: "The units measurement of the new document.", id: "Pengukuran unit dokumen baru." }
+R.string.tip_opendocuments_units = { en: "The units measurement of the new document.", id: "Pengukuran unit dari dokumen baru." }
 R.string.tip_openpages_bleed = { en: "Extra area that will be added to page dimension.", id: "Area ekstra yang akan ditambahkan ke dimensi halaman." }
 R.string.tip_openpages_pages = { en: "Which pages to impose.", id: "Halaman mana yang harus disusun." }
 R.string.tip_orderby = { en: "Modify how iteration should be operated.", id: "Ubah bagaimana iterasi harus dioperasikan." }
 R.string.tip_padding = { en: "The amount of padding around object.", id: "Jumlah bantalan di sekitar objek." }
 R.string.tip_rasterizeeach_antialiasing = { en: "The type of antialiasing method.", id: "Jenis metode antialiasing." }
-R.string.tip_rasterizeeach_background = { en: "Should the resulting image use transparency?", id: "Haruskah gambar yang dihasilkan menggunakan transparansi." }
+R.string.tip_rasterizeeach_background = { en: "Should the resulting image use transparency?", id: "Haruskah gambar yang dihasilkan menggunakan transparansi?" }
 R.string.tip_rasterizeeach_colormodel = { en: "The color model for the rasterization.", id: "Model warna untuk rasterisasi." }
 R.string.tip_rasterizeeach_option1 = { en: "Should rasterize against a black background instead of white?", id: "Haruskah raster dengan latar belakang hitam, bukan putih?" }
 R.string.tip_rasterizeeach_option2 = { en: "Should a clipping mask be created for the resulting image?", id: "Haruskah topeng kliping dibuat untuk gambar yang dihasilkan?" }
-R.string.tip_rasterizeeach_option3 = { en: "Whether to convert all spot colors to process colors in the resulting image.", id: "Apakah akan mengonversi semua warna spot untuk memproses warna pada gambar yang dihasilkan?" }
+R.string.tip_rasterizeeach_option3 = { en: "Whether to convert all spot colors to process colors in the resulting image.", id: "Haruskah mengonversi semua warna spot menjadi warna proses pada gambar yang dihasilkan." }
 R.string.tip_rasterizeeach_option4 = { en: "Should all text be converted to outlines before rasterization?", id: "Haruskah semua teks dikonversi ke garis besar sebelum rasterisasi?" }
-R.string.tip_rasterizeeach_option5 = { en: "Should the resulting image incorporates the layer attributes (such as opacity and blend mode)?", id: "Haruskah gambar yang dihasilkan menggabungkan atribut layer (seperti opacity dan blend mode)?" }
+R.string.tip_rasterizeeach_option5 = { en: "Should the resulting image incorporates the layer attributes (such as opacity and blend mode)?", id: "Haruskah gambar yang dihasilkan menggabungkan atribut layer (seperti transparasi dan modus campuran)?" }
 R.string.tip_rasterizeeach_resolusi = { en: "The rasterization resolution in dots-per-inch (dpi).", id: "Resolusi rasterisasi dalam dot-per-inch (dpi)." }
 R.string.tip_relink_pages = { en: "Which pages should be used when opening a multipage document.", id: "Halaman mana yang harus digunakan saat membuka dokumen halaman ganda." }
 R.string.tip_renameasimposition_mode = { en: "Imposition type.", id: "Tipe imposisi." }
 R.string.tip_renameasimposition_start = { en: "Imposition range.", id: "Jangkauan imposisi." }
-R.string.tip_resizeeach_option1 = { en: "Are art object positions and orientations effected?", id: "Apakah posisi dan orientasi objek terpengaruh?" }
+R.string.tip_resizeeach_option1 = { en: "Are art object positions and orientations effected?", id: "Apakah posisi dan orientasi seni terpengaruh?" }
 R.string.tip_resizeeach_option2 = { en: "Are the fill patterns assigned to paths to be transformed?", id: "Apakah pola isian ditugaskan ke jalur yang akan diubah?" }
 R.string.tip_resizeeach_option3 = { en: "Are the fill gradients assigned to paths to be transformed?", id: "Apakah gradien isian ditugaskan ke jalur yang akan diubah?" }
 R.string.tip_resizeeach_option4 = { en: "Are the stroke patterns assigned to paths to be transformed?", id: "Apakah pola goresan ditugaskan ke jalur yang akan diubah?" }
@@ -267,20 +279,20 @@ R.string.tip_resizeglyph_rounding = { en: "Method to round final font size.", id
 R.string.tip_resizeglyph_size = { en: "Target size to match.", id: "Ukuran target untuk dicocokkan." }
 R.string.tip_selectimage_bitsperchannel = { en: "The number of bits per channel.", id: "Jumlah bit per saluran." }
 R.string.tip_selectimage_colorspace = { en: "The color space of the raster image.", id: "Ruang warna gambar." }
-R.string.tip_selectimage_embedded = { en: "Is the raster art embedded within the illustration?", id: "Apakah seni raster tertanam dalam ilustrasi?" }
-R.string.tip_selectimage_overprint = { en: "Is the raster art overprinting?", id: "Apakah seni raster terlalu banyak dicetak?" }
+R.string.tip_selectimage_embedded = { en: "Is the raster art embedded within the illustration?", id: "Apakah raster seni tertanam dalam ilustrasi?" }
+R.string.tip_selectimage_overprint = { en: "Is the raster art overprinting?", id: "Apakah raster seni terlalu banyak dicetak?" }
 R.string.tip_selectimage_status = { en: "Status of the linked image.", id: "Status gambar tertaut." }
-R.string.tip_selectimage_transparent = { en: "Is the raster art transparent?", id: "Apakah seni raster transparan?" }
-R.string.tip_selectlinks_filetypes = { en: "File extension of selected links.", id: "Ekstensi file dari tautan yang dipilih." }
+R.string.tip_selectimage_transparent = { en: "Is the raster art transparent?", id: "Apakah raster seni transparan?" }
+R.string.tip_selectlinks_filetypes = { en: "File extension of selected links.", id: "Ekstensi berkas dari tautan yang dipilih." }
 R.string.tip_selectpaths_clipping = { en: "Should this be used as a clipping path?", id: "Haruskah ini digunakan sebagai jalur kliping?" }
-R.string.tip_selectpaths_closed = { en: "Is this path closed?", id: "Apakah goresan ini tertutup?" }
+R.string.tip_selectpaths_closed = { en: "Is this path closed?", id: "Apakah jalur ini tertutup?" }
 R.string.tip_selectpaths_fillcolor = { en: "The fill color.", id: "Warna isian." }
-R.string.tip_selectpaths_filloverprint = { en: "Will art beneath a filled object be overprinted?", id: "Akankah seni di bawah objek yang diisi akan dicetak berlebihan?" }
+R.string.tip_selectpaths_filloverprint = { en: "Will art beneath a filled object be overprinted?", id: "Akankah seni di bawah objek yang diisi akan dioverprint?" }
 R.string.tip_selectpaths_guides = { en: "Is this path a guide object?", id: "Apakah jalur ini merupakan objek pemandu?" }
 R.string.tip_selectpaths_strokecolor = { en: "The stroke color.", id: "Warna goresan." }
 R.string.tip_selectpaths_strokedashed = { en: "Is the stroke dashed?", id: "Apakah goresannya putus-putus?" }
-R.string.tip_selectpaths_strokeoverprint = { en: "Will art beneath a stroked object be overprinted?", id: "Akankah seni di bawah objek yang digores akan dicetak berlebihan?" }
-R.string.tip_selectpaths_strokeweight = { en: "The stroke width.", id: "Bobot goresan." }
+R.string.tip_selectpaths_strokeoverprint = { en: "Will art beneath a stroked object be overprinted?", id: "Akankah seni di bawah objek yang digores akan dioverprint?" }
+R.string.tip_selectpaths_strokeweight = { en: "The stroke weight.", id: "Bobot goresan." }
 R.string.tip_selecttypes_content = { en: "Text to find in content.", id: "Teks untuk ditemukan di konten." }
 R.string.tip_selecttypes_fill = { en: "The color of the text fill.", id: "Warna isi teks." }
 R.string.tip_selecttypes_fontname = { en: "The font's full name.", id: "Nama lengkap font." }
@@ -297,71 +309,72 @@ R.string.tip_stepandrepeat_vertical = { en: "Distance between arts vertically.",
 R.string.to_artboards = { en: "To Artboards", id: "Ke Papan Seni" }
 R.string.total_sheets = { en: "Total Sheets", id: "Jumlah Lembar" }
 R.string.transparent = { en: "Transparent", id: "Transparan" }
-R.string.trim_marks = { en: "Trim Marks", id: "Tanda Potong" }
+R.string.trim_marks = { en: "Trim Marks", id: "Garis Potong" }
 R.string.tuck_flap = { en: "Tuck Flap", id: "Lidah Selipan" }
 R.string.type_optimized = { en: "Type Optimized", id: "Optimalkan Teks" }
+R.string.types = { en: "Types", id: "Tulisan" }
 R.string.underline = { en: "Underline", id: "Garisbawah" }
 R.string.units = { en: "Units", id: "Satuan" }
-R.string.upper = { en: "Upper", id: "Atas" }
+R.string.upper = { en: "Upper", id: "Atasan" }
 R.string.vertical = { en: "Vertical", id: "Vertikal" }
 R.string.vertical_rtl = { en: "Vertical RTL", id: "Vertikal Terbalik" }
 R.string.weight = { en: "Weight", id: "Bobot" }
 R.string.white = { en: "White", id: "Putih" }
 R.string.yellow = { en: "Yellow", id: "Kuning" }
 
-R.plurals.clipping_mask = {
-  single: { en: "Clipping Mask", id: "Kliping Topeng" },
-  plural: { en: "Clipping Masks", id: "Kliping Topeng" },
+R.plurals.D_clipping_mask = {
+  single: { en: "%d Clipping Mask", id: "%d Topeng Kliping" },
+  plural: { en: "%d Clipping Masks", id: "%d Topeng Kliping" },
 }
-R.plurals.compound_path = {
-  single: { en: "Compound Path", id: "Jalur Gabungan" },
-  plural: { en: "Compound Paths", id: "Jalur Gabungan" },
+R.plurals.D_compound_path = {
+  single: { en: "%d Compound Path", id: "%d Jalur Gabungan" },
+  plural: { en: "%d Compound Paths", id: "%d Jalur Gabungan" },
 }
-R.plurals.graph = {
-  single: { en: "Graph", id: "Bagan" },
-  plural: { en: "Graphs", id: "Bagan" },
+R.plurals.D_graph = {
+  single: { en: "%d Graph", id: "%d Bagan" },
+  plural: { en: "%d Graphs", id: "%d Bagan" },
 }
-R.plurals.group = {
-  single: { en: "Group", id: "Grup" },
-  plural: { en: "Groups", id: "Grup" },
+R.plurals.D_group = {
+  single: { en: "%d Group", id: "%d Grup" },
+  plural: { en: "%d Groups", id: "%d Grup" },
 }
-R.plurals.legacy_text = {
-  single: { en: "Legacy Text", id: "Teks Lama" },
-  plural: { en: "Legacy Texts", id: "Teks Lama" },
+R.plurals.D_image = {
+  single: { en: "%d Image", id: "%d Gambar" },
+  plural: { en: "%d Images", id: "%d Gambar" },
 }
-R.plurals.link = {
-  single: { en: "Link", id: "Tautan" },
-  plural: { en: "Links", id: "Tautan" },
+R.plurals.D_link = {
+  single: { en: "%d Link", id: "%d Tautan" },
+  plural: { en: "%d Links", id: "%d Tautan" },
 }
-R.plurals.mesh = {
-  single: { en: "Mesh", id: "Jala" },
-  plural: { en: "Meshes", id: "Jala" },
+R.plurals.D_mesh = {
+  single: { en: "%d Mesh", id: "%d Jala" },
+  plural: { en: "%d Meshes", id: "%d Jala" },
 }
-R.plurals.nonnative = {
-  single: { en: "Non-Native", id: "Impor" },
-  plural: { en: "Non-Natives", id: "Impor" },
+R.plurals.D_non_native = {
+  single: { en: "%d Non-Native", id: "%d Impor" },
+  plural: { en: "%d Non-Natives", id: "%d Impor" },
 }
-R.plurals.path = {
-  single: { en: "Path", id: "Jalur" },
-  plural: { en: "Paths", id: "Jalur" },
+R.plurals.D_obsolete_type = {
+  single: { en: "%d Obsolete Type", id: "%d Tulisan Kuno" },
+  plural: { en: "%d Obsolete Types", id: "%d Tulisan Kuno" },
 }
-R.plurals.plugin = {
-  single: { en: "Plugin", id: "Pengaya" },
-  plural: { en: "Plugins", id: "Pengaya" },
+R.plurals.D_path = {
+  single: { en: "%d Path", id: "%d Jalur" },
+  plural: { en: "%d Paths", id: "%d Jalur" },
 }
-R.plurals.raster = {
-  single: { en: "Raster", id: "Gambar" },
-  plural: { en: "Rasters", id: "Gambar" },
+R.plurals.D_plugin = {
+  single: { en: "%d Plugin", id: "%d Pengaya" },
+  plural: { en: "%d Plugins", id: "%d Pengaya" },
 }
-R.plurals.sheets = {
-  single: { en: "Sheet", id: "Lembar" },
-  plural: { en: "Sheets", id: "Lembar" },
+R.plurals.D_sheet = {
+  single: { en: "%d Sheet", id: "%d Lembar" },
+  plural: { en: "%d Sheets", id: "%d Lembar" },
 }
-R.plurals.symbol = {
-  single: { en: "Symbol", id: "Simbol" },
-  plural: { en: "Symbols", id: "Simbol" },
+R.plurals.D_symbol = {
+  single: { en: "%d Symbol", id: "%d Simbol" },
+  plural: { en: "%d Symbols", id: "%d Simbol" },
 }
-R.plurals.text = {
-  single: { en: "Text", id: "Teks" },
-  plural: { en: "Texts", id: "Teks" }
+R.plurals.D_type = {
+  single: { en: "%d Type", id: "%d Tulisan" },
+  plural: { en: "%d Types", id: "%d Tulisan" }
 }

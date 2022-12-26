@@ -6,6 +6,7 @@
 function TwoUpSimplexPager(document, start) {
   checkNotNull(document)
   checkNotNull(start)
+  check(start.isInt())
   var current = start
 
   var self = this
@@ -31,6 +32,7 @@ function TwoUpSimplexPager(document, start) {
 function TwoUpDuplexPager(document, start) {
   checkNotNull(document)
   checkNotNull(start)
+  check(start.isInt())
   var current = start
   var isFront = true
 
@@ -63,6 +65,7 @@ function TwoUpDuplexPager(document, start) {
 function TwoUpSimplexStackPager(document, start) {
   checkNotNull(document)
   checkNotNull(start)
+  check(start.isInt())
   var current = start
 
   var self = this
@@ -88,6 +91,7 @@ function TwoUpSimplexStackPager(document, start) {
 function TwoUpDuplexStackPager(document, start) {
   checkNotNull(document)
   checkNotNull(start)
+  check(start.isInt())
   var current = start
   var isFront = true
 

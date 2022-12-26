@@ -18,12 +18,12 @@ function SelectDimensionPanel(parent, inputSize) {
 
   self.alignChildren = 'right'
   self.hgroup(function(group) {
-    group.leftStaticText(undefined, R.string.width)
-    self.widthEdit = group.editText(inputSize).also(VALIDATE_UNITS)
+    group.staticText(undefined, R.string.width).apply(HEADING)
+    self.widthEdit = group.editText(inputSize).apply(VALIDATE_UNITS)
   })
   self.hgroup(function(group) {
-    group.leftStaticText(undefined, R.string.height)
-    self.heightEdit = group.editText(inputSize).also(VALIDATE_UNITS)
+    group.staticText(undefined, R.string.height).apply(HEADING)
+    self.heightEdit = group.editText(inputSize).apply(VALIDATE_UNITS)
   })
 
   /** @return {number} */

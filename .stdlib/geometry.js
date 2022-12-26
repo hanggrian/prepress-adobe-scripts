@@ -8,24 +8,24 @@
  * Check if two `Rectangle` are equal.
  * @param {!Array<number>} other
  */
-Array.prototype.equalTo = function(other) {
-  return isEqualRounded(this.getLeft(), other.getLeft()) &&
-    isEqualRounded(this.getTop(), other.getTop()) &&
-    isEqualRounded(this.getRight(), other.getRight()) &&
-    isEqualRounded(this.getBottom(), other.getBottom())
+Array.prototype.equals = function(other) {
+  return parseInt(this.getLeft()) === parseInt(other.getLeft()) &&
+    parseInt(this.getTop()) === parseInt(other.getTop()) &&
+    parseInt(this.getRight()) === parseInt(other.getRight()) &&
+    parseInt(this.getBottom()) === parseInt(other.getBottom())
 }
 
 /**
- * Returns true if the first `Rectangle` are inside the second.
+ * Returns true if the other `Rectangle` are inside the second.
  * @param {!Array<number>} other
  * @see https://gist.github.com/Daniel-Hug/d7984d82b58d6d2679a087d896ca3d2b
  */
-Array.prototype.isWithin = function(other) {
+Array.prototype.contains = function(other) {
   return !(
-    this.getLeft() < other.getLeft() ||
-    this.getBottom() < other.getBottom() ||
-    this.getRight() > other.getRight() ||
-    this.getTop() > other.getTop()
+    other.getLeft() < this.getLeft() ||
+    other.getBottom() < this.getBottom() ||
+    other.getRight() > this.getRight() ||
+    other.getTop() > this.getTop()
   )
 }
 

@@ -8,6 +8,8 @@
 function SaddleStitchPager(document, start, end, isRtl) {
   checkNotNull(document)
   checkNotNull(start)
+  check(start.isInt())
+  check(end.isInt())
   end = end || (document.artboards.length * 2 - 1)
   isRtl = isRtl || false
   var isFront = true

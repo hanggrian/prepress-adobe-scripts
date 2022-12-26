@@ -8,12 +8,12 @@ var clientDate = parseDate(Scripts.getResource('VERSION').readText())
 
 dialog.vgroup(function(main) {
   main.hgroup(function(group) {
-    group.alignChildren = 'center'
     group.image(undefined, 'logo')
-    group.staticText(undefined, getString(R.string.message_aboutscripts, clientDate.toISOString()),
+    group.staticText(undefined,
+      getString(R.string.message_aboutscripts, "Illustrator", clientDate.toISOString()),
       STYLE_MULTILINE)
   })
-  aboutPanel = new AboutPanel(main, clientDate).also(function(panel) {
+  aboutPanel = new AboutPanel(main, clientDate).apply(function(panel) {
     panel.preferencesThemeList.addChangeListener(function() {
       preferences2.setBoolean('theme_dark', panel.preferencesThemeList.selection.index === 0)
     })
@@ -23,17 +23,13 @@ dialog.vgroup(function(main) {
       Language.set(language)
     })
     panel.preferencesActivateControl.addClickListener(function() {
-      preferences2.setBoolean('activate_control_on_show', panel.preferencesActivateControl.value)
-    })
-    panel.preferencesShowHelp.addClickListener(function() {
-      preferences2.setBoolean('show_help_button', panel.preferencesShowHelp.value)
+      preferences2.setBoolean('activate_control_on_start', panel.preferencesActivateControl.value)
     })
 
     panel.preferencesClearButton.addClickListener(function() {
       preferences2.remove('theme_dark')
       preferences2.remove('language_code')
-      preferences2.remove('activate_control_on_show')
-      preferences2.remove('show_help_button')
+      preferences2.remove('activate_control_on_start')
       preferences2.resolve('artboards/reorder').run(function(it) { it.remove('order') })
       preferences2.resolve('dielines').run(function(subconfigs) {
         subconfigs.resolve('add_flap').run(function(it) {
@@ -134,6 +130,7 @@ dialog.vgroup(function(main) {
         it.remove('prefix')
         it.remove('suffix')
         it.remove('order')
+        it.remove('recursive')
       })
       Windows.alert(R.string.done, R.string.about_scripts)
     })

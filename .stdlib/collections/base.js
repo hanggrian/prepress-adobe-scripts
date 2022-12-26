@@ -32,14 +32,14 @@ var Collections = {
 
   /**
    * Returns true if this collection is empty.
-   * @param {!Array<*>|!PageItems} collection
+   * @param {!IArguments|!Array<*>|!PageItems} collection
    * @return {boolean}
    */
   isEmpty: function(collection) { return checkNotNull(collection).length === 0 },
 
   /**
    * Returns true if this collection is not empty.
-   * @param {!Array<*>|!PageItems} collection
+   * @param {!IArguments|!Array<*>|!PageItems} collection
    * @return {boolean}
    */
   isNotEmpty: function(collection) { return checkNotNull(collection).length > 0 },

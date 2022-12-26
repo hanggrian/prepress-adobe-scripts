@@ -4,7 +4,7 @@
  */
 function DocumentOriginCheck(parent) {
   checkNotNull(parent)
-  return parent.checkBox(undefined, R.string.document_origin).also(function(it) {
+  return parent.checkBox(undefined, R.string.document_origin).apply(function(it) {
     it.helpTip = R.string.tip_checks_documentorigin
   })
 }
@@ -15,7 +15,7 @@ function DocumentOriginCheck(parent) {
  */
 function KeepSizeCheck(parent) {
   checkNotNull(parent)
-  return parent.checkBox(undefined, R.string.keep_size).also(function(it) {
+  return parent.checkBox(undefined, R.string.keep_size).apply(function(it) {
     it.helpTip = R.string.tip_checks_keepsize
   })
 }
@@ -26,7 +26,7 @@ function KeepSizeCheck(parent) {
  */
 function RecursiveCheck(parent) {
   checkNotNull(parent)
-  return parent.checkBox(undefined, R.string.recursive).also(function(it) {
+  return parent.checkBox(undefined, R.string.recursive).apply(function(it) {
     it.helpTip = R.string.tip_checks_recursive
   })
 }

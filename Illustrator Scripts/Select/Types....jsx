@@ -18,9 +18,14 @@ var Orientation = new Enum({
 var SIZE_INPUT_LEFT = [100, 21]
 var SIZE_INPUT_RIGHT = [110, 21]
 
-check(Collections.isNotEmpty(document.textFrames),
-  getString(R.string.error_notypes_document, R.plurals.text.plural))
 var isFilterMode = Collections.isNotEmpty(selection)
+if (isFilterMode) {
+  check(Collections.anyItem(selection, function(it) { return Items.isText(it) }),
+    getString(R.string.error_notypes_selection, getString(R.string.types).toLowerCase()))
+} else {
+  check(Collections.isNotEmpty(document.textFrames),
+    getString(R.string.error_notypes_document, getString(R.string.types).toLowerCase()))
+}
 
 var dialog = new Dialog(R.string.select_types, 'selecting-items/#select-types')
 var findEdit, matchCaseCheck, matchWordCheck
@@ -32,15 +37,15 @@ var prefs = preferences2.resolve('select/types')
 
 dialog.vgroup(function(main) {
   main.hgroup(function(rootPane) {
-    rootPane.alignChildren = 'fill'
+    rootPane.alignChildren = 'top'
     rootPane.vgroup(function(leftPane) {
       leftPane.alignChildren = 'fill'
       leftPane.vpanel(R.string.content, function(panel) {
-        panel.alignChildren = 'fill'
+        panel.alignChildren = 'left'
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selecttypes_content
-          group.leftStaticText(undefined, R.string.find)
-          findEdit = group.editText([150, 21]).also(ACTIVATE)
+          group.staticText(undefined, R.string.find).apply(HEADING)
+          findEdit = group.editText([150, 21]).apply(ACTIVATE)
         })
         matchCaseCheck = panel.checkBox(undefined, R.string.match_case)
         matchWordCheck = panel.checkBox(undefined, R.string.match_whole_word)
@@ -49,22 +54,22 @@ dialog.vgroup(function(main) {
         panel.alignChildren = 'right'
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selecttypes_fontname
-          group.leftStaticText(undefined, R.string.font_name)
+          group.staticText(undefined, R.string.font_name).apply(HEADING)
           fontNameEdit = group.editText(SIZE_INPUT_LEFT)
         })
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selecttypes_fontsize
-          group.leftStaticText(undefined, R.string.font_size)
-          fontSizeEdit = group.editText(SIZE_INPUT_LEFT).also(VALIDATE_UNITS)
+          group.staticText(undefined, R.string.font_size).apply(HEADING)
+          fontSizeEdit = group.editText(SIZE_INPUT_LEFT).apply(VALIDATE_UNITS)
         })
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selecttypes_italic
-          group.leftStaticText(undefined, R.string.italic)
+          group.staticText(undefined, R.string.italic).apply(HEADING)
           italicList = group.dropDownList(SIZE_INPUT_LEFT, SelectOption.list())
         })
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selecttypes_underline
-          group.leftStaticText(undefined, R.string.underline)
+          group.staticText(undefined, R.string.underline).apply(HEADING)
           underlineList = group.dropDownList(SIZE_INPUT_LEFT, SelectOption.list())
         })
       })
@@ -75,12 +80,12 @@ dialog.vgroup(function(main) {
         panel.alignChildren = 'right'
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selecttypes_fill
-          group.leftStaticText(undefined, R.string.fill)
+          group.staticText(undefined, R.string.fill).apply(HEADING)
           fillColorList = group.dropDownList(SIZE_INPUT_RIGHT, Color2.list())
         })
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selecttypes_stroke
-          group.leftStaticText(undefined, R.string.stroke)
+          group.staticText(undefined, R.string.stroke).apply(HEADING)
           strokeColorList = group.dropDownList(SIZE_INPUT_RIGHT, Color2.list())
         })
       })
@@ -88,20 +93,19 @@ dialog.vgroup(function(main) {
         panel.alignChildren = 'right'
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selecttypes_kind
-          group.leftStaticText(undefined, R.string.kind)
+          group.staticText(undefined, R.string.kind).apply(HEADING)
           kindList = group.dropDownList(SIZE_INPUT_RIGHT, Kind.list())
         })
         panel.hgroup(function(group) {
           group.helpTips = R.string.tip_selecttypes_orientation
-          group.leftStaticText(undefined, R.string.orientation)
+          group.staticText(undefined, R.string.orientation).apply(HEADING)
           orientationList = group.dropDownList(SIZE_INPUT_RIGHT, Orientation.list())
         })
       })
-
     })
   })
   if (isFilterMode) {
-    recursiveCheck = new RecursiveCheck(main).also(function(it) {
+    recursiveCheck = new RecursiveCheck(main).apply(function(it) {
       it.alignment = 'right'
       it.value = prefs.getBoolean('recursive')
     })
@@ -131,7 +135,7 @@ dialog.setDefaultButton(undefined, function() {
       if (!find(string, substring)) return false
     }
     var attr = item.textRange.characterAttributes
-    if (fontName.isNotEmpty() && !attr.textFont.name.toLowerCase().includes(fontName.toLowerCase()))
+    if (fontName.isNotEmpty() && !attr.textFont.name.toLowerCase().contains(fontName.toLowerCase()))
       return false
     if (fontSize !== undefined && parseInt(fontSize) !== parseInt(attr.size)) return false
     if (italic !== undefined && italic !== attr.italics) return false
@@ -150,7 +154,7 @@ dialog.show()
 
 function find(string, substring) {
   if (!matchWordCheck.value) {
-    return string.includes(substring)
+    return string.contains(substring)
   } else {
     // https://stackoverflow.com/questions/18740664/search-whole-word-in-string
     substring = substring.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')

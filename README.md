@@ -1,6 +1,7 @@
 # Prepress Adobe Scripts
 
-![Social preview.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/social_preview.png)
+![Logo for Illustrator.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/logo_ai.png)
+![Logo for Photoshop.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/logo_psd.png)
 
 Collection of Illustrator and Photoshop scripts to automate repetitive tasks and
 procedures of preparing final print layout.
@@ -58,8 +59,8 @@ directories to be in pre-determined locations.
 
 ## Usage
 
-![Illustrator menu.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/menu_ai.png)
-![Photohsop menu.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/menu_psd.png)
+![Script menus in Illustrator.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/menu_ai.png)
+![Script menus in Photoshop.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/menu_psd.png)
 
 If you decide to install the scripts, they can be accessed from menubar
 or [keyboard shortcuts](Actions).

@@ -16,36 +16,35 @@ var multipleMultiRadioGroup
 var prefs = preferences2.resolve('objects/add_trim_marks')
 
 dialog.vgroup(function(main) {
-  main.alignChildren = 'right'
   main.hgroup(function(rootPane) {
     rootPane.alignChildren = 'fill'
     rootPane.vpanel(R.string.trim_marks, function(panel) {
       panel.alignChildren = 'right'
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addtrimmarks_offset
-        group.leftStaticText(undefined, R.string.offset)
+        group.staticText(undefined, R.string.offset).apply(HEADING)
         offsetEdit = group.editText(SIZE_INPUT, prefs.getString('offset', '2.5 mm'))
-          .also(function(it) {
+          .apply(function(it) {
             it.validateUnits()
             it.activate()
           })
       })
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addtrimmarks_length
-        group.leftStaticText(undefined, R.string.length)
+        group.staticText(undefined, R.string.length).apply(HEADING)
         lengthEdit = group.editText(SIZE_INPUT, prefs.getString('length', '2.5 mm'))
-          .also(VALIDATE_UNITS)
+          .apply(VALIDATE_UNITS)
       })
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addtrimmarks_weight
-        group.leftStaticText(undefined, R.string.weight)
+        group.staticText(undefined, R.string.weight).apply(HEADING)
         weightEdit = group.editText(SIZE_INPUT, prefs.getString('weight', '0.3 pt'))
-          .also(VALIDATE_UNITS) // the same value used in `Object > Create Trim Marks`
+          .apply(VALIDATE_UNITS) // the same value used in `Object > Create Trim Marks`
       })
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addtrimmarks_color
-        group.leftStaticText(undefined, R.string.color)
-        colorList = group.dropDownList(SIZE_INPUT, Color2.list()).also(function(it) {
+        group.staticText(undefined, R.string.color).apply(HEADING)
+        colorList = group.dropDownList(SIZE_INPUT, Color2.list()).apply(function(it) {
           it.selection = prefs.getInt('color')
         })
       })
@@ -53,58 +52,58 @@ dialog.vgroup(function(main) {
     rootPane.vpanel(R.string.locations, function(panel) {
       panel.hgroup(function(group) {
         group.staticText(SIZE_CHECK)
-        topLeftMarkCheck = group.checkBox(SIZE_CHECK).also(function(it) {
+        topLeftMarkCheck = group.checkBox(SIZE_CHECK).apply(function(it) {
           it.select()
           it.helpTip = R.string.tip_addtrimmarks_markcheck
         })
-        topMarksCheck = group.checkBox(SIZE_CHECK).also(function(it) {
+        topMarksCheck = group.checkBox(SIZE_CHECK).apply(function(it) {
           it.select()
           it.helpTip = R.string.tip_addtrimmarks_markscheck
           it.visible = false
         })
-        topRightMarkCheck = group.checkBox(SIZE_CHECK).also(function(it) {
+        topRightMarkCheck = group.checkBox(SIZE_CHECK).apply(function(it) {
           it.select()
           it.helpTip = R.string.tip_addtrimmarks_markcheck
         })
         group.staticText(SIZE_CHECK)
       })
       panel.hgroup(function(group) {
-        leftTopMarkCheck = group.checkBox(SIZE_CHECK).also(function(it) {
+        leftTopMarkCheck = group.checkBox(SIZE_CHECK).apply(function(it) {
           it.select()
           it.helpTip = R.string.tip_addtrimmarks_markcheck
         })
-        group.iconButton(SIZE_CHECK, 'ic_arrow_topleft', STYLE_TOOLBUTTON).also(function(it) {
+        group.iconButton(SIZE_CHECK, 'ic_arrow_topleft', STYLE_TOOLBUTTON).apply(function(it) {
           it.addClickListener(function() {
             toggleChecks([topLeftMarkCheck, leftTopMarkCheck])
           })
         })
-        group.iconButton(SIZE_CHECK, 'ic_arrow_top', STYLE_TOOLBUTTON).also(function(it) {
+        group.iconButton(SIZE_CHECK, 'ic_arrow_top', STYLE_TOOLBUTTON).apply(function(it) {
           it.addClickListener(function() {
             toggleChecks([topLeftMarkCheck, topMarksCheck, topRightMarkCheck])
           })
         })
-        group.iconButton(SIZE_CHECK, 'ic_arrow_topright', STYLE_TOOLBUTTON).also(function(it) {
+        group.iconButton(SIZE_CHECK, 'ic_arrow_topright', STYLE_TOOLBUTTON).apply(function(it) {
           it.addClickListener(function() {
             toggleChecks([topRightMarkCheck, rightTopMarkCheck])
           })
         })
-        rightTopMarkCheck = group.checkBox(SIZE_CHECK).also(function(it) {
+        rightTopMarkCheck = group.checkBox(SIZE_CHECK).apply(function(it) {
           it.select()
           it.helpTip = R.string.tip_addtrimmarks_markcheck
         })
       })
       panel.hgroup(function(group) {
-        leftMarksCheck = group.checkBox(SIZE_CHECK).also(function(it) {
+        leftMarksCheck = group.checkBox(SIZE_CHECK).apply(function(it) {
           it.select()
           it.helpTip = R.string.tip_addtrimmarks_markscheck
           it.visible = false
         })
-        group.iconButton(SIZE_CHECK, 'ic_arrow_left', STYLE_TOOLBUTTON).also(function(it) {
+        group.iconButton(SIZE_CHECK, 'ic_arrow_left', STYLE_TOOLBUTTON).apply(function(it) {
           it.addClickListener(function() {
             toggleChecks([leftTopMarkCheck, leftMarksCheck, leftBottomMarkCheck])
           })
         })
-        group.iconButton(SIZE_CHECK, 'ic_arrow_center', STYLE_TOOLBUTTON).also(function(it) {
+        group.iconButton(SIZE_CHECK, 'ic_arrow_center', STYLE_TOOLBUTTON).apply(function(it) {
           it.addClickListener(function() {
             toggleChecks([
               topLeftMarkCheck, topMarksCheck, topRightMarkCheck,
@@ -113,54 +112,54 @@ dialog.vgroup(function(main) {
               bottomLeftMarkCheck, bottomMarksCheck, bottomRightMarkCheck])
           })
         })
-        group.iconButton(SIZE_CHECK, 'ic_arrow_right', STYLE_TOOLBUTTON).also(function(it) {
+        group.iconButton(SIZE_CHECK, 'ic_arrow_right', STYLE_TOOLBUTTON).apply(function(it) {
           it.addClickListener(function() {
             toggleChecks([rightTopMarkCheck, rightMarksCheck, rightBottomMarkCheck])
           })
         })
-        rightMarksCheck = group.checkBox(SIZE_CHECK).also(function(it) {
+        rightMarksCheck = group.checkBox(SIZE_CHECK).apply(function(it) {
           it.select()
           it.helpTip = R.string.tip_addtrimmarks_markscheck
           it.visible = false
         })
       })
       panel.hgroup(function(group) {
-        leftBottomMarkCheck = group.checkBox(SIZE_CHECK).also(function(it) {
+        leftBottomMarkCheck = group.checkBox(SIZE_CHECK).apply(function(it) {
           it.select()
           it.helpTip = R.string.tip_addtrimmarks_markcheck
         })
-        group.iconButton(SIZE_CHECK, 'ic_arrow_bottomleft', STYLE_TOOLBUTTON).also(function(it) {
+        group.iconButton(SIZE_CHECK, 'ic_arrow_bottomleft', STYLE_TOOLBUTTON).apply(function(it) {
           it.addClickListener(function() {
             toggleChecks([leftBottomMarkCheck, bottomLeftMarkCheck])
           })
         })
-        group.iconButton(SIZE_CHECK, 'ic_arrow_bottom', STYLE_TOOLBUTTON).also(function(it) {
+        group.iconButton(SIZE_CHECK, 'ic_arrow_bottom', STYLE_TOOLBUTTON).apply(function(it) {
           it.addClickListener(function() {
             toggleChecks([bottomLeftMarkCheck, bottomMarksCheck, bottomRightMarkCheck])
           })
         })
-        group.iconButton(SIZE_CHECK, 'ic_arrow_bottomright', STYLE_TOOLBUTTON).also(function(it) {
+        group.iconButton(SIZE_CHECK, 'ic_arrow_bottomright', STYLE_TOOLBUTTON).apply(function(it) {
           it.addClickListener(function() {
             toggleChecks([rightBottomMarkCheck, bottomRightMarkCheck])
           })
         })
-        rightBottomMarkCheck = group.checkBox(SIZE_CHECK).also(function(it) {
+        rightBottomMarkCheck = group.checkBox(SIZE_CHECK).apply(function(it) {
           it.select()
           it.helpTip = R.string.tip_addtrimmarks_markcheck
         })
       })
       panel.hgroup(function(group) {
         group.staticText(SIZE_CHECK)
-        bottomLeftMarkCheck = group.checkBox(SIZE_CHECK).also(function(it) {
+        bottomLeftMarkCheck = group.checkBox(SIZE_CHECK).apply(function(it) {
           it.select()
           it.helpTip = R.string.tip_addtrimmarks_markcheck
         })
-        bottomMarksCheck = group.checkBox(SIZE_CHECK).also(function(it) {
+        bottomMarksCheck = group.checkBox(SIZE_CHECK).apply(function(it) {
           it.select()
           it.helpTip = R.string.tip_addtrimmarks_markscheck
           it.visible = false
         })
-        bottomRightMarkCheck = group.checkBox(SIZE_CHECK).also(function(it) {
+        bottomRightMarkCheck = group.checkBox(SIZE_CHECK).apply(function(it) {
           it.select()
           it.helpTip = R.string.tip_addtrimmarks_markcheck
         })
@@ -169,7 +168,8 @@ dialog.vgroup(function(main) {
     })
   })
   multipleMultiRadioGroup = new MultiRadioGroup(main, R.string.multiple_target,
-    [R.string.default, R.string.recursive]).also(function(it) {
+    [R.string.default, R.string.recursive]).apply(function(it) {
+    it.alignment = 'right'
     it.setHelpTips(R.string.tip_addtrimmarks_multipletarget)
     it.check.addClickListener(function() {
       leftMarksCheck.visible = it.isSelected()
@@ -345,10 +345,10 @@ function hasDuplicate(trimMarks, trimMark) {
   var i = trimMarks.length
   while (i--) {
     var otherTrimMark = trimMarks[i]
-    if (isEqualRounded(trimMark.fromX, otherTrimMark.fromX) &&
-      isEqualRounded(trimMark.fromY, otherTrimMark.fromY) &&
-      isEqualRounded(trimMark.toX, otherTrimMark.toX) &&
-      isEqualRounded(trimMark.toY, otherTrimMark.toY)) {
+    if (parseInt(otherTrimMark.fromX) === parseInt(trimMark.fromX) &&
+      parseInt(trimMark.fromY) === parseInt(otherTrimMark.fromY) &&
+      parseInt(trimMark.toX) === parseInt(otherTrimMark.toX) &&
+      parseInt(trimMark.toY) === parseInt(otherTrimMark.toY)) {
       return true
     }
   }

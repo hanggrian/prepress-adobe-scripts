@@ -13,18 +13,17 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
   var files = new FileCollection(pickedFiles)
 
   dialog.vgroup(function(main) {
-    main.alignChildren = 'right'
     main.hgroup(function(rootPane) {
       rootPane.alignChildren = 'fill'
       rootPane.vgroup(function(leftPane) {
         if (files.hasPDF) {
           pdfPanel = new OpenPDFPanel(leftPane, SIZE_INPUT)
         }
-        pagesPanel = new OpenPagesPanel(leftPane, SIZE_INPUT).also(function(it) {
-          it.rangeGroup.startEdit.activate()
-          it.rangeGroup.endEdit.text = files.length
+        pagesPanel = new OpenPagesPanel(leftPane, SIZE_INPUT).apply(function(it) {
+          it.rangingGroup.startEdit.activate()
+          it.rangingGroup.endEdit.text = files.length
           if (!files.isSinglePDF) {
-            it.rangeGroup.maxRange = files.length
+            it.rangingGroup.maxRange = files.length
           }
           it.widthEdit.addChangeListener(function() { updateDocumentDimensionText(true, false) })
           it.heightEdit.addChangeListener(function() { updateDocumentDimensionText(false, true) })
@@ -34,7 +33,8 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
       documentPanel = new OpenDocumentPanel(rootPane)
     })
     main.hgroup(function(group) {
-      rtlCheck = group.checkBox(undefined, R.string.right_to_left).also(function(it) {
+      group.alignment = 'right'
+      rtlCheck = group.checkBox(undefined, R.string.right_to_left).apply(function(it) {
         it.helpTip = R.string.tip_impose_rtl
       })
     })
@@ -42,30 +42,29 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
   })
   dialog.setCancelButton()
   dialog.setDefaultButton(undefined, function() {
-    if (!pagesPanel.rangeGroup.isValid()) {
+    if (!pagesPanel.rangingGroup.isValid()) {
       return Windows.alert(R.string.error_range, dialog.text, true)
     }
-    var pageStart = pagesPanel.rangeGroup.getStart()
-    var pageEnd = pagesPanel.rangeGroup.getEnd()
-    var pageLength = pagesPanel.rangeGroup.getLength()
-    var artboardLength = pageLength / 2
+    var pageRange = pagesPanel.getRange()
+    var artboardLength = pageRange.getLength() / 2
     var originalPageWidth = pagesPanel.getWidth()
     var originalPageHeight = pagesPanel.getHeight()
     var pageBleed = pagesPanel.getBleed()
     var pageWidth = originalPageWidth + pageBleed * 2
     var pageHeight = originalPageHeight + pageBleed * 2
 
-    if (pageLength % 4 !== 0) {
+    if (pageRange.getLength() % 4 !== 0) {
       return Windows.alert(getString(R.string.error_impose_openpages, 4), dialog.text, true)
-    } else if (documentPanel.getWidth() < ((pageWidth - pageBleed) * 2) ||
-      documentPanel.getHeight() < (pageHeight)) {
+    } else if (parseInt(documentPanel.getWidth()) < parseInt((pageWidth - pageBleed) * 2) ||
+      parseInt(documentPanel.getHeight()) < parseInt(pageHeight)) {
       return Windows.alert(R.string.error_impose_opendocuments, dialog.text, true)
     }
     var document = documentPanel.create(
-      '%s %d-%d'.format(Pager.SADDLE_STITCH.text, pagesPanel.rangeGroup.startEdit.text,
-        pagesPanel.rangeGroup.endEdit.text),
+      '%s %s'.format(Pager.SADDLE_STITCH.text,
+        getString(R.string.page_D_D, pagesPanel.rangingGroup.getStart(),
+          pagesPanel.rangingGroup.getEnd())),
       artboardLength)
-    var pager = Pager.SADDLE_STITCH.get(document, pageStart, pageEnd, rtlCheck.value)
+    var pager = Pager.SADDLE_STITCH.get(document, pageRange.start, pageRange.end, rtlCheck.value)
     var progress = new ProgressPalette(artboardLength, R.string.imposing)
 
     Collections.forEach(document.artboards, function(artboard) {

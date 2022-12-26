@@ -30,30 +30,30 @@ dialog.hgroup(function(main) {
       panel.alignChildren = 'right'
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_length
-        group.leftStaticText(undefined, R.string.length)
+        group.staticText(undefined, R.string.length).apply(HEADING)
         lengthEdit = group.editText(SIZE_INPUT, prefs.getString('length', '20 mm'))
-          .also(function(it) {
+          .apply(function(it) {
             it.validateUnits()
             it.activate()
           })
       })
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_weight
-        group.leftStaticText(undefined, R.string.weight)
+        group.staticText(undefined, R.string.weight).apply(HEADING)
         weightEdit = group.editText(SIZE_INPUT, prefs.getString('weight', '1 pt'))
-          .also(VALIDATE_UNITS)
+          .apply(VALIDATE_UNITS)
       })
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_color
-        group.leftStaticText(undefined, R.string.color)
-        colorList = group.dropDownList(SIZE_INPUT, Color2.list()).also(function(it) {
+        group.staticText(undefined, R.string.color).apply(HEADING)
+        colorList = group.dropDownList(SIZE_INPUT, Color2.list()).apply(function(it) {
           it.selection = prefs.getInt('color')
         })
       })
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_direction
-        group.leftStaticText(undefined, R.string.direction)
-        directionList = group.dropDownList(SIZE_INPUT, Direction.list()).also(function(it) {
+        group.staticText(undefined, R.string.direction).apply(HEADING)
+        directionList = group.dropDownList(SIZE_INPUT, Direction.list()).apply(function(it) {
           it.selection = prefs.getInt('direction')
         })
       })
@@ -64,13 +64,13 @@ dialog.hgroup(function(main) {
     rightPane.vtab(R.string.glue_flap, function(tab) {
       tab.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_glueflap_shear
-        group.leftStaticText(SIZE_LABEL_TAB, R.string.shear)
-        glueShearEdit = group.editText(SIZE_INPUT, '5 mm').also(VALIDATE_UNITS)
+        group.staticText(SIZE_LABEL_TAB, R.string.shear).apply(HEADING)
+        glueShearEdit = group.editText(SIZE_INPUT, '5 mm').apply(VALIDATE_UNITS)
       })
       tab.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_glueflap_scratches
-        group.leftStaticText(SIZE_LABEL_TAB, R.string.scratches)
-        glueScratchEdit = group.editText(SIZE_INPUT, '0 mm').also(function(it) {
+        group.staticText(SIZE_LABEL_TAB, R.string.scratches).apply(HEADING)
+        glueScratchEdit = group.editText(SIZE_INPUT, '0 mm').apply(function(it) {
           it.validateUnits()
           it.enabled = false
         })
@@ -79,25 +79,25 @@ dialog.hgroup(function(main) {
     /* tabbedPanel.vtab(R.string.tuck_flap, function(tab) {
       tab.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_tuckflap_curve
-        group.leftStaticText(SIZE_LABEL_TAB, R.string.curve)
+        group.staticText(SIZE_LABEL_TAB, R.string.curve).apply(HEADING)
         tuckSliderGroup = new SliderGroup(group, SIZE_EDIT, 2, 0, 4, 25)
       })
       tab.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_tuckflap_distance
-        group.leftStaticText(SIZE_LABEL_TAB, R.string.distance)
-        tuckDistanceEdit = group.editText(SIZE_EDIT, '0 mm').also(VALIDATE_UNITS)
+        group.staticText(SIZE_LABEL_TAB, R.string.distance).apply(HEADING)
+        tuckDistanceEdit = group.editText(SIZE_EDIT, '0 mm').apply(VALIDATE_UNITS)
       })
     }) */
     rightPane.vtab(R.string.dust_flap, function(tab) {
       tab.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_dustflap_shoulder
-        group.leftStaticText(SIZE_LABEL_TAB, R.string.shoulder)
-        dustShoulderEdit = group.editText(SIZE_INPUT, '5 mm').also(VALIDATE_UNITS)
+        group.staticText(SIZE_LABEL_TAB, R.string.shoulder).apply(HEADING)
+        dustShoulderEdit = group.editText(SIZE_INPUT, '5 mm').apply(VALIDATE_UNITS)
       })
       tab.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_dustflap_distance
-        group.leftStaticText(SIZE_LABEL_TAB, R.string.distance)
-        dustDistanceEdit = group.editText(SIZE_INPUT, '0 mm').also(VALIDATE_UNITS)
+        group.staticText(SIZE_LABEL_TAB, R.string.distance).apply(HEADING)
+        dustDistanceEdit = group.editText(SIZE_INPUT, '0 mm').apply(VALIDATE_UNITS)
       })
     })
     rightPane.addChangeListener(function() {

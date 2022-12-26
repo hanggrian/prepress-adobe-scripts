@@ -35,28 +35,28 @@ EditText.prototype.validateUnits = function() {
     }
 
     // parse new unit value and type
-    var _new = Internals.removeRegexes(newValue,
+    var newRegexes = Internals.removeRegexes(newValue,
       [REPLACE_LEADING_SPACE, REPLACE_TRAILING_SPACE, REPLACE_LEADING_ZERO])
-    exec = alphabetRegex.exec(_new)
+    exec = alphabetRegex.exec(newRegexes)
     if (exec !== null) { // new unit type found, use it
-      var newUnitValue = Internals.removeRegexes(_new.substring(0, exec.index),
+      var newUnitValue = Internals.removeRegexes(newRegexes.substring(0, exec.index),
         [REPLACE_TRAILING_SPACE])
-      var newUnitType = _new.substring(exec.index)
+      var newUnitType = newRegexes.substring(exec.index)
       return newUnitValue + ' ' + newUnitType
     } else { // new unit type not found, use old unit value if exist
-      if (_new.isEmpty()) _new = '0' // in event when all text is removed, use 0
-      return oldUnitType !== undefined ? _new + ' ' + oldUnitType : _new
+      if (newRegexes.isEmpty()) newRegexes = '0' // in event when all text is removed, use 0
+      return oldUnitType !== undefined ? newRegexes + ' ' + oldUnitType : newRegexes
     }
   })
 }
 
-var ACTIVATE = function(editText) { editText.activate() }
-var VALIDATE_DIGITS = function(editText) { editText.validateDigits() }
-var VALIDATE_UNITS = function(editText) { editText.validateUnits() }
+var ACTIVATE = function(it) { it.activate() }
+var VALIDATE_DIGITS = function(it) { it.validateDigits() }
+var VALIDATE_UNITS = function(it) { it.validateUnits() }
 
 /** Focus on this edit text. */
 EditText.prototype.activate = function() {
-  if (!preferences2.getBoolean('activate_control_on_show')) {
+  if (!preferences2.getBoolean('activate_control_on_start')) {
     return
   }
   this.active = true

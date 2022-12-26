@@ -13,18 +13,17 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
   var files = new FileCollection(pickedFiles)
 
   dialog.vgroup(function(main) {
-    main.alignChildren = 'right'
     main.hgroup(function(rootPane) {
       rootPane.alignChildren = 'fill'
       rootPane.vgroup(function(leftPane) {
         if (files.hasPDF) {
           pdfPanel = new OpenPDFPanel(leftPane, SIZE_INPUT)
         }
-        pagesPanel = new OpenPagesPanel(leftPane, SIZE_INPUT).also(function(it) {
-          it.rangeGroup.startEdit.activate()
-          it.rangeGroup.endEdit.text = files.length
+        pagesPanel = new OpenPagesPanel(leftPane, SIZE_INPUT).apply(function(it) {
+          it.rangingGroup.startEdit.activate()
+          it.rangingGroup.endEdit.text = files.length
           if (!files.isSinglePDF) {
-            it.rangeGroup.maxRange = files.length
+            it.rangingGroup.maxRange = files.length
           }
           it.widthEdit.addChangeListener(function() { updateDocumentDimensionText(true, false) })
           it.heightEdit.addChangeListener(function() { updateDocumentDimensionText(false, true) })
@@ -33,34 +32,34 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
       })
       documentPanel = new OpenDocumentPanel(rootPane)
     })
-    nupGroup = new NUpOptionsGroup(main, false, true, false, false).also(function(it) {
+    nupGroup = new NUpOptionsGroup(main, false, true, false, false).apply(function(it) {
       it.rotateCheck.addClickListener(updateDocumentDimensionText)
     })
     updateDocumentDimensionText()
   })
   dialog.setCancelButton()
   dialog.setDefaultButton(undefined, function() {
-    if (!pagesPanel.rangeGroup.isValid()) {
+    if (!pagesPanel.rangingGroup.isValid()) {
       return Windows.alert(R.string.error_range, dialog.text, true)
     }
-    var pageStart = pagesPanel.rangeGroup.getStart()
-    var pageLength = pagesPanel.rangeGroup.getLength()
-    var artboardLength = pageLength
+    var pageRange = pagesPanel.getRange()
+    var artboardLength = pageRange.getLength()
     var pageBleed = pagesPanel.getBleed()
     var pageWidth = pagesPanel.getWidth() + pageBleed * 2
     var pageHeight = pagesPanel.getHeight() + pageBleed * 2
     var rotatedPageWidth = nupGroup.isRotate() ? pageHeight : pageWidth
     var rotatedPageHeight = nupGroup.isRotate() ? pageWidth : pageHeight
 
-    if (documentPanel.getWidth() < (rotatedPageWidth) ||
-      documentPanel.getHeight() < (rotatedPageHeight)) {
+    if (parseInt(documentPanel.getWidth()) < parseInt(rotatedPageWidth) ||
+      parseInt(documentPanel.getHeight()) < parseInt(rotatedPageHeight)) {
       return Windows.alert(R.string.error_impose_opendocuments, dialog.text, true)
     }
     var document = documentPanel.create(
-      '%s %d-%d'.format(Pager.ONE_UP.text, pagesPanel.rangeGroup.startEdit.text,
-        pagesPanel.rangeGroup.endEdit.text),
+      '%s %s'.format(Pager.ONE_UP.text,
+        getString(R.string.page_D_D, pagesPanel.rangingGroup.getStart(),
+          pagesPanel.rangingGroup.getEnd())),
       artboardLength)
-    var pager = Pager.ONE_UP.get(document, pageStart)
+    var pager = Pager.ONE_UP.get(document, pageRange.start)
     var progress = new ProgressPalette(artboardLength, R.string.imposing)
 
     Collections.forEach(document.artboards, function(artboard) {

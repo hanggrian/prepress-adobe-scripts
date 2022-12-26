@@ -13,14 +13,14 @@ function MultiRadioGroup(parent, text, radioTexts) {
   var self = parent.hgroup()
   self.check, self.radios
 
-  self.check = self.checkBox(undefined, text).also(function(check) {
+  self.check = self.checkBox(undefined, text).apply(function(check) {
     check.addClickListener(function() {
       Collections.forEach(self.radios, function(it) { it.enabled = check.value })
     })
   })
   if (radioTexts != null) {
     self.radios = Collections.map(radioTexts, function(text, i) {
-      return self.radioButton(undefined, text).also(function(it) {
+      return self.radioButton(undefined, text).apply(function(it) {
         it.enabled = false
         if (i === 0) {
           it.select()
@@ -58,16 +58,16 @@ function MultiCheckGroup(parent, textOff, textOn, checkTexts) {
   var radioClickListener = function() {
     Collections.forEach(self.checks, function(it) { it.enabled = self.radioOn.value })
   }
-  self.radioOff = self.radioButton(undefined, textOff).also(function(it) {
+  self.radioOff = self.radioButton(undefined, textOff).apply(function(it) {
     it.addClickListener(radioClickListener)
     it.select()
   })
-  self.radioOn = self.radioButton(undefined, textOn).also(function(it) {
+  self.radioOn = self.radioButton(undefined, textOn).apply(function(it) {
     it.addClickListener(radioClickListener)
   })
   if (checkTexts != null) {
     self.checks = Collections.map(checkTexts, function(text) {
-      return self.checkBox(undefined, text).also(function(it) {
+      return self.checkBox(undefined, text).apply(function(it) {
         it.enabled = false
       })
     })

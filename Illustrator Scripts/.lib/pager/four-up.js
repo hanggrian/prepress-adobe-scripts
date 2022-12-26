@@ -6,6 +6,7 @@
 function FourUpFoldingPager(document, start) {
   checkNotNull(document)
   checkNotNull(start)
+  check(start.isInt())
   var current = start
   var isFront = true
 
@@ -42,6 +43,7 @@ function FourUpFoldingPager(document, start) {
 function FourUpSimplexPager(document, start) {
   checkNotNull(document)
   checkNotNull(start)
+  check(start.isInt())
   var current = start
 
   var self = this
@@ -69,6 +71,7 @@ function FourUpSimplexPager(document, start) {
 function FourUpDuplexPager(document, start) {
   checkNotNull(document)
   checkNotNull(start)
+  check(start.isInt())
   var current = start
   var isFront = true
 
@@ -105,6 +108,7 @@ function FourUpDuplexPager(document, start) {
 function FourUpSimplexStackPager(document, start) {
   checkNotNull(document)
   checkNotNull(start)
+  check(start.isInt())
   var current = start
 
   var self = this
@@ -132,6 +136,7 @@ function FourUpSimplexStackPager(document, start) {
 function FourUpDuplexStackPager(document, start) {
   checkNotNull(document)
   checkNotNull(start)
+  check(start.isInt())
   var current = start
   var isFront = true
 

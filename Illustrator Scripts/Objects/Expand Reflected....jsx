@@ -16,19 +16,18 @@ var prefs = preferences2.resolve('objects/expand_reflected')
 var progress
 
 dialog.vgroup(function(main) {
-  main.alignChildren = 'right'
   main.hgroup(function(rootPane) {
     rootPane.alignChildren = 'fill'
     rootPane.vpanel(R.string.expand, function(panel) {
       panel.alignChildren = 'left'
-      clipObjectsCheck = panel.checkBox(undefined, R.string.clip_objects).also(function(it) {
+      clipObjectsCheck = panel.checkBox(undefined, R.string.clip_objects).apply(function(it) {
         it.helpTip = R.string.tip_expandreflected_clipobjects
         it.select()
         it.addClickListener(function() {
           paddingGroup.enabled = it.value
         })
       })
-      paddingGroup = new PaddingGroup(panel).also(function(group) {
+      paddingGroup = new PaddingGroup(panel).apply(function(group) {
         group.paddingEdit.activate()
         group.paddingEdit.text = prefs.getString('padding', '2.5 mm')
       })
@@ -38,36 +37,37 @@ dialog.vgroup(function(main) {
       panel.hgroup(function(group) {
         group.spacing = SPACING_LOCATIONS
         group.helpTips = R.string.tip_expandreflected_locations
-        topLeftCheck = group.checkBox(SIZE_CHECK).also(SELECTED)
-        topCheck = group.checkBox(SIZE_CHECK).also(SELECTED)
-        topRightCheck = group.checkBox(SIZE_CHECK).also(SELECTED)
+        topLeftCheck = group.checkBox(SIZE_CHECK).apply(SELECTED)
+        topCheck = group.checkBox(SIZE_CHECK).apply(SELECTED)
+        topRightCheck = group.checkBox(SIZE_CHECK).apply(SELECTED)
       })
       panel.hgroup(function(group) {
         group.spacing = SPACING_LOCATIONS
         group.helpTips = R.string.tip_expandreflected_locations
-        leftCheck = group.checkBox(SIZE_CHECK).also(SELECTED)
-        group.iconButton(SIZE_CHECK, 'ic_arrow_center', STYLE_TOOLBUTTON).also(function(it) {
+        leftCheck = group.checkBox(SIZE_CHECK).apply(SELECTED)
+        group.iconButton(SIZE_CHECK, 'ic_arrow_center', STYLE_TOOLBUTTON).apply(function(it) {
           it.addClickListener(function() {
             toggleChecks()
           })
         })
-        rightCheck = group.checkBox(SIZE_CHECK).also(SELECTED)
+        rightCheck = group.checkBox(SIZE_CHECK).apply(SELECTED)
       })
       panel.hgroup(function(group) {
         group.spacing = SPACING_LOCATIONS
         group.helpTips = R.string.tip_expandreflected_locations
-        bottomLeftCheck = group.checkBox(SIZE_CHECK).also(SELECTED)
-        bottomCheck = group.checkBox(SIZE_CHECK).also(SELECTED)
-        bottomRightCheck = group.checkBox(SIZE_CHECK).also(SELECTED)
+        bottomLeftCheck = group.checkBox(SIZE_CHECK).apply(SELECTED)
+        bottomCheck = group.checkBox(SIZE_CHECK).apply(SELECTED)
+        bottomRightCheck = group.checkBox(SIZE_CHECK).apply(SELECTED)
       })
     })
   })
   main.hgroup(function(group) {
-    useGuidesCheck = group.checkBox(undefined, R.string.use_guides).also(function(it) {
+    group.alignment = 'right'
+    useGuidesCheck = group.checkBox(undefined, R.string.use_guides).apply(function(it) {
       it.helpTip = R.string.tip_expandreflected_useguides
       it.value = prefs.getBoolean('use_guides')
     })
-    recursiveCheck = new RecursiveCheck(group).also(function(it) {
+    recursiveCheck = new RecursiveCheck(group).apply(function(it) {
       it.value = prefs.getBoolean('recursive')
     })
   })

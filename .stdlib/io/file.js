@@ -4,16 +4,8 @@
  * Returns true if both files point to the same location.
  * @return {boolean}
  */
-File.prototype.equalTo = function(other) {
+File.prototype.equals = function(other) {
   return this.absoluteURI === checkNotNull(other).absoluteURI
-}
-
-/**
- * Returns file name without extension.
- * @return {string}
- */
-File.prototype.getNameWithoutExtension = function() {
-  return unescape(this.name).substringBeforeLast('.')
 }
 
 /**

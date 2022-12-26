@@ -11,7 +11,7 @@ function PaddingGroup(parent) {
 
   self.helpTips = R.string.tip_padding
   self.staticText(undefined, R.string.add)
-  self.paddingEdit = self.editText([70, 21], '0 mm').also(VALIDATE_UNITS)
+  self.paddingEdit = self.editText([70, 21], '0 mm').apply(VALIDATE_UNITS)
   self.staticText(undefined, R.string.around_object)
 
   /** @return {number} */

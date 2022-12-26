@@ -22,6 +22,7 @@
 //@include 'geometry.js'
 //@include 'math.js'
 //@include 'objects.js'
+//@include 'ranges.js'
 //@include 'standard.js'
 //@include 'text.js'
 //@include 'time.js'

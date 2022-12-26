@@ -1,17 +1,11 @@
 initTest($.fileName)
 
-test('equalTo', function() {
+test('equals', function() {
   var apple1 = new File('apple.png')
   var apple2 = new File('apple.png')
   var orange = new File('orange.png')
-  assertTrue(apple1.equalTo(apple2))
-  assertFalse(apple1.equalTo(orange))
-})
-
-test('getNameWithoutExtension', function() {
-  var apple = new File('apple.png')
-  assertEquals('apple', apple.getNameWithoutExtension())
-  assertNotEquals('png', apple.getNameWithoutExtension())
+  assertTrue(apple1.equals(apple2))
+  assertFalse(apple1.equals(orange))
 })
 
 test('getExtension', function() {

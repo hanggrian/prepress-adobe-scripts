@@ -15,12 +15,8 @@ function ProgressPalette(stop, status) {
   Internals.addGroup(self, 'row', function(group) {
     group.orientation = 'row'
     self.statusText = group.staticText([325, 21],
-      (status || getString(R.string.please_wait)) + '...').also(function(it) {
-      it.justify = 'left'
-    })
-    self.countText = group.staticText([75, 21], '0/' + stop).also(function(it) {
-      it.justify = 'right'
-    })
+      (status || getString(R.string.please_wait)) + '...').apply(JUSTIFY_LEFT)
+    self.countText = group.staticText([75, 21], '0/' + stop).apply(JUSTIFY_RIGHT)
   })
   self.progressBar = Internals.addSlider(self, [400, 21], 0, 0, stop) // progressbar won't update in palette, use slider instead
 

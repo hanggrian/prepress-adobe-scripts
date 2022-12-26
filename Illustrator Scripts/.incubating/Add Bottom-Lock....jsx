@@ -11,26 +11,26 @@ dialog.vgroup(function(main) {
     rootPane.vgroup(function(leftPane) {
       leftPane.hgroup(function(group) {
         group.helpTips = 'Width of box'
-        group.leftStaticText(undefined, 'Width')
-        widthEdit = group.editText(SIZE_INPUT, '210 mm').also(function(it) {
+        group.staticText(undefined, 'Width').apply(HEADING)
+        widthEdit = group.editText(SIZE_INPUT, '210 mm').apply(function(it) {
           it.validateUnits()
           it.activate()
         })
       })
       leftPane.hgroup(function(group) {
         group.helpTips = 'Depth of box'
-        group.leftStaticText(undefined, 'Depth')
-        depthEdit = group.editText(SIZE_INPUT, '100 mm').also(VALIDATE_UNITS)
+        group.staticText(undefined, 'Depth').apply(HEADING)
+        depthEdit = group.editText(SIZE_INPUT, '100 mm').apply(VALIDATE_UNITS)
       })
       leftPane.hgroup(function(group) {
         group.helpTips = 'Length of horizontal lock'
-        group.leftStaticText(undefined, 'Horizontal Lock')
-        horizontalLockEdit = group.editText(SIZE_INPUT, '20 mm').also(VALIDATE_UNITS)
+        group.staticText(undefined, 'Horizontal Lock').apply(HEADING)
+        horizontalLockEdit = group.editText(SIZE_INPUT, '20 mm').apply(VALIDATE_UNITS)
       })
       leftPane.hgroup(function(group) {
         group.helpTips = 'Length of vertical lock'
-        group.leftStaticText(undefined, 'Vertical Lock')
-        verticalLockEdit = group.editText(SIZE_INPUT, '20 mm').also(VALIDATE_UNITS)
+        group.staticText(undefined, 'Vertical Lock').apply(HEADING)
+        verticalLockEdit = group.editText(SIZE_INPUT, '20 mm').apply(VALIDATE_UNITS)
       })
     })
     rootPane.image(undefined, 'dieline_bottomlock')

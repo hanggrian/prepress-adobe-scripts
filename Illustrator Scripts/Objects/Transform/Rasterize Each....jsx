@@ -17,18 +17,19 @@ var prefs = preferences2.resolve('objects/rasterize_each')
 
 dialog.vgroup(function(main) {
   main.vgroup(function(topPane) {
+    topPane.alignment = 'center'
     topPane.alignChildren = 'right'
     topPane.hgroup(function(group) {
       group.helpTips = R.string.tip_rasterizeeach_colormodel
-      group.leftStaticText(undefined, R.string.color_model)
-      colorModelList = group.dropDownList(SIZE_INPUT, COLOR_MODELS).also(function(it) {
+      group.staticText(undefined, R.string.color_model).apply(HEADING)
+      colorModelList = group.dropDownList(SIZE_INPUT, COLOR_MODELS).apply(function(it) {
         it.selection = 0
       })
     })
     topPane.hgroup(function(group) {
       group.helpTips = R.string.tip_rasterizeeach_resolusi
-      group.leftStaticText(undefined, R.string.resolution)
-      resolutionEdit = group.editText(SIZE_INPUT, '300').also(function(it) {
+      group.staticText(undefined, R.string.resolution).apply(HEADING)
+      resolutionEdit = group.editText(SIZE_INPUT, '300').apply(function(it) {
         it.validateDigits()
         it.activate()
       })
@@ -39,14 +40,14 @@ dialog.vgroup(function(main) {
     rootPane.vgroup(function(leftPane) {
       leftPane.alignChildren = 'fill'
       backgroundPanel = leftPane.vpanel(R.string.background, function(panel) {
-        panel.alignChildren = 'fill'
+        panel.alignChildren = 'left'
         panel.helpTips = R.string.tip_rasterizeeach_background
         backgroundWhiteRadio = panel.radioButton(undefined, R.string.white)
         backgroundTransparentRadio = panel.radioButton(undefined, R.string.transparent)
         panel.selectRadioIndex(prefs.getInt('background'))
       })
       antiAliasingPanel = leftPane.vpanel(R.string.anti_aliasing, function(panel) {
-        panel.alignChildren = 'fill'
+        panel.alignChildren = 'left'
         panel.helpTips = R.string.tip_rasterizeeach_antialiasing
         antiAliasingNoneRadio = panel.radioButton(undefined, R.string.none)
         antiAliasingArtRadio = panel.radioButton(undefined, R.string.art_optimized)
@@ -55,28 +56,28 @@ dialog.vgroup(function(main) {
       })
     })
     rootPane.vpanel('Options', function(panel) {
-      panel.alignChildren = 'fill'
+      panel.alignChildren = 'left'
       backgroundBlackCheck = panel.checkBox(undefined, R.string.against_black_background)
-        .also(function(it) {
+        .apply(function(it) {
           it.helpTip = R.string.tip_rasterizeeach_option1
           it.value = prefs.getBoolean('option1')
         })
       clippingMaskCheck = panel.checkBox(undefined, R.string.create_clipping_mask)
-        .also(function(it) {
+        .apply(function(it) {
           it.helpTip = R.string.tip_rasterizeeach_option2
           it.value = prefs.getBoolean('option2')
         })
       convertSpotColorsCheck = panel.checkBox(undefined, R.string.convert_spot_colors)
-        .also(function(it) {
+        .apply(function(it) {
           it.helpTip = R.string.tip_rasterizeeach_option3
           it.value = prefs.getBoolean('option3')
         })
       convertTextToOutlinesCheck = panel.checkBox(undefined, R.string.convert_text_to_outlines)
-        .also(function(it) {
+        .apply(function(it) {
           it.helpTip = R.string.tip_rasterizeeach_option4
           it.value = prefs.getBoolean('option4')
         })
-      includeLayersCheck = panel.checkBox(undefined, R.string.include_layers).also(function(it) {
+      includeLayersCheck = panel.checkBox(undefined, R.string.include_layers).apply(function(it) {
         it.helpTip = R.string.tip_rasterizeeach_option5
         it.value = prefs.getBoolean('option5')
       })
@@ -85,10 +86,10 @@ dialog.vgroup(function(main) {
   })
   main.hgroup(function(group) {
     group.alignment = 'right'
-    keepSizeCheck = new KeepSizeCheck(group).also(function(it) {
+    keepSizeCheck = new KeepSizeCheck(group).apply(function(it) {
       it.value = prefs.getBoolean('keep_size')
     })
-    recursiveCheck = new RecursiveCheck(group).also(function(it) {
+    recursiveCheck = new RecursiveCheck(group).apply(function(it) {
       it.value = prefs.getBoolean('recursive')
     })
   })

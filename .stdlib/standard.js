@@ -7,19 +7,11 @@
 /*<javascriptresource><menu>hide</menu></javascriptresource>*/
 
 /**
- * Calls the specified function `block` and returns its result.
- * @param {function(*)} block
- */
-Object.prototype.run = function(block) {
-  block(this)
-}
-
-/**
  * Calls the specified function `block` with `this` value as its argument and returns `this` value.
  * @param {function(*): *} block
  * @return {*}
  */
-Object.prototype.also = function(block) {
+Object.prototype.apply = function(block) {
   checkNotNull(block)
   block(this)
   return this
@@ -30,29 +22,9 @@ Object.prototype.also = function(block) {
  * @param {function(*): *} block
  * @return {*}
  */
-Object.prototype.let = function(block) {
+Object.prototype.run = function(block) {
   checkNotNull(block)
   return block(this)
-}
-
-/**
- * Returns `this` value if it satisfies the given `predicate` or `null`, if it doesn't.
- * @param {function(*): boolean} predicate
- * @return {*}
- */
-Object.prototype.takeIf = function(predicate) {
-  checkNotNull(predicate)
-  return predicate(this) ? this : null
-}
-
-/**
- * Returns `this` value if it _does not_ satisfy the given `predicate` or `null`, if it does.
- * @param {function(*): boolean} predicate
- * @return {*}
- */
-Object.prototype.takeUnless = function(predicate) {
-  checkNotNull(predicate)
-  return !predicate(this) ? this : null
 }
 
 /**
