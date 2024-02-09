@@ -5,8 +5,12 @@ var SIZE_INPUT = [140, 21]
 
 checkAnySelection()
 
-check(Collections.anyItem(selection, function(it) { return Items.isPlacedPdf(it) }),
-  R.string.error_changepage)
+check(
+    Collections.anyItem(selection, function(it) {
+      return Items.isPlacedPdf(it)
+    }),
+    R.string.error_changepage,
+)
 
 var dialog = new Dialog(R.string.change_page, 'relinking-files/#change-page')
 var pdfPanel, rangingGroup, orderingList
@@ -14,28 +18,33 @@ var keepSizeCheck, recursiveCheck
 var prefs = preferences2.resolve('links/change_page')
 
 dialog.vgroup(function(main) {
-  pdfPanel = new OpenPDFPanel(main, SIZE_INPUT).apply(function(panel) {
-    panel.hgroup(function(group) {
-      group.helpTips = R.string.tip_relink_pages
-      group.staticText(undefined, getString(R.string.pages)).apply(HEADING)
-      rangingGroup = new RangingGroup(group, SIZE_INPUT).apply(function(it) {
-        it.startEdit.activate()
+  pdfPanel =
+      new OpenPDFPanel(main, SIZE_INPUT).apply(function(panel) {
+        panel.hgroup(function(group) {
+          group.helpTips = R.string.tip_relink_pages
+          group.staticText(undefined, getString(R.string.pages)).apply(HEADING)
+          rangingGroup =
+              new RangingGroup(group, SIZE_INPUT).apply(function(it) {
+                it.startEdit.activate()
+              })
+        })
       })
-    })
-  })
-  orderingList = new OrderingList(main, [Ordering.layerList(), Ordering.positionList()]).apply(
-    function(it) {
-      it.alignment = 'right'
-      it.selection = prefs.getInt('order')
-    })
+  orderingList =
+      new OrderingList(main, [Ordering.layerList(), Ordering.positionList()]).apply(
+          function(it) {
+            it.alignment = 'right'
+            it.selection = prefs.getInt('order')
+          })
   main.hgroup(function(group) {
     group.alignment = 'right'
-    keepSizeCheck = new KeepSizeCheck(group).apply(function(it) {
-      it.value = prefs.getBoolean('keep_size')
-    })
-    recursiveCheck = new RecursiveCheck(group).apply(function(it) {
-      it.value = prefs.getBoolean('recursive')
-    })
+    keepSizeCheck =
+        new KeepSizeCheck(group).apply(function(it) {
+          it.value = prefs.getBoolean('keep_size')
+        })
+    recursiveCheck =
+        new RecursiveCheck(group).apply(function(it) {
+          it.value = prefs.getBoolean('recursive')
+        })
   })
 })
 dialog.setCancelButton()
@@ -46,11 +55,14 @@ dialog.setDefaultButton(undefined, function() {
   var range = rangingGroup.get()
   var current = range.start
 
-  var items = recursiveCheck.value
-    ? Collections.filterItem(selection, function(it) { return Items.isPlacedPdf(it) })
-    : Collections.filter(selection, function(it) {
-      return Items.isGroup(it) || Items.isPlacedPdf(it)
-    })
+  var items =
+      recursiveCheck.value
+          ? Collections.filterItem(selection, function(it) {
+            return Items.isPlacedPdf(it)
+          })
+          : Collections.filter(selection, function(it) {
+            return Items.isGroup(it) || Items.isPlacedPdf(it)
+          })
   items.sort(orderingList.getComparator())
 
   var progress = new ProgressPalette(items.length)
@@ -78,6 +90,7 @@ dialog.setDefaultButton(undefined, function() {
   prefs.setInt('order', orderingList.selection.index)
   prefs.setBoolean('keep_size', keepSizeCheck.value)
   prefs.setBoolean('recursive', recursiveCheck.value)
+  return false
 })
 dialog.show()
 

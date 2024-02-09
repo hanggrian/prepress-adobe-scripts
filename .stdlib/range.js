@@ -5,7 +5,10 @@
  * @param endExclusive non-decimal value.
  * @return {Range}
  */
-Number.prototype.until = function(endExclusive) { return new Range(this - 1, endExclusive - 1) }
+Number.prototype.until =
+    function(endExclusive) {
+      return new Range(this - 1, endExclusive - 1)
+    }
 
 /**
  * Creates a range from starting point to end.
@@ -36,22 +39,29 @@ function Range(start, end) {
    * Returns size from start to end.
    * @return {number}
    */
-  self.getLength = function() { return end - start + 1 }
+  self.getLength =
+      function() {
+        return end - start + 1
+      }
 
   /**
    * Returns true if value is within range.
    * @param {number} value
    * @return {boolean}
    */
-  self.contains = function(value) { return start <= value && value <= end }
+  self.contains =
+      function(value) {
+        return start <= value && value <= end
+      }
 
   /**
    * Iterate index from start to end.
    * @param {function(number)} action
    */
-  self.forEachIndex = function(action) {
-    for (var i = start; i < self.endExclusive; i++) {
-      action(i)
-    }
-  }
+  self.forEachIndex =
+      function(action) {
+        for (var i = start; i < self.endExclusive; i++) {
+          action(i)
+        }
+      }
 }

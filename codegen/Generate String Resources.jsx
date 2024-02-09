@@ -15,9 +15,8 @@ var message = 'Generated:'
 stringsInputFile = new File(PATH_CURRENT + '/strings.csv')
 outputFile = new File(Scripts.PATH_STDLIB + '/resources/strings.js')
 output = ''
-forEachLine(stringsInputFile, function(key, languages, values, isLast) {
-  var lastComma = !isLast ? ',' : ''
-  output += '  %s: { %s }%s\n'.format(key, getContent(languages, values), lastComma)
+forEachLine(stringsInputFile, function(key, languages, values) {
+  output += '  %s: {%s},\n'.format(key, getContent(languages, values))
 })
 message += overwrite(outputFile, COMMENT_ALL + COMMENT_PSD + 'R.string = {\n%s}\n'.format(output))
 
@@ -30,18 +29,25 @@ forEachLine(stringsInputFile, function(key, languages, values, _) {
   output += 'R.string.%s = { %s }\n'.format(key, getContent(languages, values))
 })
 output += '\n'
-forEachLine(pluralsInputFile, function(key, languages, values, isLast) {
-  var singleValues = [], pluralValues = []
-  Collections.forEach(values, function(value, i) {
-    value.split(';').run(function(it) {
-      singleValues[i] = it[0]
-      pluralValues[i] = it[1]
-    })
-  })
-  var lastComma = !isLast ? ',' : ''
-  output += 'R.plurals.%s = {\n  single: { %s },\n  plural: { %s }%s\n}\n'.format(key,
-    getContent(languages, singleValues), getContent(languages, pluralValues), lastComma)
-}, false)
+forEachLine(
+    pluralsInputFile,
+    function(key, languages, values) {
+      var singleValues = [], pluralValues = []
+      Collections.forEach(values, function(value, i) {
+        value.split(';').run(function(it) {
+          singleValues[i] = it[0]
+          pluralValues[i] = it[1]
+        })
+      })
+      output +=
+          'R.plurals.%s = {\n  single: {%s},\n  plural: {%s},\n}\n'.format(
+              key,
+              getContent(languages, singleValues),
+              getContent(languages, pluralValues),
+          )
+    },
+    false,
+)
 message += overwrite(outputFile, COMMENT_ALL + output)
 
 // photoshop
@@ -49,17 +55,17 @@ stringsInputFile = new File(PATH_CURRENT + '/strings_psd.csv')
 outputFile = new File(PATH_ROOT + '/Photoshop Scripts/.lib/core-resources.js')
 output = ''
 forEachLine(stringsInputFile, function(key, languages, values, _) {
-  output += 'R.string.%s = { %s }\n'.format(key, getContent(languages, values))
+  output += 'R.string.%s = {%s}\n'.format(key, getContent(languages, values))
 })
 message += overwrite(outputFile, COMMENT_ALL + COMMENT_PSD + output)
 
 alert(message, 'Generate String Resources')
 
 /**
- * TODO: find out why `File.prototype` is failing.
+ * TODO find out why `File.prototype` is failing.
  * Iterate each CSV lines, except the first (the header).
  * @param file {!File}
- * @param action {function(string, !Array<string>, !Array<string>, boolean)}
+ * @param action {function(string, !Array<string>, !Array<string>)}
  * @param enforceRules {?boolean=} set to false when generating plurals.
  * @see https://stackoverflow.com/a/7431565/1567541
  */
@@ -79,7 +85,7 @@ function forEachLine(file, action, enforceRules) {
       languages.push(headers[j])
       values.push(line[j])
     }
-    action(key, languages, values, i === Collections.lastIndex(lines))
+    action(key, languages, values)
   }
 }
 
@@ -93,7 +99,9 @@ function getContent(languages, values) {
   var content = ''
   Collections.forEach(languages, function(language, i) {
     var format = '%s: "%s"'
-    if (i < Collections.lastIndex(languages)) { format += ', ' }
+    if (i < Collections.lastIndex(languages)) {
+      format += ', '
+    }
     content += format.format(language, values[i])
   })
   return content
@@ -113,7 +121,7 @@ function readLine(line) {
 }
 
 /**
- * TODO: find out why `File.prototype` is failing.
+ * TODO find out why `File.prototype` is failing.
  * Rewrite file with new content.
  * @param file {!File}
  * @param text {string}

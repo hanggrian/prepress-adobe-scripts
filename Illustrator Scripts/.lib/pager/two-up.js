@@ -16,12 +16,13 @@ function TwoUpSimplexPager(document, start) {
    * Iterate pager to next artboard, returning artboard's name.
    * @return {string}
    */
-  self.next = function() {
-    self.left = current
-    self.right = current + 1
-    current += 2
-    return '%d-%d'.format(self.left + 1, self.right + 1)
-  }
+  self.next =
+      function() {
+        self.left = current
+        self.right = current + 1
+        current += 2
+        return '%d-%d'.format(self.left + 1, self.right + 1)
+      }
 }
 
 /**
@@ -43,18 +44,19 @@ function TwoUpDuplexPager(document, start) {
    * Iterate pager to next artboard, returning artboard's name.
    * @return {string}
    */
-  self.next = function() {
-    if (isFront) {
-      self.left = current
-      self.right = current + 2
-    } else {
-      self.left = current + 1
-      self.right = current - 1
-    }
-    current += 2
-    isFront = !isFront
-    return '%d-%d'.format(self.left + 1, self.right + 1)
-  }
+  self.next =
+      function() {
+        if (isFront) {
+          self.left = current
+          self.right = current + 2
+        } else {
+          self.left = current + 1
+          self.right = current - 1
+        }
+        current += 2
+        isFront = !isFront
+        return '%d-%d'.format(self.left + 1, self.right + 1)
+      }
 }
 
 /**
@@ -75,12 +77,13 @@ function TwoUpSimplexStackPager(document, start) {
    * Iterate pager to next artboard, returning artboard's name.
    * @return {string}
    */
-  self.next = function() {
-    self.left = current
-    self.right = current + document.artboards.length
-    current++
-    return '%d-%d'.format(self.left + 1, self.right + 1)
-  }
+  self.next =
+      function() {
+        self.left = current
+        self.right = current + document.artboards.length
+        current++
+        return '%d-%d'.format(self.left + 1, self.right + 1)
+      }
 }
 
 /**
@@ -102,16 +105,17 @@ function TwoUpDuplexStackPager(document, start) {
    * Iterate pager to next artboard, returning artboard's name.
    * @return {string}
    */
-  self.next = function() {
-    if (isFront) {
-      self.left = current
-      self.right = current + document.artboards.length
-    } else {
-      self.left = current + document.artboards.length
-      self.right = current
-    }
-    current++
-    isFront = !isFront
-    return '%d-%d'.format(self.left + 1, self.right + 1)
-  }
+  self.next =
+      function() {
+        if (isFront) {
+          self.left = current
+          self.right = current + document.artboards.length
+        } else {
+          self.left = current + document.artboards.length
+          self.right = current
+        }
+        current++
+        isFront = !isFront
+        return '%d-%d'.format(self.left + 1, self.right + 1)
+      }
 }

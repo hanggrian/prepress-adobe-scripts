@@ -19,24 +19,30 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
         if (files.hasPDF) {
           pdfPanel = new OpenPDFPanel(leftPane, SIZE_INPUT)
         }
-        pagesPanel = new OpenPagesPanel(leftPane, SIZE_INPUT).apply(function(it) {
-          it.rangingGroup.startEdit.activate()
-          it.rangingGroup.endEdit.text = files.length
-          if (!files.isSinglePDF) {
-            it.rangingGroup.maxRange = files.length
-          }
-          it.widthEdit.addChangeListener(function() { updateDocumentDimensionText(true, false) })
-          it.heightEdit.addChangeListener(function() { updateDocumentDimensionText(false, true) })
-          it.bleedEdit.addChangeListener(updateDocumentDimensionText)
-        })
+        pagesPanel =
+            new OpenPagesPanel(leftPane, SIZE_INPUT).apply(function(it) {
+              it.rangingGroup.startEdit.activate()
+              it.rangingGroup.endEdit.text = files.length
+              if (!files.isSinglePDF) {
+                it.rangingGroup.maxRange = files.length
+              }
+              it.widthEdit.addChangeListener(function() {
+                updateDocumentDimensionText(true, false)
+              })
+              it.heightEdit.addChangeListener(function() {
+                updateDocumentDimensionText(false, true)
+              })
+              it.bleedEdit.addChangeListener(updateDocumentDimensionText)
+            })
       })
       documentPanel = new OpenDocumentPanel(rootPane)
     })
     main.hgroup(function(group) {
       group.alignment = 'right'
-      rtlCheck = group.checkBox(undefined, R.string.right_to_left).apply(function(it) {
-        it.helpTip = R.string.tip_impose_rtl
-      })
+      rtlCheck =
+          group.checkBox(undefined, R.string.right_to_left).apply(function(it) {
+            it.helpTip = R.string.tip_impose_rtl
+          })
     })
     updateDocumentDimensionText()
   })
@@ -56,14 +62,20 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
     if (pageRange.getLength() % 4 !== 0) {
       return Windows.alert(getString(R.string.error_impose_openpages, 4), dialog.text, true)
     } else if (parseInt(documentPanel.getWidth()) < parseInt((pageWidth - pageBleed) * 2) ||
-      parseInt(documentPanel.getHeight()) < parseInt(pageHeight)) {
+        parseInt(documentPanel.getHeight()) < parseInt(pageHeight)) {
       return Windows.alert(R.string.error_impose_opendocuments, dialog.text, true)
     }
     var document = documentPanel.create(
-      '%s %s'.format(Pager.SADDLE_STITCH.text,
-        getString(R.string.page_D_D, pagesPanel.rangingGroup.getStart(),
-          pagesPanel.rangingGroup.getEnd())),
-      artboardLength)
+        '%s %s'.format(
+            Pager.SADDLE_STITCH.text,
+            getString(
+                R.string.page_D_D,
+                pagesPanel.rangingGroup.getStart(),
+                pagesPanel.rangingGroup.getEnd(),
+            ),
+        ),
+        artboardLength,
+    )
     var pager = Pager.SADDLE_STITCH.get(document, pageRange.start, pageRange.end, rtlCheck.value)
     var progress = new ProgressPalette(artboardLength, R.string.imposing)
 
@@ -81,8 +93,9 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
         x1 = artboardRect.getLeft() + (artboardRect.getWidth() - pageWidth * 2) / 2
         x2 = x1 + pageWidth
       } else {
-        x1 = artboardRect.getLeft() +
-          (artboardRect.getWidth() - (originalPageWidth + pageBleed) * 2) / 2
+        x1 =
+            artboardRect.getLeft() +
+            (artboardRect.getWidth() - (originalPageWidth + pageBleed) * 2) / 2
         x2 = x1 + originalPageWidth
       }
       var y = artboardRect.getTop() - (artboardRect.getHeight() - pageHeight) / 2
@@ -93,19 +106,24 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
       item1.position = [x1, y]
       item2.position = [x2, y]
       if (pageBleed > 0) {
-        clipItem(document, item1, y, x1, // remove right bleed
-          originalPageWidth + pageBleed, pageHeight)
-        clipItem(document, item2, y, x2 + pageBleed, // remove left bleed
-          originalPageWidth + pageBleed, pageHeight)
+        // remove right bleed
+        clipItem(document, item1, y, x1, originalPageWidth + pageBleed, pageHeight)
+        // remove left bleed
+        clipItem(document, item2, y, x2 + pageBleed, originalPageWidth + pageBleed, pageHeight)
         // then create center guide
-        var guide = document.pathItems.rectangle(
-          item1.position.getTop() - pageBleed, item1.position.getLeft() + pageBleed,
-          originalPageWidth * 2, originalPageHeight)
+        var guide =
+            document.pathItems.rectangle(
+                item1.position.getTop() - pageBleed,
+                item1.position.getLeft() + pageBleed,
+                originalPageWidth * 2,
+                originalPageHeight,
+            )
         guide.filled = false
         guide.guides = true
       }
     })
     selection = []
+    return false
   })
   dialog.show()
 }

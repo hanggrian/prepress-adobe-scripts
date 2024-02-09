@@ -4,8 +4,10 @@
 //@target illustrator
 //@include '../.lib/commons.js'
 
-check(Collections.isNotEmpty(document.pageItems),
-  getString(R.string.error_notypes_document, getString(R.string.anything).toLowerCase()))
+check(
+    Collections.isNotEmpty(document.pageItems),
+    getString(R.string.error_notypes_document, getString(R.string.anything).toLowerCase()),
+)
 var isFilterMode = Collections.isNotEmpty(selection)
 
 var dialog = new Dialog(R.string.select_all, 'selecting-items/#select-all')
@@ -25,13 +27,14 @@ dialog.vgroup(function(main) {
       leftPane.hpanel(R.string.groups, function(panel) {
         panel.vgroup(function(checkGroup) {
           checkGroup.alignChildren = 'left'
-          groupCheck = checkGroup.checkBox(undefined, R.string.groups).apply(function(it) {
-            it.value = prefs.getBoolean('group')
-          })
-          clippingMaskCheck = checkGroup.checkBox(undefined, R.string.clipping_masks)
-            .apply(function(it) {
-              it.value = prefs.getBoolean('group2')
-            })
+          groupCheck =
+              checkGroup.checkBox(undefined, R.string.groups).apply(function(it) {
+                it.value = prefs.getBoolean('group')
+              })
+          clippingMaskCheck =
+              checkGroup.checkBox(undefined, R.string.clipping_masks).apply(function(it) {
+                it.value = prefs.getBoolean('group2')
+              })
         })
         panel.vgroup(function(imageGroup) {
           imageGroup.alignment = ['fill', 'top']
@@ -42,13 +45,14 @@ dialog.vgroup(function(main) {
       leftPane.hpanel(R.string.paths, function(panel) {
         panel.vgroup(function(checkGroup) {
           checkGroup.alignChildren = 'left'
-          pathCheck = checkGroup.checkBox(undefined, R.string.paths).apply(function(it) {
-            it.value = prefs.getBoolean('path')
-          })
-          compoundPathCheck = checkGroup.checkBox(undefined, R.string.compound_paths)
-            .apply(function(it) {
-              it.value = prefs.getBoolean('compound_path')
-            })
+          pathCheck =
+              checkGroup.checkBox(undefined, R.string.paths).apply(function(it) {
+                it.value = prefs.getBoolean('path')
+              })
+          compoundPathCheck =
+              checkGroup.checkBox(undefined, R.string.compound_paths).apply(function(it) {
+                it.value = prefs.getBoolean('compound_path')
+              })
         })
         panel.vgroup(function(imageGroup) {
           imageGroup.alignment = ['fill', 'top']
@@ -59,13 +63,14 @@ dialog.vgroup(function(main) {
       leftPane.hpanel(R.string.types, function(panel) {
         panel.vgroup(function(checkGroup) {
           checkGroup.alignChildren = 'left'
-          textFrameCheck = checkGroup.checkBox(undefined, R.string.types).apply(function(it) {
-            it.value = prefs.getBoolean('text')
-          })
-          legacyTextCheck = checkGroup.checkBox(undefined, R.string.obsolete_types)
-            .apply(function(it) {
-              it.value = prefs.getBoolean('legacy_text')
-            })
+          textFrameCheck =
+              checkGroup.checkBox(undefined, R.string.types).apply(function(it) {
+                it.value = prefs.getBoolean('text')
+              })
+          legacyTextCheck =
+              checkGroup.checkBox(undefined, R.string.obsolete_types).apply(function(it) {
+                it.value = prefs.getBoolean('legacy_text')
+              })
         })
         panel.vgroup(function(imageGroup) {
           imageGroup.alignment = ['fill', 'top']
@@ -79,19 +84,22 @@ dialog.vgroup(function(main) {
       rightPane.hpanel(R.string.imports, function(panel) {
         panel.vgroup(function(checkGroup) {
           checkGroup.alignChildren = 'left'
-          placedCheck = checkGroup.checkBox(undefined, R.string.links).apply(function(it) {
-            it.value = prefs.getBoolean('placed')
-          })
-          nonNativeCheck = checkGroup.checkBox(undefined, R.string.non_natives)
-            .apply(function(it) {
-              it.value = prefs.getBoolean('nonnative')
-            })
-          rasterCheck = checkGroup.checkBox(undefined, R.string.images).apply(function(it) {
-            it.value = prefs.getBoolean('raster')
-          })
-          pluginCheck = checkGroup.checkBox(undefined, R.string.plugins).apply(function(it) {
-            it.value = prefs.getBoolean('plugin')
-          })
+          placedCheck =
+              checkGroup.checkBox(undefined, R.string.links).apply(function(it) {
+                it.value = prefs.getBoolean('placed')
+              })
+          nonNativeCheck =
+              checkGroup.checkBox(undefined, R.string.non_natives).apply(function(it) {
+                it.value = prefs.getBoolean('nonnative')
+              })
+          rasterCheck =
+              checkGroup.checkBox(undefined, R.string.images).apply(function(it) {
+                it.value = prefs.getBoolean('raster')
+              })
+          pluginCheck =
+              checkGroup.checkBox(undefined, R.string.plugins).apply(function(it) {
+                it.value = prefs.getBoolean('plugin')
+              })
         })
         panel.vgroup(function(imageGroup) {
           imageGroup.alignment = ['fill', 'top']
@@ -104,15 +112,18 @@ dialog.vgroup(function(main) {
       rightPane.hpanel(R.string.others, function(panel) {
         panel.vgroup(function(checkGroup) {
           checkGroup.alignChildren = 'left'
-          symbolCheck = checkGroup.checkBox(undefined, R.string.symbols).apply(function(it) {
-            it.value = prefs.getBoolean('symbol')
-          })
-          meshCheck = checkGroup.checkBox(undefined, R.string.meshes).apply(function(it) {
-            it.value = prefs.getBoolean('mesh')
-          })
-          graphCheck = checkGroup.checkBox(undefined, R.string.graphs).apply(function(it) {
-            it.value = prefs.getBoolean('graph')
-          })
+          symbolCheck =
+              checkGroup.checkBox(undefined, R.string.symbols).apply(function(it) {
+                it.value = prefs.getBoolean('symbol')
+              })
+          meshCheck =
+              checkGroup.checkBox(undefined, R.string.meshes).apply(function(it) {
+                it.value = prefs.getBoolean('mesh')
+              })
+          graphCheck =
+              checkGroup.checkBox(undefined, R.string.graphs).apply(function(it) {
+                it.value = prefs.getBoolean('graph')
+              })
         })
         panel.vgroup(function(imageGroup) {
           imageGroup.alignment = ['fill', 'top']
@@ -124,10 +135,11 @@ dialog.vgroup(function(main) {
     })
   })
   if (isFilterMode) {
-    recursiveCheck = new RecursiveCheck(main).apply(function(it) {
-      it.alignment = 'right'
-      it.value = prefs.getBoolean('recursive')
-    })
+    recursiveCheck =
+        new RecursiveCheck(main).apply(function(it) {
+          it.alignment = 'right'
+          it.value = prefs.getBoolean('recursive')
+        })
   }
 })
 dialog.setCancelButton()
@@ -145,18 +157,22 @@ dialog.setDefaultButton(undefined, function() {
   if (rasterCheck.value) types.push('RasterItem')
   if (symbolCheck.value) types.push('SymbolItem')
   if (textFrameCheck.value) types.push('TextFrame')
-  selectAll(types, function(item) {
-    if (Items.isGroup(item)) {
-      if (groupCheck.value && !item.clipped) {
+  selectAll(
+      types,
+      function(item) {
+        if (Items.isGroup(item)) {
+          if (groupCheck.value && !item.clipped) {
+            return true
+          }
+          if (clippingMaskCheck.value && item.clipped) {
+            return true
+          }
+          return false
+        }
         return true
-      }
-      if (clippingMaskCheck.value && item.clipped) {
-        return true
-      }
-      return false
-    }
-    return true
-  }, isFilterMode && recursiveCheck.value)
+      },
+      isFilterMode && recursiveCheck.value,
+  )
 
   prefs.setBoolean('compound_path', compoundPathCheck.value)
   prefs.setBoolean('graph', graphCheck.value)
@@ -171,7 +187,10 @@ dialog.setDefaultButton(undefined, function() {
   prefs.setBoolean('raster', rasterCheck.value)
   prefs.setBoolean('symbol', symbolCheck.value)
   prefs.setBoolean('text', textFrameCheck.value)
-  if (isFilterMode) prefs.setBoolean('recursive', recursiveCheck.value)
+  if (isFilterMode) {
+    prefs.setBoolean('recursive', recursiveCheck.value)
+  }
+  return false
 })
 dialog.show()
 

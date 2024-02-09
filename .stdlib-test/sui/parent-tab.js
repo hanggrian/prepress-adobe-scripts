@@ -1,4 +1,4 @@
-// TODO: assert tab's title
+// TODO assert tab's title
 
 initTest($.fileName)
 

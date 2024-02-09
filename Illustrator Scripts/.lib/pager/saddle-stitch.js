@@ -21,27 +21,28 @@ function SaddleStitchPager(document, start, end, isRtl) {
    * Iterate pager to next artboard, returning artboard's name.
    * @return {string}
    */
-  self.next = function() {
-    if (isFront) {
-      if (!isRtl) {
-        self.left = end
-        self.right = start
-      } else {
-        self.left = start
-        self.right = end
+  self.next =
+      function() {
+        if (isFront) {
+          if (!isRtl) {
+            self.left = end
+            self.right = start
+          } else {
+            self.left = start
+            self.right = end
+          }
+        } else {
+          if (!isRtl) {
+            self.left = start
+            self.right = end
+          } else {
+            self.left = end
+            self.right = start
+          }
+        }
+        start++
+        end--
+        isFront = !isFront
+        return (self.left + 1) + '-' + (self.right + 1)
       }
-    } else {
-      if (!isRtl) {
-        self.left = start
-        self.right = end
-      } else {
-        self.left = end
-        self.right = start
-      }
-    }
-    start++
-    end--
-    isFront = !isFront
-    return (self.left + 1) + '-' + (self.right + 1)
-  }
 }

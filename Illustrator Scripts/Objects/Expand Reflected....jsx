@@ -9,8 +9,8 @@ var SPACING_LOCATIONS = 14
 var dialog = new Dialog(R.string.expand_reflected, 'expanding-with-reflections/')
 var clipObjectsCheck, paddingGroup
 var topLeftCheck, topCheck, topRightCheck,
-  leftCheck, rightCheck,
-  bottomLeftCheck, bottomCheck, bottomRightCheck
+    leftCheck, rightCheck,
+    bottomLeftCheck, bottomCheck, bottomRightCheck
 var recursiveCheck, useGuidesCheck
 var prefs = preferences2.resolve('objects/expand_reflected')
 var progress
@@ -20,17 +20,19 @@ dialog.vgroup(function(main) {
     rootPane.alignChildren = 'fill'
     rootPane.vpanel(R.string.expand, function(panel) {
       panel.alignChildren = 'left'
-      clipObjectsCheck = panel.checkBox(undefined, R.string.clip_objects).apply(function(it) {
-        it.helpTip = R.string.tip_expandreflected_clipobjects
-        it.select()
-        it.addClickListener(function() {
-          paddingGroup.enabled = it.value
-        })
-      })
-      paddingGroup = new PaddingGroup(panel).apply(function(group) {
-        group.paddingEdit.activate()
-        group.paddingEdit.text = prefs.getString('padding', '2.5 mm')
-      })
+      clipObjectsCheck =
+          panel.checkBox(undefined, R.string.clip_objects).apply(function(it) {
+            it.helpTip = R.string.tip_expandreflected_clipobjects
+            it.select()
+            it.addClickListener(function() {
+              paddingGroup.enabled = it.value
+            })
+          })
+      paddingGroup =
+          new PaddingGroup(panel).apply(function(group) {
+            group.paddingEdit.activate()
+            group.paddingEdit.text = prefs.getString('padding', '2.5 mm')
+          })
     })
     rootPane.vpanel(R.string.locations, function(panel) {
       panel.spacing = SPACING_LOCATIONS
@@ -63,13 +65,15 @@ dialog.vgroup(function(main) {
   })
   main.hgroup(function(group) {
     group.alignment = 'right'
-    useGuidesCheck = group.checkBox(undefined, R.string.use_guides).apply(function(it) {
-      it.helpTip = R.string.tip_expandreflected_useguides
-      it.value = prefs.getBoolean('use_guides')
-    })
-    recursiveCheck = new RecursiveCheck(group).apply(function(it) {
-      it.value = prefs.getBoolean('recursive')
-    })
+    useGuidesCheck =
+        group.checkBox(undefined, R.string.use_guides).apply(function(it) {
+          it.helpTip = R.string.tip_expandreflected_useguides
+          it.value = prefs.getBoolean('use_guides')
+        })
+    recursiveCheck =
+        new RecursiveCheck(group).apply(function(it) {
+          it.value = prefs.getBoolean('recursive')
+        })
   })
 })
 dialog.setCancelButton()
@@ -84,6 +88,7 @@ dialog.setDefaultButton(undefined, function() {
   prefs.setString('padding', paddingGroup.paddingEdit.text)
   prefs.setBoolean('use_guides', useGuidesCheck.value)
   prefs.setBoolean('recursive', recursiveCheck.value)
+  return false
 })
 dialog.show()
 
@@ -112,11 +117,13 @@ function process(item) {
 
   if (clipObjectsCheck.value) {
     var padding = paddingGroup.get()
-    var clip = document.pathItems.rectangle(
-      y + padding,
-      x - padding,
-      width + padding * 2,
-      height + padding * 2)
+    var clip =
+        document.pathItems.rectangle(
+            y + padding,
+            x - padding,
+            width + padding * 2,
+            height + padding * 2,
+        )
     clip.clipping = true
     clip.moveToBeginning(clippingGroup)
 
@@ -158,9 +165,16 @@ function flip(item, isHorizontal) {
 }
 
 function toggleChecks() {
-  var checks = [topLeftCheck, topCheck, topRightCheck,
+  var checks = [
+    topLeftCheck, topCheck, topRightCheck,
     leftCheck, rightCheck,
-    bottomLeftCheck, bottomCheck, bottomRightCheck]
-  var anySelected = Collections.any(checks, function(it) { return it.value })
-  Collections.forEach(checks, function(it) { it.value = !anySelected })
+    bottomLeftCheck, bottomCheck, bottomRightCheck,
+  ]
+  var anySelected =
+      Collections.any(checks, function(it) {
+        return it.value
+      })
+  Collections.forEach(checks, function(it) {
+    it.value = !anySelected
+  })
 }

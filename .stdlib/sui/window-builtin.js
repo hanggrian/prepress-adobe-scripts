@@ -26,5 +26,5 @@ var Windows = {
   confirm: function(message, title, noAsDefault) {
     noAsDefault = noAsDefault || false
     return confirm(Internals.textOrResource(message), noAsDefault, Internals.textOrResource(title))
-  }
+  },
 }

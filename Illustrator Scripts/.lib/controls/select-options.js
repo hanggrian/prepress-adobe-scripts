@@ -1,9 +1,12 @@
-var SelectOption = new Enum({
-  YES: { text: R.string.yes },
-  NO: { text: R.string.no },
+var SelectOption =
+    new Enum({
+      YES: {text: R.string.yes},
+      NO: {text: R.string.no},
 
-  isYes: function(name) { return SelectOption.find(name) === SelectOption.YES }
-})
+      isYes: function(name) {
+        return SelectOption.find(name) === SelectOption.YES
+      },
+    })
 
 /**
  * Panel of width and height inputs.
@@ -27,10 +30,16 @@ function SelectDimensionPanel(parent, inputSize) {
   })
 
   /** @return {number} */
-  self.getWidth = function() { return parseUnits(self.widthEdit.text) }
+  self.getWidth =
+      function() {
+        return parseUnits(self.widthEdit.text)
+      }
 
   /** @return {number} */
-  self.getHeight = function() { return parseUnits(self.heightEdit.text) }
+  self.getHeight =
+      function() {
+        return parseUnits(self.heightEdit.text)
+      }
 
   return self
 }

@@ -18,7 +18,7 @@ test('selectText', function() {
 })
 
 test('dropDownList', function() {
-  var child = root.dropDownList([100, 50], ['Apple', 'Orange'], { key: 'value' })
+  var child = root.dropDownList([100, 50], ['Apple', 'Orange'], {key: 'value'})
   assertEquals(100, child.bounds.width)
   assertEquals(50, child.bounds.height)
   assertEquals('Apple', Collections.first(child.items).text)

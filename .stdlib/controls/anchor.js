@@ -19,137 +19,187 @@ function AnchorGroup(parent) {
     if (isPsd) {
       group.spacing = 0
     }
-    self.topLeftRadio = group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
-      it.helpTip = R.string.top_left
-      registerRadioClick(it)
-    })
-    self.topRadio = group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
-      it.helpTip = R.string.top
-      registerRadioClick(it)
-    })
-    self.topRightRadio = group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
-      it.helpTip = R.string.top_right
-      registerRadioClick(it)
-    })
+    self.topLeftRadio =
+        group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
+          it.helpTip = R.string.top_left
+          registerRadioClick(it)
+        })
+    self.topRadio =
+        group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
+          it.helpTip = R.string.top
+          registerRadioClick(it)
+        })
+    self.topRightRadio =
+        group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
+          it.helpTip = R.string.top_right
+          registerRadioClick(it)
+        })
   })
   self.hgroup(function(group) {
     if (isPsd) {
       group.spacing = 0
     }
-    self.leftRadio = group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
-      it.helpTip = R.string.left
-      registerRadioClick(it)
-    })
-    self.centerRadio = group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
-      it.helpTip = R.string.center
-      it.select()
-      registerRadioClick(it)
-    })
-    self.rightRadio = group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
-      it.helpTip = R.string.right
-      registerRadioClick(it)
-    })
+    self.leftRadio =
+        group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
+          it.helpTip = R.string.left
+          registerRadioClick(it)
+        })
+    self.centerRadio =
+        group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
+          it.helpTip = R.string.center
+          it.select()
+          registerRadioClick(it)
+        })
+    self.rightRadio =
+        group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
+          it.helpTip = R.string.right
+          registerRadioClick(it)
+        })
   })
   self.hgroup(function(group) {
     if (isPsd) {
       group.spacing = 0
     }
-    self.bottomLeftRadio = group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
-      it.helpTip = R.string.bottom_left
-      registerRadioClick(it)
-    })
-    self.bottomRadio = group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
-      it.helpTip = R.string.bottom
-      registerRadioClick(it)
-    })
-    self.bottomRightRadio = group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
-      it.helpTip = R.string.bottom_right
-      registerRadioClick(it)
-    })
+    self.bottomLeftRadio =
+        group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
+          it.helpTip = R.string.bottom_left
+          registerRadioClick(it)
+        })
+    self.bottomRadio =
+        group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
+          it.helpTip = R.string.bottom
+          registerRadioClick(it)
+        })
+    self.bottomRightRadio =
+        group.radioButton(SIZE_ANCHOR_RADIO).apply(function(it) {
+          it.helpTip = R.string.bottom_right
+          registerRadioClick(it)
+        })
   })
 
   /** @return {boolean} */
-  self.isTopLeft = function() { return self.topLeftRadio.value }
+  self.isTopLeft =
+      function() {
+        return self.topLeftRadio.value
+      }
 
   /** @return {boolean} */
-  self.isTop = function() { return self.topRadio.value }
+  self.isTop =
+      function() {
+        return self.topRadio.value
+      }
 
   /** @return {boolean} */
-  self.isTopRight = function() { return self.topRightRadio.value }
+  self.isTopRight =
+      function() {
+        return self.topRightRadio.value
+      }
 
   /** @return {boolean} */
-  self.isLeft = function() { return self.leftRadio.value }
+  self.isLeft =
+      function() {
+        return self.leftRadio.value
+      }
 
   /** @return {boolean} */
-  self.isCenter = function() { return self.centerRadio.value }
+  self.isCenter =
+      function() {
+        return self.centerRadio.value
+      }
 
   /** @return {boolean} */
-  self.isRight = function() { return self.rightRadio.value }
+  self.isRight =
+      function() {
+        return self.rightRadio.value
+      }
 
   /** @return {boolean} */
-  self.isBottomLeft = function() { return self.bottomLeftRadio.value }
+  self.isBottomLeft =
+      function() {
+        return self.bottomLeftRadio.value
+      }
 
   /** @return {boolean} */
-  self.isBottom = function() { return self.bottomRadio.value }
+  self.isBottom =
+      function() {
+        return self.bottomRadio.value
+      }
 
   /** @return {boolean} */
-  self.isBottomRight = function() { return self.bottomRightRadio.value }
+  self.isBottomRight =
+      function() {
+        return self.bottomRightRadio.value
+      }
 
   /** @return {boolean} */
-  self.isHorizontalTop = function() { return self.isTopLeft() || self.isTop() || self.isTopRight() }
+  self.isHorizontalTop =
+      function() {
+        return self.isTopLeft() || self.isTop() || self.isTopRight()
+      }
 
   /** @return {boolean} */
-  self.isHorizontalCenter = function() { return self.isLeft() || self.isCenter() || self.isRight() }
+  self.isHorizontalCenter =
+      function() {
+        return self.isLeft() || self.isCenter() || self.isRight()
+      }
 
   /** @return {boolean} */
-  self.isHorizontalBottom = function() {
-    return self.isBottomLeft() || self.isBottom() || self.isBottomRight()
-  }
+  self.isHorizontalBottom =
+      function() {
+        return self.isBottomLeft() || self.isBottom() || self.isBottomRight()
+      }
 
   /** @return {boolean} */
-  self.isVerticalLeft = function() {
-    return self.isTopLeft() || self.isLeft() || self.isBottomLeft()
-  }
+  self.isVerticalLeft =
+      function() {
+        return self.isTopLeft() || self.isLeft() || self.isBottomLeft()
+      }
 
   /** @return {boolean} */
-  self.isVerticalCenter = function() { return self.isTop() || self.isCenter() || self.isBottom() }
+  self.isVerticalCenter =
+      function() {
+        return self.isTop() || self.isCenter() || self.isBottom()
+      }
 
   /** @return {boolean} */
-  self.isVerticalRight = function() {
-    return self.isTopRight() || self.isRight() || self.isBottomRight()
-  }
+  self.isVerticalRight =
+      function() {
+        return self.isTopRight() || self.isRight() || self.isBottomRight()
+      }
 
   /**
    * Returns anchor as Illustrator's `Transformation`.
    * @return {!Transformation}
    */
-  self.getTransformation = function() {
-    if (self.isTopLeft()) return Transformation.TOPLEFT
-    else if (self.isTop()) return Transformation.TOP
-    else if (self.isTopRight()) return Transformation.TOPRIGHT
-    else if (self.isLeft()) return Transformation.LEFT
-    else if (self.isCenter()) return Transformation.CENTER
-    else if (self.isRight()) return Transformation.RIGHT
-    else if (self.isBottomLeft()) return Transformation.BOTTOMLEFT
-    else if (self.isBottom()) return Transformation.BOTTOM
-    else return Transformation.BOTTOMRIGHT
-  }
+  self.getTransformation =
+      function() {
+        if (self.isTopLeft()) return Transformation.TOPLEFT
+        else if (self.isTop()) return Transformation.TOP
+        else if (self.isTopRight()) return Transformation.TOPRIGHT
+        else if (self.isLeft()) return Transformation.LEFT
+        else if (self.isCenter()) return Transformation.CENTER
+        else if (self.isRight()) return Transformation.RIGHT
+        else if (self.isBottomLeft()) return Transformation.BOTTOMLEFT
+        else if (self.isBottom()) return Transformation.BOTTOM
+        else return Transformation.BOTTOMRIGHT
+      }
 
   /**
    * Returns anchor as Photoshop's `AnchorPosition`.
    * @return {!AnchorPosition}
    */
-  self.getAnchorPosition = function() {
-    if (self.isTopLeft()) return AnchorPosition.TOPLEFT
-    else if (self.isTop()) return AnchorPosition.TOPCENTER
-    else if (self.isTopRight()) return AnchorPosition.TOPRIGHT
-    else if (self.isLeft()) return AnchorPosition.MIDDLELEFT
-    else if (self.isCenter()) return AnchorPosition.MIDDLECENTER
-    else if (self.isRight()) return AnchorPosition.MIDDLERIGHT
-    else if (self.isBottomLeft()) return AnchorPosition.BOTTOMLEFT
-    else if (self.isBottom()) return AnchorPosition.BOTTOMCENTER
-    else return AnchorPosition.BOTTOMRIGHT
-  }
+  self.getAnchorPosition =
+      function() {
+        if (self.isTopLeft()) return AnchorPosition.TOPLEFT
+        else if (self.isTop()) return AnchorPosition.TOPCENTER
+        else if (self.isTopRight()) return AnchorPosition.TOPRIGHT
+        else if (self.isLeft()) return AnchorPosition.MIDDLELEFT
+        else if (self.isCenter()) return AnchorPosition.MIDDLECENTER
+        else if (self.isRight()) return AnchorPosition.MIDDLERIGHT
+        else if (self.isBottomLeft()) return AnchorPosition.BOTTOMLEFT
+        else if (self.isBottom()) return AnchorPosition.BOTTOMCENTER
+        else return AnchorPosition.BOTTOMRIGHT
+      }
 
   function registerRadioClick(radio) {
     radio.addClickListener(function() {

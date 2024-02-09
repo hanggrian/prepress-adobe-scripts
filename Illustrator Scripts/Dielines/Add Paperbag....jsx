@@ -4,8 +4,8 @@
 var SIZE_TEXT_DIVIDER = [60, 21]
 var SIZE_EDIT = [100, 21]
 
-var dialog = new Dialog(R.string.add_paperbag_dielines,
-  'adding-measuring-dielines/#add-paperbag-dielines')
+var dialog =
+    new Dialog(R.string.add_paperbag_dielines, 'adding-measuring-dielines/#add-paperbag-dielines')
 var widthEdit, heightEdit, depthEdit, upperEdit, lowerEdit, glueLengthEdit, glueShearEdit
 var strokeWeightEdit, strokeColorList
 var prefs = preferences2.resolve('dielines/add_paperbag')
@@ -17,53 +17,53 @@ dialog.vgroup(function(main) {
       line.hgroup(function(group) {
         group.helpTips = R.string.tip_addpaperbagdielines_width
         group.staticText(undefined, R.string.width).apply(HEADING)
-        widthEdit = group.editText(SIZE_EDIT, prefs.getString('width', '210 mm'))
-          .apply(function(it) {
-            it.validateUnits()
-            it.activate()
-          })
+        widthEdit =
+            group.editText(SIZE_EDIT, prefs.getString('width', '210 mm')).apply(function(it) {
+              it.validateUnits()
+              it.activate()
+            })
       })
       line.hgroup(function(group) {
         group.helpTips = R.string.tip_addpaperbagdielines_height
         group.staticText(SIZE_TEXT_DIVIDER, R.string.height).apply(HEADING)
-        heightEdit = group.editText(SIZE_EDIT, prefs.getString('height', '297 mm'))
-          .apply(VALIDATE_UNITS)
+        heightEdit =
+            group.editText(SIZE_EDIT, prefs.getString('height', '297 mm')).apply(VALIDATE_UNITS)
       })
     })
     panel.hgroup(function(line) {
       line.hgroup(function(group) {
         group.helpTips = R.string.tip_addpaperbagdielines_depth
         group.staticText(undefined, R.string.depth).apply(HEADING)
-        depthEdit = group.editText(SIZE_EDIT, prefs.getString('depth', '100 mm'))
-          .apply(VALIDATE_UNITS)
+        depthEdit =
+            group.editText(SIZE_EDIT, prefs.getString('depth', '100 mm')).apply(VALIDATE_UNITS)
       })
     })
     panel.hgroup(function(line) {
       line.hgroup(function(group) {
         group.helpTips = R.string.tip_addpaperbagdielines_upper
         group.staticText(undefined, R.string.upper).apply(HEADING)
-        upperEdit = group.editText(SIZE_EDIT, prefs.getString('upper', '30 mm'))
-          .apply(VALIDATE_UNITS)
+        upperEdit =
+            group.editText(SIZE_EDIT, prefs.getString('upper', '30 mm')).apply(VALIDATE_UNITS)
       })
       line.hgroup(function(group) {
         group.helpTips = R.string.tip_addpaperbagdielines_lower
         group.staticText(SIZE_TEXT_DIVIDER, R.string.lower).apply(HEADING)
-        lowerEdit = group.editText(SIZE_EDIT, prefs.getString('lower', '60 mm'))
-          .apply(VALIDATE_UNITS)
+        lowerEdit =
+            group.editText(SIZE_EDIT, prefs.getString('lower', '60 mm')).apply(VALIDATE_UNITS)
       })
     })
     panel.hgroup(function(line) {
       line.hgroup(function(group) {
         group.helpTips = R.string.tip_addpaperbagdielines_glue
         group.staticText(undefined, R.string.glue).apply(HEADING)
-        glueLengthEdit = group.editText(SIZE_EDIT, prefs.getString('glue_length', '20 mm'))
-          .apply(VALIDATE_UNITS)
+        glueLengthEdit =
+            group.editText(SIZE_EDIT, prefs.getString('glue_length', '20 mm')).apply(VALIDATE_UNITS)
       })
       line.hgroup(function(group) {
         group.helpTips = R.string.tip_addpaperbagdielines_shear
         group.staticText(SIZE_TEXT_DIVIDER, R.string.shear).apply(HEADING)
-        glueShearEdit = group.editText(SIZE_EDIT, prefs.getString('glue_shear', '5 mm'))
-          .apply(VALIDATE_UNITS)
+        glueShearEdit =
+            group.editText(SIZE_EDIT, prefs.getString('glue_shear', '5 mm')).apply(VALIDATE_UNITS)
       })
     })
   })
@@ -72,22 +72,30 @@ dialog.vgroup(function(main) {
       line.hgroup(function(group) {
         group.helpTips = R.string.tip_addpaperbagdielines_strokeweight
         group.staticText(undefined, R.string.weight).apply(HEADING)
-        strokeWeightEdit = group.editText(SIZE_EDIT, prefs.getString('stroke_weight', '1 pt'))
-          .apply(VALIDATE_UNITS)
+        strokeWeightEdit =
+            group.editText(SIZE_EDIT, prefs.getString('stroke_weight', '1 pt'))
+                .apply(VALIDATE_UNITS)
       })
       line.hgroup(function(group) {
         group.helpTips = R.string.tip_addpaperbagdielines_strokecolor
         group.staticText(SIZE_TEXT_DIVIDER, R.string.color).apply(HEADING)
-        strokeColorList = group.dropDownList(SIZE_EDIT, Color2.list()).apply(function(it) {
-          it.selection = prefs.getInt('stroke_color')
-        })
+        strokeColorList =
+            group.dropDownList(SIZE_EDIT, Color2.list()).apply(function(it) {
+              it.selection = prefs.getInt('stroke_color')
+            })
       })
     })
   })
 })
 dialog.setCancelButton()
-dialog.setDefaultButton(R.string.full_size, function() { process(true) })
-dialog.setYesButton(R.string.half_size, function() { process(false) })
+dialog.setDefaultButton(R.string.full_size, function() {
+  process(true)
+  return false
+})
+dialog.setYesButton(R.string.half_size, function() {
+  process(false)
+  return false
+})
 dialog.show()
 
 function process(isFull) {
@@ -122,56 +130,56 @@ function process(isFull) {
     [rightMost, bottomMost],
     [leftMost + glueLength, bottomMost],
     [leftMost, bottomMost + glueShear],
-    [leftMost, topMost - glueShear]
+    [leftMost, topMost - glueShear],
   ]))
 
   // inner vertical
   paths.push(createDash(weight, color, [
     [leftMost + glueLength, topMost],
-    [leftMost + glueLength, bottomMost]
+    [leftMost + glueLength, bottomMost],
   ]))
   paths.push(createDash(weight, color, [
     [leftMost + glueLength + width, topMost],
-    [leftMost + glueLength + width, bottomMost]
+    [leftMost + glueLength + width, bottomMost],
   ]))
   paths.push(createDash(weight, color, [
     [leftMost + glueLength + width + depth * 0.5, topMost],
-    [leftMost + glueLength + width + depth * 0.5, bottomMost]
+    [leftMost + glueLength + width + depth * 0.5, bottomMost],
   ]))
   if (isFull) {
     paths.push(createDash(weight, color, [
       [leftMost + glueLength + width + depth, topMost],
-      [leftMost + glueLength + width + depth, bottomMost]
+      [leftMost + glueLength + width + depth, bottomMost],
     ]))
     paths.push(createDash(weight, color, [
       [leftMost + glueLength + width * 2 + depth, topMost],
-      [leftMost + glueLength + width * 2 + depth, bottomMost]
+      [leftMost + glueLength + width * 2 + depth, bottomMost],
     ]))
     paths.push(createDash(weight, color, [
       [leftMost + glueLength + width * 2 + depth * 1.5, topMost],
-      [leftMost + glueLength + width * 2 + depth * 1.5, bottomMost]
+      [leftMost + glueLength + width * 2 + depth * 1.5, bottomMost],
     ]))
   }
 
   // inner horizontal
   paths.push(createDash(weight, color, [
     [leftMost, topMost - upper],
-    [rightMost, topMost - upper]
+    [rightMost, topMost - upper],
   ]))
   paths.push(createDash(weight, color, [
     [leftMost, topMost - upper - height + depth * 0.5],
-    [rightMost, topMost - upper - height + depth * 0.5]
+    [rightMost, topMost - upper - height + depth * 0.5],
   ]))
   paths.push(createDash(weight, color, [
     [leftMost, topMost - upper - height],
-    [rightMost, topMost - upper - height]
+    [rightMost, topMost - upper - height],
   ]))
 
   // inner diagonal
   var topDiagonal = topMost - upper - height + depth * 0.5
   paths.push(createDash(weight, color, [
     [leftMost, bottomMost + lower + glueLength],
-    [leftMost + glueLength + lower, bottomMost]
+    [leftMost + glueLength + lower, bottomMost],
   ]))
   var secondDiagonalPoints = []
   secondDiagonalPoints.push([leftMost + glueLength + width - lower, bottomMost])
@@ -186,7 +194,7 @@ function process(isFull) {
     paths.push(createDash(weight, color, [
       [leftMost + glueLength + width * 2 + depth - lower, bottomMost],
       [leftMost + glueLength + width * 2 + depth * 1.5, topDiagonal],
-      [rightMost, bottomMost + lower]
+      [rightMost, bottomMost + lower],
     ]))
   }
 

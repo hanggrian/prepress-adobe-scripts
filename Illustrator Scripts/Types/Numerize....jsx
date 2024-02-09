@@ -4,14 +4,18 @@
 var ALPHABETS = [
   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
   'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-  'U', 'V', 'W', 'X', 'Y', 'Z'
+  'U', 'V', 'W', 'X', 'Y', 'Z',
 ]
 var SIZE_INPUT = [100, 21]
 
 checkAnySelection()
 
-check(Collections.anyItem(selection, function(it) { return Items.isText(it) }),
-  getString(R.string.error_notypes_selection, getString(R.string.types).toLowerCase()))
+check(
+    Collections.anyItem(selection, function(it) {
+      return Items.isText(it)
+    }),
+    getString(R.string.error_notypes_selection, getString(R.string.types).toLowerCase()),
+)
 
 var dialog = new Dialog(R.string.numerize, 'retyping-texts/#numerize')
 var startsAtEdit, digitsEdit
@@ -28,31 +32,34 @@ dialog.vgroup(function(main) {
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_numerize_startsat
         group.staticText(undefined, R.string.starts_at).apply(HEADING)
-        startsAtEdit = group.editText(SIZE_INPUT, prefs.getInt('start').toString())
-          .apply(function(it) {
-            it.validateDigits()
-            it.activate()
-          })
+        startsAtEdit =
+            group.editText(SIZE_INPUT, prefs.getInt('start').toString()).apply(function(it) {
+              it.validateDigits()
+              it.activate()
+            })
       })
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_numerize_digits
         group.staticText(undefined, R.string.digits).apply(HEADING)
-        digitsEdit = group.editText(SIZE_INPUT, prefs.getInt('digit').toString())
-          .apply(VALIDATE_DIGITS)
+        digitsEdit =
+            group.editText(SIZE_INPUT, prefs.getInt('digit').toString()).apply(VALIDATE_DIGITS)
       })
       stopsAtGroup = panel.hgroup(function(group) {
         group.alignChildren = 'bottom'
         group.helpTips = R.string.tip_numerize_stopsat
-        stopsAtCheck = group.checkBox(undefined, getString(R.string.stops_at) + ':')
-          .apply(function(it) {
-            it.justify = 'right'
-            it.value = prefs.getBoolean('stop_enabled')
-            it.addClickListener(function() { stopsAtList.enabled = stopsAtCheck.value })
-          })
-        stopsAtList = group.dropDownList(SIZE_INPUT, ALPHABETS).apply(function(it) {
-          it.enabled = stopsAtCheck.value
-          it.selection = prefs.getInt('stop_alphabet')
-        })
+        stopsAtCheck =
+            group.checkBox(undefined, getString(R.string.stops_at) + ':').apply(function(it) {
+              it.justify = 'right'
+              it.value = prefs.getBoolean('stop_enabled')
+              it.addClickListener(function() {
+                stopsAtList.enabled = stopsAtCheck.value
+              })
+            })
+        stopsAtList =
+            group.dropDownList(SIZE_INPUT, ALPHABETS).apply(function(it) {
+              it.enabled = stopsAtCheck.value
+              it.selection = prefs.getInt('stop_alphabet')
+            })
       })
     })
     rootPane.vpanel(R.string.affix, function(panel) {
@@ -71,14 +78,16 @@ dialog.vgroup(function(main) {
   })
   main.hgroup(function(group) {
     group.alignment = 'right'
-    orderingList = new OrderingList(group, [Ordering.layerList(), Ordering.positionList()])
-      .apply(function(it) {
-        it.selection = prefs.getInt('order')
-      })
+    orderingList =
+        new OrderingList(group, [Ordering.layerList(), Ordering.positionList()])
+            .apply(function(it) {
+              it.selection = prefs.getInt('order')
+            })
     group.sgroup()
-    recursiveCheck = new RecursiveCheck(group).apply(function(it) {
-      it.value = prefs.getBoolean('recursive')
-    })
+    recursiveCheck =
+        new RecursiveCheck(group).apply(function(it) {
+          it.value = prefs.getBoolean('recursive')
+        })
   })
 })
 dialog.setCancelButton()
@@ -93,9 +102,14 @@ dialog.setDefaultButton(undefined, function() {
   var prefix = prefixEdit.text
   var suffix = suffixEdit.text
 
-  var items = recursiveCheck.value
-    ? Collections.filterItem(selection, function(it) { return Items.isText(it) })
-    : Collections.filter(selection, function(it) { return Items.isGroup(it) || Items.isText(it) })
+  var items =
+      recursiveCheck.value
+          ? Collections.filterItem(selection, function(it) {
+            return Items.isText(it)
+          })
+          : Collections.filter(selection, function(it) {
+            return Items.isGroup(it) || Items.isText(it)
+          })
   items.sort(orderingList.getComparator())
 
   Collections.forEach(items, function(item, i) {
@@ -135,6 +149,7 @@ dialog.setDefaultButton(undefined, function() {
   prefs.setString('suffix', suffix)
   prefs.setInt('order', orderingList.selection.index)
   prefs.setBoolean('recursive', recursiveCheck.value)
+  return false
 })
 dialog.show()
 

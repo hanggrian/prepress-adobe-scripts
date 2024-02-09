@@ -5,8 +5,10 @@ checkMultipleSelection()
 
 var initialPositions = [selection[0].absoluteZOrderPosition]
 for (var i = 1; i < selection.length; i++) {
-  check(selection[i - 1].absoluteZOrderPosition - selection[i].absoluteZOrderPosition === 1,
-    R.string.error_rearrange)
+  check(
+      selection[i - 1].absoluteZOrderPosition - selection[i].absoluteZOrderPosition === 1,
+      R.string.error_rearrange,
+  )
   initialPositions.push(selection[i].absoluteZOrderPosition)
 }
 
@@ -15,9 +17,10 @@ var orderingList
 var prefs = preferences2.resolve('objects/rearrange')
 
 dialog.vgroup(function(main) {
-  orderingList = new OrderingList(main, [Ordering.positionList()]).apply(function(it) {
-    it.selection = prefs.getInt('order')
-  })
+  orderingList =
+      new OrderingList(main, [Ordering.positionList()]).apply(function(it) {
+        it.selection = prefs.getInt('order')
+      })
 })
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
@@ -32,5 +35,6 @@ dialog.setDefaultButton(undefined, function() {
   })
 
   prefs.setInt('order', orderingList.selection.index)
+  return false
 })
 dialog.show()

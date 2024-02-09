@@ -3,9 +3,14 @@
 
 checkAnySelection()
 
-var items = Collections.filterItem(selection, function(it) { return Items.isText(it) })
-check(Collections.isNotEmpty(items),
-  getString(R.string.error_notypes_selection, getString(R.string.types).toLowerCase()))
+var items =
+    Collections.filterItem(selection, function(it) {
+      return Items.isText(it)
+    })
+check(
+    Collections.isNotEmpty(items),
+    getString(R.string.error_notypes_selection, getString(R.string.types).toLowerCase()),
+)
 
 var createdItems = []
 Collections.forEach(items, function(it) {

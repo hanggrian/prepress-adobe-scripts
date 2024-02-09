@@ -18,42 +18,58 @@ function NUpOptionsGroup(parent, showFolding, showRotate, showDuplex, showStack)
 
   self.alignment = 'right'
   if (showFolding) {
-    self.foldingCheck = self.checkBox(undefined, R.string.folding_booklet).apply(function(it) {
-      it.helpTip = R.string.tip_nup_foldingbooklet
-      it.addClickListener(function() {
-        if (self.rotateCheck !== undefined) self.rotateCheck.enabled = !it.value
-        if (self.duplexCheck !== undefined) self.duplexCheck.enabled = !it.value
-        if (self.stackCheck !== undefined) self.stackCheck.enabled = !it.value
-      })
-    })
+    self.foldingCheck =
+        self.checkBox(undefined, R.string.folding_booklet).apply(function(it) {
+          it.helpTip = R.string.tip_nup_foldingbooklet
+          it.addClickListener(function() {
+            if (self.rotateCheck !== undefined) self.rotateCheck.enabled = !it.value
+            if (self.duplexCheck !== undefined) self.duplexCheck.enabled = !it.value
+            if (self.stackCheck !== undefined) self.stackCheck.enabled = !it.value
+          })
+        })
   }
   if (showRotate) {
-    self.rotateCheck = self.checkBox(undefined, R.string.rotate_pages).apply(function(it) {
-      it.helpTip = R.string.tip_nup_rotatepages
-    })
+    self.rotateCheck =
+        self.checkBox(undefined, R.string.rotate_pages).apply(function(it) {
+          it.helpTip = R.string.tip_nup_rotatepages
+        })
   }
   if (showDuplex) {
-    self.duplexCheck = self.checkBox(undefined, R.string.duplex_printing).apply(function(it) {
-      it.helpTip = R.string.tip_nup_duplexprinting
-    })
+    self.duplexCheck =
+        self.checkBox(undefined, R.string.duplex_printing).apply(function(it) {
+          it.helpTip = R.string.tip_nup_duplexprinting
+        })
   }
   if (showStack) {
-    self.stackCheck = self.checkBox(undefined, R.string.cut_stack).apply(function(it) {
-      it.helpTip = R.string.tip_nup_cutstack
-    })
+    self.stackCheck =
+        self.checkBox(undefined, R.string.cut_stack).apply(function(it) {
+          it.helpTip = R.string.tip_nup_cutstack
+        })
   }
 
   /** @return {boolean} */
-  self.isFolding = function() { return self.foldingCheck.value }
+  self.isFolding =
+      function() {
+        return self.foldingCheck.value
+      }
 
   /** @return {boolean} */
-  self.isRotate = function() { return self.rotateCheck.value }
+  self.isRotate =
+      function() {
+        return self.rotateCheck.value
+      }
 
   /** @return {boolean} */
-  self.isDuplex = function() { return self.duplexCheck.value }
+  self.isDuplex =
+      function() {
+        return self.duplexCheck.value
+      }
 
   /** @return {boolean} */
-  self.isStack = function() { return self.stackCheck.value }
+  self.isStack =
+      function() {
+        return self.stackCheck.value
+      }
 
   return self
 }

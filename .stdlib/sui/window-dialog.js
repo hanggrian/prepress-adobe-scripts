@@ -42,16 +42,24 @@ function Dialog(title, helpUrlSuffix) {
 
   // buttons
   Internals.addGroup(self, 'row', function(buttons) {
-    var alignLeft = function(container) { container.alignment = ['left', 'center'] }
-    var alignRight = function(container) { container.alignment = ['right', 'center'] }
+    var alignLeft =
+        function(container) {
+          container.alignment = ['left', 'center']
+        }
+    var alignRight =
+        function(container) {
+          container.alignment = ['right', 'center']
+        }
 
     if (helpUrlSuffix !== undefined) {
-      self.helpIconButton = buttons.iconButton(undefined, 'btn_help', STYLE_TOOLBUTTON)
-        .apply(function(it) {
-          alignLeft(it)
-          it.helpTip = R.string.tip_whatsthis
-          it.addClickListener(function() { Scripts.openUrl(Scripts.URL_WEBSITE + helpUrlSuffix) })
-        })
+      self.helpIconButton =
+          buttons.iconButton(undefined, 'btn_help', STYLE_TOOLBUTTON).apply(function(it) {
+            alignLeft(it)
+            it.helpTip = R.string.tip_whatsthis
+            it.addClickListener(function() {
+              Scripts.openUrl(Scripts.URL_WEBSITE + helpUrlSuffix)
+            })
+          })
     }
     helpButtonContainer = buttons.sgroup(alignLeft)
     if (Scripts.OS_MAC) {
@@ -69,66 +77,72 @@ function Dialog(title, helpUrlSuffix) {
    * Set main layout to horizontal.
    * @param {?function(!Group)=} configuration
    */
-  self.hgroup = function(configuration) {
-    self.main.orientation = 'row'
-    if (configuration !== null) {
-      configuration(self.main)
-    }
-  }
+  self.hgroup =
+      function(configuration) {
+        self.main.orientation = 'row'
+        if (configuration !== null) {
+          configuration(self.main)
+        }
+      }
 
   /**
    * Set main layout to vertical.
    * @param {?function(!Group)=} configuration
    */
-  self.vgroup = function(configuration) {
-    self.main.orientation = 'column'
-    if (configuration !== null) {
-      configuration(self.main)
-    }
-  }
+  self.vgroup =
+      function(configuration) {
+        self.main.orientation = 'column'
+        if (configuration !== null) {
+          configuration(self.main)
+        }
+      }
 
   /**
    * Default button responds to pressing the Enter key.
    * @param {?string|?Object=} text
    * @param {?function(): boolean=} action
    */
-  self.setDefaultButton = function(text, action) {
-    text = text || 'OK'
-    self.defaultButton = appendButton(defaultButtonContainer, text, action, { name: 'ok' })
-    if (self._buttonActivateDefault) {
-      self.defaultButton.active = true
-    }
-  }
+  self.setDefaultButton =
+      function(text, action) {
+        text = text || 'OK'
+        self.defaultButton = appendButton(defaultButtonContainer, text, action, {name: 'ok'})
+        if (self._buttonActivateDefault) {
+          self.defaultButton.active = true
+        }
+      }
 
   /**
    * Yes button is a secondary default button that sits beside it.
    * @param {?string|?Object=} text
    * @param {?function(): boolean=} action
    */
-  self.setYesButton = function(text, action) {
-    text = text || R.string.yes
-    self.yesButton = appendButton(yesButtonContainer, text, action)
-  }
+  self.setYesButton =
+      function(text, action) {
+        text = text || R.string.yes
+        self.yesButton = appendButton(yesButtonContainer, text, action)
+      }
 
   /**
    * Cancel button responds to pressing the Escape key.
    * @param {?string|?Object=} text
    * @param {?function(): boolean=} action
    */
-  self.setCancelButton = function(text, action) {
-    text = text || R.string.cancel
-    self.cancelButton = appendButton(cancelButtonContainer, text, action, { name: 'cancel' })
-  }
+  self.setCancelButton =
+      function(text, action) {
+        text = text || R.string.cancel
+        self.cancelButton = appendButton(cancelButtonContainer, text, action, {name: 'cancel'})
+      }
 
   /**
    * Help button sits on the left side of the dialog.
    * @param {?string|?Object=} text
    * @param {?function(): boolean=} action
    */
-  self.setHelpButton = function(text, action) {
-    text = text || R.string.help
-    self.helpButton = appendButton(helpButtonContainer, text, action)
-  }
+  self.setHelpButton =
+      function(text, action) {
+        text = text || R.string.help
+        self.helpButton = appendButton(helpButtonContainer, text, action)
+      }
 
   /** In `AlertDialog`, max button height is shrunk. */
   self._buttonMaxHeight = undefined

@@ -42,29 +42,33 @@
 //@include 'time.js'
 //@include 'units.js'
 
-var Theme = new Enum({
-  DARK: { text: R.string.dark },
-  LIGHT: { text: R.string.light }
-})
+var Theme =
+    new Enum({
+      DARK: {text: R.string.dark},
+      LIGHT: {text: R.string.light},
+    })
 
-var Language = new Enum({
-  EN: { text: 'English', code: 'en' },
-  ID: { text: 'Indonesia', code: 'id' },
+var Language =
+    new Enum({
+      EN: {text: 'English', code: 'en'},
+      ID: {text: 'Indonesia', code: 'id'},
 
-  valueOfCode: function(code) {
-    return Collections.first(Language.values(), function(it) { return it.code == code })
-  },
+      valueOfCode: function(code) {
+        return Collections.first(Language.values(), function(it) {
+          return it.code == code
+        })
+      },
 
-  /**
-   * Change scripts' localization.
-   * @param {!Object} language enum Language.
-   */
-  set: function(language) {
-    checkNotNull(language)
-    $.localize = true
-    $.locale = language.code
-  }
-})
+      /**
+       * Change scripts' localization.
+       * @param {!Object} language enum Language.
+       */
+      set: function(language) {
+        checkNotNull(language)
+        $.localize = true
+        $.locale = language.code
+      },
+    })
 
 var Scripts = {
   PATH_STDLIB: new File($.fileName).path,
@@ -110,21 +114,22 @@ var Scripts = {
    */
   openUrl: function(url) {
     checkNotNull(url)
-    var html = '<!doctype html>\n' +
-      '<html lang="en">\n' +
-      '  <head>\n' +
-      '    <meta charset="UTF-8">\n' +
-      '    <title>Redirecting...</title>\n' +
-      '    <meta HTTP-EQUIV=refresh CONTENT="0; URL=%s">\n'.format(url) +
-      '  </head>\n' +
-      '  <body>\n' +
-      '    <h1>Redirecting...</h1>\n' +
-      '    <p>You\'re being redirected to</p>\n' +
-      '    <a href="%s">%s</a>\n'.format(url, url) +
-      '  </body>\n' +
-      '</html>'
+    var html =
+        '<!doctype html>\n' +
+        '<html lang="en">\n' +
+        '  <head>\n' +
+        '    <meta charset="UTF-8">\n' +
+        '    <title>Redirecting...</title>\n' +
+        '    <meta HTTP-EQUIV=refresh CONTENT="0; URL=%s">\n'.format(url) +
+        '  </head>\n' +
+        '  <body>\n' +
+        '    <h1>Redirecting...</h1>\n' +
+        '    <p>You\'re being redirected to</p>\n' +
+        '    <a href="%s">%s</a>\n'.format(url, url) +
+        '  </body>\n' +
+        '</html>'
     var tempFile = new File(Folder.temp + '/prepress-adobe-scripts.html')
     tempFile.writeText(html)
     tempFile.execute()
-  }
+  },
 }

@@ -5,7 +5,6 @@
  * collection objects like `Artboards`, `PageItems`, etc.
  */
 var Collections = {
-
   /**
    * Last index of this collection.
    * @param {!Array<*>|!PageItems} collection
@@ -28,21 +27,27 @@ var Collections = {
    * @param {!Array<*>|!PageItems} collection
    * @return {number}
    */
-  lastIndex: function(collection) { return checkNotNull(collection).length - 1 },
+  lastIndex: function(collection) {
+    return checkNotNull(collection).length - 1
+  },
 
   /**
    * Returns true if this collection is empty.
    * @param {!IArguments|!Array<*>|!PageItems} collection
    * @return {boolean}
    */
-  isEmpty: function(collection) { return checkNotNull(collection).length === 0 },
+  isEmpty: function(collection) {
+    return checkNotNull(collection).length === 0
+  },
 
   /**
    * Returns true if this collection is not empty.
    * @param {!IArguments|!Array<*>|!PageItems} collection
    * @return {boolean}
    */
-  isNotEmpty: function(collection) { return checkNotNull(collection).length > 0 },
+  isNotEmpty: function(collection) {
+    return checkNotNull(collection).length > 0
+  },
 
   /**
    * Returns true if element belongs in this collection.
@@ -113,5 +118,5 @@ var Collections = {
       result.push(collection[i])
     }
     return result
-  }
+  },
 }

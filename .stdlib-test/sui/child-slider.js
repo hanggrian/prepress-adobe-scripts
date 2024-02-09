@@ -4,7 +4,7 @@ var window = new Window('dialog', 'Test')
 var root = window.add('group')
 
 test('slider', function() {
-  var child = root.slider([100, 50], 5, 1, 10, { key: 'value' })
+  var child = root.slider([100, 50], 5, 1, 10, {key: 'value'})
   assertEquals(100, child.bounds.width)
   assertEquals(50, child.bounds.height)
   assertEquals(5, child.value)

@@ -1,14 +1,15 @@
 /*<javascriptresource><menu>hide</menu></javascriptresource>*/
 
-var STYLE_TOOLBUTTON = { style: 'toolbutton' }
+var STYLE_TOOLBUTTON = {style: 'toolbutton'}
 
 /**
  * Allows for multiple click listeners to occur by invoking all of them in collective listener.
  * @param {function()} listener
  */
-IconButton.prototype.addClickListener = function(listener) {
-  Internals.addListener(this, 'onClick', listener)
-}
+IconButton.prototype.addClickListener =
+    function(listener) {
+      Internals.addListener(this, 'onClick', listener)
+    }
 
 /**
  * Add children to group.
@@ -17,9 +18,10 @@ IconButton.prototype.addClickListener = function(listener) {
  * @param {?Object=} properties
  * @return {!IconButton}
  */
-Group.prototype.iconButton = function(size, file, properties) {
-  return Internals.addIconButton(this, size, file, properties)
-}
+Group.prototype.iconButton =
+    function(size, file, properties) {
+      return Internals.addIconButton(this, size, file, properties)
+    }
 
 /**
  * Add children to panel.
@@ -28,15 +30,22 @@ Group.prototype.iconButton = function(size, file, properties) {
  * @param {?Object=} properties
  * @return {!IconButton}
  */
-Panel.prototype.iconButton = function(size, file, properties) {
-  return Internals.addIconButton(this, size, file, properties)
-}
+Panel.prototype.iconButton =
+    function(size, file, properties) {
+      return Internals.addIconButton(this, size, file, properties)
+    }
 
-Internals.addIconButton = function(root, size, file, properties) {
-  var child = root.add('iconbutton', Internals.sizeOrBounds(size), Internals.imageOrResource(file),
-    properties)
-  if (root.helpTips !== undefined) {
-    child.helpTip = root.helpTips
-  }
-  return child
-}
+Internals.addIconButton =
+    function(root, size, file, properties) {
+      var child =
+          root.add(
+              'iconbutton',
+              Internals.sizeOrBounds(size),
+              Internals.imageOrResource(file),
+              properties,
+          )
+      if (root.helpTips !== undefined) {
+        child.helpTip = root.helpTips
+      }
+      return child
+    }

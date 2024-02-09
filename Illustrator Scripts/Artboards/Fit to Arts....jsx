@@ -8,11 +8,12 @@ var rangingGroup
 
 dialog.hgroup(function(main) {
   main.staticText(undefined, R.string.range).apply(HEADING)
-  rangingGroup = new RangingGroup(main, SIZE_RANGING).apply(function(it) {
-    it.maxRange = document.artboards.length
-    it.endEdit.text = document.artboards.length
-    it.startEdit.activate()
-  })
+  rangingGroup =
+      new RangingGroup(main, SIZE_RANGING).apply(function(it) {
+        it.maxRange = document.artboards.length
+        it.endEdit.text = document.artboards.length
+        it.startEdit.activate()
+      })
 })
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
@@ -26,5 +27,6 @@ dialog.setDefaultButton(undefined, function() {
     document.fitArtboardToSelectedArt(i)
   })
   selection = temp
+  return false
 })
 dialog.show()

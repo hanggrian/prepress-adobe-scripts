@@ -1,12 +1,13 @@
 //@target illustrator
 //@include '../.lib/commons.js'
 
-var Anchor = new Enum({
-  TOP_LEFT: { text: R.string.top_left, image: 'ic_arrow_topleft' },
-  TOP_RIGHT: { text: R.string.top_right, image: 'ic_arrow_topright' },
-  BOTTOM_LEFT: { text: R.string.bottom_left, image: 'ic_arrow_bottomleft' },
-  BOTTOM_RIGHT: { text: R.string.bottom_right, image: 'ic_arrow_bottomright' }
-})
+var Anchor =
+    new Enum({
+      TOP_LEFT: {text: R.string.top_left, image: 'ic_arrow_topleft'},
+      TOP_RIGHT: {text: R.string.top_right, image: 'ic_arrow_topright'},
+      BOTTOM_LEFT: {text: R.string.bottom_left, image: 'ic_arrow_bottomleft'},
+      BOTTOM_RIGHT: {text: R.string.bottom_right, image: 'ic_arrow_bottomright'},
+    })
 
 var SIZE_INPUT = [150, 21]
 
@@ -18,20 +19,23 @@ var activeArtboard = document.artboards[activeArtboardIndex]
 var activeArtboardRect = activeArtboard.artboardRect
 
 var proceed = true
-if (!Collections.all(selection,
-  function(it) { return activeArtboardRect.contains(it.geometricBounds) })) {
+if (!Collections.all(selection, function(it) {
+  return activeArtboardRect.contains(it.geometricBounds)
+})) {
   proceed = Windows.confirm(R.string.confirm_copytoartboards)
 }
 
 if (proceed) {
-  var relativePositions = Collections.map(selection, function(it) {
-    var bounds = it.geometricBounds
-    var relativeLeft = bounds.getLeft() - activeArtboardRect.getLeft()
-    var relativeRight = activeArtboardRect.getRight() - bounds.getRight() + bounds.getWidth()
-    var relativeTop = bounds.getTop() - activeArtboardRect.getTop()
-    var relativeBottom = activeArtboardRect.getBottom() - bounds.getBottom() - bounds.getHeight()
-    return [relativeLeft, relativeTop, relativeRight, relativeBottom]
-  })
+  var relativePositions =
+      Collections.map(selection, function(it) {
+        var bounds = it.geometricBounds
+        var relativeLeft = bounds.getLeft() - activeArtboardRect.getLeft()
+        var relativeRight = activeArtboardRect.getRight() - bounds.getRight() + bounds.getWidth()
+        var relativeTop = bounds.getTop() - activeArtboardRect.getTop()
+        var relativeBottom =
+            activeArtboardRect.getBottom() - bounds.getBottom() - bounds.getHeight()
+        return [relativeLeft, relativeTop, relativeRight, relativeBottom]
+      })
 
   var dialog = new Dialog(R.string.copy_to_artboards, 'copy-to-artboards/')
   var rangingGroup, anchorList
@@ -46,18 +50,20 @@ if (proceed) {
     main.hgroup(function(group) {
       group.helpTips = R.string.tip_copytoartboards_artboards
       group.staticText(undefined, R.string.to_artboards).apply(HEADING)
-      rangingGroup = new RangingGroup(group, SIZE_INPUT).apply(function(it) {
-        it.maxRange = document.artboards.length
-        it.endEdit.text = document.artboards.length
-        it.startEdit.activate()
-      })
+      rangingGroup =
+          new RangingGroup(group, SIZE_INPUT).apply(function(it) {
+            it.maxRange = document.artboards.length
+            it.endEdit.text = document.artboards.length
+            it.startEdit.activate()
+          })
     })
     main.hgroup(function(group) {
       group.helpTips = R.string.tip_copytoartboards_anchor
       group.staticText(undefined, R.string.anchor).apply(HEADING)
-      anchorList = group.dropDownList(SIZE_INPUT, Anchor.list()).apply(function(it) {
-        it.selection = prefs.getInt('anchor')
-      })
+      anchorList =
+          group.dropDownList(SIZE_INPUT, Anchor.list()).apply(function(it) {
+            it.selection = prefs.getInt('anchor')
+          })
     })
   })
   dialog.setCancelButton()
@@ -94,6 +100,7 @@ if (proceed) {
     })
 
     prefs.setInt('anchor', anchorList.selection.index)
+    return false
   })
   dialog.show()
 }

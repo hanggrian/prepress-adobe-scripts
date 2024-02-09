@@ -9,15 +9,16 @@ Collections.forEach(app.documents, function(document) {
   document.documentColorSpace.run(function(it) {
     if (it !== DocumentColorSpace.CMYK) {
       errorCount++
-      result += getString(R.string.message_preflight_issue_colorspace,
-        it.toString().substringAfter('.'))
+      result +=
+          getString(R.string.message_preflight_issue_colorspace, it.toString().substringAfter('.'))
     }
   })
   document.rasterEffectSettings.run(function(it) {
     if (it.colorModel !== RasterizationColorModel.DEFAULTCOLORMODEL) {
       errorCount++
-      result += getString(R.string.message_preflight_issue_colormodel,
-        it.colorModel.toString().substringAfter('.'))
+      result +=
+          getString(R.string.message_preflight_issue_colormodel, it.colorModel.toString()
+              .substringAfter('.'))
     }
     if (it.resolution < 300) {
       errorCount++
@@ -25,18 +26,19 @@ Collections.forEach(app.documents, function(document) {
     }
   })
   document.rulerUnits.run(function(it) {
-    if (it !== RulerUnits.Inches && it !== RulerUnits.Centimeters && it !==
-      RulerUnits.Millimeters) {
+    if (it !== RulerUnits.Inches && it !== RulerUnits.Centimeters &&
+        it !== RulerUnits.Millimeters) {
       errorCount++
-      result += getString(R.string.message_preflight_issue_rulerunits,
-        it.toString().substringAfter('.'))
+      result +=
+          getString(R.string.message_preflight_issue_rulerunits, it.toString().substringAfter('.'))
     }
   })
 
   if (errorCount > 0) {
     allOkay = false
     document.activate()
-    alert(result.trim(), getString(R.string.pre_flight), true) // don't use Windows.alert since not suffixed with period
+    // don't use Windows.alert since not suffixed with period
+    alert(result.trim(), getString(R.string.pre_flight), true)
   }
 })
 if (allOkay) {

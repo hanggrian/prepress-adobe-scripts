@@ -11,21 +11,23 @@
  * @param {function(*): *} block
  * @return {*}
  */
-Object.prototype.apply = function(block) {
-  checkNotNull(block)
-  block(this)
-  return this
-}
+Object.prototype.apply =
+    function(block) {
+      checkNotNull(block)
+      block(this)
+      return this
+    }
 
 /**
  * Calls the specified function `block` with `this` value as its argument and returns its result.
  * @param {function(*): *} block
  * @return {*}
  */
-Object.prototype.run = function(block) {
-  checkNotNull(block)
-  return block(this)
-}
+Object.prototype.run =
+    function(block) {
+      checkNotNull(block)
+      return block(this)
+    }
 
 /**
  * Iterate n times with provided action.

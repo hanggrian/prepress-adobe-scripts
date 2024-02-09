@@ -7,9 +7,10 @@
  * @param {?Object=} properties
  * @return {!Image}
  */
-Group.prototype.image = function(size, file, properties) {
-  return Internals.addImage(this, size, file, properties)
-}
+Group.prototype.image =
+    function(size, file, properties) {
+      return Internals.addImage(this, size, file, properties)
+    }
 
 /**
  * Add children to panel.
@@ -18,15 +19,22 @@ Group.prototype.image = function(size, file, properties) {
  * @param {?Object=} properties
  * @return {!Image}
  */
-Panel.prototype.image = function(size, file, properties) {
-  return Internals.addImage(this, size, file, properties)
-}
+Panel.prototype.image =
+    function(size, file, properties) {
+      return Internals.addImage(this, size, file, properties)
+    }
 
-Internals.addImage = function(root, size, file, properties) {
-  var child = root.add('image', Internals.sizeOrBounds(size), Internals.imageOrResource(file),
-    properties)
-  if (root.helpTips !== undefined) {
-    child.helpTip = root.helpTips
-  }
-  return child
-}
+Internals.addImage =
+    function(root, size, file, properties) {
+      var child =
+          root.add(
+              'image',
+              Internals.sizeOrBounds(size),
+              Internals.imageOrResource(file),
+              properties,
+          )
+      if (root.helpTips !== undefined) {
+        child.helpTip = root.helpTips
+      }
+      return child
+    }

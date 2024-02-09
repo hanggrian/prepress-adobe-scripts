@@ -1,78 +1,101 @@
 /** Helper to `PageItem` and its subclasses. */
 var Items = {
-
   /**
    * Returns true if `item` is a `CompoundPathItem`.
    * @param item {!PageItem}
    * @return {boolean}
    */
-  isCompoundPath: function(item) { return item.typename === 'CompoundPathItem' },
+  isCompoundPath: function(item) {
+    return item.typename === 'CompoundPathItem'
+  },
   /**
    * Returns true if `item` is a `GraphItem`.
    * @param item {!PageItem}
    * @return {boolean}
    */
-  isGraph: function(item) { return item.typename === 'GraphItem' },
+  isGraph: function(item) {
+    return item.typename === 'GraphItem'
+  },
   /**
    * Returns true if `item` is a `GroupItem`.
    * @param item {!PageItem}
    * @return {boolean}
    */
-  isGroup: function(item) { return item.typename === 'GroupItem' },
+  isGroup: function(item) {
+    return item.typename === 'GroupItem'
+  },
   /**
    * Returns true if `item` is a `LegacyTextItem`.
    * @param item {!PageItem}
    * @return {boolean}
    */
-  isLegacyText: function(item) { return item.typename === 'LegacyTextItem' },
+  isLegacyText: function(item) {
+    return item.typename === 'LegacyTextItem'
+  },
   /**
    * Returns true if `item` is a `MeshItem`.
    * @param item {!PageItem}
    * @return {boolean}
    */
-  isMesh: function(item) { return item.typename === 'MeshItem' },
+  isMesh: function(item) {
+    return item.typename === 'MeshItem'
+  },
   /**
    * Returns true if `item` is a `NonNativeItem`.
    * @param item {!PageItem}
    * @return {boolean}
    */
-  isNonNative: function(item) { return item.typename === 'NonNativeItem' },
+  isNonNative: function(item) {
+    return item.typename === 'NonNativeItem'
+  },
   /**
    * Returns true if `item` is a `PathItem`.
    * @param item {!PageItem}
    * @return {boolean}
    */
-  isPath: function(item) { return item.typename === 'PathItem' },
+  isPath: function(item) {
+    return item.typename === 'PathItem'
+  },
   /**
    * Returns true if `item` is a `PlacedItem`.
    * @param item {!PageItem}
    * @return {boolean}
    */
-  isPlaced: function(item) { return item.typename === 'PlacedItem' },
+  isPlaced: function(item) {
+    return item.typename === 'PlacedItem'
+  },
   /**
    * Returns true if `item` is a `PluginItem`.
    * @param item {!PageItem}
    * @return {boolean}
    */
-  isPlugin: function(item) { return item.typename === 'PluginItem' },
+  isPlugin: function(item) {
+    return item.typename === 'PluginItem'
+  },
   /**
    * Returns true if `item` is a `RasterItem`.
    * @param item {!PageItem}
    * @return {boolean}
    */
-  isRaster: function(item) { return item.typename === 'RasterItem' },
+  isRaster: function(item) {
+    return item.typename === 'RasterItem'
+  },
   /**
    * Returns true if `item` is a `SymbolItem`.
    * @param item {!PageItem}
    * @return {boolean}
    */
-  isSymbol: function(item) { return item.typename === 'SymbolItem' },
+  isSymbol: function(item) {
+    return item.typename === 'SymbolItem'
+  },
   /**
    * Returns true if `item` is a `TextFrame`.
    * @param item {!PageItem}
    * @return {boolean}
    */
-  isText: function(item) { return item.typename === 'TextFrame' },
+  isText: function(item) {
+    return item.typename === 'TextFrame'
+  },
 
   /**
    * Returns true if this item is a link with PDF file.
@@ -101,7 +124,9 @@ var Items = {
   getClippingItem: function(item) {
     checkNotNull(item)
     if (item.typename === 'GroupItem' && item.clipped) {
-      return Collections.first(item.pathItems, function(it) { return it.clipping })
+      return Collections.first(item.pathItems, function(it) {
+        return it.clipping
+      })
     }
     return item
   },
@@ -165,10 +190,11 @@ var Items = {
     checkNotNull(item)
     checkNotNull(bleed)
     var guide = document.pathItems.rectangle(
-      item.position.getTop() - bleed, item.position.getLeft() + bleed,
-      item.width - bleed * 2, item.height - bleed * 2)
+        item.position.getTop() - bleed, item.position.getLeft() + bleed,
+        item.width - bleed * 2, item.height - bleed * 2,
+    )
     guide.filled = false
     guide.guides = true
     return guide
-  }
+  },
 }

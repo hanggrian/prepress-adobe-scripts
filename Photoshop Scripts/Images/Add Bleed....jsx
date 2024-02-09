@@ -22,42 +22,47 @@ dialog.vgroup(function(main) {
   main.hgroup(function(group) {
     group.helpTips = R.string.tip_addbleedtoimages_bleed
     group.staticText([120, 21], R.string.length).apply(HEADING)
-    lengthEdit = group.editText([200, 21], prefs.getString('length', '2.5 mm')).apply(function(it) {
-      it.validateUnits()
-      it.activate()
-    })
+    lengthEdit =
+        group.editText([200, 21], prefs.getString('length', '2.5 mm')).apply(function(it) {
+          it.validateUnits()
+          it.activate()
+        })
   })
   main.hgroup(function(rootPane) {
     rootPane.alignChildren = 'fill'
     rootPane.vpanel(R.string.options, function(group) {
       group.alignChildren = 'fill'
-      flattenImageCheck = group.checkBox(undefined, R.string.flatten_image).apply(function(it) {
-        it.helpTip = R.string.tip_addbleedtoimages_flatten
-        it.select()
-      })
-      guidesMultiRadioGroup = new MultiRadioGroup(group, R.string.use_guides,
-        [R.string.append, R.string.replace]).apply(function(it) {
-        it.setHelpTips(R.string.tip_addbleedtoimages_guides)
-        it.check.select()
-        it.check.onClick()
-      })
+      flattenImageCheck =
+          group.checkBox(undefined, R.string.flatten_image).apply(function(it) {
+            it.helpTip = R.string.tip_addbleedtoimages_flatten
+            it.select()
+          })
+      guidesMultiRadioGroup =
+          new MultiRadioGroup(group, R.string.use_guides, [R.string.append, R.string.replace])
+              .apply(function(it) {
+                it.setHelpTips(R.string.tip_addbleedtoimages_guides)
+                it.check.select()
+                it.check.onClick()
+              })
       group.hgroup(function(innerGroup) {
         innerGroup.helpTips = R.string.tip_addbleedtoimages_select
-        selectBleedCheck = innerGroup.checkBox(undefined, R.string.message_addbleedtoimages_select)
-          .apply(function(it) {
-            it.addClickListener(function() {
-              correctionEdit.enabled = it.value
-              if (it.value) {
-                correctionEdit.activate()
-              } else {
-                lengthEdit.activate()
-              }
+        selectBleedCheck =
+            innerGroup.checkBox(undefined, R.string.message_addbleedtoimages_select)
+                .apply(function(it) {
+                  it.addClickListener(function() {
+                    correctionEdit.enabled = it.value
+                    if (it.value) {
+                      correctionEdit.activate()
+                    } else {
+                      lengthEdit.activate()
+                    }
+                  })
+                })
+        correctionEdit =
+            innerGroup.editText([50, 21], '0 px').apply(function(it) {
+              it.validateUnits()
+              it.enabled = false
             })
-          })
-        correctionEdit = innerGroup.editText([50, 21], '0 px').apply(function(it) {
-          it.validateUnits()
-          it.enabled = false
-        })
         innerGroup.staticText(undefined, R.string.correction)
       })
     })
@@ -73,6 +78,7 @@ dialog.setDefaultButton(undefined, function() {
   var correction = parseUnits(correctionEdit.text)
 
   process(document, bleed, anchor, correction)
+  return false
 })
 dialog.setYesButton(R.string.all, function() {
   var bleed = new UnitValue(lengthEdit.text)
@@ -84,6 +90,7 @@ dialog.setYesButton(R.string.all, function() {
     progress.increment()
     process(document, bleed, anchor, correction)
   })
+  return false
 })
 dialog.show()
 
@@ -120,7 +127,7 @@ function process(document, bleed, anchor, correction) {
 
   if (guidesMultiRadioGroup.isSelected()) {
     if (guidesMultiRadioGroup.getSelectedRadioIndex() === 1) {
-      while (document.guides.length > 0) { // TODO: find out why forEach only clearing parts
+      while (document.guides.length > 0) { // TODO find out why forEach only clearing parts
         document.guides[0].remove()
       }
     }
@@ -142,7 +149,7 @@ function process(document, bleed, anchor, correction) {
       [left, top],
       [left, bottom],
       [right, bottom],
-      [right, top]
+      [right, top],
     ])
     document.selection.invert()
   }

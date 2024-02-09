@@ -11,7 +11,7 @@ var colorModelList, resolutionEdit
 var backgroundPanel, backgroundWhiteRadio, backgroundTransparentRadio
 var antiAliasingPanel, antiAliasingNoneRadio, antiAliasingArtRadio, antiAliasingTypeRadio
 var backgroundBlackCheck, clippingMaskCheck, convertSpotColorsCheck, convertTextToOutlinesCheck,
-  includeLayersCheck, paddingGroup
+    includeLayersCheck, paddingGroup
 var keepSizeCheck, recursiveCheck
 var prefs = preferences2.resolve('objects/rasterize_each')
 
@@ -22,76 +22,83 @@ dialog.vgroup(function(main) {
     topPane.hgroup(function(group) {
       group.helpTips = R.string.tip_rasterizeeach_colormodel
       group.staticText(undefined, R.string.color_model).apply(HEADING)
-      colorModelList = group.dropDownList(SIZE_INPUT, COLOR_MODELS).apply(function(it) {
-        it.selection = 0
-      })
+      colorModelList =
+          group.dropDownList(SIZE_INPUT, COLOR_MODELS).apply(function(it) {
+            it.selection = 0
+          })
     })
     topPane.hgroup(function(group) {
       group.helpTips = R.string.tip_rasterizeeach_resolusi
       group.staticText(undefined, R.string.resolution).apply(HEADING)
-      resolutionEdit = group.editText(SIZE_INPUT, '300').apply(function(it) {
-        it.validateDigits()
-        it.activate()
-      })
+      resolutionEdit =
+          group.editText(SIZE_INPUT, '300').apply(function(it) {
+            it.validateDigits()
+            it.activate()
+          })
     })
   })
   main.hgroup(function(rootPane) {
     rootPane.alignChildren = 'fill'
     rootPane.vgroup(function(leftPane) {
       leftPane.alignChildren = 'fill'
-      backgroundPanel = leftPane.vpanel(R.string.background, function(panel) {
-        panel.alignChildren = 'left'
-        panel.helpTips = R.string.tip_rasterizeeach_background
-        backgroundWhiteRadio = panel.radioButton(undefined, R.string.white)
-        backgroundTransparentRadio = panel.radioButton(undefined, R.string.transparent)
-        panel.selectRadioIndex(prefs.getInt('background'))
-      })
-      antiAliasingPanel = leftPane.vpanel(R.string.anti_aliasing, function(panel) {
-        panel.alignChildren = 'left'
-        panel.helpTips = R.string.tip_rasterizeeach_antialiasing
-        antiAliasingNoneRadio = panel.radioButton(undefined, R.string.none)
-        antiAliasingArtRadio = panel.radioButton(undefined, R.string.art_optimized)
-        antiAliasingTypeRadio = panel.radioButton(undefined, R.string.type_optimized)
-        panel.selectRadioIndex(prefs.getInt('anti_aliasing'))
-      })
+      backgroundPanel =
+          leftPane.vpanel(R.string.background, function(panel) {
+            panel.alignChildren = 'left'
+            panel.helpTips = R.string.tip_rasterizeeach_background
+            backgroundWhiteRadio = panel.radioButton(undefined, R.string.white)
+            backgroundTransparentRadio = panel.radioButton(undefined, R.string.transparent)
+            panel.selectRadioIndex(prefs.getInt('background'))
+          })
+      antiAliasingPanel =
+          leftPane.vpanel(R.string.anti_aliasing, function(panel) {
+            panel.alignChildren = 'left'
+            panel.helpTips = R.string.tip_rasterizeeach_antialiasing
+            antiAliasingNoneRadio = panel.radioButton(undefined, R.string.none)
+            antiAliasingArtRadio = panel.radioButton(undefined, R.string.art_optimized)
+            antiAliasingTypeRadio = panel.radioButton(undefined, R.string.type_optimized)
+            panel.selectRadioIndex(prefs.getInt('anti_aliasing'))
+          })
     })
     rootPane.vpanel('Options', function(panel) {
       panel.alignChildren = 'left'
-      backgroundBlackCheck = panel.checkBox(undefined, R.string.against_black_background)
-        .apply(function(it) {
-          it.helpTip = R.string.tip_rasterizeeach_option1
-          it.value = prefs.getBoolean('option1')
-        })
-      clippingMaskCheck = panel.checkBox(undefined, R.string.create_clipping_mask)
-        .apply(function(it) {
-          it.helpTip = R.string.tip_rasterizeeach_option2
-          it.value = prefs.getBoolean('option2')
-        })
-      convertSpotColorsCheck = panel.checkBox(undefined, R.string.convert_spot_colors)
-        .apply(function(it) {
-          it.helpTip = R.string.tip_rasterizeeach_option3
-          it.value = prefs.getBoolean('option3')
-        })
-      convertTextToOutlinesCheck = panel.checkBox(undefined, R.string.convert_text_to_outlines)
-        .apply(function(it) {
-          it.helpTip = R.string.tip_rasterizeeach_option4
-          it.value = prefs.getBoolean('option4')
-        })
-      includeLayersCheck = panel.checkBox(undefined, R.string.include_layers).apply(function(it) {
-        it.helpTip = R.string.tip_rasterizeeach_option5
-        it.value = prefs.getBoolean('option5')
-      })
+      backgroundBlackCheck =
+          panel.checkBox(undefined, R.string.against_black_background).apply(function(it) {
+            it.helpTip = R.string.tip_rasterizeeach_option1
+            it.value = prefs.getBoolean('option1')
+          })
+      clippingMaskCheck =
+          panel.checkBox(undefined, R.string.create_clipping_mask).apply(function(it) {
+            it.helpTip = R.string.tip_rasterizeeach_option2
+            it.value = prefs.getBoolean('option2')
+          })
+      convertSpotColorsCheck =
+          panel.checkBox(undefined, R.string.convert_spot_colors).apply(function(it) {
+            it.helpTip = R.string.tip_rasterizeeach_option3
+            it.value = prefs.getBoolean('option3')
+          })
+      convertTextToOutlinesCheck =
+          panel.checkBox(undefined, R.string.convert_text_to_outlines).apply(function(it) {
+            it.helpTip = R.string.tip_rasterizeeach_option4
+            it.value = prefs.getBoolean('option4')
+          })
+      includeLayersCheck =
+          panel.checkBox(undefined, R.string.include_layers).apply(function(it) {
+            it.helpTip = R.string.tip_rasterizeeach_option5
+            it.value = prefs.getBoolean('option5')
+          })
       paddingGroup = new PaddingGroup(panel)
     })
   })
   main.hgroup(function(group) {
     group.alignment = 'right'
-    keepSizeCheck = new KeepSizeCheck(group).apply(function(it) {
-      it.value = prefs.getBoolean('keep_size')
-    })
-    recursiveCheck = new RecursiveCheck(group).apply(function(it) {
-      it.value = prefs.getBoolean('recursive')
-    })
+    keepSizeCheck =
+        new KeepSizeCheck(group).apply(function(it) {
+          it.value = prefs.getBoolean('keep_size')
+        })
+    recursiveCheck =
+        new RecursiveCheck(group).apply(function(it) {
+          it.value = prefs.getBoolean('recursive')
+        })
   })
 })
 dialog.setCancelButton()
@@ -121,21 +128,22 @@ dialog.setDefaultButton(undefined, function() {
   options.padding = paddingGroup.get()
 
   var selectQueues = []
-  var action = function(item, i) {
-    print(i + '. ')
-    var width = item.width
-    var height = item.height
-    var position = item.position
-    var newItem = document.rasterize(item, item.geometricBounds, options)
-    selectQueues.push(newItem)
-    if (keepSizeCheck.value && item.typename !== 'TextFrame') {
-      print('Keep size, ')
-      newItem.width = width + options.padding * 2
-      newItem.height = height + options.padding * 2
-      newItem.position = position
-    }
-    println('Done.')
-  }
+  var action =
+      function(item, i) {
+        print(i + '. ')
+        var width = item.width
+        var height = item.height
+        var position = item.position
+        var newItem = document.rasterize(item, item.geometricBounds, options)
+        selectQueues.push(newItem)
+        if (keepSizeCheck.value && item.typename !== 'TextFrame') {
+          print('Keep size, ')
+          newItem.width = width + options.padding * 2
+          newItem.height = height + options.padding * 2
+          newItem.position = position
+        }
+        println('Done.')
+      }
   if (recursiveCheck.value) {
     Collections.forEachItem(selection, action)
   } else {
@@ -152,5 +160,6 @@ dialog.setDefaultButton(undefined, function() {
   prefs.setBoolean('option5', includeLayersCheck.value)
   prefs.setBoolean('keep_size', keepSizeCheck.value)
   prefs.setBoolean('recursive', recursiveCheck.value)
+  return false
 })
 dialog.show()

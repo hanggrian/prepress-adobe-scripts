@@ -12,10 +12,11 @@ dialog.vgroup(function(main) {
       leftPane.hgroup(function(group) {
         group.helpTips = 'Width of box'
         group.staticText(undefined, 'Width').apply(HEADING)
-        widthEdit = group.editText(SIZE_INPUT, '210 mm').apply(function(it) {
-          it.validateUnits()
-          it.activate()
-        })
+        widthEdit =
+            group.editText(SIZE_INPUT, '210 mm').apply(function(it) {
+              it.validateUnits()
+              it.activate()
+            })
       })
       leftPane.hgroup(function(group) {
         group.helpTips = 'Depth of box'

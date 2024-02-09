@@ -15,8 +15,8 @@ for description of the scripts.
 ## Download
 
 There are several ways to use the scripts, a recommended method is to install
-them in Adobe installation paths so that they may appear
-in `Menubar > File > Scripts`.
+them in Adobe installation paths so that they may appear in
+`Menubar > File > Scripts`.
 
 In any case, download the source code and pick one of the following solutions.
 
@@ -51,8 +51,8 @@ Windows.
 ### No Installation
 
 It is possible to use the scripts by drag-and-dropping JSX files directly to
-Adobe apps. Just make sure to keep the entirety of root folder instead of
-only `Illustrator Scripts` or `Photoshop Scripts` folders.
+Adobe apps. Just make sure to keep the entirety of root folder instead of only
+`Illustrator Scripts` or `Photoshop Scripts` folders.
 
 This is because the scripts are **not standalone**, all of them require hidden
 directories to be in pre-determined locations.
@@ -62,8 +62,8 @@ directories to be in pre-determined locations.
 ![Script menus in Illustrator.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/menu_ai.png)
 ![Script menus in Photoshop.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/menu_psd.png)
 
-If you decide to install the scripts, they can be accessed from menubar
-or [keyboard shortcuts](Actions).
+If you decide to install the scripts, they can be accessed from menubar or
+[keyboard shortcuts](Actions).
 
 [.stdlib]: .stdlib
 [.stdres]: .stdres

@@ -1,15 +1,18 @@
-// TODO: avoid duplicate paths in the same position and length.
+// TODO avoid duplicate paths in the same position and length.
 
 //@target illustrator
 //@include '../.lib/commons.js'
 
 checkAnySelection()
 
-var items = Collections.filterItem(selection, function(it) {
-  return Items.isPath(it) || Items.isCompoundPath(it)
-})
-check(Collections.isNotEmpty(items),
-  getString(R.string.error_notypes_document, getString(R.string.paths).toLowerCase()))
+var items =
+    Collections.filterItem(selection, function(it) {
+      return Items.isPath(it) || Items.isCompoundPath(it)
+    })
+check(
+    Collections.isNotEmpty(items),
+    getString(R.string.error_notypes_document, getString(R.string.paths).toLowerCase()),
+)
 
 var count = 0
 var distance = 0

@@ -1,6 +1,7 @@
 /*<javascriptresource><menu>hide</menu></javascriptresource>*/
 
-// replacement of JSON files in resources because JSON parsing isn't officialy supported by ExtendScript
+// replacement of JSON files in resources because JSON parsing isn't officially supported by
+// ExtendScript
 var R = {}
 
 /**
@@ -44,7 +45,8 @@ function getString() {
 
 /**
  * Refer to plural string value from JSON object, which can be specific language. First param is
- * plural ID, second param is integer defining whether or not to use plural value, the rest is `String.format` arguments.
+ * plural ID, second param is integer defining whether or not to use plural value, the rest is
+ * `String.format` arguments.
  * @return {string}
  */
 function getPlural() {
@@ -64,5 +66,8 @@ function getPlural() {
  */
 function getScript(name) {
   return Scripts.getResource(
-    'script/' + checkNotNull(name) + (Scripts.OS_MAC ? '.command' : '.cmd'))
+      'script/' +
+      checkNotNull(name) +
+      (Scripts.OS_MAC ? '.command' : '.cmd')
+  )
 }

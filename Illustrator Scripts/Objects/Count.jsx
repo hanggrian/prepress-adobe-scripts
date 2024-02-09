@@ -82,13 +82,17 @@ function getItemLine(prefix, count, pluralId) {
 
 function isSingleType() {
   var typeCount = 0
-  Collections.forEach([
-    compoundPathCount, graphCount, legacyTextCount,
-    meshCount, nonNativeCount, pathCount, placedCount, pluginCount,
-    rasterCount, symbolCount, textCount], function(it) {
-    if (it > 0) {
-      typeCount++
-    }
-  })
+  Collections.forEach(
+      [
+        compoundPathCount, graphCount, legacyTextCount,
+        meshCount, nonNativeCount, pathCount, placedCount, pluginCount,
+        rasterCount, symbolCount, textCount,
+      ],
+      function(it) {
+        if (it > 0) {
+          typeCount++
+        }
+      },
+  )
   return typeCount === 1
 }

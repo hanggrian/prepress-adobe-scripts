@@ -9,5 +9,7 @@ check(app.documents.length > 0, R.string.error_commons)
 
 var document = app.activeDocument
 
-var unitType = Collections.first(UnitType.values(),
-  function(it) { return it.units === app.preferences.rulerUnits })
+var unitType =
+    Collections.first(UnitType.values(), function(it) {
+      return it.units === app.preferences.rulerUnits
+    })

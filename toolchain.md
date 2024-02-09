@@ -5,8 +5,8 @@
 ### Main
 
 - **WebStorm**, a JavaScript IDE. Code style `JavaScript Standard Style`.
-- **Visual Studio Code**, used to debug specific script
-  with [ExtendScript Debugger](https://marketplace.visualstudio.com/items?itemName=Adobe.extendscript-debug).
+- **Visual Studio Code**, used to debug specific script with
+  [ExtendScript Debugger](https://marketplace.visualstudio.com/items?itemName=Adobe.extendscript-debug).
 - **[TableTool](https://github.com/jakob/TableTool/)** for creating and
   maintaining string resources.
 
@@ -40,4 +40,4 @@ Unofficial documentation and scripting guides.
 | JavaScript | | [JSDoc Guide](https://jsdoc.app/) |
 | ExtendScript & ScriptUI | [Index](https://documentation.help/CS3-ScriptUI/inxx.html) | [Wiki](https://github.com/ExtendScript/wiki/wiki/) <br> [JavaScript Tools Guide](https://extendscript.docsforadobe.dev/) <br> [ScriptUI for Dummies](https://www.daube.ch/docu/fm-documentation/ExtendScript/ScriptUI_for_Dummies-%5BPeterKahrel%5D.pdf) |
 | Illustrator | [Index](https://documentation.help/Illustrator-CS6/inxx.html) | [Scripting Guide](https://ai-scripting.docsforadobe.dev/) |
-| Photoshop | [Index](https://documentation.help/Photoshop-CS5/inxx.html) | |
+| Photoshop | [Index](https://documentation.help/Photoshop-CS5/inxx.html) |

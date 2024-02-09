@@ -30,5 +30,5 @@ var Objects = {
     for (var key in source) {
       target[key] = source[key]
     }
-  }
+  },
 }

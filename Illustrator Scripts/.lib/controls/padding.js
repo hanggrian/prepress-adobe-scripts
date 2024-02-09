@@ -15,7 +15,10 @@ function PaddingGroup(parent) {
   self.staticText(undefined, R.string.around_object)
 
   /** @return {number} */
-  self.get = function() { return parseUnits(self.paddingEdit.text) }
+  self.get =
+      function() {
+        return parseUnits(self.paddingEdit.text)
+      }
 
   return self
 }

@@ -36,7 +36,8 @@ Collections.forEach(app.documents, function(document) {
   if (errorCount > 0) {
     allOkay = false
     app.activeDocument = document
-    alert(result.trim(), R.string.pre_flight, true) // don't use Windows.alert since not suffixed with period
+    // don't use Windows.alert since not suffixed with period
+    alert(result.trim(), R.string.pre_flight, true)
   }
 })
 if (allOkay) {

@@ -1,7 +1,6 @@
 /*<javascriptresource><menu>hide</menu></javascriptresource>*/
 
 var Internals = {
-
   /**
    * @param {!Button|!DropDownList|!EditText|!IconButton|!ListBox|!CheckBox|!RadioButton|!Panel} owner
    * @param {string} type
@@ -16,7 +15,12 @@ var Internals = {
       owner[type] = listener
     } else {
       if (owner[typeHolder].length === 1) {
-        owner[type] = function() { Collections.forEach(owner[typeHolder], function(it) { it() }) }
+        owner[type] =
+            function() {
+              Collections.forEach(owner[typeHolder], function(it) {
+                it()
+              })
+            }
       }
       owner[typeHolder].push(listener)
     }
@@ -31,20 +35,21 @@ var Internals = {
     var filters
     if (Scripts.OS_MAC) {
       // in macOS, filters are predicate, returning true for selectable file
-      filters = function(file) {
-        if (file instanceof Folder) {  // required to go through directory
-          return true
-        }
-        for (var i = 0; i < fileExtensions.length; i++) {
-          var fileExtension = fileExtensions[i]
-          for (var j = 0; j < fileExtension.value.length; j++) {
-            if (file.getExtension() === fileExtension.value[j]) {
+      filters =
+          function(file) {
+            if (file instanceof Folder) {  // required to go through directory
               return true
             }
+            for (var i = 0; i < fileExtensions.length; i++) {
+              var fileExtension = fileExtensions[i]
+              for (var j = 0; j < fileExtension.value.length; j++) {
+                if (file.getExtension() === fileExtension.value[j]) {
+                  return true
+                }
+              }
+            }
+            return false
           }
-        }
-        return false
-      }
     } else {
       // in Windows, filters are string, e.g.: 'Adobe Illustrator:*.ai;Photoshop:*.psd,*.psb,*.pdd;'
       filters = ''
@@ -73,7 +78,10 @@ var Internals = {
     var args = Array.prototype.slice.call(arr)
     var rep = args.slice(0, args.length)
     var i = 0
-    var output = s.replace(/%s|%d|%f|%@/g, function() { return rep.slice(i, ++i) })
+    var output =
+        s.replace(/%s|%d|%f|%@/g, function() {
+          return rep.slice(i, ++i)
+        })
     return output
   },
 
@@ -82,7 +90,9 @@ var Internals = {
    * @param {string} tips
    */
   setHelpTips: function(parent, tips) {
-    Collections.forEach(parent.children, function(it) { it.helpTip = tips })
+    Collections.forEach(parent.children, function(it) {
+      it.helpTip = tips
+    })
   },
 
   /**
@@ -135,7 +145,9 @@ var Internals = {
   splitListItems: function(items) {
     if (items === undefined || Collections.isEmpty(items)) {
       return [[], []]
-    } else if (Collections.none(items, function(it) { return it instanceof Array })) {
+    } else if (Collections.none(items, function(it) {
+      return it instanceof Array
+    })) {
       return [items, []]
     }
     var itemTexts = []
@@ -156,7 +168,10 @@ var Internals = {
     checkNotNull(regex)
     checkNotNull(getValue)
     var oldValue = editText.text
-    editText.onActivate = function() { oldValue = editText.text }
+    editText.onActivate =
+        function() {
+          oldValue = editText.text
+        }
     editText.addChangeListener(function() {
       var newValue = editText.text
       editText.text = regex.test(newValue) ? getValue(oldValue, newValue) : oldValue
@@ -192,5 +207,5 @@ var Internals = {
     var radio = parent.children[index]
     check(radio.type === 'radiobutton')
     radio.select()
-  }
+  },
 }

@@ -2,7 +2,8 @@
 
 /**
  * Print a message to the console.
- * @param {!Array<?Object>} arguments first element as format template, the rest are its format arguments.
+ * @param {!Array<?Object>} arguments first element as format template, the rest are its format
+ *     arguments.
  */
 function print() {
   if (Collections.isEmpty(arguments)) {
@@ -15,7 +16,8 @@ function print() {
 
 /**
  * Print a message to the console with newline.
- * @param {!Array<?Object>} arguments first element as format template, the rest are its format arguments.
+ * @param {!Array<?Object>} arguments first element as format template, the rest are its format
+ *     arguments.
  */
 function println() {
   if (Collections.isEmpty(arguments)) {

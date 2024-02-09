@@ -323,58 +323,58 @@ R.string.white = { en: "White", id: "Putih" }
 R.string.yellow = { en: "Yellow", id: "Kuning" }
 
 R.plurals.D_clipping_mask = {
-  single: { en: "%d Clipping Mask", id: "%d Topeng Kliping" },
-  plural: { en: "%d Clipping Masks", id: "%d Topeng Kliping" },
+  single: {en: "%d Clipping Mask", id: "%d Topeng Kliping"},
+  plural: {en: "%d Clipping Masks", id: "%d Topeng Kliping"},
 }
 R.plurals.D_compound_path = {
-  single: { en: "%d Compound Path", id: "%d Jalur Gabungan" },
-  plural: { en: "%d Compound Paths", id: "%d Jalur Gabungan" },
+  single: {en: "%d Compound Path", id: "%d Jalur Gabungan"},
+  plural: {en: "%d Compound Paths", id: "%d Jalur Gabungan"},
 }
 R.plurals.D_graph = {
-  single: { en: "%d Graph", id: "%d Bagan" },
-  plural: { en: "%d Graphs", id: "%d Bagan" },
+  single: {en: "%d Graph", id: "%d Bagan"},
+  plural: {en: "%d Graphs", id: "%d Bagan"},
 }
 R.plurals.D_group = {
-  single: { en: "%d Group", id: "%d Grup" },
-  plural: { en: "%d Groups", id: "%d Grup" },
+  single: {en: "%d Group", id: "%d Grup"},
+  plural: {en: "%d Groups", id: "%d Grup"},
 }
 R.plurals.D_image = {
-  single: { en: "%d Image", id: "%d Gambar" },
-  plural: { en: "%d Images", id: "%d Gambar" },
+  single: {en: "%d Image", id: "%d Gambar"},
+  plural: {en: "%d Images", id: "%d Gambar"},
 }
 R.plurals.D_link = {
-  single: { en: "%d Link", id: "%d Tautan" },
-  plural: { en: "%d Links", id: "%d Tautan" },
+  single: {en: "%d Link", id: "%d Tautan"},
+  plural: {en: "%d Links", id: "%d Tautan"},
 }
 R.plurals.D_mesh = {
-  single: { en: "%d Mesh", id: "%d Jala" },
-  plural: { en: "%d Meshes", id: "%d Jala" },
+  single: {en: "%d Mesh", id: "%d Jala"},
+  plural: {en: "%d Meshes", id: "%d Jala"},
 }
 R.plurals.D_non_native = {
-  single: { en: "%d Non-Native", id: "%d Impor" },
-  plural: { en: "%d Non-Natives", id: "%d Impor" },
+  single: {en: "%d Non-Native", id: "%d Impor"},
+  plural: {en: "%d Non-Natives", id: "%d Impor"},
 }
 R.plurals.D_obsolete_type = {
-  single: { en: "%d Obsolete Type", id: "%d Tulisan Kuno" },
-  plural: { en: "%d Obsolete Types", id: "%d Tulisan Kuno" },
+  single: {en: "%d Obsolete Type", id: "%d Tulisan Kuno"},
+  plural: {en: "%d Obsolete Types", id: "%d Tulisan Kuno"},
 }
 R.plurals.D_path = {
-  single: { en: "%d Path", id: "%d Jalur" },
-  plural: { en: "%d Paths", id: "%d Jalur" },
+  single: {en: "%d Path", id: "%d Jalur"},
+  plural: {en: "%d Paths", id: "%d Jalur"},
 }
 R.plurals.D_plugin = {
-  single: { en: "%d Plugin", id: "%d Pengaya" },
-  plural: { en: "%d Plugins", id: "%d Pengaya" },
+  single: {en: "%d Plugin", id: "%d Pengaya"},
+  plural: {en: "%d Plugins", id: "%d Pengaya"},
 }
 R.plurals.D_sheet = {
-  single: { en: "%d Sheet", id: "%d Lembar" },
-  plural: { en: "%d Sheets", id: "%d Lembar" },
+  single: {en: "%d Sheet", id: "%d Lembar"},
+  plural: {en: "%d Sheets", id: "%d Lembar"},
 }
 R.plurals.D_symbol = {
-  single: { en: "%d Symbol", id: "%d Simbol" },
-  plural: { en: "%d Symbols", id: "%d Simbol" },
+  single: {en: "%d Symbol", id: "%d Simbol"},
+  plural: {en: "%d Symbols", id: "%d Simbol"},
 }
 R.plurals.D_type = {
-  single: { en: "%d Type", id: "%d Tulisan" },
-  plural: { en: "%d Types", id: "%d Tulisan" }
+  single: {en: "%d Type", id: "%d Tulisan"},
+  plural: {en: "%d Types", id: "%d Tulisan"},
 }

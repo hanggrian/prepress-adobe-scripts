@@ -1,12 +1,13 @@
 //@target illustrator
 //@include '../.lib/commons.js'
 
-var Direction = new Enum({
-  TOP: { text: R.string.top, image: 'ic_arrow_top' },
-  RIGHT: { text: R.string.right, image: 'ic_arrow_right' },
-  BOTTOM: { text: R.string.bottom, image: 'ic_arrow_bottom' },
-  LEFT: { text: R.string.left, image: 'ic_arrow_left' }
-})
+var Direction =
+    new Enum({
+      TOP: {text: R.string.top, image: 'ic_arrow_top'},
+      RIGHT: {text: R.string.right, image: 'ic_arrow_right'},
+      BOTTOM: {text: R.string.bottom, image: 'ic_arrow_bottom'},
+      LEFT: {text: R.string.left, image: 'ic_arrow_left'},
+    })
 
 var SIZE_INPUT = [110, 21]
 var SIZE_LABEL_TAB = [70, 21] // can't align right on tabbed panel
@@ -31,89 +32,93 @@ dialog.hgroup(function(main) {
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_length
         group.staticText(undefined, R.string.length).apply(HEADING)
-        lengthEdit = group.editText(SIZE_INPUT, prefs.getString('length', '20 mm'))
-          .apply(function(it) {
-            it.validateUnits()
-            it.activate()
-          })
+        lengthEdit =
+            group.editText(SIZE_INPUT, prefs.getString('length', '20 mm')).apply(function(it) {
+              it.validateUnits()
+              it.activate()
+            })
       })
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_weight
         group.staticText(undefined, R.string.weight).apply(HEADING)
-        weightEdit = group.editText(SIZE_INPUT, prefs.getString('weight', '1 pt'))
-          .apply(VALIDATE_UNITS)
+        weightEdit =
+            group.editText(SIZE_INPUT, prefs.getString('weight', '1 pt')).apply(VALIDATE_UNITS)
       })
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_color
         group.staticText(undefined, R.string.color).apply(HEADING)
-        colorList = group.dropDownList(SIZE_INPUT, Color2.list()).apply(function(it) {
-          it.selection = prefs.getInt('color')
-        })
+        colorList =
+            group.dropDownList(SIZE_INPUT, Color2.list()).apply(function(it) {
+              it.selection = prefs.getInt('color')
+            })
       })
       panel.hgroup(function(group) {
         group.helpTips = R.string.tip_addflapdieline_direction
         group.staticText(undefined, R.string.direction).apply(HEADING)
-        directionList = group.dropDownList(SIZE_INPUT, Direction.list()).apply(function(it) {
-          it.selection = prefs.getInt('direction')
-        })
+        directionList =
+            group.dropDownList(SIZE_INPUT, Direction.list()).apply(function(it) {
+              it.selection = prefs.getInt('direction')
+            })
       })
     })
   })
-  tabbedPanel = main.tabbedPanel(function(rightPane) {
-    rightPane.preferredSize = [200, 0]
-    rightPane.vtab(R.string.glue_flap, function(tab) {
-      tab.hgroup(function(group) {
-        group.helpTips = R.string.tip_addflapdieline_glueflap_shear
-        group.staticText(SIZE_LABEL_TAB, R.string.shear).apply(HEADING)
-        glueShearEdit = group.editText(SIZE_INPUT, '5 mm').apply(VALIDATE_UNITS)
-      })
-      tab.hgroup(function(group) {
-        group.helpTips = R.string.tip_addflapdieline_glueflap_scratches
-        group.staticText(SIZE_LABEL_TAB, R.string.scratches).apply(HEADING)
-        glueScratchEdit = group.editText(SIZE_INPUT, '0 mm').apply(function(it) {
-          it.validateUnits()
-          it.enabled = false
+  tabbedPanel =
+      main.tabbedPanel(function(rightPane) {
+        rightPane.preferredSize = [200, 0]
+        rightPane.vtab(R.string.glue_flap, function(tab) {
+          tab.hgroup(function(group) {
+            group.helpTips = R.string.tip_addflapdieline_glueflap_shear
+            group.staticText(SIZE_LABEL_TAB, R.string.shear).apply(HEADING)
+            glueShearEdit = group.editText(SIZE_INPUT, '5 mm').apply(VALIDATE_UNITS)
+          })
+          tab.hgroup(function(group) {
+            group.helpTips = R.string.tip_addflapdieline_glueflap_scratches
+            group.staticText(SIZE_LABEL_TAB, R.string.scratches).apply(HEADING)
+            glueScratchEdit =
+                group.editText(SIZE_INPUT, '0 mm').apply(function(it) {
+                  it.validateUnits()
+                  it.enabled = false
+                })
+          })
+        })
+        /* tabbedPanel.vtab(R.string.tuck_flap, function(tab) {
+          tab.hgroup(function(group) {
+            group.helpTips = R.string.tip_addflapdieline_tuckflap_curve
+            group.staticText(SIZE_LABEL_TAB, R.string.curve).apply(HEADING)
+            tuckSliderGroup = new SliderGroup(group, SIZE_EDIT, 2, 0, 4, 25)
+          })
+          tab.hgroup(function(group) {
+            group.helpTips = R.string.tip_addflapdieline_tuckflap_distance
+            group.staticText(SIZE_LABEL_TAB, R.string.distance).apply(HEADING)
+            tuckDistanceEdit = group.editText(SIZE_EDIT, '0 mm').apply(VALIDATE_UNITS)
+          })
+        }) */
+        rightPane.vtab(R.string.dust_flap, function(tab) {
+          tab.hgroup(function(group) {
+            group.helpTips = R.string.tip_addflapdieline_dustflap_shoulder
+            group.staticText(SIZE_LABEL_TAB, R.string.shoulder).apply(HEADING)
+            dustShoulderEdit = group.editText(SIZE_INPUT, '5 mm').apply(VALIDATE_UNITS)
+          })
+          tab.hgroup(function(group) {
+            group.helpTips = R.string.tip_addflapdieline_dustflap_distance
+            group.staticText(SIZE_LABEL_TAB, R.string.distance).apply(HEADING)
+            dustDistanceEdit = group.editText(SIZE_INPUT, '0 mm').apply(VALIDATE_UNITS)
+          })
+        })
+        rightPane.addChangeListener(function() {
+          if (rightPane.selection === null) {
+            return
+          }
+          currentTab = rightPane.selection.text
+          if (currentTab === R.string.glue_flap) {
+            glueShearEdit.activate()
+          } else if (currentTab === R.string.tuck_flap) {
+            tuckCurveEdit.activate()
+          } else {
+            dustShoulderEdit.activate()
+          }
         })
       })
-    })
-    /* tabbedPanel.vtab(R.string.tuck_flap, function(tab) {
-      tab.hgroup(function(group) {
-        group.helpTips = R.string.tip_addflapdieline_tuckflap_curve
-        group.staticText(SIZE_LABEL_TAB, R.string.curve).apply(HEADING)
-        tuckSliderGroup = new SliderGroup(group, SIZE_EDIT, 2, 0, 4, 25)
-      })
-      tab.hgroup(function(group) {
-        group.helpTips = R.string.tip_addflapdieline_tuckflap_distance
-        group.staticText(SIZE_LABEL_TAB, R.string.distance).apply(HEADING)
-        tuckDistanceEdit = group.editText(SIZE_EDIT, '0 mm').apply(VALIDATE_UNITS)
-      })
-    }) */
-    rightPane.vtab(R.string.dust_flap, function(tab) {
-      tab.hgroup(function(group) {
-        group.helpTips = R.string.tip_addflapdieline_dustflap_shoulder
-        group.staticText(SIZE_LABEL_TAB, R.string.shoulder).apply(HEADING)
-        dustShoulderEdit = group.editText(SIZE_INPUT, '5 mm').apply(VALIDATE_UNITS)
-      })
-      tab.hgroup(function(group) {
-        group.helpTips = R.string.tip_addflapdieline_dustflap_distance
-        group.staticText(SIZE_LABEL_TAB, R.string.distance).apply(HEADING)
-        dustDistanceEdit = group.editText(SIZE_INPUT, '0 mm').apply(VALIDATE_UNITS)
-      })
-    })
-    rightPane.addChangeListener(function() {
-      if (rightPane.selection === null) {
-        return
-      }
-      currentTab = rightPane.selection.text
-      if (currentTab === R.string.glue_flap) {
-        glueShearEdit.activate()
-      } else if (currentTab === R.string.tuck_flap) {
-        tuckCurveEdit.activate()
-      } else {
-        dustShoulderEdit.activate()
-      }
-    })
-  })
 })
 dialog.setCancelButton()
 dialog.setDefaultButton(undefined, function() {
@@ -141,6 +146,7 @@ dialog.setDefaultButton(undefined, function() {
   prefs.setString('weight', weightEdit.text)
   prefs.setInt('color', colorList.selection.index)
   prefs.setInt('direction', directionList.selection.index)
+  return false
 })
 dialog.show()
 

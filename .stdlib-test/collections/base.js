@@ -31,7 +31,9 @@ test('contains', function() {
 test('forEach', function() {
   var fruits = ['Apple', 'Orange', 'Banana']
   var result = []
-  Collections.forEach(fruits, function(it) { result.push(it) })
+  Collections.forEach(fruits, function(it) {
+    result.push(it)
+  })
   assertEquals('Apple', result[0])
   assertEquals('Orange', result[1])
   assertEquals('Banana', result[2])

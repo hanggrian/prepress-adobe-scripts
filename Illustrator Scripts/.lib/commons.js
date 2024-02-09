@@ -11,8 +11,10 @@ var document = app.activeDocument
 
 var layer = Collections.isNotEmpty(selection) ? selection[0].layer : document.layers[0]
 
-var unitType = Collections.first(UnitType.values(),
-  function(it) { return it.rulerUnits === document.rulerUnits })
+var unitType =
+    Collections.first(UnitType.values(), function(it) {
+      return it.rulerUnits === document.rulerUnits
+    })
 
 /**
  * Select all items that match selected configuration. When nothing is selected, this script will
@@ -24,13 +26,16 @@ var unitType = Collections.first(UnitType.values(),
  */
 function selectAll(types, predicate, recursive) {
   checkNotNull(types)
-  predicate = predicate || function(_) { return true }
+  predicate = predicate || function(_) {
+    return true
+  }
   recursive = recursive || false
 
   var source = Collections.isEmpty(selection) ? document.pageItems : selection
-  var filterPredicate = function(item) {
-    return Collections.contains(types, item.typename) && predicate(item)
-  }
+  var filterPredicate =
+      function(item) {
+        return Collections.contains(types, item.typename) && predicate(item)
+      }
   if (recursive) {
     selection = Collections.filterItem(source, filterPredicate)
   } else {

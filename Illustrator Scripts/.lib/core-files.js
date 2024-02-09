@@ -11,7 +11,10 @@ function FileCollection(files) {
   self.isSinglePDF = files.length === 1 && Collections.first(files).isPdf()
 
   /** @type {boolean} */
-  self.hasPDF = Collections.any(files, function(it) { return it.isPdf() })
+  self.hasPDF =
+      Collections.any(files, function(it) {
+        return it.isPdf()
+      })
 
   /** @type {number} */
   self.length = files.length
@@ -21,13 +24,14 @@ function FileCollection(files) {
    * @param {number} index index at which to retrieve file or PDF page.
    * @return {!File}
    */
-  self.get = function(index) {
-    var file = self.isSinglePDF ? Collections.first(files) : files[index]
-    if (self.isSinglePDF) {
-      preferences.setPDFPage(index)
-    } else if (file.isPdf()) {
-      preferences.setPDFPage(0)
-    }
-    return file
-  }
+  self.get =
+      function(index) {
+        var file = self.isSinglePDF ? Collections.first(files) : files[index]
+        if (self.isSinglePDF) {
+          preferences.setPDFPage(index)
+        } else if (file.isPdf()) {
+          preferences.setPDFPage(0)
+        }
+        return file
+      }
 }

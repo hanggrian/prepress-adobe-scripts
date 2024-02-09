@@ -16,8 +16,9 @@ function OneUpPager(document, start) {
    * Iterate pager to next artboard, returning artboard's name.
    * @return {string}
    */
-  self.next = function() {
-    self.index = current++
-    return current.toString()
-  }
+  self.next =
+      function() {
+        self.index = current++
+        return current.toString()
+      }
 }

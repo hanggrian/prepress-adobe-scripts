@@ -18,12 +18,14 @@ function OpenDocumentPanel(parent) {
   self.hgroup(function(group) {
     group.helpTips = 'The color mode and resolution for the new document'
     group.staticText(undefined, 'Color Mode:', JUSTIFY_RIGHT)
-    self.modeList = group.dropDownList(SIZE_DOCUMENT_INPUT, OPEN_DOCUMENTMODES, function(it) {
-      it.selectText('CMYK')
-    })
-    self.bitsList = group.dropDownList(SIZE_DOCUMENT_INPUT2, OPEN_DOCUMENTBITS, function(it) {
-      it.selectText('8 bit')
-    })
+    self.modeList =
+        group.dropDownList(SIZE_DOCUMENT_INPUT, OPEN_DOCUMENTMODES, function(it) {
+          it.selectText('CMYK')
+        })
+    self.bitsList =
+        group.dropDownList(SIZE_DOCUMENT_INPUT2, OPEN_DOCUMENTBITS, function(it) {
+          it.selectText('8 bit')
+        })
   })
   self.hgroup(function(group) {
     group.helpTips = 'The resolution for the new document'
@@ -33,9 +35,10 @@ function OpenDocumentPanel(parent) {
   self.hgroup(function(group) {
     group.helpTips = 'The units for the new document'
     group.staticText(undefined, 'Units:', JUSTIFY_RIGHT)
-    self.unitsList = group.dropDownList(SIZE_DOCUMENT_INPUTMAX, UnitType.list(), function(it) {
-      it.selectText('Millimeters')
-    })
+    self.unitsList =
+        group.dropDownList(SIZE_DOCUMENT_INPUTMAX, UnitType.list(), function(it) {
+          it.selectText('Millimeters')
+        })
   })
   self.hgroup(function(group) {
     group.helpTips = 'The initial fill of the document'
@@ -44,47 +47,48 @@ function OpenDocumentPanel(parent) {
     self.backgrounWhiteRadio = group.radioButton(undefined, 'White')
   })
 
-  self.open = function(title, width, height) {
-    var mode, background, bits
-    switch (self.modeList.selection.text) {
-      case 'Bitmap':
-        mode = NewDocumentMode.BITMAP
-        break;
-      case 'CMYK':
-        mode = NewDocumentMode.CMYK
-        break;
-      case 'Grayscale':
-        mode = NewDocumentMode.GRAYSCALE
-        break;
-      case 'Lab':
-        mode = NewDocumentMode.LAB
-        break;
-      default:
-        mode = NewDocumentMode.RGB
-        break;
-    }
-    var resolution = parseUnit(self.resolutionEdit.text)
-    if (self.backgrounTransparentRadio.value) {
-      background = DocumentFill.TRANSPARENT
-    } else {
-      background = DocumentFill.WHITE
-    }
-    switch (self.bitsList.selection.text) {
-      case '1 bit':
-        bits = BitsPerChannelType.EIGHT
-        break;
-      case '8 bit':
-        bits = BitsPerChannelType.ONE
-        break;
-      case '16 bit':
-        bits = BitsPerChannelType.SIXTEEN
-        break;
-      default:
-        bits = BitsPerChannelType.THIRTYTWO
-        break;
-    }
-    return app.documents.add(width, height, resolution, title, mode, background, 1.0, bits)
-  }
+  self.open =
+      function(title, width, height) {
+        var mode, background, bits
+        switch (self.modeList.selection.text) {
+          case 'Bitmap':
+            mode = NewDocumentMode.BITMAP
+            break;
+          case 'CMYK':
+            mode = NewDocumentMode.CMYK
+            break;
+          case 'Grayscale':
+            mode = NewDocumentMode.GRAYSCALE
+            break;
+          case 'Lab':
+            mode = NewDocumentMode.LAB
+            break;
+          default:
+            mode = NewDocumentMode.RGB
+            break;
+        }
+        var resolution = parseUnit(self.resolutionEdit.text)
+        if (self.backgrounTransparentRadio.value) {
+          background = DocumentFill.TRANSPARENT
+        } else {
+          background = DocumentFill.WHITE
+        }
+        switch (self.bitsList.selection.text) {
+          case '1 bit':
+            bits = BitsPerChannelType.EIGHT
+            break;
+          case '8 bit':
+            bits = BitsPerChannelType.ONE
+            break;
+          case '16 bit':
+            bits = BitsPerChannelType.SIXTEEN
+            break;
+          default:
+            bits = BitsPerChannelType.THIRTYTWO
+            break;
+        }
+        return app.documents.add(width, height, resolution, title, mode, background, 1.0, bits)
+      }
 
   return self
 }

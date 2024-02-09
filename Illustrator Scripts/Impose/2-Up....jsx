@@ -19,22 +19,28 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
         if (files.hasPDF) {
           pdfPanel = new OpenPDFPanel(leftPane, SIZE_INPUT)
         }
-        pagesPanel = new OpenPagesPanel(leftPane, SIZE_INPUT).apply(function(it) {
-          it.rangingGroup.startEdit.activate()
-          it.rangingGroup.endEdit.text = files.length
-          if (!files.isSinglePDF) {
-            it.rangingGroup.maxRange = files.length
-          }
-          it.widthEdit.addChangeListener(function() { updateDocumentDimensionText(true, false) })
-          it.heightEdit.addChangeListener(function() { updateDocumentDimensionText(false, true) })
-          it.bleedEdit.addChangeListener(updateDocumentDimensionText)
-        })
+        pagesPanel =
+            new OpenPagesPanel(leftPane, SIZE_INPUT).apply(function(it) {
+              it.rangingGroup.startEdit.activate()
+              it.rangingGroup.endEdit.text = files.length
+              if (!files.isSinglePDF) {
+                it.rangingGroup.maxRange = files.length
+              }
+              it.widthEdit.addChangeListener(function() {
+                updateDocumentDimensionText(true, false)
+              })
+              it.heightEdit.addChangeListener(function() {
+                updateDocumentDimensionText(false, true)
+              })
+              it.bleedEdit.addChangeListener(updateDocumentDimensionText)
+            })
       })
       documentPanel = new OpenDocumentPanel(rootPane)
     })
-    nupGroup = new NUpOptionsGroup(main, false).apply(function(it) {
-      it.rotateCheck.addClickListener(updateDocumentDimensionText)
-    })
+    nupGroup =
+        new NUpOptionsGroup(main, false).apply(function(it) {
+          it.rotateCheck.addClickListener(updateDocumentDimensionText)
+        })
     updateDocumentDimensionText()
   })
   dialog.setCancelButton()
@@ -52,16 +58,27 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
 
     var pageDivisor = !nupGroup.isDuplex() ? 2 : 4
     if (pageRange.getLength() % pageDivisor !== 0) {
-      return Windows.alert(getString(R.string.error_impose_openpages, pageDivisor), dialog.text, true)
+      return Windows.alert(
+          getString(R.string.error_impose_openpages, pageDivisor),
+          dialog.text,
+          true,
+      )
     } else if (parseInt(documentPanel.getWidth()) < parseInt(rotatedPageWidth * 2) ||
-      parseInt(documentPanel.getHeight()) < parseInt(rotatedPageHeight)) {
+        parseInt(documentPanel.getHeight()) < parseInt(rotatedPageHeight)) {
       return Windows.alert(R.string.error_impose_opendocuments, dialog.text, true)
     }
-    var document = documentPanel.create(
-      '%s %s'.format(Pager.TWO_UP.text,
-        getString(R.string.page_D_D, pagesPanel.rangingGroup.getStart(),
-          pagesPanel.rangingGroup.getEnd())),
-      artboardLength)
+    var document =
+        documentPanel.create(
+            '%s %s'.format(
+                Pager.TWO_UP.text,
+                getString(
+                    R.string.page_D_D,
+                    pagesPanel.rangingGroup.getStart(),
+                    pagesPanel.rangingGroup.getEnd(),
+                ),
+            ),
+            artboardLength,
+        )
     var pager = Pager.TWO_UP.get(document, pageRange.start, nupGroup.isDuplex(), nupGroup.isStack())
     var progress = new ProgressPalette(artboardLength, R.string.imposing)
 
@@ -77,17 +94,17 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
       var x1 = artboardRect.getLeft() + (artboardRect.getWidth() - rotatedPageWidth * 2) / 2
       var x2 = x1 + rotatedPageWidth
       var y = artboardRect.getTop() - (artboardRect.getHeight() - rotatedPageHeight) / 2
-      Collections.forEach([item1, item2],
-        function(it) {
-          it.width = pageWidth
-          it.height = pageHeight
-          if (nupGroup.isRotate()) {
-            it.rotate(
+      Collections.forEach([item1, item2], function(it) {
+        it.width = pageWidth
+        it.height = pageHeight
+        if (nupGroup.isRotate()) {
+          it.rotate(
               nupGroup.isDuplex() && Collections.indexOf(document.artboards, artboard).isOdd()
-                ? 270
-                : 90)
-          }
-        })
+                  ? 270
+                  : 90,
+          )
+        }
+      })
       item1.position = [x1, y]
       item2.position = [x2, y]
       if (pageBleed > 0) {
@@ -96,6 +113,7 @@ if (pickedFiles !== null && Collections.isNotEmpty(pickedFiles)) {
       }
     })
     selection = []
+    return false
   })
   dialog.show()
 }

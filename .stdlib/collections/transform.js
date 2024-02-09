@@ -6,14 +6,15 @@
  * @param {function(*, number): *} transform
  * @return {!Array<*>}
  */
-Collections.map = function(collection, transform) {
-  checkNotNull(transform)
-  var result = []
-  Collections.forEach(collection, function(element, i) {
-    result.push(transform(element, i))
-  })
-  return result
-}
+Collections.map =
+    function(collection, transform) {
+      checkNotNull(transform)
+      var result = []
+      Collections.forEach(collection, function(element, i) {
+        result.push(transform(element, i))
+      })
+      return result
+    }
 
 /**
  * Returns a single sequence of all elements from results of transform function being invoked on
@@ -22,13 +23,14 @@ Collections.map = function(collection, transform) {
  * @param {function(*): *} transform
  * @return {!Array<*>}
  */
-Collections.flatMap = function(collection, transform) {
-  checkNotNull(transform)
-  var result = []
-  Collections.forEach(collection, function(collection2) {
-    Collections.forEach(collection2, function(element) {
-      result.push(transform(element))
-    })
-  })
-  return result
-}
+Collections.flatMap =
+    function(collection, transform) {
+      checkNotNull(transform)
+      var result = []
+      Collections.forEach(collection, function(collection2) {
+        Collections.forEach(collection2, function(element) {
+          result.push(transform(element))
+        })
+      })
+      return result
+    }
