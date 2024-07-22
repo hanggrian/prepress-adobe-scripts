@@ -82,8 +82,8 @@ var Scripts = {
   OS_MAC: $.os.toLowerCase().indexOf('mac') >= 0,
   APP_AI: app.name === 'Adobe Illustrator',
 
-  URL_GITHUB: 'https://github.com/hendraanggrian/prepress-adobe-scripts/',
-  URL_WEBSITE: 'https://hendraanggrian.github.io/prepress-adobe-scripts/',
+  URL_GITHUB: 'https://github.com/hanggrian/prepress-adobe-scripts/',
+  URL_WEBSITE: 'https://hanggrian.github.io/prepress-adobe-scripts/',
 
   /**
    * Refer to a file from preferably local resources, or fallback standard resources if local resource is not found.

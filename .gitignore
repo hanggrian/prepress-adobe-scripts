@@ -1,5 +1,6 @@
 # macOS
-**/.DS_Store
+.DS_Store
+._*
 
 # IDEA
 .idea/

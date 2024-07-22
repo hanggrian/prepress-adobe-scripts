@@ -1,7 +1,7 @@
 # Prepress Adobe Scripts
 
-![Logo for Illustrator.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/logo_ai.png)
-![Logo for Photoshop.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/logo_psd.png)
+![Logo for Illustrator.](https://github.com/hanggrian/prepress-adobe-scripts/raw/assets/logo_ai.png)
+![Logo for Photoshop.](https://github.com/hanggrian/prepress-adobe-scripts/raw/assets/logo_psd.png)
 
 Collection of Illustrator and Photoshop scripts to automate repetitive tasks and
 procedures of preparing final print layout.
@@ -9,8 +9,7 @@ procedures of preparing final print layout.
 - Multiple languages.
 - Dark theme support.
 
-Head to [repository website](http://hendraanggrian.com/prepress-adobe-scripts/)
-for description of the scripts.
+[View scripts' descriptions](http://hanggrian.com/prepress-adobe-scripts/)
 
 ## Download
 
@@ -22,7 +21,7 @@ In any case, download the source code and pick one of the following solutions.
 
 ### Automatic Installation
 
-![macOS installation.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/install.png)
+![macOS installation.](https://github.com/hanggrian/prepress-adobe-scripts/raw/assets/install.png)
 
 Run `install.bat` as admin (Windows) or `install.sh` with sudo (macOS).
 
@@ -34,17 +33,17 @@ Windows.
 
 #### Illustrator
 
-| From | To |
-| --- | --- |
-| Content of [Illustrator Scripts] | `$APP_DIR`/Presets/`$LOCALE_CODE`/Scripts/ |
-| [.stdlib] and [.stdres] | `$APP_DIR`/Presets/`$LOCALE_CODE`/ |
+From | To
+--- | ---
+Content of [Illustrator Scripts] | `$APP_DIR`/Presets/`$LOCALE_CODE`/Scripts/
+[.stdlib] and [.stdres] | `$APP_DIR`/Presets/`$LOCALE_CODE`/
 
 #### Photoshop
 
-| From | To |
-| --- | --- |
-| Content of [Photoshop Scripts] | `$APP_DIR`/Presets/Scripts/ |
-| [.stdlib] and [.stdres] | `$APP_DIR`/Presets/ |
+From | To
+--- | ---
+Content of [Photoshop Scripts] | `$APP_DIR`/Presets/Scripts/
+[.stdlib] and [.stdres] | `$APP_DIR`/Presets/
 
 > In macOS, make sure to show all hidden files in Finder.
 
@@ -59,8 +58,8 @@ directories to be in pre-determined locations.
 
 ## Usage
 
-![Script menus in Illustrator.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/menu_ai.png)
-![Script menus in Photoshop.](https://github.com/hendraanggrian/prepress-adobe-scripts/raw/assets/menu_psd.png)
+![Script menus in Illustrator.](https://github.com/hanggrian/prepress-adobe-scripts/raw/assets/menu_ai.png)
+![Script menus in Photoshop.](https://github.com/hanggrian/prepress-adobe-scripts/raw/assets/menu_psd.png)
 
 If you decide to install the scripts, they can be accessed from menubar or
 [keyboard shortcuts](Actions).

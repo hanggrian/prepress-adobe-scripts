@@ -35,9 +35,9 @@ Forked from [Mediumish Jekyll Template](https://github.com/wowthemesnet/mediumis
 
 Unofficial documentation and scripting guides.
 
-| Suite | JavaScript Reference | Guide |
-| --- | --- | --- |
-| JavaScript | | [JSDoc Guide](https://jsdoc.app/) |
-| ExtendScript & ScriptUI | [Index](https://documentation.help/CS3-ScriptUI/inxx.html) | [Wiki](https://github.com/ExtendScript/wiki/wiki/) <br> [JavaScript Tools Guide](https://extendscript.docsforadobe.dev/) <br> [ScriptUI for Dummies](https://www.daube.ch/docu/fm-documentation/ExtendScript/ScriptUI_for_Dummies-%5BPeterKahrel%5D.pdf) |
-| Illustrator | [Index](https://documentation.help/Illustrator-CS6/inxx.html) | [Scripting Guide](https://ai-scripting.docsforadobe.dev/) |
-| Photoshop | [Index](https://documentation.help/Photoshop-CS5/inxx.html) |
+Suite | JavaScript Reference | Guide
+--- | --- | ---
+JavaScript | | [JSDoc Guide](https://jsdoc.app/)
+ExtendScript & ScriptUI | [Index](https://documentation.help/CS3-ScriptUI/inxx.html) | [Wiki](https://github.com/ExtendScript/wiki/wiki/) <br> [JavaScript Tools Guide](https://extendscript.docsforadobe.dev/) <br> [ScriptUI for Dummies](https://www.daube.ch/docu/fm-documentation/ExtendScript/ScriptUI_for_Dummies-%5BPeterKahrel%5D.pdf)
+Illustrator | [Index](https://documentation.help/Illustrator-CS6/inxx.html) | [Scripting Guide](https://ai-scripting.docsforadobe.dev/)
+Photoshop | [Index](https://documentation.help/Photoshop-CS5/inxx.html)
