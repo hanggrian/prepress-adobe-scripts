@@ -1,12 +1,12 @@
 #!/bin/bash
 # Mac executable to sync scripts to Adobe installation paths.
 
-readonly END=[0m
-readonly BOLD=[1m
-readonly UNDERLINE=[4m
-readonly RED=[91m
-readonly GREEN=[92m
-readonly YELLOW=[93m
+readonly END='[0m'
+readonly BOLD='[1m'
+readonly UNDERLINE='[4m'
+readonly RED='[91m'
+readonly GREEN='[92m'
+readonly YELLOW='[93m'
 
 warn() { echo "$YELLOW$*$END"; } >&2
 die() { echo; echo "$RED$*$END"; echo; exit 1; } >&2
@@ -23,17 +23,17 @@ patch_app() {
   echo
   echo "Patching $name..."
 
-  for app in "/Applications/"*; do
+  for app in '/Applications/'*; do
     local app_name="$(basename "$app")"
     # find matching Adobe app
-    if [[ "$app_name" == *"Adobe"* ]] && [[ "$app_name" == *"$name"* ]]; then
+    if [[ "$app_name" == *'Adobe'* ]] && [[ "$app_name" == *"$name"* ]]; then
       local presets="$app/Presets"
       local localized_presets="$presets.localized"
       if [[ -d "$localized_presets" ]]; then
         # in Illustrator, scripts are located within `$root/Presets/$LOCALE`
         for localized_preset in "$localized_presets/"*; do
           local localized_preset_name="$(basename "$localized_preset")"
-          if [[ "$localized_preset_name" == "en_"* ]]; then
+          if [[ "$localized_preset_name" == 'en_'* ]]; then
             success=true
             patch_preset "$scripts_filename" "$action_filename" "$localized_preset"
           fi
@@ -89,43 +89,43 @@ patch_preset() {
 readonly SOURCE_ROOT="$(cd "$(dirname "$0")" && pwd)"
 
 # check OS
-if [[ "$(uname)" != Darwin ]]; then die "Unsupported OS."; fi
+if [[ "$(uname)" != Darwin ]]; then die 'Unsupported OS.'; fi
 
 # check permissions
-if [[ "$EUID" -ne 0 ]]; then die "Root access required."; fi
+if [[ "$EUID" -ne 0 ]]; then die 'Root access required.'; fi
 
 # check sources
-if [[ ! -d "$SOURCE_ROOT/.stdlib" ]] || [[ ! -d "$SOURCE_ROOT/.stdres" ]]; then die "Missing hidden directories."; fi
-if [[ ! -d "$SOURCE_ROOT/Illustrator Scripts" ]] || [[ ! -d "$SOURCE_ROOT/Photoshop Scripts" ]]; then die "Missing scripts."; fi
-if [[ ! -d "$SOURCE_ROOT/Actions" ]]; then die "Missing actions."; fi
+if [[ ! -d "$SOURCE_ROOT/.stdlib" ]] || [[ ! -d "$SOURCE_ROOT/.stdres" ]]; then die 'Missing hidden directories.'; fi
+if [[ ! -d "$SOURCE_ROOT/Illustrator Scripts" ]] || [[ ! -d "$SOURCE_ROOT/Photoshop Scripts" ]]; then die 'Missing scripts.'; fi
+if [[ ! -d "$SOURCE_ROOT/Actions" ]]; then die 'Missing actions.'; fi
 
 echo
 echo "$BOLD${UNDERLINE}Prepress Adobe Scripts Installer$END"
 echo
 echo "$YELLOW${BOLD}WARNING$END"
-warn "This command will replace all existing scripts, backup if necessary."
+warn 'This command will replace all existing scripts, backup if necessary.'
 echo
-echo "1. Illustrator"
-echo "2. Photoshop"
-echo "A. All"
+echo '1. Illustrator'
+echo '2. Photoshop'
+echo 'A. All'
 echo
-echo "Q. Quit"
+echo 'Q. Quit'
 echo
 echo "${BOLD}Pick the app:$END"
-read input
+read -r input
 
 case "$input" in
-  1) patch_app "Illustrator" "aia" ;;
-  2) patch_app "Photoshop" "atn" ;;
+  1) patch_app 'Illustrator' 'aia' ;;
+  2) patch_app 'Photoshop' 'atn' ;;
   A | a)
-    patch_app "Illustrator" "aia"
-    patch_app "Photoshop" "atn"
+    patch_app 'Illustrator' 'aia'
+    patch_app 'Photoshop' 'atn'
     ;;
   Q | q) ;;
-  *) die "Unable to recognize input." ;;
+  *) die 'Unable to recognize input.' ;;
 esac
 
 echo
-echo "Goodbye!"
+echo 'Goodbye!'
 echo
 exit 0

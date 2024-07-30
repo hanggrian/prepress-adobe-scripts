@@ -4,11 +4,12 @@
 
 ### Main
 
-- **WebStorm**, a JavaScript IDE. Code style `JavaScript Standard Style`.
-- **Visual Studio Code**, used to debug specific script with
-  [ExtendScript Debugger](https://marketplace.visualstudio.com/items?itemName=Adobe.extendscript-debug).
-- **[TableTool](https://github.com/jakob/TableTool/)** for creating and
-  maintaining string resources.
+- **WebStorm**, a JavaScript IDE with code style `JavaScript Standard Style`.
+- **Visual Studio Code** with extensions:
+  - [ExtendScript Debugger](https://marketplace.visualstudio.com/items?itemName=Adobe.extendscript-debug): used to debug scripts.
+  - [ShellCheck](https://www.shellcheck.net/): Shell script linter.
+- **[TableTool](https://github.com/jakob/TableTool/)**, a GUI for editing CSV
+  files with configurable delimiter and quote characters.
 
 ### GitHub Pages
 

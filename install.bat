@@ -75,9 +75,9 @@ exit /b 0
   echo.
   echo Patching !name!...
 
-  :: find matching Adobe app
   for /d %%a in ("!ProgramFiles!\Adobe\*") do (
     set "app_name=%%~nxa"
+    :: find matching Adobe app
     if "!app_name:%name%=!" neq "!app_name!" (
       set "presets=%%a\Presets"
       if not exist "!presets!\Scripts" (
@@ -105,9 +105,9 @@ exit /b 0
     echo.
     echo Patching 32-bit !name!...
 
-    :: find matching Adobe app
     for /d %%a in ("!ProgramFiles(x86)!\Adobe\*") do (
       set "app_name=%%~nxa"
+      :: find matching Adobe app
       if "!app_name:%name%=!" neq "!app_name!" (
         set "presets=%%a\presets"
         if not exist "!presets!\Scripts" (
