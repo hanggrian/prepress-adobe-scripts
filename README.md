@@ -1,7 +1,11 @@
+[![Figma](https://img.shields.io/badge/design-figma-f24e1e)](https://www.figma.com/community/file/1504878192282932029/)
+[![Layers](https://img.shields.io/badge/showcase-layers-000)](https://layers.to/layers/cmape3icl0008l70b57p7vwr8/)
+[![Pinterest](https://img.shields.io/badge/pin-pinterest-bd081c)](https://www.pinterest.com/pin/1107322627133955308/)
+
 # Prepress Adobe Scripts
 
-![Logo for Illustrator.](https://github.com/hanggrian/prepress-adobe-scripts/raw/assets/logo_ai.png)
-![Logo for Photoshop.](https://github.com/hanggrian/prepress-adobe-scripts/raw/assets/logo_psd.png)
+![](https://github.com/hanggrian/prepress-adobe-scripts/raw/assets/logo_ai.png "Logo for Illustrator")
+![](https://github.com/hanggrian/prepress-adobe-scripts/raw/assets/logo_psd.png "Logo for Photoshop")
 
 Collection of Illustrator and Photoshop scripts to automate repetitive tasks and
 procedures of preparing final print layout.
