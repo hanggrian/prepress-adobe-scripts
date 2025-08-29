@@ -24,7 +24,7 @@ patch_app() {
   echo "Patching $name..."
 
   for app in '/Applications/'*; do
-    local app_name="$(basename "$app")"
+    local app_name && app_name=$(basename "$app")
     # find matching Adobe app
     if [[ "$app_name" == *'Adobe'* ]] && [[ "$app_name" == *"$name"* ]]; then
       local presets="$app/Presets"
@@ -32,10 +32,14 @@ patch_app() {
       if [[ -d "$localized_presets" ]]; then
         # in Illustrator, scripts are located within `$root/Presets/$LOCALE`
         for localized_preset in "$localized_presets/"*; do
-          local localized_preset_name="$(basename "$localized_preset")"
+          local localized_preset_name && \
+            localized_preset_name=$(basename "$localized_preset")
           if [[ "$localized_preset_name" == 'en_'* ]]; then
             success=true
-            patch_preset "$scripts_filename" "$action_filename" "$localized_preset"
+            patch_preset \
+              "$scripts_filename" \
+              "$action_filename" \
+              "$localized_preset"
           fi
         done
       else
@@ -76,9 +80,12 @@ patch_preset() {
   fi
   # copy new ones
   rsync -a "$SOURCE_ROOT/.stdlib" "$target_root"
-  rsync -a "$SOURCE_ROOT/.stdres" "$target_root" && chmod +x "$target_root/.stdres/script/check_updates.command"
+  rsync -a "$SOURCE_ROOT/.stdres" "$target_root" && \
+    chmod +x "$target_root/.stdres/script/check_updates.command"
   rsync -a "$SOURCE_ROOT/$scripts_filename/". "$target_root/Scripts"
-  rsync -a "$SOURCE_ROOT/Actions/$action_filename" "$target_root/Actions/$action_filename"
+  rsync -a \
+    "$SOURCE_ROOT/Actions/$action_filename" \
+    "$target_root/Actions/$action_filename"
   # clean up
   rm -f "$target_root/.stdres/script/check_updates.cmd"
   rm -rf "$target_root/Scripts/.incubating"
@@ -86,18 +93,25 @@ patch_preset() {
 }
 
 # SOURCE_ROOT doesn't end with slash
-readonly SOURCE_ROOT="$(cd "$(dirname "$0")" && pwd)"
+SOURCE_ROOT=$(cd "$(dirname "$0")" && pwd) && readonly SOURCE_ROOT
 
 # check OS
-if [[ "$(uname)" != Darwin ]]; then die 'Unsupported OS.'; fi
+if [[ $(uname) != Darwin ]]; then die 'Unsupported OS.'; fi
 
 # check permissions
 if [[ "$EUID" -ne 0 ]]; then die 'Root access required.'; fi
 
 # check sources
-if [[ ! -d "$SOURCE_ROOT/.stdlib" ]] || [[ ! -d "$SOURCE_ROOT/.stdres" ]]; then die 'Missing hidden directories.'; fi
-if [[ ! -d "$SOURCE_ROOT/Illustrator Scripts" ]] || [[ ! -d "$SOURCE_ROOT/Photoshop Scripts" ]]; then die 'Missing scripts.'; fi
-if [[ ! -d "$SOURCE_ROOT/Actions" ]]; then die 'Missing actions.'; fi
+if [[ ! -d "$SOURCE_ROOT/.stdlib" ]] || [[ ! -d "$SOURCE_ROOT/.stdres" ]]; then
+  die 'Missing hidden directories.'
+fi
+if [[ ! -d "$SOURCE_ROOT/Illustrator Scripts" ]] || \
+    [[ ! -d "$SOURCE_ROOT/Photoshop Scripts" ]]; then
+  die 'Missing scripts.'
+fi
+if [[ ! -d "$SOURCE_ROOT/Actions" ]]; then
+  die 'Missing actions.'
+fi
 
 echo
 echo "$BOLD${UNDERLINE}Prepress Adobe Scripts Installer$END"
