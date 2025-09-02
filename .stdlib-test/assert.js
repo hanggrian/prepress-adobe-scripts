@@ -1,11 +1,14 @@
-var _scriptName, _testName
+//@include '../.stdlib/stdlib.js';
+
+var _scriptName;
+var _testName;
 
 /**
  * Marks the js file as test subject.
  * @param {string} fileName use `$.fileName`.
  */
 function initTest(fileName) {
-  _scriptName = fileName.substringAfterLast('/').substringBefore('.')
+  _scriptName = fileName.substringAfterLast('/').substringBefore('.');
 }
 
 /**
@@ -14,8 +17,8 @@ function initTest(fileName) {
  * @param {function()} action where assertions are done.
  */
 function test(name, action) {
-  _testName = name
-  action()
+  _testName = name;
+  action();
 }
 
 /**
@@ -25,7 +28,7 @@ function test(name, action) {
  */
 function assertEquals(expected, actual) {
   if (expected != actual) {
-    testError('`' + actual + '` to be `' + expected + '`')
+    testError('`' + actual + '` to be `' + expected + '`');
   }
 }
 
@@ -36,7 +39,7 @@ function assertEquals(expected, actual) {
  */
 function assertNotEquals(expected, actual) {
   if (expected == actual) {
-    testError('`' + actual + '` to not be `' + expected + '`')
+    testError('`' + actual + '` to not be `' + expected + '`');
   }
 }
 
@@ -46,7 +49,7 @@ function assertNotEquals(expected, actual) {
  */
 function assertTrue(actual) {
   if (!actual) {
-    testError('to be true')
+    testError('to be true');
   }
 }
 
@@ -56,7 +59,7 @@ function assertTrue(actual) {
  */
 function assertFalse(actual) {
   if (actual) {
-    testError('to be false')
+    testError('to be false');
   }
 }
 
@@ -66,7 +69,7 @@ function assertFalse(actual) {
  */
 function assertNull(actual) {
   if (actual !== undefined && actual !== null) {
-    testError('to be null')
+    testError('to be null');
   }
 }
 
@@ -76,7 +79,7 @@ function assertNull(actual) {
  */
 function assertNotNull(actual) {
   if (actual === undefined || actual === null) {
-    testError('to be not null')
+    testError('to be not null');
   }
 }
 
@@ -85,8 +88,8 @@ function assertNotNull(actual) {
  * @param {string|!Object} message error description.
  */
 function testError(message) {
-  var error = new Error()
-  error.message = '`%s` at `%s`.\nExpected %s'.format(_testName, _scriptName, message)
-  error.name = 'Test failed'
-  throw error
+  var error = new Error();
+  error.message = '`%s` at `%s`.\nExpected %s'.format(_testName, _scriptName, message);
+  error.name = 'Test failed';
+  throw error;
 }

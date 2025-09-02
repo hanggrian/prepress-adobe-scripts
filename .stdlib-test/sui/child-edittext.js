@@ -1,19 +1,27 @@
-initTest($.fileName)
+//@include '../assert.js';
 
-var window = new Window('dialog', 'Test')
-var root = window.add('group')
+initTest($.fileName);
 
-test('activate', function() {
-  var child = root.editText()
-  assertFalse(child.active)
-  child.activate()
-  assertTrue(child.active)
-})
+var window = new Window('dialog', 'Test');
+var root = window.add('group');
 
-test('editText', function() {
-  var child = root.editText([100, 50], 'Input', {key: 'value'})
-  assertEquals(100, child.bounds.width)
-  assertEquals(50, child.bounds.height)
-  assertEquals('Input', child.text)
-  assertEquals('value', child.properties.key)
-})
+test(
+    'activate',
+    function() {
+      var child = root.editText();
+      assertFalse(child.active);
+      child.activate();
+      assertTrue(child.active);
+    },
+);
+
+test(
+    'editText',
+    function() {
+      var child = root.editText([100, 50], 'Input', {key: 'value'});
+      assertEquals(100, child.bounds.width);
+      assertEquals(50, child.bounds.height);
+      assertEquals('Input', child.text);
+      assertEquals('value', child.properties.key);
+    },
+);

@@ -11,11 +11,13 @@ insert_final_newline = true
 [*.md]
 max_line_length = 80
 
-[*.{js, jsx}]
+[*.{js,jsx}]
 max_line_length = 100
 ij_continuation_indent_size = 4
+ij_javascript_imports_wrap = off
+ij_typescript_imports_wrap = off
 ij_javascript_space_before_function_left_parenth = false
 ij_javascript_space_before_method_parentheses = false
 ij_javascript_chained_call_dot_on_new_line = true
 ij_javascript_enforce_trailing_comma = keep
-ij_javascript_use_semicolon_after_statement = false
+ij_javascript_use_semicolon_after_statement = true
