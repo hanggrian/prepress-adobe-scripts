@@ -9,8 +9,8 @@
  */
 Group.prototype.image =
     function(size, file, properties) {
-      return Internals.addImage(this, size, file, properties)
-    }
+      return Internals.addImage(this, size, file, properties);
+    };
 
 /**
  * Add children to panel.
@@ -21,8 +21,8 @@ Group.prototype.image =
  */
 Panel.prototype.image =
     function(size, file, properties) {
-      return Internals.addImage(this, size, file, properties)
-    }
+      return Internals.addImage(this, size, file, properties);
+    };
 
 Internals.addImage =
     function(root, size, file, properties) {
@@ -32,9 +32,9 @@ Internals.addImage =
               Internals.sizeOrBounds(size),
               Internals.imageOrResource(file),
               properties,
-          )
+          );
       if (root.helpTips !== undefined) {
-        child.helpTip = root.helpTips
+        child.helpTip = root.helpTips;
       }
-      return child
-    }
+      return child;
+    };

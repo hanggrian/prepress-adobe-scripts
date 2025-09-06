@@ -6,7 +6,7 @@ var Items = {
    * @return {boolean}
    */
   isCompoundPath: function(item) {
-    return item.typename === 'CompoundPathItem'
+    return item.typename === 'CompoundPathItem';
   },
   /**
    * Returns true if `item` is a `GraphItem`.
@@ -14,7 +14,7 @@ var Items = {
    * @return {boolean}
    */
   isGraph: function(item) {
-    return item.typename === 'GraphItem'
+    return item.typename === 'GraphItem';
   },
   /**
    * Returns true if `item` is a `GroupItem`.
@@ -22,7 +22,7 @@ var Items = {
    * @return {boolean}
    */
   isGroup: function(item) {
-    return item.typename === 'GroupItem'
+    return item.typename === 'GroupItem';
   },
   /**
    * Returns true if `item` is a `LegacyTextItem`.
@@ -30,7 +30,7 @@ var Items = {
    * @return {boolean}
    */
   isLegacyText: function(item) {
-    return item.typename === 'LegacyTextItem'
+    return item.typename === 'LegacyTextItem';
   },
   /**
    * Returns true if `item` is a `MeshItem`.
@@ -38,7 +38,7 @@ var Items = {
    * @return {boolean}
    */
   isMesh: function(item) {
-    return item.typename === 'MeshItem'
+    return item.typename === 'MeshItem';
   },
   /**
    * Returns true if `item` is a `NonNativeItem`.
@@ -46,7 +46,7 @@ var Items = {
    * @return {boolean}
    */
   isNonNative: function(item) {
-    return item.typename === 'NonNativeItem'
+    return item.typename === 'NonNativeItem';
   },
   /**
    * Returns true if `item` is a `PathItem`.
@@ -54,7 +54,7 @@ var Items = {
    * @return {boolean}
    */
   isPath: function(item) {
-    return item.typename === 'PathItem'
+    return item.typename === 'PathItem';
   },
   /**
    * Returns true if `item` is a `PlacedItem`.
@@ -62,7 +62,7 @@ var Items = {
    * @return {boolean}
    */
   isPlaced: function(item) {
-    return item.typename === 'PlacedItem'
+    return item.typename === 'PlacedItem';
   },
   /**
    * Returns true if `item` is a `PluginItem`.
@@ -70,7 +70,7 @@ var Items = {
    * @return {boolean}
    */
   isPlugin: function(item) {
-    return item.typename === 'PluginItem'
+    return item.typename === 'PluginItem';
   },
   /**
    * Returns true if `item` is a `RasterItem`.
@@ -78,7 +78,7 @@ var Items = {
    * @return {boolean}
    */
   isRaster: function(item) {
-    return item.typename === 'RasterItem'
+    return item.typename === 'RasterItem';
   },
   /**
    * Returns true if `item` is a `SymbolItem`.
@@ -86,7 +86,7 @@ var Items = {
    * @return {boolean}
    */
   isSymbol: function(item) {
-    return item.typename === 'SymbolItem'
+    return item.typename === 'SymbolItem';
   },
   /**
    * Returns true if `item` is a `TextFrame`.
@@ -94,7 +94,7 @@ var Items = {
    * @return {boolean}
    */
   isText: function(item) {
-    return item.typename === 'TextFrame'
+    return item.typename === 'TextFrame';
   },
 
   /**
@@ -103,7 +103,7 @@ var Items = {
    * @return {boolean}
    */
   isPlacedPdf: function(item) {
-    return Items.isPlaced(item) && Items.isLinkExists(item) && item.file.isPdf()
+    return Items.isPlaced(item) && Items.isLinkExists(item) && item.file.isPdf();
   },
 
   /**
@@ -112,8 +112,8 @@ var Items = {
    * @return {string}
    */
   getName: function(item) {
-    checkNotNull(item)
-    return item.name !== undefined && item.name.isNotBlank() ? item.name : item.typename
+    checkNotNull(item);
+    return item.name !== undefined && item.name.isNotBlank() ? item.name : item.typename;
   },
 
   /**
@@ -122,13 +122,16 @@ var Items = {
    * @return {!PathItem|!CompoundPathItem}
    */
   getClippingItem: function(item) {
-    checkNotNull(item)
+    checkNotNull(item);
     if (item.typename === 'GroupItem' && item.clipped) {
-      return Collections.first(item.pathItems, function(it) {
-        return it.clipping
-      })
+      return Collections.first(
+          item.pathItems,
+          function(it) {
+            return it.clipping;
+          },
+      );
     }
-    return item
+    return item;
   },
 
   /**
@@ -137,30 +140,36 @@ var Items = {
    * @return {!Array<number>}
    */
   getMaxBounds: function(items) {
-    checkNotNull(items)
-    var maxStartX, maxStartY, maxEndX, maxEndY
-    Collections.forEach(items, function(item) {
-      var clippingItem = Items.getClippingItem(item)
-      var width = clippingItem.width
-      var height = clippingItem.height
-      var itemStartX = clippingItem.position.getLeft()
-      var itemStartY = clippingItem.position.getTop()
-      var itemEndX = itemStartX + width
-      var itemEndY = itemStartY - height
-      if (maxStartX === undefined || itemStartX < maxStartX) {
-        maxStartX = itemStartX
-      }
-      if (maxStartY === undefined || itemStartY > maxStartY) {
-        maxStartY = itemStartY
-      }
-      if (maxEndX === undefined || itemEndX > maxEndX) {
-        maxEndX = itemEndX
-      }
-      if (maxEndY === undefined || itemEndY < maxEndY) {
-        maxEndY = itemEndY
-      }
-    })
-    return [maxStartX, maxStartY, maxEndX, maxEndY]
+    checkNotNull(items);
+    var maxStartX;
+    var maxStartY;
+    var maxEndX;
+    var maxEndY;
+    Collections.forEach(
+        items,
+        function(item) {
+          var clippingItem = Items.getClippingItem(item);
+          var width = clippingItem.width;
+          var height = clippingItem.height;
+          var itemStartX = clippingItem.position.getLeft();
+          var itemStartY = clippingItem.position.getTop();
+          var itemEndX = itemStartX + width;
+          var itemEndY = itemStartY - height;
+          if (maxStartX === undefined || itemStartX < maxStartX) {
+            maxStartX = itemStartX;
+          }
+          if (maxStartY === undefined || itemStartY > maxStartY) {
+            maxStartY = itemStartY;
+          }
+          if (maxEndX === undefined || itemEndX > maxEndX) {
+            maxEndX = itemEndX;
+          }
+          if (maxEndY === undefined || itemEndY < maxEndY) {
+            maxEndY = itemEndY;
+          }
+        },
+    );
+    return [maxStartX, maxStartY, maxEndX, maxEndY];
   },
 
   /**
@@ -169,12 +178,12 @@ var Items = {
    * @return {boolean}
    */
   isLinkExists: function(item) {
-    checkNotNull(item)
-    checkTypename(item, 'PlacedItem')
+    checkNotNull(item);
+    checkTypename(item, 'PlacedItem');
     try {
-      return item.file.exists
+      return item.file.exists;
     } catch (e) {
-      return false
+      return false;
     }
   },
 
@@ -186,15 +195,18 @@ var Items = {
    * @return {!PathItem}
    */
   addBleedGuide: function(document, item, bleed) {
-    checkNotNull(document)
-    checkNotNull(item)
-    checkNotNull(bleed)
-    var guide = document.pathItems.rectangle(
-        item.position.getTop() - bleed, item.position.getLeft() + bleed,
-        item.width - bleed * 2, item.height - bleed * 2,
-    )
-    guide.filled = false
-    guide.guides = true
-    return guide
+    checkNotNull(document);
+    checkNotNull(item);
+    checkNotNull(bleed);
+    var guide =
+        document.pathItems.rectangle(
+            item.position.getTop() - bleed,
+            item.position.getLeft() + bleed,
+            item.width - bleed * 2,
+            item.height - bleed * 2,
+        );
+    guide.filled = false;
+    guide.guides = true;
+    return guide;
   },
-}
+};

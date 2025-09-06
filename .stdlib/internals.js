@@ -7,23 +7,26 @@ var Internals = {
    * @param {function()} listener
    */
   addListener: function(owner, type, listener) {
-    checkNotNull(type)
-    checkNotNull(listener)
-    var typeHolder = type + 'Listeners'
+    checkNotNull(type);
+    checkNotNull(listener);
+    var typeHolder = type + 'Listeners';
     if (owner[typeHolder] === undefined) {
-      owner[typeHolder] = [listener]
-      owner[type] = listener
-    } else {
-      if (owner[typeHolder].length === 1) {
-        owner[type] =
-            function() {
-              Collections.forEach(owner[typeHolder], function(it) {
-                it()
-              })
-            }
-      }
-      owner[typeHolder].push(listener)
+      owner[typeHolder] = [listener];
+      owner[type] = listener;
+      return;
     }
+    if (owner[typeHolder].length === 1) {
+      owner[type] =
+          function() {
+            Collections.forEach(
+                owner[typeHolder],
+                function(it) {
+                  it();
+                },
+            );
+          };
+    }
+    owner[typeHolder].push(listener);
   },
 
   /**
@@ -31,40 +34,43 @@ var Internals = {
    * @return {(function(!File): boolean)|string}
    */
   getFileFilters: function(fileExtensions) {
-    checkNotNull(fileExtensions)
-    var filters
+    checkNotNull(fileExtensions);
+    var filters;
     if (Scripts.OS_MAC) {
       // in macOS, filters are predicate, returning true for selectable file
       filters =
           function(file) {
             if (file instanceof Folder) {  // required to go through directory
-              return true
+              return true;
             }
             for (var i = 0; i < fileExtensions.length; i++) {
-              var fileExtension = fileExtensions[i]
+              var fileExtension = fileExtensions[i];
               for (var j = 0; j < fileExtension.value.length; j++) {
                 if (file.getExtension() === fileExtension.value[j]) {
-                  return true
+                  return true;
                 }
               }
             }
-            return false
-          }
+            return false;
+          };
     } else {
       // in Windows, filters are string, e.g.: 'Adobe Illustrator:*.ai;Photoshop:*.psd,*.psb,*.pdd;'
-      filters = ''
-      var allExts = []
-      Collections.forEach(fileExtensions, function(it) {
-        filters += it.name + ':*.' + it.value.join(';*.') + ','
-        allExts = allExts.concat(it.value)
-      })
-      filters = 'All Formats:*.' + allExts.join(';*.') + ',' + filters
+      filters = '';
+      var allExts = [];
+      Collections.forEach(
+          fileExtensions,
+          function(it) {
+            filters += it.name + ':*.' + it.value.join(';*.') + ',';
+            allExts = allExts.concat(it.value);
+          },
+      );
+      filters = 'All Formats:*.' + allExts.join(';*.') + ',' + filters;
       if (filters.endsWith(',')) {
-        filters = filters.substringBeforeLast(',')
+        filters = filters.substringBeforeLast(',');
       }
-      println('Native filters = ' + filters)
+      println('Native filters = ' + filters);
     }
-    return filters
+    return filters;
   },
 
   /**
@@ -74,15 +80,18 @@ var Internals = {
    * @see https://stackoverflow.com/a/35187109/1567541
    */
   formatString: function(s, arr) {
-    checkNotNull(arr)
-    var args = Array.prototype.slice.call(arr)
-    var rep = args.slice(0, args.length)
-    var i = 0
+    checkNotNull(arr);
+    var args = Array.prototype.slice.call(arr);
+    var rep = args.slice(0, args.length);
+    var i = 0;
     var output =
-        s.replace(/%s|%d|%f|%@/g, function() {
-          return rep.slice(i, ++i)
-        })
-    return output
+        s.replace(
+            /%s|%d|%f|%@/g,
+            function() {
+              return rep.slice(i, ++i);
+            },
+        );
+    return output;
   },
 
   /**
@@ -90,16 +99,19 @@ var Internals = {
    * @param {string} tips
    */
   setHelpTips: function(parent, tips) {
-    Collections.forEach(parent.children, function(it) {
-      it.helpTip = tips
-    })
+    Collections.forEach(
+        parent.children,
+        function(it) {
+          it.helpTip = tips;
+        },
+    );
   },
 
   /**
    * @param {!Array<number>} size
    */
   sizeOrBounds: function(size) {
-    return size !== undefined && size.length === 2 ? [0, 0, size[0], size[1]] : size
+    return size !== undefined && size.length === 2 ? [0, 0, size[0], size[1]] : size;
   },
 
   /**
@@ -108,9 +120,9 @@ var Internals = {
    */
   imageOrResource: function(image) {
     if (image !== undefined && typeof image === 'string') {
-      return getImage(image)
+      return getImage(image);
     }
-    return image
+    return image;
   },
 
   /**
@@ -119,9 +131,9 @@ var Internals = {
    */
   textOrResource: function(text) {
     if (text !== undefined && typeof text !== 'string') {
-      return getString(text)
+      return getString(text);
     }
-    return text
+    return text;
   },
 
   /**
@@ -130,12 +142,15 @@ var Internals = {
    * @return {string}
    */
   removeRegexes: function(string, regexes) {
-    checkNotNull(regexes)
-    var s = string
-    Collections.forEach(regexes, function(regex) {
-      s = s.replace(regex, '')
-    })
-    return s
+    checkNotNull(regexes);
+    var s = string;
+    Collections.forEach(
+        regexes,
+        function(regex) {
+          s = s.replace(regex, '');
+        },
+    );
+    return s;
   },
 
   /**
@@ -144,19 +159,25 @@ var Internals = {
    */
   splitListItems: function(items) {
     if (items === undefined || Collections.isEmpty(items)) {
-      return [[], []]
-    } else if (Collections.none(items, function(it) {
-      return it instanceof Array
-    })) {
-      return [items, []]
+      return [[], []];
+    } else if (Collections.none(
+        items,
+        function(it) {
+          return it instanceof Array;
+        },
+    )) {
+      return [items, []];
     }
-    var itemTexts = []
-    var itemFiles = []
-    Collections.forEach(items, function(pair) {
-      itemTexts.push(pair[0])
-      itemFiles.push(pair[0] === '-' ? undefined : Internals.imageOrResource(pair[1]))
-    })
-    return [itemTexts, itemFiles]
+    var itemTexts = [];
+    var itemFiles = [];
+    Collections.forEach(
+        items,
+        function(pair) {
+          itemTexts.push(pair[0]);
+          itemFiles.push(pair[0] === '-' ? undefined : Internals.imageOrResource(pair[1]));
+        },
+    );
+    return [itemTexts, itemFiles];
   },
 
   /**
@@ -165,17 +186,17 @@ var Internals = {
    * @param {function(string, string): string} getValue
    */
   registerValidator: function(editText, regex, getValue) {
-    checkNotNull(regex)
-    checkNotNull(getValue)
-    var oldValue = editText.text
+    checkNotNull(regex);
+    checkNotNull(getValue);
+    var oldValue = editText.text;
     editText.onActivate =
         function() {
-          oldValue = editText.text
-        }
+          oldValue = editText.text;
+        };
     editText.addChangeListener(function() {
-      var newValue = editText.text
-      editText.text = regex.test(newValue) ? getValue(oldValue, newValue) : oldValue
-    })
+      var newValue = editText.text;
+      editText.text = regex.test(newValue) ? getValue(oldValue, newValue) : oldValue;
+    });
   },
 
   /**
@@ -183,16 +204,16 @@ var Internals = {
    * @return {number}
    */
   getSelectedRadioIndex: function(parent) {
-    var radioCount = 0
+    var radioCount = 0;
     for (var i = 0; i < parent.children.length; i++) {
       if (parent.children[i].type === 'radiobutton') {
         if (parent.children[i].value) {
-          return radioCount
+          return radioCount;
         }
-        radioCount++
+        radioCount++;
       }
     }
-    return -1
+    return -1;
   },
 
   /**
@@ -200,12 +221,12 @@ var Internals = {
    * @param {number} index
    */
   selectRadioIndex: function(parent, index) {
-    checkNotNull(index)
+    checkNotNull(index);
     if (index < 0 || index > Collections.lastIndex(parent.children)) {
-      return
+      return;
     }
-    var radio = parent.children[index]
-    check(radio.type === 'radiobutton')
-    radio.select()
+    var radio = parent.children[index];
+    check(radio.type === 'radiobutton');
+    radio.select();
   },
-}
+};

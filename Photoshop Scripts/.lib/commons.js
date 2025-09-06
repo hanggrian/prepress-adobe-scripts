@@ -3,13 +3,16 @@
 
 /*<javascriptresource><menu>hide</menu></javascriptresource>*/
 
-//@include 'core.js'
+//@include 'core.js';
 
-check(app.documents.length > 0, R.string.error_commons)
+check(app.documents.length > 0, R.string.error_commons);
 
-var document = app.activeDocument
+var document = app.activeDocument;
 
 var unitType =
-    Collections.first(UnitType.values(), function(it) {
-      return it.units === app.preferences.rulerUnits
-    })
+    Collections.first(
+        UnitType.values(),
+        function(it) {
+          return it.units === app.preferences.rulerUnits;
+        },
+    );

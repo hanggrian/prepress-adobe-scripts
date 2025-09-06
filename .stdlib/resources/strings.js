@@ -66,4 +66,4 @@ R.string = {
   visit_github: {en: "Visit GitHub", id: "Kunjungi GitHub"},
   width: {en: "Width", id: "Lebar"},
   yes: {en: "Yes", id: "Ya"},
-}
+};

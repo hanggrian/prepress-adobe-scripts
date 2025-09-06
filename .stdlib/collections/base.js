@@ -12,14 +12,14 @@ var Collections = {
    * @return {number}
    */
   indexOf: function(collection, element) {
-    checkNotNull(collection)
-    checkNotNull(element)
+    checkNotNull(collection);
+    checkNotNull(element);
     for (var i = 0; i < collection.length; i++) {
       if (collection[i] === element) {
-        return i
+        return i;
       }
     }
-    error('Element not found in this collection')
+    error('Element not found in this collection');
   },
 
   /**
@@ -28,7 +28,7 @@ var Collections = {
    * @return {number}
    */
   lastIndex: function(collection) {
-    return checkNotNull(collection).length - 1
+    return checkNotNull(collection).length - 1;
   },
 
   /**
@@ -37,7 +37,7 @@ var Collections = {
    * @return {boolean}
    */
   isEmpty: function(collection) {
-    return checkNotNull(collection).length === 0
+    return checkNotNull(collection).length === 0;
   },
 
   /**
@@ -46,7 +46,7 @@ var Collections = {
    * @return {boolean}
    */
   isNotEmpty: function(collection) {
-    return checkNotNull(collection).length > 0
+    return checkNotNull(collection).length > 0;
   },
 
   /**
@@ -56,15 +56,15 @@ var Collections = {
    * @return {boolean}
    */
   contains: function(collection, element) {
-    checkNotNull(collection)
-    checkNotNull(element)
-    var i = collection.length
+    checkNotNull(collection);
+    checkNotNull(element);
+    var i = collection.length;
     while (i--) {
       if (collection[i] === element) {
-        return true
+        return true;
       }
     }
-    return false
+    return false;
   },
 
   /**
@@ -73,10 +73,10 @@ var Collections = {
    * @param {function(*, number)} action
    */
   forEach: function(collection, action) {
-    checkNotNull(collection)
-    checkNotNull(action)
+    checkNotNull(collection);
+    checkNotNull(action);
     for (var i = 0; i < collection.length; i++) {
-      action(collection[i], i)
+      action(collection[i], i);
     }
   },
 
@@ -86,13 +86,16 @@ var Collections = {
    * @return {!Array<*>}
    */
   distinct: function(collection) {
-    var result = []
-    Collections.forEach(collection, function(element) {
-      if (!Collections.contains(result, element)) {
-        result.push(element)
-      }
-    })
-    return result
+    var result = [];
+    Collections.forEach(
+        collection,
+        function(element) {
+          if (!Collections.contains(result, element)) {
+            result.push(element);
+          }
+        },
+    );
+    return result;
   },
 
   /**
@@ -101,11 +104,14 @@ var Collections = {
    * @return {!Array<*>}
    */
   copyOf: function(collection) {
-    var result = []
-    Collections.forEach(collection, function(element) {
-      result.push(element)
-    })
-    return result
+    var result = [];
+    Collections.forEach(
+        collection,
+        function(element) {
+          result.push(element);
+        },
+    );
+    return result;
   },
 
   /**
@@ -113,10 +119,10 @@ var Collections = {
    * @param {!Array<*>|!PageItems} collection
    */
   reversed: function(collection) {
-    var result = []
+    var result = [];
     for (var i = Collections.lastIndex(collection); i >= 0; i--) {
-      result.push(collection[i])
+      result.push(collection[i]);
     }
-    return result
+    return result;
   },
-}
+};

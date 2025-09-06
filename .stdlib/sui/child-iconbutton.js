@@ -1,6 +1,6 @@
 /*<javascriptresource><menu>hide</menu></javascriptresource>*/
 
-var STYLE_TOOLBUTTON = {style: 'toolbutton'}
+var STYLE_TOOLBUTTON = {style: 'toolbutton'};
 
 /**
  * Allows for multiple click listeners to occur by invoking all of them in collective listener.
@@ -8,8 +8,8 @@ var STYLE_TOOLBUTTON = {style: 'toolbutton'}
  */
 IconButton.prototype.addClickListener =
     function(listener) {
-      Internals.addListener(this, 'onClick', listener)
-    }
+      Internals.addListener(this, 'onClick', listener);
+    };
 
 /**
  * Add children to group.
@@ -20,8 +20,8 @@ IconButton.prototype.addClickListener =
  */
 Group.prototype.iconButton =
     function(size, file, properties) {
-      return Internals.addIconButton(this, size, file, properties)
-    }
+      return Internals.addIconButton(this, size, file, properties);
+    };
 
 /**
  * Add children to panel.
@@ -32,8 +32,8 @@ Group.prototype.iconButton =
  */
 Panel.prototype.iconButton =
     function(size, file, properties) {
-      return Internals.addIconButton(this, size, file, properties)
-    }
+      return Internals.addIconButton(this, size, file, properties);
+    };
 
 Internals.addIconButton =
     function(root, size, file, properties) {
@@ -43,9 +43,9 @@ Internals.addIconButton =
               Internals.sizeOrBounds(size),
               Internals.imageOrResource(file),
               properties,
-          )
+          );
       if (root.helpTips !== undefined) {
-        child.helpTip = root.helpTips
+        child.helpTip = root.helpTips;
       }
-      return child
-    }
+      return child;
+    };

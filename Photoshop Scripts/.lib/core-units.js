@@ -1,10 +1,10 @@
 /*<javascriptresource><menu>hide</menu></javascriptresource>*/
 
-UnitType.PX.units = Units.PIXELS
-UnitType.PT.units = Units.POINTS
-UnitType.IN.units = Units.INCHES
-UnitType.MM.units = Units.MM
-UnitType.CM.units = Units.CM
+UnitType.PX.units = Units.PIXELS;
+UnitType.PT.units = Units.POINTS;
+UnitType.IN.units = Units.INCHES;
+UnitType.MM.units = Units.MM;
+UnitType.CM.units = Units.CM;
 
 /**
  * Build string based on unit value, name and optional fraction.
@@ -14,11 +14,11 @@ UnitType.CM.units = Units.CM
  * @return {string}
  */
 function formatUnits(unitValue, unitType, fraction) {
-  checkNotNull(unitValue)
-  checkNotNull(unitType)
-  var value = unitValue.as(unitType.qualifier)
-  var s = fraction !== undefined ? value.toFixed(fraction) : value.toString()
-  return parseFloat(s) + ' ' + unitType.qualifier
+  checkNotNull(unitValue);
+  checkNotNull(unitType);
+  var value = unitValue.as(unitType.qualifier);
+  var s = fraction !== undefined ? value.toFixed(fraction) : value.toString();
+  return parseFloat(s) + ' ' + unitType.qualifier;
 }
 
 /**
@@ -27,10 +27,10 @@ function formatUnits(unitValue, unitType, fraction) {
  * @return {number}
  */
 function parseUnits(units) {
-  checkNotNull(units)
-  units = units.trim()
+  checkNotNull(units);
+  units = units.trim();
   if (units.isEmpty()) {
-    return undefined
+    return undefined;
   }
-  return units.isNumeric() ? parseFloat(units) : new UnitValue(units).as('px')
+  return units.isNumeric() ? parseFloat(units) : new UnitValue(units).as('px');
 }

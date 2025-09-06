@@ -4,21 +4,21 @@
  * @param {!Group|!Panel|!Window} parent
  */
 function PaddingGroup(parent) {
-  checkNotNull(parent)
+  checkNotNull(parent);
 
-  var self = parent.hgroup()
-  self.paddingEdit
+  var self = parent.hgroup();
+  self.paddingEdit;
 
-  self.helpTips = R.string.tip_padding
-  self.staticText(undefined, R.string.add)
-  self.paddingEdit = self.editText([70, 21], '0 mm').apply(VALIDATE_UNITS)
-  self.staticText(undefined, R.string.around_object)
+  self.helpTips = R.string.tip_padding;
+  self.staticText(undefined, R.string.add);
+  self.paddingEdit = self.editText([70, 21], '0 mm').apply(VALIDATE_UNITS);
+  self.staticText(undefined, R.string.around_object);
 
   /** @return {number} */
   self.get =
       function() {
-        return parseUnits(self.paddingEdit.text)
-      }
+        return parseUnits(self.paddingEdit.text);
+      };
 
-  return self
+  return self;
 }

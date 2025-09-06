@@ -1,8 +1,8 @@
-UnitType.PX.rulerUnits = RulerUnits.Pixels
-UnitType.PT.rulerUnits = RulerUnits.Points
-UnitType.IN.rulerUnits = RulerUnits.Inches
-UnitType.MM.rulerUnits = RulerUnits.Millimeters
-UnitType.CM.rulerUnits = RulerUnits.Centimeters
+UnitType.PX.rulerUnits = RulerUnits.Pixels;
+UnitType.PT.rulerUnits = RulerUnits.Points;
+UnitType.IN.rulerUnits = RulerUnits.Inches;
+UnitType.MM.rulerUnits = RulerUnits.Millimeters;
+UnitType.CM.rulerUnits = RulerUnits.Centimeters;
 
 /**
  * Build string based on unit value, name and optional fraction.
@@ -12,11 +12,11 @@ UnitType.CM.rulerUnits = RulerUnits.Centimeters
  * @return {string}
  */
 function formatUnits(unitValue, unitType, fraction) {
-  checkNotNull(unitValue)
-  checkNotNull(unitType)
-  var value = new UnitValue(unitValue, 'pt').as(unitType.qualifier)
-  var s = fraction !== undefined ? value.toFixed(fraction) : value.toString()
-  return parseFloat(s) + ' ' + unitType.qualifier
+  checkNotNull(unitValue);
+  checkNotNull(unitType);
+  var value = new UnitValue(unitValue, 'pt').as(unitType.qualifier);
+  var s = fraction !== undefined ? value.toFixed(fraction) : value.toString();
+  return parseFloat(s) + ' ' + unitType.qualifier;
 }
 
 /**
@@ -25,10 +25,10 @@ function formatUnits(unitValue, unitType, fraction) {
  * @return {number}
  */
 function parseUnits(units) {
-  checkNotNull(units)
-  units = units.trim()
+  checkNotNull(units);
+  units = units.trim();
   if (units.isEmpty()) {
-    return undefined
+    return undefined;
   }
-  return units.isNumeric() ? parseFloat(units) : new UnitValue(units).as('pt')
+  return units.isNumeric() ? parseFloat(units) : new UnitValue(units).as('pt');
 }

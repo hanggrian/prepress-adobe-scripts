@@ -24,7 +24,7 @@ forEachLine(
       output += '  %s: {%s},\n'.format(key, getContent(languages, values));
     },
 );
-message += overwrite(outputFile, COMMENT_ALL + COMMENT_PSD + 'R.string = {\n%s}\n'.format(output));
+message += overwrite(outputFile, COMMENT_ALL + COMMENT_PSD + 'R.string = {\n%s};\n'.format(output));
 
 // illustrator
 stringsInputFile = new File(PATH_CURRENT + '/strings_ai.csv');
@@ -34,7 +34,7 @@ output = '';
 forEachLine(
     stringsInputFile,
     function(key, languages, values, _) {
-      output += 'R.string.%s = { %s }\n'.format(key, getContent(languages, values));
+      output += 'R.string.%s = { %s };\n'.format(key, getContent(languages, values));
     },
 );
 output += '\n'
@@ -53,7 +53,7 @@ forEachLine(
           },
       );
       output +=
-          'R.plurals.%s = {\n  single: {%s},\n  plural: {%s},\n}\n'.format(
+          'R.plurals.%s = {\n  single: {%s},\n  plural: {%s},\n};\n'.format(
               key,
               getContent(languages, singleValues),
               getContent(languages, pluralValues),
@@ -70,7 +70,7 @@ output = '';
 forEachLine(
     stringsInputFile,
     function(key, languages, values, _) {
-      output += 'R.string.%s = {%s}\n'.format(key, getContent(languages, values));
+      output += 'R.string.%s = {%s};\n'.format(key, getContent(languages, values));
     },
 );
 message += overwrite(outputFile, COMMENT_ALL + COMMENT_PSD + output);

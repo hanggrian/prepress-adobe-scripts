@@ -5,6 +5,6 @@
  * @return {!PageItem}
  */
 function checkTypename(item, typename) {
-  check(item.typename === typename, getString(R.string.error_preconditions_typename, typename))
-  return item
+  check(item.typename === typename, getString(R.string.error_preconditions_typename, typename));
+  return item;
 }

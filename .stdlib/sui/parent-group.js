@@ -8,8 +8,8 @@
  */
 Group.prototype.setHelpTips =
     function(tips) {
-      Internals.setHelpTips(this, tips)
-    }
+      Internals.setHelpTips(this, tips);
+    };
 
 /**
  * Add horizontal parent to group.
@@ -18,8 +18,8 @@ Group.prototype.setHelpTips =
  */
 Group.prototype.hgroup =
     function(configuration) {
-      return Internals.addGroup(this, 'row', configuration)
-    }
+      return Internals.addGroup(this, 'row', configuration);
+    };
 
 /**
  * Add horizontal parent to panel.
@@ -28,8 +28,8 @@ Group.prototype.hgroup =
  */
 Panel.prototype.hgroup =
     function(configuration) {
-      return Internals.addGroup(this, 'row', configuration)
-    }
+      return Internals.addGroup(this, 'row', configuration);
+    };
 
 /**
  * Add vertical parent to group.
@@ -38,8 +38,8 @@ Panel.prototype.hgroup =
  */
 Group.prototype.vgroup =
     function(configuration) {
-      return Internals.addGroup(this, 'column', configuration)
-    }
+      return Internals.addGroup(this, 'column', configuration);
+    };
 
 /**
  * Add vertical parent to panel.
@@ -48,8 +48,8 @@ Group.prototype.vgroup =
  */
 Panel.prototype.vgroup =
     function(configuration) {
-      return Internals.addGroup(this, 'column', configuration)
-    }
+      return Internals.addGroup(this, 'column', configuration);
+    };
 
 /**
  * Add stack parent to group.
@@ -58,8 +58,8 @@ Panel.prototype.vgroup =
  */
 Group.prototype.sgroup =
     function(configuration) {
-      return Internals.addGroup(this, 'stack', configuration)
-    }
+      return Internals.addGroup(this, 'stack', configuration);
+    };
 
 /**
  * Add stack parent to panel.
@@ -68,18 +68,18 @@ Group.prototype.sgroup =
  */
 Panel.prototype.sgroup =
     function(configuration) {
-      return Internals.addGroup(this, 'stack', configuration)
-    }
+      return Internals.addGroup(this, 'stack', configuration);
+    };
 
 Internals.addGroup =
     function(root, orientation, configuration) {
-      var parent = root.add('group')
-      parent.orientation = orientation
+      var parent = root.add('group');
+      parent.orientation = orientation;
       if (configuration !== undefined) {
-        configuration(parent)
+        configuration(parent);
       }
-      return parent
-    }
+      return parent;
+    };
 
 /**
  * Returns selected radio index of this group.
@@ -87,8 +87,8 @@ Internals.addGroup =
  */
 Group.prototype.getSelectedRadioIndex =
     function() {
-      return Internals.getSelectedRadioIndex(this)
-    }
+      return Internals.getSelectedRadioIndex(this);
+    };
 
 /**
  * Select radio button of this group.
@@ -96,5 +96,5 @@ Group.prototype.getSelectedRadioIndex =
  */
 Group.prototype.selectRadioIndex =
     function(index) {
-      Internals.selectRadioIndex(this, index)
-    }
+      Internals.selectRadioIndex(this, index);
+    };

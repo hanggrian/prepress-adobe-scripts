@@ -2,24 +2,24 @@
 
 var SELECTED =
     function(it) {
-      it.select()
-    }
+      it.select();
+    };
 
 /** Select this check box, if not already. */
 Checkbox.prototype.select =
     function() {
       if (!this.value) {
-        this.value = true
+        this.value = true;
       }
-    }
+    };
 
 /** Select this radio button, if not already. */
 RadioButton.prototype.select =
     function() {
       if (!this.value) {
-        this.value = true
+        this.value = true;
       }
-    }
+    };
 
 /**
  * Allows for multiple click listeners to occur by invoking all of them in collective listener.
@@ -27,8 +27,8 @@ RadioButton.prototype.select =
  */
 Checkbox.prototype.addClickListener =
     function(listener) {
-      Internals.addListener(this, 'onClick', listener)
-    }
+      Internals.addListener(this, 'onClick', listener);
+    };
 
 /**
  * Allows for multiple click listeners to occur by invoking all of them in collective listener.
@@ -36,8 +36,8 @@ Checkbox.prototype.addClickListener =
  */
 RadioButton.prototype.addClickListener =
     function(listener) {
-      Internals.addListener(this, 'onClick', listener)
-    }
+      Internals.addListener(this, 'onClick', listener);
+    };
 
 /**
  * Add children to group.
@@ -48,8 +48,8 @@ RadioButton.prototype.addClickListener =
  */
 Group.prototype.checkBox =
     function(size, text, properties) {
-      return Internals.addCheckBox(this, size, text, properties)
-    }
+      return Internals.addCheckBox(this, size, text, properties);
+    };
 
 /**
  * Add children to panel.
@@ -60,17 +60,17 @@ Group.prototype.checkBox =
  */
 Panel.prototype.checkBox =
     function(size, text, properties) {
-      return Internals.addCheckBox(this, size, text, properties)
-    }
+      return Internals.addCheckBox(this, size, text, properties);
+    };
 
 Internals.addCheckBox =
     function(root, size, text, properties) {
-      var child = root.add('checkbox', Internals.sizeOrBounds(size), text, properties)
+      var child = root.add('checkbox', Internals.sizeOrBounds(size), text, properties);
       if (root.helpTips !== undefined) {
-        child.helpTip = root.helpTips
+        child.helpTip = root.helpTips;
       }
-      return child
-    }
+      return child;
+    };
 
 /**
  * Add children to group.
@@ -81,8 +81,8 @@ Internals.addCheckBox =
  */
 Group.prototype.radioButton =
     function(size, text, properties) {
-      return Internals.addRadioButton(this, size, text, properties)
-    }
+      return Internals.addRadioButton(this, size, text, properties);
+    };
 
 /**
  * Add children to panel.
@@ -93,14 +93,14 @@ Group.prototype.radioButton =
  */
 Panel.prototype.radioButton =
     function(size, text, properties) {
-      return Internals.addRadioButton(this, size, text, properties)
-    }
+      return Internals.addRadioButton(this, size, text, properties);
+    };
 
 Internals.addRadioButton =
     function(root, size, text, properties) {
-      var child = root.add('radiobutton', Internals.sizeOrBounds(size), text, properties)
+      var child = root.add('radiobutton', Internals.sizeOrBounds(size), text, properties);
       if (root.helpTips !== undefined) {
-        child.helpTip = root.helpTips
+        child.helpTip = root.helpTips;
       }
-      return child
-    }
+      return child;
+    };

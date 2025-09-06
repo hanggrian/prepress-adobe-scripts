@@ -6,8 +6,8 @@
  */
 String.prototype.isUpperCase =
     function() {
-      return this.toUpperCase() == this
-    }
+      return this.toUpperCase() == this;
+    };
 
 /**
  * Returns true if all characters of this string is lowercase.
@@ -15,8 +15,8 @@ String.prototype.isUpperCase =
  */
 String.prototype.isLowerCase =
     function() {
-      return this.toLowerCase() == this
-    }
+      return this.toLowerCase() == this;
+    };
 
 /**
  * Remove leading whitespaces.
@@ -24,8 +24,8 @@ String.prototype.isLowerCase =
  */
 String.prototype.trimStart =
     function() {
-      return this.replace(/^\s\s*/, '')
-    }
+      return this.replace(/^\s\s*/, '');
+    };
 
 /**
  * Remove trailing whitespaces.
@@ -33,8 +33,8 @@ String.prototype.trimStart =
  */
 String.prototype.trimEnd =
     function() {
-      return this.replace(/\s\s*$/, '')
-    }
+      return this.replace(/\s\s*$/, '');
+    };
 
 /**
  * Remove leading and trailing whitespaces.
@@ -42,8 +42,8 @@ String.prototype.trimEnd =
  */
 String.prototype.trim =
     function() {
-      return this.trimStart().trimEnd()
-    }
+      return this.trimStart().trimEnd();
+    };
 
 /**
  * Returns true if this string is empty.
@@ -51,8 +51,8 @@ String.prototype.trim =
  */
 String.prototype.isEmpty =
     function() {
-      return this.length === 0
-    }
+      return this.length === 0;
+    };
 
 /**
  * Returns true if this string is not empty.
@@ -60,8 +60,8 @@ String.prototype.isEmpty =
  */
 String.prototype.isNotEmpty =
     function() {
-      return this.length > 0
-    }
+      return this.length > 0;
+    };
 
 /**
  * Returns true if this string is empty or all whitespaces.
@@ -69,8 +69,8 @@ String.prototype.isNotEmpty =
  */
 String.prototype.isBlank =
     function() {
-      return this.isEmpty() || this.trim().isEmpty()
-    }
+      return this.isEmpty() || this.trim().isEmpty();
+    };
 
 /**
  * Returns true if this string is not empty and all whitespaces.
@@ -78,8 +78,8 @@ String.prototype.isBlank =
  */
 String.prototype.isNotBlank =
     function() {
-      return this.isNotEmpty() && this.trim().isNotEmpty()
-    }
+      return this.isNotEmpty() && this.trim().isNotEmpty();
+    };
 
 /**
  * Returns prefix that ends with target.
@@ -88,8 +88,8 @@ String.prototype.isNotBlank =
  */
 String.prototype.substringBefore =
     function(substring) {
-      return this.substring(0, this.indexOf(checkNotNull(substring)))
-    }
+      return this.substring(0, this.indexOf(checkNotNull(substring)));
+    };
 
 /**
  * Returns prefix that ends with last target.
@@ -98,8 +98,8 @@ String.prototype.substringBefore =
  */
 String.prototype.substringBeforeLast =
     function(substring) {
-      return this.substring(0, this.lastIndexOf(checkNotNull(substring)))
-    }
+      return this.substring(0, this.lastIndexOf(checkNotNull(substring)));
+    };
 
 /**
  * Returns suffix that starts with target.
@@ -108,9 +108,9 @@ String.prototype.substringBeforeLast =
  */
 String.prototype.substringAfter =
     function(substring) {
-      checkNotNull(substring)
-      return this.substring(this.indexOf(substring) + substring.length)
-    }
+      checkNotNull(substring);
+      return this.substring(this.indexOf(substring) + substring.length);
+    };
 
 /**
  * Returns suffix that starts with last target.
@@ -119,9 +119,9 @@ String.prototype.substringAfter =
  */
 String.prototype.substringAfterLast =
     function(substring) {
-      checkNotNull(substring)
-      return this.substring(this.lastIndexOf(substring) + substring.length)
-    }
+      checkNotNull(substring);
+      return this.substring(this.lastIndexOf(substring) + substring.length);
+    };
 
 /**
  * Returns true if text starts with word.
@@ -130,8 +130,8 @@ String.prototype.substringAfterLast =
  */
 String.prototype.startsWith =
     function(substring) {
-      return this.lastIndexOf(checkNotNull(substring), 0) === 0
-    }
+      return this.lastIndexOf(checkNotNull(substring), 0) === 0;
+    };
 
 /**
  * Returns true if text ends with word.
@@ -140,9 +140,9 @@ String.prototype.startsWith =
  */
 String.prototype.endsWith =
     function(substring) {
-      checkNotNull(substring)
-      return this.indexOf(substring, this.length - substring.length) !== -1
-    }
+      checkNotNull(substring);
+      return this.indexOf(substring, this.length - substring.length) !== -1;
+    };
 
 /**
  * Returns true if text contains word.
@@ -151,8 +151,8 @@ String.prototype.endsWith =
  */
 String.prototype.contains =
     function(substring) {
-      return this.indexOf(checkNotNull(substring)) !== -1
-    }
+      return this.indexOf(checkNotNull(substring)) !== -1;
+    };
 
 /**
  * Returns true if string is integer or decimal.
@@ -160,8 +160,8 @@ String.prototype.contains =
  */
 String.prototype.isNumeric =
     function() {
-      return /^-{0,1}\d*\.{0,1}\d+$/.test(this)
-    }
+      return /^-{0,1}\d*\.{0,1}\d+$/.test(this);
+    };
 
 /**
  * Returns a formatted string using varargs arguments.
@@ -170,5 +170,5 @@ String.prototype.isNumeric =
  */
 String.prototype.format =
     function() {
-      return Internals.formatString(this, arguments)
-    }
+      return Internals.formatString(this, arguments);
+    };

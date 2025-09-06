@@ -11,9 +11,9 @@ var Windows = {
    * @return {boolean}
    */
   alert: function(message, title, isError) {
-    isError = isError || false
-    alert(Internals.textOrResource(message) + '.', Internals.textOrResource(title), isError)
-    return isError
+    isError = isError || false;
+    alert(Internals.textOrResource(message) + '.', Internals.textOrResource(title), isError);
+    return isError;
   },
 
   /**
@@ -24,7 +24,7 @@ var Windows = {
    * @return {boolean}
    */
   confirm: function(message, title, noAsDefault) {
-    noAsDefault = noAsDefault || false
-    return confirm(Internals.textOrResource(message), noAsDefault, Internals.textOrResource(title))
+    noAsDefault = noAsDefault || false;
+    return confirm(Internals.textOrResource(message), noAsDefault, Internals.textOrResource(title));
   },
-}
+};

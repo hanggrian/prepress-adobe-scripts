@@ -11,7 +11,7 @@ var FileExtension =
       PNG: {text: 'PNG', value: ['png', 'pns']},
       PHOTOSHOP: {text: 'Photoshop', value: ['psd', 'psb', 'pdd']},
       TIFF: {text: 'TIFF', value: ['tif', 'tiff']},
-    })
+    });
 
 var FilePicker = {
   /**
@@ -20,7 +20,7 @@ var FilePicker = {
    * @return {?Folder}
    */
   selectFolder: function(prompt) {
-    return Folder.selectDialog(prompt)
+    return Folder.selectDialog(prompt);
   },
 
   /**
@@ -31,8 +31,8 @@ var FilePicker = {
    * @return {?File|?Array<!File>}
    */
   openFile: function(prompt, fileExtensions, multiSelect) {
-    multiSelect = multiSelect || false
-    return File.openDialog(prompt, Internals.getFileFilters(fileExtensions), multiSelect)
+    multiSelect = multiSelect || false;
+    return File.openDialog(prompt, Internals.getFileFilters(fileExtensions), multiSelect);
   },
 
   /**
@@ -42,6 +42,6 @@ var FilePicker = {
    * @return {?File}
    */
   saveFile: function(prompt, fileExtensions) {
-    return File.saveDialog(prompt, Internals.getFileFilters(fileExtensions))
+    return File.saveDialog(prompt, Internals.getFileFilters(fileExtensions));
   },
-}
+};

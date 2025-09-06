@@ -1,25 +1,29 @@
-//@target illustrator
-//@include '../.lib/commons.js'
+//@target illustrator;
+//@include '../.lib/commons.js';
 
-var SIZE_INPUT = [140, 21]
+var SIZE_INPUT = [140, 21];
 
-checkAnySelection()
+checkAnySelection();
 
 var items =
-    Collections.filterItem(selection, function(it) {
-      return Items.isPlacedPdf(it)
-    })
+    Collections.filterItem(
+        selection,
+        function(it) {
+          return Items.isPlacedPdf(it);
+        },
+    );
 check(
     Collections.isNotEmpty(items),
     getString(R.string.error_notypes_document, getString(R.string.links).toLowerCase()),
-)
+);
 
-var dialog = new Dialog(R.string.relink_same, 'relinking-files/#relink-same')
-var pdfPanel, pageEdit
-var keepSizeCheck
-var prefs = preferences2.resolve('links/relink_same')
+var dialog = new Dialog(R.string.relink_same, 'relinking-files/#relink-same');
+var pdfPanel;
+var pageEdit;
+var keepSizeCheck;
+var prefs = preferences2.resolve('links/relink_same');
 
-var file = FilePicker.openFile(dialog.text, FileExtension.values())
+var file = FilePicker.openFile(dialog.text, FileExtension.values());
 
 if (file !== null) {
   dialog.vgroup(function(main) {
@@ -27,60 +31,68 @@ if (file !== null) {
       pdfPanel =
           new OpenPDFPanel(main, SIZE_INPUT).apply(function(panel) {
             panel.hgroup(function(group) {
-              group.helpTips = R.string.tip_relink_pages
-              group.staticText(undefined, getString(R.string.pages)).apply(HEADING)
+              group.helpTips = R.string.tip_relink_pages;
+              group.staticText(undefined, getString(R.string.pages)).apply(HEADING);
               pageEdit =
-                  group.editText(SIZE_INPUT, '1').apply(function(it) {
-                    it.validateDigits()
-                    it.activate()
-                  })
-            })
-          })
+                  group
+                      .editText(SIZE_INPUT, '1')
+                      .apply(function(it) {
+                        it.validateDigits();
+                        it.activate();
+                      });
+            });
+          });
     }
     main.hgroup(function(group) {
-      group.alignment = 'right'
+      group.alignment = 'right';
       keepSizeCheck =
           new KeepSizeCheck(group).apply(function(it) {
-            it.value = prefs.getBoolean('keep_size')
-          })
-    })
-  })
-  dialog.setCancelButton()
-  dialog.setDefaultButton(undefined, function() {
-    if (file.isPdf()) {
-      var page = parseInt(pageEdit.text) - 1
-      println('PDF page = ' + page + '.')
-      preferences.setPDFPage(page)
-    }
+            it.value = prefs.getBoolean('keep_size');
+          });
+    });
+  });
+  dialog.setCancelButton();
+  dialog.setDefaultButton(
+      undefined,
+      function() {
+        if (file.isPdf()) {
+          var page = parseInt(pageEdit.text) - 1;
+          println('PDF page = ' + page + '.');
+          preferences.setPDFPage(page);
+        }
 
-    var progress = new ProgressPalette(items.length)
-    Collections.forEach(items, function(item, i) {
-      progress.increment(R.string.progress_relink, i + 1)
-      print(i + '. ')
-      relink(item, file)
-      println('Done.')
-    })
-    selection = items
+        var progress = new ProgressPalette(items.length);
+        Collections.forEach(
+            items,
+            function(item, i) {
+              progress.increment(R.string.progress_relink, i + 1);
+              print(i + '. ');
+              relink(item, file);
+              println('Done.');
+            },
+        );
+        selection = items;
 
-    prefs.setBoolean('keep_size', keepSizeCheck.value)
-    return false
-  })
-  dialog.show()
+        prefs.setBoolean('keep_size', keepSizeCheck.value);
+        return false;
+      },
+  );
+  dialog.show();
 }
 
 function relink(item, file) {
-  var width = item.width
-  var height = item.height
-  var position = item.position
+  var width = item.width;
+  var height = item.height;
+  var position = item.position;
   if (file.isPdf() && Items.isLinkExists(item) && item.file.isPdf()) {
-    print('Appling PDF fix, ')
-    item.file = getImage('fix_relinkpdf')
+    print('Appling PDF fix, ');
+    item.file = getImage('fix_relinkpdf');
   }
-  item.file = file
+  item.file = file;
   if (keepSizeCheck.value) {
-    print('Keep size, ')
-    item.width = width
-    item.height = height
-    item.position = position
+    print('Keep size, ');
+    item.width = width;
+    item.height = height;
+    item.position = position;
   }
 }

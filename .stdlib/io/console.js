@@ -7,11 +7,11 @@
  */
 function print() {
   if (Collections.isEmpty(arguments)) {
-    $.write()
-    return
+    $.write();
+    return;
   }
-  var format = Array.prototype.shift.call(arguments)
-  $.write(Internals.formatString(format, arguments))
+  var format = Array.prototype.shift.call(arguments);
+  $.write(Internals.formatString(format, arguments));
 }
 
 /**
@@ -21,9 +21,9 @@ function print() {
  */
 function println() {
   if (Collections.isEmpty(arguments)) {
-    $.writeln()
-    return
+    $.writeln();
+    return;
   }
-  var format = Array.prototype.shift.call(arguments)
-  $.writeln(Internals.formatString(format, arguments))
+  var format = Array.prototype.shift.call(arguments);
+  $.writeln(Internals.formatString(format, arguments));
 }

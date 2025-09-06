@@ -1,41 +1,41 @@
 // Core libraries are base of all scripts,
 // providing tools for creating new document or modifying current document.
 
-//@include '../../.stdlib/stdlib.js'
+//@include '../../.stdlib/stdlib.js';
 
-//@include 'core-resources.js'
+//@include 'core-resources.js';
 
-//@include 'controls/checks.js'
-//@include 'controls/nup-options.js'
-//@include 'controls/open-options.js'
-//@include 'controls/ordering.js'
-//@include 'controls/padding.js'
-//@include 'controls/ranging.js'
-//@include 'controls/select-options.js'
-//@include 'pager/eight-up.js'
-//@include 'pager/four-up.js'
-//@include 'pager/one-up.js'
-//@include 'pager/saddle-stitch.js'
-//@include 'pager/two-up.js'
-//@include 'core-collections.js'
-//@include 'core-colors.js'
-//@include 'core-files.js'
-//@include 'core-items.js'
-//@include 'core-preconditions.js'
-//@include 'core-preferences.js'
-//@include 'core-units.js'
+//@include 'controls/checks.js';
+//@include 'controls/nup-options.js';
+//@include 'controls/open-options.js';
+//@include 'controls/ordering.js';
+//@include 'controls/padding.js';
+//@include 'controls/ranging.js';
+//@include 'controls/select-options.js';
+//@include 'pager/eight-up.js';
+//@include 'pager/four-up.js';
+//@include 'pager/one-up.js';
+//@include 'pager/saddle-stitch.js';
+//@include 'pager/two-up.js';
+//@include 'core-collections.js';
+//@include 'core-colors.js';
+//@include 'core-files.js';
+//@include 'core-items.js';
+//@include 'core-preconditions.js';
+//@include 'core-preferences.js';
+//@include 'core-units.js';
 
-Scripts.PATH_LIB = new File($.fileName).path
+Scripts.PATH_LIB = new File($.fileName).path;
 
-Language.set(Language.valueOfCode(preferences2.getString('language_code', Language.EN.code)))
+Language.set(Language.valueOfCode(preferences2.getString('language_code', Language.EN.code)));
 
 var Pager =
     new Enum({
       ONE_UP: {
         text: getString(R.string.D_up, 1),
         get: function(document, start) {
-          return new OneUpPager(document, start)
-        }
+          return new OneUpPager(document, start);
+        },
       },
       TWO_UP: {
         text: getString(R.string.D_up, 2),
@@ -43,52 +43,52 @@ var Pager =
           if (!isDuplex) {
             return !isStack
                 ? new TwoUpSimplexPager(document, start)
-                : new TwoUpSimplexStackPager(document, start)
+                : new TwoUpSimplexStackPager(document, start);
           } else {
             return !isStack
                 ? new TwoUpDuplexPager(document, start)
-                : new TwoUpDuplexStackPager(document, start)
+                : new TwoUpDuplexStackPager(document, start);
           }
-        }
+        },
       },
       FOUR_UP: {
         text: getString(R.string.D_up, 4),
         get: function(document, start, isFolding, isDuplex, isStack) {
           if (isFolding) {
-            return new FourUpFoldingPager(document, start)
+            return new FourUpFoldingPager(document, start);
           }
           if (!isDuplex) {
             return !isStack
                 ? new FourUpSimplexPager(document, start)
-                : new FourUpSimplexStackPager(document, start)
+                : new FourUpSimplexStackPager(document, start);
           } else {
             return !isStack
                 ? new FourUpDuplexPager(document, start)
-                : new FourUpDuplexStackPager(document, start)
+                : new FourUpDuplexStackPager(document, start);
           }
-        }
+        },
       },
       EIGHT_UP: {
         text: getString(R.string.D_up, 8),
         get: function(document, start, isFolding, isDuplex, isStack) {
           if (isFolding) {
-            return new EightUpFoldingPager(document, start)
+            return new EightUpFoldingPager(document, start);
           }
           if (!isDuplex) {
             return !isStack
                 ? new EightUpSimplexPager(document, start)
-                : new EightUpSimplexStackPager(document, start)
+                : new EightUpSimplexStackPager(document, start);
           } else {
             return !isStack
                 ? new EightUpDuplexPager(document, start)
-                : new EightUpDuplexStackPager(document, start)
+                : new EightUpDuplexStackPager(document, start);
           }
-        }
+        },
       },
       SADDLE_STITCH: {
         text: R.string.saddle_stitch,
         get: function(document, start, end, isRtl) {
-          return new SaddleStitchPager(document, start, end, isRtl)
-        }
+          return new SaddleStitchPager(document, start, end, isRtl);
+        },
       },
-    })
+    });

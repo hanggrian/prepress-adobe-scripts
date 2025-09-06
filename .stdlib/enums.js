@@ -9,13 +9,13 @@
  *     should be, default is empty.
  */
 function Enum(object, separatorIndices) {
-  checkNotNull(object)
-  separatorIndices = separatorIndices || []
+  checkNotNull(object);
+  separatorIndices = separatorIndices || [];
   for (var key in object) {
-    this[key] = object[key]
-    this[key].name = key
+    this[key] = object[key];
+    this[key].name = key;
   }
-  this.separatorIndices = separatorIndices
+  this.separatorIndices = separatorIndices;
 }
 
 /**
@@ -24,14 +24,14 @@ function Enum(object, separatorIndices) {
  */
 Enum.prototype.values =
     function() {
-      var result = []
+      var result = [];
       for (var key in this) {
         if (key.isUpperCase()) {
-          result.push(this[key])
+          result.push(this[key]);
         }
       }
-      return result
-    }
+      return result;
+    };
 
 /**
  * Returns an array of `ListItem` for `DropDownList` or `ListBox`. For this to work, every field
@@ -40,20 +40,20 @@ Enum.prototype.values =
  */
 Enum.prototype.list =
     function() {
-      var result = []
-      var i = 0
+      var result = [];
+      var i = 0;
       for (var key in this) {
         if (key.isUpperCase()) {
-          var field = this[key]
-          checkNotNull(field.text)
-          result.push(field.image === undefined ? field.text : [field.text, field.image])
+          var field = this[key];
+          checkNotNull(field.text);
+          result.push(field.image === undefined ? field.text : [field.text, field.image]);
           if (Collections.contains(this.separatorIndices, i++)) {
-            result.push(field.image === undefined ? '-' : ['-', undefined])
+            result.push(field.image === undefined ? '-' : ['-', undefined]);
           }
         }
       }
-      return result
-    }
+      return result;
+    };
 
 /**
  * Returns an enum field given a name.
@@ -62,19 +62,19 @@ Enum.prototype.list =
  */
 Enum.prototype.valueOf =
     function(name) {
-      checkNotNull(name)
+      checkNotNull(name);
       if (name instanceof ListItem) {
-        name = name.text
+        name = name.text;
       }
       for (var key in this) {
         if (key.isUpperCase()) {
           if (key == name) {
-            return this[key]
+            return this[key];
           }
         }
       }
-      error("No field with name '%s' found in this enum".format(name))
-    }
+      error("No field with name '%s' found in this enum".format(name));
+    };
 
 /**
  * Returns an enum field given a text, throws error if no such property exist.
@@ -83,17 +83,17 @@ Enum.prototype.valueOf =
  */
 Enum.prototype.find =
     function(text) {
-      checkNotNull(text)
+      checkNotNull(text);
       if (text instanceof ListItem) {
-        text = text.text
+        text = text.text;
       }
       for (var key in this) {
         if (key.isUpperCase()) {
-          var field = this[key]
+          var field = this[key];
           if (checkNotNull(field.text) == text) {
-            return field
+            return field;
           }
         }
       }
-      error("No field with text '%s' found in this enum".format(text))
-    }
+      error("No field with text '%s' found in this enum".format(text));
+    };

@@ -3,21 +3,24 @@
  * @param {!Array<!File>} files
  */
 function FileCollection(files) {
-  checkNotNull(files)
+  checkNotNull(files);
 
-  var self = this
+  var self = this;
 
   /** @type {boolean} */
-  self.isSinglePDF = files.length === 1 && Collections.first(files).isPdf()
+  self.isSinglePDF = files.length === 1 && Collections.first(files).isPdf();
 
   /** @type {boolean} */
   self.hasPDF =
-      Collections.any(files, function(it) {
-        return it.isPdf()
-      })
+      Collections.any(
+          files,
+          function(it) {
+            return it.isPdf();
+          },
+      );
 
   /** @type {number} */
-  self.length = files.length
+  self.length = files.length;
 
   /**
    * Returns image file or PDF file with specific page.
@@ -26,12 +29,12 @@ function FileCollection(files) {
    */
   self.get =
       function(index) {
-        var file = self.isSinglePDF ? Collections.first(files) : files[index]
+        var file = self.isSinglePDF ? Collections.first(files) : files[index];
         if (self.isSinglePDF) {
-          preferences.setPDFPage(index)
+          preferences.setPDFPage(index);
         } else if (file.isPdf()) {
-          preferences.setPDFPage(0)
+          preferences.setPDFPage(0);
         }
-        return file
-      }
+        return file;
+      };
 }

@@ -38,4 +38,4 @@ var UnitType =
         rulerUnits: undefined,
         units: undefined,
       },
-    })
+    });

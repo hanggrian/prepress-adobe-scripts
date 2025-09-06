@@ -13,8 +13,8 @@ Array.prototype.equals =
       return parseInt(this.getLeft()) === parseInt(other.getLeft()) &&
           parseInt(this.getTop()) === parseInt(other.getTop()) &&
           parseInt(this.getRight()) === parseInt(other.getRight()) &&
-          parseInt(this.getBottom()) === parseInt(other.getBottom())
-    }
+          parseInt(this.getBottom()) === parseInt(other.getBottom());
+    };
 
 /**
  * Returns true if the other `Rectangle` are inside the second.
@@ -28,8 +28,8 @@ Array.prototype.contains =
           other.getBottom() < this.getBottom() ||
           other.getRight() > this.getRight() ||
           other.getTop() > this.getTop()
-      )
-    }
+      );
+    };
 
 /**
  * Returns x1 value of this `Rectangle` or `Point`.
@@ -37,8 +37,8 @@ Array.prototype.contains =
  */
 Array.prototype.getLeft =
     function() {
-      return checkNotNull(this[0])
-    }
+      return checkNotNull(this[0]);
+    };
 
 /**
  * Returns y1 value of this `Rectangle` or `Point`.
@@ -46,8 +46,8 @@ Array.prototype.getLeft =
  */
 Array.prototype.getTop =
     function() {
-      return checkNotNull(this[1])
-    }
+      return checkNotNull(this[1]);
+    };
 
 /**
  * Returns x2 value of this `Rectangle`.
@@ -55,8 +55,8 @@ Array.prototype.getTop =
  */
 Array.prototype.getRight =
     function() {
-      return checkNotNull(this[2])
-    }
+      return checkNotNull(this[2]);
+    };
 
 /**
  * Returns y2 value of this `Rectangle`.
@@ -64,8 +64,8 @@ Array.prototype.getRight =
  */
 Array.prototype.getBottom =
     function() {
-      return checkNotNull(this[3])
-    }
+      return checkNotNull(this[3]);
+    };
 
 /**
  * Returns width value of this `Rectangle`.
@@ -73,8 +73,8 @@ Array.prototype.getBottom =
  */
 Array.prototype.getWidth =
     function() {
-      return this.getRight() - this.getLeft()
-    }
+      return this.getRight() - this.getLeft();
+    };
 
 /**
  * Returns height value of this `Rectangle`.
@@ -82,5 +82,5 @@ Array.prototype.getWidth =
  */
 Array.prototype.getHeight =
     function() {
-      return this.getTop() - this.getBottom()
-    }
+      return this.getTop() - this.getBottom();
+    };

@@ -7,8 +7,8 @@
  */
 Group.prototype.tabbedPanel =
     function(configuration) {
-      return Internals.addTabbedPanel(this, configuration)
-    }
+      return Internals.addTabbedPanel(this, configuration);
+    };
 
 /**
  * Add parent to panel.
@@ -17,14 +17,14 @@ Group.prototype.tabbedPanel =
  */
 Panel.prototype.tabbedPanel =
     function(configuration) {
-      return Internals.addTabbedPanel(this, configuration)
-    }
+      return Internals.addTabbedPanel(this, configuration);
+    };
 
 Internals.addTabbedPanel =
     function(root, configuration) {
-      var parent = root.add('tabbedpanel')
+      var parent = root.add('tabbedpanel');
       if (configuration !== undefined) {
-        configuration(parent)
+        configuration(parent);
       }
-      return parent
-    }
+      return parent;
+    };

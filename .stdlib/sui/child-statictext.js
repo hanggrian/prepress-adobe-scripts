@@ -2,17 +2,17 @@
 
 var HEADING =
     function(it) {
-      it.text += ':'
-      it.justify = 'right'
-    }
+      it.text += ':';
+      it.justify = 'right';
+    };
 var JUSTIFY_LEFT =
     function(it) {
-      it.justify = 'left'
-    }
+      it.justify = 'left';
+    };
 var JUSTIFY_RIGHT =
     function(it) {
-      it.justify = 'right'
-    }
+      it.justify = 'right';
+    };
 
 /**
  * Add children to group.
@@ -23,8 +23,8 @@ var JUSTIFY_RIGHT =
  */
 Group.prototype.staticText =
     function(size, text, properties) {
-      return Internals.addStaticText(this, size, text, properties)
-    }
+      return Internals.addStaticText(this, size, text, properties);
+    };
 
 /**
  * Add children to panel.
@@ -35,14 +35,14 @@ Group.prototype.staticText =
  */
 Panel.prototype.staticText =
     function(size, text, properties) {
-      return Internals.addStaticText(this, size, text, properties)
-    }
+      return Internals.addStaticText(this, size, text, properties);
+    };
 
 Internals.addStaticText =
     function(root, size, text, properties) {
-      var child = root.add('statictext', Internals.sizeOrBounds(size), text, properties)
+      var child = root.add('statictext', Internals.sizeOrBounds(size), text, properties);
       if (root.helpTips !== undefined) {
-        child.helpTip = root.helpTips
+        child.helpTip = root.helpTips;
       }
-      return child
-    }
+      return child;
+    };

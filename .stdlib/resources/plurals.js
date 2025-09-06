@@ -1,3 +1,3 @@
 /*<javascriptresource><menu>hide</menu></javascriptresource>*/
 
-R.plurals = {}
+R.plurals = {};

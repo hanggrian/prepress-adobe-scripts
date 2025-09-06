@@ -4,14 +4,17 @@
  * @param {number} start the first and default is 0.
  */
 function FourUpFoldingPager(document, start) {
-  checkNotNull(document)
-  checkNotNull(start)
-  check(start.isInt())
-  var current = start
-  var isFront = true
+  checkNotNull(document);
+  checkNotNull(start);
+  check(start.isInt());
+  var current = start;
+  var isFront = true;
 
-  var self = this
-  self.top1, self.top2, self.bottom1, self.bottom2
+  var self = this;
+  self.top1;
+  self.top2;
+  self.bottom1;
+  self.bottom2;
 
   /**
    * Iterate pager to next artboard, returning artboard's name.
@@ -20,21 +23,21 @@ function FourUpFoldingPager(document, start) {
   self.next =
       function() {
         if (isFront) {
-          self.top1 = current + 7
-          self.top2 = current + 4
-          self.bottom1 = current
-          self.bottom2 = current + 3
+          self.top1 = current + 7;
+          self.top2 = current + 4;
+          self.bottom1 = current;
+          self.bottom2 = current + 3;
         } else {
-          self.top1 = current + 1
-          self.top2 = current + 2
-          self.bottom1 = current - 2
-          self.bottom2 = current - 3
+          self.top1 = current + 1;
+          self.top2 = current + 2;
+          self.bottom1 = current - 2;
+          self.bottom2 = current - 3;
         }
-        current += 4
-        isFront = !isFront
+        current += 4;
+        isFront = !isFront;
         return '%d-%d-%d-%d'
-            .format(self.top1 + 1, self.top2 + 1, self.bottom1 + 1, self.bottom2 + 1)
-      }
+            .format(self.top1 + 1, self.top2 + 1, self.bottom1 + 1, self.bottom2 + 1);
+      };
 }
 
 /**
@@ -43,13 +46,16 @@ function FourUpFoldingPager(document, start) {
  * @param {number} start the first and default is 0.
  */
 function FourUpSimplexPager(document, start) {
-  checkNotNull(document)
-  checkNotNull(start)
-  check(start.isInt())
-  var current = start
+  checkNotNull(document);
+  checkNotNull(start);
+  check(start.isInt());
+  var current = start;
 
-  var self = this
-  self.top1, self.top2, self.bottom1, self.bottom2
+  var self = this;
+  self.top1;
+  self.top2;
+  self.bottom1;
+  self.bottom2;
 
   /**
    * Iterate pager to next artboard, returning artboard's name.
@@ -57,14 +63,14 @@ function FourUpSimplexPager(document, start) {
    */
   self.next =
       function() {
-        self.top1 = current
-        self.top2 = current + 1
-        self.bottom1 = current + 2
-        self.bottom2 = current + 3
-        current += 4
+        self.top1 = current;
+        self.top2 = current + 1;
+        self.bottom1 = current + 2;
+        self.bottom2 = current + 3;
+        current += 4;
         return '%d-%d-%d-%d'
-            .format(self.top1 + 1, self.top2 + 1, self.bottom1 + 1, self.bottom2 + 1)
-      }
+            .format(self.top1 + 1, self.top2 + 1, self.bottom1 + 1, self.bottom2 + 1);
+      };
 }
 
 /**
@@ -73,14 +79,17 @@ function FourUpSimplexPager(document, start) {
  * @param {number} start the first and default is 0.
  */
 function FourUpDuplexPager(document, start) {
-  checkNotNull(document)
-  checkNotNull(start)
-  check(start.isInt())
-  var current = start
-  var isFront = true
+  checkNotNull(document);
+  checkNotNull(start);
+  check(start.isInt());
+  var current = start;
+  var isFront = true;
 
-  var self = this
-  self.top1, self.top2, self.bottom1, self.bottom2
+  var self = this;
+  self.top1;
+  self.top2;
+  self.bottom1;
+  self.bottom2;
 
   /**
    * Iterate pager to next artboard, returning artboard's name.
@@ -89,21 +98,21 @@ function FourUpDuplexPager(document, start) {
   self.next =
       function() {
         if (isFront) {
-          self.top1 = current
-          self.top2 = current + 2
-          self.bottom1 = current + 4
-          self.bottom2 = current + 6
+          self.top1 = current;
+          self.top2 = current + 2;
+          self.bottom1 = current + 4;
+          self.bottom2 = current + 6;
         } else {
-          self.top1 = current - 1
-          self.top2 = current - 3
-          self.bottom1 = current + 3
-          self.bottom2 = current + 1
+          self.top1 = current - 1;
+          self.top2 = current - 3;
+          self.bottom1 = current + 3;
+          self.bottom2 = current + 1;
         }
-        current += 4
-        isFront = !isFront
+        current += 4;
+        isFront = !isFront;
         return '%d-%d-%d-%d'
-            .format(self.top1 + 1, self.top2 + 1, self.bottom1 + 1, self.bottom2 + 1)
-      }
+            .format(self.top1 + 1, self.top2 + 1, self.bottom1 + 1, self.bottom2 + 1);
+      };
 }
 
 /**
@@ -112,13 +121,16 @@ function FourUpDuplexPager(document, start) {
  * @param {number} start the first and default is 0.
  */
 function FourUpSimplexStackPager(document, start) {
-  checkNotNull(document)
-  checkNotNull(start)
-  check(start.isInt())
-  var current = start
+  checkNotNull(document);
+  checkNotNull(start);
+  check(start.isInt());
+  var current = start;
 
-  var self = this
-  self.top1, self.top2, self.bottom1, self.bottom2
+  var self = this;
+  self.top1;
+  self.top2;
+  self.bottom1;
+  self.bottom2;
 
   /**
    * Iterate pager to next artboard, returning artboard's name.
@@ -126,14 +138,14 @@ function FourUpSimplexStackPager(document, start) {
    */
   self.next =
       function() {
-        self.top1 = current
-        self.top2 = current + document.artboards.length
-        self.bottom1 = current + document.artboards.length * 2
-        self.bottom2 = current + document.artboards.length * 3
-        current++
+        self.top1 = current;
+        self.top2 = current + document.artboards.length;
+        self.bottom1 = current + document.artboards.length * 2;
+        self.bottom2 = current + document.artboards.length * 3;
+        current++;
         return '%d-%d-%d-%d'
-            .format(self.top1 + 1, self.top2 + 1, self.bottom1 + 1, self.bottom2 + 1)
-      }
+            .format(self.top1 + 1, self.top2 + 1, self.bottom1 + 1, self.bottom2 + 1);
+      };
 }
 
 /**
@@ -142,14 +154,17 @@ function FourUpSimplexStackPager(document, start) {
  * @param {number} start the first and default is 0.
  */
 function FourUpDuplexStackPager(document, start) {
-  checkNotNull(document)
-  checkNotNull(start)
-  check(start.isInt())
-  var current = start
-  var isFront = true
+  checkNotNull(document);
+  checkNotNull(start);
+  check(start.isInt());
+  var current = start;
+  var isFront = true;
 
-  var self = this
-  self.top1, self.top2, self.bottom1, self.bottom2
+  var self = this;
+  self.top1;
+  self.top2;
+  self.bottom1;
+  self.bottom2;
 
   /**
    * Iterate pager to next artboard, returning artboard's name.
@@ -158,19 +173,19 @@ function FourUpDuplexStackPager(document, start) {
   self.next =
       function() {
         if (isFront) {
-          self.top1 = current
-          self.top2 = current + document.artboards.length
-          self.bottom1 = current + document.artboards.length * 2
-          self.bottom2 = current + document.artboards.length * 3
+          self.top1 = current;
+          self.top2 = current + document.artboards.length;
+          self.bottom1 = current + document.artboards.length * 2;
+          self.bottom2 = current + document.artboards.length * 3;
         } else {
-          self.top1 = current + document.artboards.length
-          self.top2 = current
-          self.bottom1 = current + document.artboards.length * 3
-          self.bottom2 = current + document.artboards.length * 2
+          self.top1 = current + document.artboards.length;
+          self.top2 = current;
+          self.bottom1 = current + document.artboards.length * 3;
+          self.bottom2 = current + document.artboards.length * 2;
         }
-        current++
-        isFront = !isFront
+        current++;
+        isFront = !isFront;
         return '%d-%d-%d-%d'
-            .format(self.top1 + 1, self.top2 + 1, self.bottom1 + 1, self.bottom2 + 1)
-      }
+            .format(self.top1 + 1, self.top2 + 1, self.bottom1 + 1, self.bottom2 + 1);
+      };
 }

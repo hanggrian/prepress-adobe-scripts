@@ -1,5 +1,4 @@
 //@include '../.stdlib/stdlib.js';
-//@include '../Illustrator Scripts/.lib/core.js';
 
 //@include 'collections/base.js';
 //@include 'collections/predicate.js';
@@ -37,5 +36,3 @@ test(
       assertEquals('Indonesia', Language.valueOfCode('id').text);
     },
 );
-
-alert('All tests completed.');

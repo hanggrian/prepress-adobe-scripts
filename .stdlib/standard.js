@@ -13,10 +13,10 @@
  */
 Object.prototype.apply =
     function(block) {
-      checkNotNull(block)
-      block(this)
-      return this
-    }
+      checkNotNull(block);
+      block(this);
+      return this;
+    };
 
 /**
  * Calls the specified function `block` with `this` value as its argument and returns its result.
@@ -25,9 +25,9 @@ Object.prototype.apply =
  */
 Object.prototype.run =
     function(block) {
-      checkNotNull(block)
-      return block(this)
-    }
+      checkNotNull(block);
+      return block(this);
+    };
 
 /**
  * Iterate n times with provided action.
@@ -35,9 +35,9 @@ Object.prototype.run =
  * @param {function(number)} action
  */
 function repeat(times, action) {
-  checkNotNull(times)
-  checkNotNull(action)
+  checkNotNull(times);
+  checkNotNull(action);
   for (var i = 1; i <= times; i++) {
-    action(i)
+    action(i);
   }
 }

@@ -6,8 +6,8 @@
  */
 Button.prototype.addClickListener =
     function(listener) {
-      Internals.addListener(this, 'onClick', listener)
-    }
+      Internals.addListener(this, 'onClick', listener);
+    };
 
 /**
  * Add children to group.
@@ -18,8 +18,8 @@ Button.prototype.addClickListener =
  */
 Group.prototype.button =
     function(size, text, properties) {
-      return Internals.addButton(this, size, text, properties)
-    }
+      return Internals.addButton(this, size, text, properties);
+    };
 
 /**
  * Add children to panel.
@@ -30,14 +30,14 @@ Group.prototype.button =
  */
 Panel.prototype.button =
     function(size, text, properties) {
-      return Internals.addButton(this, size, text, properties)
-    }
+      return Internals.addButton(this, size, text, properties);
+    };
 
 Internals.addButton =
     function(root, size, text, properties) {
-      var child = root.add('button', Internals.sizeOrBounds(size), text, properties)
+      var child = root.add('button', Internals.sizeOrBounds(size), text, properties);
       if (root.helpTips !== undefined) {
-        child.helpTip = root.helpTips
+        child.helpTip = root.helpTips;
       }
-      return child
-    }
+      return child;
+    };

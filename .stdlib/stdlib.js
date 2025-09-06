@@ -1,52 +1,52 @@
 /*<javascriptresource><menu>hide</menu></javascriptresource>*/
 
-//@include 'resources/base.js'
-//@include 'resources/plurals.js'
-//@include 'resources/strings.js'
-//@include 'enums.js'
-//@include 'internals.js'
+//@include 'resources/base.js';
+//@include 'resources/plurals.js';
+//@include 'resources/strings.js';
+//@include 'enums.js';
+//@include 'internals.js';
 
-//@include 'collections/base.js'
-//@include 'collections/predicate.js'
-//@include 'collections/transform.js'
-//@include 'controls/about.js'
-//@include 'controls/anchor.js'
-//@include 'controls/multi-toggles.js'
-//@include 'io/console.js'
-//@include 'io/file.js'
-//@include 'io/picker.js'
-//@include 'sui/child-button.js'
-//@include 'sui/child-dropdownlist.js'
-//@include 'sui/child-edittext.js'
-//@include 'sui/child-iconbutton.js'
-//@include 'sui/child-image.js'
-//@include 'sui/child-listbox.js'
-//@include 'sui/child-progressbar.js'
-//@include 'sui/child-slider.js'
-//@include 'sui/child-statictext.js'
-//@include 'sui/child-toggles.js'
-//@include 'sui/parent-group.js'
-//@include 'sui/parent-panel.js'
-//@include 'sui/parent-tab.js'
-//@include 'sui/parent-tabbedpanel.js'
-//@include 'sui/window-builtin.js'
-//@include 'sui/window-dialog.js'
-//@include 'sui/window-palette.js'
-//@include 'geometry.js'
-//@include 'math.js'
-//@include 'objects.js'
-//@include 'preconditions.js'
-//@include 'range.js'
-//@include 'standard.js'
-//@include 'text.js'
-//@include 'time.js'
-//@include 'units.js'
+//@include 'collections/base.js';
+//@include 'collections/predicate.js';
+//@include 'collections/transform.js';
+//@include 'controls/about.js';
+//@include 'controls/anchor.js';
+//@include 'controls/multi-toggles.js';
+//@include 'io/console.js';
+//@include 'io/file.js';
+//@include 'io/picker.js';
+//@include 'sui/child-button.js';
+//@include 'sui/child-dropdownlist.js';
+//@include 'sui/child-edittext.js';
+//@include 'sui/child-iconbutton.js';
+//@include 'sui/child-image.js';
+//@include 'sui/child-listbox.js';
+//@include 'sui/child-progressbar.js';
+//@include 'sui/child-slider.js';
+//@include 'sui/child-statictext.js';
+//@include 'sui/child-toggles.js';
+//@include 'sui/parent-group.js';
+//@include 'sui/parent-panel.js';
+//@include 'sui/parent-tab.js';
+//@include 'sui/parent-tabbedpanel.js';
+//@include 'sui/window-builtin.js';
+//@include 'sui/window-dialog.js';
+//@include 'sui/window-palette.js';
+//@include 'geometry.js';
+//@include 'math.js';
+//@include 'objects.js';
+//@include 'preconditions.js';
+//@include 'range.js';
+//@include 'standard.js';
+//@include 'text.js';
+//@include 'time.js';
+//@include 'units.js';
 
 var Theme =
     new Enum({
       DARK: {text: R.string.dark},
       LIGHT: {text: R.string.light},
-    })
+    });
 
 var Language =
     new Enum({
@@ -54,9 +54,12 @@ var Language =
       ID: {text: 'Indonesia', code: 'id'},
 
       valueOfCode: function(code) {
-        return Collections.first(Language.values(), function(it) {
-          return it.code == code
-        })
+        return Collections.first(
+            Language.values(),
+            function(it) {
+              return it.code == code;
+            },
+        );
       },
 
       /**
@@ -64,11 +67,11 @@ var Language =
        * @param {!Object} language enum Language.
        */
       set: function(language) {
-        checkNotNull(language)
-        $.localize = true
-        $.locale = language.code
+        checkNotNull(language);
+        $.localize = true;
+        $.locale = language.code;
       },
-    })
+    });
 
 var Scripts = {
   PATH_STDLIB: new File($.fileName).path,
@@ -91,20 +94,20 @@ var Scripts = {
    * @return {!File}
    */
   getResource: function(fullName) {
-    checkNotNull(fullName)
+    checkNotNull(fullName);
     if (Scripts.PATH_STDRES === undefined) {
-      Scripts.PATH_STDRES = new File(Scripts.PATH_STDLIB + '/../.stdres')
-      Scripts.PATH_RES = new File(Scripts.PATH_LIB + '/../.res')
+      Scripts.PATH_STDRES = new File(Scripts.PATH_STDLIB + '/../.stdres');
+      Scripts.PATH_RES = new File(Scripts.PATH_LIB + '/../.res');
     }
-    var file = new File(Scripts.PATH_RES + '/' + fullName)
+    var file = new File(Scripts.PATH_RES + '/' + fullName);
     if (file.exists) {
-      return file
+      return file;
     }
-    file = new File(Scripts.PATH_STDRES + '/' + fullName)
+    file = new File(Scripts.PATH_STDRES + '/' + fullName);
     if (file.exists) {
-      return file
+      return file;
     }
-    return undefined
+    return undefined;
   },
 
   /**
@@ -113,7 +116,7 @@ var Scripts = {
    * @see https://community.adobe.com/t5/indesign/js-scriptui-url-links-in-dialogues/td-p/4572773?page=1
    */
   openUrl: function(url) {
-    checkNotNull(url)
+    checkNotNull(url);
     var html =
         '<!doctype html>\n' +
         '<html lang="en">\n' +
@@ -127,9 +130,9 @@ var Scripts = {
         '    <p>You\'re being redirected to</p>\n' +
         '    <a href="%s">%s</a>\n'.format(url, url) +
         '  </body>\n' +
-        '</html>'
-    var tempFile = new File(Folder.temp + '/prepress-adobe-scripts.html')
-    tempFile.writeText(html)
-    tempFile.execute()
+        '</html>';
+    var tempFile = new File(Folder.temp + '/prepress-adobe-scripts.html');
+    tempFile.writeText(html);
+    tempFile.execute();
   },
-}
+};

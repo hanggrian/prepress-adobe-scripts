@@ -6,8 +6,8 @@
  */
 ListBox.prototype.hasSelection =
     function() {
-      return this.selection !== null
-    }
+      return this.selection !== null;
+    };
 
 /**
  * Change selection to ListItem with `text`, throwing error if not found.
@@ -17,12 +17,15 @@ ListBox.prototype.selectText =
     function(text) {
       this.selection =
           Collections.indexOf(
-              Collections.map(this.items, function(it) {
-                return it.text
-              }),
+              Collections.map(
+                  this.items,
+                  function(it) {
+                    return it.text;
+                  },
+              ),
               text,
-          )
-    }
+          );
+    };
 
 /**
  * Allows for multiple change listeners to occur by invoking all of them in collective listener.
@@ -30,8 +33,8 @@ ListBox.prototype.selectText =
  */
 ListBox.prototype.addChangeListener =
     function(listener) {
-      Internals.addListener(this, 'onChange', listener)
-    }
+      Internals.addListener(this, 'onChange', listener);
+    };
 
 /**
  * Add children to group.
@@ -42,8 +45,8 @@ ListBox.prototype.addChangeListener =
  */
 Group.prototype.listBox =
     function(size, items, properties) {
-      return Internals.addListBox(this, size, items, properties)
-    }
+      return Internals.addListBox(this, size, items, properties);
+    };
 
 /**
  * Add children to panel.
@@ -54,26 +57,32 @@ Group.prototype.listBox =
  */
 Panel.prototype.listBox =
     function(size, items, properties) {
-      return Internals.addListBox(this, size, items, properties)
-    }
+      return Internals.addListBox(this, size, items, properties);
+    };
 
 Internals.addListBox =
     function(root, size, items, properties) {
-      var itemTexts, itemFiles
-      Internals.splitListItems(items).run(function(it) {
-        itemTexts = it[0]
-        itemFiles = it[1]
-      })
-      var child = root.add('listbox', Internals.sizeOrBounds(size), itemTexts, properties)
+      var itemTexts;
+      var itemFiles;
+      Internals
+          .splitListItems(items)
+          .run(function(it) {
+            itemTexts = it[0];
+            itemFiles = it[1];
+          });
+      var child = root.add('listbox', Internals.sizeOrBounds(size), itemTexts, properties);
       if (Collections.isNotEmpty(itemFiles)) {
-        Collections.forEach(itemFiles, function(it, i) {
-          if (itemFiles[i] !== undefined) {
-            it.image = itemFiles[i]
-          }
-        })
+        Collections.forEach(
+            itemFiles,
+            function(it, i) {
+              if (itemFiles[i] !== undefined) {
+                it.image = itemFiles[i];
+              }
+            },
+        );
       }
       if (root.helpTips !== undefined) {
-        child.helpTip = root.helpTips
+        child.helpTip = root.helpTips;
       }
-      return child
-    }
+      return child;
+    };

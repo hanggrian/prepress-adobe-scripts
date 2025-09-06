@@ -6,12 +6,12 @@
  * @return {!Date}
  */
 function parseDate(date) {
-  checkNotNull(date)
-  date = date.trim().substring(0, 10).split('-')
-  var year = parseInt(date[0])
-  var month = parseInt(date[1]) - 1
-  var day = parseInt(date[2])
-  return new Date(year, month, day)
+  checkNotNull(date);
+  date = date.trim().substring(0, 10).split('-');
+  var year = parseInt(date[0]);
+  var month = parseInt(date[1]) - 1;
+  var day = parseInt(date[2]);
+  return new Date(year, month, day);
 }
 
 /**
@@ -20,14 +20,14 @@ function parseDate(date) {
  */
 Date.prototype.toISOString =
     function() {
-      var year = this.getFullYear()
-      var month = this.getMonth() + 1
+      var year = this.getFullYear();
+      var month = this.getMonth() + 1;
       if (month < 10) {
-        month = '0' + month
+        month = '0' + month;
       }
-      var day = this.getDate()
+      var day = this.getDate();
       if (day < 10) {
-        day = '0' + day
+        day = '0' + day;
       }
-      return year + '-' + month + '-' + day
-    }
+      return year + '-' + month + '-' + day;
+    };

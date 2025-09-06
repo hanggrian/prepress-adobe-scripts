@@ -4,19 +4,20 @@
 </javascriptresource>
 */
 
-//@target photoshop
-//@include '../.lib/core.js'
+//@target photoshop;
+//@include '../.lib/core.js';
 
-var SIZE_TEXT = [60, 21]
-var SIZE_EDIT = [100, 21]
+var SIZE_TEXT = [60, 21];
+var SIZE_EDIT = [100, 21];
 
-var dialog = new Dialog('Open Splitted')
-var documentPanel
+var dialog = new Dialog('Open Splitted');
+var documentPanel;
 
 var files =
     FilePicker.openFile(
         dialog.text,
-        [['Adobe Illustrator', 'AI'],
+        [
+          ['Adobe Illustrator', 'AI'],
           ['Adobe PDF', 'PDF'],
           ['BMP', 'BMP'],
           ['GIF89a', 'GIF'],
@@ -24,47 +25,60 @@ var files =
           ['JPEG2000', 'JPF', 'JPX', 'JP2', 'J2K', 'J2C', 'JPC'],
           ['PNG', 'PNG', 'PNS'],
           ['Photoshop', 'PSD', 'PSB', 'PDD'],
-          ['TIFF', 'TIF', 'TIFF']],
+          ['TIFF', 'TIF', 'TIFF']
+        ],
         true,
-    )
+    );
 
 if (files !== null && Collections.isNotEmpty(files)) {
   if (Collections.isNotEmpty(Collections.filter(files, function(it) {
-    return it.isPdf()
+    return it.isPdf();
   }))) {
-    check(files.length === 1, 'Only supports single PDF file')
+    check(files.length === 1, 'Only supports single PDF file');
   }
 
-  /* dialog.main.vpanel('Split Options', function(panel) {
-      panel.hgroup(function(group) {
-          group.helpTips = 'Divide image horizontally/vertically'
-          group.staticText(SIZE_TEXT, 'Direction:').apply(JUSTIFY_RIGHT)
+  /* dialog.main.vpanel(
+      'Split Options',
+      function(panel) {
+        panel.hgroup(function(group) {
+          group.helpTips = 'Divide image horizontally/vertically';
+          group.staticText(SIZE_TEXT, 'Direction:').apply(JUSTIFY_RIGHT);
           group.vgroup(function(group2) {
-              group2.alignChildren = 'left'
-              horizontalRadio = group2.radioButton(undefined, 'Horizontal').apply(SELECTED)
-              verticalRadio = group2.radioButton(undefined, 'Vertical')
-          })
-      })
-      panel.hgroup(function(group) {
-          group.helpTips = 'Total number of divison'
-          group.staticText(SIZE_TEXT, 'Parts:').apply(JUSTIFY_RIGHT)
+            group2.alignChildren = 'left';
+            horizontalRadio = group2.radioButton(undefined, 'Horizontal').apply(SELECTED);
+            verticalRadio = group2.radioButton(undefined, 'Vertical');
+          });
+        });
+        panel.hgroup(function(group) {
+          group.helpTips = 'Total number of divison';
+          group.staticText(SIZE_TEXT, 'Parts:').apply(JUSTIFY_RIGHT);
           partsEdit =
-              group.editText(SIZE_EDIT, '2').apply(function(it) {
-                  it.validateDigits()
-                  it.activate()
-              })
-      })
-  }) */
-  documentPanel = new OpenDocumentPanel(dialog.main, SIZE_TEXT, SIZE_EDIT)
+              group
+                  .editText(SIZE_EDIT, '2')
+                  .apply(function(it) {
+                    it.validateDigits();
+                    it.activate();
+                  });
+        });
+      },
+  ); */
 
-  dialog.setCancelButton()
-  dialog.setDefaultButton(undefined, function() {
-    var parts = parseInt(partsEdit.text) || 2
-    Collections.forEach(files, function(file) {
-      repeat(parts, function(i) {
-        app.load(file)
-      })
-    })
-  })
-  dialog.show()
+  documentPanel = new OpenDocumentPanel(dialog.main, SIZE_TEXT, SIZE_EDIT);
+
+  dialog.setCancelButton();
+  dialog.setDefaultButton(
+      undefined,
+      function() {
+        var parts = parseInt(partsEdit.text) || 2;
+        Collections.forEach(
+            files,
+            function(file) {
+              repeat(parts, function(_) {
+                app.load(file);
+              });
+            },
+        );
+      },
+  );
+  dialog.show();
 }

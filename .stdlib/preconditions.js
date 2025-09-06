@@ -7,7 +7,7 @@
  */
 function check(value, errorMessage) {
   if (!value) {
-    error(errorMessage || 'Failed requirement')
+    error(errorMessage || 'Failed requirement');
   }
 }
 
@@ -19,9 +19,9 @@ function check(value, errorMessage) {
  */
 function checkNotNull(value, errorMessage) {
   if (value == null) {
-    error(errorMessage || 'Expected value to be not null')
+    error(errorMessage || 'Expected value to be not null');
   }
-  return value
+  return value;
 }
 
 /**
@@ -32,9 +32,9 @@ function checkNotNull(value, errorMessage) {
  * @param {?string|?Object=} title
  */
 function error(message, title) {
-  var error = new Error(message)
+  var error = new Error(message);
   if (title !== undefined) {
-    error.name = title
+    error.name = title;
   }
-  throw error
+  throw error;
 }

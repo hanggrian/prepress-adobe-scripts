@@ -6,8 +6,8 @@
  */
 Number.prototype.isOdd =
     function() {
-      return this & 1
-    }
+      return this & 1;
+    };
 
 /**
  * Returns true if this number is even.
@@ -15,8 +15,8 @@ Number.prototype.isOdd =
  */
 Number.prototype.isEven =
     function() {
-      return !(this & 1)
-    }
+      return !(this & 1);
+    };
 
 /**
  * Returns true if no decimal value in place.
@@ -24,5 +24,5 @@ Number.prototype.isEven =
  */
 Number.prototype.isInt =
     function() {
-      return parseInt(this) == this
-    }
+      return parseInt(this) == this;
+    };
