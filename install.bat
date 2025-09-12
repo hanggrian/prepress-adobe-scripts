@@ -18,17 +18,28 @@ net session >nul 2>&1
 if !errorLevel! neq 0 set "DIE_MSG=Root access required." & goto :die
 
 :: check sources
-if not exist "!SOURCE_ROOT!.stdlib" set "DIE_MSG=Missing hidden directories." & goto :die
-if not exist "!SOURCE_ROOT!.stdres" set "DIE_MSG=Missing hidden directories." & goto :die
-if not exist "!SOURCE_ROOT!Illustrator Scripts" set "DIE_MSG=Missing scripts." & goto :die
-if not exist "!SOURCE_ROOT!Photoshop Scripts" set "DIE_MSG=Missing scripts." & goto :die
-if not exist "!SOURCE_ROOT!Actions" set "DIE_MSG=Missing actions." & goto :die
+if not exist "!SOURCE_ROOT!.stdlib" (
+  set "DIE_MSG=Missing hidden directories." & goto :die
+)
+if not exist "!SOURCE_ROOT!.stdres" (
+  set "DIE_MSG=Missing hidden directories." & goto :die
+)
+if not exist "!SOURCE_ROOT!Illustrator Scripts" (
+  set "DIE_MSG=Missing scripts." & goto :die
+)
+if not exist "!SOURCE_ROOT!Photoshop Scripts" (
+  set "DIE_MSG=Missing scripts." & goto :die
+)
+if not exist "!SOURCE_ROOT!Actions" (
+  set "DIE_MSG=Missing actions." & goto :die
+)
 
 echo.
 echo !BOLD!!UNDERLINE!Prepress Adobe Scripts Installer!END!
 echo.
 echo !YELLOW!!BOLD!WARNING!END!
-call :warn !YELLOW!This command will replace all existing scripts, backup if necessary.!END!
+call :warn !YELLOW!This command will replace all existing scripts, backup if^
+ necessary.!END!
 echo.
 echo 1. Illustrator
 echo 2. Photoshop
@@ -42,15 +53,15 @@ if "!input!" equ "1" (
   call :patch_app "Illustrator" "aia"
 ) else if "!input!" equ "2" (
   call :patch_app "Photoshop" "atn"
-) else if "!input!" equ "A" (
-  call :patch_app "Illustrator" "aia"
-  call :patch_app "Photoshop" "atn"
 ) else if "!input!" equ "a" (
   call :patch_app "Illustrator" "aia"
   call :patch_app "Photoshop" "atn"
-) else if "!input!" equ "Q" (
-  rem
+) else if "!input!" equ "A" (
+  call :patch_app "Illustrator" "aia"
+  call :patch_app "Photoshop" "atn"
 ) else if "!input!" equ "q" (
+  rem
+) else if "!input!" equ "Q" (
   rem
 ) else (
   set "DIE_MSG=Unable to recognize input." & goto :die
@@ -63,7 +74,8 @@ pause
 exit /b 0
 
 :: Find Adobe apps and determine its scripts directory parent.
-:: In Windows, we manually do this manually. Check if `Presets` directly contain `Scripts` directory.
+:: In Windows, we manually do this manually. Check if `Presets` directly contain
+:: `Scripts` directory.
 :patch_app
   setlocal
   set "name=%~1"
@@ -122,7 +134,10 @@ exit /b 0
         ) else (
           :: in Photoshop, scripts are located within `$root`
           set "success=y"
-          call :patch_preset "!scripts_filename!" "!action_filename!" "!presets!"
+          call :patch_preset^
+           "!scripts_filename!"^
+           "!action_filename!"^
+           "!presets!"
         )
       )
     )
@@ -159,10 +174,14 @@ exit /b 0
     del "!target_root!\Actions\!action_filename!"
   )
   :: copy new ones
-  robocopy /s "!SOURCE_ROOT!.stdlib" "!target_root!\.stdlib" /njh /njs /ndl /nc /ns /nfl
-  robocopy /s "!SOURCE_ROOT!.stdres" "!target_root!\.stdres" /njh /njs /ndl /nc /ns /nfl
-  robocopy /s "!SOURCE_ROOT!!scripts_filename!" "!target_root!\Scripts" /njh /njs /ndl /nc /ns /nfl
-  robocopy "!SOURCE_ROOT!Actions" "!target_root!\Actions" "!action_filename!" /njh /njs /ndl /nc /ns /nfl
+  robocopy /s "!SOURCE_ROOT!.stdlib" !target_root!\.stdlib"^
+   /njh /njs /ndl /nc /ns /nfl
+  robocopy /s "!SOURCE_ROOT!.stdres" !target_root!\.stdres"^
+   /njh /njs /ndl /nc /ns /nfl
+  robocopy /s "!SOURCE_ROOT!!scripts_filename!" "!target_root!\Scripts"^
+   /njh /njs /ndl /nc /ns /nfl
+  robocopy "!SOURCE_ROOT!Actions" "!target_root!\Actions" "!action_filename!"^
+   /njh /njs /ndl /nc /ns /nfl
   :: clean up
   del "!target_root!\.stdres\script\check_updates.command"
   rmdir /s /q "!target_root!\Scripts\.incubating"

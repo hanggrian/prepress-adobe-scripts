@@ -14,8 +14,8 @@ die() { echo; echo "$RED$*$END"; echo; exit 1; } >&2
 # Find Adobe apps and determine its scripts directory parent.
 # In mac, localized directories always have `.localized` suffix.
 patch_app() {
-  local name="$1"
-  local action_extension="$2"
+  local name=$1
+  local action_extension=$2
   local scripts_filename="$name Scripts"
   local action_filename="Prepress Adobe Scripts.$action_extension"
   local success=false
@@ -56,9 +56,9 @@ patch_app() {
 
 # Wipe out current scripts and shared libraries, then copy new ones.
 patch_preset() {
-  local scripts_filename="$1"
-  local action_filename="$2"
-  local target_root="$3"
+  local scripts_filename=$1
+  local action_filename=$2
+  local target_root=$3
 
   echo "- $GREEN$target_root$END"
 
@@ -99,7 +99,7 @@ SOURCE_ROOT=$(cd "$(dirname "$0")" && pwd) && readonly SOURCE_ROOT
 if [[ $(uname) != Darwin ]]; then die 'Unsupported OS.'; fi
 
 # check permissions
-if [[ "$EUID" -ne 0 ]]; then die 'Root access required.'; fi
+if [[ $EUID -ne 0 ]]; then die 'Root access required.'; fi
 
 # check sources
 if [[ ! -d "$SOURCE_ROOT/.stdlib" ]] || [[ ! -d "$SOURCE_ROOT/.stdres" ]]; then
@@ -131,11 +131,11 @@ read -r input
 case "$input" in
   1) patch_app 'Illustrator' 'aia' ;;
   2) patch_app 'Photoshop' 'atn' ;;
-  A | a)
+  a | A)
     patch_app 'Illustrator' 'aia'
     patch_app 'Photoshop' 'atn'
     ;;
-  Q | q) ;;
+  q | Q) ;;
   *) die 'Unable to recognize input.' ;;
 esac
 
